@@ -25,8 +25,8 @@ public sealed class CallriftService(IAnalysisProvider? provider = null)
             beforeId = await repository.ResolveAsync(request.Before ?? "HEAD", request.Before is null, cancellationToken);
             afterId = request.After is null ? null : await repository.ResolveAsync(request.After, cancellationToken: cancellationToken);
         }
-        var beforeRead = beforeId is null ? Task.FromResult(new SourceSnapshot("empty", [])) : repository.ReadSnapshotAsync(beforeId, cancellationToken: cancellationToken);
-        var afterRead = repository.ReadSnapshotAsync(afterId, request.Staged, cancellationToken);
+        var beforeRead = beforeId is null ? Task.FromResult(new SourceSnapshot("empty", [])) : repository.ReadSnapshotAsync(beforeId, cancellationToken: cancellationToken, allFiles: provider.RequiresProjectFiles);
+        var afterRead = repository.ReadSnapshotAsync(afterId, request.Staged, cancellationToken, provider.RequiresProjectFiles);
         await Task.WhenAll(beforeRead, afterRead);
         var before = await beforeRead;
         var after = await afterRead;

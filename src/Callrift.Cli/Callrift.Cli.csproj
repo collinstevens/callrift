@@ -7,6 +7,13 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../Callrift.Core/Callrift.Core.csproj" />
+    <ProjectReference Include="../Callrift.MSBuild/Callrift.MSBuild.csproj" />
     <PackageReference Include="System.CommandLine" />
   </ItemGroup>
+  <Target Name="IncludeWorkspaceWorker" BeforeTargets="GetCopyToOutputDirectoryItems">
+    <ItemGroup>
+      <WorkspaceWorkerFile Include="../Callrift.MSBuild/bin/$(Configuration)/$(TargetFramework)/**/*" />
+      <ContentWithTargetPath Include="@(WorkspaceWorkerFile)" CopyToOutputDirectory="PreserveNewest" TargetPath="msbuild/%(WorkspaceWorkerFile.RecursiveDir)%(WorkspaceWorkerFile.Filename)%(WorkspaceWorkerFile.Extension)" />
+    </ItemGroup>
+  </Target>
 </Project>

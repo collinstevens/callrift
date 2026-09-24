@@ -1,0 +1,318 @@
+﻿Generic extension binding expands the right overload and preserves generic type labels.
+format: text
+exit: 0
+stdout:
+  Flow.Run
+  └─ Extensions.Persist
+     └─ Repo<T>.Save
+-       ├─ Repo<T>.Before
++       └─ Repo<T>.After
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  Flow.Run
+  └─ Extensions.Persist
+     └─ Repo<T>.Save
+-       ├─ Repo<T>.Before
++       └─ Repo<T>.After
+```
+stderr:
+
+format: json
+exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "<before>",
+    "commit": "<before>",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "<after>",
+    "commit": "<after>",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "msbuild",
+    "status": "partial",
+    "limitations": [
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "virtual-nonabstract-dispatch",
+      "callbacks-are-possible-calls",
+      "no-framework-dispatch-plugins"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": false,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "Flow.Run",
+      "detail": null,
+      "before": {
+        "symbolId": "project:App.csproj@net10.0::Flow.Run(global::Repo<string>)",
+        "signature": "Flow.Run(Repo<string>) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:App.csproj@net10.0::Flow.Run(global::Repo<string>)"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 3,
+          "startColumn": 14,
+          "endLine": 3,
+          "endColumn": 81
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:App.csproj@net10.0::Flow.Run(global::Repo<string>)",
+        "signature": "Flow.Run(Repo<string>) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:App.csproj@net10.0::Flow.Run(global::Repo<string>)"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 3,
+          "startColumn": 14,
+          "endLine": 3,
+          "endColumn": 81
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Extensions.Persist",
+          "detail": null,
+          "before": {
+            "symbolId": "project:App.csproj@net10.0::Extensions.Persist`1(global::Repo<T>,T)",
+            "signature": "Extensions.Persist<T>(Repo<T>, T) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:App.csproj@net10.0::Extensions.Persist`1(global::Repo<T>,T)"
+            ],
+            "definition": {
+              "path": "Program.cs",
+              "startLine": 2,
+              "startColumn": 27,
+              "endLine": 2,
+              "endColumn": 105
+            },
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 3,
+                "startColumn": 52,
+                "endLine": 3,
+                "endColumn": 80
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:App.csproj@net10.0::Extensions.Persist`1(global::Repo<T>,T)",
+            "signature": "Extensions.Persist<T>(Repo<T>, T) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:App.csproj@net10.0::Extensions.Persist`1(global::Repo<T>,T)"
+            ],
+            "definition": {
+              "path": "Program.cs",
+              "startLine": 2,
+              "startColumn": 27,
+              "endLine": 2,
+              "endColumn": 105
+            },
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 3,
+                "startColumn": 52,
+                "endLine": 3,
+                "endColumn": 80
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [
+            {
+              "id": "n2",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Repo<T>.Save",
+              "detail": null,
+              "before": {
+                "symbolId": "project:App.csproj@net10.0::Repo<T>.Save(T)",
+                "signature": "Repo<T>.Save(T) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:App.csproj@net10.0::Repo<T>.Save(T)"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 1,
+                  "startColumn": 17,
+                  "endLine": 1,
+                  "endColumn": 56
+                },
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 2,
+                    "startColumn": 88,
+                    "endLine": 2,
+                    "endColumn": 104
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:App.csproj@net10.0::Repo<T>.Save(T)",
+                "signature": "Repo<T>.Save(T) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:App.csproj@net10.0::Repo<T>.Save(T)"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 1,
+                  "startColumn": 17,
+                  "endLine": 1,
+                  "endColumn": 55
+                },
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 2,
+                    "startColumn": 88,
+                    "endLine": 2,
+                    "endColumn": 104
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n3",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "Repo<T>.Before",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "project:App.csproj@net10.0::Repo<T>.Before()",
+                    "signature": "Repo<T>.Before() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:App.csproj@net10.0::Repo<T>.Before()"
+                    ],
+                    "definition": {
+                      "path": "Program.cs",
+                      "startLine": 1,
+                      "startColumn": 98,
+                      "endLine": 1,
+                      "endColumn": 114
+                    },
+                    "callSites": [
+                      {
+                        "path": "Program.cs",
+                        "startLine": 1,
+                        "startColumn": 45,
+                        "endLine": 1,
+                        "endColumn": 53
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n4",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "Repo<T>.After",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "project:App.csproj@net10.0::Repo<T>.After()",
+                    "signature": "Repo<T>.After() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:App.csproj@net10.0::Repo<T>.After()"
+                    ],
+                    "definition": {
+                      "path": "Program.cs",
+                      "startLine": 1,
+                      "startColumn": 114,
+                      "endLine": 1,
+                      "endColumn": 129
+                    },
+                    "callSites": [
+                      {
+                        "path": "Program.cs",
+                        "startLine": 1,
+                        "startColumn": 45,
+                        "endLine": 1,
+                        "endColumn": 52
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

@@ -1,5 +1,6 @@
 using System.CommandLine;
 using Callrift.Core;
+using Callrift.MSBuild;
 
 namespace Callrift.Cli;
 
@@ -21,12 +22,18 @@ public static class CommandRunner
         var diagnostics = new Option<string>("--diagnostics") { DefaultValueFactory = _ => "summary" };
         var locs = new Option<bool>("--locs");
         var maxPaths = new Option<int>("--max-paths") { DefaultValueFactory = _ => 100 };
+        var mode = new Option<string>("--mode");
+        var solution = new Option<string>("--solution");
+        var project = new Option<string>("--project");
+        var framework = new Option<string>("--framework");
+        var configuration = new Option<string>("--configuration") { DefaultValueFactory = _ => "Debug" };
+        var noRestore = new Option<bool>("--no-restore");
         var from = new Option<string>("--from");
         var to = new Option<string>("--to");
         var color = new Option<string>("--color") { DefaultValueFactory = _ => "auto" };
         var root = new RootCommand("Callrift — semantic call-flow diffs for C#.");
         root.Arguments.Add(revisions);
-        foreach (var option in new Option[] { entry, file, depth, context, format, staged, externals, tests, exitCode, strict, from, to, color, diagnostics, locs, maxPaths }) root.Options.Add(option);
+        foreach (var option in new Option[] { entry, file, depth, context, format, staged, externals, tests, exitCode, strict, from, to, color, diagnostics, locs, maxPaths, mode, solution, project, framework, configuration, noRestore }) root.Options.Add(option);
         var command = args.FirstOrDefault() is "diff" or "tree" or "reach" ? args[0] : "diff";
         var normalizedArgs = args.FirstOrDefault() is "diff" or "tree" or "reach" ? args[1..] : args;
         var separator = Array.IndexOf(normalizedArgs, "--");
@@ -41,6 +48,8 @@ public static class CommandRunner
             await output.WriteLineAsync("  --externals   --tests   --strict   --exit-code   --color auto|always|never");
             await output.WriteLineAsync("  --diagnostics summary|full (summary)");
             await output.WriteLineAsync("  --locs   --max-paths N (100)   diff LEFT...RIGHT");
+            await output.WriteLineAsync("  --mode source|msbuild   --solution PATH | --project PATH");
+            await output.WriteLineAsync("  --framework TFM   --configuration NAME (Debug)   --no-restore");
             return 0;
         }
         if (parsed.Errors.Count > 0)
@@ -50,6 +59,20 @@ public static class CommandRunner
         }
         try
         {
+            var workspaceTarget = parsed.GetValue(solution) ?? parsed.GetValue(project);
+            var analysisMode = parsed.GetValue(mode) ?? (workspaceTarget is null ? "source" : "msbuild");
+            if (analysisMode is not ("source" or "msbuild")) throw new ArgumentException("Mode must be source or msbuild.");
+            if (parsed.GetValue(solution) is not null && parsed.GetValue(project) is not null) throw new ArgumentException("Choose either --solution or --project.");
+            if (analysisMode == "source" && (workspaceTarget is not null || parsed.GetValue(framework) is not null || parsed.GetValue(noRestore)
+                || normalizedArgs.Any(a => a == "--configuration" || a.StartsWith("--configuration=", StringComparison.Ordinal)))) throw new ArgumentException("Workspace options require MSBuild mode.");
+            if (analysisMode == "msbuild" && workspaceTarget is null) throw new ArgumentException("MSBuild mode requires --solution or --project.");
+            IAnalysisProvider provider = new SourceOnlyAnalysisProvider();
+            if (analysisMode == "msbuild")
+            {
+                var repository = await GitRepository.OpenAsync(directory, cancellationToken);
+                var relativeTarget = Path.GetRelativePath(repository.Root, Path.GetFullPath(workspaceTarget!, directory)).Replace('\\', '/');
+                provider = new MSBuildAnalysisProvider(new MSBuildOptions(relativeTarget, parsed.GetValue(framework), parsed.GetValue(configuration)!, parsed.GetValue(noRestore)));
+            }
             var refs = parsed.GetValue(revisions) ?? [];
             var outputFormat = parsed.GetValue(format);
             var colorMode = parsed.GetValue(color);
@@ -77,14 +100,14 @@ public static class CommandRunner
             {
                 if (normalizedArgs.Any(a => a == "--max-paths" || a.StartsWith("--max-paths=", StringComparison.Ordinal))) throw new ArgumentException("--max-paths applies to reach.");
                 var request = new DiffRequest(directory, refs.FirstOrDefault() ?? parsed.GetValue(from), refs.ElementAtOrDefault(1) ?? parsed.GetValue(to), parsed.GetValue(staged)) { Options = options };
-                result = await new CallriftService().DiffAsync(request, cancellationToken);
+                result = await new CallriftService(provider).DiffAsync(request, cancellationToken);
             }
             else
             {
                 if (refs.Length > 1 || parsed.GetValue(staged) || parsed.GetValue(from) is not null || paths.Length > 0) throw new ArgumentException("tree and reach accept one revision and --entry/--file selectors.");
                 if (command == "reach" && parsed.GetValue(to) is null) throw new ArgumentException("reach requires --to TARGET.");
                 if (command == "tree" && parsed.GetValue(to) is not null) throw new ArgumentException("--to applies to reach or diff.");
-                result = await new CallQueries().RunAsync(new QueryRequest(directory, refs.FirstOrDefault()) { Options = options, Target = parsed.GetValue(to), MaxPaths = parsed.GetValue(maxPaths) }, cancellationToken);
+                result = await new CallQueries(provider).RunAsync(new QueryRequest(directory, refs.FirstOrDefault()) { Options = options, Target = parsed.GetValue(to), MaxPaths = parsed.GetValue(maxPaths) }, cancellationToken);
             }
             var diagnosticLimit = parsed.GetValue(diagnostics) == "full" ? int.MaxValue : 8;
             foreach (var diagnostic in result.Diagnostics.Take(diagnosticLimit))

@@ -26,6 +26,10 @@ run = "dotnet test tests/Callrift.Scenarios/Callrift.Scenarios.csproj"
 description = "Run the pinned real-history snapshots"
 run = "dotnet test tests/Callrift.Corpus/Callrift.Corpus.csproj"
 
+[tasks.workspaces]
+description = "Run restored-project and generator snapshots"
+run = "dotnet test tests/Callrift.Workspaces/Callrift.Workspaces.csproj"
+
 [tasks."corpus:candidates"]
 description = "Propose commits for manual corpus review"
 run = "dotnet run --project tools/Callrift.Corpus -- candidates"

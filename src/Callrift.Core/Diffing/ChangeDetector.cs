@@ -11,7 +11,9 @@ public static class ChangeDetector
         {
             if (!before.Members.TryGetValue(key, out var oldMember) || !after.Members.TryGetValue(key, out var newMember)
                 || oldMember.Signature != newMember.Signature
-                || !SyntaxFactory.AreEquivalent(oldMember.Body, newMember.Body, topLevel: false)
+                || (oldMember.Body is not null || newMember.Body is not null
+                    ? !SyntaxFactory.AreEquivalent(oldMember.Body, newMember.Body, topLevel: false)
+                    : oldMember.BodyFingerprint != newMember.BodyFingerprint)
                 || Fingerprint(oldMember.Calls, before) != Fingerprint(newMember.Calls, after))
                 changed.Add(key);
         }

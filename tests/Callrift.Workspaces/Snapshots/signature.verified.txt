@@ -1,0 +1,169 @@
+﻿A unique method gains a parameter without duplicating its unchanged subtree.
+format: text
+exit: 0
+stdout:
+~ Flow.Run (signature changed)
+  └─ Flow.Save
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+~ Flow.Run (signature changed)
+  └─ Flow.Save
+```
+stderr:
+
+format: json
+exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "<before>",
+    "commit": "<before>",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "<after>",
+    "commit": "<after>",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "msbuild",
+    "status": "partial",
+    "limitations": [
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "virtual-nonabstract-dispatch",
+      "callbacks-are-possible-calls",
+      "no-framework-dispatch-plugins"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": false,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "modified",
+      "label": "Flow.Run",
+      "detail": "signature changed",
+      "before": {
+        "symbolId": "project:App.csproj@net10.0::Flow.Run()",
+        "signature": "Flow.Run() -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:App.csproj@net10.0::Flow.Run()"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 1,
+          "startColumn": 14,
+          "endLine": 1,
+          "endColumn": 43
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:App.csproj@net10.0::Flow.Run(int)",
+        "signature": "Flow.Run(int) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:App.csproj@net10.0::Flow.Run(int)"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 1,
+          "startColumn": 14,
+          "endLine": 1,
+          "endColumn": 52
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Flow.Save",
+          "detail": null,
+          "before": {
+            "symbolId": "project:App.csproj@net10.0::Flow.Save()",
+            "signature": "Flow.Save() -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:App.csproj@net10.0::Flow.Save()"
+            ],
+            "definition": {
+              "path": "Program.cs",
+              "startLine": 1,
+              "startColumn": 44,
+              "endLine": 1,
+              "endColumn": 58
+            },
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 1,
+                "startColumn": 34,
+                "endLine": 1,
+                "endColumn": 40
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:App.csproj@net10.0::Flow.Save()",
+            "signature": "Flow.Save() -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:App.csproj@net10.0::Flow.Save()"
+            ],
+            "definition": {
+              "path": "Program.cs",
+              "startLine": 1,
+              "startColumn": 53,
+              "endLine": 1,
+              "endColumn": 67
+            },
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 1,
+                "startColumn": 43,
+                "endLine": 1,
+                "endColumn": 49
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

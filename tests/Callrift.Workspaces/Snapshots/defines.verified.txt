@@ -1,0 +1,182 @@
+﻿The actual project define includes the changed call and excludes the alternative.
+format: text
+exit: 0
+stdout:
+  Flow.Run
+- ├─ Flow.Before
++ └─ Flow.After
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  Flow.Run
+- ├─ Flow.Before
++ └─ Flow.After
+```
+stderr:
+
+format: json
+exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "<before>",
+    "commit": "<before>",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "<after>",
+    "commit": "<after>",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "msbuild",
+    "status": "partial",
+    "limitations": [
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "virtual-nonabstract-dispatch",
+      "callbacks-are-possible-calls",
+      "no-framework-dispatch-plugins"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": false,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "Flow.Run",
+      "detail": null,
+      "before": {
+        "symbolId": "project:App.csproj@net10.0::Flow.Run()",
+        "signature": "Flow.Run() -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:App.csproj@net10.0::Flow.Run()"
+        ],
+        "definition": {
+          "path": "Flow.cs",
+          "startLine": 1,
+          "startColumn": 14,
+          "endLine": 7,
+          "endColumn": 2
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:App.csproj@net10.0::Flow.Run()",
+        "signature": "Flow.Run() -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:App.csproj@net10.0::Flow.Run()"
+        ],
+        "definition": {
+          "path": "Flow.cs",
+          "startLine": 1,
+          "startColumn": 14,
+          "endLine": 7,
+          "endColumn": 2
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "removed",
+          "label": "Flow.Before",
+          "detail": null,
+          "before": {
+            "symbolId": "project:App.csproj@net10.0::Flow.Before()",
+            "signature": "Flow.Before() -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:App.csproj@net10.0::Flow.Before()"
+            ],
+            "definition": {
+              "path": "Flow.cs",
+              "startLine": 7,
+              "startColumn": 3,
+              "endLine": 7,
+              "endColumn": 19
+            },
+            "callSites": [
+              {
+                "path": "Flow.cs",
+                "startLine": 3,
+                "startColumn": 1,
+                "endLine": 3,
+                "endColumn": 9
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": null,
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n2",
+          "kind": "call",
+          "change": "added",
+          "label": "Flow.After",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": "project:App.csproj@net10.0::Flow.After()",
+            "signature": "Flow.After() -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:App.csproj@net10.0::Flow.After()"
+            ],
+            "definition": {
+              "path": "Flow.cs",
+              "startLine": 7,
+              "startColumn": 20,
+              "endLine": 7,
+              "endColumn": 35
+            },
+            "callSites": [
+              {
+                "path": "Flow.cs",
+                "startLine": 3,
+                "startColumn": 1,
+                "endLine": 3,
+                "endColumn": 8
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

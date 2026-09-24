@@ -1,4 +1,6 @@
 using System.Collections.Concurrent;
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -32,6 +34,15 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
     {
         var trees = Parse(snapshot, options, cancellationToken);
         var compilation = CreateCompilation(trees);
+        return AnalyzeCompilation(compilation, trees, cancellationToken: cancellationToken);
+    }
+
+    public static CallGraph AnalyzeCompilation(CSharpCompilation compilation, IEnumerable<SyntaxTree>? syntaxTrees = null,
+        Func<IMethodSymbol, string>? scope = null, Func<string, string>? logicalPath = null, bool includeBodyFingerprints = false,
+        CancellationToken cancellationToken = default)
+    {
+        var trees = syntaxTrees ?? compilation.SyntaxTrees;
+        var symbols = new SymbolNames(scope, logicalPath);
         var members = new ConcurrentBag<Member>();
         var types = new ConcurrentBag<INamedTypeSymbol>();
         var diagnostics = new ConcurrentBag<AnalysisDiagnostic>();
@@ -39,7 +50,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
         {
             var model = compilation.GetSemanticModel(tree);
             var root = tree.GetRoot(cancellationToken);
-            var collector = new CallCollector(model, diagnostics, cancellationToken);
+            var collector = new CallCollector(model, symbols, diagnostics, cancellationToken);
             foreach (var node in root.DescendantNodes())
             {
                 cancellationToken.ThrowIfCancellationRequested();
@@ -78,20 +89,21 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                     else if (body is ArrowExpressionClauseSyntax arrow) statements.Add(SyntaxFactory.ExpressionStatement(arrow.Expression));
                     comparisonBody = SyntaxFactory.Block(statements);
                 }
-                members.Add(new Member(SymbolNames.Key(symbol), SymbolNames.Label(symbol), SymbolNames.MatchName(symbol),
+                members.Add(new Member(symbols.Key(symbol), SymbolNames.Label(symbol), symbols.MatchName(symbol),
                     symbol.ToDisplayString(SymbolDisplayFormat.CSharpErrorMessageFormat) + " -> " + symbol.ReturnType.ToDisplayString(),
-                    SymbolNames.Location(node), body is not null, calls)
+                    symbols.Location(node), body is not null, calls)
                 { Body = comparisonBody });
             }
             if (root is CompilationUnitSyntax unit && unit.Members.OfType<GlobalStatementSyntax>().Any())
             {
-                var key = "source::<top-level>:" + tree.FilePath;
-                members.Add(new Member(key, tree.FilePath + "::<top-level>", key, key, SymbolNames.Location(unit.Members.OfType<GlobalStatementSyntax>().First()), true,
+                var prefix = scope is not null && compilation.GetEntryPoint(cancellationToken) is { } entry ? scope(entry) : "source";
+                var key = prefix + "::<top-level>:" + symbols.Path(tree.FilePath);
+                members.Add(new Member(key, symbols.Path(tree.FilePath) + "::<top-level>", key, key, symbols.Location(unit.Members.OfType<GlobalStatementSyntax>().First()), true,
                     unit.Members.OfType<GlobalStatementSyntax>().SelectMany(collector.Collect).ToArray())
                 { Body = SyntaxFactory.Block(unit.Members.OfType<GlobalStatementSyntax>().Select(s => s.Statement)) });
             }
             foreach (var error in tree.GetDiagnostics(cancellationToken).Where(d => d.Severity == DiagnosticSeverity.Error))
-                diagnostics.Add(new AnalysisDiagnostic(error.Id, error.GetMessage(System.Globalization.CultureInfo.InvariantCulture), new SourceLocation(tree.FilePath, error.Location.GetLineSpan().StartLinePosition.Line + 1, 1)));
+                diagnostics.Add(new AnalysisDiagnostic(error.Id, error.GetMessage(System.Globalization.CultureInfo.InvariantCulture), new SourceLocation(symbols.Path(tree.FilePath), error.Location.GetLineSpan().StartLinePosition.Line + 1, 1)));
         });
         var indexed = new Dictionary<string, Member>(StringComparer.Ordinal);
         foreach (var group in members.OrderBy(m => m.Location.Path, StringComparer.Ordinal).ThenBy(m => m.Location.Line).GroupBy(m => m.Key))
@@ -106,13 +118,23 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                 indexed[group.Key] = bodies.FirstOrDefault() ?? group.First();
         }
         var distinctTypes = types.Distinct<INamedTypeSymbol>(SymbolEqualityComparer.Default).ToArray();
-        AddInitializers(distinctTypes, compilation, indexed, diagnostics, cancellationToken);
-        var implementations = BuildImplementationMap(distinctTypes, indexed, cancellationToken);
+        AddInitializers(distinctTypes, compilation, indexed, symbols, diagnostics, cancellationToken);
+        var implementations = BuildImplementationMap(distinctTypes, indexed, symbols, cancellationToken);
+        if (includeBodyFingerprints)
+            foreach (var key in indexed.Keys.ToArray())
+            {
+                var body = indexed[key].Body;
+                indexed[key] = indexed[key] with
+                {
+                    BodyFingerprint = body is null ? null : Convert.ToHexStringLower(SHA256.HashData(
+                    Encoding.UTF8.GetBytes(string.Join("\0", body.DescendantTokens().Select(t => t.RawKind + ":" + t.Text)))))
+                };
+            }
         return new CallGraph(indexed, implementations, diagnostics.Distinct().OrderBy(d => d.Location?.Path, StringComparer.Ordinal)
             .ThenBy(d => d.Location?.Line).ThenBy(d => d.Code, StringComparer.Ordinal).ThenBy(d => d.Message, StringComparer.Ordinal).ToArray());
     }
 
-    private static void AddInitializers(IEnumerable<INamedTypeSymbol> types, CSharpCompilation compilation, Dictionary<string, Member> members,
+    private static void AddInitializers(IEnumerable<INamedTypeSymbol> types, CSharpCompilation compilation, Dictionary<string, Member> members, SymbolNames symbols,
         ConcurrentBag<AnalysisDiagnostic> diagnostics, CancellationToken cancellationToken)
     {
         foreach (var type in types)
@@ -129,15 +151,15 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
             {
                 var syntax = constructor.DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax(cancellationToken);
                 if (syntax is ConstructorDeclarationSyntax { Initializer.ThisOrBaseKeyword.RawKind: (int)SyntaxKind.ThisKeyword }) continue;
-                var key = SymbolNames.Key(constructor);
+                var key = symbols.Key(constructor);
                 members.TryGetValue(key, out var existing);
                 if (initializers.Length == 0 && syntax is not TypeDeclarationSyntax) continue;
-                var calls = initializers.SelectMany(e => new CallCollector(compilation.GetSemanticModel(e.SyntaxTree), diagnostics, cancellationToken).Collect(e)).ToList();
+                var calls = initializers.SelectMany(e => new CallCollector(compilation.GetSemanticModel(e.SyntaxTree), symbols, diagnostics, cancellationToken).Collect(e)).ToList();
                 var bodyParts = initializers.Select(e => (StatementSyntax)SyntaxFactory.ExpressionStatement(e)).ToList();
                 if (syntax is TypeDeclarationSyntax { BaseList: { } bases })
                     foreach (var primaryBase in bases.Types.OfType<PrimaryConstructorBaseTypeSyntax>())
                     {
-                        calls.AddRange(new CallCollector(compilation.GetSemanticModel(primaryBase.SyntaxTree), diagnostics, cancellationToken).Collect(primaryBase));
+                        calls.AddRange(new CallCollector(compilation.GetSemanticModel(primaryBase.SyntaxTree), symbols, diagnostics, cancellationToken).Collect(primaryBase));
                         foreach (var argument in primaryBase.ArgumentList.Arguments) bodyParts.Add(SyntaxFactory.ExpressionStatement(argument.Expression));
                     }
                 if (existing is not null)
@@ -150,7 +172,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                 else
                 {
                     var locationNode = syntax ?? declarations.First();
-                    members[key] = new Member(key, SymbolNames.Label(constructor), SymbolNames.MatchName(constructor), constructor.ToDisplayString(), SymbolNames.Location(locationNode), true, calls)
+                    members[key] = new Member(key, SymbolNames.Label(constructor), symbols.MatchName(constructor), constructor.ToDisplayString(), symbols.Location(locationNode), true, calls)
                     { Body = SyntaxFactory.Block(bodyParts) };
                 }
             }
@@ -158,12 +180,19 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
     }
 
     public static IReadOnlyDictionary<string, IReadOnlyList<string>> BuildImplementationMap(IEnumerable<INamedTypeSymbol> types, IReadOnlyDictionary<string, Member> members, CancellationToken cancellationToken = default)
+        => BuildImplementationMap(types, members, new SymbolNames(), cancellationToken);
+
+    public static IReadOnlyDictionary<string, IReadOnlyList<string>> BuildImplementationMap(IEnumerable<INamedTypeSymbol> types, IReadOnlyDictionary<string, Member> members,
+        Func<IMethodSymbol, string> scope, CancellationToken cancellationToken = default)
+        => BuildImplementationMap(types, members, new SymbolNames(scope), cancellationToken);
+
+    private static IReadOnlyDictionary<string, IReadOnlyList<string>> BuildImplementationMap(IEnumerable<INamedTypeSymbol> types, IReadOnlyDictionary<string, Member> members, SymbolNames symbols, CancellationToken cancellationToken)
     {
         var map = new Dictionary<string, SortedSet<string>>(StringComparer.Ordinal);
         void Add(IMethodSymbol contract, IMethodSymbol implementation)
         {
-            var key = SymbolNames.Key(contract);
-            var target = SymbolNames.Key(implementation);
+            var key = symbols.Key(contract);
+            var target = symbols.Key(implementation);
             if (key == target || !members.TryGetValue(target, out var member) || !member.HasBody)
                 return;
             if (!map.TryGetValue(key, out var targets))

@@ -27,6 +27,7 @@ dotnet run --project src/Callrift.Cli -- diff --staged --format md
 dotnet run --project src/Callrift.Cli -- diff main...HEAD --format json
 dotnet run --project src/Callrift.Cli -- tree --entry OrdersController.Place --locs
 dotnet run --project src/Callrift.Cli -- reach --entry OrdersController.Place --to PricingClient.GetPriceAsync
+dotnet run --project src/Callrift.Cli -- diff main...HEAD --solution App.slnx --framework net10.0
 ```
 
 The CLI analyzes the current directory's Git repository. To analyze another repository, run the built `callrift.dll` from that repository. With no revisions, it compares HEAD with the working tree; one revision compares that revision with the working tree; two revisions compare each other. `--staged` reads the index. `--entry`, `--file`, `--depth`, `--context`, `--externals`, and `--tests` control the output. Run with `--help` for options.
@@ -35,4 +36,6 @@ Source-only analysis reads Git objects without checkout, restore, or build. It b
 
 Missing package references remain visible as `?` calls and diagnostics. Use `--diagnostics full` for every diagnostic. JSON explicitly reports partial source-only coverage; `--strict` returns exit 2 for that coverage, even without binding errors. Single-compilation collisions, project defines, generators, virtual non-abstract dispatch, property/indexer bodies, operators, events, and runtime framework conventions remain limitations. Body edits with no visible edge change are reported explicitly. This output complements the source diff.
 
-Source-only text, Markdown, versioned JSON, locations, tree/reach queries, and merge-base revisions are implemented. MSBuild analysis is M3; distribution and CI are M4. See [JSON semantics](docs/json.md), [DESIGN.md](DESIGN.md), and [CONTRIBUTING.md](CONTRIBUTING.md).
+MSBuild mode uses restored per-project compilations, defines, and generated sources. It materializes revisions into an external cache and requires an installed compatible SDK. See [MSBuild analysis](docs/msbuild.md) for cache behavior and remaining coverage limits.
+
+Text, Markdown, versioned JSON, locations, tree/reach queries, merge-base revisions, and MSBuild analysis are implemented. Distribution and CI are M4. See [JSON semantics](docs/json.md), [DESIGN.md](DESIGN.md), and [CONTRIBUTING.md](CONTRIBUTING.md).

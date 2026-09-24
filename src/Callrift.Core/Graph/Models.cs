@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis;
 
 namespace Callrift.Core;
 
-public sealed record SourceFile(string Path, string Content, string ContentId);
+public sealed record SourceFile(string Path, string Content, string ContentId, byte[]? RawBytes = null);
 
 public sealed record SourceSnapshot(string Name, IReadOnlyList<SourceFile> Files);
 
@@ -51,6 +51,7 @@ public sealed record Member(
     IReadOnlyList<CallStep> Calls)
 {
     internal SyntaxNode? Body { get; init; }
+    public string? BodyFingerprint { get; init; }
 }
 
 public sealed record CallGraph(
@@ -65,6 +66,7 @@ public sealed record AnalysisOptions(bool IncludeTests = false);
 
 public interface IAnalysisProvider
 {
+    bool RequiresProjectFiles => false;
     Task<CallGraph> AnalyzeAsync(SourceSnapshot snapshot, AnalysisOptions options, CancellationToken cancellationToken = default);
 }
 

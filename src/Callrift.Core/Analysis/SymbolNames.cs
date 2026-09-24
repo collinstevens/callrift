@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Callrift.Core;
 
-internal static class SymbolNames
+internal sealed class SymbolNames(Func<IMethodSymbol, string>? scope = null, Func<string, string>? path = null)
 {
     private static readonly SymbolDisplayFormat TypeFormat = new(
         typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypes,
@@ -11,21 +11,21 @@ internal static class SymbolNames
 
     public static IMethodSymbol Normalize(IMethodSymbol method) => (method.ReducedFrom ?? method).OriginalDefinition;
 
-    public static string Key(IMethodSymbol method)
+    public string Key(IMethodSymbol method)
     {
         method = Normalize(method);
         if (method.MethodKind == MethodKind.LocalFunction && method.ContainingSymbol is IMethodSymbol owner)
             return Key(owner) + "/" + method.Name + "`" + method.Arity + Parameters(method);
-        return "source::" + method.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat).Replace("global::", "", StringComparison.Ordinal)
+        return (scope?.Invoke(method) ?? "source") + "::" + method.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat).Replace("global::", "", StringComparison.Ordinal)
             + "." + method.MetadataName + (method.Arity == 0 ? "" : "`" + method.Arity) + Parameters(method);
     }
 
-    public static string MatchName(IMethodSymbol method)
+    public string MatchName(IMethodSymbol method)
     {
         method = Normalize(method);
         return method.MethodKind == MethodKind.LocalFunction && method.ContainingSymbol is IMethodSymbol owner
             ? MatchName(owner) + "/" + method.Name
-            : method.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat) + "." + method.Name;
+            : (scope is null ? "" : scope(method) + "::") + method.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat) + "." + method.Name;
     }
 
     public static string Label(IMethodSymbol method)
@@ -37,10 +37,12 @@ internal static class SymbolNames
         return method.MethodKind is MethodKind.Constructor or MethodKind.StaticConstructor ? "new " + type : type + "." + method.Name;
     }
 
-    public static SourceLocation Location(SyntaxNode node)
+    public string Path(string value) => (path?.Invoke(value) ?? value).Replace('\\', '/');
+
+    public SourceLocation Location(SyntaxNode node)
     {
         var span = node.GetLocation().GetLineSpan();
-        return new SourceLocation(span.Path.Replace('\\', '/'), span.StartLinePosition.Line + 1, span.StartLinePosition.Character + 1,
+        return new SourceLocation(Path(span.Path), span.StartLinePosition.Line + 1, span.StartLinePosition.Character + 1,
             span.EndLinePosition.Line + 1, span.EndLinePosition.Character + 1);
     }
 

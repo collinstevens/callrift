@@ -1,0 +1,250 @@
+﻿Package generic return types bind the inferred receiver to the source interface.
+format: text
+exit: 0
+stdout:
+  Flow.Start
+  └─ IWorker.Run → Worker.Run
+-    ├─ Worker.Before
++    └─ Worker.After
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  Flow.Start
+  └─ IWorker.Run → Worker.Run
+-    ├─ Worker.Before
++    └─ Worker.After
+```
+stderr:
+
+format: json
+exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "<before>",
+    "commit": "<before>",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "<after>",
+    "commit": "<after>",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "msbuild",
+    "status": "partial",
+    "limitations": [
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "virtual-nonabstract-dispatch",
+      "callbacks-are-possible-calls",
+      "no-framework-dispatch-plugins"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": false,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "Flow.Start",
+      "detail": null,
+      "before": {
+        "symbolId": "project:App.csproj@net10.0::Flow.Start()",
+        "signature": "Flow.Start() -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:App.csproj@net10.0::Flow.Start()"
+        ],
+        "definition": {
+          "path": "Flow.cs",
+          "startLine": 1,
+          "startColumn": 188,
+          "endLine": 1,
+          "endColumn": 373
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:App.csproj@net10.0::Flow.Start()",
+        "signature": "Flow.Start() -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:App.csproj@net10.0::Flow.Start()"
+        ],
+        "definition": {
+          "path": "Flow.cs",
+          "startLine": 1,
+          "startColumn": 187,
+          "endLine": 1,
+          "endColumn": 372
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "IWorker.Run → Worker.Run",
+          "detail": null,
+          "before": {
+            "symbolId": "project:App.csproj@net10.0::IWorker.Run()",
+            "signature": "IWorker.Run() -> void",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:App.csproj@net10.0::Worker.Run()"
+            ],
+            "definition": {
+              "path": "Flow.cs",
+              "startLine": 1,
+              "startColumn": 69,
+              "endLine": 1,
+              "endColumn": 80
+            },
+            "callSites": [
+              {
+                "path": "Flow.cs",
+                "startLine": 1,
+                "startColumn": 358,
+                "endLine": 1,
+                "endColumn": 370
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:App.csproj@net10.0::IWorker.Run()",
+            "signature": "IWorker.Run() -> void",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:App.csproj@net10.0::Worker.Run()"
+            ],
+            "definition": {
+              "path": "Flow.cs",
+              "startLine": 1,
+              "startColumn": 69,
+              "endLine": 1,
+              "endColumn": 80
+            },
+            "callSites": [
+              {
+                "path": "Flow.cs",
+                "startLine": 1,
+                "startColumn": 357,
+                "endLine": 1,
+                "endColumn": 369
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [
+            {
+              "id": "n2",
+              "kind": "call",
+              "change": "removed",
+              "label": "Worker.Before",
+              "detail": null,
+              "before": {
+                "symbolId": "project:App.csproj@net10.0::Worker.Before()",
+                "signature": "Worker.Before() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:App.csproj@net10.0::Worker.Before()"
+                ],
+                "definition": {
+                  "path": "Flow.cs",
+                  "startLine": 1,
+                  "startColumn": 140,
+                  "endLine": 1,
+                  "endColumn": 156
+                },
+                "callSites": [
+                  {
+                    "path": "Flow.cs",
+                    "startLine": 1,
+                    "startColumn": 128,
+                    "endLine": 1,
+                    "endColumn": 136
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": null,
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n3",
+              "kind": "call",
+              "change": "added",
+              "label": "Worker.After",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "project:App.csproj@net10.0::Worker.After()",
+                "signature": "Worker.After() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:App.csproj@net10.0::Worker.After()"
+                ],
+                "definition": {
+                  "path": "Flow.cs",
+                  "startLine": 1,
+                  "startColumn": 156,
+                  "endLine": 1,
+                  "endColumn": 171
+                },
+                "callSites": [
+                  {
+                    "path": "Flow.cs",
+                    "startLine": 1,
+                    "startColumn": 128,
+                    "endLine": 1,
+                    "endColumn": 135
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

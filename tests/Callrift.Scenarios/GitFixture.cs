@@ -8,6 +8,7 @@ namespace Callrift.Scenarios;
 public sealed class GitFixture : IAsyncDisposable
 {
     public string Directory { get; } = Path.Combine(Path.GetTempPath(), "callrift-fixture-" + Guid.NewGuid().ToString("N"));
+    public string WorkspaceCache { get; } = Path.Combine(Path.GetTempPath(), "callrift-workspace-fixture-" + Guid.NewGuid().ToString("N"));
     public string Before { get; private set; } = "";
     public string After { get; private set; } = "";
 
@@ -66,6 +67,7 @@ public sealed class GitFixture : IAsyncDisposable
         start.ArgumentList.Add(typeof(CommandRunner).Assembly.Location);
         foreach (var argument in arguments) start.ArgumentList.Add(argument);
         start.Environment["NO_COLOR"] = "1";
+        start.Environment["CALLRIFT_WORKSPACE_CACHE"] = WorkspaceCache;
         using var process = Process.Start(start)!;
         var stdout = process.StandardOutput.ReadToEndAsync();
         var stderr = process.StandardError.ReadToEndAsync();
@@ -77,11 +79,12 @@ public sealed class GitFixture : IAsyncDisposable
 
     public ValueTask DisposeAsync()
     {
-        if (System.IO.Directory.Exists(Directory))
+        foreach (var directory in new[] { Directory, WorkspaceCache })
         {
-            foreach (var file in System.IO.Directory.EnumerateFiles(Directory, "*", SearchOption.AllDirectories))
+            if (!System.IO.Directory.Exists(directory)) continue;
+            foreach (var file in System.IO.Directory.EnumerateFiles(directory, "*", SearchOption.AllDirectories))
                 File.SetAttributes(file, FileAttributes.Normal);
-            System.IO.Directory.Delete(Directory, true);
+            System.IO.Directory.Delete(directory, true);
         }
         return ValueTask.CompletedTask;
     }

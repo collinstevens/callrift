@@ -16,7 +16,7 @@ public sealed class CallQueries(IAnalysisProvider? provider = null)
         Validate(request);
         var repository = await GitRepository.OpenAsync(request.Repository, cancellationToken);
         var revision = request.Revision is null ? null : await repository.ResolveAsync(request.Revision, cancellationToken: cancellationToken);
-        var snapshot = await repository.ReadSnapshotAsync(revision, cancellationToken: cancellationToken);
+        var snapshot = await repository.ReadSnapshotAsync(revision, cancellationToken: cancellationToken, allFiles: provider.RequiresProjectFiles);
         var graph = await provider.AnalyzeAsync(snapshot, new AnalysisOptions(request.Options.IncludeTests), cancellationToken);
         return Query(graph, request, cancellationToken) with
         { To = SnapshotIdentities.Create(snapshot, revision is null ? "workingTree" : "revision", request.Revision, revision) };

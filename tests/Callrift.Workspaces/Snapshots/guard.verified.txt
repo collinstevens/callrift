@@ -1,0 +1,215 @@
+﻿Existing call moves into a new if guard.
+format: text
+exit: 0
+stdout:
+  Flow.Run
+- ├─ Flow.Save
++ └─ if (ready)
++    └─ Flow.Save
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  Flow.Run
+- ├─ Flow.Save
++ └─ if (ready)
++    └─ Flow.Save
+```
+stderr:
+
+format: json
+exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "<before>",
+    "commit": "<before>",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "<after>",
+    "commit": "<after>",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "msbuild",
+    "status": "partial",
+    "limitations": [
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "virtual-nonabstract-dispatch",
+      "callbacks-are-possible-calls",
+      "no-framework-dispatch-plugins"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": false,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "Flow.Run",
+      "detail": null,
+      "before": {
+        "symbolId": "project:App.csproj@net10.0::Flow.Run(bool)",
+        "signature": "Flow.Run(bool) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:App.csproj@net10.0::Flow.Run(bool)"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 1,
+          "startColumn": 14,
+          "endLine": 1,
+          "endColumn": 53
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:App.csproj@net10.0::Flow.Run(bool)",
+        "signature": "Flow.Run(bool) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:App.csproj@net10.0::Flow.Run(bool)"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 1,
+          "startColumn": 14,
+          "endLine": 1,
+          "endColumn": 64
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "removed",
+          "label": "Flow.Save",
+          "detail": null,
+          "before": {
+            "symbolId": "project:App.csproj@net10.0::Flow.Save()",
+            "signature": "Flow.Save() -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:App.csproj@net10.0::Flow.Save()"
+            ],
+            "definition": {
+              "path": "Program.cs",
+              "startLine": 1,
+              "startColumn": 54,
+              "endLine": 1,
+              "endColumn": 68
+            },
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 1,
+                "startColumn": 44,
+                "endLine": 1,
+                "endColumn": 50
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": null,
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n2",
+          "kind": "branch",
+          "change": "added",
+          "label": "if (ready)",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 1,
+                "startColumn": 44,
+                "endLine": 1,
+                "endColumn": 62
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n3",
+              "kind": "call",
+              "change": "added",
+              "label": "Flow.Save",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "project:App.csproj@net10.0::Flow.Save()",
+                "signature": "Flow.Save() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:App.csproj@net10.0::Flow.Save()"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 1,
+                  "startColumn": 65,
+                  "endLine": 1,
+                  "endColumn": 79
+                },
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 1,
+                    "startColumn": 55,
+                    "endLine": 1,
+                    "endColumn": 61
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

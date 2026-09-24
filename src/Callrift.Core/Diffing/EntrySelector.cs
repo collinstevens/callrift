@@ -41,8 +41,11 @@ public static class EntrySelector
         {
             foreach (var member in graph.Members.Values)
                 foreach (var target in Targets(member.Calls))
+                {
+                    if (!callers.ContainsKey(target) && graph.Implementations.ContainsKey(target)) callers[target] = [];
                     if (callers.TryGetValue(target, out var incoming))
                         incoming.Add(member.Key);
+                }
         }
         foreach (var graph in new[] { before, after })
         {
@@ -72,7 +75,7 @@ public static class EntrySelector
     {
         foreach (var call in calls)
         {
-            if (call.Kind == "call" && call.IsSource) yield return call.Key;
+            if (call.Kind == "call") yield return call.Key;
             foreach (var child in Targets(call.Children)) yield return child;
         }
     }

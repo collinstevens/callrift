@@ -41,18 +41,18 @@ public sealed class GitRepository(string root)
         throw new InvalidOperationException($"Cannot resolve revision '{revision}'.");
     }
 
-    public async Task<IReadOnlyList<GitEntry>> ListEntriesAsync(string revision, CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyList<GitEntry>> ListEntriesAsync(string revision, CancellationToken cancellationToken = default, bool allFiles = false)
     {
         var output = await RunAsync(Root, ["ls-tree", "-r", "-z", revision], cancellationToken);
         return output.Split('\0', StringSplitOptions.RemoveEmptyEntries)
-            .Select(ParseTreeEntry).Where(e => e is not null).Cast<GitEntry>()
-            .Where(e => IsAnalysisInput(e.Path)).OrderBy(e => e.Path, StringComparer.Ordinal).ToArray();
+            .Select(e => ParseTreeEntry(e, allFiles)).Where(e => e is not null).Cast<GitEntry>()
+            .Where(e => allFiles ? !IsExcluded(e.Path) : IsAnalysisInput(e.Path)).OrderBy(e => e.Path, StringComparer.Ordinal).ToArray();
     }
 
-    public async Task<SourceSnapshot> ReadSnapshotAsync(string? revision, bool index = false, CancellationToken cancellationToken = default)
+    public async Task<SourceSnapshot> ReadSnapshotAsync(string? revision, bool index = false, CancellationToken cancellationToken = default, bool allFiles = false)
     {
         if (revision is not null)
-            return new SourceSnapshot(revision, await ReadBlobsAsync(await ListEntriesAsync(revision, cancellationToken), cancellationToken));
+            return new SourceSnapshot(revision, await ReadBlobsAsync(await ListEntriesAsync(revision, cancellationToken, allFiles), cancellationToken, allFiles));
         if (index)
         {
             var listing = await RunAsync(Root, ["ls-files", "--stage", "-z"], cancellationToken);
@@ -63,15 +63,18 @@ public sealed class GitRepository(string root)
                 var fields = item[..tab].Split(' ');
                 if (fields[2] != "0")
                     throw new InvalidOperationException("The index contains unmerged entries.");
+                if (allFiles && fields[0] is not ("100644" or "100755") && !IsExcluded(item[(tab + 1)..]))
+                    throw new InvalidOperationException("MSBuild snapshots do not support symlinks or submodules: " + item[(tab + 1)..]);
                 if (fields[0] == "100644" || fields[0] == "100755")
-                    if (IsAnalysisInput(item[(tab + 1)..]))
+                    if (allFiles ? !IsExcluded(item[(tab + 1)..]) : IsAnalysisInput(item[(tab + 1)..]))
                         entries.Add(new GitEntry(item[(tab + 1)..], fields[1]));
             }
-            return new SourceSnapshot("index", await ReadBlobsAsync(entries.OrderBy(e => e.Path, StringComparer.Ordinal).ToArray(), cancellationToken));
+            return new SourceSnapshot("index", await ReadBlobsAsync(entries.OrderBy(e => e.Path, StringComparer.Ordinal).ToArray(), cancellationToken, allFiles));
         }
         var paths = await RunAsync(Root, ["ls-files", "-z", "--cached", "--others", "--exclude-standard"], cancellationToken);
         var files = new List<SourceFile>();
-        foreach (var path in paths.Split('\0', StringSplitOptions.RemoveEmptyEntries).Distinct(StringComparer.Ordinal).Where(IsAnalysisInput).Order(StringComparer.Ordinal))
+        foreach (var path in paths.Split('\0', StringSplitOptions.RemoveEmptyEntries).Distinct(StringComparer.Ordinal)
+            .Where(p => allFiles ? !IsExcluded(p) : IsAnalysisInput(p)).Order(StringComparer.Ordinal))
         {
             cancellationToken.ThrowIfCancellationRequested();
             var fullPath = Path.Combine(Root, path);
@@ -85,12 +88,12 @@ public sealed class GitRepository(string root)
             info.Refresh();
             if (!info.Exists || stamp != (info.Length, info.LastWriteTimeUtc))
                 throw new InvalidOperationException($"File changed while reading: {path}");
-            files.Add(new SourceFile(path, Decode(bytes), Convert.ToHexStringLower(SHA256.HashData(bytes))));
+            files.Add(new SourceFile(path, !allFiles || IsAnalysisInput(path) ? Decode(bytes) : "", Convert.ToHexStringLower(SHA256.HashData(bytes)), allFiles ? bytes : null));
         }
         return new SourceSnapshot("working tree", files);
     }
 
-    public async Task<IReadOnlyList<SourceFile>> ReadBlobsAsync(IReadOnlyList<GitEntry> entries, CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyList<SourceFile>> ReadBlobsAsync(IReadOnlyList<GitEntry> entries, CancellationToken cancellationToken = default, bool preserveBytes = false)
     {
         if (entries.Count == 0)
             return [];
@@ -117,7 +120,7 @@ public sealed class GitRepository(string root)
                 await stream.ReadExactlyAsync(bytes, cancellationToken);
                 if (await ReadLineAsync(stream, cancellationToken) != "")
                     throw new InvalidOperationException("Invalid git cat-file framing.");
-                files.Add(new SourceFile(entry.Path, Decode(bytes), entry.ObjectId));
+                files.Add(new SourceFile(entry.Path, !preserveBytes || IsAnalysisInput(entry.Path) ? Decode(bytes) : "", entry.ObjectId, preserveBytes ? bytes : null));
             }
             await writer;
             await process.WaitForExitAsync(cancellationToken);
@@ -188,16 +191,20 @@ public sealed class GitRepository(string root)
         }
     }
 
-    private static GitEntry? ParseTreeEntry(string entry)
+    private static GitEntry? ParseTreeEntry(string entry, bool allFiles)
     {
         var tab = entry.IndexOf('\t');
         var fields = entry[..tab].Split(' ');
+        if (allFiles && fields[0] is not ("100644" or "100755") && !IsExcluded(entry[(tab + 1)..]))
+            throw new InvalidOperationException("MSBuild snapshots do not support symlinks or submodules: " + entry[(tab + 1)..]);
         return fields[0] is "100644" or "100755" ? new GitEntry(entry[(tab + 1)..], fields[2]) : null;
     }
 
     private static string Decode(byte[] bytes) => Encoding.UTF8.GetString(bytes).TrimStart('\uFEFF');
 
     private static bool IsAnalysisInput(string path) =>
-        !path.Split('/').Any(p => p.Equals("bin", StringComparison.OrdinalIgnoreCase) || p.Equals("obj", StringComparison.OrdinalIgnoreCase)) &&
+        !IsExcluded(path) &&
         (path.EndsWith(".cs", StringComparison.OrdinalIgnoreCase) || path.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase) || path.EndsWith(".props", StringComparison.OrdinalIgnoreCase));
+
+    private static bool IsExcluded(string path) => path.Split('/').Any(p => p.Equals("bin", StringComparison.OrdinalIgnoreCase) || p.Equals("obj", StringComparison.OrdinalIgnoreCase));
 }

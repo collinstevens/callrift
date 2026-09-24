@@ -1,0 +1,278 @@
+﻿SDK regex generator bodies participate in change detection; static fields and property accessors do not link the runner back to Flow.Match.
+format: text
+exit: 0
+stdout:
+~ new Pattern_0 (body changed; visible calls unchanged)
+  └─ new Pattern_0.RunnerFactory
+
+  Pattern_0.RunnerFactory.Runner.Scan
+~ └─ Pattern_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition (body changed; visible calls unchanged)
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+~ new Pattern_0 (body changed; visible calls unchanged)
+  └─ new Pattern_0.RunnerFactory
+
+  Pattern_0.RunnerFactory.Runner.Scan
+~ └─ Pattern_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition (body changed; visible calls unchanged)
+```
+stderr:
+
+format: json
+exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "<before>",
+    "commit": "<before>",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "<after>",
+    "commit": "<after>",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "msbuild",
+    "status": "partial",
+    "limitations": [
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "virtual-nonabstract-dispatch",
+      "callbacks-are-possible-calls",
+      "no-framework-dispatch-plugins"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": false,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "modified",
+      "label": "new Pattern_0",
+      "detail": "body changed; visible calls unchanged",
+      "before": {
+        "symbolId": "project:App.csproj@net10.0::System.Text.RegularExpressions.Generated.Pattern_0..ctor()",
+        "signature": "System.Text.RegularExpressions.Generated.Pattern_0.Pattern_0() -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:App.csproj@net10.0::System.Text.RegularExpressions.Generated.Pattern_0..ctor()"
+        ],
+        "definition": {
+          "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+          "startLine": 39,
+          "startColumn": 9,
+          "endLine": 47,
+          "endColumn": 10
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:App.csproj@net10.0::System.Text.RegularExpressions.Generated.Pattern_0..ctor()",
+        "signature": "System.Text.RegularExpressions.Generated.Pattern_0.Pattern_0() -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:App.csproj@net10.0::System.Text.RegularExpressions.Generated.Pattern_0..ctor()"
+        ],
+        "definition": {
+          "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+          "startLine": 39,
+          "startColumn": 9,
+          "endLine": 47,
+          "endColumn": 10
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "new Pattern_0.RunnerFactory",
+          "detail": null,
+          "before": {
+            "symbolId": "project:App.csproj@net10.0::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory..ctor()",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:App.csproj@net10.0::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory..ctor()"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                "startLine": 45,
+                "startColumn": 28,
+                "endLine": 45,
+                "endColumn": 47
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:App.csproj@net10.0::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory..ctor()",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:App.csproj@net10.0::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory..ctor()"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                "startLine": 45,
+                "startColumn": 28,
+                "endLine": 45,
+                "endColumn": 47
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n2",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "Pattern_0.RunnerFactory.Runner.Scan",
+      "detail": null,
+      "before": {
+        "symbolId": "project:App.csproj@net10.0::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory.Runner.Scan(global::System.ReadOnlySpan<char>)",
+        "signature": "System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan<char>) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:App.csproj@net10.0::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory.Runner.Scan(global::System.ReadOnlySpan<char>)"
+        ],
+        "definition": {
+          "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+          "startLine": 60,
+          "startColumn": 17,
+          "endLine": 69,
+          "endColumn": 18
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:App.csproj@net10.0::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory.Runner.Scan(global::System.ReadOnlySpan<char>)",
+        "signature": "System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan<char>) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:App.csproj@net10.0::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory.Runner.Scan(global::System.ReadOnlySpan<char>)"
+        ],
+        "definition": {
+          "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+          "startLine": 60,
+          "startColumn": 17,
+          "endLine": 69,
+          "endColumn": 18
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n3",
+          "kind": "call",
+          "change": "modified",
+          "label": "Pattern_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition",
+          "detail": "body changed; visible calls unchanged",
+          "before": {
+            "symbolId": "project:App.csproj@net10.0::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(global::System.ReadOnlySpan<char>)",
+            "signature": "System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan<char>) -> bool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:App.csproj@net10.0::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(global::System.ReadOnlySpan<char>)"
+            ],
+            "definition": {
+              "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+              "startLine": 74,
+              "startColumn": 17,
+              "endLine": 94,
+              "endColumn": 18
+            },
+            "callSites": [
+              {
+                "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                "startLine": 62,
+                "startColumn": 25,
+                "endLine": 62,
+                "endColumn": 71
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:App.csproj@net10.0::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(global::System.ReadOnlySpan<char>)",
+            "signature": "System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan<char>) -> bool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:App.csproj@net10.0::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(global::System.ReadOnlySpan<char>)"
+            ],
+            "definition": {
+              "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+              "startLine": 74,
+              "startColumn": 17,
+              "endLine": 94,
+              "endColumn": 18
+            },
+            "callSites": [
+              {
+                "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                "startLine": 62,
+                "startColumn": 25,
+                "endLine": 62,
+                "endColumn": 71
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

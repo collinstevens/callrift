@@ -8,6 +8,23 @@ namespace Callrift.Corpus;
 
 public sealed class CorpusTests
 {
+    [Fact]
+    public async Task RestoredSerilog()
+    {
+        var entry = CorpusStore.ReadManifest().Single(e => e.Id == "serilog-alignment-guard");
+        var repository = await CorpusStore.PrepareAsync(entry);
+        var outputs = new List<string>();
+        foreach (var format in new[] { "text", "md", "json" })
+        {
+            using var stdout = new StringWriter { NewLine = "\n" };
+            using var stderr = new StringWriter { NewLine = "\n" };
+            var code = await CommandRunner.RunAsync(["diff", entry.Before, entry.After, "--format", format,
+                "--project", "src/Serilog/Serilog.csproj", "--framework", "net10.0", .. entry.Options], repository, stdout, stderr);
+            outputs.Add($"format: {format}\nexit: {code}\nstdout:\n{stdout}stderr:\n{stderr}");
+        }
+        await Verifier.Verify(string.Join("\n", outputs)).UseDirectory("Snapshots").UseFileName("serilog-msbuild").DisableDiff();
+    }
+
     public static IEnumerable<object[]> Entries => CorpusStore.ReadManifest().Select(e => new object[] { e.Id });
 
     [Theory]

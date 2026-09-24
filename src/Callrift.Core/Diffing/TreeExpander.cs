@@ -39,7 +39,8 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
                     { Kind = "branch", Side = new NodeSide(null, null, "structural", "none", [], null, [call.Location], call.Relation == "callback" ? "callback" : "branch") { Origin = "structural" } });
                 continue;
             }
-            if (!call.IsSource && call.Kind != "unresolved" && !options.IncludeExternals && children.Count == 0)
+            if (!call.IsSource && call.Kind != "unresolved" && !options.IncludeExternals && children.Count == 0
+                && !graph.Members.ContainsKey(call.Key) && !graph.Implementations.ContainsKey(call.Key))
                 continue;
             CallTree tree;
             if (graph.Implementations.TryGetValue(call.Key, out var targets) && targets.Count > 0)

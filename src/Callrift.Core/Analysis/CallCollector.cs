@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Callrift.Core;
 
-internal sealed class CallCollector(SemanticModel model, ConcurrentBag<AnalysisDiagnostic> diagnostics, CancellationToken cancellationToken)
+internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, ConcurrentBag<AnalysisDiagnostic> diagnostics, CancellationToken cancellationToken)
 {
     public IReadOnlyList<CallStep> Collect(SyntaxNode node)
     {
@@ -137,22 +137,22 @@ internal sealed class CallCollector(SemanticModel model, ConcurrentBag<AnalysisD
             var label = SymbolNames.SyntaxLabel(invocation);
             if (invocation is BaseObjectCreationExpressionSyntax && model.GetTypeInfo(invocation, cancellationToken).Type is ITypeParameterSymbol)
             {
-                result.Add(new CallStep("call", "external:" + label, label, false, SymbolNames.Location(invocation), callbacks));
+                result.Add(new CallStep("call", "external:" + label, label, false, symbols.Location(invocation), callbacks));
                 return;
             }
-            var candidates = info.CandidateSymbols.OfType<IMethodSymbol>().Select(SymbolNames.Key).Order(StringComparer.Ordinal).ToArray();
-            diagnostics.Add(new AnalysisDiagnostic("unresolved-call", $"Cannot bind {label}" + (candidates.Length == 0 ? "." : "; candidates: " + string.Join(", ", candidates)), SymbolNames.Location(invocation)));
-            result.Add(new CallStep("unresolved", "?" + label + string.Join("|", candidates), "? " + label, false, SymbolNames.Location(invocation),
+            var candidates = info.CandidateSymbols.OfType<IMethodSymbol>().Select(symbols.Key).Order(StringComparer.Ordinal).ToArray();
+            diagnostics.Add(new AnalysisDiagnostic("unresolved-call", $"Cannot bind {label}" + (candidates.Length == 0 ? "." : "; candidates: " + string.Join(", ", candidates)), symbols.Location(invocation)));
+            result.Add(new CallStep("unresolved", "?" + label + string.Join("|", candidates), "? " + label, false, symbols.Location(invocation),
                 callbacks.Select(c => c with { Relation = "callback" }).ToArray())
             { Candidates = candidates });
         }
     }
 
-    private static CallStep CreateCall(SyntaxNode node, IMethodSymbol method, IReadOnlyList<CallStep> children)
+    private CallStep CreateCall(SyntaxNode node, IMethodSymbol method, IReadOnlyList<CallStep> children)
     {
         var normalized = SymbolNames.Normalize(method);
         var source = method.MethodKind != MethodKind.DelegateInvoke && normalized.ContainingType.Locations.Any(l => l.IsInSource);
-        return new CallStep("call", SymbolNames.Key(normalized), source ? SymbolNames.Label(normalized) : SymbolNames.SyntaxLabel(node), source, SymbolNames.Location(node), children);
+        return new CallStep("call", symbols.Key(normalized), source ? SymbolNames.Label(normalized) : SymbolNames.SyntaxLabel(node), source, symbols.Location(node), children);
     }
 
     private void Branch(string label, SyntaxNode node, IEnumerable<SyntaxNode> bodies, List<CallStep> result)
@@ -161,6 +161,6 @@ internal sealed class CallCollector(SemanticModel model, ConcurrentBag<AnalysisD
         foreach (var body in bodies)
             Walk(body, calls);
         if (calls.Count > 0)
-            result.Add(new CallStep("branch", "branch:" + label, label.Length > 100 ? label[..97] + "…" : label, true, SymbolNames.Location(node), calls));
+            result.Add(new CallStep("branch", "branch:" + label, label.Length > 100 ? label[..97] + "…" : label, true, symbols.Location(node), calls));
     }
 }
