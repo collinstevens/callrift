@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 
 namespace Callrift.Core;
@@ -6,9 +7,16 @@ public sealed record SourceFile(string Path, string Content, string ContentId);
 
 public sealed record SourceSnapshot(string Name, IReadOnlyList<SourceFile> Files);
 
-public sealed record SourceLocation(string Path, int Line, int Column);
+public sealed record SourceLocation(string Path, [property: JsonPropertyName("startLine")] int Line,
+    [property: JsonPropertyName("startColumn")] int Column, int? EndLine = null, int? EndColumn = null);
 
 public sealed record AnalysisDiagnostic(string Code, string Message, SourceLocation? Location = null);
+
+public sealed record AnalysisCoverage(string Mode, string Status, IReadOnlyList<string> Limitations)
+{
+    public static AnalysisCoverage SourceOnly { get; } = new("source", "partial",
+        ["single-compilation", "bcl-references-only", "synthetic-implicit-usings", "no-project-defines-or-generators", "possible-dispatch", "unfollowed-accessors-operators-events", "callbacks-are-possible-calls"]);
+}
 
 public sealed record CallStep(
     string Kind,
@@ -16,7 +24,22 @@ public sealed record CallStep(
     string Label,
     bool IsSource,
     SourceLocation Location,
-    IReadOnlyList<CallStep> Children);
+    IReadOnlyList<CallStep> Children)
+{
+    public string Relation { get; init; } = "call";
+    public IReadOnlyList<string> Candidates { get; init; } = [];
+}
+
+public sealed record NodeSide(string? SymbolId, string? Signature, string Binding, string Dispatch,
+    IReadOnlyList<string> TargetIds, SourceLocation? Definition, IReadOnlyList<SourceLocation> CallSites,
+    string Relation = "call", IReadOnlyList<string>? Candidates = null)
+{
+    public string Origin { get; init; } = "source";
+}
+
+public sealed record Omission(string Reason, string? SymbolId = null);
+
+public sealed record SnapshotIdentity(string Kind, string? Ref = null, string? Commit = null, string? ContentId = null);
 
 public sealed record Member(
     string Key,
@@ -33,7 +56,10 @@ public sealed record Member(
 public sealed record CallGraph(
     IReadOnlyDictionary<string, Member> Members,
     IReadOnlyDictionary<string, IReadOnlyList<string>> Implementations,
-    IReadOnlyList<AnalysisDiagnostic> Diagnostics);
+    IReadOnlyList<AnalysisDiagnostic> Diagnostics)
+{
+    public AnalysisCoverage Coverage { get; init; } = AnalysisCoverage.SourceOnly;
+}
 
 public sealed record AnalysisOptions(bool IncludeTests = false);
 
@@ -51,6 +77,7 @@ public sealed record DiffOptions
     public int Context { get; init; } = 2;
     public bool IncludeExternals { get; init; }
     public bool IncludeTests { get; init; }
+    public bool Locations { get; init; }
 }
 
 public sealed record DiffRequest(string Repository, string? Before = null, string? After = null, bool Staged = false)
@@ -66,6 +93,17 @@ public sealed record DiffNode(
     string? Detail = null)
 {
     public bool HasChanges => Mark != ' ' || Children.Any(c => c.HasChanges);
+    public string Kind { get; init; } = "call";
+    public NodeSide? Before { get; init; }
+    public NodeSide? After { get; init; }
+    public Omission? Omission { get; init; }
 }
 
-public sealed record DiffResult(IReadOnlyList<DiffNode> Trees, IReadOnlyList<AnalysisDiagnostic> Diagnostics, bool HasChanges);
+public sealed record DiffResult(IReadOnlyList<DiffNode> Trees, IReadOnlyList<AnalysisDiagnostic> Diagnostics, bool HasChanges)
+{
+    public string Command { get; init; } = "diff";
+    public SnapshotIdentity? From { get; init; }
+    public SnapshotIdentity? To { get; init; }
+    public bool Truncated { get; init; }
+    public AnalysisCoverage Coverage { get; init; } = AnalysisCoverage.SourceOnly;
+}

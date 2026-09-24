@@ -1,0 +1,226 @@
+﻿exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "<before>",
+    "commit": "<before>",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "<after>",
+    "commit": "<after>",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "source",
+    "status": "partial",
+    "limitations": [
+      "single-compilation",
+      "bcl-references-only",
+      "synthetic-implicit-usings",
+      "no-project-defines-or-generators",
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "callbacks-are-possible-calls"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": false,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "Flow.Run",
+      "detail": null,
+      "before": {
+        "symbolId": "source::Flow.Run()",
+        "signature": "Flow.Run() -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Flow.Run()"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 1,
+          "startColumn": 113,
+          "endLine": 1,
+          "endColumn": 148
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "source::Flow.Run()",
+        "signature": "Flow.Run() -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Flow.Run()"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 1,
+          "startColumn": 162,
+          "endLine": 1,
+          "endColumn": 197
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "removed",
+          "label": "IWorker.Save → First.Save",
+          "detail": null,
+          "before": {
+            "symbolId": "source::IWorker.Save()",
+            "signature": "IWorker.Save() -> void",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "source::First.Save()"
+            ],
+            "definition": {
+              "path": "Program.cs",
+              "startLine": 1,
+              "startColumn": 21,
+              "endLine": 1,
+              "endColumn": 33
+            },
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 1,
+                "startColumn": 134,
+                "endLine": 1,
+                "endColumn": 147
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": null,
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n2",
+          "kind": "call",
+          "change": "added",
+          "label": "IWorker.Save",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": "source::IWorker.Save()",
+            "signature": "IWorker.Save() -> void",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "source::First.Save()",
+              "source::Second.Save()"
+            ],
+            "definition": {
+              "path": "Program.cs",
+              "startLine": 1,
+              "startColumn": 21,
+              "endLine": 1,
+              "endColumn": 33
+            },
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 1,
+                "startColumn": 183,
+                "endLine": 1,
+                "endColumn": 196
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [
+            {
+              "id": "n3",
+              "kind": "dispatchTarget",
+              "change": "added",
+              "label": "⇢ First.Save",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::First.Save()",
+                "signature": "First.Save() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::First.Save()"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 1,
+                  "startColumn": 60,
+                  "endLine": 1,
+                  "endColumn": 81
+                },
+                "callSites": [],
+                "relation": "definition",
+                "candidates": null,
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n4",
+              "kind": "dispatchTarget",
+              "change": "added",
+              "label": "⇢ Second.Save",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::Second.Save()",
+                "signature": "Second.Save() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Second.Save()"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 1,
+                  "startColumn": 109,
+                  "endLine": 1,
+                  "endColumn": 130
+                },
+                "callSites": [],
+                "relation": "definition",
+                "candidates": null,
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

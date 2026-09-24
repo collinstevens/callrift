@@ -1,0 +1,196 @@
+﻿format: text
+exit: 0
+stdout:
+  Flow.Run
+  ├─ if (n > 0)
+  │  └─ Flow.Run (↺ cycle)
+  └─ Flow.Save
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  Flow.Run
+  ├─ if (n > 0)
+  │  └─ Flow.Run (↺ cycle)
+  └─ Flow.Save
+```
+stderr:
+
+format: json
+exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "tree",
+  "from": null,
+  "to": {
+    "kind": "workingTree",
+    "ref": null,
+    "commit": null,
+    "contentId": "3a3de3e53ecd7555a2d7481d1cdca6327444f92b7212175b0d44977b018e6bea"
+  },
+  "analysis": {
+    "mode": "source",
+    "status": "partial",
+    "limitations": [
+      "single-compilation",
+      "bcl-references-only",
+      "synthetic-implicit-usings",
+      "no-project-defines-or-generators",
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "callbacks-are-possible-calls"
+    ]
+  },
+  "hasChanges": false,
+  "truncated": false,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "Flow.Run",
+      "detail": null,
+      "before": null,
+      "after": {
+        "symbolId": "source::Flow.Run(int)",
+        "signature": "Flow.Run(int) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Flow.Run(int)"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 1,
+          "startColumn": 14,
+          "endLine": 1,
+          "endColumn": 71
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (n > 0)",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 1,
+                "startColumn": 39,
+                "endLine": 1,
+                "endColumn": 61
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n2",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Flow.Run",
+              "detail": "↺ cycle",
+              "before": null,
+              "after": {
+                "symbolId": "source::Flow.Run(int)",
+                "signature": "Flow.Run(int) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Flow.Run(int)"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 1,
+                  "startColumn": 14,
+                  "endLine": 1,
+                  "endColumn": 71
+                },
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 1,
+                    "startColumn": 50,
+                    "endLine": 1,
+                    "endColumn": 60
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "cycle",
+                "symbolId": "source::Flow.Run(int)",
+                "referenceId": "n0"
+              }
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n3",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Flow.Save",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": "source::Flow.Save()",
+            "signature": "Flow.Save() -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Flow.Save()"
+            ],
+            "definition": {
+              "path": "Program.cs",
+              "startLine": 1,
+              "startColumn": 72,
+              "endLine": 1,
+              "endColumn": 86
+            },
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 1,
+                "startColumn": 62,
+                "endLine": 1,
+                "endColumn": 68
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

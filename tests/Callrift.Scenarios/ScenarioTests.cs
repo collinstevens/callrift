@@ -19,6 +19,9 @@ public sealed class ScenarioTests
         var markdown = await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--format", "md", .. scenario.Options]);
         await Verifier.Verify(scenario.Description + "\n\n" + text + "\nmarkdown:\n" + markdown)
             .UseDirectory("Snapshots").UseFileName(name).DisableDiff();
+        var json = await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--format", "json", .. scenario.Options]);
+        await Verifier.Verify(json.Replace(fixture.Before, "<before>", StringComparison.Ordinal).Replace(fixture.After, "<after>", StringComparison.Ordinal))
+            .UseDirectory("Snapshots").UseFileName(name + "-json").DisableDiff();
     }
 
     [Fact]
@@ -31,6 +34,10 @@ public sealed class ScenarioTests
         var staged = await fixture.RunAsync("diff", "--staged");
         var working = await fixture.RunAsync();
         await Verifier.Verify("staged:\n" + staged + "\nworking:\n" + working).UseDirectory("Snapshots").DisableDiff();
+        var stagedJson = await fixture.RunAsync("diff", "--staged", "--format", "json");
+        var workingJson = await fixture.RunAsync("diff", "--format", "json");
+        await Verifier.Verify(("staged:\n" + stagedJson + "\nworking:\n" + workingJson).Replace(fixture.Before, "<before>", StringComparison.Ordinal))
+            .UseDirectory("Snapshots").UseFileName("working-index-json").DisableDiff();
     }
 
     [Fact]

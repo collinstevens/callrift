@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Callrift output v1",
+  "type": "object",
+  "required": ["schemaVersion", "command", "from", "to", "analysis", "hasChanges", "truncated", "diagnostics", "trees", "paths"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "command": { "enum": ["diff", "tree", "reach"] },
+    "from": { "$ref": "#/$defs/snapshot" },
+    "to": { "$ref": "#/$defs/snapshot" },
+    "analysis": {
+      "type": "object",
+      "required": ["mode", "status", "limitations"],
+      "properties": {
+        "mode": { "enum": ["source", "msbuild"] },
+        "status": { "enum": ["partial", "complete"] },
+        "limitations": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "hasChanges": { "type": "boolean" },
+    "truncated": { "type": "boolean" },
+    "diagnostics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code", "message", "location"],
+        "properties": {
+          "code": { "type": "string" },
+          "message": { "type": "string" },
+          "location": { "$ref": "#/$defs/location" }
+        }
+      }
+    },
+    "trees": { "type": "array", "items": { "$ref": "#/$defs/node" } },
+    "paths": { "type": "array", "items": { "$ref": "#/$defs/node" } }
+  },
+  "$defs": {
+    "snapshot": {
+      "type": ["object", "null"],
+      "required": ["kind", "ref", "commit", "contentId"],
+      "properties": {
+        "kind": { "enum": ["revision", "workingTree", "index", "empty"] },
+        "ref": { "type": ["string", "null"] },
+        "commit": { "type": ["string", "null"] },
+        "contentId": { "type": ["string", "null"] }
+      }
+    },
+    "location": {
+      "type": ["object", "null"],
+      "required": ["path", "startLine", "startColumn", "endLine", "endColumn"],
+      "properties": {
+        "path": { "type": "string" },
+        "startLine": { "type": "integer", "minimum": 1 },
+        "startColumn": { "type": "integer", "minimum": 1 },
+        "endLine": { "type": ["integer", "null"], "minimum": 1 },
+        "endColumn": { "type": ["integer", "null"], "minimum": 1 }
+      }
+    },
+    "side": {
+      "type": ["object", "null"],
+      "required": ["symbolId", "signature", "binding", "dispatch", "targetIds", "definition", "callSites", "relation", "candidates", "origin"],
+      "properties": {
+        "symbolId": { "type": ["string", "null"] },
+        "signature": { "type": ["string", "null"] },
+        "binding": { "enum": ["resolved", "unresolved", "structural"] },
+        "dispatch": { "enum": ["direct", "possible", "none"] },
+        "targetIds": { "type": "array", "items": { "type": "string" } },
+        "definition": { "$ref": "#/$defs/location" },
+        "callSites": { "type": "array", "items": { "$ref": "#/$defs/location" } },
+        "relation": { "enum": ["definition", "call", "callback", "branch"] },
+        "candidates": { "type": ["array", "null"], "items": { "type": "string" } },
+        "origin": { "enum": ["source", "metadata", "unknown", "structural"] }
+      }
+    },
+    "node": {
+      "type": "object",
+      "required": ["id", "kind", "change", "label", "detail", "before", "after", "children", "omission"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^n[0-9]+$" },
+        "kind": { "enum": ["member", "call", "branch", "dispatchTarget"] },
+        "change": { "enum": ["unchanged", "added", "removed", "modified"] },
+        "label": { "type": "string" },
+        "detail": { "type": ["string", "null"] },
+        "before": { "$ref": "#/$defs/side" },
+        "after": { "$ref": "#/$defs/side" },
+        "children": { "type": "array", "items": { "$ref": "#/$defs/node" } },
+        "omission": {
+          "type": ["object", "null"],
+          "required": ["reason", "symbolId", "referenceId"],
+          "properties": {
+            "reason": { "enum": ["cycle", "depth-limit"] },
+            "symbolId": { "type": ["string", "null"] },
+            "referenceId": { "type": ["string", "null"] }
+          }
+        }
+      }
+    }
+  }
+}

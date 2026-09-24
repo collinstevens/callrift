@@ -33,3 +33,22 @@ Each accepted snapshot was read against its description and the before/after sou
 | tests-included | Explicit inclusion makes the test caller a root. |
 | InvalidSelection | Ambiguous and missing selectors fail with exit 2 and actionable diagnostics. |
 | WorkingTreeAndIndex | The staged guard appears in index mode; the reverted working copy reports no change. |
+
+# M2 review
+
+The JSON counterpart of every source scenario and the working/index case was reviewed against the same independent source edits. Checks covered before/after symbol identity, generic arity, callback relationships, possible dispatch targets, declaration versus invocation locations, and explicit cycle/depth omissions. The JSON keeps unchanged bounded subtrees even when text collapses them. Documents passed `schemas/output-v1.schema.json` through PowerShell's `Test-Json`.
+
+The added recursive-signature scenario changes the root signature and removes a recursive branch. Its old call retains the old symbol ID and references the matched root's traversal ID. The decorator's cycle references the ancestor implementation rather than the intervening interface dispatch.
+
+| Query snapshot | Review decision |
+|---|---|
+| query-tree | Accept. Full orders tree includes audit and pricing beneath the timeout. Root locations point at declarations; child locations point at invocations. |
+| query-reach | Accept. The controller-to-pricing path includes interface dispatch and the timeout callback wrapper. |
+| query-reach-limit | Accept. One switch-arm path is returned; the additional catch path triggers explicit truncation. |
+| query-reach-depth | Accept. The depth bound prevents reaching pricing; the empty result is explicitly truncated. |
+| query-no-path | Accept. Save cannot reach its caller and the search is not truncated. |
+| query-tree-cycle | Accept. The cycle refers to the root traversal ID; the ordinary Save sibling remains. |
+| query-diff-locs | Accept. The target orders diff has call-site locations and change exit status 1. |
+| query-strict, query-strict-clean | Accept. Partial source-only coverage returns exit 2 with an explanation, both with and without unresolved bindings. |
+| QueryTests.MergeBase | Accept. The unrelated divergent mainline class is absent; the comparison uses the common ancestor and the feature tip. |
+| QueryTests.InvalidQueries | Accept. Missing selectors/target, invalid path limits, conflicting staged/range syntax, and multiple tree revisions fail with exit 2. |

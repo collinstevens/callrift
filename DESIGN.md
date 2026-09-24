@@ -1,6 +1,6 @@
 # Callrift
 
-Design · 2026-09-24 · M1 implemented and verified
+Design · 2026-09-24 · M1 and M2 implemented and verified
 
 Produce reviewable C# call-flow diffs from Git snapshots. The primary acceptance example is the supplied orders flow: discover the controller, follow interface dispatch, retain validation and persistence, and show pricing nested beneath the new timeout wrapper.
 

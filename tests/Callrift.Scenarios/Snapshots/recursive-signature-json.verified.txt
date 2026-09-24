@@ -1,0 +1,161 @@
+﻿exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "<before>",
+    "commit": "<before>",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "<after>",
+    "commit": "<after>",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "source",
+    "status": "partial",
+    "limitations": [
+      "single-compilation",
+      "bcl-references-only",
+      "synthetic-implicit-usings",
+      "no-project-defines-or-generators",
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "callbacks-are-possible-calls"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": false,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "modified",
+      "label": "Flow.Run",
+      "detail": "signature changed",
+      "before": {
+        "symbolId": "source::Flow.Run(int)",
+        "signature": "Flow.Run(int) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Flow.Run(int)"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 1,
+          "startColumn": 14,
+          "endLine": 1,
+          "endColumn": 63
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "source::Flow.Run()",
+        "signature": "Flow.Run() -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Flow.Run()"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 1,
+          "startColumn": 14,
+          "endLine": 1,
+          "endColumn": 35
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "branch",
+          "change": "removed",
+          "label": "if (n > 0)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 1,
+                "startColumn": 39,
+                "endLine": 1,
+                "endColumn": 61
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": null,
+          "children": [
+            {
+              "id": "n2",
+              "kind": "call",
+              "change": "removed",
+              "label": "Flow.Run",
+              "detail": "↺ cycle",
+              "before": {
+                "symbolId": "source::Flow.Run(int)",
+                "signature": "Flow.Run(int) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Flow.Run(int)"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 1,
+                  "startColumn": 14,
+                  "endLine": 1,
+                  "endColumn": 63
+                },
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 1,
+                    "startColumn": 50,
+                    "endLine": 1,
+                    "endColumn": 60
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": null,
+              "children": [],
+              "omission": {
+                "reason": "cycle",
+                "symbolId": "source::Flow.Run(int)",
+                "referenceId": "n0"
+              }
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

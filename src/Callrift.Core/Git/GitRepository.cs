@@ -10,6 +10,13 @@ public sealed class GitRepository(string root)
 {
     public string Root { get; } = root;
 
+    public async Task<string> MergeBaseAsync(string left, string right, CancellationToken cancellationToken = default)
+    {
+        var bases = (await RunAsync(Root, ["merge-base", "--all", left, right], cancellationToken))
+            .Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries);
+        return bases.Length == 1 ? bases[0] : throw new InvalidOperationException("A unique merge base is required.");
+    }
+
     public static async Task<GitRepository> OpenAsync(string directory, CancellationToken cancellationToken = default)
     {
         var result = await RunAsync(directory, ["rev-parse", "--show-toplevel"], cancellationToken);

@@ -1,0 +1,18 @@
+﻿A signature change retains the old cycle reference for a removed recursive call.
+
+exit: 0
+stdout:
+~ Flow.Run (signature changed)
+- └─ if (n > 0)
+-    └─ Flow.Run (↺ cycle)
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+~ Flow.Run (signature changed)
+- └─ if (n > 0)
+-    └─ Flow.Run (↺ cycle)
+```
+stderr:

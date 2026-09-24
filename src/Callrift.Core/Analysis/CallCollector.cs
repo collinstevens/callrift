@@ -131,7 +131,7 @@ internal sealed class CallCollector(SemanticModel model, ConcurrentBag<AnalysisD
         }
         var info = model.GetSymbolInfo(invocation, cancellationToken);
         if (info.Symbol is IMethodSymbol target)
-            result.Add(CreateCall(invocation, target, callbacks));
+            result.Add(CreateCall(invocation, target, callbacks.Select(c => c with { Relation = "callback" }).ToArray()));
         else
         {
             var label = SymbolNames.SyntaxLabel(invocation);
@@ -142,7 +142,9 @@ internal sealed class CallCollector(SemanticModel model, ConcurrentBag<AnalysisD
             }
             var candidates = info.CandidateSymbols.OfType<IMethodSymbol>().Select(SymbolNames.Key).Order(StringComparer.Ordinal).ToArray();
             diagnostics.Add(new AnalysisDiagnostic("unresolved-call", $"Cannot bind {label}" + (candidates.Length == 0 ? "." : "; candidates: " + string.Join(", ", candidates)), SymbolNames.Location(invocation)));
-            result.Add(new CallStep("unresolved", "?" + label + string.Join("|", candidates), "? " + label, false, SymbolNames.Location(invocation), callbacks));
+            result.Add(new CallStep("unresolved", "?" + label + string.Join("|", candidates), "? " + label, false, SymbolNames.Location(invocation),
+                callbacks.Select(c => c with { Relation = "callback" }).ToArray())
+            { Candidates = candidates });
         }
     }
 

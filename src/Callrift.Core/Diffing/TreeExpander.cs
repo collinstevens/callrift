@@ -1,6 +1,11 @@
 namespace Callrift.Core;
 
-public sealed record CallTree(string Key, string Label, string MatchName, string Signature, IReadOnlyList<CallTree> Children, bool BodyChanged = false, string? Detail = null);
+public sealed record CallTree(string Key, string Label, string MatchName, string Signature, IReadOnlyList<CallTree> Children, bool BodyChanged = false, string? Detail = null)
+{
+    public string Kind { get; init; } = "call";
+    public NodeSide? Side { get; init; }
+    public Omission? Omission { get; init; }
+}
 
 public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, DiffOptions options)
 {
@@ -9,12 +14,16 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
     private CallTree ExpandMember(string key, HashSet<string> active, int depth)
     {
         var member = graph.Members[key];
+        var side = new NodeSide(key, member.Signature, "resolved", "direct", [key], member.Location, [], "definition");
         if (active.Contains(key))
-            return new CallTree(key, member.Label, member.MatchName, member.Signature, [], false, "↺ cycle");
+            return new CallTree(key, member.Label, member.MatchName, member.Signature, [], false, "↺ cycle")
+            { Kind = "member", Side = side, Omission = new Omission("cycle", key) };
         if (depth >= options.MaxDepth)
-            return new CallTree(key, member.Label, member.MatchName, member.Signature, [], ReachesChange(key, []), ReachesChange(key, []) ? "changes below depth limit" : "depth limit");
+            return new CallTree(key, member.Label, member.MatchName, member.Signature, [], ReachesChange(key, []), ReachesChange(key, []) ? "changes below depth limit" : "depth limit")
+            { Kind = "member", Side = side, Omission = new Omission("depth-limit") };
         var path = new HashSet<string>(active, StringComparer.Ordinal) { key };
-        return new CallTree(key, member.Label, member.MatchName, member.Signature, ExpandCalls(member.Calls, path, depth + 1), changed.Contains(key));
+        return new CallTree(key, member.Label, member.MatchName, member.Signature, ExpandCalls(member.Calls, path, depth + 1), changed.Contains(key))
+        { Kind = "member", Side = side };
     }
 
     private IReadOnlyList<CallTree> ExpandCalls(IEnumerable<CallStep> calls, HashSet<string> active, int depth)
@@ -26,7 +35,8 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
             if (call.Kind == "branch")
             {
                 if (children.Count > 0)
-                    trees.Add(new CallTree(call.Key, call.Label, call.Key, call.Key, children));
+                    trees.Add(new CallTree(call.Key, call.Label, call.Key, call.Key, children)
+                    { Kind = "branch", Side = new NodeSide(null, null, "structural", "none", [], null, [call.Location], call.Relation == "callback" ? "callback" : "branch") { Origin = "structural" } });
                 continue;
             }
             if (!call.IsSource && call.Kind != "unresolved" && !options.IncludeExternals && children.Count == 0)
@@ -43,14 +53,21 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
                     tree = new CallTree(call.Key, call.Label, call.Key, call.Key, targets.Select(t =>
                     {
                         var implementation = ExpandMember(t, active, depth + 1);
-                        return implementation with { Label = "⇢ " + implementation.Label };
+                        return implementation with { Label = "⇢ " + implementation.Label, Kind = "dispatchTarget" };
                     }).ToArray());
             }
             else if (graph.Members.ContainsKey(call.Key))
                 tree = ExpandMember(call.Key, active, depth);
             else
                 tree = new CallTree(call.Key, call.Label, call.Key, call.Key, []);
-            trees.Add(tree with { Children = tree.Children.Concat(children).ToArray() });
+            graph.Members.TryGetValue(call.Key, out var declaration);
+            var possibleTargets = graph.Implementations.TryGetValue(call.Key, out var implementations) ? implementations : [];
+            var side = new NodeSide(call.Kind == "unresolved" ? null : call.Key, declaration?.Signature,
+                call.Kind == "unresolved" ? "unresolved" : "resolved", possibleTargets.Count > 0 ? "possible" : "direct",
+                possibleTargets.Count > 0 ? possibleTargets : call.Kind == "unresolved" ? [] : [call.Key], declaration?.Location,
+                [call.Location], call.Relation, call.Candidates)
+            { Origin = call.Kind == "unresolved" ? "unknown" : call.IsSource ? "source" : "metadata" };
+            trees.Add(tree with { Kind = "call", Side = side, Children = tree.Children.Concat(children).ToArray() });
         }
         return trees;
     }

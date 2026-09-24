@@ -99,5 +99,14 @@ public class FloorBenchmarks
     public string Render() => DiffRenderer.Render(diff, options);
 
     [Benchmark]
+    public string RenderJson() => JsonRenderer.Render(diff);
+
+    [Benchmark]
+    public DiffResult QueryTree() => CallQueries.Query(newGraph, new QueryRequest(repository.Root) { Options = options });
+
+    [Benchmark]
+    public DiffResult QueryReach() => CallQueries.Query(newGraph, new QueryRequest(repository.Root) { Options = options, Target = "new TextToken" });
+
+    [Benchmark]
     public Task<DiffResult> Diff() => new CallriftService().DiffAsync(new DiffRequest(repository.Root, entry.Before, entry.After) { Options = options });
 }

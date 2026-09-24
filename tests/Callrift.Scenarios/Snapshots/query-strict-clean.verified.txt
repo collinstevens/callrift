@@ -1,0 +1,219 @@
+﻿format: text
+exit: 2
+stdout:
+  Flow.Run
+- ├─ Flow.Save
++ └─ if (ready)
++    └─ Flow.Save
+stderr:
+callrift: analysis is partial; inspect JSON coverage and diagnostics.
+
+format: md
+exit: 2
+stdout:
+```diff
+  Flow.Run
+- ├─ Flow.Save
++ └─ if (ready)
++    └─ Flow.Save
+```
+stderr:
+callrift: analysis is partial; inspect JSON coverage and diagnostics.
+
+format: json
+exit: 2
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "HEAD^",
+    "commit": "<before>",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "HEAD",
+    "commit": "<after>",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "source",
+    "status": "partial",
+    "limitations": [
+      "single-compilation",
+      "bcl-references-only",
+      "synthetic-implicit-usings",
+      "no-project-defines-or-generators",
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "callbacks-are-possible-calls"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": false,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "Flow.Run",
+      "detail": null,
+      "before": {
+        "symbolId": "source::Flow.Run(bool)",
+        "signature": "Flow.Run(bool) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Flow.Run(bool)"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 1,
+          "startColumn": 14,
+          "endLine": 1,
+          "endColumn": 53
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "source::Flow.Run(bool)",
+        "signature": "Flow.Run(bool) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Flow.Run(bool)"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 1,
+          "startColumn": 14,
+          "endLine": 1,
+          "endColumn": 64
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "removed",
+          "label": "Flow.Save",
+          "detail": null,
+          "before": {
+            "symbolId": "source::Flow.Save()",
+            "signature": "Flow.Save() -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Flow.Save()"
+            ],
+            "definition": {
+              "path": "Program.cs",
+              "startLine": 1,
+              "startColumn": 54,
+              "endLine": 1,
+              "endColumn": 68
+            },
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 1,
+                "startColumn": 44,
+                "endLine": 1,
+                "endColumn": 50
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": null,
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n2",
+          "kind": "branch",
+          "change": "added",
+          "label": "if (ready)",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 1,
+                "startColumn": 44,
+                "endLine": 1,
+                "endColumn": 62
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n3",
+              "kind": "call",
+              "change": "added",
+              "label": "Flow.Save",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::Flow.Save()",
+                "signature": "Flow.Save() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Flow.Save()"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 1,
+                  "startColumn": 65,
+                  "endLine": 1,
+                  "endColumn": 79
+                },
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 1,
+                    "startColumn": 55,
+                    "endLine": 1,
+                    "endColumn": 61
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:
+callrift: analysis is partial; inspect JSON coverage and diagnostics.

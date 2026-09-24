@@ -16,4 +16,6 @@ ShortRun uses three measured iterations and is a baseline, not evidence of a spe
 
 The M1 Windows baseline on a Ryzen 9 7950X3D, SDK 10.0.303/runtime 10.0.11 measured about 614 ms for the warm command and 1.23 s for a fresh process. The warm command allocated about 240 MiB. Binding and end-to-end timings had substantial variation across the three measurements; use longer runs before drawing optimization conclusions. The exporter files are [floors](baselines/m1-windows-floors.json) and [commands](baselines/m1-windows-commands.json).
 
-Medium/large workloads, tree/reach commands, MSBuild loading, and automated regression thresholds belong to the following milestones. The prototype's 30 seconds for about 5,000 files has not been reproduced by this small workload.
+M2 adds JSON rendering and tree/reach query floors. On the same workload and environment, warm diff/tree/reach commands measured approximately 607/454/460 ms; a fresh diff process measured 1.22 s. These are feature baselines, not speedup claims. See [M2 floors](baselines/m2-windows-floors.json) and [M2 commands](baselines/m2-windows-commands.json). Exported JSON is preserved with whitespace normalized to the repository's formatting rules.
+
+Medium/large workloads, fresh-process tree/reach measurements, MSBuild loading, and automated regression thresholds remain follow-up work. The prototype's 30 seconds for about 5,000 files has not been reproduced by this small workload.

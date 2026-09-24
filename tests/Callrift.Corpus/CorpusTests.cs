@@ -25,5 +25,10 @@ public sealed class CorpusTests
             outputs.Add($"format: {format}\nexit: {code}\nstdout:\n{stdout}stderr:\n{stderr}");
         }
         await Verifier.Verify(string.Join("\n", outputs)).UseDirectory("Snapshots").UseFileName(id).DisableDiff();
+        using var jsonOutput = new StringWriter { NewLine = "\n" };
+        using var jsonError = new StringWriter { NewLine = "\n" };
+        var jsonCode = await CommandRunner.RunAsync(["diff", entry.Before, entry.After, "--format", "json", .. entry.Options], repository, jsonOutput, jsonError);
+        await Verifier.Verify($"exit: {jsonCode}\nstdout:\n{jsonOutput}stderr:\n{jsonError}")
+            .UseDirectory("Snapshots").UseFileName(id + "-json").DisableDiff();
     }
 }

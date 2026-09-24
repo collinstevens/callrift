@@ -11,17 +11,33 @@ public class CommandBenchmarks
 {
     private string repository = "";
     private string[] arguments = [];
+    private string revision = "";
 
     [GlobalSetup]
     public async Task Setup()
     {
         var entry = CorpusStore.ReadManifest().Single(e => e.Id == "serilog-alignment-guard");
         repository = await CorpusStore.PrepareAsync(entry);
+        revision = entry.After;
         arguments = ["diff", entry.Before, entry.After, "--entry", "MessageTemplateParser.ParsePropertyToken", "--color", "never"];
     }
 
     [Benchmark]
-    public Task<int> WarmCommand() => CommandRunner.RunAsync(arguments, repository, TextWriter.Null, TextWriter.Null);
+    public Task<int> WarmCommand() => InvokeAsync(arguments);
+
+    [Benchmark]
+    public Task<int> TreeCommand() => InvokeAsync(["tree", revision, "--entry", "MessageTemplateParser.ParsePropertyToken"]);
+
+    [Benchmark]
+    public Task<int> ReachCommand() => InvokeAsync(["reach", revision, "--entry", "MessageTemplateParser.ParsePropertyToken", "--to", "new TextToken"]);
+
+    private async Task<int> InvokeAsync(string[] args)
+    {
+        using var error = new StringWriter();
+        var code = await CommandRunner.RunAsync(args, repository, TextWriter.Null, error);
+        if (code != 0) throw new InvalidOperationException(error.ToString());
+        return code;
+    }
 
     [Benchmark]
     public async Task<int> FreshProcessCommand()

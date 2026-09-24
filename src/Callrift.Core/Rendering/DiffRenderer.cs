@@ -8,27 +8,35 @@ public static class DiffRenderer
     {
         var output = new StringBuilder();
         var expanded = new HashSet<string>(StringComparer.Ordinal);
-        foreach (var root in result.Trees.Where(t => t.HasChanges))
+        var showAll = result.Command != "diff";
+        foreach (var root in result.Trees.Where(t => showAll || t.HasChanges))
         {
             if (output.Length > 0) output.Append('\n');
-            Write(root, "", "", output, expanded, options);
+            Write(root, "", "", output, expanded, options, showAll);
         }
-        if (output.Length == 0) output.Append("No call-flow changes.\n");
+        if (output.Length == 0) output.Append(result.Command == "diff" ? "No call-flow changes.\n" : "No call paths found.\n");
+        if (result.Truncated && result.Command == "reach") output.Append("Search truncated; additional paths may exist.\n");
         if (!markdown) return output.ToString();
         var fence = "```";
         while (output.ToString().Contains(fence, StringComparison.Ordinal)) fence += "`";
         return fence + "diff\n" + output + fence + "\n";
     }
 
-    private static void Write(DiffNode node, string indent, string connector, StringBuilder output, HashSet<string> expanded, DiffOptions options)
+    private static void Write(DiffNode node, string indent, string connector, StringBuilder output, HashSet<string> expanded, DiffOptions options, bool showAll)
     {
-        var repeated = node.HasChanges && node.Children.Count > 0 && !node.Key.StartsWith("branch:", StringComparison.Ordinal) && !expanded.Add(node.Mark + node.Key);
+        var repeated = !showAll && node.HasChanges && node.Children.Count > 0 && !node.Key.StartsWith("branch:", StringComparison.Ordinal) && !expanded.Add(node.Mark + node.Key);
         output.Append(node.Mark).Append(' ').Append(indent).Append(connector).Append(node.Label);
         if (node.Detail is not null) output.Append(" (").Append(node.Detail).Append(')');
+        if (options.Locations)
+        {
+            var side = node.After ?? node.Before;
+            var location = side?.CallSites.FirstOrDefault() ?? side?.Definition;
+            if (location is not null) output.Append(" [").Append(location.Path).Append(':').Append(location.Line).Append(']');
+        }
         if (repeated) output.Append(" ↑ as above");
         output.Append('\n');
-        if (repeated || !node.HasChanges) return;
-        var visible = Trim(node.Children, options.Context);
+        if (repeated || !showAll && !node.HasChanges) return;
+        var visible = showAll ? node.Children : Trim(node.Children, options.Context);
         var merged = new List<(DiffNode Node, int Count)>();
         foreach (var child in visible)
         {
@@ -41,7 +49,7 @@ public static class DiffRenderer
         {
             var (child, count) = merged[i];
             Write(count == 1 ? child : child with { Label = child.Label + " ×" + count }, nextIndent,
-                i == merged.Count - 1 ? "└─ " : "├─ ", output, expanded, options);
+                i == merged.Count - 1 ? "└─ " : "├─ ", output, expanded, options, showAll);
         }
     }
 

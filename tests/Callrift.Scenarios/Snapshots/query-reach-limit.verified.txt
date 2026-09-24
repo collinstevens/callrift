@@ -1,0 +1,187 @@
+﻿format: text
+exit: 0
+stdout:
+  Flow.Run
+  └─ try
+     └─ case 1:
+        └─ Flow.Save
+Search truncated; additional paths may exist.
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  Flow.Run
+  └─ try
+     └─ case 1:
+        └─ Flow.Save
+Search truncated; additional paths may exist.
+```
+stderr:
+
+format: json
+exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "reach",
+  "from": null,
+  "to": {
+    "kind": "workingTree",
+    "ref": null,
+    "commit": null,
+    "contentId": "1168ec90c584a58a9e7c7f4f57e6abb13cb8c6b37a42060735e34cea5dcfc85f"
+  },
+  "analysis": {
+    "mode": "source",
+    "status": "partial",
+    "limitations": [
+      "single-compilation",
+      "bcl-references-only",
+      "synthetic-implicit-usings",
+      "no-project-defines-or-generators",
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "callbacks-are-possible-calls"
+    ]
+  },
+  "hasChanges": false,
+  "truncated": true,
+  "diagnostics": [],
+  "trees": [],
+  "paths": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "Flow.Run",
+      "detail": null,
+      "before": null,
+      "after": {
+        "symbolId": "source::Flow.Run(int)",
+        "signature": "Flow.Run(int) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Flow.Run(int)"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 1,
+          "startColumn": 14,
+          "endLine": 1,
+          "endColumn": 220
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "try",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 1,
+                "startColumn": 43,
+                "endLine": 1,
+                "endColumn": 109
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n2",
+              "kind": "branch",
+              "change": "unchanged",
+              "label": "case 1:",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 1,
+                    "startColumn": 58,
+                    "endLine": 1,
+                    "endColumn": 89
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n3",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "Flow.Save",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::Flow.Save()",
+                    "signature": "Flow.Save() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Flow.Save()"
+                    ],
+                    "definition": {
+                      "path": "Program.cs",
+                      "startLine": 1,
+                      "startColumn": 256,
+                      "endLine": 1,
+                      "endColumn": 270
+                    },
+                    "callSites": [
+                      {
+                        "path": "Program.cs",
+                        "startLine": 1,
+                        "startColumn": 75,
+                        "endLine": 1,
+                        "endColumn": 81
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ]
+}
+stderr:

@@ -24,12 +24,15 @@ mise run build
 dotnet run --project src/Callrift.Cli -- diff
 dotnet run --project src/Callrift.Cli -- diff main HEAD --entry OrdersController.Place
 dotnet run --project src/Callrift.Cli -- diff --staged --format md
+dotnet run --project src/Callrift.Cli -- diff main...HEAD --format json
+dotnet run --project src/Callrift.Cli -- tree --entry OrdersController.Place --locs
+dotnet run --project src/Callrift.Cli -- reach --entry OrdersController.Place --to PricingClient.GetPriceAsync
 ```
 
 The CLI analyzes the current directory's Git repository. To analyze another repository, run the built `callrift.dll` from that repository. With no revisions, it compares HEAD with the working tree; one revision compares that revision with the working tree; two revisions compare each other. `--staged` reads the index. `--entry`, `--file`, `--depth`, `--context`, `--externals`, and `--tests` control the output. Run with `--help` for options.
 
 Source-only analysis reads Git objects without checkout, restore, or build. It binds source calls with BCL references, follows source interface/abstract implementations, nests callbacks under their receiving calls, and preserves branch conditions. Automatic roots come from transitive callers in both revisions. Calls through interfaces are possible targets, and nested callbacks are not proof of execution.
 
-Missing package references remain visible as `?` calls and diagnostics. Use `--diagnostics full` for every diagnostic and `--strict` to fail on reported analysis problems. Single-compilation collisions, project defines, generators, virtual non-abstract dispatch, property/indexer bodies, operators, events, and runtime framework conventions remain limitations. Body edits with no visible edge change are reported explicitly. This output complements the source diff.
+Missing package references remain visible as `?` calls and diagnostics. Use `--diagnostics full` for every diagnostic. JSON explicitly reports partial source-only coverage; `--strict` returns exit 2 for that coverage, even without binding errors. Single-compilation collisions, project defines, generators, virtual non-abstract dispatch, property/indexer bodies, operators, events, and runtime framework conventions remain limitations. Body edits with no visible edge change are reported explicitly. This output complements the source diff.
 
-M1 delivers source-only text and Markdown. M2 adds JSON, locations, tree/reach queries, and merge-base revisions. M3 adds MSBuild analysis; M4 adds distribution and CI. See [DESIGN.md](DESIGN.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
+Source-only text, Markdown, versioned JSON, locations, tree/reach queries, and merge-base revisions are implemented. MSBuild analysis is M3; distribution and CI are M4. See [JSON semantics](docs/json.md), [DESIGN.md](DESIGN.md), and [CONTRIBUTING.md](CONTRIBUTING.md).

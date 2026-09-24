@@ -1,0 +1,349 @@
+﻿exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "<before>",
+    "commit": "<before>",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "<after>",
+    "commit": "<after>",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "source",
+    "status": "partial",
+    "limitations": [
+      "single-compilation",
+      "bcl-references-only",
+      "synthetic-implicit-usings",
+      "no-project-defines-or-generators",
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "callbacks-are-possible-calls"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": false,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "Flow.Run",
+      "detail": null,
+      "before": {
+        "symbolId": "source::Flow.Run()",
+        "signature": "Flow.Run() -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Flow.Run()"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 3,
+          "startColumn": 29,
+          "endLine": 3,
+          "endColumn": 65
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "source::Flow.Run()",
+        "signature": "Flow.Run() -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Flow.Run()"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 3,
+          "startColumn": 29,
+          "endLine": 3,
+          "endColumn": 65
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Worker.Save → Concrete.Save",
+          "detail": null,
+          "before": {
+            "symbolId": "source::Worker.Save(int)",
+            "signature": "Worker.Save(int) -> void",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "source::Concrete.Save(int)"
+            ],
+            "definition": {
+              "path": "Program.cs",
+              "startLine": 1,
+              "startColumn": 25,
+              "endLine": 1,
+              "endColumn": 62
+            },
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 3,
+                "startColumn": 50,
+                "endLine": 3,
+                "endColumn": 64
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Worker.Save(int)",
+            "signature": "Worker.Save(int) -> void",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "source::Concrete.Save(int)"
+            ],
+            "definition": {
+              "path": "Program.cs",
+              "startLine": 1,
+              "startColumn": 25,
+              "endLine": 1,
+              "endColumn": 62
+            },
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 3,
+                "startColumn": 50,
+                "endLine": 3,
+                "endColumn": 64
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [
+            {
+              "id": "n2",
+              "kind": "branch",
+              "change": "unchanged",
+              "label": "if (depth > 0)",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 2,
+                    "startColumn": 66,
+                    "endLine": 2,
+                    "endColumn": 97
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 2,
+                    "startColumn": 66,
+                    "endLine": 2,
+                    "endColumn": 97
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n3",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "Concrete.Save",
+                  "detail": "↺ cycle",
+                  "before": {
+                    "symbolId": "source::Concrete.Save(int)",
+                    "signature": "Concrete.Save(int) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Concrete.Save(int)"
+                    ],
+                    "definition": {
+                      "path": "Program.cs",
+                      "startLine": 2,
+                      "startColumn": 27,
+                      "endLine": 2,
+                      "endColumn": 109
+                    },
+                    "callSites": [
+                      {
+                        "path": "Program.cs",
+                        "startLine": 2,
+                        "startColumn": 81,
+                        "endLine": 2,
+                        "endColumn": 96
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Concrete.Save(int)",
+                    "signature": "Concrete.Save(int) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Concrete.Save(int)"
+                    ],
+                    "definition": {
+                      "path": "Program.cs",
+                      "startLine": 2,
+                      "startColumn": 27,
+                      "endLine": 2,
+                      "endColumn": 108
+                    },
+                    "callSites": [
+                      {
+                        "path": "Program.cs",
+                        "startLine": 2,
+                        "startColumn": 81,
+                        "endLine": 2,
+                        "endColumn": 96
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "cycle",
+                    "symbolId": "source::Concrete.Save(int)",
+                    "referenceId": "n1"
+                  }
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n4",
+              "kind": "call",
+              "change": "removed",
+              "label": "Concrete.Before",
+              "detail": null,
+              "before": {
+                "symbolId": "source::Concrete.Before()",
+                "signature": "Concrete.Before() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Concrete.Before()"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 2,
+                  "startColumn": 110,
+                  "endLine": 2,
+                  "endColumn": 126
+                },
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 2,
+                    "startColumn": 98,
+                    "endLine": 2,
+                    "endColumn": 106
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": null,
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n5",
+              "kind": "call",
+              "change": "added",
+              "label": "Concrete.After",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::Concrete.After()",
+                "signature": "Concrete.After() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Concrete.After()"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 2,
+                  "startColumn": 126,
+                  "endLine": 2,
+                  "endColumn": 141
+                },
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 2,
+                    "startColumn": 98,
+                    "endLine": 2,
+                    "endColumn": 105
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

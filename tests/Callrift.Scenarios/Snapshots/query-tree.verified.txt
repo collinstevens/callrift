@@ -1,0 +1,361 @@
+﻿format: text
+exit: 0
+stdout:
+  OrdersController.Place [Program.cs:7]
+  └─ IOrderService.PlaceAsync → OrderService.PlaceAsync [Program.cs:7]
+     ├─ OrderService.Validate [Program.cs:12]
+     ├─ IAuditLog.RecordAsync → AuditLog.RecordAsync [Program.cs:13]
+     ├─ OrderService.WithTimeout [Program.cs:13]
+     │  └─ IPricingClient.GetPriceAsync → PricingClient.GetPriceAsync [Program.cs:13]
+     ├─ new Order [Program.cs:14]
+     └─ IOrderRepository.SaveAsync → SqlOrderRepository.SaveAsync [Program.cs:15]
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  OrdersController.Place [Program.cs:7]
+  └─ IOrderService.PlaceAsync → OrderService.PlaceAsync [Program.cs:7]
+     ├─ OrderService.Validate [Program.cs:12]
+     ├─ IAuditLog.RecordAsync → AuditLog.RecordAsync [Program.cs:13]
+     ├─ OrderService.WithTimeout [Program.cs:13]
+     │  └─ IPricingClient.GetPriceAsync → PricingClient.GetPriceAsync [Program.cs:13]
+     ├─ new Order [Program.cs:14]
+     └─ IOrderRepository.SaveAsync → SqlOrderRepository.SaveAsync [Program.cs:15]
+```
+stderr:
+
+format: json
+exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "tree",
+  "from": null,
+  "to": {
+    "kind": "workingTree",
+    "ref": null,
+    "commit": null,
+    "contentId": "c6f33d8eb24bda3b78847b1a131b4fe46131d78766c2529e75eee725ed983aaf"
+  },
+  "analysis": {
+    "mode": "source",
+    "status": "partial",
+    "limitations": [
+      "single-compilation",
+      "bcl-references-only",
+      "synthetic-implicit-usings",
+      "no-project-defines-or-generators",
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "callbacks-are-possible-calls"
+    ]
+  },
+  "hasChanges": false,
+  "truncated": false,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "OrdersController.Place",
+      "detail": null,
+      "before": null,
+      "after": {
+        "symbolId": "source::OrdersController.Place(global::OrderRequest)",
+        "signature": "OrdersController.Place(OrderRequest) -> System.Threading.Tasks.Task<Order>",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::OrdersController.Place(global::OrderRequest)"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 7,
+          "startColumn": 48,
+          "endLine": 7,
+          "endColumn": 125
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "IOrderService.PlaceAsync → OrderService.PlaceAsync",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": "source::IOrderService.PlaceAsync(global::OrderRequest)",
+            "signature": "IOrderService.PlaceAsync(OrderRequest) -> System.Threading.Tasks.Task<Order>",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "source::OrderService.PlaceAsync(global::OrderRequest)"
+            ],
+            "definition": {
+              "path": "Program.cs",
+              "startLine": 1,
+              "startColumn": 27,
+              "endLine": 1,
+              "endColumn": 72
+            },
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 7,
+                "startColumn": 98,
+                "endLine": 7,
+                "endColumn": 124
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [
+            {
+              "id": "n2",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "OrderService.Validate",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::OrderService.Validate(global::OrderRequest)",
+                "signature": "OrderService.Validate(OrderRequest) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::OrderService.Validate(global::OrderRequest)"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 18,
+                  "startColumn": 5,
+                  "endLine": 18,
+                  "endColumn": 43
+                },
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 12,
+                    "startColumn": 9,
+                    "endLine": 12,
+                    "endColumn": 26
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n3",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "IAuditLog.RecordAsync → AuditLog.RecordAsync",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::IAuditLog.RecordAsync(global::OrderRequest)",
+                "signature": "IAuditLog.RecordAsync(OrderRequest) -> System.Threading.Tasks.Task",
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "source::AuditLog.RecordAsync(global::OrderRequest)"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 4,
+                  "startColumn": 23,
+                  "endLine": 4,
+                  "endColumn": 62
+                },
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 13,
+                    "startColumn": 15,
+                    "endLine": 13,
+                    "endColumn": 41
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n4",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "OrderService.WithTimeout",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::OrderService.WithTimeout`1(global::System.Func<global::System.Threading.Tasks.Task<T>>)",
+                "signature": "OrderService.WithTimeout<T>(System.Func<System.Threading.Tasks.Task<T>>) -> System.Threading.Tasks.Task<T>",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::OrderService.WithTimeout`1(global::System.Func<global::System.Threading.Tasks.Task<T>>)"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 19,
+                  "startColumn": 5,
+                  "endLine": 19,
+                  "endColumn": 62
+                },
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 13,
+                    "startColumn": 61,
+                    "endLine": 13,
+                    "endColumn": 114
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n5",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "IPricingClient.GetPriceAsync → PricingClient.GetPriceAsync",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::IPricingClient.GetPriceAsync(string)",
+                    "signature": "IPricingClient.GetPriceAsync(string) -> System.Threading.Tasks.Task<decimal>",
+                    "binding": "resolved",
+                    "dispatch": "possible",
+                    "targetIds": [
+                      "source::PricingClient.GetPriceAsync(string)"
+                    ],
+                    "definition": {
+                      "path": "Program.cs",
+                      "startLine": 3,
+                      "startColumn": 28,
+                      "endLine": 3,
+                      "endColumn": 68
+                    },
+                    "callSites": [
+                      {
+                        "path": "Program.cs",
+                        "startLine": 13,
+                        "startColumn": 79,
+                        "endLine": 13,
+                        "endColumn": 113
+                      }
+                    ],
+                    "relation": "callback",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n6",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "new Order",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::Order..ctor(global::OrderRequest,decimal)",
+                "signature": "Order.Order(OrderRequest, decimal)",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Order..ctor(global::OrderRequest,decimal)"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 6,
+                  "startColumn": 1,
+                  "endLine": 6,
+                  "endColumn": 51
+                },
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 14,
+                    "startColumn": 21,
+                    "endLine": 14,
+                    "endColumn": 46
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n7",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "IOrderRepository.SaveAsync → SqlOrderRepository.SaveAsync",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::IOrderRepository.SaveAsync(global::Order)",
+                "signature": "IOrderRepository.SaveAsync(Order) -> System.Threading.Tasks.Task",
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "source::SqlOrderRepository.SaveAsync(global::Order)"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 2,
+                  "startColumn": 30,
+                  "endLine": 2,
+                  "endColumn": 58
+                },
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 15,
+                    "startColumn": 15,
+                    "endLine": 15,
+                    "endColumn": 42
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

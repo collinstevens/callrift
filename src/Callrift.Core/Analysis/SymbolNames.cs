@@ -40,7 +40,8 @@ internal static class SymbolNames
     public static SourceLocation Location(SyntaxNode node)
     {
         var span = node.GetLocation().GetLineSpan();
-        return new SourceLocation(span.Path.Replace('\\', '/'), span.StartLinePosition.Line + 1, span.StartLinePosition.Character + 1);
+        return new SourceLocation(span.Path.Replace('\\', '/'), span.StartLinePosition.Line + 1, span.StartLinePosition.Character + 1,
+            span.EndLinePosition.Line + 1, span.EndLinePosition.Character + 1);
     }
 
     public static string Compact(SyntaxNode node) => string.Join(" ", node.ToString().Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries));

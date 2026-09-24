@@ -29,7 +29,8 @@ public static class TreeDiffer
                 var signatureChanged = left.Key != right.Key || left.Signature != right.Signature;
                 var hiddenBodyChange = (left.BodyChanged || right.BodyChanged) && !children.Any(c => c.HasChanges);
                 result.Add(new DiffNode(right.Key, right.Label, signatureChanged || hiddenBodyChange ? '~' : ' ', children,
-                    signatureChanged ? "signature changed" : right.Detail ?? (hiddenBodyChange ? "body changed; visible calls unchanged" : null)));
+                    signatureChanged ? "signature changed" : right.Detail ?? (hiddenBodyChange ? "body changed; visible calls unchanged" : null))
+                { Kind = right.Kind, Before = left.Side, After = right.Side, Omission = right.Omission });
             }
             else if (oldIndex < before.Count && (newIndex == after.Count || lengths[oldIndex + 1, newIndex] >= lengths[oldIndex, newIndex + 1]))
                 result.Add(Mark(before[oldIndex++], '-'));
@@ -39,5 +40,8 @@ public static class TreeDiffer
         return result;
     }
 
-    private static DiffNode Mark(CallTree tree, char mark) => new(tree.Key, tree.Label, mark, tree.Children.Select(c => Mark(c, mark)).ToArray(), tree.Detail);
+    public static DiffNode Present(CallTree tree) => Mark(tree, ' ');
+
+    private static DiffNode Mark(CallTree tree, char mark) => new(tree.Key, tree.Label, mark, tree.Children.Select(c => Mark(c, mark)).ToArray(), tree.Detail)
+    { Kind = tree.Kind, Before = mark == '-' ? tree.Side : null, After = mark == '-' ? null : tree.Side, Omission = tree.Omission };
 }

@@ -1,0 +1,431 @@
+﻿format: text
+exit: 2
+stdout:
+  Program.cs::<top-level>
+  ├─ new App
+  └─ ? app.MapPost
+     ├─ new Handler
+     └─ Handler.Handle
+-       ├─ Handler.Before
++       └─ Handler.After
+stderr:
+Program.cs:2: unresolved-call: Cannot bind app.MapPost.
+callrift: analysis is partial; inspect JSON coverage and diagnostics.
+
+format: md
+exit: 2
+stdout:
+```diff
+  Program.cs::<top-level>
+  ├─ new App
+  └─ ? app.MapPost
+     ├─ new Handler
+     └─ Handler.Handle
+-       ├─ Handler.Before
++       └─ Handler.After
+```
+stderr:
+Program.cs:2: unresolved-call: Cannot bind app.MapPost.
+callrift: analysis is partial; inspect JSON coverage and diagnostics.
+
+format: json
+exit: 2
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "HEAD^",
+    "commit": "<before>",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "HEAD",
+    "commit": "<after>",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "source",
+    "status": "partial",
+    "limitations": [
+      "single-compilation",
+      "bcl-references-only",
+      "synthetic-implicit-usings",
+      "no-project-defines-or-generators",
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "callbacks-are-possible-calls"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": false,
+  "diagnostics": [
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind app.MapPost.",
+      "location": {
+        "path": "Program.cs",
+        "startLine": 2,
+        "startColumn": 1,
+        "endLine": 2,
+        "endColumn": 53
+      }
+    }
+  ],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "Program.cs::<top-level>",
+      "detail": null,
+      "before": {
+        "symbolId": "source::<top-level>:Program.cs",
+        "signature": "source::<top-level>:Program.cs",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::<top-level>:Program.cs"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 1,
+          "startColumn": 1,
+          "endLine": 1,
+          "endColumn": 21
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "source::<top-level>:Program.cs",
+        "signature": "source::<top-level>:Program.cs",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::<top-level>:Program.cs"
+        ],
+        "definition": {
+          "path": "Program.cs",
+          "startLine": 1,
+          "startColumn": 1,
+          "endLine": 1,
+          "endColumn": 21
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "new App",
+          "detail": null,
+          "before": {
+            "symbolId": "source::App..ctor()",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::App..ctor()"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 1,
+                "startColumn": 11,
+                "endLine": 1,
+                "endColumn": 20
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::App..ctor()",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::App..ctor()"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 1,
+                "startColumn": 11,
+                "endLine": 1,
+                "endColumn": 20
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n2",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "? app.MapPost",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "unresolved",
+            "dispatch": "direct",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 2,
+                "startColumn": 1,
+                "endLine": 2,
+                "endColumn": 53
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "unknown"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "unresolved",
+            "dispatch": "direct",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "Program.cs",
+                "startLine": 2,
+                "startColumn": 1,
+                "endLine": 2,
+                "endColumn": 53
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "unknown"
+          },
+          "children": [
+            {
+              "id": "n3",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "new Handler",
+              "detail": null,
+              "before": {
+                "symbolId": "source::Handler..ctor()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Handler..ctor()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 2,
+                    "startColumn": 30,
+                    "endLine": 2,
+                    "endColumn": 43
+                  }
+                ],
+                "relation": "callback",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "source::Handler..ctor()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Handler..ctor()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 2,
+                    "startColumn": 30,
+                    "endLine": 2,
+                    "endColumn": 43
+                  }
+                ],
+                "relation": "callback",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n4",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Handler.Handle",
+              "detail": null,
+              "before": {
+                "symbolId": "source::Handler.Handle()",
+                "signature": "Handler.Handle() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Handler.Handle()"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 4,
+                  "startColumn": 17,
+                  "endLine": 4,
+                  "endColumn": 51
+                },
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 2,
+                    "startColumn": 30,
+                    "endLine": 2,
+                    "endColumn": 52
+                  }
+                ],
+                "relation": "callback",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "source::Handler.Handle()",
+                "signature": "Handler.Handle() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Handler.Handle()"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 4,
+                  "startColumn": 17,
+                  "endLine": 4,
+                  "endColumn": 50
+                },
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 2,
+                    "startColumn": 30,
+                    "endLine": 2,
+                    "endColumn": 52
+                  }
+                ],
+                "relation": "callback",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n5",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "Handler.Before",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "source::Handler.Before()",
+                    "signature": "Handler.Before() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Handler.Before()"
+                    ],
+                    "definition": {
+                      "path": "Program.cs",
+                      "startLine": 4,
+                      "startColumn": 52,
+                      "endLine": 4,
+                      "endColumn": 68
+                    },
+                    "callSites": [
+                      {
+                        "path": "Program.cs",
+                        "startLine": 4,
+                        "startColumn": 40,
+                        "endLine": 4,
+                        "endColumn": 48
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n6",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "Handler.After",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::Handler.After()",
+                    "signature": "Handler.After() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Handler.After()"
+                    ],
+                    "definition": {
+                      "path": "Program.cs",
+                      "startLine": 4,
+                      "startColumn": 68,
+                      "endLine": 4,
+                      "endColumn": 83
+                    },
+                    "callSites": [
+                      {
+                        "path": "Program.cs",
+                        "startLine": 4,
+                        "startColumn": 40,
+                        "endLine": 4,
+                        "endColumn": 47
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:
+Program.cs:2: unresolved-call: Cannot bind app.MapPost.
+callrift: analysis is partial; inspect JSON coverage and diagnostics.
