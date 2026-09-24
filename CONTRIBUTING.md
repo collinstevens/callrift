@@ -16,7 +16,7 @@ The implementation targets .NET 11 with SDK `11.0.100-rc.1.26425.128`. mise also
 
 The repository enables mise's [tool-path precedence](https://mise.jdx.dev/configuration/settings.html#activate_aggressive). Child processes, including benchmark workers, use the managed SDK even when a system installation is earlier in the inherited PATH.
 
-Scenario tests create temporary Git repositories and signed before/after commits. Configure your Git identity and signing key first. Tests inspect those settings and fail if signing fails. Never disable signing or accept unsigned fixture commits. CI provisions a temporary fixture signing identity through `.github/scripts/Initialize-TestSigning.ps1`.
+Scenario tests create temporary Git repositories with before/after commits. Local runs inspect your Git identity and signing configuration and sign fixture commits with your configured key. GitHub Actions uses unsigned temporary fixture commits and initializes only a test identity through `.github/scripts/Initialize-TestGit.ps1`.
 
 Run real-history snapshots with `mise run corpus`. They clone the manifest's repositories without checkout into the user cache; set `CALLRIFT_CORPUS_CACHE` to override its location. Do not vendor corpus source. Review each text/Markdown and JSON snapshot against the scenario description or `git show` for its pinned commit before promoting a received file. Record corpus review reasoning under `corpus/reviews/`. Never bulk-accept unread snapshots.
 

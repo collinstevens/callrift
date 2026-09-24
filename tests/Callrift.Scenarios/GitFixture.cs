@@ -7,6 +7,8 @@ namespace Callrift.Scenarios;
 
 public sealed class GitFixture : IAsyncDisposable
 {
+    private static bool IsGitHubActions => string.Equals(Environment.GetEnvironmentVariable("GITHUB_ACTIONS"), "true", StringComparison.OrdinalIgnoreCase);
+
     public string Directory { get; } = Path.Combine(Path.GetTempPath(), "callrift-fixture-" + Guid.NewGuid().ToString("N"));
     public string WorkspaceCache { get; } = Path.Combine(Path.GetTempPath(), "callrift-workspace-fixture-" + Guid.NewGuid().ToString("N"));
     public string Before { get; private set; } = "";
@@ -21,15 +23,18 @@ public sealed class GitFixture : IAsyncDisposable
             await fixture.Git("init", "--initial-branch=main");
             await fixture.Git("var", "GIT_AUTHOR_IDENT");
             await fixture.Git("var", "GIT_COMMITTER_IDENT");
-            await fixture.Git("config", "--get", "user.signingkey");
-            await fixture.Git("config", "--get-regexp", "^(user\\.|commit\\.gpgsign|gpg\\.)");
+            if (!IsGitHubActions)
+            {
+                await fixture.Git("config", "--get", "user.signingkey");
+                await fixture.Git("config", "--get-regexp", "^(user\\.|commit\\.gpgsign|gpg\\.)");
+            }
             await fixture.WriteAsync(scenario.Before);
             await fixture.Git("add", ".");
-            await fixture.Git("commit", "-S", "-m", "test: create before fixture");
+            await fixture.CommitAsync("test: create before fixture");
             fixture.Before = (await fixture.Git("rev-parse", "HEAD")).Trim();
             await fixture.WriteAsync(scenario.After);
             await fixture.Git("add", ".");
-            await fixture.Git("commit", "-S", "-m", "test: create after fixture");
+            await fixture.CommitAsync("test: create after fixture");
             fixture.After = (await fixture.Git("rev-parse", "HEAD")).Trim();
             return fixture;
         }
@@ -51,6 +56,8 @@ public sealed class GitFixture : IAsyncDisposable
     }
 
     public Task<string> Git(params string[] arguments) => GitRepository.RunAsync(Directory, arguments);
+
+    public Task<string> CommitAsync(string message) => Git("commit", IsGitHubActions ? "--no-gpg-sign" : "-S", "-m", message);
 
     public async Task<string> RunAsync(params string[] arguments)
     {

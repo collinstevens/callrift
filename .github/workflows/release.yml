@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: jdx/mise-action@v3
-      - run: ./.github/scripts/Initialize-TestSigning.ps1
+      - run: ./.github/scripts/Initialize-TestGit.ps1
       - run: dotnet restore callrift.slnx --locked-mode
       - run: dotnet test callrift.slnx --no-restore
       - run: |

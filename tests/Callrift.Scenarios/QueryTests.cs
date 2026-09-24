@@ -39,7 +39,7 @@ public sealed class QueryTests
         await fixture.Git("checkout", "-b", "mainline", fixture.Before);
         await fixture.WriteAsync(new Dictionary<string, string> { ["Unrelated.cs"] = "class Unrelated { public void Run() {} }" });
         await fixture.Git("add", ".");
-        await fixture.Git("commit", "-S", "-m", "test: diverge mainline");
+        await fixture.CommitAsync("test: diverge mainline");
         var text = await fixture.RunAsync("diff", "mainline...feature");
         var json = await fixture.RunAsync("diff", "mainline...feature", "--format", "json");
         await Verifier.Verify((text + "\n" + json).Replace(fixture.Before, "<before>", StringComparison.Ordinal).Replace(fixture.After, "<after>", StringComparison.Ordinal))

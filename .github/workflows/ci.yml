@@ -40,7 +40,7 @@ jobs:
         with:
           path: .cache/corpus
           key: corpus-${{ runner.os }}-${{ hashFiles('corpus/manifest.json') }}
-      - run: ./.github/scripts/Initialize-TestSigning.ps1
+      - run: ./.github/scripts/Initialize-TestGit.ps1
       - run: dotnet restore callrift.slnx --locked-mode
       - run: dotnet build callrift.slnx --no-restore
       - run: dotnet test callrift.slnx --no-build --logger trx

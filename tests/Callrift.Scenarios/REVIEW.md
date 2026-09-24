@@ -1,6 +1,6 @@
 # M1 scenario review
 
-Each accepted snapshot was read against its description and the before/after source in `ScenarioCatalog`. Text and Markdown, stderr, and exit status share one artifact per case. Fixture commits use the configured signing identity. No fixture source is derived from the analysis output.
+Each accepted snapshot was read against its description and the before/after source in `ScenarioCatalog`. Text and Markdown, stderr, and exit status share one artifact per case. Local fixture commits use the configured signing identity; GitHub Actions creates unsigned temporary fixture commits. No fixture source is derived from the analysis output.
 
 | Scenario | Checked behavior |
 |---|---|

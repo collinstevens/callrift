@@ -8,6 +8,6 @@ Repository creation, pushes, and the first NuGet publication need the owner's ap
 
 Before accepting the first outside contribution, finalize the legal copyright holder and contributor assignment agreement, configure CLA Assistant, and make its check required by branch protection. The local contribution policy already blocks outside merges until those steps are complete. Configure conventional PR titles for squash merges and require the three-platform CI checks.
 
-CI provisions a temporary SSH signing key for synthetic fixture commits. It inspects effective signing settings through the fixture harness and fails on signing errors. It does not configure signature verification or use the maintainer's private key.
+CI uses unsigned commits in temporary fixture repositories. The fixture setup configures a test Git identity and requires no signing key. Repository commits remain signed with the maintainer's configured key.
 
 The scheduled crash sweep records failures and timings without creating snapshots. The benchmark workflow uploads full BenchmarkDotNet exports and flags generous time/allocation thresholds as warnings. Hosted runners differ from the recorded development machine; investigate a warning with same-machine measurements before calling it a regression.
