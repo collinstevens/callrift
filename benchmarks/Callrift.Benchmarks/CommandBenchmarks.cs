@@ -40,7 +40,15 @@ public class CommandBenchmarks
     }
 
     [Benchmark]
-    public async Task<int> FreshProcessCommand()
+    public Task<int> FreshProcessCommand() => FreshProcessAsync(arguments);
+
+    [Benchmark]
+    public Task<int> FreshProcessTreeCommand() => FreshProcessAsync(["tree", revision, "--entry", "MessageTemplateParser.ParsePropertyToken"]);
+
+    [Benchmark]
+    public Task<int> FreshProcessReachCommand() => FreshProcessAsync(["reach", revision, "--entry", "MessageTemplateParser.ParsePropertyToken", "--to", "new TextToken"]);
+
+    private async Task<int> FreshProcessAsync(string[] args)
     {
         var start = new ProcessStartInfo("dotnet")
         {
@@ -51,7 +59,7 @@ public class CommandBenchmarks
             CreateNoWindow = true
         };
         start.ArgumentList.Add(typeof(CommandRunner).Assembly.Location);
-        foreach (var argument in arguments) start.ArgumentList.Add(argument);
+        foreach (var argument in args) start.ArgumentList.Add(argument);
         using var process = Process.Start(start)!;
         var output = process.StandardOutput.ReadToEndAsync();
         var error = process.StandardError.ReadToEndAsync();

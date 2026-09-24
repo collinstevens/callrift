@@ -3,7 +3,11 @@
     <OutputType>Exe</OutputType>
     <AssemblyName>callrift</AssemblyName>
     <RootNamespace>Callrift.Cli</RootNamespace>
-    <IsPackable>false</IsPackable>
+    <IsPackable>true</IsPackable>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>callrift</ToolCommandName>
+    <PackageId>callrift</PackageId>
+    <Description>Semantic C# call stack diffs for code review, PR descriptions, and agents.</Description>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../Callrift.Core/Callrift.Core.csproj" />
@@ -13,7 +17,7 @@
   <Target Name="IncludeWorkspaceWorker" BeforeTargets="GetCopyToOutputDirectoryItems">
     <ItemGroup>
       <WorkspaceWorkerFile Include="../Callrift.MSBuild/bin/$(Configuration)/$(TargetFramework)/**/*" />
-      <ContentWithTargetPath Include="@(WorkspaceWorkerFile)" CopyToOutputDirectory="PreserveNewest" TargetPath="msbuild/%(WorkspaceWorkerFile.RecursiveDir)%(WorkspaceWorkerFile.Filename)%(WorkspaceWorkerFile.Extension)" />
+      <ContentWithTargetPath Include="@(WorkspaceWorkerFile)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" TargetPath="msbuild/%(WorkspaceWorkerFile.RecursiveDir)%(WorkspaceWorkerFile.Filename)%(WorkspaceWorkerFile.Extension)" />
     </ItemGroup>
   </Target>
 </Project>

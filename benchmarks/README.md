@@ -20,4 +20,8 @@ M2 adds JSON rendering and tree/reach query floors. On the same workload and env
 
 M3 adds [workspace measurements](baselines/m3-windows-workspaces.json) on the same pinned Serilog change, targeting its `net10.0` project. Capturing all project files costs 153 ms. Materialization, worker startup, workspace opening, generators, binding, and collection together cost 2.87 s for one revision. Accurate diff/tree/reach measure 3.32/3.10/3.11 s with restored caches. Restore and network fetches occur in setup. Allocations cover the parent process only; the worker heap is excluded. These aggregate workspace measurements are not isolated floors for workspace opening or generators.
 
-Medium/large workloads, fresh-process source tree/reach measurements, finer workspace-stage floors, cold restore measurements, and automated regression thresholds remain follow-up work. The prototype's 30 seconds for about 5,000 files has not been reproduced by this small workload.
+M4 adds fresh-process tree/reach measurements and refreshes the [command baseline](baselines/m4-windows-commands.json). Warm diff/tree/reach measure 655/475/493 ms; fresh-process commands measure 1.26/1.06/1.07 s. Compared with M2, matching means are 1.04–1.08x and allocations 0.98–1.03x. ShortRun's error intervals are wide; these results do not establish a performance regression or improvement.
+
+The scheduled benchmark workflow flags time above 2x or allocations above 1.5x the checked-in baseline. Warnings request review rather than failing on different hosted hardware. Exported measurements remain artifacts for investigation.
+
+Medium/large workloads, finer workspace-stage floors, and cold restore measurements remain follow-up work. The prototype's 30 seconds for about 5,000 files has not been reproduced by this small workload.

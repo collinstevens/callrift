@@ -6,6 +6,8 @@ For each expression-based package, the table records its nuspec license expressi
 
 Package locks preserve the inspected versions. Recheck the complete closure when changing them, including build, test, and benchmark dependencies. The audit covers NuGet code dependencies; it does not imply that source being analyzed becomes part of Callrift.
 
+The packaging scripts use mise-managed PowerShell 7.6.6; workflow validation uses actionlint 1.7.12. Both upstream repositories declare MIT. Runtime dependency notices are included under `third-party/` in both packages; the Humanizer notice is taken from the exact package repository commit `3ebc38de585fc641a04b0e78ed69468453b0f8a1`.
+
 | Package/version | Declared license |
 |---|---|
 | Argon/0.33.5 | MIT |

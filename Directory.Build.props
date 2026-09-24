@@ -8,5 +8,13 @@
     <LangVersion>14.0</LangVersion>
     <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <Version>0.1.0-preview.1</Version>
+    <Authors>Collin Stevens</Authors>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="/" />
+    <None Include="$(MSBuildThisFileDirectory)LICENSE" Pack="true" PackagePath="/" />
+    <None Include="$(MSBuildThisFileDirectory)third-party/**/*" Pack="true" PackagePath="third-party/%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
 </Project>

@@ -1,0 +1,56 @@
+name: CI
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  title:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v3
+      - shell: pwsh
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          $message = Join-Path $env:RUNNER_TEMP 'pr-title.txt'
+          [IO.File]::WriteAllText($message, $env:PR_TITLE)
+          hk util check-conventional-commit $message
+          if ($LASTEXITCODE -ne 0) { throw 'Use a conventional commit title for the squash merge.' }
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      CALLRIFT_CORPUS_CACHE: ${{ github.workspace }}/.cache/corpus
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v3
+      - uses: actions/cache@v4
+        with:
+          path: .cache/corpus
+          key: corpus-${{ runner.os }}-${{ hashFiles('corpus/manifest.json') }}
+      - run: ./.github/scripts/Initialize-TestSigning.ps1
+      - run: dotnet restore callrift.slnx --locked-mode
+      - run: dotnet build callrift.slnx --no-restore
+      - run: dotnet test callrift.slnx --no-build --logger trx
+      - run: mise run check
+      - run: mise run workflows
+      - run: ./scripts/Package-Smoke.ps1
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagnostics-${{ runner.os }}
+          path: |
+            **/TestResults/*.trx
+            **/*.received.*

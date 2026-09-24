@@ -14,11 +14,13 @@ hk enforces EditorConfig and .NET formatting before commits, conventional commit
 
 The repository enables mise's [tool-path precedence](https://mise.jdx.dev/configuration/settings.html#activate_aggressive). Child processes, including benchmark workers, use the managed SDK even when a system installation is earlier in the inherited PATH.
 
-Scenario tests create temporary Git repositories and signed before/after commits. Configure your Git identity and signing key first. Tests inspect those settings and fail if signing fails. Never disable signing or accept unsigned fixture commits. A CI fixture signing identity must be provisioned before enabling these tests there.
+Scenario tests create temporary Git repositories and signed before/after commits. Configure your Git identity and signing key first. Tests inspect those settings and fail if signing fails. Never disable signing or accept unsigned fixture commits. CI provisions a temporary fixture signing identity through `.github/scripts/Initialize-TestSigning.ps1`.
 
 Run real-history snapshots with `mise run corpus`. They clone the manifest's repositories without checkout into the user cache; set `CALLRIFT_CORPUS_CACHE` to override its location. Do not vendor corpus source. Review each text/Markdown and JSON snapshot against the scenario description or `git show` for its pinned commit before promoting a received file. Record corpus review reasoning under `corpus/reviews/`. Never bulk-accept unread snapshots.
 
 Run `mise run benchmark -- --filter '*FloorBenchmarks*' --job short` for the initial floor suite. Performance claims require comparable before/after results and allocation measurements. Keep timing data outside snapshots.
+
+Run `mise run workspaces` for restored project and generator checks, `mise run pack` for installation checks, and `mise run sweep` for a crash sweep over recent corpus history. MSBuild checks restore packages and execute project targets and generators. The checked-in CI matrix runs on Ubuntu, Windows, and macOS; remote runs begin after the repository is published.
 
 All contributions require an approved contributor agreement before merge. The agreement and legal copyright holder are not finalized yet. Outside contributions must wait for that agreement and a required CLA Assistant check. The agreement must explicitly address copyright assignment if the project retains the proposed single-holder policy; a general contribution license alone does not do that.
 

@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 if (args.Length == 0)
 {
-    Console.Error.WriteLine("Usage: corpus prepare | candidates REPOSITORY [LIMIT]");
+    Console.Error.WriteLine("Usage: corpus prepare | candidates REPOSITORY [LIMIT] | sweep [LIMIT]");
     return 2;
 }
 if (args[0] == "prepare")
@@ -15,6 +15,8 @@ if (args[0] == "prepare")
         Console.WriteLine(await CorpusStore.PrepareAsync(entry));
     return 0;
 }
+if (args[0] == "sweep")
+    return await CrashSweep.RunAsync(args.Length > 1 ? int.Parse(args[1], System.Globalization.CultureInfo.InvariantCulture) : 30);
 if (args[0] != "candidates" || args.Length < 2)
     return 2;
 var repo = await GitRepository.OpenAsync(args[1]);

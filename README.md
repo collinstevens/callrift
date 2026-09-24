@@ -16,21 +16,37 @@ See how C# changes rewire your code. Callrift uses Roslyn to compare calls acros
 
 Inspired by [calldiff](https://github.com/tanishqkancharla/calldiff). Callrift is an independent project and is not affiliated with calldiff.
 
-The project is in development. NuGet installation and `dnx` distribution are planned for M4. For now:
+Callrift targets .NET 10 LTS. Packages have been built and tested locally; no public NuGet release exists yet. Build and install from this checkout:
 
 ```sh
 mise install
-mise run build
-dotnet run --project src/Callrift.Cli -- diff
-dotnet run --project src/Callrift.Cli -- diff main HEAD --entry OrdersController.Place
-dotnet run --project src/Callrift.Cli -- diff --staged --format md
-dotnet run --project src/Callrift.Cli -- diff main...HEAD --format json
-dotnet run --project src/Callrift.Cli -- tree --entry OrdersController.Place --locs
-dotnet run --project src/Callrift.Cli -- reach --entry OrdersController.Place --to PricingClient.GetPriceAsync
-dotnet run --project src/Callrift.Cli -- diff main...HEAD --solution App.slnx --framework net10.0
+mise run pack
+dotnet tool install --global callrift --version 0.1.0-preview.1 --source ./artifacts/packages
 ```
 
-The CLI analyzes the current directory's Git repository. To analyze another repository, run the built `callrift.dll` from that repository. With no revisions, it compares HEAD with the working tree; one revision compares that revision with the working tree; two revisions compare each other. `--staged` reads the index. `--entry`, `--file`, `--depth`, `--context`, `--externals`, and `--tests` control the output. Run with `--help` for options.
+After a public release, installation will be `dotnet tool install --global callrift --prerelease`, or one-shot execution with `dnx callrift@0.1.0-preview.1 -- diff main...HEAD`. Local one-shot execution accepts `--source ./artifacts/packages` before `--`.
+
+Run from the repository you want to analyze:
+
+```sh
+callrift
+callrift diff main HEAD --entry OrdersController.Place
+callrift diff --staged --format md
+callrift diff main...HEAD --format json
+callrift tree --entry OrdersController.Place --locs
+callrift reach --entry OrdersController.Place --to PricingClient.GetPriceAsync
+callrift diff main...HEAD --solution App.slnx --framework net10.0
+```
+
+| Selection | Comparison |
+|---|---|
+| No revisions | HEAD → working tree |
+| One revision | revision → working tree |
+| Two revisions | first → second |
+| `main...HEAD` | merge base → HEAD |
+| `--staged` | HEAD → index |
+
+`--entry` selects an exact key, label, or unique suffix. Ambiguous names produce an error. `--file` selects member definitions; paths after `--` restrict changed members used to select affected roots. `--depth` defaults to 6 and `--context` to 2 unchanged siblings. `--externals` reveals metadata calls and `--tests` includes test projects. Output is deterministic text, fenced Markdown (`md`), or versioned JSON; text uses ANSI colors on a terminal. Run `callrift --help` for all options.
 
 Source-only analysis reads Git objects without checkout, restore, or build. It binds source calls with BCL references, follows source interface/abstract implementations, nests callbacks under their receiving calls, and preserves branch conditions. Automatic roots come from transitive callers in both revisions. Calls through interfaces are possible targets, and nested callbacks are not proof of execution.
 
@@ -38,4 +54,19 @@ Missing package references remain visible as `?` calls and diagnostics. Use `--d
 
 MSBuild mode uses restored per-project compilations, defines, and generated sources. It materializes revisions into an external cache and requires an installed compatible SDK. See [MSBuild analysis](docs/msbuild.md) for cache behavior and remaining coverage limits.
 
-Text, Markdown, versioned JSON, locations, tree/reach queries, merge-base revisions, and MSBuild analysis are implemented. Distribution and CI are M4. See [JSON semantics](docs/json.md), [DESIGN.md](DESIGN.md), and [CONTRIBUTING.md](CONTRIBUTING.md).
+The reusable `Callrift.Core` package exposes the same source-only engine:
+
+```csharp
+using Callrift.Core;
+
+var result = await new CallriftService().DiffAsync(
+    new DiffRequest(repositoryPath, "main", "HEAD")
+    {
+        Options = new DiffOptions { Entries = ["OrdersController.Place"] }
+    });
+Console.WriteLine(JsonRenderer.Render(result));
+```
+
+The suite includes 28 feature scenarios, command/revision checks, ten pinned real-history changes, and workspace/package/generator checks. Snapshots are reviewed against their source changes. BenchmarkDotNet baselines cover source stages and commands plus restored workspace operations on a small Serilog workload. Large-repository performance and finer workspace-stage floors are still unmeasured; the prototype's reported 30 seconds is not a Callrift measurement.
+
+See [JSON semantics](docs/json.md), [benchmarks](benchmarks/README.md), [release procedure](docs/releasing.md), [DESIGN.md](DESIGN.md), and [CONTRIBUTING.md](CONTRIBUTING.md).

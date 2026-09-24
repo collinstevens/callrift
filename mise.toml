@@ -4,6 +4,8 @@ activate_aggressive = true
 [tools]
 dotnet = "10.0.303"
 hk = "2.1.0"
+powershell = "7.6.6"
+actionlint = "1.7.12"
 "github:editorconfig-checker/editorconfig-checker" = "4.0.2"
 
 [tasks.check]
@@ -41,3 +43,15 @@ run = "dotnet run -c Release --project benchmarks/Callrift.Benchmarks --"
 [tasks.format]
 description = "Apply .NET formatting"
 run = "dotnet format callrift.slnx"
+
+[tasks.pack]
+description = "Pack and exercise local tool installation and dnx"
+run = "pwsh -NoProfile -File scripts/Package-Smoke.ps1"
+
+[tasks.sweep]
+description = "Analyze recent corpus history and record crashes and timings"
+run = "dotnet run -c Release --project tools/Callrift.Corpus -- sweep"
+
+[tasks.workflows]
+description = "Validate GitHub Actions workflows"
+run = "actionlint"

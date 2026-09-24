@@ -1,0 +1,30 @@
+name: Corpus crash sweep
+on:
+  schedule:
+    - cron: '23 5 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      CALLRIFT_CORPUS_CACHE: ${{ github.workspace }}/.cache/corpus
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v3
+      - uses: actions/cache@v4
+        with:
+          path: .cache/corpus
+          key: sweep-${{ runner.os }}-${{ hashFiles('corpus/manifest.json') }}
+      - shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts | Out-Null
+          dotnet run -c Release --project tools/Callrift.Corpus -- sweep 30 > artifacts/sweep.jsonl
+          if ($LASTEXITCODE -ne 0) { throw 'Crash sweep failed; inspect the artifact.' }
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: corpus-sweep
+          path: artifacts/sweep.jsonl

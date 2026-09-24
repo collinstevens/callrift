@@ -1,0 +1,55 @@
+name: Release packages
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Package version
+        required: true
+        default: 0.1.0-preview.1
+      publish:
+        description: Publish the reviewed packages to NuGet
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v3
+      - run: ./.github/scripts/Initialize-TestSigning.ps1
+      - run: dotnet restore callrift.slnx --locked-mode
+      - run: dotnet test callrift.slnx --no-restore
+      - run: |
+          if ($env:PACKAGE_VERSION -notmatch '^\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$') { throw 'Invalid version.' }
+          ./scripts/Package-Smoke.ps1 -Version $env:PACKAGE_VERSION
+        env:
+          PACKAGE_VERSION: ${{ inputs.version }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: artifacts/packages/*.nupkg
+  publish:
+    if: inputs.publish
+    needs: package
+    runs-on: ubuntu-latest
+    environment: nuget
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v3
+      - uses: actions/download-artifact@v4
+        with:
+          name: packages
+          path: artifacts/packages
+      - shell: pwsh
+        run: |
+          Get-ChildItem artifacts/packages/*.nupkg | ForEach-Object {
+              dotnet nuget push $_.FullName --source https://api.nuget.org/v3/index.json --api-key $env:NUGET_API_KEY
+              if ($LASTEXITCODE -ne 0) { throw 'Package publication failed.' }
+          }
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
