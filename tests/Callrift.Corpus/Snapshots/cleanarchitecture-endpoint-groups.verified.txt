@@ -1,0 +1,53 @@
+﻿format: text
+exit: 0
+stdout:
+  TodoItems.Map
++ ├─ ? groupBuilder.RequireAuthorization
+  ├─ ? groupBuilder.MapGet
+- ├─ ? groupBuilder.MapGet(GetTodoItemsWithPagination).RequireAuthorization
+  ├─ ? groupBuilder.MapPost
+- ├─ ? groupBuilder.MapPost(CreateTodoItem).RequireAuthorization
+  ├─ ? groupBuilder.MapPut
+- ├─ ? groupBuilder.MapPut(UpdateTodoItem, "{id}").RequireAuthorization
+  ├─ ? groupBuilder.MapPatch
+- ├─ ? groupBuilder.MapPatch(UpdateTodoItemDetail, "UpdateDetail/{id}").RequireAuthorization
+  ├─ ? groupBuilder.MapDelete
+- └─ ? groupBuilder.MapDelete(DeleteTodoItem, "{id}").RequireAuthorization
+stderr:
+src/AppHost/Program.cs:3: unresolved-call: Cannot bind DistributedApplication.CreateBuilder.
+src/AppHost/Program.cs:13: unresolved-call: Cannot bind builder .AddSqlite.
+src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>(Services.WebApi) .WithReference(databaseServer) .WaitFor(databaseServer) .WithUrlForEndpoint.
+src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>(Services.WebApi) .WithReference(databaseServer) .WaitFor.
+src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>(Services.WebApi) .WithReference.
+src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>.
+src/AppHost/Program.cs:26: unresolved-call: Cannot bind builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp") .WithRunScript("start") .WithReference(web) .WaitFor(web) .WithHttpEndpoint(env: "PORT") .WithExternalHttpEndpoints() .PublishAsDockerFile.
+src/AppHost/Program.cs:26: unresolved-call: Cannot bind builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp") .WithRunScript("start") .WithReference(web) .WaitFor(web) .WithHttpEndpoint(env: "PORT") .WithExternalHttpEndpoints.
+392 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  TodoItems.Map
++ ├─ ? groupBuilder.RequireAuthorization
+  ├─ ? groupBuilder.MapGet
+- ├─ ? groupBuilder.MapGet(GetTodoItemsWithPagination).RequireAuthorization
+  ├─ ? groupBuilder.MapPost
+- ├─ ? groupBuilder.MapPost(CreateTodoItem).RequireAuthorization
+  ├─ ? groupBuilder.MapPut
+- ├─ ? groupBuilder.MapPut(UpdateTodoItem, "{id}").RequireAuthorization
+  ├─ ? groupBuilder.MapPatch
+- ├─ ? groupBuilder.MapPatch(UpdateTodoItemDetail, "UpdateDetail/{id}").RequireAuthorization
+  ├─ ? groupBuilder.MapDelete
+- └─ ? groupBuilder.MapDelete(DeleteTodoItem, "{id}").RequireAuthorization
+```
+stderr:
+src/AppHost/Program.cs:3: unresolved-call: Cannot bind DistributedApplication.CreateBuilder.
+src/AppHost/Program.cs:13: unresolved-call: Cannot bind builder .AddSqlite.
+src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>(Services.WebApi) .WithReference(databaseServer) .WaitFor(databaseServer) .WithUrlForEndpoint.
+src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>(Services.WebApi) .WithReference(databaseServer) .WaitFor.
+src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>(Services.WebApi) .WithReference.
+src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>.
+src/AppHost/Program.cs:26: unresolved-call: Cannot bind builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp") .WithRunScript("start") .WithReference(web) .WaitFor(web) .WithHttpEndpoint(env: "PORT") .WithExternalHttpEndpoints() .PublishAsDockerFile.
+src/AppHost/Program.cs:26: unresolved-call: Cannot bind builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp") .WithRunScript("start") .WithReference(web) .WaitFor(web) .WithHttpEndpoint(env: "PORT") .WithExternalHttpEndpoints.
+392 additional diagnostics; use --diagnostics full.

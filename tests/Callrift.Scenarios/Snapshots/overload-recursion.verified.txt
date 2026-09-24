@@ -1,0 +1,22 @@
+﻿Calling a different overload must not be marked as recursion.
+
+exit: 0
+stdout:
+  Flow.Run
+  └─ Flow.Save
+     └─ Flow.Save
+-       ├─ Flow.Before
++       └─ Flow.After
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Flow.Run
+  └─ Flow.Save
+     └─ Flow.Save
+-       ├─ Flow.Before
++       └─ Flow.After
+```
+stderr:

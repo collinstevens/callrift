@@ -1,0 +1,22 @@
+﻿Parameterless generic methods with different arities remain distinct symbols.
+
+exit: 0
+stdout:
+  Flow.Start
+  ├─ Flow.Run
+- │  ├─ Flow.Before
++ │  └─ Flow.After
+  └─ Flow.Run
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Flow.Start
+  ├─ Flow.Run
+- │  ├─ Flow.Before
++ │  └─ Flow.After
+  └─ Flow.Run
+```
+stderr:

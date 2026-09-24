@@ -1,0 +1,179 @@
+[
+  {
+    "id": "serilog-alignment-guard",
+    "repository": "https://github.com/serilog/serilog.git",
+    "cacheName": "serilog",
+    "license": "Apache-2.0",
+    "licenseFile": "LICENSE",
+    "before": "49b5339ce85385dc52d4d8e8f2b8308becf23506",
+    "after": "bebc7719004f76187ae72e64ce138ec2540f2070",
+    "reason": "Guard int.MinValue before alignment processing",
+    "tags": [
+      "branch-guard"
+    ],
+    "options": [
+      "--entry",
+      "MessageTemplateParser.ParsePropertyToken"
+    ],
+    "knownIssue": "issues/source-only-coverage.md"
+  },
+  {
+    "id": "serilog-null-key",
+    "repository": "https://github.com/serilog/serilog.git",
+    "cacheName": "serilog",
+    "license": "Apache-2.0",
+    "licenseFile": "LICENSE",
+    "before": "60935b4d7abad71cf6157b45a10f5c3c65ead527",
+    "after": "6c3fbcf636b0671bbd6f5032b61a2254937d8408",
+    "reason": "Move key serialization under a non-null branch",
+    "tags": [
+      "branch-guard"
+    ],
+    "options": [
+      "--entry",
+      "JsonValueFormatter.VisitDictionaryValue"
+    ],
+    "knownIssue": "issues/source-only-coverage.md"
+  },
+  {
+    "id": "serilog-extra-arguments",
+    "repository": "https://github.com/serilog/serilog.git",
+    "cacheName": "serilog",
+    "license": "Apache-2.0",
+    "licenseFile": "LICENSE",
+    "before": "0597ddfbd4ec594d9c42edd745fe728a2198bad9",
+    "after": "60935b4d7abad71cf6157b45a10f5c3c65ead527",
+    "reason": "Add SelfLog call for surplus template arguments",
+    "tags": [
+      "branch-guard"
+    ],
+    "options": [
+      "--entry",
+      "PropertyBinder.ConstructNamedProperties"
+    ],
+    "knownIssue": "issues/source-only-coverage.md"
+  },
+  {
+    "id": "serilog-allocation",
+    "repository": "https://github.com/serilog/serilog.git",
+    "cacheName": "serilog",
+    "license": "Apache-2.0",
+    "licenseFile": "LICENSE",
+    "before": "078de1e9fb493e08875ffd65f03633b87ab2ebfa",
+    "after": "2fd949edc849f2b1e82e26eba78e2d650d5a592b",
+    "reason": "Remove an allocation without changing visible calls",
+    "tags": [
+      "body-only"
+    ],
+    "options": [
+      "--entry",
+      "MessageTemplateParser.ParseTextToken"
+    ],
+    "knownIssue": "issues/source-only-coverage.md"
+  },
+  {
+    "id": "serilog-exception-format",
+    "repository": "https://github.com/serilog/serilog.git",
+    "cacheName": "serilog",
+    "license": "Apache-2.0",
+    "licenseFile": "LICENSE",
+    "before": "e378f333b555c42f8530bb8d1ef1b8dfb8740d83",
+    "after": "078de1e9fb493e08875ffd65f03633b87ab2ebfa",
+    "reason": "Protect exception formatting with try/catch",
+    "tags": [
+      "branch-guard"
+    ],
+    "options": [
+      "--entry",
+      "MessageTemplateTextFormatter.Format"
+    ],
+    "knownIssue": "issues/source-only-coverage.md"
+  },
+  {
+    "id": "cleanarchitecture-endpoint-groups",
+    "repository": "https://github.com/jasontaylordev/CleanArchitecture.git",
+    "cacheName": "cleanarchitecture",
+    "license": "MIT",
+    "licenseFile": "LICENSE",
+    "before": "f5ceb68cfdbc5ec1b884834a3c7e6eb115b4e196",
+    "after": "ec549a4f2a5fd38cadb92bce67304acd41f84982",
+    "reason": "Move authorization from individual endpoints to the group",
+    "tags": [
+      "minimal-api"
+    ],
+    "options": [
+      "--entry",
+      "TodoItems.Map"
+    ],
+    "knownIssue": "issues/source-only-coverage.md"
+  },
+  {
+    "id": "cleanarchitecture-logging-di",
+    "repository": "https://github.com/jasontaylordev/CleanArchitecture.git",
+    "cacheName": "cleanarchitecture",
+    "license": "MIT",
+    "licenseFile": "LICENSE",
+    "before": "bb4f72ab83c5f6a3c6514a7d60a728d19f68c46f",
+    "after": "77f97d9e0c20e8ca8df36881671d8e9a82be2151",
+    "reason": "Register logging preprocessor and switch generic behavior registrations",
+    "tags": [
+      "di"
+    ],
+    "options": [
+      "--file",
+      "src/Application/DependencyInjection.cs"
+    ],
+    "knownIssue": "issues/source-only-coverage.md"
+  },
+  {
+    "id": "cleanarchitecture-validation-lambda",
+    "repository": "https://github.com/jasontaylordev/CleanArchitecture.git",
+    "cacheName": "cleanarchitecture",
+    "license": "MIT",
+    "licenseFile": "LICENSE",
+    "before": "c9d6b0342ba7419f963b075b47ba5fab8ad69d0d",
+    "after": "bb4f72ab83c5f6a3c6514a7d60a728d19f68c46f",
+    "reason": "Move validation context construction into a callback",
+    "tags": [
+      "lambda"
+    ],
+    "options": [
+      "--entry",
+      "ValidationBehaviour<TRequest, TResponse>.Handle"
+    ],
+    "knownIssue": "issues/source-only-coverage.md"
+  },
+  {
+    "id": "cleanarchitecture-handler-rename",
+    "repository": "https://github.com/jasontaylordev/CleanArchitecture.git",
+    "cacheName": "cleanarchitecture",
+    "license": "MIT",
+    "licenseFile": "LICENSE",
+    "before": "1c2ef45624015890c1bfc5e47522ec577b715a3f",
+    "after": "ceb0c372369b046c8c6ebd4b14dd95ba9da4e4c8",
+    "reason": "Rename two event handler types",
+    "tags": [
+      "rename"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md"
+  },
+  {
+    "id": "cleanarchitecture-guard-library",
+    "repository": "https://github.com/jasontaylordev/CleanArchitecture.git",
+    "cacheName": "cleanarchitecture",
+    "license": "MIT",
+    "licenseFile": "LICENSE",
+    "before": "bbd4e8dfd2e1e5444f97e2df1e10d03bd998fc7a",
+    "after": "be1ece90cf5235d6c896147a69a669f7ecdea3ee",
+    "reason": "Replace source exception construction with a library guard",
+    "tags": [
+      "branch-guard"
+    ],
+    "options": [
+      "--entry",
+      "DeleteTodoItemCommandHandler.Handle"
+    ],
+    "knownIssue": "issues/source-only-coverage.md"
+  }
+]

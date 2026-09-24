@@ -1,0 +1,26 @@
+﻿A local function calls a nullable dependency under conditional access and awaits a source method.
+
+exit: 0
+stdout:
+  Flow.Run
+  └─ Flow.Run.Local
+     ├─ if (worker is not null)
+     │  └─ Worker.Save
+-    │     ├─ Worker.Before
++    │     └─ Worker.After
+     └─ Flow.Flush
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Flow.Run
+  └─ Flow.Run.Local
+     ├─ if (worker is not null)
+     │  └─ Worker.Save
+-    │     ├─ Worker.Before
++    │     └─ Worker.After
+     └─ Flow.Flush
+```
+stderr:

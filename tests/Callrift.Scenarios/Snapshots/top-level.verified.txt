@@ -1,0 +1,28 @@
+﻿Top-level entry expands a route callback, including when the route extension is missing.
+
+exit: 0
+stdout:
+  Program.cs::<top-level>
+  ├─ new App
+  └─ ? app.MapPost
+     ├─ new Handler
+     └─ Handler.Handle
+-       ├─ Handler.Before
++       └─ Handler.After
+stderr:
+Program.cs:2: unresolved-call: Cannot bind app.MapPost.
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Program.cs::<top-level>
+  ├─ new App
+  └─ ? app.MapPost
+     ├─ new Handler
+     └─ Handler.Handle
+-       ├─ Handler.Before
++       └─ Handler.After
+```
+stderr:
+Program.cs:2: unresolved-call: Cannot bind app.MapPost.

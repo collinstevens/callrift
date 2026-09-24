@@ -1,0 +1,22 @@
+﻿A new implementation changes an unchanged interface call's candidate set.
+
+exit: 0
+stdout:
+  Flow.Run
+- ├─ IWorker.Save → First.Save
++ └─ IWorker.Save
++    ├─ ⇢ First.Save
++    └─ ⇢ Second.Save
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Flow.Run
+- ├─ IWorker.Save → First.Save
++ └─ IWorker.Save
++    ├─ ⇢ First.Save
++    └─ ⇢ Second.Save
+```
+stderr:

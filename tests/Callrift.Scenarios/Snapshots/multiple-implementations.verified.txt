@@ -1,0 +1,24 @@
+﻿Interface dispatch lists both possible implementations under the caller.
+
+exit: 0
+stdout:
+  Flow.Run
+  └─ IWorker.Save
+     ├─ ⇢ First.Save
+-    │  ├─ First.Before
++    │  └─ First.After
+     └─ ⇢ Second.Save
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Flow.Run
+  └─ IWorker.Save
+     ├─ ⇢ First.Save
+-    │  ├─ First.Before
++    │  └─ First.After
+     └─ ⇢ Second.Save
+```
+stderr:

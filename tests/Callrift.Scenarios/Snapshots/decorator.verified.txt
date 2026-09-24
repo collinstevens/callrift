@@ -1,0 +1,26 @@
+﻿A decorator forwards to an interface with several possible implementations; the static candidate cycle is bounded.
+
+exit: 0
+stdout:
+  Flow.Start
+  └─ IWorker.Run
+     ├─ ⇢ Decorator.Run
+     │  └─ IWorker.Run ↑ as above
+     └─ ⇢ Worker.Run
+-       ├─ Worker.Before
++       └─ Worker.After
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Flow.Start
+  └─ IWorker.Run
+     ├─ ⇢ Decorator.Run
+     │  └─ IWorker.Run ↑ as above
+     └─ ⇢ Worker.Run
+-       ├─ Worker.Before
++       └─ Worker.After
+```
+stderr:

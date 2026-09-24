@@ -1,0 +1,22 @@
+﻿Abstract dispatch expands the override and recursion is bounded by canonical identity.
+
+exit: 0
+stdout:
+  Flow.Run
+  └─ Worker.Save → Concrete.Save
+     ├─ if (depth > 0)
+-    ├─ Concrete.Before
++    └─ Concrete.After
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Flow.Run
+  └─ Worker.Save → Concrete.Save
+     ├─ if (depth > 0)
+-    ├─ Concrete.Before
++    └─ Concrete.After
+```
+stderr:

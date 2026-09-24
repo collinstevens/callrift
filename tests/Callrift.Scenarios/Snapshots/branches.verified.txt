@@ -1,0 +1,28 @@
+﻿Switch, catch filters, finally and loop contexts retain source calls.
+
+exit: 0
+stdout:
+  Flow.Run
+  ├─ try
+  │  └─ case 1:
++ │     ├─ Flow.Audit
+  │     └─ Flow.Save
+  ├─ catch (Exception ex) when (Accept(ex))
+  ├─ finally
+  └─ …
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Flow.Run
+  ├─ try
+  │  └─ case 1:
++ │     ├─ Flow.Audit
+  │     └─ Flow.Save
+  ├─ catch (Exception ex) when (Accept(ex))
+  ├─ finally
+  └─ …
+```
+stderr:

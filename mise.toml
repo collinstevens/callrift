@@ -1,0 +1,39 @@
+[settings]
+activate_aggressive = true
+
+[tools]
+dotnet = "10.0.303"
+hk = "2.1.0"
+"github:editorconfig-checker/editorconfig-checker" = "4.0.2"
+
+[tasks.check]
+description = "Check EditorConfig and .NET formatting"
+run = "hk check --all"
+
+[tasks."hooks:install"]
+description = "Install repository Git hooks through mise"
+run = "hk install --mise"
+
+[tasks.build]
+description = "Build Callrift and its verification tools"
+run = "dotnet build callrift.slnx"
+
+[tasks.test]
+description = "Run signed Git scenario snapshots"
+run = "dotnet test tests/Callrift.Scenarios/Callrift.Scenarios.csproj"
+
+[tasks.corpus]
+description = "Run the pinned real-history snapshots"
+run = "dotnet test tests/Callrift.Corpus/Callrift.Corpus.csproj"
+
+[tasks."corpus:candidates"]
+description = "Propose commits for manual corpus review"
+run = "dotnet run --project tools/Callrift.Corpus -- candidates"
+
+[tasks.benchmark]
+description = "Run corpus floor benchmarks with allocations"
+run = "dotnet run -c Release --project benchmarks/Callrift.Benchmarks --"
+
+[tasks.format]
+description = "Apply .NET formatting"
+run = "dotnet format callrift.slnx"

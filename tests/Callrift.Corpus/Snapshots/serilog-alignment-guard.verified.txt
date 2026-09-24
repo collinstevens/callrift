@@ -1,0 +1,35 @@
+﻿format: text
+exit: 0
+stdout:
+  MessageTemplateParser.ParsePropertyToken
+  ├─ …
+  ├─ else (!(char.IsDigit(propertyName[0])))
+  ├─ if (format != null)
+  ├─ if (alignment != null)
+  │  ├─ if (alignment[0] == '+')
+  │  ├─ if (!int.TryParse(alignment, NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out var…
++ │  ├─ if (width == int.MinValue)
++ │  │  └─ new TextToken
++ │  │     └─ Guard.AgainstNull
+  │  └─ new Alignment
+  └─ new PropertyToken
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  MessageTemplateParser.ParsePropertyToken
+  ├─ …
+  ├─ else (!(char.IsDigit(propertyName[0])))
+  ├─ if (format != null)
+  ├─ if (alignment != null)
+  │  ├─ if (alignment[0] == '+')
+  │  ├─ if (!int.TryParse(alignment, NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out var…
++ │  ├─ if (width == int.MinValue)
++ │  │  └─ new TextToken
++ │  │     └─ Guard.AgainstNull
+  │  └─ new Alignment
+  └─ new PropertyToken
+```
+stderr:

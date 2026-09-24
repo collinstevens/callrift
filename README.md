@@ -1,0 +1,35 @@
+# Callrift
+
+See how C# changes rewire your code. Callrift uses Roslyn to compare calls across Git revisions and render trees for code review.
+
+```diff
+  OrdersController.Place
+  └─ IOrderService.PlaceAsync → OrderService.PlaceAsync
+     ├─ OrderService.Validate
+-    ├─ IPricingClient.GetPriceAsync → PricingClient.GetPriceAsync
++    ├─ IAuditLog.RecordAsync → AuditLog.RecordAsync
++    ├─ OrderService.WithTimeout
++    │  └─ IPricingClient.GetPriceAsync → PricingClient.GetPriceAsync
+     ├─ new Order
+     └─ IOrderRepository.SaveAsync → SqlOrderRepository.SaveAsync
+```
+
+Inspired by [calldiff](https://github.com/tanishqkancharla/calldiff). Callrift is an independent project and is not affiliated with calldiff.
+
+The project is in development. NuGet installation and `dnx` distribution are planned for M4. For now:
+
+```sh
+mise install
+mise run build
+dotnet run --project src/Callrift.Cli -- diff
+dotnet run --project src/Callrift.Cli -- diff main HEAD --entry OrdersController.Place
+dotnet run --project src/Callrift.Cli -- diff --staged --format md
+```
+
+The CLI analyzes the current directory's Git repository. To analyze another repository, run the built `callrift.dll` from that repository. With no revisions, it compares HEAD with the working tree; one revision compares that revision with the working tree; two revisions compare each other. `--staged` reads the index. `--entry`, `--file`, `--depth`, `--context`, `--externals`, and `--tests` control the output. Run with `--help` for options.
+
+Source-only analysis reads Git objects without checkout, restore, or build. It binds source calls with BCL references, follows source interface/abstract implementations, nests callbacks under their receiving calls, and preserves branch conditions. Automatic roots come from transitive callers in both revisions. Calls through interfaces are possible targets, and nested callbacks are not proof of execution.
+
+Missing package references remain visible as `?` calls and diagnostics. Use `--diagnostics full` for every diagnostic and `--strict` to fail on reported analysis problems. Single-compilation collisions, project defines, generators, virtual non-abstract dispatch, property/indexer bodies, operators, events, and runtime framework conventions remain limitations. Body edits with no visible edge change are reported explicitly. This output complements the source diff.
+
+M1 delivers source-only text and Markdown. M2 adds JSON, locations, tree/reach queries, and merge-base revisions. M3 adds MSBuild analysis; M4 adds distribution and CI. See [DESIGN.md](DESIGN.md) and [CONTRIBUTING.md](CONTRIBUTING.md).

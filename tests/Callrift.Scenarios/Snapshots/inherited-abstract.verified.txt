@@ -1,0 +1,20 @@
+﻿Concrete types inherit the implementation of an abstract member through an abstract intermediate base.
+
+exit: 0
+stdout:
+  Flow.Start
+  └─ Base.Run → Middle.Run
+-    ├─ Middle.Before
++    └─ Middle.After
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Flow.Start
+  └─ Base.Run → Middle.Run
+-    ├─ Middle.Before
++    └─ Middle.After
+```
+stderr:

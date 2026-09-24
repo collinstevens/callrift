@@ -1,0 +1,20 @@
+﻿Resolved external Task.Run retains the source call passed in its lambda.
+
+exit: 0
+stdout:
+  Flow.Run
+- ├─ Flow.Save
++ └─ Task.Run
++    └─ Flow.Save
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Flow.Run
+- ├─ Flow.Save
++ └─ Task.Run
++    └─ Flow.Save
+```
+stderr:

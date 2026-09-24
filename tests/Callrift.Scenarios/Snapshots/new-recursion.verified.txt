@@ -1,0 +1,20 @@
+﻿A newly recursive call has an explicit cycle marker.
+
+exit: 0
+stdout:
+  Flow.Run
++ ├─ if (n > 0)
++ │  └─ Flow.Run (↺ cycle)
+  └─ Flow.Save
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Flow.Run
++ ├─ if (n > 0)
++ │  └─ Flow.Run (↺ cycle)
+  └─ Flow.Save
+```
+stderr:

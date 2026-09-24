@@ -1,0 +1,30 @@
+﻿Primary-constructor DI resolves through interfaces; pricing moves beneath WithTimeout and audit is added.
+
+exit: 0
+stdout:
+  OrdersController.Place
+  └─ IOrderService.PlaceAsync → OrderService.PlaceAsync
+     ├─ OrderService.Validate
+-    ├─ IPricingClient.GetPriceAsync → PricingClient.GetPriceAsync
++    ├─ IAuditLog.RecordAsync → AuditLog.RecordAsync
++    ├─ OrderService.WithTimeout
++    │  └─ IPricingClient.GetPriceAsync → PricingClient.GetPriceAsync
+     ├─ new Order
+     └─ IOrderRepository.SaveAsync → SqlOrderRepository.SaveAsync
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  OrdersController.Place
+  └─ IOrderService.PlaceAsync → OrderService.PlaceAsync
+     ├─ OrderService.Validate
+-    ├─ IPricingClient.GetPriceAsync → PricingClient.GetPriceAsync
++    ├─ IAuditLog.RecordAsync → AuditLog.RecordAsync
++    ├─ OrderService.WithTimeout
++    │  └─ IPricingClient.GetPriceAsync → PricingClient.GetPriceAsync
+     ├─ new Order
+     └─ IOrderRepository.SaveAsync → SqlOrderRepository.SaveAsync
+```
+stderr:

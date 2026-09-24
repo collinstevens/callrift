@@ -1,0 +1,24 @@
+﻿Method-group callback moves under a source wrapper; same-class calls expand.
+
+exit: 0
+stdout:
+  Flow.Run
+- ├─ Flow.Save
+- │  └─ Flow.Store
++ └─ Flow.Wrap
++    └─ Flow.Save
++       └─ Flow.Store
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Flow.Run
+- ├─ Flow.Save
+- │  └─ Flow.Store
++ └─ Flow.Wrap
++    └─ Flow.Save
++       └─ Flow.Store
+```
+stderr:

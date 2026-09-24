@@ -1,0 +1,18 @@
+﻿A changed implementation stays a root when no source code calls its interface.
+
+exit: 0
+stdout:
+  Worker.Run
+- ├─ Worker.Before
++ └─ Worker.After
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Worker.Run
+- ├─ Worker.Before
++ └─ Worker.After
+```
+stderr:

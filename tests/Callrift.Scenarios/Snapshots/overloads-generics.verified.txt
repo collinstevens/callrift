@@ -1,0 +1,22 @@
+﻿Generic extension binding expands the right overload and preserves generic type labels.
+
+exit: 0
+stdout:
+  Flow.Run
+  └─ Extensions.Persist
+     └─ Repo<T>.Save
+-       ├─ Repo<T>.Before
++       └─ Repo<T>.After
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Flow.Run
+  └─ Extensions.Persist
+     └─ Repo<T>.Save
+-       ├─ Repo<T>.Before
++       └─ Repo<T>.After
+```
+stderr:

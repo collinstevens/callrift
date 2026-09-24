@@ -1,0 +1,25 @@
+﻿format: text
+exit: 0
+stdout:
+  PropertyBinder.ConstructNamedProperties
++ ├─ if (namedProperties == null)
++ │  └─ if (messageTemplateParameters.Length > 0)
++ │     └─ SelfLog.WriteLine
+  ├─ if (namedProperties.Length != messageTemplateParameters.Length)
+  ├─ for (i < matchedRun)
+  └─ …
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  PropertyBinder.ConstructNamedProperties
++ ├─ if (namedProperties == null)
++ │  └─ if (messageTemplateParameters.Length > 0)
++ │     └─ SelfLog.WriteLine
+  ├─ if (namedProperties.Length != messageTemplateParameters.Length)
+  ├─ for (i < matchedRun)
+  └─ …
+```
+stderr:

@@ -1,0 +1,20 @@
+﻿Existing call moves into a new if guard.
+
+exit: 0
+stdout:
+  Flow.Run
+- ├─ Flow.Save
++ └─ if (ready)
++    └─ Flow.Save
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Flow.Run
+- ├─ Flow.Save
++ └─ if (ready)
++    └─ Flow.Save
+```
+stderr:

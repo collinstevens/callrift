@@ -1,0 +1,22 @@
+﻿An implicit constructor follows its field initializer into changed source code.
+
+exit: 0
+stdout:
+  Entry.Run
+  └─ new Flow
+     └─ Flow.Create
+-       ├─ Flow.Before
++       └─ Flow.After
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Entry.Run
+  └─ new Flow
+     └─ Flow.Create
+-       ├─ Flow.Before
++       └─ Flow.After
+```
+stderr:

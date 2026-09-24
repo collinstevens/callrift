@@ -1,0 +1,40 @@
+amends "package://github.com/jdx/hk/releases/download/v2.1.0/hk@2.1.0#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.1.0/hk@2.1.0#/Builtins.pkl"
+
+min_hk_version = "2.1.0"
+
+steps {
+  ["editorconfig"] = Builtins.editorconfig_checker
+  ["dotnet-format"] = Builtins.dotnet_format
+}
+
+hooks {
+  ["pre-commit"] {
+    fix = false
+    stage = false
+    stash = "git"
+  }
+  ["commit-msg"] {
+    steps {
+      ["conventional-commits"] = (Builtins.check_conventional_commit) {
+        check = new CommandSpec {
+          command = new Command {
+            argv = List("hk", "util", "check-conventional-commit", "{{commit_msg_file}}")
+          }
+          effect = "read"
+        }
+      }
+    }
+  }
+  ["pre-push"] {
+    steps {
+      ["build"] {
+        check = "mise run build"
+      }
+      ["scenarios"] {
+        depends = "build"
+        check = "mise run test"
+      }
+    }
+  }
+}

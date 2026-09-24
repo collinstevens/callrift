@@ -1,0 +1,23 @@
+﻿format: text
+exit: 0
+stdout:
+  JsonValueFormatter.VisitDictionaryValue
+  └─ foreach (var element in dictionary.Elements)
+-    ├─ JsonValueFormatter.WriteQuotedJsonString
++    ├─ else (!(key is null))
++    │  └─ JsonValueFormatter.WriteQuotedJsonString
+     └─ LogEventPropertyValueVisitor<TState, TResult>.Visit
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  JsonValueFormatter.VisitDictionaryValue
+  └─ foreach (var element in dictionary.Elements)
+-    ├─ JsonValueFormatter.WriteQuotedJsonString
++    ├─ else (!(key is null))
++    │  └─ JsonValueFormatter.WriteQuotedJsonString
+     └─ LogEventPropertyValueVisitor<TState, TResult>.Visit
+```
+stderr:
