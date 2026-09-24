@@ -100,14 +100,35 @@ public sealed class MSBuildAnalysisProvider(MSBuildOptions options) : IAnalysisP
         start.Environment["MSBUILDDISABLENODEREUSE"] = "1";
         start.Environment["DOTNET_CLI_USE_MSBUILD_SERVER"] = "0";
         start.Environment["DOTNET_CLI_DO_NOT_USE_MSBUILD_SERVER"] = "1";
+        start.Environment.Remove("MSBUILD_EXE_PATH");
+        start.Environment.Remove("MSBuildSDKsPath");
+        start.Environment.Remove("MSBuildExtensionsPath");
         foreach (var argument in arguments) start.ArgumentList.Add(argument);
         using var process = Process.Start(start) ?? throw new InvalidOperationException("Cannot start the .NET SDK.");
         using var registration = cancellationToken.Register(() => { try { if (!process.HasExited) process.Kill(true); } catch (InvalidOperationException) { } });
-        var output = process.StandardOutput.ReadToEndAsync(cancellationToken);
-        var error = process.StandardError.ReadToEndAsync(cancellationToken);
+        using var drain = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        var output = ReadOutputAsync(process.StandardOutput, drain.Token, cancellationToken);
+        var error = ReadOutputAsync(process.StandardError, drain.Token, cancellationToken);
         await process.WaitForExitAsync(cancellationToken);
+        drain.CancelAfter(TimeSpan.FromSeconds(2));
         var capturedOutput = await output;
         var capturedError = await error;
         if (process.ExitCode != 0) throw new InvalidOperationException("MSBuild analysis failed:\n" + CleanMessage(capturedError + capturedOutput, root).Trim());
+    }
+
+    private static async Task<string> ReadOutputAsync(StreamReader reader, CancellationToken drainToken, CancellationToken cancellationToken)
+    {
+        var output = new StringBuilder();
+        var buffer = new char[4096];
+        try
+        {
+            int count;
+            while ((count = await reader.ReadAsync(buffer.AsMemory(), drainToken)) != 0)
+                output.Append(buffer, 0, count);
+        }
+        catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
+        {
+        }
+        return output.ToString();
     }
 }
