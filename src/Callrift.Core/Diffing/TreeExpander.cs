@@ -9,7 +9,22 @@ public sealed record CallTree(string Key, string Label, string MatchName, string
 
 public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, DiffOptions options)
 {
-    public CallTree Expand(string key) => ExpandMember(key, [], 0);
+    public CallTree Expand(string key)
+    {
+        if (!graph.Implementations.TryGetValue(key, out var targets) || targets.Count == 0)
+            return ExpandMember(key, [], 0);
+        var member = graph.Members[key];
+        var call = new CallStep("call", key, member.Label, true, member.Location, []);
+        var tree = ExpandCalls([call], [], 0).Single();
+        return tree with
+        {
+            Kind = "member",
+            MatchName = member.MatchName,
+            Signature = member.Signature,
+            BodyChanged = tree.BodyChanged || changed.Contains(key),
+            Side = tree.Side! with { Relation = "definition", CallSites = [] }
+        };
+    }
 
     private CallTree ExpandMember(string key, HashSet<string> active, int depth)
     {

@@ -52,3 +52,9 @@ The added recursive-signature scenario changes the root signature and removes a 
 | query-strict, query-strict-clean | Accept. Partial source-only coverage returns exit 2 with an explanation, both with and without unresolved bindings. |
 | QueryTests.MergeBase | Accept. The unrelated divergent mainline class is absent; the comparison uses the common ancestor and the feature tip. |
 | QueryTests.InvalidQueries | Accept. Missing selectors/target, invalid path limits, conflicting staged/range syntax, and multiple tree revisions fail with exit 2. |
+
+# Contract-entry regression review
+
+`DispatchQueryTests` exercises the CLI process in source and MSBuild modes, with text, Markdown, and JSON. Selecting an interface or abstract declaration previously skipped implementation expansion. The independent fixture expectation is a path from the selected contract through each possible source implementation to `Worker.After`, plus the removed `Worker.Before` call in diffs. Single- and multiple-implementation cases preserve the contract identity, declaration relationship, empty root call-site list, and explicit possible target set in JSON. A separate parameter-type change must produce one modified contract root with both identities and a signature-change detail.
+
+All ten regression cases passed in `dispatch-query-final_net10.0_20260924153315.trx`. Existing snapshots were not rewritten for this fix.
