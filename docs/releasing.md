@@ -1,6 +1,6 @@
 # Release procedure
 
-Local packages are built and exercised with `mise exec -- pwsh -File scripts/Package-Smoke.ps1`. The script packs `callrift` and `Callrift.Core`, installs the tool into a disposable artifacts directory, analyzes this repository in both modes, and runs `dnx` from the local feed. It does not publish or modify the global tool installation.
+Local packages are built and exercised with `mise exec -- pwsh -File scripts/Package-Smoke.ps1`. The script packs `callrift` and `callrift.core`, installs the tool into a disposable artifacts directory, analyzes this repository in both modes, and runs `dnx` from the local feed. It does not publish or modify the global tool installation.
 
 The release workflow defaults to artifact creation. Publishing requires an explicit workflow-dispatch selection and a `nuget` environment. Before enabling publication, configure required reviewers for that environment and add its scoped `NUGET_API_KEY` secret. Review the exact version, package contents, dependency notices, test results, and benchmark evidence before approving the publish job. Do not reuse a published package version.
 

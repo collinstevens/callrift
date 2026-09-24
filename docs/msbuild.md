@@ -6,7 +6,7 @@ callrift tree HEAD --project src/App/App.csproj --entry OrdersController.Place
 callrift diff --project src/App/App.csproj --configuration Release --no-restore
 ```
 
-`--solution` or `--project` selects MSBuild mode. `--mode msbuild` also requires one of these targets. Paths are relative to the invoking directory within the repository. A multi-target project requires `--framework`; Callrift does not merge framework-specific graphs.
+`--solution` or `--project` selects MSBuild mode. `--mode msbuild` also requires one of these targets. Paths are relative to the invoking directory within the repository. A multi-target project requires `--framework`; callrift does not merge framework-specific graphs.
 
 ```diff
  CallriftService.DiffAsync

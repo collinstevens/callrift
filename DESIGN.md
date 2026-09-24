@@ -1,4 +1,4 @@
-# Callrift
+# callrift
 
 Design · 2026-09-24 · M1 and M2 implemented and verified
 
@@ -6,7 +6,7 @@ Produce reviewable C# call-flow diffs from Git snapshots. The primary acceptance
 
 **Names and platform**
 
-Project, repository, tool package, and executable: `callrift`. Propose `Callrift.Core` for the separately consumable library package; a tool package and a conventional library need distinct package identities. The MSBuild adapter can be a separate `Callrift.MSBuild` package in M3.
+Project, repository, tool package, and executable: `callrift`. The separately consumable library package is `callrift.core`; a tool package and a conventional library need distinct package identities. Public branding and package IDs use lowercase. C# namespaces and types retain their existing PascalCase names. The MSBuild adapter can be a separate `callrift.msbuild` package.
 
 On September 24, public [GitHub repository search](https://api.github.com/search/repositories?q=callrift+in:name) returned zero results. NuGet's flat-container endpoints for [the tool](https://api.nuget.org/v3-flatcontainer/callrift/index.json) and [the proposed library](https://api.nuget.org/v3-flatcontainer/callrift.core/index.json) returned HTTP 404. No collision was found. These checks do not reserve names or expose private repositories or reserved NuGet prefixes; repeat them before publication.
 

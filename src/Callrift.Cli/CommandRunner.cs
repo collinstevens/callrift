@@ -31,7 +31,7 @@ public static class CommandRunner
         var from = new Option<string>("--from");
         var to = new Option<string>("--to");
         var color = new Option<string>("--color") { DefaultValueFactory = _ => "auto" };
-        var root = new RootCommand("Callrift — semantic call-flow diffs for C#.");
+        var root = new RootCommand("callrift — semantic call-flow diffs for C#.");
         root.Arguments.Add(revisions);
         foreach (var option in new Option[] { entry, file, depth, context, format, staged, externals, tests, exitCode, strict, from, to, color, diagnostics, locs, maxPaths, mode, solution, project, framework, configuration, noRestore }) root.Options.Add(option);
         var command = args.FirstOrDefault() is "diff" or "tree" or "reach" ? args[0] : "diff";

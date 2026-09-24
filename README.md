@@ -1,6 +1,6 @@
-# Callrift
+# callrift
 
-See how C# changes rewire your code. Callrift uses Roslyn to compare calls across Git revisions and render trees for code review.
+See how C# changes rewire your code. callrift uses Roslyn to compare calls across Git revisions and render trees for code review.
 
 ```diff
   OrdersController.Place
@@ -14,9 +14,9 @@ See how C# changes rewire your code. Callrift uses Roslyn to compare calls acros
      └─ IOrderRepository.SaveAsync → SqlOrderRepository.SaveAsync
 ```
 
-Inspired by [calldiff](https://github.com/tanishqkancharla/calldiff). Callrift is an independent project and is not affiliated with calldiff.
+Inspired by [calldiff](https://github.com/tanishqkancharla/calldiff). callrift is an independent project and is not affiliated with calldiff.
 
-Callrift targets .NET 10 LTS. Packages have been built and tested locally; no public NuGet release exists yet. Build and install from this checkout:
+callrift targets .NET 10 LTS. Packages have been built and tested locally; no public NuGet release exists yet. Build and install from this checkout:
 
 ```sh
 mise install
@@ -54,7 +54,7 @@ Missing package references remain visible as `?` calls and diagnostics. Use `--d
 
 MSBuild mode uses restored per-project compilations, defines, and generated sources. It materializes revisions into an external cache and requires an installed compatible SDK. See [MSBuild analysis](docs/msbuild.md) for cache behavior and remaining coverage limits.
 
-The reusable `Callrift.Core` package exposes the same source-only engine:
+The reusable `callrift.core` package exposes the same source-only engine:
 
 ```csharp
 using Callrift.Core;
@@ -67,6 +67,6 @@ var result = await new CallriftService().DiffAsync(
 Console.WriteLine(JsonRenderer.Render(result));
 ```
 
-The suite includes 28 feature scenarios, command/revision checks, ten pinned real-history changes, and workspace/package/generator checks. Snapshots are reviewed against their source changes. BenchmarkDotNet baselines cover source stages and commands plus restored workspace operations on a small Serilog workload. Large-repository performance and finer workspace-stage floors are still unmeasured; the prototype's reported 30 seconds is not a Callrift measurement.
+The suite includes 28 feature scenarios, command/revision checks, ten pinned real-history changes, and workspace/package/generator checks. Snapshots are reviewed against their source changes. BenchmarkDotNet baselines cover source stages and commands plus restored workspace operations on a small Serilog workload. Large-repository performance and finer workspace-stage floors are still unmeasured; the prototype's reported 30 seconds is not a callrift measurement.
 
 See [JSON semantics](docs/json.md), [benchmarks](benchmarks/README.md), [release procedure](docs/releasing.md), [DESIGN.md](DESIGN.md), and [CONTRIBUTING.md](CONTRIBUTING.md).

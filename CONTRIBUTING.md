@@ -1,4 +1,4 @@
-# Contributing to Callrift
+# Contributing to callrift
 
 Install [mise](https://mise.jdx.dev/), then run:
 

@@ -25,7 +25,7 @@ try {
     if ($workspaceGraph.analysis.mode -ne 'msbuild' -or $workspaceGraph.trees.Count -eq 0) { throw 'Workspace smoke returned no tree.' }
     $consumer = Join-Path $installation 'consumer'
     New-Item -ItemType Directory $consumer | Out-Null
-    $project = '<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><TargetFramework>net10.0</TargetFramework><OutputType>Exe</OutputType><ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally><IsPackable>false</IsPackable></PropertyGroup><ItemGroup><PackageReference Include="Callrift.Core" Version="' + $Version + '" /></ItemGroup></Project>'
+    $project = '<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><TargetFramework>net10.0</TargetFramework><OutputType>Exe</OutputType><ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally><IsPackable>false</IsPackable></PropertyGroup><ItemGroup><PackageReference Include="callrift.core" Version="' + $Version + '" /></ItemGroup></Project>'
     [IO.File]::WriteAllText((Join-Path $consumer 'Consumer.csproj'), $project)
     [IO.File]::WriteAllText((Join-Path $consumer 'Program.cs'), 'using Callrift.Core; var result = await new CallQueries().RunAsync(new QueryRequest(args[0], "HEAD") { Options = new DiffOptions { Entries = ["CallQueries.RunAsync"] } }); if (result.Trees.Count == 0) throw new System.InvalidOperationException("Library returned no tree.");')
     $configuration = '<configuration><packageSources><clear /><add key="local" value="' + [System.Security.SecurityElement]::Escape($feed) + '" /><add key="nuget" value="https://api.nuget.org/v3/index.json" /></packageSources></configuration>'
