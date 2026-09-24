@@ -1,7 +1,7 @@
 # MSBuild analysis
 
 ```sh
-callrift diff main...HEAD --solution App.slnx --framework net10.0
+callrift diff master...HEAD --solution App.slnx --framework net11.0
 callrift tree HEAD --project src/App/App.csproj --entry OrdersController.Place
 callrift diff --project src/App/App.csproj --configuration Release --no-restore
 ```

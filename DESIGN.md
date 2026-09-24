@@ -10,7 +10,7 @@ Project, repository, tool package, and executable: `callrift`. The separately co
 
 On September 24, public [GitHub repository search](https://api.github.com/search/repositories?q=callrift+in:name) returned zero results. NuGet's flat-container endpoints for [the tool](https://api.nuget.org/v3-flatcontainer/callrift/index.json) and [the proposed library](https://api.nuget.org/v3-flatcontainer/callrift.core/index.json) returned HTTP 404. No collision was found. These checks do not reserve names or expose private repositories or reserved NuGet prefixes; repeat them before publication.
 
-Target `net10.0`: [.NET 10 is the current LTS](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core), supported through November 14, 2028. SDK 10.0.303 is installed locally. Pin the implementation SDK through mise and matching `global.json`; verify package compatibility when selecting exact dependency versions.
+Target `net11.0` per the owner's September 24 update. Pin SDK `11.0.100-rc.1.26425.128`, the [.NET 11 RC1 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/11.0), through mise and matching `global.json`. Keep SDK 10.0.303 available through mise for pinned historical corpus projects. Verify package compatibility when selecting exact dependency versions.
 
 **Architecture: proposed calls**
 

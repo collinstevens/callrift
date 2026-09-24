@@ -16,7 +16,7 @@ See how C# changes rewire your code. callrift uses Roslyn to compare calls acros
 
 Inspired by [calldiff](https://github.com/tanishqkancharla/calldiff). callrift is an independent project and is not affiliated with calldiff.
 
-callrift targets .NET 10 LTS. Packages have been built and tested locally; no public NuGet release exists yet. Build and install from this checkout:
+callrift targets .NET 11 and pins SDK `11.0.100-rc.1.26425.128`. The CLI and library require the .NET 11 runtime. No public NuGet release exists yet. Build and install from this checkout:
 
 ```sh
 mise install
@@ -35,7 +35,7 @@ callrift diff --staged --format md
 callrift diff main...HEAD --format json
 callrift tree --entry OrdersController.Place --locs
 callrift reach --entry OrdersController.Place --to PricingClient.GetPriceAsync
-callrift diff main...HEAD --solution App.slnx --framework net10.0
+callrift diff master...HEAD --solution App.slnx --framework net11.0
 ```
 
 | Selection | Comparison |

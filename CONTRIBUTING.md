@@ -12,6 +12,8 @@ mise run check
 
 hk enforces EditorConfig and .NET formatting before commits, conventional commit messages, and build/scenario checks before pushes. Fix formatting with `mise run format`. Project tools are pinned in `mise.toml`; `global.json` selects the same .NET SDK.
 
+The implementation targets .NET 11 with SDK `11.0.100-rc.1.26425.128`. mise also installs SDK 10.0.303 for pinned historical corpus projects. Existing net10.0 workspace fixtures exercise analysis of older target frameworks from the .NET 11 tool.
+
 The repository enables mise's [tool-path precedence](https://mise.jdx.dev/configuration/settings.html#activate_aggressive). Child processes, including benchmark workers, use the managed SDK even when a system installation is earlier in the inherited PATH.
 
 Scenario tests create temporary Git repositories and signed before/after commits. Configure your Git identity and signing key first. Tests inspect those settings and fail if signing fails. Never disable signing or accept unsigned fixture commits. CI provisions a temporary fixture signing identity through `.github/scripts/Initialize-TestSigning.ps1`.

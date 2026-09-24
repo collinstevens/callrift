@@ -12,7 +12,7 @@ public sealed class DispatchQueryTests
     {
         var before = new Dictionary<string, string>
         {
-            ["App.csproj"] = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net10.0</TargetFramework></PropertyGroup></Project>",
+            ["App.csproj"] = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>",
             ["Flow.cs"] = "interface Contract { void Run(int value); } class Worker : Contract { public void Run(int value) {} } class Other : Contract { public void Run(int value) {} }"
         };
         var after = new Dictionary<string, string>(before) { ["Flow.cs"] = before["Flow.cs"].Replace("int value", "long value", StringComparison.Ordinal) };
@@ -48,7 +48,7 @@ public sealed class DispatchQueryTests
         var implementation = abstractContract ? "public override void Run()" : "public void Run()";
         var before = new Dictionary<string, string>
         {
-            ["App.csproj"] = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net10.0</TargetFramework></PropertyGroup></Project>",
+            ["App.csproj"] = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>",
             ["Flow.cs"] = contract + " class Worker : Contract { " + implementation + " { Before(); } void Before() {} void After() {} }"
         };
         if (multiple) before["Flow.cs"] += " class Other : Contract { " + implementation + " {} }";

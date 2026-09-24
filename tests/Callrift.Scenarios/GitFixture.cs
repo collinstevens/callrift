@@ -71,9 +71,17 @@ public sealed class GitFixture : IAsyncDisposable
         using var process = Process.Start(start)!;
         var stdout = process.StandardOutput.ReadToEndAsync();
         var stderr = process.StandardError.ReadToEndAsync();
-        using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(60));
+        var commandTimeout = arguments.Contains("--project") || arguments.Contains("--solution")
+            ? TimeSpan.FromMinutes(3)
+            : TimeSpan.FromSeconds(60);
+        using var timeout = new CancellationTokenSource(commandTimeout);
         try { await process.WaitForExitAsync(timeout.Token); }
-        catch (OperationCanceledException) { process.Kill(true); throw; }
+        catch (OperationCanceledException)
+        {
+            if (!process.HasExited) process.Kill(true);
+            await process.WaitForExitAsync();
+            throw new TimeoutException($"callrift {string.Join(' ', arguments)} exceeded {commandTimeout}.\nstdout:\n{await stdout}\nstderr:\n{await stderr}");
+        }
         return $"exit: {process.ExitCode}\nstdout:\n{(await stdout).Replace("\r\n", "\n", StringComparison.Ordinal)}stderr:\n{(await stderr).Replace("\r\n", "\n", StringComparison.Ordinal)}";
     }
 

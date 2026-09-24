@@ -2,7 +2,7 @@
 
 The controlling brief is the September 24, 2026 continuation request. DESIGN.md describes the original architecture and acceptance criteria. Milestone commits are checkpoints. This checklist stays open until current evidence proves every requirement below.
 
-Status: engineering work remains. Baseline checkout: `46b158b`. Working branch: `feat/real-world-validation`. The initial checkout was clean. GitHub inspection found the public `collinstevens/callrift` repository with no default-branch commit; the checkout has no remote configured. Git identity is Collin Stevens, with SSH signing enabled and the configured user key. No signature verification was performed.
+Status: engineering work remains. Baseline checkout: `46b158b`. Work now proceeds directly on `master` at the owner's request, with regular signed pushes to `collinstevens/callrift`. The first audit checkpoint is `25efbfe`. The owner also selected .NET 11 for the implementation. Git identity is Collin Stevens, with SSH signing enabled and the configured user key. No signature verification was performed.
 
 | Requirement | Current evidence | Remaining acceptance evidence |
 |---|---|---|
