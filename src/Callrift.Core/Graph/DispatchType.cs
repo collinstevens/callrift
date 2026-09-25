@@ -22,7 +22,10 @@ public sealed record DispatchType(string Name, IReadOnlyList<DispatchType> Argum
             arguments.Insert(0, From(containing));
             variance.Insert(0, false);
         }
-        return new(type.ContainingAssembly.Identity.Name + "::" + type.OriginalDefinition.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), arguments, VariantArguments: variance);
+        var identity = type.ContainingAssembly.Identity.Name + "::" + type.OriginalDefinition.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
+        for (var containingType = type; containingType is not null; containingType = containingType.ContainingType)
+            if (containingType.IsFileLocal) identity += "/file:" + containingType.MetadataName;
+        return new(identity, arguments, VariantArguments: variance);
     }
 
     public bool CanMatch(DispatchType receiver) => CanMatch(receiver, new Dictionary<string, (DispatchType Type, string Side)>(StringComparer.Ordinal));

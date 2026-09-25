@@ -1,0 +1,21 @@
+# Interceptors and file-local identities
+
+Review date: 2026-09-24. This correction does not add an accepted real-world pair.
+
+The inspected [OrchardCore](https://github.com/OrchardCMS/OrchardCore) breadcrumb pair is `cd7d8430905d2f2ab3ba3aef49577d73647ccfbf` to `4910d1722d33f1b06d9ddb1cf8f6de2aa871dc8a`. Both revisions have the inspected BSD-3-Clause LICENSE blob `183936c000fa2cc5969ba724afc1bdc5bfae5080`. Source and restored assets remain outside this checkout. The restored trial selects `src/OrchardCore.Modules/OrchardCore.AdminDashboard/OrchardCore.AdminDashboard.csproj` at `net10.0`, with automatic roots and depth 1.
+
+Independent source inspection found that `ArgumentsFromInterceptor.GenerateInterceptor` names its file-local class with `Guid.NewGuid()`. Before the correction, two complete restored runs each reported 31 roots and zero diagnostics. Seven interceptor roots had unrelated names between runs: three removed and four added. All other JSON was identical. The collector followed the original invocation symbol instead of the compiler-selected interceptor, so unchanged callers did not lead to the replacement body.
+
+The collector now asks Roslyn for the selected interceptor. File-local interceptor identities derive from the calls intercepted by that method: logical source file, owning member, original target, normalized invocation syntax, and occurrence among identical calls. The association is hashed; generated private names are not scrubbed with a pattern. Labels describe the original call and owner, and need not be unique. Distinct inserted calls preserve existing associations. Edits to invocation syntax or identical-call ordering can change an association. Arbitrary nondeterministic generator bodies, helper declarations, and generated paths remain outside this normalization.
+
+The first CLI regression generates a new private type name on every compilation and changes its replacement body from `Sink.Before` to `Sink.After`. Before the fix, the automatic diff incorrectly has two generated roots. After the fix, it has one `Flow.Entry` root, preserves both body sides, excludes `Sink.Fallback`, and repeats the exact JSON. Tree and reach exercise the replacement path in text, Markdown, and JSON. A second regression inserts a distinct intercepted call and checks that the old `Sink.Kept` call remains unchanged while `Sink.Inserted` is added.
+
+The insertion fixture also exposed collisions between separate file-local attribute classes. File-local member identities now include the normalized declaring file, including for nested types. Receiver constraints distinguish identically named file-local implementations. Four CLI checks cover ordinary and interface calls in source and restored modes. The failing baselines either conflated declarations, affected the unrelated caller, or lost the correct restored caller. The corrected checks preserve `First.Entry` as the affected root and keep `Second.Entry` connected only to its own worker.
+
+The regex workspace snapshot has sixteen reviewed identity changes: eight symbol IDs and eight target IDs add the generated file scope. An independent SDK generation confirmed the file-local `Pattern_0` declaration and its nested runner types. Every other JSON field and all rendered output remain unchanged. See [workspace review](../../tests/Callrift.Workspaces/REVIEW.md). Static singleton/property paths remain outside coverage.
+
+Two complete OrchardCore restored trials with the final implementation produce byte-identical JSON: 24 roots and zero diagnostics. The output also matches the preceding interceptor trial before the final file-local dispatch correction. The installed tool, dnx, separate library consumer, and packaged worker smoke checks pass, along with formatting and workflow validation.
+
+All 22 workspace checks pass with the final normal build (23:13:39 run), including both interceptor regressions and the reviewed regex snapshot. All four file-local CLI checks also pass with that build (23:20:41 run).
+
+The exploratory OrchardCore pair still needs its complete source, automatic-root, focused-view, and location review before acceptance. These targeted fixes do not establish complete framework or generator coverage, and no performance improvement is claimed.

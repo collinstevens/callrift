@@ -140,6 +140,7 @@ public static class WorkspaceAnalysis
         }
         var members = new Dictionary<string, Member>(StringComparer.Ordinal);
         var types = new List<INamedTypeSymbol>();
+        var declaringPaths = new Dictionary<(string Scope, string Path), string>();
         var diagnostics = workspace.Diagnostics.Where(d => d.Kind == WorkspaceDiagnosticKind.Warning)
             .Where(d => d is not ProjectDiagnostic projectDiagnostic || selected.Contains(projectDiagnostic.ProjectId))
             .Select(d => new AnalysisDiagnostic("workspace-warning", MSBuildAnalysisProvider.CleanMessage(
@@ -160,6 +161,7 @@ public static class WorkspaceAnalysis
             diagnostics.AddRange(graph.Diagnostics);
             foreach (var tree in item.Compilation.SyntaxTrees)
             {
+                declaringPaths[(item.Scope, tree.FilePath)] = LogicalPath(tree.FilePath);
                 var model = item.Compilation.GetSemanticModel(tree);
                 types.AddRange(tree.GetRoot(cancellationToken).DescendantNodes().OfType<TypeDeclarationSyntax>()
                     .Select(t => model.GetDeclaredSymbol(t, cancellationToken)).OfType<INamedTypeSymbol>());
@@ -188,7 +190,9 @@ public static class WorkspaceAnalysis
                 foreach (var type in declared)
                     if (projected.GetTypeByMetadataName(MetadataName(type)) is { } referenced) types.Add(referenced);
             }
-        var dispatch = SourceOnlyAnalysisProvider.BuildDispatchMap(types.Distinct<INamedTypeSymbol>(SymbolEqualityComparer.Default), members, Scope, cancellationToken);
+        var dispatch = SourceOnlyAnalysisProvider.BuildDispatchMap(types.Distinct<INamedTypeSymbol>(SymbolEqualityComparer.Default), members, Scope,
+            (method, path) => declaringPaths.TryGetValue((Scope(method), path), out var logical) ? logical
+                : throw new InvalidOperationException($"Cannot identify the declaring file for {method.ToDisplayString()}."), cancellationToken);
         return new CallGraph(members, dispatch.Implementations, diagnostics.Distinct().OrderBy(d => d.Location?.Path, StringComparer.Ordinal)
             .ThenBy(d => d.Location?.Line).ThenBy(d => d.Code, StringComparer.Ordinal).ThenBy(d => d.Message, StringComparer.Ordinal).ToArray())
         { Coverage = MSBuildAnalysisProvider.WorkspaceCoverage, DispatchContracts = dispatch.Contracts };

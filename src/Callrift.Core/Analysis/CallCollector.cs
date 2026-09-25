@@ -150,7 +150,9 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 Walk(expression, result);
         }
         var info = model.GetSymbolInfo(invocation, cancellationToken);
-        var target = info.Symbol as IMethodSymbol;
+        var target = invocation is InvocationExpressionSyntax interceptable
+            ? InterceptorSymbols.Find(model, interceptable, cancellationToken) ?? info.Symbol as IMethodSymbol
+            : info.Symbol as IMethodSymbol;
         if (target is null && invocation is BaseObjectCreationExpressionSyntax && model.GetOperation(invocation, cancellationToken) is IDelegateCreationOperation
             { Type: INamedTypeSymbol delegateType, Target: IAnonymousFunctionOperation or IMethodReferenceOperation })
             target = delegateType.InstanceConstructors.SingleOrDefault();
@@ -187,7 +189,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             || receiver is not null && model.GetTypeInfo(receiver, cancellationToken).Type is INamedTypeSymbol { IsSealed: true }
             || receiver is null && model.GetEnclosingSymbol(node.SpanStart, cancellationToken)?.ContainingType is { IsSealed: true };
         var dispatches = !exactReceiver && (method.ContainingType.TypeKind == TypeKind.Interface || method.IsAbstract || method.IsVirtual || method.IsOverride);
-        return new CallStep("call", symbols.Key(normalized), source ? SymbolNames.Label(normalized) : SymbolNames.SyntaxLabel(node), source, symbols.Location(node), children)
+        return new CallStep("call", symbols.Key(normalized), source ? symbols.Label(normalized) : SymbolNames.SyntaxLabel(node), source, symbols.Location(node), children)
         {
             SuppressDispatch = exactReceiver,
             DispatchType = dispatches ? DispatchType.From(method.ContainingType) : null,

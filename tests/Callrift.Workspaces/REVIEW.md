@@ -13,3 +13,5 @@ Each accepted snapshot was compared with its fixture description and edits. JSON
 - `generator`: SDK regex output changes the regex constructor and search body. Both are body-only modifications. The runner is a separate root because property/static-field paths are outside current coverage; the snapshot records that limitation explicitly.
 
 All workspace snapshots include text, Markdown, and schema-version-1 JSON. Restore reuse is exercised by the second and third invocations. The SDK pin controls generated source and line spans.
+
+The file-local identity correction changes eight `symbolId` fields and eight `targetIds` values in `generator`. An independent SDK build of the fixture confirmed that `Pattern_0` is file-local and contains `RunnerFactory` and `Runner`. Each changed identity adds the normalized generated declaring-file path to its project/framework scope. A recursive comparison found no other JSON differences; text, Markdown, diagnostics, locations, traversal IDs, change flags, and ordering are unchanged. The static singleton/property coverage limitation remains.

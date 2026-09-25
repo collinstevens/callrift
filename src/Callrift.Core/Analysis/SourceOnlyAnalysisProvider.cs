@@ -49,8 +49,9 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
         Func<IMethodSymbol, string>? scope = null, Func<string, string>? logicalPath = null, bool includeBodyFingerprints = false,
         CancellationToken cancellationToken = default)
     {
-        var trees = syntaxTrees ?? compilation.SyntaxTrees;
+        var trees = (syntaxTrees ?? compilation.SyntaxTrees).ToArray();
         var symbols = new SymbolNames(scope, logicalPath);
+        symbols = new SymbolNames(scope, logicalPath, InterceptorSymbols.Index(compilation, trees, symbols, scope, cancellationToken));
         var members = new ConcurrentBag<Member>();
         var types = new ConcurrentBag<INamedTypeSymbol>();
         var diagnostics = new ConcurrentBag<AnalysisDiagnostic>();
@@ -97,8 +98,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                     else if (body is ArrowExpressionClauseSyntax arrow) statements.Add(SyntaxFactory.ExpressionStatement(arrow.Expression));
                     comparisonBody = SyntaxFactory.Block(statements);
                 }
-                members.Add(new Member(symbols.Key(symbol), SymbolNames.Label(symbol), symbols.MatchName(symbol),
-                    symbol.ToDisplayString(SymbolDisplayFormat.CSharpErrorMessageFormat) + " -> " + symbol.ReturnType.ToDisplayString(),
+                members.Add(new Member(symbols.Key(symbol), symbols.Label(symbol), symbols.MatchName(symbol), symbols.Signature(symbol),
                     symbols.Location(node), body is not null, calls)
                 { Body = comparisonBody });
             }
@@ -181,7 +181,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                 else
                 {
                     var locationNode = syntax ?? declarations.First();
-                    members[key] = new Member(key, SymbolNames.Label(constructor), symbols.MatchName(constructor), constructor.ToDisplayString(), symbols.Location(locationNode), true, calls)
+                    members[key] = new Member(key, symbols.Label(constructor), symbols.MatchName(constructor), constructor.ToDisplayString(), symbols.Location(locationNode), true, calls)
                     { Body = SyntaxFactory.Block(bodyParts) };
                 }
             }
@@ -198,6 +198,10 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
     public static DispatchMap BuildDispatchMap(IEnumerable<INamedTypeSymbol> types, IReadOnlyDictionary<string, Member> members,
         Func<IMethodSymbol, string> scope, CancellationToken cancellationToken = default)
         => BuildDispatchMap(types, members, new SymbolNames(scope), cancellationToken);
+
+    public static DispatchMap BuildDispatchMap(IEnumerable<INamedTypeSymbol> types, IReadOnlyDictionary<string, Member> members,
+        Func<IMethodSymbol, string> scope, Func<IMethodSymbol, string, string> declaringPath, CancellationToken cancellationToken = default)
+        => BuildDispatchMap(types, members, new SymbolNames(scope, declaringPath: declaringPath), cancellationToken);
 
     private static DispatchMap BuildDispatchMap(IEnumerable<INamedTypeSymbol> types, IReadOnlyDictionary<string, Member> members, SymbolNames symbols, CancellationToken cancellationToken)
     {

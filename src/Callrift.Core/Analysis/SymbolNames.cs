@@ -4,7 +4,8 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Callrift.Core;
 
-internal sealed class SymbolNames(Func<IMethodSymbol, string>? scope = null, Func<string, string>? path = null)
+internal sealed class SymbolNames(Func<IMethodSymbol, string>? scope = null, Func<string, string>? path = null,
+    IReadOnlyDictionary<IMethodSymbol, InterceptorIdentity>? interceptors = null, Func<IMethodSymbol, string, string>? declaringPath = null)
 {
     private static readonly SymbolDisplayFormat TypeFormat = new(
         typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypes,
@@ -15,30 +16,47 @@ internal sealed class SymbolNames(Func<IMethodSymbol, string>? scope = null, Fun
     public string Key(IMethodSymbol method)
     {
         method = Normalize(method);
+        if (interceptors?.TryGetValue(method, out var interceptor) == true) return interceptor.Key;
         if (method.MethodKind == MethodKind.LocalFunction && method.ContainingSymbol is IMethodSymbol owner)
             return Key(owner) + "/" + method.Name + "`" + method.Arity + Parameters(method);
-        return (scope?.Invoke(method) ?? "source") + "::" + method.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat).Replace("global::", "", StringComparison.Ordinal)
+        return (Scope(method) ?? "source") + "::" + method.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat).Replace("global::", "", StringComparison.Ordinal)
             + "." + method.MetadataName + (method.Arity == 0 ? "" : "`" + method.Arity) + Parameters(method);
     }
 
     public string MatchName(IMethodSymbol method)
     {
         method = Normalize(method);
+        if (interceptors?.TryGetValue(method, out var interceptor) == true) return interceptor.Key;
         return method.MethodKind == MethodKind.LocalFunction && method.ContainingSymbol is IMethodSymbol owner
             ? MatchName(owner) + "/" + method.Name
-            : (scope is null ? "" : scope(method) + "::") + method.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat) + "." + method.Name;
+            : (Scope(method) is { } identity ? identity + "::" : "") + method.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat) + "." + method.Name;
     }
 
-    public static string Label(IMethodSymbol method)
+    public string Label(IMethodSymbol method)
     {
         method = Normalize(method);
+        if (interceptors?.TryGetValue(method, out var interceptor) == true) return interceptor.Label;
         if (method.MethodKind == MethodKind.LocalFunction && method.ContainingSymbol is IMethodSymbol owner)
             return Label(owner) + "." + method.Name;
         var type = method.ContainingType.ToDisplayString(TypeFormat);
         return method.MethodKind is MethodKind.Constructor or MethodKind.StaticConstructor ? "new " + type : type + "." + method.Name;
     }
 
+    public string Signature(IMethodSymbol method) =>
+        (interceptors?.TryGetValue(Normalize(method), out var interceptor) == true
+            ? interceptor.Label + Parameters(method)
+            : method.ToDisplayString(SymbolDisplayFormat.CSharpErrorMessageFormat)) + " -> " + method.ReturnType.ToDisplayString();
+
     public string Path(string value) => (path?.Invoke(value) ?? value).Replace('\\', '/');
+
+    private string? Scope(IMethodSymbol method)
+    {
+        var identity = scope?.Invoke(method);
+        for (var type = method.ContainingType; type is not null; type = type.ContainingType)
+            if (type.IsFileLocal && type.DeclaringSyntaxReferences.FirstOrDefault() is { } declaration)
+                return (identity ?? "source") + "/file:" + (declaringPath?.Invoke(method, declaration.SyntaxTree.FilePath) ?? Path(declaration.SyntaxTree.FilePath));
+        return identity;
+    }
 
     public SourceLocation Location(SyntaxNode node)
     {
