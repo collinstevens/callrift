@@ -3,13 +3,23 @@ namespace Callrift.Core;
 public static class EntrySelector
 {
     public static IReadOnlyList<string> Select(CallGraph before, CallGraph after, IReadOnlySet<string> changed, DiffOptions options)
+        => Select(before, after, changed, options, default);
+
+    public static IReadOnlyList<string> Select(CallGraph before, CallGraph after, IReadOnlySet<string> changed, DiffOptions options, CancellationToken cancellationToken)
     {
-        var members = before.Members.Concat(after.Members).GroupBy(p => p.Key).ToDictionary(g => g.Key, g => g.Last().Value, StringComparer.Ordinal);
+        cancellationToken.ThrowIfCancellationRequested();
+        var members = new Dictionary<string, Member>(StringComparer.Ordinal);
+        foreach (var pair in before.Members.Concat(after.Members))
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            members[pair.Key] = pair.Value;
+        }
         if (options.Entries.Count > 0 || options.Files.Count > 0)
         {
             var selected = new HashSet<string>(StringComparer.Ordinal);
             foreach (var entry in options.Entries)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 var matches = members.Values.Where(m => m.Key == entry).ToArray();
                 if (matches.Length == 0)
                     matches = members.Values.Where(m => m.Label == entry).ToArray();
@@ -25,6 +35,7 @@ public static class EntrySelector
             }
             foreach (var file in options.Files)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 var paths = members.Values.Select(m => m.Location.Path).Distinct(StringComparer.Ordinal).ToArray();
                 var normalized = file.Replace('\\', '/');
                 var matching = paths.Where(p => p == normalized).ToArray();
@@ -34,13 +45,15 @@ public static class EntrySelector
                     throw new InvalidOperationException(matching.Length == 0 ? $"File not found: {file}" : $"Ambiguous file: {file}");
                 selected.UnionWith(members.Values.Where(m => m.Location.Path == matching[0]).Select(m => m.Key));
             }
-            return selected.Order(StringComparer.Ordinal).ToArray();
+            var result = selected.Order(StringComparer.Ordinal).ToArray();
+            cancellationToken.ThrowIfCancellationRequested();
+            return result;
         }
         var callers = members.Keys.ToDictionary(k => k, _ => new HashSet<string>(StringComparer.Ordinal), StringComparer.Ordinal);
         foreach (var graph in new[] { before, after })
         {
             foreach (var member in graph.Members.Values)
-                foreach (var target in Targets(member.Calls, graph))
+                foreach (var target in Targets(member.Calls, graph, cancellationToken))
                 {
                     if (!callers.ContainsKey(target) && graph.Implementations.ContainsKey(target)) callers[target] = [];
                     if (callers.TryGetValue(target, out var incoming))
@@ -51,30 +64,39 @@ public static class EntrySelector
             options.Paths.Any(p => members.TryGetValue(key, out var member) && (member.Location.Path == p || member.Location.Path.StartsWith(p.TrimEnd('/') + "/", StringComparison.Ordinal)))), StringComparer.Ordinal);
         var pending = new Queue<string>(affected);
         while (pending.TryDequeue(out var key))
+        {
+            cancellationToken.ThrowIfCancellationRequested();
             if (callers.TryGetValue(key, out var incoming))
                 foreach (var caller in incoming)
                     if (affected.Add(caller)) pending.Enqueue(caller);
-        var components = StrongComponents(affected, callers);
+        }
+        var components = StrongComponents(affected, callers, cancellationToken);
         var ownership = components.SelectMany((c, i) => c.Select(k => (Key: k, Component: i))).ToDictionary(p => p.Key, p => p.Component);
-        return components.Where(c => !c.Any(k => callers.TryGetValue(k, out var incoming) && incoming.Any(p => ownership.TryGetValue(p, out var owner) && owner != ownership[k])))
+        var roots = components.Where(c => !c.Any(k => callers.TryGetValue(k, out var incoming) && incoming.Any(p => ownership.TryGetValue(p, out var owner) && owner != ownership[k])))
             .Select(c => c.Where(k => members.TryGetValue(k, out var member) && member.HasBody).Order(StringComparer.Ordinal).FirstOrDefault())
             .Where(k => k is not null).Cast<string>().Order(StringComparer.Ordinal).ToArray();
+        cancellationToken.ThrowIfCancellationRequested();
+        return roots;
     }
 
-    internal static IEnumerable<string> Targets(IEnumerable<CallStep> calls, CallGraph graph)
+    internal static IEnumerable<string> Targets(IEnumerable<CallStep> calls, CallGraph graph) => Targets(calls, graph, default);
+
+    internal static IEnumerable<string> Targets(IEnumerable<CallStep> calls, CallGraph graph, CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         foreach (var call in calls)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             if (call.Kind == "call")
             {
                 yield return call.Key;
-                foreach (var target in graph.Targets(call)) yield return target;
+                foreach (var target in graph.Targets(call, cancellationToken)) yield return target;
             }
-            foreach (var child in Targets(call.Children, graph)) yield return child;
+            foreach (var child in Targets(call.Children, graph, cancellationToken)) yield return child;
         }
     }
 
-    private static List<List<string>> StrongComponents(HashSet<string> nodes, Dictionary<string, HashSet<string>> edges)
+    private static List<List<string>> StrongComponents(HashSet<string> nodes, Dictionary<string, HashSet<string>> edges, CancellationToken cancellationToken)
     {
         var index = 0;
         var indexes = new Dictionary<string, int>(StringComparer.Ordinal);
@@ -84,12 +106,14 @@ public static class EntrySelector
         var components = new List<List<string>>();
         void Visit(string key)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             indexes[key] = low[key] = index++;
             stack.Push(key);
             active.Add(key);
             if (edges.TryGetValue(key, out var adjacent))
                 foreach (var next in adjacent.Where(nodes.Contains).Order(StringComparer.Ordinal))
                 {
+                    cancellationToken.ThrowIfCancellationRequested();
                     if (!indexes.ContainsKey(next)) { Visit(next); low[key] = Math.Min(low[key], low[next]); }
                     else if (active.Contains(next)) low[key] = Math.Min(low[key], indexes[next]);
                 }

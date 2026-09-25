@@ -7,12 +7,15 @@ public sealed record CallTree(string Key, string Label, string MatchName, string
     public Omission? Omission { get; init; }
 }
 
-public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, DiffOptions options)
+public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, DiffOptions options, CancellationToken cancellationToken)
 {
+    public TreeExpander(CallGraph graph, IReadOnlySet<string> changed, DiffOptions options) : this(graph, changed, options, default) { }
+
     private readonly Dictionary<string, bool> changeReachability = new(StringComparer.Ordinal);
 
     public CallTree Expand(string key)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         if (!graph.Implementations.TryGetValue(key, out var targets) || targets.Count == 0)
             return ExpandMember(key, [], 0);
         var member = graph.Members[key];
@@ -30,6 +33,7 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
 
     private CallTree ExpandMember(string key, HashSet<string> active, int depth)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         var member = graph.Members[key];
         var side = new NodeSide(key, member.Signature, "resolved", "direct", [key], member.Location, [], "definition");
         if (active.Contains(key))
@@ -48,8 +52,9 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
         var trees = new List<CallTree>();
         foreach (var call in calls)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var children = ExpandCalls(call.Children, active, depth + 1);
-            var possibleTargets = graph.Targets(call);
+            var possibleTargets = graph.Targets(call, cancellationToken);
             if (call.Kind == "branch")
             {
                 if (children.Count > 0)
@@ -92,25 +97,32 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
 
     private bool ReachesChange(string key)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         if (changed.Count == 0) return false;
         lock (changeReachability)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             if (changeReachability.TryGetValue(key, out var known)) return known;
             var visited = new HashSet<string>(StringComparer.Ordinal);
             var result = FindChangedPath(key, visited);
             if (!result)
-                foreach (var missing in visited) changeReachability[missing] = false;
+                foreach (var missing in visited)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                    changeReachability[missing] = false;
+                }
             return result;
         }
     }
 
     private bool FindChangedPath(string key, HashSet<string> visited)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         if (changeReachability.TryGetValue(key, out var known)) return known;
         if (changed.Contains(key)) return changeReachability[key] = true;
         if (!visited.Add(key)) return false;
         if (graph.Members.TryGetValue(key, out var member))
-            foreach (var target in EntrySelector.Targets(member.Calls, graph))
+            foreach (var target in EntrySelector.Targets(member.Calls, graph, cancellationToken))
                 if (FindChangedPath(target, visited)) return changeReachability[key] = true;
         return false;
     }

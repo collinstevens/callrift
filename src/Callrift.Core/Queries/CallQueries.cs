@@ -25,13 +25,14 @@ public sealed class CallQueries(IAnalysisProvider? provider = null)
     public static DiffResult Query(CallGraph graph, QueryRequest request, CancellationToken cancellationToken = default)
     {
         Validate(request);
-        var roots = EntrySelector.Select(graph, graph, new HashSet<string>(), request.Options);
-        var expander = new TreeExpander(graph, new HashSet<string>(), request.Options);
-        var trees = roots.Select(expander.Expand).Select(TreeDiffer.Present).ToArray();
-        var truncated = trees.Any(CallriftService.IsTruncated);
+        cancellationToken.ThrowIfCancellationRequested();
+        var roots = EntrySelector.Select(graph, graph, new HashSet<string>(), request.Options, cancellationToken);
+        var expander = new TreeExpander(graph, new HashSet<string>(), request.Options, cancellationToken);
+        var trees = roots.Select(expander.Expand).Select(tree => TreeDiffer.Present(tree, cancellationToken)).ToArray();
+        var truncated = trees.Any(tree => CallriftService.IsTruncated(tree, cancellationToken));
         if (request.Target is not null)
         {
-            var targets = EntrySelector.Select(graph, graph, new HashSet<string>(), new DiffOptions { Entries = [request.Target] }).ToHashSet(StringComparer.Ordinal);
+            var targets = EntrySelector.Select(graph, graph, new HashSet<string>(), new DiffOptions { Entries = [request.Target] }, cancellationToken).ToHashSet(StringComparer.Ordinal);
             var paths = new List<DiffNode>();
             void Find(DiffNode node, List<DiffNode> path)
             {
@@ -52,6 +53,7 @@ public sealed class CallQueries(IAnalysisProvider? provider = null)
             truncated |= paths.Count > request.MaxPaths;
             trees = paths.Take(request.MaxPaths).ToArray();
         }
+        cancellationToken.ThrowIfCancellationRequested();
         return new DiffResult(trees, graph.Diagnostics, false)
         {
             Command = request.Target is null ? "tree" : "reach",
