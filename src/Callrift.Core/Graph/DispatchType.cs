@@ -9,7 +9,7 @@ public sealed record DispatchType(string Name, IReadOnlyList<DispatchType> Argum
         ITypeParameterSymbol parameter => new(parameter.ContainingSymbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat) + ":" + parameter.Ordinal, [], true),
         IArrayTypeSymbol array => new("array:" + array.Rank, [From(array.ElementType)]),
         IPointerTypeSymbol pointer => new("pointer", [From(pointer.PointedAtType)]),
-        INamedTypeSymbol named when named.TypeKind != TypeKind.Error => Named(named.IsTupleType ? named.TupleUnderlyingType! : named),
+        INamedTypeSymbol named when named.TypeKind != TypeKind.Error => Named(named.TupleUnderlyingType ?? named),
         _ => new("", [], true)
     };
 
@@ -25,10 +25,11 @@ public sealed record DispatchType(string Name, IReadOnlyList<DispatchType> Argum
         return new(type.ContainingAssembly.Identity.Name + "::" + type.OriginalDefinition.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), arguments, VariantArguments: variance);
     }
 
-    public bool CanMatch(DispatchType receiver)
+    public bool CanMatch(DispatchType receiver) => CanMatch(receiver, new Dictionary<string, (DispatchType Type, string Side)>(StringComparer.Ordinal));
+
+    internal bool CanMatch(DispatchType receiver, Dictionary<string, (DispatchType Type, string Side)> bindings)
     {
         if (Name != receiver.Name || Arguments.Count != receiver.Arguments.Count) return false;
-        var bindings = new Dictionary<string, (DispatchType Type, string Side)>(StringComparer.Ordinal);
         for (var i = 0; i < Arguments.Count; i++)
             if (VariantArguments is not { } variance || !variance[i])
                 if (!Unify(Arguments[i], "candidate:", receiver.Arguments[i], "receiver:", bindings, [])) return false;
@@ -56,7 +57,16 @@ public sealed record DispatchType(string Name, IReadOnlyList<DispatchType> Argum
     }
 }
 
-public sealed record DispatchContract(string Target, DispatchType Type);
+public sealed record DispatchContract(string Target, DispatchType Type, IReadOnlyList<DispatchType>? ReceiverTypes = null)
+{
+    public bool CanMatch(DispatchType contract, DispatchType? receiver)
+    {
+        var bindings = new Dictionary<string, (DispatchType Type, string Side)>(StringComparer.Ordinal);
+        if (!Type.CanMatch(contract, bindings)) return false;
+        return receiver is null || ReceiverTypes is null || ReceiverTypes.Any(t =>
+            t.CanMatch(receiver, new Dictionary<string, (DispatchType Type, string Side)>(bindings, StringComparer.Ordinal)));
+    }
+}
 
 public sealed record DispatchMap(IReadOnlyDictionary<string, IReadOnlyList<string>> Implementations,
     IReadOnlyDictionary<string, IReadOnlyList<DispatchContract>> Contracts);

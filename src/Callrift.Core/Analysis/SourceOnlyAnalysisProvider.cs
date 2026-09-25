@@ -195,7 +195,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
     {
         var map = new Dictionary<string, SortedSet<string>>(StringComparer.Ordinal);
         var contracts = new Dictionary<string, List<DispatchContract>>(StringComparer.Ordinal);
-        void Add(IMethodSymbol contract, IMethodSymbol implementation, bool includeSelf = false)
+        void Add(IMethodSymbol contract, IMethodSymbol implementation, IReadOnlyList<DispatchType> receiverTypes, bool includeSelf = false)
         {
             var key = symbols.Key(contract);
             var target = symbols.Key(implementation);
@@ -205,13 +205,15 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                 map[key] = targets = new SortedSet<string>(StringComparer.Ordinal);
             targets.Add(target);
             if (!contracts.TryGetValue(key, out var candidates)) contracts[key] = candidates = [];
-            candidates.Add(new DispatchContract(target, DispatchType.From(contract.ContainingType)));
+            candidates.Add(new DispatchContract(target, DispatchType.From(contract.ContainingType), receiverTypes));
         }
         foreach (var type in types)
         {
             cancellationToken.ThrowIfCancellationRequested();
             if (type.TypeKind == TypeKind.Interface || type.IsAbstract)
                 continue;
+            var receiverTypes = new List<DispatchType>();
+            for (var current = type; current is not null; current = current.BaseType) receiverTypes.Add(DispatchType.From(current));
             foreach (var contract in type.AllInterfaces)
                 foreach (var method in contract.GetMembers().OfType<IMethodSymbol>())
                     if (type.FindImplementationForInterfaceMember(method) is IMethodSymbol implementation)
@@ -224,18 +226,18 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                             resolved = candidate;
                             break;
                         }
-                        Add(method, resolved);
+                        Add(method, resolved, receiverTypes);
                     }
             var overridden = new HashSet<ISymbol>(SymbolEqualityComparer.Default);
             for (var current = type; current is not null; current = current.BaseType)
                 foreach (var method in current.GetMembers().OfType<IMethodSymbol>())
                 {
                     if (overridden.Contains(method)) continue;
-                    if (method.IsVirtual || method.IsOverride) Add(method, method, includeSelf: true);
+                    if (method.IsVirtual || method.IsOverride) Add(method, method, receiverTypes, includeSelf: true);
                     for (var parent = method.OverriddenMethod; parent is not null; parent = parent.OverriddenMethod)
                     {
                         overridden.Add(parent);
-                        Add(parent, method);
+                        Add(parent, method, receiverTypes);
                     }
                 }
         }

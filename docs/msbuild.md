@@ -37,4 +37,6 @@ The graph still describes possible calls. Source virtual overrides participate i
 
 Constructed invariant generic contracts exclude incompatible implementations, including nested arguments and inconsistent substitutions for repeated type parameters. Covariant and contravariant arguments remain conservative, and generic constraints are not used to narrow candidates. Declaration identities remain unchanged across constructed uses.
 
+Static receiver types also constrain candidates. Ordinary reference casts preserve the underlying class constraint, so an interface cast cannot introduce an unrelated implementation or a false self-cycle. User-defined conversions stop that inference because their result can be a different object. Assignments and enclosing type guards still require receiver-flow analysis.
+
 The worker and CLI share a version and communicate through temporary JSON files. Token fingerprints preserve body-only changes across that process boundary. The source-only provider retains Roslyn syntax equivalence. Whitespace and comments do not count as body changes in either mode.

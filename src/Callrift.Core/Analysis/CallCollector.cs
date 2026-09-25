@@ -167,12 +167,37 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         var exactReceiver = receiver is BaseExpressionSyntax or BaseObjectCreationExpressionSyntax
             || receiver is not null && model.GetTypeInfo(receiver, cancellationToken).Type is INamedTypeSymbol { IsSealed: true }
             || receiver is null && model.GetEnclosingSymbol(node.SpanStart, cancellationToken)?.ContainingType is { IsSealed: true };
+        var dispatches = !exactReceiver && (method.ContainingType.TypeKind == TypeKind.Interface || method.IsAbstract || method.IsVirtual || method.IsOverride);
         return new CallStep("call", symbols.Key(normalized), source ? SymbolNames.Label(normalized) : SymbolNames.SyntaxLabel(node), source, symbols.Location(node), children)
         {
             SuppressDispatch = exactReceiver,
-            DispatchType = !exactReceiver && (method.ContainingType.TypeKind == TypeKind.Interface || method.IsAbstract || method.IsVirtual || method.IsOverride)
-                ? DispatchType.From(method.ContainingType) : null
+            DispatchType = dispatches ? DispatchType.From(method.ContainingType) : null,
+            ReceiverType = dispatches ? ReceiverConstraint(receiver, node.SpanStart) : null
         };
+    }
+
+    private DispatchType? ReceiverConstraint(ExpressionSyntax? receiver, int position)
+    {
+        if (receiver is null)
+            return model.GetEnclosingSymbol(position, cancellationToken)?.ContainingType is { TypeKind: TypeKind.Class or TypeKind.Struct } owner
+                ? DispatchType.From(owner) : null;
+        ITypeSymbol? constraint = null;
+        while (receiver is not null)
+        {
+            if (receiver is ParenthesizedExpressionSyntax parenthesized)
+            {
+                receiver = parenthesized.Expression;
+                continue;
+            }
+            var type = model.GetTypeInfo(receiver, cancellationToken).Type;
+            if (type is { TypeKind: TypeKind.Class or TypeKind.Struct or TypeKind.Array or TypeKind.Delegate }
+                && (constraint is null || model.Compilation.ClassifyCommonConversion(type, constraint).IsImplicit))
+                constraint = type;
+            if (model.GetOperation(receiver, cancellationToken) is not IConversionOperation conversion
+                || !(conversion.Conversion.IsReference || conversion.Conversion.IsIdentity)) break;
+            receiver = conversion.Operand.Syntax as ExpressionSyntax;
+        }
+        return constraint is null ? null : DispatchType.From(constraint);
     }
 
     private void Branch(string label, SyntaxNode node, IEnumerable<SyntaxNode> bodies, List<CallStep> result)

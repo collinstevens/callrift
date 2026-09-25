@@ -29,6 +29,7 @@ public sealed record CallStep(
     public string Relation { get; init; } = "call";
     public bool SuppressDispatch { get; init; }
     public DispatchType? DispatchType { get; init; }
+    public DispatchType? ReceiverType { get; init; }
     public IReadOnlyList<string> Candidates { get; init; } = [];
 }
 
@@ -68,7 +69,7 @@ public sealed record CallGraph(
     {
         if (call.SuppressDispatch || !Implementations.TryGetValue(call.Key, out var targets)) return [];
         if (call.DispatchType is null || !DispatchContracts.TryGetValue(call.Key, out var contracts)) return targets;
-        return contracts.Where(c => c.Type.CanMatch(call.DispatchType)).Select(c => c.Target).Distinct(StringComparer.Ordinal).Order(StringComparer.Ordinal).ToArray();
+        return contracts.Where(c => c.CanMatch(call.DispatchType, call.ReceiverType)).Select(c => c.Target).Distinct(StringComparer.Ordinal).Order(StringComparer.Ordinal).ToArray();
     }
 }
 
