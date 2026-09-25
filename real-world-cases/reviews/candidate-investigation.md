@@ -1,6 +1,6 @@
 # Expanded real-world cases investigation
 
-These are inspected candidates, not accepted snapshots or completed real-world cases. Clones were created with `--filter=blob:none --no-checkout` under the external user-local `Callrift/real-world-cases` cache. No upstream source was copied into this checkout.
+This records candidate investigations. Acceptance evidence for the held-pipeline pair is maintained in its [case review](autofac-held-pipeline.md); the other candidates have no accepted snapshots. Clones were created with `--filter=blob:none --no-checkout` under the external user-local `Callrift/real-world-cases` cache. No upstream source was copied into this checkout.
 
 License files were read from these immutable revisions on September 24, 2026. Each accepted historical pair still needs its own license evidence.
 
@@ -24,6 +24,12 @@ Focused selector: `DefaultRegisteredServicesTracker.HoldForAdditionalService`. S
 
 Checkpoint `bbcd0c5` preserves referenced project frameworks and prepares their outputs before workspace loading. SDK 10.0.401 is installed through mise. A fresh restored trial succeeds and reports one unresolved delegate-constructor call in `LazyWithMetadataRegistrationSource.cs:101`. Its `new Func<T>(() => (T)context.ResolveComponent(request))` is valid C#; this diagnostic requires a binding fix. No fallback or snapshot acceptance occurred.
 
-The delegate-construction fix uses Roslyn's delegate-creation operation to bind the implicit constructor. Eight CLI regressions cover explicit and target-typed constructors, method-group targets, and missing targets in both modes. Repeating the restored trial removes the false diagnostic. The entire JSON result is otherwise unchanged after removing that one diagnostic from the earlier result. The focused view has one root and explicit depth truncation; the broader case review remains open.
+The delegate-construction fix uses Roslyn's delegate-creation operation to bind the implicit constructor. Eight CLI regressions cover explicit and target-typed constructors, method-group targets, and missing targets in both modes. Repeating the restored trial removes the false diagnostic. The entire JSON result is otherwise unchanged after removing that one diagnostic from the earlier result. The focused view has one root and explicit depth truncation. Subsequent automatic-root, generic dispatch, receiver-constraint, location, and cross-format review is recorded in the case review.
 
 The initial partial-clone read fetched missing blobs individually. That run was stopped, and the two pinned trees' blobs were fetched in one batch without a checkout. The subsequent source command completed. This is cache preparation evidence, not a benchmark or speedup claim.
+
+## Autofac pipeline callback refactor
+
+Before: `b7f65d61fcd650ac5850b05f83df1b5dbaaf8d27`. After: `66c7093f139336f661094284261b2c9a17615b7d`. Both LICENSE paths resolve to the same MIT blob recorded above. The inspected diff moves local middleware-chain builders into static methods and expands returned lambda bodies to avoid allocating nested diagnostic callbacks per invocation.
+
+The collector currently skips anonymous functions outside direct call arguments. It therefore omits the returned middleware bodies in both revisions, including `stage.Execute`, metrics recording, and diagnostic success/failure calls. This candidate cannot be accepted until deferred callback creation is represented explicitly. Its source diff is evidence for the gap, not an accepted snapshot.

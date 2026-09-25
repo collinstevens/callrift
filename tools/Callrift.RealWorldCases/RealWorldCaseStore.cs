@@ -4,7 +4,10 @@ using Callrift.Core;
 namespace Callrift.RealWorldCases;
 
 public sealed record RealWorldCase(string Id, string Repository, string CacheName, string License, string LicenseFile,
-    string Before, string After, string Reason, string[] Tags, string[] Options, string? KnownIssue);
+    string Before, string After, string Reason, string[] Tags, string[] Options, string? KnownIssue,
+    RealWorldCaseView[]? Views = null, string? Review = null, string? BeforeLicenseBlob = null, string? AfterLicenseBlob = null, bool Routine = true);
+
+public sealed record RealWorldCaseView(string Id, string[] Options, bool Routine = true);
 
 public static class RealWorldCaseStore
 {
@@ -35,6 +38,13 @@ public static class RealWorldCaseStore
             if (revision.Length != 40 || revision.Any(c => !Uri.IsHexDigit(c))) throw new InvalidOperationException("Case revisions must be full commit IDs.");
             try { await GitRepository.RunAsync(path, ["cat-file", "-e", revision + "^{commit}"], cancellationToken); }
             catch (InvalidOperationException) { await GitRepository.RunAsync(path, ["fetch", "--filter=blob:none", "origin", revision], cancellationToken); }
+            var expectedLicense = revision == entry.Before ? entry.BeforeLicenseBlob : entry.AfterLicenseBlob;
+            if (expectedLicense is not null)
+            {
+                var actualLicense = (await GitRepository.RunAsync(path, ["rev-parse", revision + ":" + entry.LicenseFile], cancellationToken)).Trim();
+                if (!actualLicense.Equals(expectedLicense, StringComparison.OrdinalIgnoreCase))
+                    throw new InvalidOperationException($"License evidence does not match {entry.Id} at {revision}.");
+            }
         }
         return path;
     }

@@ -1,34 +1,21 @@
-name: CI
+name: Reviewed real-world cases
 on:
-  push:
-  pull_request:
+  schedule:
+    - cron: '41 5 * * 6'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  title:
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: jdx/mise-action@v3
-      - shell: pwsh
-        env:
-          PR_TITLE: ${{ github.event.pull_request.title }}
-        run: |
-          $message = Join-Path $env:RUNNER_TEMP 'pr-title.txt'
-          [IO.File]::WriteAllText($message, $env:PR_TITLE)
-          hk util check-conventional-commit $message
-          if ($LASTEXITCODE -ne 0) { throw 'Use a conventional commit title for the squash merge.' }
-  verify:
+  cases:
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 90
     env:
       CALLRIFT_CASES_CACHE: ${{ github.workspace }}/../callrift-real-world-cases
-      CALLRIFT_CASE_SET: routine
+      CALLRIFT_CASE_SET: all
       DOTNET_NOLOGO: true
       DOTNET_CLI_TELEMETRY_OPTOUT: true
     defaults:
@@ -43,15 +30,11 @@ jobs:
           key: cases-${{ runner.os }}-${{ hashFiles('real-world-cases/manifest.json') }}
       - run: ./.github/scripts/Initialize-TestGit.ps1
       - run: dotnet restore callrift.slnx --locked-mode
-      - run: dotnet build callrift.slnx --no-restore
-      - run: dotnet test callrift.slnx --no-build --logger trx
-      - run: mise run check
-      - run: mise run workflows
-      - run: ./scripts/Package-Smoke.ps1
-      - if: failure()
+      - run: dotnet test tests/Callrift.RealWorldCases/Callrift.RealWorldCases.csproj --no-restore --logger trx
+      - if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: diagnostics-${{ runner.os }}
+          name: reviewed-cases-${{ runner.os }}
           path: |
             **/TestResults/*.trx
             **/*.received.*

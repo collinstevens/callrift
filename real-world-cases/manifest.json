@@ -175,5 +175,47 @@
       "DeleteTodoItemCommandHandler.Handle"
     ],
     "knownIssue": "issues/source-only-coverage.md"
+  },
+  {
+    "id": "autofac-held-pipeline",
+    "repository": "https://github.com/autofac/Autofac.git",
+    "cacheName": "autofac",
+    "license": "MIT",
+    "licenseFile": "LICENSE",
+    "beforeLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
+    "afterLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
+    "before": "dc2252d59922c8b62f8305edabce96fe6211f786",
+    "after": "ae9e1e1129b9c22e7ab111381308dcb02f80a8d2",
+    "reason": "Remove eager pipeline construction while a registration is held for an additional service",
+    "tags": [
+      "branch-guard",
+      "interface-dispatch",
+      "multi-target",
+      "generated-code",
+      "automatic-roots"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "review": "reviews/autofac-held-pipeline.md",
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": ["--depth", "1"]
+      },
+      {
+        "id": "source-focused",
+        "options": ["--entry", "DefaultRegisteredServicesTracker.HoldForAdditionalService", "--depth", "3"]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": ["--project", "src/Autofac/Autofac.csproj", "--framework", "net10.0", "--depth", "1"]
+      },
+      {
+        "id": "msbuild-focused",
+        "options": ["--project", "src/Autofac/Autofac.csproj", "--framework", "net10.0", "--entry", "DefaultRegisteredServicesTracker.HoldForAdditionalService", "--depth", "3"]
+      }
+    ]
   }
 ]

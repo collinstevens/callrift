@@ -1,0 +1,43 @@
+﻿format: text
+exit: 0
+stdout:
+  DefaultRegisteredServicesTracker.HoldForAdditionalService
+  ├─ if (!additionalInfo.IsInitializing)
+  │  └─ DefaultRegisteredServicesTracker.BeginServiceInfoInitialization
+  │     ├─ foreach (var servicePipelineSource in _servicePipelineSources)
+  │     │  └─ IServiceMiddlewareSource.ProvideMiddleware
+~ │     │     ├─ ⇢ ExternalRegistryServiceMiddlewareSource.ProvideMiddleware (changes below depth limit)
+  │     │     ├─ ⇢ ServiceWithTypeMiddlewareSource.ProvideMiddleware (depth limit)
+~ │     │     └─ ⇢ OpenGenericDecoratorMiddlewareSource.ProvideMiddleware (changes below depth limit)
+  │     └─ ServiceRegistrationInfo.BeginInitialization (depth limit)
+  ├─ ServiceRegistrationInfo.IsSourceQueued
+  └─ if (additionalInfo.IsSourceQueued(source))
+-    ├─ if (_ephemeralServiceInfo is null)
+-    │  └─ IComponentRegistration.BuildResolvePipeline
+-    │     ├─ ⇢ ComponentRegistration.BuildResolvePipeline (changes below depth limit)
+-    │     └─ ⇢ ComponentRegistrationLifetimeDecorator.BuildResolvePipeline (changes below depth limit)
+     └─ DefaultRegisteredServicesTracker.DeferSourceImplementation
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  DefaultRegisteredServicesTracker.HoldForAdditionalService
+  ├─ if (!additionalInfo.IsInitializing)
+  │  └─ DefaultRegisteredServicesTracker.BeginServiceInfoInitialization
+  │     ├─ foreach (var servicePipelineSource in _servicePipelineSources)
+  │     │  └─ IServiceMiddlewareSource.ProvideMiddleware
+~ │     │     ├─ ⇢ ExternalRegistryServiceMiddlewareSource.ProvideMiddleware (changes below depth limit)
+  │     │     ├─ ⇢ ServiceWithTypeMiddlewareSource.ProvideMiddleware (depth limit)
+~ │     │     └─ ⇢ OpenGenericDecoratorMiddlewareSource.ProvideMiddleware (changes below depth limit)
+  │     └─ ServiceRegistrationInfo.BeginInitialization (depth limit)
+  ├─ ServiceRegistrationInfo.IsSourceQueued
+  └─ if (additionalInfo.IsSourceQueued(source))
+-    ├─ if (_ephemeralServiceInfo is null)
+-    │  └─ IComponentRegistration.BuildResolvePipeline
+-    │     ├─ ⇢ ComponentRegistration.BuildResolvePipeline (changes below depth limit)
+-    │     └─ ⇢ ComponentRegistrationLifetimeDecorator.BuildResolvePipeline (changes below depth limit)
+     └─ DefaultRegisteredServicesTracker.DeferSourceImplementation
+```
+stderr:

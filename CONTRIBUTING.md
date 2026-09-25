@@ -24,6 +24,8 @@ Run `mise run benchmark -- --filter '*FloorBenchmarks*' --job short` for the ini
 
 Run `mise run workspaces` for restored project and generator checks, `mise run pack` for installation checks, and `mise run sweep` for a crash sweep over recent upstream history. MSBuild checks restore packages and execute project targets and generators. The published repository runs CI on Ubuntu, Windows, and macOS.
 
+`mise run cases` runs every pinned case and view locally. Set `CALLRIFT_CASE_SET=routine` to use the bounded CI selection. The manifest can exclude a whole case or an individual view from that selection with `routine: false`. Scheduled and manual reviewed-case workflows run the complete set on all three operating systems. New multi-view cases require a review document and immutable license blob identities for both revisions. Each view has a ten-minute analysis timeout.
+
 All contributions require an approved contributor agreement before merge. The agreement and legal copyright holder are not finalized yet. Outside contributions must wait for that agreement and a required CLA Assistant check. The agreement must explicitly address copyright assignment if the project retains the proposed single-holder policy; a general contribution license alone does not do that.
 
 Use conventional commits and sign commits with your configured signing key. Do not add source comments. Snapshot changes belong with the behavior change and its review rationale.
