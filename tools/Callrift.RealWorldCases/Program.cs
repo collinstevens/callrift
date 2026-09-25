@@ -15,8 +15,14 @@ if (args[0] == "prepare")
         Console.WriteLine(await RealWorldCaseStore.PrepareAsync(entry));
     return 0;
 }
+if (args[0] == "sweep-revision" && args.Length == 3)
+    return await CrashSweep.RunRevisionAsync(args[1], args[2]);
 if (args[0] == "sweep")
-    return await CrashSweep.RunAsync(args.Length > 1 ? int.Parse(args[1], System.Globalization.CultureInfo.InvariantCulture) : 30);
+{
+    using var cancellation = new CancellationTokenSource();
+    Console.CancelKeyPress += (_, eventArgs) => { eventArgs.Cancel = true; cancellation.Cancel(); };
+    return await CrashSweep.RunAsync(args.Length > 1 ? int.Parse(args[1], System.Globalization.CultureInfo.InvariantCulture) : 30, cancellation.Token);
+}
 if (args[0] != "candidates" || args.Length < 2)
     return 2;
 var repo = await GitRepository.OpenAsync(args[1]);
