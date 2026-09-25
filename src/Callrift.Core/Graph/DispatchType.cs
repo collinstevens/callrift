@@ -5,25 +5,33 @@ namespace Callrift.Core;
 public sealed record DispatchType(string Name, IReadOnlyList<DispatchType> Arguments, bool IsParameter = false, IReadOnlyList<bool>? VariantArguments = null)
 {
     public IReadOnlyList<VarianceKind>? VarianceDirections { get; init; }
+    public DispatchConstraints? Constraints { get; init; }
 
-    internal static DispatchType From(ITypeSymbol type) => type switch
+    internal static DispatchType From(ITypeSymbol type) => From(type, true);
+
+    private static DispatchType From(ITypeSymbol type, bool constraints) => type switch
     {
-        ITypeParameterSymbol parameter => new(parameter.ContainingSymbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat) + ":" + parameter.Ordinal, [], true),
-        IArrayTypeSymbol array => new("array:" + array.Rank, [From(array.ElementType)]),
-        IPointerTypeSymbol pointer => new("pointer", [From(pointer.PointedAtType)]),
+        ITypeParameterSymbol parameter => new(parameter.ContainingSymbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat) + ":" + parameter.Ordinal, [], true)
+        {
+            Constraints = constraints ? new DispatchConstraints(parameter.HasReferenceTypeConstraint, parameter.HasValueTypeConstraint,
+                parameter.HasUnmanagedTypeConstraint, parameter.HasConstructorConstraint, parameter.ConstraintTypes.Select(t => From(t, false)).ToArray())
+            { AllowsRefLikeType = parameter.AllowsRefLikeType } : null
+        },
+        IArrayTypeSymbol array => new("array:" + array.Rank, [From(array.ElementType, constraints)]),
+        IPointerTypeSymbol pointer => new("pointer", [From(pointer.PointedAtType, constraints)]),
         IDynamicTypeSymbol => new("special:System_Object", []) { VarianceDirections = [] },
-        INamedTypeSymbol named when named.TypeKind != TypeKind.Error => Named(named.TupleUnderlyingType ?? named),
+        INamedTypeSymbol named when named.TypeKind != TypeKind.Error => Named(named.TupleUnderlyingType ?? named, constraints),
         _ => new("", [], true)
     };
 
-    private static DispatchType Named(INamedTypeSymbol type)
+    private static DispatchType Named(INamedTypeSymbol type, bool constraints)
     {
-        var arguments = type.TypeArguments.Select(From).ToList();
+        var arguments = type.TypeArguments.Select(t => From(t, constraints)).ToList();
         var variance = type.TypeParameters.Select(p => p.Variance != VarianceKind.None).ToList();
         var directions = type.TypeParameters.Select(p => p.Variance).ToList();
         if (type.ContainingType is { } containing)
         {
-            arguments.Insert(0, From(containing));
+            arguments.Insert(0, From(containing, constraints));
             variance.Insert(0, false);
             directions.Insert(0, VarianceKind.None);
         }
@@ -60,7 +68,7 @@ public sealed record DispatchType(string Name, IReadOnlyList<DispatchType> Argum
 
     internal string StructuralKey() => Name + "<" + string.Join(",", Arguments.Select(a => a.StructuralKey())) + ">";
 
-    private DispatchType Resolve(IReadOnlyDictionary<string, (DispatchType Type, string Side)> bindings, string side, HashSet<string> active)
+    internal DispatchType Resolve(IReadOnlyDictionary<string, (DispatchType Type, string Side)> bindings, string side, HashSet<string> active)
     {
         if (IsParameter && active.Add(side + Name) && bindings.TryGetValue(side + Name, out var bound))
             return bound.Type.Resolve(bindings, bound.Side, active);
@@ -96,10 +104,13 @@ public sealed record DispatchContract(string Target, DispatchType Type, IReadOnl
     {
         var bindings = new Dictionary<string, (DispatchType Type, string Side)>(StringComparer.Ordinal);
         if (!Type.CanMatch(contract, bindings, definitions)) return false;
-        return receiver is null || ReceiverTypes is null || ReceiverTypes.Any(t =>
+        if (receiver is null || ReceiverTypes is null) return DispatchConstraints.Allow(Type, bindings, "candidate:", definitions);
+        return ReceiverTypes.Any(t =>
         {
             var constrained = new Dictionary<string, (DispatchType Type, string Side)>(bindings, StringComparer.Ordinal);
-            return t.CanMatch(receiver, constrained, definitions) && Type.CanMatch(contract, constrained, definitions);
+            return t.CanMatch(receiver, constrained, definitions) && Type.CanMatch(contract, constrained, definitions)
+                && DispatchConstraints.Allow(Type, constrained, "candidate:", definitions)
+                && DispatchConstraints.Allow(t, constrained, "candidate:", definitions);
         });
     }
 }

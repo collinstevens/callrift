@@ -2,7 +2,14 @@ using Microsoft.CodeAnalysis;
 
 namespace Callrift.Core;
 
-public sealed record DispatchTypeDefinition(DispatchType Type, IReadOnlyList<DispatchType> BaseTypes, bool IsReferenceType, SpecialType SpecialType);
+public sealed record DispatchTypeDefinition(DispatchType Type, IReadOnlyList<DispatchType> BaseTypes, bool IsReferenceType, SpecialType SpecialType)
+{
+    public bool IsValueType { get; init; }
+    public bool IsUnmanagedType { get; init; }
+    public bool IsRefLikeType { get; init; }
+    public bool HasPublicParameterlessConstructor { get; init; }
+    public IReadOnlyList<DispatchType> InstanceFields { get; init; } = [];
+}
 
 internal static class DispatchTypeCatalog
 {
@@ -28,10 +35,28 @@ internal static class DispatchTypeCatalog
             if (definitions.ContainsKey(shape.Name)) continue;
             var bases = original.Interfaces.Cast<ITypeSymbol>().ToList();
             if (original.BaseType is not null) bases.Add(original.BaseType);
-            definitions.Add(shape.Name, new DispatchTypeDefinition(shape, bases.Select(DispatchType.From).ToArray(), original.IsReferenceType, original.SpecialType));
+            var fields = original.IsValueType && !original.IsUnmanagedType ? original.GetMembers().OfType<IFieldSymbol>().Where(f => !f.IsStatic).Select(f => f.Type).ToArray() : [];
+            definitions.Add(shape.Name, new DispatchTypeDefinition(shape, bases.Select(DispatchType.From).ToArray(), original.IsReferenceType, original.SpecialType)
+            {
+                IsValueType = original.IsValueType,
+                IsUnmanagedType = original.IsUnmanagedType,
+                IsRefLikeType = original.IsRefLikeType,
+                HasPublicParameterlessConstructor = !original.IsAbstract && original.InstanceConstructors.Any(c => c.Parameters.Length == 0 && c.DeclaredAccessibility == Accessibility.Public
+                    && (!HasRequiredMembers(original) || c.GetAttributes().Any(a => a.AttributeClass?.ToDisplayString() == "System.Diagnostics.CodeAnalysis.SetsRequiredMembersAttribute"))),
+                InstanceFields = fields.Select(DispatchType.From).ToArray()
+            });
             foreach (var parent in bases) pending.Enqueue(parent);
+            foreach (var field in fields) pending.Enqueue(field);
+            foreach (var constraint in original.TypeParameters.SelectMany(p => p.ConstraintTypes)) pending.Enqueue(constraint);
         }
         return definitions.OrderBy(p => p.Key, StringComparer.Ordinal).ToDictionary(p => p.Key, p => p.Value, StringComparer.Ordinal);
+    }
+
+    private static bool HasRequiredMembers(INamedTypeSymbol type)
+    {
+        for (var current = type; current is not null; current = current.BaseType)
+            if (current.GetMembers().Any(member => member is IFieldSymbol { IsRequired: true } or IPropertySymbol { IsRequired: true })) return true;
+        return false;
     }
 
     public static bool HasReferenceConversion(DispatchType source, DispatchType target, IReadOnlyDictionary<string, DispatchTypeDefinition>? definitions,
@@ -69,7 +94,7 @@ internal static class DispatchTypeCatalog
             new HashSet<string>(active, StringComparer.Ordinal)));
     }
 
-    private static void Bind(DispatchType template, DispatchType actual, Dictionary<string, DispatchType> substitutions)
+    internal static void Bind(DispatchType template, DispatchType actual, Dictionary<string, DispatchType> substitutions)
     {
         if (template.IsParameter)
         {
@@ -80,10 +105,10 @@ internal static class DispatchTypeCatalog
             Bind(template.Arguments[i], actual.Arguments[i], substitutions);
     }
 
-    private static bool IsArray(DispatchType type) => type.Arguments.Count == 1 && type.Name.StartsWith("array:", StringComparison.Ordinal)
+    internal static bool IsArray(DispatchType type) => type.Arguments.Count == 1 && type.Name.StartsWith("array:", StringComparison.Ordinal)
         && int.TryParse(type.Name.AsSpan(6), out var rank) && rank > 0;
 
-    private static DispatchType Substitute(DispatchType type, IReadOnlyDictionary<string, DispatchType> substitutions) =>
+    internal static DispatchType Substitute(DispatchType type, IReadOnlyDictionary<string, DispatchType> substitutions) =>
         type.IsParameter && substitutions.TryGetValue(type.Name, out var replacement) ? replacement
             : type with { Arguments = type.Arguments.Select(t => Substitute(t, substitutions)).ToArray() };
 }
