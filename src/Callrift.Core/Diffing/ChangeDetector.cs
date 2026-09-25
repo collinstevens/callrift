@@ -21,6 +21,6 @@ public static class ChangeDetector
     }
 
     private static string Fingerprint(IEnumerable<CallStep> calls, CallGraph graph) => string.Join(";", calls.Select(c =>
-        c.Kind + ":" + c.Key + "[" + (graph.Implementations.TryGetValue(c.Key, out var targets) ? string.Join(",", targets) : "")
+        c.Kind + ":" + c.Key + "[" + (!c.SuppressDispatch && graph.Implementations.TryGetValue(c.Key, out var targets) ? string.Join(",", targets) : "")
         + "]{" + Fingerprint(c.Children, graph) + "}"));
 }

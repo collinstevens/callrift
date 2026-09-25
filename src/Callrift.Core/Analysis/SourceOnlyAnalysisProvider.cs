@@ -189,11 +189,11 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
     private static IReadOnlyDictionary<string, IReadOnlyList<string>> BuildImplementationMap(IEnumerable<INamedTypeSymbol> types, IReadOnlyDictionary<string, Member> members, SymbolNames symbols, CancellationToken cancellationToken)
     {
         var map = new Dictionary<string, SortedSet<string>>(StringComparer.Ordinal);
-        void Add(IMethodSymbol contract, IMethodSymbol implementation)
+        void Add(IMethodSymbol contract, IMethodSymbol implementation, bool includeSelf = false)
         {
             var key = symbols.Key(contract);
             var target = symbols.Key(implementation);
-            if (key == target || !members.TryGetValue(target, out var member) || !member.HasBody)
+            if ((!includeSelf && key == target) || !members.TryGetValue(target, out var member) || !member.HasBody)
                 return;
             if (!map.TryGetValue(key, out var targets))
                 map[key] = targets = new SortedSet<string>(StringComparer.Ordinal);
@@ -207,20 +207,39 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
             foreach (var contract in type.AllInterfaces)
                 foreach (var method in contract.GetMembers().OfType<IMethodSymbol>())
                     if (type.FindImplementationForInterfaceMember(method) is IMethodSymbol implementation)
-                        Add(method, implementation);
+                    {
+                        var resolved = implementation;
+                        for (var current = type; current is not null; current = current.BaseType)
+                        {
+                            var candidate = current.GetMembers().OfType<IMethodSymbol>().FirstOrDefault(m => Overrides(m, implementation));
+                            if (candidate is null) continue;
+                            resolved = candidate;
+                            break;
+                        }
+                        Add(method, resolved);
+                    }
             var overridden = new HashSet<ISymbol>(SymbolEqualityComparer.Default);
             for (var current = type; current is not null; current = current.BaseType)
                 foreach (var method in current.GetMembers().OfType<IMethodSymbol>())
                 {
                     if (overridden.Contains(method)) continue;
+                    if (method.IsVirtual || method.IsOverride) Add(method, method, includeSelf: true);
                     for (var parent = method.OverriddenMethod; parent is not null; parent = parent.OverriddenMethod)
                     {
                         overridden.Add(parent);
-                        if (parent.IsAbstract) Add(parent, method);
+                        Add(parent, method);
                     }
                 }
         }
-        return map.ToDictionary(p => p.Key, p => (IReadOnlyList<string>)p.Value.ToArray(), StringComparer.Ordinal);
+        return map.Where(p => p.Value.Any(target => target != p.Key))
+            .ToDictionary(p => p.Key, p => (IReadOnlyList<string>)p.Value.ToArray(), StringComparer.Ordinal);
+    }
+
+    private static bool Overrides(IMethodSymbol method, IMethodSymbol ancestor)
+    {
+        for (var current = method; current is not null; current = current.OverriddenMethod)
+            if (SymbolEqualityComparer.Default.Equals(current.OriginalDefinition, ancestor.OriginalDefinition)) return true;
+        return false;
     }
 
     public static IReadOnlyList<MetadataReference> LoadReferences()

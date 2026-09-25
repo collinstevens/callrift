@@ -1,0 +1,26 @@
+﻿Virtual dispatch retains base and override candidates; an override's explicit base call expands directly without false recursion.
+
+exit: 0
+stdout:
+  Flow.Handle
+  └─ Worker.Run
+     ├─ ⇢ Derived.Run
+     │  ├─ Worker.Run
+-    │  ├─ Derived.Before
++    │  └─ Derived.After
+     └─ ⇢ Worker.Run
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Flow.Handle
+  └─ Worker.Run
+     ├─ ⇢ Derived.Run
+     │  ├─ Worker.Run
+-    │  ├─ Derived.Before
++    │  └─ Derived.After
+     └─ ⇢ Worker.Run
+```
+stderr:

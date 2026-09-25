@@ -1,0 +1,11 @@
+# Virtual-dispatch snapshot review
+
+Inspected the complete source diffs for `serilog-null-key` (`60935b4d7abad71cf6157b45a10f5c3c65ead527` → `6c3fbcf636b0671bbd6f5032b61a2254937d8408`) and `serilog-extra-arguments` (`0597ddfbd4ec594d9c42edd745fe728a2198bad9` → `60935b4d7abad71cf6157b45a10f5c3c65ead527`) from the external Git-object cache. Inspected `PropertyValueConverter`, `LogEventPropertyValue`, `ReusableStringWriter`, the four `ToString` overrides, and the four concrete property-value `Render` declarations.
+
+For null-key, text and Markdown now expose the `object.ToString()` call moving beneath the non-null alternative alongside `WriteQuotedJsonString`. JSON has call spans at line 146, columns 35–75 before and line 154, columns 39–53 after. The possible source targets are `LogEventPropertyValue.ToString()`, `MessageTemplate.ToString()`, `PropertyToken.ToString()`, and `TextToken.ToString()`. The first delegates to its two-parameter overload, creates a reusable writer, and dispatches `Render`. These are distinct identities, not recursion. The added guard consumes an extra expansion level; the resulting depth omissions are expected. Existing visitor cycles still reference their actual ancestor after preorder IDs shift.
+
+The null-key JSON's unchanged literal-formatting context also exposes an infeasible candidate set inside `if (value is char)`. This is known-wrong receiver-flow behavior, tracked with exact revisions and locations in [receiver-flow](../issues/receiver-flow.md). The snapshot records the limitation and does not certify those candidates as executable. Guard-sensitive receiver analysis remains unfinished.
+
+For extra-arguments, the changed SelfLog guard and its text/Markdown output are unchanged. JSON adds two unchanged `value.ToString()` subtrees at `PropertyValueConverter.cs:169`, columns 32–48. Each lists the same four source overrides at their declaration locations and stops at the depth limit. All existing node evidence, diagnostics, coverage, and truncation remain unchanged; only preorder IDs shift. The two JSON documents pass the version 1 schema.
+
+Accepted only the null-key text/Markdown and JSON files and the extra-arguments JSON file after this review. Runtime container choices, conversion policies, receiver dataflow, and feasible paths are not inferred.

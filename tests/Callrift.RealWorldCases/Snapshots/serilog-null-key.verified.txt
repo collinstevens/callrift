@@ -3,8 +3,34 @@ exit: 0
 stdout:
   JsonValueFormatter.VisitDictionaryValue
   └─ foreach (var element in dictionary.Elements)
+-    ├─ (element.Key.Value ?? "null").ToString
+-    │  ├─ ⇢ LogEventPropertyValue.ToString
+-    │  │  └─ LogEventPropertyValue.ToString
+-    │  │     ├─ ReusableStringWriter.GetOrCreate
+-    │  │     │  └─ if (writer == null || !Equals(writer.FormatProvider, fmtProvider))
+-    │  │     │     └─ new ReusableStringWriter (depth limit)
+-    │  │     └─ LogEventPropertyValue.Render
+-    │  │        ├─ ⇢ DictionaryValue.Render (depth limit)
+-    │  │        ├─ ⇢ ScalarValue.Render (depth limit)
+-    │  │        ├─ ⇢ SequenceValue.Render (depth limit)
+-    │  │        └─ ⇢ StructureValue.Render (depth limit)
+-    │  ├─ ⇢ MessageTemplate.ToString
+-    │  ├─ ⇢ PropertyToken.ToString
+-    │  └─ ⇢ TextToken.ToString
 -    ├─ JsonValueFormatter.WriteQuotedJsonString
 +    ├─ else (!(key is null))
++    │  ├─ key.ToString
++    │  │  ├─ ⇢ LogEventPropertyValue.ToString
++    │  │  │  └─ LogEventPropertyValue.ToString
++    │  │  │     ├─ ReusableStringWriter.GetOrCreate (depth limit)
++    │  │  │     └─ LogEventPropertyValue.Render
++    │  │  │        ├─ ⇢ DictionaryValue.Render (depth limit)
++    │  │  │        ├─ ⇢ ScalarValue.Render (depth limit)
++    │  │  │        ├─ ⇢ SequenceValue.Render (depth limit)
++    │  │  │        └─ ⇢ StructureValue.Render (depth limit)
++    │  │  ├─ ⇢ MessageTemplate.ToString
++    │  │  ├─ ⇢ PropertyToken.ToString
++    │  │  └─ ⇢ TextToken.ToString
 +    │  └─ JsonValueFormatter.WriteQuotedJsonString
      └─ LogEventPropertyValueVisitor<TState, TResult>.Visit
 stderr:
@@ -15,8 +41,34 @@ stdout:
 ```diff
   JsonValueFormatter.VisitDictionaryValue
   └─ foreach (var element in dictionary.Elements)
+-    ├─ (element.Key.Value ?? "null").ToString
+-    │  ├─ ⇢ LogEventPropertyValue.ToString
+-    │  │  └─ LogEventPropertyValue.ToString
+-    │  │     ├─ ReusableStringWriter.GetOrCreate
+-    │  │     │  └─ if (writer == null || !Equals(writer.FormatProvider, fmtProvider))
+-    │  │     │     └─ new ReusableStringWriter (depth limit)
+-    │  │     └─ LogEventPropertyValue.Render
+-    │  │        ├─ ⇢ DictionaryValue.Render (depth limit)
+-    │  │        ├─ ⇢ ScalarValue.Render (depth limit)
+-    │  │        ├─ ⇢ SequenceValue.Render (depth limit)
+-    │  │        └─ ⇢ StructureValue.Render (depth limit)
+-    │  ├─ ⇢ MessageTemplate.ToString
+-    │  ├─ ⇢ PropertyToken.ToString
+-    │  └─ ⇢ TextToken.ToString
 -    ├─ JsonValueFormatter.WriteQuotedJsonString
 +    ├─ else (!(key is null))
++    │  ├─ key.ToString
++    │  │  ├─ ⇢ LogEventPropertyValue.ToString
++    │  │  │  └─ LogEventPropertyValue.ToString
++    │  │  │     ├─ ReusableStringWriter.GetOrCreate (depth limit)
++    │  │  │     └─ LogEventPropertyValue.Render
++    │  │  │        ├─ ⇢ DictionaryValue.Render (depth limit)
++    │  │  │        ├─ ⇢ ScalarValue.Render (depth limit)
++    │  │  │        ├─ ⇢ SequenceValue.Render (depth limit)
++    │  │  │        └─ ⇢ StructureValue.Render (depth limit)
++    │  │  ├─ ⇢ MessageTemplate.ToString
++    │  │  ├─ ⇢ PropertyToken.ToString
++    │  │  └─ ⇢ TextToken.ToString
 +    │  └─ JsonValueFormatter.WriteQuotedJsonString
      └─ LogEventPropertyValueVisitor<TState, TResult>.Visit
 ```

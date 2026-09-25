@@ -40,22 +40,12 @@ public static class EntrySelector
         foreach (var graph in new[] { before, after })
         {
             foreach (var member in graph.Members.Values)
-                foreach (var target in Targets(member.Calls))
+                foreach (var target in Targets(member.Calls, graph))
                 {
                     if (!callers.ContainsKey(target) && graph.Implementations.ContainsKey(target)) callers[target] = [];
                     if (callers.TryGetValue(target, out var incoming))
                         incoming.Add(member.Key);
                 }
-        }
-        foreach (var graph in new[] { before, after })
-        {
-            foreach (var dispatch in graph.Implementations.Where(p => callers.TryGetValue(p.Key, out var parents) && parents.Count > 0))
-                foreach (var implementation in dispatch.Value)
-                    if (callers.TryGetValue(implementation, out var incoming))
-                    {
-                        if (!callers.ContainsKey(dispatch.Key)) callers[dispatch.Key] = [];
-                        incoming.Add(dispatch.Key);
-                    }
         }
         var affected = new HashSet<string>(changed.Where(key => options.Paths.Count == 0 ||
             options.Paths.Any(p => members.TryGetValue(key, out var member) && (member.Location.Path == p || member.Location.Path.StartsWith(p.TrimEnd('/') + "/", StringComparison.Ordinal)))), StringComparer.Ordinal);
@@ -71,12 +61,17 @@ public static class EntrySelector
             .Where(k => k is not null).Cast<string>().Order(StringComparer.Ordinal).ToArray();
     }
 
-    internal static IEnumerable<string> Targets(IEnumerable<CallStep> calls)
+    internal static IEnumerable<string> Targets(IEnumerable<CallStep> calls, CallGraph graph)
     {
         foreach (var call in calls)
         {
-            if (call.Kind == "call") yield return call.Key;
-            foreach (var child in Targets(call.Children)) yield return child;
+            if (call.Kind == "call")
+            {
+                yield return call.Key;
+                if (!call.SuppressDispatch && graph.Implementations.TryGetValue(call.Key, out var targets))
+                    foreach (var target in targets) yield return target;
+            }
+            foreach (var child in Targets(call.Children, graph)) yield return child;
         }
     }
 

@@ -55,10 +55,10 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
                 continue;
             }
             if (!call.IsSource && call.Kind != "unresolved" && !options.IncludeExternals && children.Count == 0
-                && !graph.Members.ContainsKey(call.Key) && !graph.Implementations.ContainsKey(call.Key))
+                && !graph.Members.ContainsKey(call.Key) && (call.SuppressDispatch || !graph.Implementations.ContainsKey(call.Key)))
                 continue;
             CallTree tree;
-            if (graph.Implementations.TryGetValue(call.Key, out var targets) && targets.Count > 0)
+            if (!call.SuppressDispatch && graph.Implementations.TryGetValue(call.Key, out var targets) && targets.Count > 0)
             {
                 if (targets.Count == 1)
                 {
@@ -77,7 +77,7 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
             else
                 tree = new CallTree(call.Key, call.Label, call.Key, call.Key, []);
             graph.Members.TryGetValue(call.Key, out var declaration);
-            var possibleTargets = graph.Implementations.TryGetValue(call.Key, out var implementations) ? implementations : [];
+            var possibleTargets = !call.SuppressDispatch && graph.Implementations.TryGetValue(call.Key, out var implementations) ? implementations : [];
             var side = new NodeSide(call.Kind == "unresolved" ? null : call.Key, declaration?.Signature,
                 call.Kind == "unresolved" ? "unresolved" : "resolved", possibleTargets.Count > 0 ? "possible" : "direct",
                 possibleTargets.Count > 0 ? possibleTargets : call.Kind == "unresolved" ? [] : [call.Key], declaration?.Location,
@@ -92,7 +92,6 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
     {
         if (!visited.Add(key)) return false;
         if (changed.Contains(key)) return true;
-        if (graph.Implementations.TryGetValue(key, out var implementations) && implementations.Any(t => ReachesChange(t, visited))) return true;
-        return graph.Members.TryGetValue(key, out var member) && EntrySelector.Targets(member.Calls).Any(t => ReachesChange(t, visited));
+        return graph.Members.TryGetValue(key, out var member) && EntrySelector.Targets(member.Calls, graph).Any(t => ReachesChange(t, visited));
     }
 }

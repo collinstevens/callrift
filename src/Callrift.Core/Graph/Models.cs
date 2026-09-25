@@ -27,6 +27,7 @@ public sealed record CallStep(
     IReadOnlyList<CallStep> Children)
 {
     public string Relation { get; init; } = "call";
+    public bool SuppressDispatch { get; init; }
     public IReadOnlyList<string> Candidates { get; init; } = [];
 }
 

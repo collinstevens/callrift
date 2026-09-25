@@ -84,6 +84,23 @@ public static class ScenarioCatalog
             class Concrete : Worker { public override void Save(int depth) { if (depth > 0) Save(depth - 1); Before(); } void Before() {} void After() {} }
             class Flow(Worker worker) { public void Run() => worker.Save(1); }
             """, "Before();", "After();"),
+        Change("virtual-base", "Virtual dispatch retains base and override candidates; an override's explicit base call expands directly without false recursion.", """
+            class Worker
+            {
+                public virtual void Run() { Store(); }
+                void Store() {}
+            }
+            class Derived : Worker
+            {
+                public override void Run() { base.Run(); Before(); }
+                void Before() {}
+                void After() {}
+            }
+            class Flow
+            {
+                public void Handle(Worker worker) => worker.Run();
+            }
+            """, "Before();", "After();"),
         Change("top-level", "Top-level entry expands a route callback, including when the route extension is missing.", """
             var app = new App();
             app.MapPost("/orders", () => new Handler().Handle());
