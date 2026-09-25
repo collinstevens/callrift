@@ -22,7 +22,7 @@ Run real-history snapshots with `mise run cases`. They clone the manifest's repo
 
 Run `mise run benchmark -- --filter '*FloorBenchmarks*' --job short` for the initial floor suite. Performance claims require comparable before/after results and allocation measurements. Keep timing data outside snapshots.
 
-Run `mise run workspaces` for restored project and generator checks, `mise run pack` for installation checks, and `mise run sweep` for a crash sweep over recent upstream history. MSBuild checks restore packages and execute project targets and generators. The published repository runs CI on Ubuntu, Windows, and macOS.
+Run `mise run workspaces` for restored project and generator checks, `mise run pack` for installation checks, and `mise run sweep` for a crash sweep over recent upstream history. MSBuild checks restore packages and execute project targets and generators. The published repository runs CI on Ubuntu, Windows, and macOS. Routine CI runs the scenario, workspace, and real-world suites sequentially so their compilations and restores do not compete across suites.
 
 `mise run cases` runs every pinned case and view locally. Set `CALLRIFT_CASE_SET=routine` to use the bounded CI selection. The manifest can exclude a whole case or an individual view from that selection with `routine: false`. Scheduled and manual reviewed-case workflows run the complete set on all three operating systems. New multi-view cases require a review document and immutable license blob identities for both revisions. Each view has a ten-minute analysis timeout.
 

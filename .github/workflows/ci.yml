@@ -44,7 +44,9 @@ jobs:
       - run: ./.github/scripts/Initialize-TestGit.ps1
       - run: dotnet restore callrift.slnx --locked-mode
       - run: dotnet build callrift.slnx --no-restore
-      - run: dotnet test callrift.slnx --no-build --logger trx
+      - run: dotnet test tests/Callrift.Scenarios/Callrift.Scenarios.csproj --no-build --logger trx
+      - run: dotnet test tests/Callrift.Workspaces/Callrift.Workspaces.csproj --no-build --logger trx
+      - run: dotnet test tests/Callrift.RealWorldCases/Callrift.RealWorldCases.csproj --no-build --logger trx
       - run: mise run check
       - run: mise run workflows
       - run: ./scripts/Package-Smoke.ps1
