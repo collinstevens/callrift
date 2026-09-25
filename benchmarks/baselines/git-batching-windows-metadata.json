@@ -1,0 +1,1681 @@
+{
+  "description": "Same-machine before/after Git blob hydration measurements, including the discarded probe-before-read variant and the final read-before-fetch variant.",
+  "implementations": {
+    "baselineCommit": "f0e83a85c79be088ba77cbe7083e025aaf68ed83",
+    "baselineGitReaderSha256": "83fa6a431a758640b5f23a9f703af486f0ec691659ad6d36d7c3ef505acd4113",
+    "candidateGitReaderSha256": "efa03e0cf33a1ec08ff819fcf52ae775f14ef96b106a132f9a694f11c215d4bf",
+    "sharedColdBenchmarkSha256": "2cb46d28dc890b04913cfc351bac00261ff04cf58d2a30ed44f0718c77032aff",
+    "benchmarkDotNet": "0.16.0-preview.2",
+    "probeFirstGitReaderSha256": "027272061391ec91659d0bdd9ee494c744629494637be3b39da699c297b9c3d2",
+    "probeFirstPatch": "git-batching-probe-first.patch",
+    "baselinePreparation": "Archive baseline commit source outside this checkout; overlay the final ColdGitBenchmarks.cs plus identical BenchmarkDotNet 0.16.0-preview.2 package configuration/lock. Execute from that archive directory."
+  },
+  "gitVersion": "git version 2.55.0.windows.3",
+  "workloads": [
+    {
+      "case": "serilog-alignment-guard",
+      "repository": "https://github.com/serilog/serilog.git",
+      "revision": "bebc7719004f76187ae72e64ce138ec2540f2070",
+      "coldSelectedBlobs": [
+        {
+          "path": "src/Serilog/Capturing/DepthLimiter.cs",
+          "objectId": "3b29bb42f93f3a39289e56ff08183866e03f0a25"
+        },
+        {
+          "path": "src/Serilog/Capturing/MessageTemplateProcessor.cs",
+          "objectId": "b92da9a3e095a957113386f56d6b290bf4056e95"
+        },
+        {
+          "path": "src/Serilog/Capturing/PropertyBinder.cs",
+          "objectId": "256b0d4711f019e470c4f77d302c7cd00501a31b"
+        },
+        {
+          "path": "src/Serilog/Capturing/PropertyValueConverter.cs",
+          "objectId": "1918745da2c1c4feff3c3396fa72d4dde6e57714"
+        },
+        {
+          "path": "src/Serilog/Capturing/TrimConfiguration.cs",
+          "objectId": "4245c4a3bcb8a501b8b9127f3a8a585d067ce11a"
+        },
+        {
+          "path": "src/Serilog/Configuration/BatchingOptions.cs",
+          "objectId": "78842e90538586af71629cb1865ced6d9e8efd35"
+        },
+        {
+          "path": "src/Serilog/Configuration/ILoggerSettings.cs",
+          "objectId": "84693d69b6b4f4dccf4a5985c60f38ef6507582c"
+        },
+        {
+          "path": "src/Serilog/Configuration/LoggerAuditSinkConfiguration.cs",
+          "objectId": "c23135af25c42e4a7ee1bd2373292c12849afa4b"
+        },
+        {
+          "path": "src/Serilog/Configuration/LoggerDestructuringConfiguration.cs",
+          "objectId": "ca1b45cfdd7feea1944e9004c49aa4c6cdb77e2e"
+        },
+        {
+          "path": "src/Serilog/Configuration/LoggerEnrichmentConfiguration.cs",
+          "objectId": "973e832596fe3eaa86536aa708dc1a08ca5861c2"
+        },
+        {
+          "path": "src/Serilog/Configuration/LoggerFilterConfiguration.cs",
+          "objectId": "347685ab0b460c422ccde43524da620f874cd1fb"
+        },
+        {
+          "path": "src/Serilog/Configuration/LoggerMinimumLevelConfiguration.cs",
+          "objectId": "70e580502b097b2a9f4fcea6b3a412b910ee8a1e"
+        },
+        {
+          "path": "src/Serilog/Configuration/LoggerSettingsConfiguration.cs",
+          "objectId": "6b64e71e8cbc1572f5c4d2dd4071981cef969c87"
+        },
+        {
+          "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+          "objectId": "345d7200e7c4fff8318345a2e81d3e90a7cfcb25"
+        },
+        {
+          "path": "src/Serilog/Context/EnricherStack.cs",
+          "objectId": "f7bf2820ff618954874b4a10469ed3bbf6ae3fd7"
+        },
+        {
+          "path": "src/Serilog/Context/LogContext.cs",
+          "objectId": "895f73ee8497fa770215a0553ae1228fda2d3444"
+        },
+        {
+          "path": "src/Serilog/Context/LogContextEnricher.cs",
+          "objectId": "5d5dce89da4faf35d2fa269579f813b44e1450e5"
+        },
+        {
+          "path": "src/Serilog/Core/Constants.cs",
+          "objectId": "75c4b651724505bd4ebf19fe10f860c2adb3966c"
+        },
+        {
+          "path": "src/Serilog/Core/CustomDefaultMethodImplementationAttribute.cs",
+          "objectId": "9571d71feadc3223772fb6ba1f12711808639d7d"
+        },
+        {
+          "path": "src/Serilog/Core/Enrichers/ConditionalEnricher.cs",
+          "objectId": "17a5971699d08d3f420de653834599e87efe1bc4"
+        }
+      ],
+      "warmBlobCount": 224,
+      "warmBlobs": [
+        {
+          "path": "Directory.Build.props",
+          "objectId": "95d75227d8527bc30629411e6f0ad2f455a8b644"
+        },
+        {
+          "path": "Directory.Version.props",
+          "objectId": "3e52e3a915e7493c8971cee37f060948c4838ac2"
+        },
+        {
+          "path": "src/Serilog/Capturing/DepthLimiter.cs",
+          "objectId": "3b29bb42f93f3a39289e56ff08183866e03f0a25"
+        },
+        {
+          "path": "src/Serilog/Capturing/MessageTemplateProcessor.cs",
+          "objectId": "b92da9a3e095a957113386f56d6b290bf4056e95"
+        },
+        {
+          "path": "src/Serilog/Capturing/PropertyBinder.cs",
+          "objectId": "256b0d4711f019e470c4f77d302c7cd00501a31b"
+        },
+        {
+          "path": "src/Serilog/Capturing/PropertyValueConverter.cs",
+          "objectId": "1918745da2c1c4feff3c3396fa72d4dde6e57714"
+        },
+        {
+          "path": "src/Serilog/Capturing/TrimConfiguration.cs",
+          "objectId": "4245c4a3bcb8a501b8b9127f3a8a585d067ce11a"
+        },
+        {
+          "path": "src/Serilog/Configuration/BatchingOptions.cs",
+          "objectId": "78842e90538586af71629cb1865ced6d9e8efd35"
+        },
+        {
+          "path": "src/Serilog/Configuration/ILoggerSettings.cs",
+          "objectId": "84693d69b6b4f4dccf4a5985c60f38ef6507582c"
+        },
+        {
+          "path": "src/Serilog/Configuration/LoggerAuditSinkConfiguration.cs",
+          "objectId": "c23135af25c42e4a7ee1bd2373292c12849afa4b"
+        },
+        {
+          "path": "src/Serilog/Configuration/LoggerDestructuringConfiguration.cs",
+          "objectId": "ca1b45cfdd7feea1944e9004c49aa4c6cdb77e2e"
+        },
+        {
+          "path": "src/Serilog/Configuration/LoggerEnrichmentConfiguration.cs",
+          "objectId": "973e832596fe3eaa86536aa708dc1a08ca5861c2"
+        },
+        {
+          "path": "src/Serilog/Configuration/LoggerFilterConfiguration.cs",
+          "objectId": "347685ab0b460c422ccde43524da620f874cd1fb"
+        },
+        {
+          "path": "src/Serilog/Configuration/LoggerMinimumLevelConfiguration.cs",
+          "objectId": "70e580502b097b2a9f4fcea6b3a412b910ee8a1e"
+        },
+        {
+          "path": "src/Serilog/Configuration/LoggerSettingsConfiguration.cs",
+          "objectId": "6b64e71e8cbc1572f5c4d2dd4071981cef969c87"
+        },
+        {
+          "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+          "objectId": "345d7200e7c4fff8318345a2e81d3e90a7cfcb25"
+        },
+        {
+          "path": "src/Serilog/Context/EnricherStack.cs",
+          "objectId": "f7bf2820ff618954874b4a10469ed3bbf6ae3fd7"
+        },
+        {
+          "path": "src/Serilog/Context/LogContext.cs",
+          "objectId": "895f73ee8497fa770215a0553ae1228fda2d3444"
+        },
+        {
+          "path": "src/Serilog/Context/LogContextEnricher.cs",
+          "objectId": "5d5dce89da4faf35d2fa269579f813b44e1450e5"
+        },
+        {
+          "path": "src/Serilog/Core/Constants.cs",
+          "objectId": "75c4b651724505bd4ebf19fe10f860c2adb3966c"
+        },
+        {
+          "path": "src/Serilog/Core/CustomDefaultMethodImplementationAttribute.cs",
+          "objectId": "9571d71feadc3223772fb6ba1f12711808639d7d"
+        },
+        {
+          "path": "src/Serilog/Core/Enrichers/ConditionalEnricher.cs",
+          "objectId": "17a5971699d08d3f420de653834599e87efe1bc4"
+        },
+        {
+          "path": "src/Serilog/Core/Enrichers/EmptyEnricher.cs",
+          "objectId": "abcc2216244ebe0006f60d1d344e17eeb707a414"
+        },
+        {
+          "path": "src/Serilog/Core/Enrichers/FixedPropertyEnricher.cs",
+          "objectId": "fa7f926e974230da169e2ae6222a33ba211c6231"
+        },
+        {
+          "path": "src/Serilog/Core/Enrichers/PropertyEnricher.cs",
+          "objectId": "16e73a6f3333e163d650b4caeac8ca0097438ab8"
+        },
+        {
+          "path": "src/Serilog/Core/Enrichers/SafeAggregateEnricher.cs",
+          "objectId": "a366ab49916d993c7e42fa8cc14273f83059821f"
+        },
+        {
+          "path": "src/Serilog/Core/Filters/DelegateFilter.cs",
+          "objectId": "25a30cb1c66fc7066ecf920a48027852dde25cc3"
+        },
+        {
+          "path": "src/Serilog/Core/IBatchedLogEventSink.cs",
+          "objectId": "5b548c1ed31908bbe65bd821f7d0b97c552e3b91"
+        },
+        {
+          "path": "src/Serilog/Core/IDestructuringPolicy.cs",
+          "objectId": "c136a0321bb2a4876f6bef8d1e9d45718418e5e2"
+        },
+        {
+          "path": "src/Serilog/Core/ILogEventEnricher.cs",
+          "objectId": "f6e917ac627060843b35c98815357b7fd6705181"
+        },
+        {
+          "path": "src/Serilog/Core/ILogEventFilter.cs",
+          "objectId": "8840c12ab851cdc23fb2350485207d99bbe5077e"
+        },
+        {
+          "path": "src/Serilog/Core/ILogEventPropertyFactory.cs",
+          "objectId": "b8f13221aaa88f7b000b9ecd8570167ec2437bec"
+        },
+        {
+          "path": "src/Serilog/Core/ILogEventPropertyValueFactory.cs",
+          "objectId": "b0f3aefd52fc1e044295eb27f480cae520c93184"
+        },
+        {
+          "path": "src/Serilog/Core/ILogEventSink.cs",
+          "objectId": "854d70657695c19288a27f4c4e855ace3bd89694"
+        },
+        {
+          "path": "src/Serilog/Core/ILoggingFailureListener.cs",
+          "objectId": "d0c6daa83ef3b83bdf3fac5115cff4bd148f34cf"
+        },
+        {
+          "path": "src/Serilog/Core/IMessageTemplateParser.cs",
+          "objectId": "1f1cefcfe001543ad931ad47b74560435edb1e2e"
+        },
+        {
+          "path": "src/Serilog/Core/IScalarConversionPolicy.cs",
+          "objectId": "26800fd26192cf470f61c5bc02a185ff5d6ce2f0"
+        },
+        {
+          "path": "src/Serilog/Core/ISetLoggingFailureListener.cs",
+          "objectId": "c5afe73c5a1c0ecfa1bb0891fab71c79d73efca4"
+        },
+        {
+          "path": "src/Serilog/Core/LevelOverrideMap.cs",
+          "objectId": "f6415fbfedc9be914c2636b6ec5c8683c3a31090"
+        },
+        {
+          "path": "src/Serilog/Core/Logger.cs",
+          "objectId": "b7da4eac5f2584a72d77b8773f015a1c835dfbaf"
+        },
+        {
+          "path": "src/Serilog/Core/LoggingFailureKind.cs",
+          "objectId": "fe9769066f88c1875b4dee178e5fee7847c95b13"
+        },
+        {
+          "path": "src/Serilog/Core/LoggingLevelSwitch.cs",
+          "objectId": "847bdc293f5464b3f5487f7a9e04b93aa21f5f2a"
+        },
+        {
+          "path": "src/Serilog/Core/LoggingLevelSwitchChangedEventArgs.cs",
+          "objectId": "b76a79de56f3ceba838add7b75ee3182113f819d"
+        },
+        {
+          "path": "src/Serilog/Core/MessageTemplateFormatMethodAttribute.cs",
+          "objectId": "7305eb9b5297648273b36e11d8d9d7ee1470499b"
+        },
+        {
+          "path": "src/Serilog/Core/Pipeline/ByReferenceStringComparer.cs",
+          "objectId": "0b5509fb2f4c47196b1a94d88f1155042ef18007"
+        },
+        {
+          "path": "src/Serilog/Core/Pipeline/MessageTemplateCache.cs",
+          "objectId": "0e06a6a5aa2213b677e014f28853c653f8eee7d4"
+        },
+        {
+          "path": "src/Serilog/Core/Pipeline/SilentLogger.cs",
+          "objectId": "0214647aec99157b7ce95bd2f0137f32f59dc2a4"
+        },
+        {
+          "path": "src/Serilog/Core/PropertiesInlineArray.cs",
+          "objectId": "6f60239c1a270eec88406a4e023d295a0b7dfef1"
+        },
+        {
+          "path": "src/Serilog/Core/Sinks/AggregateSink.cs",
+          "objectId": "ea419241c61bf6c66312c1ab85a87ec182273309"
+        },
+        {
+          "path": "src/Serilog/Core/Sinks/Batching/BatchingSink.cs",
+          "objectId": "f06bf2490a2ce9e60e1caa8dacf0c0e9554eb874"
+        },
+        {
+          "path": "src/Serilog/Core/Sinks/Batching/FailureAwareBatchScheduler.cs",
+          "objectId": "5962b5427bba8c59cd74f929b71898a40ef82b58"
+        },
+        {
+          "path": "src/Serilog/Core/Sinks/ConditionalSink.cs",
+          "objectId": "09caf65c33efcafd1b3d34de0d6b953985ff9944"
+        },
+        {
+          "path": "src/Serilog/Core/Sinks/DisposingAggregateSink.cs",
+          "objectId": "5427baf23077f2a21c6911626073d4e05fbd22ca"
+        },
+        {
+          "path": "src/Serilog/Core/Sinks/Fallback/DelegatingLoggingFailureListener.cs",
+          "objectId": "6ee30fff0f38a51a5e82e5e61a05a7361262b407"
+        },
+        {
+          "path": "src/Serilog/Core/Sinks/Fallback/FailureListenerSink.cs",
+          "objectId": "b130c4ff64c0ac91d1650c159ab8626fd109907d"
+        },
+        {
+          "path": "src/Serilog/Core/Sinks/FilteringSink.cs",
+          "objectId": "6268ec005872865e8fd3066e16748d11581e1f0c"
+        },
+        {
+          "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+          "objectId": "b61c389675c039a452320bc8bebe64fada6a4aaf"
+        },
+        {
+          "path": "src/Serilog/Core/Sinks/RestrictedSink.cs",
+          "objectId": "1a2ce86381326decc158fa628a675041a337f2d8"
+        },
+        {
+          "path": "src/Serilog/Core/Sinks/SafeAggregateSink.cs",
+          "objectId": "826bd91bcf049d7e6fa356e548a8ab59fc2b2ecf"
+        },
+        {
+          "path": "src/Serilog/Core/Sinks/SecondaryLoggerSink.cs",
+          "objectId": "4c84b3d8901165c59aa88aea95b483a734e15b69"
+        },
+        {
+          "path": "src/Serilog/Data/LogEventPropertyValueRewriter.cs",
+          "objectId": "edc056b54da7adef1589789406ee7bb2afcf7a81"
+        },
+        {
+          "path": "src/Serilog/Data/LogEventPropertyValueVisitor.cs",
+          "objectId": "8b1928ff80d7b62128c3e8c92a06c5acb2c003c8"
+        },
+        {
+          "path": "src/Serilog/Debugging/LoggingFailedException.cs",
+          "objectId": "9fa3f281c9c2ebd1c112ae6ac772feff69722e4b"
+        },
+        {
+          "path": "src/Serilog/Debugging/SelfLog.cs",
+          "objectId": "179a98b52b5bde8fbd65b3e89920cfb46b24aed0"
+        },
+        {
+          "path": "src/Serilog/Debugging/SelfMetrics.cs",
+          "objectId": "46a929fea67bce82f09c1caf81642856fd7d0b38"
+        },
+        {
+          "path": "src/Serilog/Events/DictionaryValue.cs",
+          "objectId": "606865a6d9c6edaeb1649983e5e62bb7f758e3e5"
+        },
+        {
+          "path": "src/Serilog/Events/EventProperty.cs",
+          "objectId": "e4d96b6df801af69eb18217e00eb03d8afaf70e3"
+        },
+        {
+          "path": "src/Serilog/Events/LevelAlias.cs",
+          "objectId": "f67a2077c13c80d9fc14160d9eb1cfbdfd2aa390"
+        },
+        {
+          "path": "src/Serilog/Events/LogEvent.cs",
+          "objectId": "4aa68c28a2b80d4470d206628ec806ca35225048"
+        },
+        {
+          "path": "src/Serilog/Events/LogEventLevel.cs",
+          "objectId": "f0bffba91ce351eb9da3715d0f775c773e9f2628"
+        },
+        {
+          "path": "src/Serilog/Events/LogEventProperty.cs",
+          "objectId": "a5ea6e2b768b747ec8e7e4908643d95f8a5df4d8"
+        },
+        {
+          "path": "src/Serilog/Events/LogEventPropertyValue.cs",
+          "objectId": "8f52f51fe7ecd1a1d3fb0e3d7af7bd43faf2a217"
+        },
+        {
+          "path": "src/Serilog/Events/MessageTemplate.cs",
+          "objectId": "f235f7047eef576b35f05b245cde7f5972640aad"
+        },
+        {
+          "path": "src/Serilog/Events/ScalarValue.cs",
+          "objectId": "a086d0001e0d9d665e896eec5b551df65dbc5f2f"
+        },
+        {
+          "path": "src/Serilog/Events/SequenceValue.cs",
+          "objectId": "ec90ab2567a9c115012957c0fd8dd1f6d3cba8bc"
+        },
+        {
+          "path": "src/Serilog/Events/StructureValue.cs",
+          "objectId": "e0825df33d573054775e9ce45a7d3f656d01f85d"
+        },
+        {
+          "path": "src/Serilog/Filters/Matching.cs",
+          "objectId": "fecece4a0c3b60630a670bce8253fb78f0eec26a"
+        },
+        {
+          "path": "src/Serilog/Formatting/Display/LevelOutputFormat.cs",
+          "objectId": "3776fb39d0c82fd336859515b97d23871c082dc4"
+        },
+        {
+          "path": "src/Serilog/Formatting/Display/MessageTemplateTextFormatter.cs",
+          "objectId": "5c556af4a84ff17b2e8067a3d0dfe2ae7e849ddf"
+        },
+        {
+          "path": "src/Serilog/Formatting/Display/OutputProperties.cs",
+          "objectId": "852be8c2d47d73d35c1a9d5183b6bd2ed28ff493"
+        },
+        {
+          "path": "src/Serilog/Formatting/Display/PropertiesOutputFormat.cs",
+          "objectId": "edfc3bfd9c545cbfab0f952c9cab4ceb9b77a104"
+        },
+        {
+          "path": "src/Serilog/Formatting/ITextFormatter.cs",
+          "objectId": "a2d22f9bdfe212f54bb6b596d7a3b3248b371f4b"
+        },
+        {
+          "path": "src/Serilog/Formatting/Json/JsonFormatter.cs",
+          "objectId": "6ae0ebe6332edcd8232f1bf045bda1fcf7cde448"
+        },
+        {
+          "path": "src/Serilog/Formatting/Json/JsonValueFormatter.cs",
+          "objectId": "4a0a2d1cfda407c03c060464748e7f69f1c9c129"
+        },
+        {
+          "path": "src/Serilog/GlobalUsings.cs",
+          "objectId": "e61b632d9bec7d2cba31809dc9aaaaf6ad190329"
+        },
+        {
+          "path": "src/Serilog/Guard.cs",
+          "objectId": "98985887df3b25d2131b21994a92e78984215028"
+        },
+        {
+          "path": "src/Serilog/ILogger.cs",
+          "objectId": "87733721a7aab93506eafa80890eb4430bd45ba0"
+        },
+        {
+          "path": "src/Serilog/Log.cs",
+          "objectId": "a5b1d8d67d9925683f67b4aaa785d29353410d54"
+        },
+        {
+          "path": "src/Serilog/LoggerConfiguration.cs",
+          "objectId": "f40de90cddc3b5d93e5d6f339e9b7701841be9d9"
+        },
+        {
+          "path": "src/Serilog/LoggerExtensions.cs",
+          "objectId": "3b6ab6f1ebe0c61aa2e027c9d68fda0b66a57735"
+        },
+        {
+          "path": "src/Serilog/Parsing/Alignment.cs",
+          "objectId": "608a3e5587423f8e2f2e0a125807e847771d2e1b"
+        },
+        {
+          "path": "src/Serilog/Parsing/AlignmentDirection.cs",
+          "objectId": "409a1d6400cd406c7ffbb1608b08c87cd1e51142"
+        },
+        {
+          "path": "src/Serilog/Parsing/Destructuring.cs",
+          "objectId": "b69400f049c624e0955bc6224a47031573b2f1fc"
+        },
+        {
+          "path": "src/Serilog/Parsing/MessageTemplateParser.cs",
+          "objectId": "b3d934e0ae62dd0a47103298bf628a4ba4d7790b"
+        },
+        {
+          "path": "src/Serilog/Parsing/MessageTemplateToken.cs",
+          "objectId": "50228c797990c1762e6566e29ef54ba9baaaef0e"
+        },
+        {
+          "path": "src/Serilog/Parsing/PropertyToken.cs",
+          "objectId": "ded504704e922bab065422a8f476485cd76c4921"
+        },
+        {
+          "path": "src/Serilog/Parsing/TextToken.cs",
+          "objectId": "76ff9bc1722c89a7c193da35f5a9e5e365445024"
+        },
+        {
+          "path": "src/Serilog/Policies/ByteArrayScalarConversionPolicy.cs",
+          "objectId": "86097de800dacddc0a8aab96254b322e8f59bd21"
+        },
+        {
+          "path": "src/Serilog/Policies/ByteMemoryScalarConversionPolicy.cs",
+          "objectId": "79d1c9cccbdee622a1d2fc1b1b42fa0745d5f45d"
+        },
+        {
+          "path": "src/Serilog/Policies/DelegateDestructuringPolicy.cs",
+          "objectId": "cdef88b15608d0fff75647bf959cead74060b086"
+        },
+        {
+          "path": "src/Serilog/Policies/EnumScalarConversionPolicy.cs",
+          "objectId": "22ae5faab48351b22dc4757c7e97dd664ca710eb"
+        },
+        {
+          "path": "src/Serilog/Policies/PrimitiveScalarConversionPolicy.cs",
+          "objectId": "f4074aa1a58fa1bb065eab18abea2536049563b6"
+        },
+        {
+          "path": "src/Serilog/Policies/ProjectedDestructuringPolicy.cs",
+          "objectId": "700bc5a56ef3263552bdd02d53d848df40332187"
+        },
+        {
+          "path": "src/Serilog/Policies/ReflectionTypesScalarDestructuringPolicy.cs",
+          "objectId": "75280dbccf11d833db14f9a91e273bba024e500f"
+        },
+        {
+          "path": "src/Serilog/Policies/SimpleScalarConversionPolicy.cs",
+          "objectId": "c802653f7ebd2e04a76c93140e5e9c41ccce1d66"
+        },
+        {
+          "path": "src/Serilog/Properties/AssemblyInfo.cs",
+          "objectId": "e9ef0402ef1fdc2024913ece73bbb391963236c8"
+        },
+        {
+          "path": "src/Serilog/Rendering/Casing.cs",
+          "objectId": "3bdfb40c1509f7a6a37f8c53f0177c60203cb2b5"
+        },
+        {
+          "path": "src/Serilog/Rendering/MessageTemplateRenderer.cs",
+          "objectId": "145dc0d0c85a8e07efb3e0e5d60a17fcb9d6176e"
+        },
+        {
+          "path": "src/Serilog/Rendering/Padding.cs",
+          "objectId": "5ac8346d0da84c5c0870dd9e8f6ac804e20c7c1b"
+        },
+        {
+          "path": "src/Serilog/Rendering/ReusableStringWriter.cs",
+          "objectId": "aef47546292c9a76cfa4384d050083645ca84a1f"
+        },
+        {
+          "path": "src/Serilog/Serilog.csproj",
+          "objectId": "76a7e966f82f9cbc2adfe97f67dedf69b0f45897"
+        },
+        {
+          "path": "src/Serilog/Settings/KeyValuePairs/CallableConfigurationMethodFinder.cs",
+          "objectId": "7b3001df511b43d8c2f3f7ff2725eea0413743e2"
+        },
+        {
+          "path": "src/Serilog/Settings/KeyValuePairs/KeyValuePairSettings.cs",
+          "objectId": "5ddcd3c0236a248267c028ceda80d9141b32e425"
+        },
+        {
+          "path": "src/Serilog/Settings/KeyValuePairs/SettingValueConversions.cs",
+          "objectId": "760064b19d3dc84b46c70b75cc4c7892a77da559"
+        },
+        {
+          "path": "src/Serilog/Settings/KeyValuePairs/SurrogateConfigurationMethods.cs",
+          "objectId": "e53292c5c890e78f8f22ab1712cacb5727075ccf"
+        },
+        {
+          "path": "src/Serilog/Util/TimeProvider.cs",
+          "objectId": "15fa629fbb850bbe91fd9550f156281a5acf2648"
+        },
+        {
+          "path": "test/AotTestApp/AotTestApp.csproj",
+          "objectId": "d466f2d654a5ba1cf5e98f6d01dad241151dbd09"
+        },
+        {
+          "path": "test/AotTestApp/Program.cs",
+          "objectId": "39946ea18ec175d456744dff96fdb9ea4f4bddf9"
+        },
+        {
+          "path": "test/Serilog.ApprovalTests/ApiApprovalTests.cs",
+          "objectId": "2e355ff10ab82b38691580d4d6cc3ba9cbdd1692"
+        },
+        {
+          "path": "test/Serilog.ApprovalTests/Serilog.ApprovalTests.csproj",
+          "objectId": "96e4e0a72cbaaa02f136704a26784a33811a5489"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/AllocationsBenchmark.cs",
+          "objectId": "ef13fd415d2f725b707b9db4252040fa97ff56aa"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/BindingBenchmark.cs",
+          "objectId": "bbcdb132458b687f474e5eb8d24803e93b803e53"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/GlobalUsings.cs",
+          "objectId": "745fa3ad7450255efec0955f736a1f0957c7e908"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/Harness.cs",
+          "objectId": "1722ff619bd48e9555fe06efcad00f9f0dd01edd"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/LevelControlBenchmark.cs",
+          "objectId": "cbe7efa4da95821db58f726b01373709a650c341"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/LogContextEnrichmentBenchmark.cs",
+          "objectId": "0723a01de621e2909ef9698976dfe3cb3e5f97c6"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/MessageTemplateCacheBenchmark/MessageTemplateCacheBenchmark_Cached.cs",
+          "objectId": "03690f56459b4e1ce698f090882404010a2bb984"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/MessageTemplateCacheBenchmark/MessageTemplateCacheBenchmark_Leaking.cs",
+          "objectId": "1cf6729a9b0ee91ffa4b631d62b5b3d94b2e2b43"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/MessageTemplateParsingBenchmark.cs",
+          "objectId": "d40f168143995f5c22a43012c545ec53f36bee0c"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/MessageTemplateRenderingBenchmark.cs",
+          "objectId": "126fe247c5a598f64d8b5d295e700e74622e47f9"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/NestedLoggerCreationBenchmark.cs",
+          "objectId": "19934db9c51e272f1858bce65e85af6c1f742c10"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/NestedLoggerLatencyBenchmark.cs",
+          "objectId": "792da5703d159c43d02528594577630d62b9400a"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/OutputTemplateRenderingBenchmark.cs",
+          "objectId": "e9b602fa6c075b7c0c68724b9e4d7a747684da00"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/PipelineBenchmark.cs",
+          "objectId": "ca450a3c159925ed49b2d596e3dd8f64dd46eefd"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/Serilog.PerformanceTests.csproj",
+          "objectId": "ba930fb7ffbb354ce865a3feb96fd0f18cc239bf"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/SourceContextMatchBenchmark.cs",
+          "objectId": "d02d701cf96e953746027016ad32728759d75e4b"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/Support/ConcurrentDictionaryTemplateCache.cs",
+          "objectId": "3770faad7347859486394728ff495925a0438257"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/Support/DictionaryMessageTemplateCache.cs",
+          "objectId": "d0258789d6a8bf0643f8d0f5da017ed77bd5946f"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/Support/NoOpMessageTemplateParser.cs",
+          "objectId": "a1fe3fa2b1ea147dc8c20e8873454a57d009e308"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/Support/NullSink.cs",
+          "objectId": "a3574a9d66d8d8419f9f25ca0ce73a65643849a9"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/Support/NullTextWriter.cs",
+          "objectId": "218f5ac6d13c33fb094c5f40c20d9882d09b8030"
+        },
+        {
+          "path": "test/Serilog.PerformanceTests/Support/Some.cs",
+          "objectId": "df0942955d2d06b6d2fe68c2e5bd8a6de319f2e9"
+        },
+        {
+          "path": "test/Serilog.Tests/ArgumentNullTests.cs",
+          "objectId": "573dc2cc078e89695fc05d335362fcaa96931088"
+        },
+        {
+          "path": "test/Serilog.Tests/Capturing/PropertyValueConverterTests.cs",
+          "objectId": "b863df7a9e262aa172c76d1f33d3327244ae88a5"
+        },
+        {
+          "path": "test/Serilog.Tests/Configuration/LoggerConfigurationTests.cs",
+          "objectId": "8a51bcb9a0a4cc717c3b6ea319d61d05bc624ae6"
+        },
+        {
+          "path": "test/Serilog.Tests/Configuration/LoggerSinkConfigurationTests.cs",
+          "objectId": "2e7c46144510c9e1a1bbc149cd0da97ff8061a16"
+        },
+        {
+          "path": "test/Serilog.Tests/Context/LogContextTests.cs",
+          "objectId": "b2fa57ddbb0be2637ccf668a3e239b81a85ed46d"
+        },
+        {
+          "path": "test/Serilog.Tests/Core/AuditSinkTests.cs",
+          "objectId": "005d1fe8b90fe3129187355506395f10c6c2f6e8"
+        },
+        {
+          "path": "test/Serilog.Tests/Core/BatchingSinkTests.cs",
+          "objectId": "7022cae1bf0320f6c08b5e8b10732962bb02423c"
+        },
+        {
+          "path": "test/Serilog.Tests/Core/ChildLoggerDisposalTests.cs",
+          "objectId": "0d557e7c958f9e50f807a476c64ef18e890105bf"
+        },
+        {
+          "path": "test/Serilog.Tests/Core/ChildLoggerKnownLimitationsTests.cs",
+          "objectId": "11e3b3f26bfd4ebf2d90245396a3cb1a07975223"
+        },
+        {
+          "path": "test/Serilog.Tests/Core/ChildLoggerTests.cs",
+          "objectId": "0defe52c5f6a6e784e82176c825690b5a032bf3c"
+        },
+        {
+          "path": "test/Serilog.Tests/Core/FailureAwareBatchSchedulerTests.cs",
+          "objectId": "4e488e68d7eb09464092868697157ab4b479c2f7"
+        },
+        {
+          "path": "test/Serilog.Tests/Core/FailureListenerTests.cs",
+          "objectId": "9cb5e7cbdaf0c7af725ba2e33442aae8bcfffce3"
+        },
+        {
+          "path": "test/Serilog.Tests/Core/LevelOverrideMapTests.cs",
+          "objectId": "11d0fb5adeed6935bcecbeb24acd28773fe84839"
+        },
+        {
+          "path": "test/Serilog.Tests/Core/LogEventPropertyCapturingTests.cs",
+          "objectId": "879f7ed6a87977daf066a44cc78f593d2312512d"
+        },
+        {
+          "path": "test/Serilog.Tests/Core/LoggerExtensionsTests.cs",
+          "objectId": "7b8889bb2ee93204474a4021c942e19061c1afb3"
+        },
+        {
+          "path": "test/Serilog.Tests/Core/LoggerTests.cs",
+          "objectId": "6be8b62678f7f33a901e3810607e77099dc341ff"
+        },
+        {
+          "path": "test/Serilog.Tests/Core/LoggingLevekSwitchTests.cs",
+          "objectId": "0540fc3788f4ff1de4a3fb67500c70137c31eee1"
+        },
+        {
+          "path": "test/Serilog.Tests/Core/MessageTemplateTests.cs",
+          "objectId": "9d289f630854b055ed5565cebfdf6217c499f9d7"
+        },
+        {
+          "path": "test/Serilog.Tests/Core/SafeAggregateSinkTests.cs",
+          "objectId": "e04d8b4e1097bb82be96c0b5e607b7d1af91fdc5"
+        },
+        {
+          "path": "test/Serilog.Tests/Core/SecondaryLoggerSinkTests.cs",
+          "objectId": "00414de789267a43f4318f5de0d13f6d4e36338c"
+        },
+        {
+          "path": "test/Serilog.Tests/Data/LogEventPropertyValueRewriterTests.cs",
+          "objectId": "bed2a374159f66842693abbfdbaef5942d5242e2"
+        },
+        {
+          "path": "test/Serilog.Tests/Debugging/SelfLogTests.cs",
+          "objectId": "2460c04d356b9aba32343b215a6a594db62a621f"
+        },
+        {
+          "path": "test/Serilog.Tests/Events/DictionaryValueTests.cs",
+          "objectId": "b134326379f56f14698b2bba9f584f71f28e0016"
+        },
+        {
+          "path": "test/Serilog.Tests/Events/LogEventPropertyValueTests.cs",
+          "objectId": "3f407b13dadc7bcf74d5980f253130436abec0d6"
+        },
+        {
+          "path": "test/Serilog.Tests/Events/LogEventTests.cs",
+          "objectId": "83fc8e5c6d9437dc578394db00cebfb7e4804e0d"
+        },
+        {
+          "path": "test/Serilog.Tests/Filters/MatchingTests.cs",
+          "objectId": "1678a5fc9b09a3d120cbdf7c399c8559c110ca81"
+        },
+        {
+          "path": "test/Serilog.Tests/Formatting/Display/MessageTemplateTextFormatterTests.cs",
+          "objectId": "c23298f344adc241ffb485abc2fbc977251a2514"
+        },
+        {
+          "path": "test/Serilog.Tests/Formatting/Json/JsonFormatterTests.cs",
+          "objectId": "20f5d28c63005f71e7b96306c4f3a2ce5b027627"
+        },
+        {
+          "path": "test/Serilog.Tests/Formatting/Json/JsonValueFormatterTests.cs",
+          "objectId": "268fff6b5adf38069cb963b261705b6513d3f974"
+        },
+        {
+          "path": "test/Serilog.Tests/GlobalUsings.cs",
+          "objectId": "4c4d1de45b5dc4716d9dd07665bd93cdaac5f910"
+        },
+        {
+          "path": "test/Serilog.Tests/LogTests.cs",
+          "objectId": "dd9a51a3924991b817768ec5e5ab97d15f34129e"
+        },
+        {
+          "path": "test/Serilog.Tests/MethodOverloadConventionTests.cs",
+          "objectId": "9e2d1750bc5a3371e55cf8130259e9cc4d44672a"
+        },
+        {
+          "path": "test/Serilog.Tests/Parsing/MessageTemplateParserTests.cs",
+          "objectId": "ccf6b65eb5bd71d0eb406550a80c3c0cf4eab132"
+        },
+        {
+          "path": "test/Serilog.Tests/Properties/AssemblyInfo.cs",
+          "objectId": "e5cc5d402f8f01874492eb6312f7b01a583a084a"
+        },
+        {
+          "path": "test/Serilog.Tests/Rendering/MessageTemplateRendererTests.cs",
+          "objectId": "b0f34a8e4d918363b6ec35258a6472a842837d19"
+        },
+        {
+          "path": "test/Serilog.Tests/Rendering/ReusableStringWriterTests.cs",
+          "objectId": "85305a0b59ee4e9446f55ae1850ac228fd8a14a5"
+        },
+        {
+          "path": "test/Serilog.Tests/Serilog.Tests.csproj",
+          "objectId": "45dc3efb73187a472cbf3ca5701164ea314f925c"
+        },
+        {
+          "path": "test/Serilog.Tests/Settings/CallableConfigurationMethodFinderTests.cs",
+          "objectId": "a641b9169244a018cb97c6316e8ab29694134306"
+        },
+        {
+          "path": "test/Serilog.Tests/Settings/KeyValuePairSettingsTests.cs",
+          "objectId": "41845d26fd6224857de7c363ff4f5d7e9ca76310"
+        },
+        {
+          "path": "test/Serilog.Tests/Settings/SettingValueConversionsTests.cs",
+          "objectId": "6a6affccc9298fb41eed79155021267ed06b63b3"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/AsyncDisposeTrackingSink.cs",
+          "objectId": "af51f97845eb7a02231b29a27e066581523525ac"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/CallbackBatchedSink.cs",
+          "objectId": "626ddd1ca4e5ce0bc2a60ef4c0fc0d00f6b11185"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/ClassHierarchy.cs",
+          "objectId": "0dbefa1c0c25884cd0d96f3d9f1d24ad89160999"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/CollectingEnricher.cs",
+          "objectId": "1bfdb4b5913cdc0134a74419e5a0cc17f406e233"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/CollectingFailureListener.cs",
+          "objectId": "631856eb068aa93aa6db0172c2bd4580b200f411"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/CollectingSink.cs",
+          "objectId": "2cf41b8b741c511639475f38156add36e6c5156d"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/CustomConsoleTheme.cs",
+          "objectId": "9433afe7c3b2c70d00e9b42208b9b80b8448718f"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/DelegatingEnricher.cs",
+          "objectId": "06b7d89c21af925ce559378bcf2e3a9eebe14774"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/DelegatingLogger.cs",
+          "objectId": "da6b5e8b9631104f483fe418eed5a070ca3db1af"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/DelegatingSink.cs",
+          "objectId": "89cff9de240d7e971593f15854303e8883081ca5"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/DisposableLogger.cs",
+          "objectId": "7c85cc6f050fd48f59fab13debdc74db59e665cc"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/DisposeTrackingSink.cs",
+          "objectId": "8cc9f1bf3c8258f2f547ca7bfba81b532e16a1a2"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/Extensions.cs",
+          "objectId": "36ef886459a579e7178d8aed85b1a9b6211c0502"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/InMemoryBatchedSink.cs",
+          "objectId": "15b687150b49757d7b4aca2e4dcd9824e7efd13c"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/ListenerTrackingSink.cs",
+          "objectId": "867a00aa5787676ee046ade5959e81f30ae7244f"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/LogEventPropertyStructuralEqualityComparer.cs",
+          "objectId": "09cac4e93b9fd60d30fed8c5f01586778844617c"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/LogEventPropertyStructuralEqualityComparerTests.cs",
+          "objectId": "0e03c6fbcffa8d935539b4628507776b27e3eea8"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/LogEventPropertyValueComparer.cs",
+          "objectId": "0a8ee27c867671a0f6680f318060860f26cba93b"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/Some.cs",
+          "objectId": "7aa3c296a8c0af6184caeda5e092ed52a14dbc80"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/StaticAccessorClasses.cs",
+          "objectId": "544c3743d954158641b82cf45590912f0f4abc22"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/StringSink.cs",
+          "objectId": "81c69c97be76f161483639a9e998c3c7c14e4928"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/SyncDisposableLogger.cs",
+          "objectId": "8a6d88ed71d9713dc4fd1f3e940afd553bf3657a"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/TemporarySelfLog.cs",
+          "objectId": "a4d2b53e5e0069621dbeef7919ff5387d66f0642"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/TestTimeProvider.cs",
+          "objectId": "e5510707076a2667d65a26ea0e01013c7a38704e"
+        },
+        {
+          "path": "test/Serilog.Tests/Support/ThrowingSink.cs",
+          "objectId": "76ff38e7f98af002ce5a85cedc2d03cb6b0e070b"
+        },
+        {
+          "path": "test/Serilog.Tests/VersioningTests.cs",
+          "objectId": "51529cf11af14c4da5720295185d23275c255259"
+        },
+        {
+          "path": "test/TestDummies/Console/DummyConsoleSink.cs",
+          "objectId": "2448ba22a04178bdfe0f7f436c906dc6b914c816"
+        },
+        {
+          "path": "test/TestDummies/Console/Themes/ConcreteConsoleTheme.cs",
+          "objectId": "67d8343e4a3569b095c8dd5118a1c807eede242d"
+        },
+        {
+          "path": "test/TestDummies/Console/Themes/ConsoleTheme.cs",
+          "objectId": "ff14007ba2d248024b226f3c4fe87090cc50bf6d"
+        },
+        {
+          "path": "test/TestDummies/Console/Themes/ConsoleThemes.cs",
+          "objectId": "2804ba711e0af8299d0910da389e4b26118f5637"
+        },
+        {
+          "path": "test/TestDummies/Console/Themes/EmptyConsoleTheme.cs",
+          "objectId": "f01847f858b1cc3e5f8e30632ea17556731bb25f"
+        },
+        {
+          "path": "test/TestDummies/DummyAnonymousUserFilter.cs",
+          "objectId": "bcc3724009b709a83d1bf1b2e23008ff34f62cc8"
+        },
+        {
+          "path": "test/TestDummies/DummyHardCodedStringDestructuringPolicy.cs",
+          "objectId": "585d8f8b1da13b718754a416219ceca2dd89636b"
+        },
+        {
+          "path": "test/TestDummies/DummyLoggerConfigurationExtensions.cs",
+          "objectId": "891df5b953ed3874acba65bab3a85979fc9c1f16"
+        },
+        {
+          "path": "test/TestDummies/DummyReduceVersionToMajorPolicy.cs",
+          "objectId": "b0e15037a663cbe2b54cec489e1a3c3d6f742b92"
+        },
+        {
+          "path": "test/TestDummies/DummyRollingFileAuditSink.cs",
+          "objectId": "86a73b0124388b7863d1d1b82da54e315f9c585e"
+        },
+        {
+          "path": "test/TestDummies/DummyRollingFileSink.cs",
+          "objectId": "372b688a6581dad13cd2688ddf40c86b4d121268"
+        },
+        {
+          "path": "test/TestDummies/DummyThreadIdEnricher.cs",
+          "objectId": "fce02d3f63b3e23cf77f5b31d748248898968ebb"
+        },
+        {
+          "path": "test/TestDummies/DummyWithLevelSwitchSink.cs",
+          "objectId": "4ffbc9f7ac665d24e2305224a47b0e103d92b6f2"
+        },
+        {
+          "path": "test/TestDummies/DummyWrappingSink.cs",
+          "objectId": "e7ef9c34d20b8b7779b14290bb0889e0f06b68a3"
+        },
+        {
+          "path": "test/TestDummies/GlobalUsings.cs",
+          "objectId": "daf007e2e6ffb00b14c872cfad556de78fb6219e"
+        },
+        {
+          "path": "test/TestDummies/TestDummies.csproj",
+          "objectId": "7662a1a2bf8598ecaf9b8aed5ad0b857c8ac9ac5"
+        }
+      ]
+    },
+    {
+      "case": "polly-secondary-action",
+      "repository": "https://github.com/App-vNext/Polly.git",
+      "revision": "1a80392b1f093f40e59c515f4aeb989bea5db857",
+      "coldSelectedBlobs": [
+        {
+          "path": "src/LegacySupport/CallerArgumentExpressionAttribute.cs",
+          "objectId": "53f89061dac924a1e5c32d3f0fbba2977d04c189"
+        },
+        {
+          "path": "src/LegacySupport/DynamicDependencyAttribute.cs",
+          "objectId": "e021a12de962c781b1aeba181ef6305ff7fe3640"
+        },
+        {
+          "path": "src/LegacySupport/DynamicallyAccessedMemberTypes.cs",
+          "objectId": "eb6326d5a3cd1a3c8e81af85f29df32597f2fc6b"
+        },
+        {
+          "path": "src/LegacySupport/DynamicallyAccessedMembersAttribute.cs",
+          "objectId": "a7768c3e7c0818908985f915387bf18c6ad0f279"
+        },
+        {
+          "path": "src/LegacySupport/IsExternalInit.cs",
+          "objectId": "67a4d5efc3bd9087175fb6350c6094adfe086626"
+        },
+        {
+          "path": "src/LegacySupport/NullableAttributes.cs",
+          "objectId": "922b09d60f28b35a4693a982ce106b183991556c"
+        },
+        {
+          "path": "src/LegacySupport/RequiresUnreferencedCodeAttribute.cs",
+          "objectId": "0d88ae9070937dacb4426fdd1a704549b32696b8"
+        },
+        {
+          "path": "src/LegacySupport/UnconditionalSuppressMessageAttribute.cs",
+          "objectId": "50a66797c10e7904a9173f9d6fe12f13a199807b"
+        },
+        {
+          "path": "src/Polly.Core/CircuitBreaker/BreakDurationGeneratorArguments.cs",
+          "objectId": "8883f6dd7744e072623debcbd7f51f789a9bc829"
+        },
+        {
+          "path": "src/Polly.Core/CircuitBreaker/BrokenCircuitException.cs",
+          "objectId": "6238950613c259c9dfd4410b1ecaa7d76aecee85"
+        },
+        {
+          "path": "src/Polly.Core/CircuitBreaker/CircuitBreakerConstants.cs",
+          "objectId": "cf4adc1457c59c3f3a38e538e2363bb60e2b193f"
+        },
+        {
+          "path": "src/Polly.Core/CircuitBreaker/CircuitBreakerManualControl.cs",
+          "objectId": "e205db06919d727393f128fd9335309cbd05898a"
+        },
+        {
+          "path": "src/Polly.Core/CircuitBreaker/CircuitBreakerPredicateArguments.cs",
+          "objectId": "e9af178d20a636bc3d2c1f357661ce644bbb6f44"
+        },
+        {
+          "path": "src/Polly.Core/CircuitBreaker/CircuitBreakerResiliencePipelineBuilderExtensions.cs",
+          "objectId": "2a5fea0b1ac3377883d296c0cd7d222c6708bdf8"
+        },
+        {
+          "path": "src/Polly.Core/CircuitBreaker/CircuitBreakerResilienceStrategy.cs",
+          "objectId": "2eeb24f569989e388858955b6449a07f7f9a62e6"
+        },
+        {
+          "path": "src/Polly.Core/CircuitBreaker/CircuitBreakerStateProvider.cs",
+          "objectId": "314d8fa9f234e8f999b0a8318a3f32b1f136a4d1"
+        },
+        {
+          "path": "src/Polly.Core/CircuitBreaker/CircuitBreakerStrategyOptions.TResult.cs",
+          "objectId": "8d1bdbdeec1329240dbd37647ecb0b938e80840c"
+        },
+        {
+          "path": "src/Polly.Core/CircuitBreaker/CircuitBreakerStrategyOptions.cs",
+          "objectId": "c4bdce525b363d558b45b66ec63cbead90d9fee8"
+        },
+        {
+          "path": "src/Polly.Core/CircuitBreaker/CircuitState.cs",
+          "objectId": "a027f2c5350c6fe087c2efc7aa8065685729a43f"
+        },
+        {
+          "path": "src/Polly.Core/CircuitBreaker/Controller/AdvancedCircuitBehavior.cs",
+          "objectId": "3b9317157717c1738697bee8ac8270cdb31f651a"
+        }
+      ]
+    }
+  ],
+  "conditions": {
+    "cold": "Fresh shallow filtered client per iteration; existing local file-transport server and filesystem caches warm. Client preparation and removal excluded from measurement.",
+    "warm": "Pinned Serilog analysis inputs already available in the external no-checkout repository; no network or missing-object hydration in the measured operation.",
+    "concurrency": "Validation/build suites stopped before measurement. Each benchmark build completed before that phase measured operations. Benchmark phases ran sequentially.",
+    "memory": "MemoryDiagnoser managed allocations in the parent benchmark process only; excludes native Git subprocess heaps.",
+    "statistics": "One launch, three warmups, fifteen requested measurement iterations. Full exports preserve measurements and BenchmarkDotNet outlier filtering; accepted N is at least ten.",
+    "scope": "Git blob reads only; not internet transport, cold disk, full analysis, restore, or workspace-worker allocations."
+  },
+  "runs": [
+    {
+      "version": "baseline",
+      "stage": "warm",
+      "startedUtc": "2026-09-25T08:02:17.696166+00:00",
+      "finishedUtc": "2026-09-25T08:03:00.885560+00:00",
+      "gitReaderSha256": "83fa6a431a758640b5f23a9f703af486f0ec691659ad6d36d7c3ef505acd4113",
+      "export": "git-batching-windows-initial-baseline-warm.json",
+      "command": [
+        "C:\\Users\\Admin\\AppData\\Local\\mise\\dotnet-root\\dotnet.exe",
+        "run",
+        "-c",
+        "Release",
+        "--no-build",
+        "--project",
+        "benchmarks/Callrift.Benchmarks",
+        "--",
+        "--filter",
+        "*FloorBenchmarks.ReadBlobs*",
+        "--warmupCount",
+        "3",
+        "--iterationCount",
+        "15",
+        "--launchCount",
+        "1",
+        "--artifacts",
+        "C:\\Users\\Admin\\projects\\collinstevens\\calldiff-dotnet\\artifacts\\git-batch-baseline-warm-controlled"
+      ],
+      "cwd": "C:\\Users\\Admin\\AppData\\Local\\Callrift\\benchmarks\\git-batch-baseline-f0e83a8",
+      "variant": "initial",
+      "statistics": [
+        {
+          "name": "Callrift.Benchmarks.FloorBenchmarks.ReadBlobs",
+          "n": 15,
+          "meanNanoseconds": 199598420,
+          "standardDeviationNanoseconds": 6132181.139754589,
+          "confidenceInterval": {
+            "N": 15,
+            "Mean": 199598420,
+            "StandardError": 1583322.3620131158,
+            "Level": 12,
+            "Margin": 6555673.582969894,
+            "Lower": 193042746.4170301,
+            "Upper": 206154093.5829699
+          },
+          "managedParentBytesAllocatedPerOperation": 5973368
+        }
+      ]
+    },
+    {
+      "version": "candidate",
+      "stage": "warm",
+      "startedUtc": "2026-09-25T08:03:00.886436+00:00",
+      "finishedUtc": "2026-09-25T08:03:48.158937+00:00",
+      "gitReaderSha256": "027272061391ec91659d0bdd9ee494c744629494637be3b39da699c297b9c3d2",
+      "export": "git-batching-windows-initial-candidate-warm.json",
+      "command": [
+        "C:\\Users\\Admin\\AppData\\Local\\mise\\dotnet-root\\dotnet.exe",
+        "run",
+        "-c",
+        "Release",
+        "--no-build",
+        "--project",
+        "benchmarks/Callrift.Benchmarks",
+        "--",
+        "--filter",
+        "*FloorBenchmarks.ReadBlobs*",
+        "--warmupCount",
+        "3",
+        "--iterationCount",
+        "15",
+        "--launchCount",
+        "1",
+        "--artifacts",
+        "C:\\Users\\Admin\\projects\\collinstevens\\calldiff-dotnet\\artifacts\\git-batch-candidate-warm-controlled"
+      ],
+      "cwd": "C:\\Users\\Admin\\projects\\collinstevens\\calldiff-dotnet",
+      "variant": "initial",
+      "statistics": [
+        {
+          "name": "Callrift.Benchmarks.FloorBenchmarks.ReadBlobs",
+          "n": 15,
+          "meanNanoseconds": 278791683.3333333,
+          "standardDeviationNanoseconds": 9570044.626270533,
+          "confidenceInterval": {
+            "N": 15,
+            "Mean": 278791683.3333333,
+            "StandardError": 2470974.897333837,
+            "Level": 12,
+            "Margin": 10230958.172053529,
+            "Lower": 268560725.1612798,
+            "Upper": 289022641.5053868
+          },
+          "managedParentBytesAllocatedPerOperation": 6176060
+        }
+      ]
+    },
+    {
+      "version": "baseline",
+      "stage": "cold",
+      "startedUtc": "2026-09-25T08:03:48.159792+00:00",
+      "finishedUtc": "2026-09-25T08:07:39.774011+00:00",
+      "gitReaderSha256": "83fa6a431a758640b5f23a9f703af486f0ec691659ad6d36d7c3ef505acd4113",
+      "export": "git-batching-windows-initial-baseline-cold.json",
+      "command": [
+        "C:\\Users\\Admin\\AppData\\Local\\mise\\dotnet-root\\dotnet.exe",
+        "run",
+        "-c",
+        "Release",
+        "--no-build",
+        "--project",
+        "benchmarks/Callrift.Benchmarks",
+        "--",
+        "--filter",
+        "*ColdGitBenchmarks*",
+        "--warmupCount",
+        "3",
+        "--iterationCount",
+        "15",
+        "--launchCount",
+        "1",
+        "--artifacts",
+        "C:\\Users\\Admin\\projects\\collinstevens\\calldiff-dotnet\\artifacts\\git-batch-baseline-cold-controlled",
+        "--invocationCount",
+        "1",
+        "--unrollFactor",
+        "1"
+      ],
+      "cwd": "C:\\Users\\Admin\\AppData\\Local\\Callrift\\benchmarks\\git-batch-baseline-f0e83a8",
+      "variant": "initial",
+      "statistics": [
+        {
+          "name": "Callrift.Benchmarks.ColdGitBenchmarks.FetchSelectedBlobs(Case: \"polly-secondary-action\")",
+          "n": 12,
+          "meanNanoseconds": 5592828733.333333,
+          "standardDeviationNanoseconds": 77889724.76159465,
+          "confidenceInterval": {
+            "N": 12,
+            "Mean": 5592828733.333333,
+            "StandardError": 22484826.779106267,
+            "Level": 12,
+            "Margin": 99764711.81822035,
+            "Lower": 5493064021.515113,
+            "Upper": 5692593445.151553
+          },
+          "managedParentBytesAllocatedPerOperation": 510728
+        },
+        {
+          "name": "Callrift.Benchmarks.ColdGitBenchmarks.FetchSelectedBlobs(Case: \"serilog-alignment-guard\")",
+          "n": 15,
+          "meanNanoseconds": 3632726053.3333335,
+          "standardDeviationNanoseconds": 69565360.82490918,
+          "confidenceInterval": {
+            "N": 15,
+            "Mean": 3632726053.3333335,
+            "StandardError": 17961698.929852206,
+            "Level": 12,
+            "Margin": 74369590.1761762,
+            "Lower": 3558356463.1571574,
+            "Upper": 3707095643.5095096
+          },
+          "managedParentBytesAllocatedPerOperation": 651240
+        }
+      ]
+    },
+    {
+      "version": "candidate",
+      "stage": "cold",
+      "startedUtc": "2026-09-25T08:07:39.774966+00:00",
+      "finishedUtc": "2026-09-25T08:08:32.820414+00:00",
+      "gitReaderSha256": "027272061391ec91659d0bdd9ee494c744629494637be3b39da699c297b9c3d2",
+      "export": "git-batching-windows-initial-candidate-cold.json",
+      "command": [
+        "C:\\Users\\Admin\\AppData\\Local\\mise\\dotnet-root\\dotnet.exe",
+        "run",
+        "-c",
+        "Release",
+        "--no-build",
+        "--project",
+        "benchmarks/Callrift.Benchmarks",
+        "--",
+        "--filter",
+        "*ColdGitBenchmarks*",
+        "--warmupCount",
+        "3",
+        "--iterationCount",
+        "15",
+        "--launchCount",
+        "1",
+        "--artifacts",
+        "C:\\Users\\Admin\\projects\\collinstevens\\calldiff-dotnet\\artifacts\\git-batch-candidate-cold-controlled",
+        "--invocationCount",
+        "1",
+        "--unrollFactor",
+        "1"
+      ],
+      "cwd": "C:\\Users\\Admin\\projects\\collinstevens\\calldiff-dotnet",
+      "variant": "initial",
+      "statistics": [
+        {
+          "name": "Callrift.Benchmarks.ColdGitBenchmarks.FetchSelectedBlobs(Case: \"polly-secondary-action\")",
+          "n": 13,
+          "meanNanoseconds": 435741023.0769231,
+          "standardDeviationNanoseconds": 9219889.04941864,
+          "confidenceInterval": {
+            "N": 13,
+            "Mean": 435741023.0769231,
+            "StandardError": 2557137.1324436804,
+            "Level": 12,
+            "Margin": 11041184.418476762,
+            "Lower": 424699838.6584463,
+            "Upper": 446782207.49539983
+          },
+          "managedParentBytesAllocatedPerOperation": 743608
+        },
+        {
+          "name": "Callrift.Benchmarks.ColdGitBenchmarks.FetchSelectedBlobs(Case: \"serilog-alignment-guard\")",
+          "n": 15,
+          "meanNanoseconds": 350671993.3333333,
+          "standardDeviationNanoseconds": 18567625.101637322,
+          "confidenceInterval": {
+            "N": 15,
+            "Mean": 350671993.3333333,
+            "StandardError": 4794140.186484276,
+            "Level": 12,
+            "Margin": 19849917.444246255,
+            "Lower": 330822075.8890871,
+            "Upper": 370521910.77757955
+          },
+          "managedParentBytesAllocatedPerOperation": 882808
+        }
+      ]
+    },
+    {
+      "version": "baseline",
+      "stage": "warm",
+      "startedUtc": "2026-09-25T08:09:36.418921+00:00",
+      "finishedUtc": "2026-09-25T08:10:20.963744+00:00",
+      "gitReaderSha256": "83fa6a431a758640b5f23a9f703af486f0ec691659ad6d36d7c3ef505acd4113",
+      "export": "git-batching-windows-refined-baseline-warm.json",
+      "command": [
+        "C:\\Users\\Admin\\AppData\\Local\\mise\\dotnet-root\\dotnet.exe",
+        "run",
+        "-c",
+        "Release",
+        "--no-build",
+        "--project",
+        "benchmarks/Callrift.Benchmarks",
+        "--",
+        "--filter",
+        "*FloorBenchmarks.ReadBlobs*",
+        "--warmupCount",
+        "3",
+        "--iterationCount",
+        "15",
+        "--launchCount",
+        "1",
+        "--artifacts",
+        "C:\\Users\\Admin\\projects\\collinstevens\\calldiff-dotnet\\artifacts\\git-batch-refined-baseline-warm-controlled"
+      ],
+      "cwd": "C:\\Users\\Admin\\AppData\\Local\\Callrift\\benchmarks\\git-batch-baseline-f0e83a8",
+      "variant": "refined",
+      "statistics": [
+        {
+          "name": "Callrift.Benchmarks.FloorBenchmarks.ReadBlobs",
+          "n": 14,
+          "meanNanoseconds": 206450569.04761907,
+          "standardDeviationNanoseconds": 5309015.804431483,
+          "confidenceInterval": {
+            "N": 14,
+            "Mean": 206450569.04761907,
+            "StandardError": 1418894.157225047,
+            "Level": 12,
+            "Margin": 5988913.475167323,
+            "Lower": 200461655.57245174,
+            "Upper": 212439482.5227864
+          },
+          "managedParentBytesAllocatedPerOperation": 5969717
+        }
+      ]
+    },
+    {
+      "version": "candidate",
+      "stage": "warm",
+      "startedUtc": "2026-09-25T08:10:20.964586+00:00",
+      "finishedUtc": "2026-09-25T08:11:05.888385+00:00",
+      "gitReaderSha256": "efa03e0cf33a1ec08ff819fcf52ae775f14ef96b106a132f9a694f11c215d4bf",
+      "export": "git-batching-windows-refined-candidate-warm.json",
+      "command": [
+        "C:\\Users\\Admin\\AppData\\Local\\mise\\dotnet-root\\dotnet.exe",
+        "run",
+        "-c",
+        "Release",
+        "--no-build",
+        "--project",
+        "benchmarks/Callrift.Benchmarks",
+        "--",
+        "--filter",
+        "*FloorBenchmarks.ReadBlobs*",
+        "--warmupCount",
+        "3",
+        "--iterationCount",
+        "15",
+        "--launchCount",
+        "1",
+        "--artifacts",
+        "C:\\Users\\Admin\\projects\\collinstevens\\calldiff-dotnet\\artifacts\\git-batch-refined-candidate-warm-controlled"
+      ],
+      "cwd": "C:\\Users\\Admin\\projects\\collinstevens\\calldiff-dotnet",
+      "variant": "refined",
+      "statistics": [
+        {
+          "name": "Callrift.Benchmarks.FloorBenchmarks.ReadBlobs",
+          "n": 15,
+          "meanNanoseconds": 205176333.33333334,
+          "standardDeviationNanoseconds": 3809048.3959720354,
+          "confidenceInterval": {
+            "N": 15,
+            "Mean": 205176333.33333334,
+            "StandardError": 983492.0668331844,
+            "Level": 12,
+            "Margin": 4072103.771338865,
+            "Lower": 201104229.5619945,
+            "Upper": 209248437.1046722
+          },
+          "managedParentBytesAllocatedPerOperation": 6051413
+        }
+      ]
+    },
+    {
+      "version": "candidate",
+      "stage": "cold",
+      "startedUtc": "2026-09-25T08:11:05.889110+00:00",
+      "finishedUtc": "2026-09-25T08:12:01.523756+00:00",
+      "gitReaderSha256": "efa03e0cf33a1ec08ff819fcf52ae775f14ef96b106a132f9a694f11c215d4bf",
+      "export": "git-batching-windows-refined-candidate-cold.json",
+      "command": [
+        "C:\\Users\\Admin\\AppData\\Local\\mise\\dotnet-root\\dotnet.exe",
+        "run",
+        "-c",
+        "Release",
+        "--no-build",
+        "--project",
+        "benchmarks/Callrift.Benchmarks",
+        "--",
+        "--filter",
+        "*ColdGitBenchmarks*",
+        "--warmupCount",
+        "3",
+        "--iterationCount",
+        "15",
+        "--launchCount",
+        "1",
+        "--artifacts",
+        "C:\\Users\\Admin\\projects\\collinstevens\\calldiff-dotnet\\artifacts\\git-batch-refined-candidate-cold-controlled",
+        "--invocationCount",
+        "1",
+        "--unrollFactor",
+        "1"
+      ],
+      "cwd": "C:\\Users\\Admin\\projects\\collinstevens\\calldiff-dotnet",
+      "variant": "refined",
+      "statistics": [
+        {
+          "name": "Callrift.Benchmarks.ColdGitBenchmarks.FetchSelectedBlobs(Case: \"polly-secondary-action\")",
+          "n": 15,
+          "meanNanoseconds": 500677340,
+          "standardDeviationNanoseconds": 22502301.285227314,
+          "confidenceInterval": {
+            "N": 15,
+            "Mean": 500677340,
+            "StandardError": 5810069.208601809,
+            "Level": 12,
+            "Margin": 24056324.940443277,
+            "Lower": 476621015.0595567,
+            "Upper": 524733664.9404433
+          },
+          "managedParentBytesAllocatedPerOperation": 1118608
+        },
+        {
+          "name": "Callrift.Benchmarks.ColdGitBenchmarks.FetchSelectedBlobs(Case: \"serilog-alignment-guard\")",
+          "n": 13,
+          "meanNanoseconds": 389725100,
+          "standardDeviationNanoseconds": 9843737.309917746,
+          "confidenceInterval": {
+            "N": 13,
+            "Mean": 389725100,
+            "StandardError": 2730161.5087004914,
+            "Level": 12,
+            "Margin": 11788267.561928568,
+            "Lower": 377936832.4380714,
+            "Upper": 401513367.5619286
+          },
+          "managedParentBytesAllocatedPerOperation": 1257056
+        }
+      ]
+    }
+  ],
+  "benchmarkDependencyLicenseReview": [
+    {
+      "name": "BenchmarkDotNet",
+      "version": "0.16.0-preview.2",
+      "license": [
+        {
+          "type": "expression",
+          "value": "MIT"
+        }
+      ],
+      "reviewedLicense": "MIT"
+    },
+    {
+      "name": "Azure.Core",
+      "version": "1.53.0",
+      "license": [
+        {
+          "type": "expression",
+          "value": "MIT"
+        }
+      ],
+      "reviewedLicense": "MIT"
+    },
+    {
+      "name": "Azure.Identity",
+      "version": "1.21.0",
+      "license": [
+        {
+          "type": "expression",
+          "value": "MIT"
+        }
+      ],
+      "reviewedLicense": "MIT"
+    },
+    {
+      "name": "BenchmarkDotNet.Annotations",
+      "version": "0.16.0-preview.2",
+      "license": [
+        {
+          "type": "expression",
+          "value": "MIT"
+        }
+      ],
+      "reviewedLicense": "MIT"
+    },
+    {
+      "name": "deniszykov.WebSocketListener",
+      "version": "4.2.19",
+      "license": [],
+      "licenseUrls": [
+        "https://opensource.org/licenses/MIT"
+      ],
+      "reviewedLicense": "MIT"
+    },
+    {
+      "name": "Microsoft.Bcl.AsyncInterfaces",
+      "version": "10.0.11",
+      "license": [
+        {
+          "type": "expression",
+          "value": "MIT"
+        }
+      ],
+      "reviewedLicense": "MIT"
+    },
+    {
+      "name": "Microsoft.Diagnostics.NETCore.Client",
+      "version": "0.2.661903",
+      "license": [
+        {
+          "type": "expression",
+          "value": "MIT"
+        }
+      ],
+      "reviewedLicense": "MIT"
+    },
+    {
+      "name": "Microsoft.Diagnostics.Runtime",
+      "version": "4.1.745802",
+      "license": [
+        {
+          "type": "expression",
+          "value": "MIT"
+        }
+      ],
+      "reviewedLicense": "MIT"
+    },
+    {
+      "name": "Microsoft.Diagnostics.Tracing.TraceEvent",
+      "version": "3.2.5",
+      "license": [
+        {
+          "type": "expression",
+          "value": "MIT"
+        }
+      ],
+      "reviewedLicense": "MIT"
+    },
+    {
+      "name": "Microsoft.Identity.Client",
+      "version": "4.83.1",
+      "license": [
+        {
+          "type": "expression",
+          "value": "MIT"
+        }
+      ],
+      "reviewedLicense": "MIT"
+    },
+    {
+      "name": "Microsoft.Identity.Client.Extensions.Msal",
+      "version": "4.83.1",
+      "license": [
+        {
+          "type": "expression",
+          "value": "MIT"
+        }
+      ],
+      "reviewedLicense": "MIT"
+    },
+    {
+      "name": "Microsoft.IdentityModel.Abstractions",
+      "version": "8.14.0",
+      "license": [
+        {
+          "type": "expression",
+          "value": "MIT"
+        }
+      ],
+      "reviewedLicense": "MIT"
+    },
+    {
+      "name": "Perfolizer",
+      "version": "0.7.5",
+      "license": [
+        {
+          "type": "expression",
+          "value": "MIT"
+        }
+      ],
+      "reviewedLicense": "MIT"
+    },
+    {
+      "name": "Pragmastat",
+      "version": "14.0.1",
+      "license": [
+        {
+          "type": "expression",
+          "value": "MIT"
+        }
+      ],
+      "reviewedLicense": "MIT"
+    },
+    {
+      "name": "System.ClientModel",
+      "version": "1.10.0",
+      "license": [
+        {
+          "type": "expression",
+          "value": "MIT"
+        }
+      ],
+      "reviewedLicense": "MIT"
+    },
+    {
+      "name": "System.Memory.Data",
+      "version": "10.0.3",
+      "license": [
+        {
+          "type": "expression",
+          "value": "MIT"
+        }
+      ],
+      "reviewedLicense": "MIT"
+    },
+    {
+      "name": "System.Security.Cryptography.ProtectedData",
+      "version": "4.5.0",
+      "license": [],
+      "licenseUrls": [
+        "https://github.com/dotnet/corefx/blob/master/LICENSE.TXT"
+      ],
+      "reviewedLicense": "MIT",
+      "reviewSource": "https://raw.githubusercontent.com/dotnet/corefx/30ab651fcb4354552bd4891619a0bdd81e0ebdbf/LICENSE.TXT"
+    }
+  ]
+}

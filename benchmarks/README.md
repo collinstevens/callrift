@@ -25,3 +25,28 @@ M4 adds fresh-process tree/reach measurements and refreshes the [command baselin
 The scheduled benchmark workflow flags time above 2x or allocations above 1.5x the checked-in baseline. Warnings request review rather than failing on different hosted hardware. Exported measurements remain artifacts for investigation.
 
 Medium/large workloads, finer workspace-stage floors, and cold restore measurements remain follow-up work. The prototype's 30 seconds for about 5,000 files has not been reproduced by this small workload.
+
+The .NET 11 suite pins BenchmarkDotNet 0.16.0-preview.2. Version 0.15.8 fails during runtime recognition on net11.0. Use the same BenchmarkDotNet package and managed SDK for before/after comparisons; older .NET 10 exports are historical baselines.
+
+`ColdGitBenchmarks` reads twenty pinned production C# blobs from each selected Serilog and Polly revision. Every iteration creates a fresh shallow, blob-filtered client in the external benchmark cache. Its server is the existing local repository cache. Setup and cleanup are outside the measured blob-read operation, and cleanup verifies exact source contents. The client starts without blobs; server objects and filesystem caches are warm. This local-transport workload does not measure internet latency or a cold disk. MemoryDiagnoser reports managed parent allocations and excludes Git subprocess heaps.
+
+For controlled comparisons, run without concurrent validation or build work:
+
+```sh
+mise run benchmark -- --filter '*ColdGitBenchmarks*' --warmupCount 3 --iterationCount 15 --launchCount 1 --invocationCount 1 --unrollFactor 1
+mise run benchmark -- --filter '*FloorBenchmarks.ReadBlobs*' --warmupCount 3 --iterationCount 15 --launchCount 1
+```
+
+Run each command against both implementations with identical benchmark code, dependencies, pins, and cache conditions. The existing FloorBenchmarks blob reader measures the warm-input cost. Preserve full JSON exports and implementation identities before drawing a performance conclusion.
+
+The controlled Windows Git comparison uses the original reader at `f0e83a85c79be088ba77cbe7083e025aaf68ed83` and the same .NET 11/BenchmarkDotNet environment for every variant. Each workload requested fifteen measurements after three warmups; BenchmarkDotNet retained twelve to fifteen measurements after its outlier filtering. Values below are means with one standard deviation. Full environment details, source hashes, pinned paths/object IDs, commands, run order, and links to all seven exports are in the [measurement metadata](baselines/git-batching-windows-metadata.json).
+
+| Blob-read workload | Original reader | Final batched reader | Managed parent allocation, original → final |
+|---|---:|---:|---:|
+| Warm Serilog, 224 inputs | 206.45 ± 5.31 ms | 205.18 ± 3.81 ms | 5,969,717 → 6,051,413 bytes |
+| Cold Serilog client, 20 inputs | 3,632.73 ± 69.57 ms | 389.73 ± 9.84 ms | 651,240 → 1,257,056 bytes |
+| Cold Polly client, 20 inputs | 5,592.83 ± 77.89 ms | 500.68 ± 22.50 ms | 510,728 → 1,118,608 bytes |
+
+Batching reduced this local-transport cold blob stage by approximately 9.3x for Serilog and 11.2x for Polly. The warm-time confidence intervals overlap; the experiment establishes no material warm-time change. Managed parent allocation increases by about 82 KB for the warm operation and 606–608 KB for the cold operations. The extra process environment, missing-input bookkeeping, and fetch/probe output contribute to these allocations; native Git heaps remain unmeasured.
+
+An initial version probed every blob before reading. It measured 278.79 ms warm against an initial 199.60 ms baseline, a 39.7% penalty. The final version reads available blobs first with child-process lazy fetching disabled, then probes and hydrates only missing inputs. A repeated baseline measured 206.45 ms before the final 205.18 ms run. The initial version's complete exports are retained so the overhead investigation is reproducible; reconstruct it by applying the [initial reader patch](baselines/git-batching-probe-first.patch) to the baseline with `git apply --unidiff-zero`, using the same benchmark code and dependencies. These measurements establish a Git-stage improvement only. They do not establish full-command speedups, network performance, or the required large-repository analysis result.
