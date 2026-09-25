@@ -161,6 +161,25 @@ public sealed class WorkspaceTests
     }
 
     [Fact]
+    public async Task EmptyFrameworkListEntriesDoNotCreateProjects()
+    {
+        var source = ScenarioCatalog.All.Single(s => s.Name == "guard");
+        var project = Project.Replace("<TargetFramework>net10.0</TargetFramework>", "<TargetFrameworks>;net10.0;net11.0;</TargetFrameworks>", StringComparison.Ordinal);
+        var scenario = source with
+        {
+            Before = new Dictionary<string, string>(source.Before) { ["App.csproj"] = project },
+            After = new Dictionary<string, string>(source.After) { ["App.csproj"] = project }
+        };
+        await using var fixture = await GitFixture.CreateAsync(scenario);
+        var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--project", "App.csproj", "--framework", "net10.0", "--format", "json"]);
+        Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
+        using var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+        Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
+        Assert.Single(document.RootElement.GetProperty("trees").EnumerateArray());
+        Assert.Contains("if (ready)", output);
+    }
+
+    [Fact]
     public async Task RequiresRestoredCacheAndExplicitFramework()
     {
         var source = ScenarioCatalog.All.Single(s => s.Name == "guard");

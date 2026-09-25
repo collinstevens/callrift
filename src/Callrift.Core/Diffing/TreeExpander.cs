@@ -47,6 +47,7 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
         foreach (var call in calls)
         {
             var children = ExpandCalls(call.Children, active, depth + 1);
+            var possibleTargets = graph.Targets(call);
             if (call.Kind == "branch")
             {
                 if (children.Count > 0)
@@ -55,18 +56,18 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
                 continue;
             }
             if (!call.IsSource && call.Kind != "unresolved" && !options.IncludeExternals && children.Count == 0
-                && !graph.Members.ContainsKey(call.Key) && (call.SuppressDispatch || !graph.Implementations.ContainsKey(call.Key)))
+                && !graph.Members.ContainsKey(call.Key) && possibleTargets.Count == 0)
                 continue;
             CallTree tree;
-            if (!call.SuppressDispatch && graph.Implementations.TryGetValue(call.Key, out var targets) && targets.Count > 0)
+            if (possibleTargets.Count > 0)
             {
-                if (targets.Count == 1)
+                if (possibleTargets.Count == 1)
                 {
-                    var implementation = ExpandMember(targets[0], active, depth);
+                    var implementation = ExpandMember(possibleTargets[0], active, depth);
                     tree = implementation with { Key = call.Key, Label = call.Label + " → " + implementation.Label, MatchName = call.Label + " → " + implementation.MatchName };
                 }
                 else
-                    tree = new CallTree(call.Key, call.Label, call.Key, call.Key, targets.Select(t =>
+                    tree = new CallTree(call.Key, call.Label, call.Key, call.Key, possibleTargets.Select(t =>
                     {
                         var implementation = ExpandMember(t, active, depth + 1);
                         return implementation with { Label = "⇢ " + implementation.Label, Kind = "dispatchTarget" };
@@ -77,7 +78,6 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
             else
                 tree = new CallTree(call.Key, call.Label, call.Key, call.Key, []);
             graph.Members.TryGetValue(call.Key, out var declaration);
-            var possibleTargets = !call.SuppressDispatch && graph.Implementations.TryGetValue(call.Key, out var implementations) ? implementations : [];
             var side = new NodeSide(call.Kind == "unresolved" ? null : call.Key, declaration?.Signature,
                 call.Kind == "unresolved" ? "unresolved" : "resolved", possibleTargets.Count > 0 ? "possible" : "direct",
                 possibleTargets.Count > 0 ? possibleTargets : call.Kind == "unresolved" ? [] : [call.Key], declaration?.Location,

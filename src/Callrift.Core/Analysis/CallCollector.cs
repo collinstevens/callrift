@@ -168,7 +168,11 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             || receiver is not null && model.GetTypeInfo(receiver, cancellationToken).Type is INamedTypeSymbol { IsSealed: true }
             || receiver is null && model.GetEnclosingSymbol(node.SpanStart, cancellationToken)?.ContainingType is { IsSealed: true };
         return new CallStep("call", symbols.Key(normalized), source ? SymbolNames.Label(normalized) : SymbolNames.SyntaxLabel(node), source, symbols.Location(node), children)
-        { SuppressDispatch = exactReceiver };
+        {
+            SuppressDispatch = exactReceiver,
+            DispatchType = !exactReceiver && (method.ContainingType.TypeKind == TypeKind.Interface || method.IsAbstract || method.IsVirtual || method.IsOverride)
+                ? DispatchType.From(method.ContainingType) : null
+        };
     }
 
     private void Branch(string label, SyntaxNode node, IEnumerable<SyntaxNode> bodies, List<CallStep> result)

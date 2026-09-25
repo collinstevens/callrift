@@ -28,6 +28,7 @@ public sealed record CallStep(
 {
     public string Relation { get; init; } = "call";
     public bool SuppressDispatch { get; init; }
+    public DispatchType? DispatchType { get; init; }
     public IReadOnlyList<string> Candidates { get; init; } = [];
 }
 
@@ -61,6 +62,14 @@ public sealed record CallGraph(
     IReadOnlyList<AnalysisDiagnostic> Diagnostics)
 {
     public AnalysisCoverage Coverage { get; init; } = AnalysisCoverage.SourceOnly;
+    public IReadOnlyDictionary<string, IReadOnlyList<DispatchContract>> DispatchContracts { get; init; } = new Dictionary<string, IReadOnlyList<DispatchContract>>();
+
+    public IReadOnlyList<string> Targets(CallStep call)
+    {
+        if (call.SuppressDispatch || !Implementations.TryGetValue(call.Key, out var targets)) return [];
+        if (call.DispatchType is null || !DispatchContracts.TryGetValue(call.Key, out var contracts)) return targets;
+        return contracts.Where(c => c.Type.CanMatch(call.DispatchType)).Select(c => c.Target).Distinct(StringComparer.Ordinal).Order(StringComparer.Ordinal).ToArray();
+    }
 }
 
 public sealed record AnalysisOptions(bool IncludeTests = false);

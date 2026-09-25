@@ -68,8 +68,7 @@ public static class EntrySelector
             if (call.Kind == "call")
             {
                 yield return call.Key;
-                if (!call.SuppressDispatch && graph.Implementations.TryGetValue(call.Key, out var targets))
-                    foreach (var target in targets) yield return target;
+                foreach (var target in graph.Targets(call)) yield return target;
             }
             foreach (var child in Targets(call.Children, graph)) yield return child;
         }

@@ -119,7 +119,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
         }
         var distinctTypes = types.Distinct<INamedTypeSymbol>(SymbolEqualityComparer.Default).ToArray();
         AddInitializers(distinctTypes, compilation, indexed, symbols, diagnostics, cancellationToken);
-        var implementations = BuildImplementationMap(distinctTypes, indexed, symbols, cancellationToken);
+        var dispatch = BuildDispatchMap(distinctTypes, indexed, symbols, cancellationToken);
         if (includeBodyFingerprints)
             foreach (var key in indexed.Keys.ToArray())
             {
@@ -130,8 +130,9 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                     Encoding.UTF8.GetBytes(string.Join("\0", body.DescendantTokens().Select(t => t.RawKind + ":" + t.Text)))))
                 };
             }
-        return new CallGraph(indexed, implementations, diagnostics.Distinct().OrderBy(d => d.Location?.Path, StringComparer.Ordinal)
-            .ThenBy(d => d.Location?.Line).ThenBy(d => d.Code, StringComparer.Ordinal).ThenBy(d => d.Message, StringComparer.Ordinal).ToArray());
+        return new CallGraph(indexed, dispatch.Implementations, diagnostics.Distinct().OrderBy(d => d.Location?.Path, StringComparer.Ordinal)
+            .ThenBy(d => d.Location?.Line).ThenBy(d => d.Code, StringComparer.Ordinal).ThenBy(d => d.Message, StringComparer.Ordinal).ToArray())
+        { DispatchContracts = dispatch.Contracts };
     }
 
     private static void AddInitializers(IEnumerable<INamedTypeSymbol> types, CSharpCompilation compilation, Dictionary<string, Member> members, SymbolNames symbols,
@@ -180,15 +181,20 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
     }
 
     public static IReadOnlyDictionary<string, IReadOnlyList<string>> BuildImplementationMap(IEnumerable<INamedTypeSymbol> types, IReadOnlyDictionary<string, Member> members, CancellationToken cancellationToken = default)
-        => BuildImplementationMap(types, members, new SymbolNames(), cancellationToken);
+        => BuildDispatchMap(types, members, new SymbolNames(), cancellationToken).Implementations;
 
     public static IReadOnlyDictionary<string, IReadOnlyList<string>> BuildImplementationMap(IEnumerable<INamedTypeSymbol> types, IReadOnlyDictionary<string, Member> members,
         Func<IMethodSymbol, string> scope, CancellationToken cancellationToken = default)
-        => BuildImplementationMap(types, members, new SymbolNames(scope), cancellationToken);
+        => BuildDispatchMap(types, members, new SymbolNames(scope), cancellationToken).Implementations;
 
-    private static IReadOnlyDictionary<string, IReadOnlyList<string>> BuildImplementationMap(IEnumerable<INamedTypeSymbol> types, IReadOnlyDictionary<string, Member> members, SymbolNames symbols, CancellationToken cancellationToken)
+    public static DispatchMap BuildDispatchMap(IEnumerable<INamedTypeSymbol> types, IReadOnlyDictionary<string, Member> members,
+        Func<IMethodSymbol, string> scope, CancellationToken cancellationToken = default)
+        => BuildDispatchMap(types, members, new SymbolNames(scope), cancellationToken);
+
+    private static DispatchMap BuildDispatchMap(IEnumerable<INamedTypeSymbol> types, IReadOnlyDictionary<string, Member> members, SymbolNames symbols, CancellationToken cancellationToken)
     {
         var map = new Dictionary<string, SortedSet<string>>(StringComparer.Ordinal);
+        var contracts = new Dictionary<string, List<DispatchContract>>(StringComparer.Ordinal);
         void Add(IMethodSymbol contract, IMethodSymbol implementation, bool includeSelf = false)
         {
             var key = symbols.Key(contract);
@@ -198,6 +204,8 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
             if (!map.TryGetValue(key, out var targets))
                 map[key] = targets = new SortedSet<string>(StringComparer.Ordinal);
             targets.Add(target);
+            if (!contracts.TryGetValue(key, out var candidates)) contracts[key] = candidates = [];
+            candidates.Add(new DispatchContract(target, DispatchType.From(contract.ContainingType)));
         }
         foreach (var type in types)
         {
@@ -231,8 +239,10 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                     }
                 }
         }
-        return map.Where(p => p.Value.Any(target => target != p.Key))
+        var implementations = map.Where(p => p.Value.Any(target => target != p.Key))
             .ToDictionary(p => p.Key, p => (IReadOnlyList<string>)p.Value.ToArray(), StringComparer.Ordinal);
+        return new DispatchMap(implementations, contracts.Where(p => implementations.ContainsKey(p.Key))
+            .ToDictionary(p => p.Key, p => (IReadOnlyList<DispatchContract>)p.Value.OrderBy(c => c.Target, StringComparer.Ordinal).ToArray(), StringComparer.Ordinal));
     }
 
     private static bool Overrides(IMethodSymbol method, IMethodSymbol ancestor)

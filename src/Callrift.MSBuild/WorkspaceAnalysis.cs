@@ -172,10 +172,10 @@ public static class WorkspaceAnalysis
                 diagnostics.Add(new AnalysisDiagnostic(diagnostic.Id, MSBuildAnalysisProvider.CleanMessage(diagnostic.GetMessage(System.Globalization.CultureInfo.InvariantCulture), request.Root), location));
             }
         }
-        var implementations = SourceOnlyAnalysisProvider.BuildImplementationMap(types.Distinct<INamedTypeSymbol>(SymbolEqualityComparer.Default), members, Scope, cancellationToken);
-        return new CallGraph(members, implementations, diagnostics.Distinct().OrderBy(d => d.Location?.Path, StringComparer.Ordinal)
+        var dispatch = SourceOnlyAnalysisProvider.BuildDispatchMap(types.Distinct<INamedTypeSymbol>(SymbolEqualityComparer.Default), members, Scope, cancellationToken);
+        return new CallGraph(members, dispatch.Implementations, diagnostics.Distinct().OrderBy(d => d.Location?.Path, StringComparer.Ordinal)
             .ThenBy(d => d.Location?.Line).ThenBy(d => d.Code, StringComparer.Ordinal).ThenBy(d => d.Message, StringComparer.Ordinal).ToArray())
-        { Coverage = MSBuildAnalysisProvider.WorkspaceCoverage };
+        { Coverage = MSBuildAnalysisProvider.WorkspaceCoverage, DispatchContracts = dispatch.Contracts };
     }
 
     private static bool HasTestFramework(Project project)
@@ -194,6 +194,7 @@ public static class WorkspaceAnalysis
         var singleProject = target.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase);
         var paths = singleProject ? [target] : SolutionFile.Parse(target).ProjectsInOrder
             .Select(p => p.AbsolutePath).Where(p => p.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase)).ToArray();
+        await NormalizeFrameworkListsAsync(request, paths, properties, cancellationToken);
         using var collection = new BuildProjectCollection(properties);
         foreach (var path in paths)
         {
@@ -213,6 +214,49 @@ public static class WorkspaceAnalysis
             outputs[ReferenceKey(path, framework.Length == 0 ? "default" : framework)] = await ResolveReferenceOutputsAsync(request, path, framework, cancellationToken);
         }
         return outputs;
+    }
+
+    private static async Task NormalizeFrameworkListsAsync(WorkspaceRequest request, IEnumerable<string> paths,
+        Dictionary<string, string> properties, CancellationToken cancellationToken)
+    {
+        var pending = new Queue<string>(paths);
+        var visited = new HashSet<string>(PathComparer);
+        using var collection = new BuildProjectCollection(properties);
+        while (pending.TryDequeue(out var path))
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            path = Path.GetFullPath(path);
+            if (!visited.Add(path) || !path.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase)) continue;
+            var project = collection.LoadProject(path);
+            var declared = project.GetPropertyValue("TargetFrameworks");
+            var frameworks = declared.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            if (declared.Length > 0 && declared.Split(';').Any(string.IsNullOrWhiteSpace))
+            {
+                var directory = Path.GetFullPath(project.GetPropertyValue("MSBuildProjectExtensionsPath"), Path.GetDirectoryName(path)!);
+                if (!directory.StartsWith(Path.GetFullPath(request.Root) + Path.DirectorySeparatorChar,
+                    OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal))
+                    throw new InvalidOperationException("Framework normalization requires an intermediate directory inside the workspace.");
+                Directory.CreateDirectory(directory);
+                await File.WriteAllTextAsync(Path.Combine(directory, Path.GetFileName(path) + ".callrift.targets"), """
+                    <Project>
+                        <PropertyGroup>
+                            <TargetFrameworks>$([System.Text.RegularExpressions.Regex]::Replace('$(TargetFrameworks)', '(?:\s*;\s*)+', ';').Trim(';').Trim())</TargetFrameworks>
+                        </PropertyGroup>
+                    </Project>
+                    """, cancellationToken);
+            }
+            foreach (var framework in frameworks.Length == 0 ? [project.GetPropertyValue("TargetFramework")] : frameworks)
+            {
+                if (framework.Length > 0)
+                {
+                    project.SetGlobalProperty("TargetFramework", framework);
+                    project.ReevaluateIfNecessary();
+                }
+                foreach (var reference in project.GetItems("ProjectReference"))
+                    pending.Enqueue(reference.GetMetadataValue("FullPath"));
+            }
+            collection.UnloadProject(project);
+        }
     }
 
     private static async Task<HashSet<string>> ResolveReferenceOutputsAsync(WorkspaceRequest request, string path, string framework, CancellationToken cancellationToken)

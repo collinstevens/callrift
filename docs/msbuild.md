@@ -29,8 +29,12 @@ The selected SDK must already be installed. Historical `global.json` settings ap
 
 Restore covers the project's declared frameworks. `--framework` selects the analyzed root variant; referenced projects retain their own compatible frameworks. MSBuild's resolved reference outputs select between multiple variants of a referenced project. A solution can include single-target projects with different frameworks. Multi-target projects that lack the requested framework must be selected through a compatible project reference or analysis fails explicitly.
 
+Empty entries in a framework list are ignored, including a leading semicolon introduced by an operating-system condition. callrift supplies an intermediate targets file for workspace evaluation. Historical project files remain intact.
+
 Symbols use `project:<relative-project>@<framework>::<member>` identities. Project references connect compilations while duplicate type names in unrelated projects remain separate. Test exclusion uses evaluated `IsTestProject` and test-framework metadata references. Included generators contribute syntax trees and call bodies; generated paths are normalized relative paths.
 
 The graph still describes possible calls. Source virtual overrides participate in dispatch across projects, including inherited interface implementations. Explicit base calls stay direct. The graph does not infer a DI container's active registration, receiver values stored in variables, mediator handler conventions, property/indexer bodies, operators, events, or static initialization. Both modes therefore report partial coverage. In particular, a generated regex runner can appear as a root because its static singleton/property path is not followed. `--strict` returns exit 2 for partial coverage.
+
+Constructed invariant generic contracts exclude incompatible implementations, including nested arguments and inconsistent substitutions for repeated type parameters. Covariant and contravariant arguments remain conservative, and generic constraints are not used to narrow candidates. Declaration identities remain unchanged across constructed uses.
 
 The worker and CLI share a version and communicate through temporary JSON files. Token fingerprints preserve body-only changes across that process boundary. The source-only provider retains Roslyn syntax equivalence. Whitespace and comments do not count as body changes in either mode.
