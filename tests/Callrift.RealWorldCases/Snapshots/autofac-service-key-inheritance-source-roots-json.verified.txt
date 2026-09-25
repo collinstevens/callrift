@@ -176,7 +176,7 @@ stdout:
     },
     {
       "code": "unresolved-call",
-      "message": "Cannot bind builder.Register((MyDependency1 dep1) => new MyComponent(dep1, \"arg\")) .As<IServiceNewMethodCapturedArg>.",
+      "message": "Cannot bind builder.Register((MyDependency1 dep1) => new MyComponent(dep1, \"arg\")).As<IServiceNewMethodCapturedArg>.",
       "location": {
         "path": "bench/Autofac.Benchmarks/LambdaResolveBenchmark.cs",
         "startLine": 22,
@@ -198,7 +198,7 @@ stdout:
     },
     {
       "code": "unresolved-call",
-      "message": "Cannot bind builder.Register((MyDependency1 dep1, string arg1) => new MyComponent(dep1, arg1)) .As<IServiceNewMethodOpenArg>.",
+      "message": "Cannot bind builder.Register((MyDependency1 dep1, string arg1) => new MyComponent(dep1, arg1)).As<IServiceNewMethodOpenArg>.",
       "location": {
         "path": "bench/Autofac.Benchmarks/LambdaResolveBenchmark.cs",
         "startLine": 26,
@@ -231,7 +231,7 @@ stdout:
     },
     {
       "code": "unresolved-call",
-      "message": "Cannot bind Job.Default .WithId.",
+      "message": "Cannot bind Job.Default.WithId.",
       "location": {
         "path": "bench/Autofac.Benchmarks/Program.cs",
         "startLine": 28,
@@ -253,7 +253,7 @@ stdout:
     },
     {
       "code": "unresolved-call",
-      "message": "Cannot bind Job.Default .WithId($\"Package-{baselineVersion}\") .AsBaseline() .WithMsBuildArguments.",
+      "message": "Cannot bind Job.Default.WithId($\"Package-{baselineVersion}\").AsBaseline().WithMsBuildArguments.",
       "location": {
         "path": "bench/Autofac.Benchmarks/Program.cs",
         "startLine": 34,
@@ -264,7 +264,7 @@ stdout:
     },
     {
       "code": "unresolved-call",
-      "message": "Cannot bind Job.Default .WithId($\"Package-{baselineVersion}\") .AsBaseline.",
+      "message": "Cannot bind Job.Default.WithId($\"Package-{baselineVersion}\").AsBaseline.",
       "location": {
         "path": "bench/Autofac.Benchmarks/Program.cs",
         "startLine": 34,
@@ -275,7 +275,7 @@ stdout:
     },
     {
       "code": "unresolved-call",
-      "message": "Cannot bind Job.Default .WithId.",
+      "message": "Cannot bind Job.Default.WithId.",
       "location": {
         "path": "bench/Autofac.Benchmarks/Program.cs",
         "startLine": 34,
@@ -308,7 +308,7 @@ stdout:
     },
     {
       "code": "unresolved-call",
-      "message": "Cannot bind context.SyntaxProvider .CreateSyntaxProvider( predicate: static (s, _) => s is ClassDeclarationSyntax classSyn && classSyn.Modifiers.Any(static m => m.IsKind(SyntaxKind.PartialKeyword)), transform: static (context, cancelToken) => { var syntax = (ClassDeclarationSyntax)context.Node; if (context.SemanticModel.GetDeclaredSymbol(syntax, cancelToken) is INamedTypeSymbol symbol) { // Looking for the exact name of the class. if (symbol.ToDisplayString() == \"Autofac.RegistrationExtensions\") { return symbol; } } return null; }) .Where.",
+      "message": "Cannot bind context.SyntaxProvider.CreateSyntaxProvider(predicate: static (s, _) => s is ClassDeclarationSyntax classSyn && classSyn.Modifiers.Any(static m => m.IsKind(SyntaxKind.PartialKeyword)), transform: static (context, cancelToken) => { var syntax = (ClassDeclarationSyntax)context.Node; if (context.SemanticModel.GetDeclaredSymbol(syntax, cancelToken)is INamedTypeSymbol symbol) { if (symbol.ToDisplayString() == \"Autofac.RegistrationExtensions\") { return symbol; } }  return null; }).Where.",
       "location": {
         "path": "codegen/Autofac.CodeGen/DelegateRegisterGenerator.cs",
         "startLine": 29,
@@ -319,7 +319,7 @@ stdout:
     },
     {
       "code": "unresolved-call",
-      "message": "Cannot bind context.SyntaxProvider .CreateSyntaxProvider.",
+      "message": "Cannot bind context.SyntaxProvider.CreateSyntaxProvider.",
       "location": {
         "path": "codegen/Autofac.CodeGen/DelegateRegisterGenerator.cs",
         "startLine": 29,
@@ -1595,7 +1595,7 @@ stdout:
     },
     {
       "code": "unresolved-call",
-      "message": "Cannot bind RegistrationBuilder.ForDelegate((c, p) => { var instance = (TService?)p .OfType<TypedParameter>() .FirstOrDefault(tp => tp.Type == typeof(TService)) ?.Value ?? throw new DependencyResolutionException(string.Format(CultureInfo.CurrentCulture, RegistrationExtensionsResources.DecoratorRequiresInstanceParameter, typeof(TService).Name)); return decorator(c, p, instance); }).As.",
+      "message": "Cannot bind RegistrationBuilder.ForDelegate((c, p) => { var instance = (TService? )p.OfType<TypedParameter>().FirstOrDefault(tp => tp.Type == typeof(TService))?.Value ?? throw new DependencyResolutionException(string.Format(CultureInfo.CurrentCulture, RegistrationExtensionsResources.DecoratorRequiresInstanceParameter, typeof(TService).Name)); return decorator(c, p, instance); }).As.",
       "location": {
         "path": "src/Autofac/RegistrationExtensions.Decorators.cs",
         "startLine": 223,
@@ -19757,7 +19757,7 @@ stdout:
           "id": "n278",
           "kind": "call",
           "change": "unchanged",
-          "label": "? builder.Register((MyDependency1 dep1) => new MyComponent(dep1, \"arg\")) .As<IServiceNewMethodCapturedArg>",
+          "label": "? builder.Register((MyDependency1 dep1) => new MyComponent(dep1, \"arg\")).As<IServiceNewMethodCapturedArg>",
           "detail": null,
           "before": {
             "symbolId": null,
@@ -19931,7 +19931,7 @@ stdout:
           "id": "n281",
           "kind": "call",
           "change": "unchanged",
-          "label": "? builder.Register((MyDependency1 dep1, string arg1) => new MyComponent(dep1, arg1)) .As<IServiceNewMethodOpenArg>",
+          "label": "? builder.Register((MyDependency1 dep1, string arg1) => new MyComponent(dep1, arg1)).As<IServiceNewMethodOpenArg>",
           "detail": null,
           "before": {
             "symbolId": null,
@@ -28970,7 +28970,7 @@ stdout:
           "id": "n424",
           "kind": "call",
           "change": "unchanged",
-          "label": "context.Resolve<IEnumerable<Meta<Lazy<T>>>>() .Any",
+          "label": "context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Any",
           "detail": null,
           "before": {
             "symbolId": "source::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
@@ -29797,7 +29797,7 @@ stdout:
           "id": "n439",
           "kind": "call",
           "change": "unchanged",
-          "label": "context.Resolve<IEnumerable<Meta<Lazy<T>>>>() .Where",
+          "label": "context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where",
           "detail": null,
           "before": {
             "symbolId": "source::System.Linq.Enumerable.Where`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
@@ -30624,7 +30624,7 @@ stdout:
           "id": "n454",
           "kind": "call",
           "change": "unchanged",
-          "label": "context.Resolve<IEnumerable<Meta<Lazy<T>>>>() .Where",
+          "label": "context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where",
           "detail": null,
           "before": {
             "symbolId": "source::System.Linq.Enumerable.Where`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",

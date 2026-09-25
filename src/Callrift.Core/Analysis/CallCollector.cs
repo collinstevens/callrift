@@ -74,7 +74,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 return;
             case ForEachStatementSyntax loop:
                 Walk(loop.Expression, result);
-                Branch($"foreach ({loop.Type} {loop.Identifier} in {SymbolNames.Compact(loop.Expression)})", loop, [loop.Statement], result);
+                Branch($"foreach ({SymbolNames.Compact(loop.Type)} {loop.Identifier} in {SymbolNames.Compact(loop.Expression)})", loop, [loop.Statement], result);
                 return;
             case ForEachVariableStatementSyntax loop:
                 Walk(loop.Expression, result);

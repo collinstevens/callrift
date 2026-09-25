@@ -10,9 +10,9 @@ stdout:
 + │  │  ├─ ? new ValidationContext<TRequest>
 + │  │  └─ ? v.ValidateAsync
   │  ├─ ? Task.WhenAll
-  │  ├─ ? validationResults .Where
-  │  ├─ ? validationResults .Where(r => r.Errors.Any()) .SelectMany
-  │  ├─ ? validationResults .Where(r => r.Errors.Any()) .SelectMany(r => r.Errors) .ToList
+  │  ├─ ? validationResults.Where
+  │  ├─ ? validationResults.Where(r => r.Errors.Any()).SelectMany
+  │  ├─ ? validationResults.Where(r => r.Errors.Any()).SelectMany(r => r.Errors).ToList
 - │  ├─ ? failures.Any
 - │  ├─ if (failures.Any())
 - │  │  └─ ? new ValidationException
@@ -23,8 +23,8 @@ stderr:
 src/AppHost/Program.cs:1: unresolved-call: Cannot bind DistributedApplication.CreateBuilder.
 src/AppHost/Program.cs:19: unresolved-call: Cannot bind builder.AddSqlServer.
 src/AppHost/Program.cs:21: unresolved-call: Cannot bind sql.AddDatabase.
-src/AppHost/Program.cs:23: unresolved-call: Cannot bind builder.AddProject<Projects.Web>("web") .WithReference(database) .WaitFor.
-src/AppHost/Program.cs:23: unresolved-call: Cannot bind builder.AddProject<Projects.Web>("web") .WithReference.
+src/AppHost/Program.cs:23: unresolved-call: Cannot bind builder.AddProject<Projects.Web>("web").WithReference(database).WaitFor.
+src/AppHost/Program.cs:23: unresolved-call: Cannot bind builder.AddProject<Projects.Web>("web").WithReference.
 src/AppHost/Program.cs:23: unresolved-call: Cannot bind builder.AddProject<Projects.Web>.
 src/AppHost/Program.cs:28: unresolved-call: Cannot bind builder.Build().Run.
 src/AppHost/Program.cs:28: unresolved-call: Cannot bind builder.Build.
@@ -43,9 +43,9 @@ stdout:
 + │  │  ├─ ? new ValidationContext<TRequest>
 + │  │  └─ ? v.ValidateAsync
   │  ├─ ? Task.WhenAll
-  │  ├─ ? validationResults .Where
-  │  ├─ ? validationResults .Where(r => r.Errors.Any()) .SelectMany
-  │  ├─ ? validationResults .Where(r => r.Errors.Any()) .SelectMany(r => r.Errors) .ToList
+  │  ├─ ? validationResults.Where
+  │  ├─ ? validationResults.Where(r => r.Errors.Any()).SelectMany
+  │  ├─ ? validationResults.Where(r => r.Errors.Any()).SelectMany(r => r.Errors).ToList
 - │  ├─ ? failures.Any
 - │  ├─ if (failures.Any())
 - │  │  └─ ? new ValidationException
@@ -57,8 +57,8 @@ stderr:
 src/AppHost/Program.cs:1: unresolved-call: Cannot bind DistributedApplication.CreateBuilder.
 src/AppHost/Program.cs:19: unresolved-call: Cannot bind builder.AddSqlServer.
 src/AppHost/Program.cs:21: unresolved-call: Cannot bind sql.AddDatabase.
-src/AppHost/Program.cs:23: unresolved-call: Cannot bind builder.AddProject<Projects.Web>("web") .WithReference(database) .WaitFor.
-src/AppHost/Program.cs:23: unresolved-call: Cannot bind builder.AddProject<Projects.Web>("web") .WithReference.
+src/AppHost/Program.cs:23: unresolved-call: Cannot bind builder.AddProject<Projects.Web>("web").WithReference(database).WaitFor.
+src/AppHost/Program.cs:23: unresolved-call: Cannot bind builder.AddProject<Projects.Web>("web").WithReference.
 src/AppHost/Program.cs:23: unresolved-call: Cannot bind builder.AddProject<Projects.Web>.
 src/AppHost/Program.cs:28: unresolved-call: Cannot bind builder.Build().Run.
 src/AppHost/Program.cs:28: unresolved-call: Cannot bind builder.Build.

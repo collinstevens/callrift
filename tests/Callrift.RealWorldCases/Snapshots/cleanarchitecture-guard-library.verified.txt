@@ -2,7 +2,7 @@
 exit: 0
 stdout:
   DeleteTodoItemCommandHandler.Handle
-  ├─ ? _context.TodoItems .FindAsync
+  ├─ ? _context.TodoItems.FindAsync
 - ├─ if (entity == null)
 - │  └─ new NotFoundException
 + ├─ ? Guard.Against.NotFound
@@ -16,8 +16,8 @@ src/Application/Common/Behaviours/UnhandledExceptionBehaviour.cs:19: unresolved-
 src/Application/Common/Behaviours/ValidationBehaviour.cs:21: unresolved-call: Cannot bind new ValidationContext<TRequest>.
 src/Application/Common/Behaviours/ValidationBehaviour.cs:23: unresolved-call: Cannot bind Task.WhenAll; candidates: source::System.Threading.Tasks.Task.WhenAll(global::System.Collections.Generic.IEnumerable<global::System.Threading.Tasks.Task>), source::System.Threading.Tasks.Task.WhenAll(global::System.ReadOnlySpan<global::System.Threading.Tasks.Task>), source::System.Threading.Tasks.Task.WhenAll(global::System.Threading.Tasks.Task[]), source::System.Threading.Tasks.Task.WhenAll`1(global::System.Collections.Generic.IEnumerable<global::System.Threading.Tasks.Task<TResult>>), source::System.Threading.Tasks.Task.WhenAll`1(global::System.ReadOnlySpan<global::System.Threading.Tasks.Task<TResult>>), source::System.Threading.Tasks.Task.WhenAll`1(global::System.Threading.Tasks.Task<TResult>[])
 src/Application/Common/Behaviours/ValidationBehaviour.cs:25: unresolved-call: Cannot bind v.ValidateAsync.
-src/Application/Common/Behaviours/ValidationBehaviour.cs:27: unresolved-call: Cannot bind validationResults .Where(r => r.Errors.Any()) .SelectMany(r => r.Errors) .ToList.
-src/Application/Common/Behaviours/ValidationBehaviour.cs:27: unresolved-call: Cannot bind validationResults .Where(r => r.Errors.Any()) .SelectMany.
+src/Application/Common/Behaviours/ValidationBehaviour.cs:27: unresolved-call: Cannot bind validationResults.Where(r => r.Errors.Any()).SelectMany(r => r.Errors).ToList.
+src/Application/Common/Behaviours/ValidationBehaviour.cs:27: unresolved-call: Cannot bind validationResults.Where(r => r.Errors.Any()).SelectMany.
 824 additional diagnostics; use --diagnostics full.
 
 format: md
@@ -25,7 +25,7 @@ exit: 0
 stdout:
 ```diff
   DeleteTodoItemCommandHandler.Handle
-  ├─ ? _context.TodoItems .FindAsync
+  ├─ ? _context.TodoItems.FindAsync
 - ├─ if (entity == null)
 - │  └─ new NotFoundException
 + ├─ ? Guard.Against.NotFound
@@ -40,6 +40,6 @@ src/Application/Common/Behaviours/UnhandledExceptionBehaviour.cs:19: unresolved-
 src/Application/Common/Behaviours/ValidationBehaviour.cs:21: unresolved-call: Cannot bind new ValidationContext<TRequest>.
 src/Application/Common/Behaviours/ValidationBehaviour.cs:23: unresolved-call: Cannot bind Task.WhenAll; candidates: source::System.Threading.Tasks.Task.WhenAll(global::System.Collections.Generic.IEnumerable<global::System.Threading.Tasks.Task>), source::System.Threading.Tasks.Task.WhenAll(global::System.ReadOnlySpan<global::System.Threading.Tasks.Task>), source::System.Threading.Tasks.Task.WhenAll(global::System.Threading.Tasks.Task[]), source::System.Threading.Tasks.Task.WhenAll`1(global::System.Collections.Generic.IEnumerable<global::System.Threading.Tasks.Task<TResult>>), source::System.Threading.Tasks.Task.WhenAll`1(global::System.ReadOnlySpan<global::System.Threading.Tasks.Task<TResult>>), source::System.Threading.Tasks.Task.WhenAll`1(global::System.Threading.Tasks.Task<TResult>[])
 src/Application/Common/Behaviours/ValidationBehaviour.cs:25: unresolved-call: Cannot bind v.ValidateAsync.
-src/Application/Common/Behaviours/ValidationBehaviour.cs:27: unresolved-call: Cannot bind validationResults .Where(r => r.Errors.Any()) .SelectMany(r => r.Errors) .ToList.
-src/Application/Common/Behaviours/ValidationBehaviour.cs:27: unresolved-call: Cannot bind validationResults .Where(r => r.Errors.Any()) .SelectMany.
+src/Application/Common/Behaviours/ValidationBehaviour.cs:27: unresolved-call: Cannot bind validationResults.Where(r => r.Errors.Any()).SelectMany(r => r.Errors).ToList.
+src/Application/Common/Behaviours/ValidationBehaviour.cs:27: unresolved-call: Cannot bind validationResults.Where(r => r.Errors.Any()).SelectMany.
 824 additional diagnostics; use --diagnostics full.
