@@ -233,7 +233,7 @@ Place the complete AGPL text in `LICENSE` and set `PackageLicenseExpression` to 
 
 A conventional CLA does not necessarily transfer copyright. The requested single-holder policy needs an assignment agreement; commercial relicensing can also be permitted by a suitably drafted CLA while contributors retain ownership. Before outside contributions are merged, identify the legal holder and approve the agreement that meets the intended policy. Document signing and enforcement in `CONTRIBUTING.md`, and configure [CLA Assistant](https://github.com/cla-assistant/cla-assistant) as a required check once repository creation is authorized. The service records assent; the agreement supplies the rights.
 
-Inspect effective Git identity and signing configuration before authoring commits, sign with the configured key, and stop if signing fails. Do not verify signatures or configure verification trust. Fixture repositories also need signed commits: local runs use the configured signing identity; CI must provide a dedicated fixture identity and signing key. Fixture commit hashes are normalized only at the snapshot boundary. Never silently disable signing to make tests pass.
+Inspect effective Git identity and signing configuration before authoring project repository commits, sign with the configured key, and stop if signing fails. Do not verify signatures or configure verification trust. Temporary fixture commits are throwaway test data and remain unsigned locally and in CI. Do not add signing requirements or signing-key setup for them. Fixture commit hashes are normalized only at the snapshot boundary.
 
 **Milestones and acceptance**
 
