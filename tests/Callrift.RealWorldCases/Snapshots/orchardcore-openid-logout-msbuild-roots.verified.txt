@@ -1,0 +1,135 @@
+﻿format: text
+exit: 0
+stdout:
+  AccessController.Authorize
+  ├─ if (response is not null)
+~ ├─ OpenIdExtensions.GetUserIdentifier (changes below depth limit)
+  ├─ OpenIdExtensions.ToListAsync (depth limit)
+  ├─ case ConsentTypes.Implicit: case ConsentTypes.External when authorizations.Count > 0: case Consen…
+~ │  ├─ AccessController.PopulateIdentityClaims (changes below depth limit)
+  │  ├─ AccessController.GetResourcesAsync (depth limit)
+  │  ├─ OpenIdExtensions.GetUserIdentifier (depth limit)
+  │  └─ …
+  └─ default:
+
+  AccessController.AuthorizeAccept
+  ├─ if (response is not null)
+~ ├─ OpenIdExtensions.GetUserIdentifier (changes below depth limit)
+  ├─ OpenIdExtensions.ToListAsync (depth limit)
+  └─ default:
+~    ├─ AccessController.PopulateIdentityClaims (changes below depth limit)
+     ├─ AccessController.GetResourcesAsync (depth limit)
+     ├─ OpenIdExtensions.GetUserIdentifier (depth limit)
+     └─ …
+
+  AccessController.Logout
+  ├─ if (response is not null)
+  ├─ IOpenIdServerService.GetSettingsAsync → OpenIdServerService.GetSettingsAsync (depth limit)
+  └─ if (!settings.RequireEndSessionConfirmation && !string.IsNullOrEmpty(request.IdTokenHint))
+-    ├─ if (hintResult is { Succeeded: true, Principal: not null })
+-    │  └─ OpenIdExtensions.GetUserIdentifier (changes below depth limit)
++    ├─ OpenIdExtensions.FindUserIdentifier (changes below depth limit)
++    └─ if (!string.IsNullOrEmpty(hintSubject) && !string.IsNullOrEmpty(userIdentifier) && CryptographicO…
++       └─ AccessController.SignOutAndRedirectAsync (changes below depth limit)
+
+  AccessController.LogoutAccept
+  ├─ if (response is not null)
++ └─ AccessController.SignOutAndRedirectAsync (changes below depth limit)
+
+  AccessController.Token
+  ├─ if (request.IsPasswordGrantType())
+~ │  └─ AccessController.ExchangePasswordGrantType (changes below depth limit)
+  ├─ if (request.IsClientCredentialsGrantType())
+  └─ if (request.IsAuthorizationCodeGrantType() || request.IsRefreshTokenGrantType())
+~    └─ AccessController.ExchangeAuthorizationCodeOrRefreshTokenGrantType (changes below depth limit)
+
+  UserInfoController.Me
+~ ├─ OpenIdExtensions.GetUserIdentifier (changes below depth limit)
+  ├─ if (principal.HasScope(Scopes.Roles))
+  ├─ new UserInfoClaimsContext (depth limit)
+  └─ …
+
+  DeploymentSourceBase<TStep>.ProcessDeploymentStepAsync
+  └─ DeploymentSourceBase<TStep>.ProcessAsync
+~    ├─ ⇢ OpenIdServerDeploymentSource.ProcessAsync (changes below depth limit)
+     ├─ ⇢ OpenIdValidationDeploymentSource.ProcessAsync (depth limit)
+     └─ ⇢ AllRateLimitPoliciesDeploymentSource.ProcessAsync (depth limit)
+
+  NamedRecipeStepHandler.ExecuteAsync
+  └─ NamedRecipeStepHandler.HandleAsync
+     ├─ …
+     ├─ ⇢ OpenIdClientSettingsStep.HandleAsync (depth limit)
+     ├─ ⇢ OpenIdScopeStep.HandleAsync (depth limit)
+~    ├─ ⇢ OpenIdServerSettingsStep.HandleAsync (changes below depth limit)
+     ├─ ⇢ OpenIdValidationSettingsStep.HandleAsync (depth limit)
+     └─ ⇢ CreateOrUpdateRateLimitPoliciesStep.HandleAsync (depth limit)
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  AccessController.Authorize
+  ├─ if (response is not null)
+~ ├─ OpenIdExtensions.GetUserIdentifier (changes below depth limit)
+  ├─ OpenIdExtensions.ToListAsync (depth limit)
+  ├─ case ConsentTypes.Implicit: case ConsentTypes.External when authorizations.Count > 0: case Consen…
+~ │  ├─ AccessController.PopulateIdentityClaims (changes below depth limit)
+  │  ├─ AccessController.GetResourcesAsync (depth limit)
+  │  ├─ OpenIdExtensions.GetUserIdentifier (depth limit)
+  │  └─ …
+  └─ default:
+
+  AccessController.AuthorizeAccept
+  ├─ if (response is not null)
+~ ├─ OpenIdExtensions.GetUserIdentifier (changes below depth limit)
+  ├─ OpenIdExtensions.ToListAsync (depth limit)
+  └─ default:
+~    ├─ AccessController.PopulateIdentityClaims (changes below depth limit)
+     ├─ AccessController.GetResourcesAsync (depth limit)
+     ├─ OpenIdExtensions.GetUserIdentifier (depth limit)
+     └─ …
+
+  AccessController.Logout
+  ├─ if (response is not null)
+  ├─ IOpenIdServerService.GetSettingsAsync → OpenIdServerService.GetSettingsAsync (depth limit)
+  └─ if (!settings.RequireEndSessionConfirmation && !string.IsNullOrEmpty(request.IdTokenHint))
+-    ├─ if (hintResult is { Succeeded: true, Principal: not null })
+-    │  └─ OpenIdExtensions.GetUserIdentifier (changes below depth limit)
++    ├─ OpenIdExtensions.FindUserIdentifier (changes below depth limit)
++    └─ if (!string.IsNullOrEmpty(hintSubject) && !string.IsNullOrEmpty(userIdentifier) && CryptographicO…
++       └─ AccessController.SignOutAndRedirectAsync (changes below depth limit)
+
+  AccessController.LogoutAccept
+  ├─ if (response is not null)
++ └─ AccessController.SignOutAndRedirectAsync (changes below depth limit)
+
+  AccessController.Token
+  ├─ if (request.IsPasswordGrantType())
+~ │  └─ AccessController.ExchangePasswordGrantType (changes below depth limit)
+  ├─ if (request.IsClientCredentialsGrantType())
+  └─ if (request.IsAuthorizationCodeGrantType() || request.IsRefreshTokenGrantType())
+~    └─ AccessController.ExchangeAuthorizationCodeOrRefreshTokenGrantType (changes below depth limit)
+
+  UserInfoController.Me
+~ ├─ OpenIdExtensions.GetUserIdentifier (changes below depth limit)
+  ├─ if (principal.HasScope(Scopes.Roles))
+  ├─ new UserInfoClaimsContext (depth limit)
+  └─ …
+
+  DeploymentSourceBase<TStep>.ProcessDeploymentStepAsync
+  └─ DeploymentSourceBase<TStep>.ProcessAsync
+~    ├─ ⇢ OpenIdServerDeploymentSource.ProcessAsync (changes below depth limit)
+     ├─ ⇢ OpenIdValidationDeploymentSource.ProcessAsync (depth limit)
+     └─ ⇢ AllRateLimitPoliciesDeploymentSource.ProcessAsync (depth limit)
+
+  NamedRecipeStepHandler.ExecuteAsync
+  └─ NamedRecipeStepHandler.HandleAsync
+     ├─ …
+     ├─ ⇢ OpenIdClientSettingsStep.HandleAsync (depth limit)
+     ├─ ⇢ OpenIdScopeStep.HandleAsync (depth limit)
+~    ├─ ⇢ OpenIdServerSettingsStep.HandleAsync (changes below depth limit)
+     ├─ ⇢ OpenIdValidationSettingsStep.HandleAsync (depth limit)
+     └─ ⇢ CreateOrUpdateRateLimitPoliciesStep.HandleAsync (depth limit)
+```
+stderr:

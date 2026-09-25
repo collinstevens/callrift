@@ -1,0 +1,805 @@
+﻿exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "ca940915513382013d941ddeb86267cfcfe4df75",
+    "commit": "ca940915513382013d941ddeb86267cfcfe4df75",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "008eb1e7da318fb28a80b40083e01ef57480bccb",
+    "commit": "008eb1e7da318fb28a80b40083e01ef57480bccb",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "msbuild",
+    "status": "partial",
+    "limitations": [
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "callbacks-are-possible-calls",
+      "no-framework-dispatch-plugins"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": true,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "AdminController.IndexInfo",
+      "detail": null,
+      "before": {
+        "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.AdminController.IndexInfo(string)",
+        "signature": "OrchardCore.Elasticsearch.AdminController.IndexInfo(string) -> System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.IActionResult>",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.AdminController.IndexInfo(string)"
+        ],
+        "definition": {
+          "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+          "startLine": 65,
+          "startColumn": 5,
+          "endLine": 84,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.AdminController.IndexInfo(string)",
+        "signature": "OrchardCore.Elasticsearch.AdminController.IndexInfo(string) -> System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.IActionResult>",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.AdminController.IndexInfo(string)"
+        ],
+        "definition": {
+          "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+          "startLine": 65,
+          "startColumn": 5,
+          "endLine": 89,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "added",
+          "label": "AuthorizationServiceExtensions.AuthorizeAsync",
+          "detail": "depth limit",
+          "before": null,
+          "after": {
+            "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(global::Microsoft.AspNetCore.Authorization.IAuthorizationService,global::System.Security.Claims.ClaimsPrincipal,global::OrchardCore.Security.Permissions.Permission)",
+            "signature": "Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(Microsoft.AspNetCore.Authorization.IAuthorizationService, System.Security.Claims.ClaimsPrincipal, OrchardCore.Security.Permissions.Permission) -> System.Threading.Tasks.Task<bool>",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(global::Microsoft.AspNetCore.Authorization.IAuthorizationService,global::System.Security.Claims.ClaimsPrincipal,global::OrchardCore.Security.Permissions.Permission)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/AuthorizationServiceExtensions.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 12,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 68,
+                "startColumn": 20,
+                "endLine": 68,
+                "endColumn": 109
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n2",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "IIndexProfileStore.FindByIdAsync → DefaultIndexProfileStore.FindByIdAsync",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/OrchardCore/OrchardCore.Indexing.Abstractions/OrchardCore.Indexing.Abstractions.csproj@net10.0::OrchardCore.Indexing.IIndexProfileStore.FindByIdAsync(string)",
+            "signature": "OrchardCore.Indexing.IIndexProfileStore.FindByIdAsync(string) -> System.Threading.Tasks.ValueTask<OrchardCore.Indexing.Models.IndexProfile>",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:src/OrchardCore/OrchardCore.Indexing.Core/OrchardCore.Indexing.Core.csproj@net10.0::OrchardCore.Indexing.Core.DefaultIndexProfileStore.FindByIdAsync(string)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.Indexing.Abstractions/IIndexProfileStore.cs",
+              "startLine": 16,
+              "startColumn": 5,
+              "endLine": 16,
+              "endColumn": 54
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 68,
+                "startColumn": 27,
+                "endLine": 68,
+                "endColumn": 63
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/OrchardCore/OrchardCore.Indexing.Abstractions/OrchardCore.Indexing.Abstractions.csproj@net10.0::OrchardCore.Indexing.IIndexProfileStore.FindByIdAsync(string)",
+            "signature": "OrchardCore.Indexing.IIndexProfileStore.FindByIdAsync(string) -> System.Threading.Tasks.ValueTask<OrchardCore.Indexing.Models.IndexProfile>",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:src/OrchardCore/OrchardCore.Indexing.Core/OrchardCore.Indexing.Core.csproj@net10.0::OrchardCore.Indexing.Core.DefaultIndexProfileStore.FindByIdAsync(string)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.Indexing.Abstractions/IIndexProfileStore.cs",
+              "startLine": 16,
+              "startColumn": 5,
+              "endLine": 16,
+              "endColumn": 54
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 73,
+                "startColumn": 27,
+                "endLine": 73,
+                "endColumn": 63
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n3",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "ElasticsearchIndexManager.GetIndexInfoAsync",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/OrchardCore/OrchardCore.Elasticsearch.Core/OrchardCore.Elasticsearch.Core.csproj@net10.0::OrchardCore.Elasticsearch.Core.Services.ElasticsearchIndexManager.GetIndexInfoAsync(string)",
+            "signature": "OrchardCore.Elasticsearch.Core.Services.ElasticsearchIndexManager.GetIndexInfoAsync(string) -> System.Threading.Tasks.Task<string>",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/OrchardCore/OrchardCore.Elasticsearch.Core/OrchardCore.Elasticsearch.Core.csproj@net10.0::OrchardCore.Elasticsearch.Core.Services.ElasticsearchIndexManager.GetIndexInfoAsync(string)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.Elasticsearch.Core/Services/ElasticsearchIndexManager.cs",
+              "startLine": 179,
+              "startColumn": 5,
+              "endLine": 204,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 75,
+                "startColumn": 26,
+                "endLine": 75,
+                "endColumn": 85
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/OrchardCore/OrchardCore.Elasticsearch.Core/OrchardCore.Elasticsearch.Core.csproj@net10.0::OrchardCore.Elasticsearch.Core.Services.ElasticsearchIndexManager.GetIndexInfoAsync(string)",
+            "signature": "OrchardCore.Elasticsearch.Core.Services.ElasticsearchIndexManager.GetIndexInfoAsync(string) -> System.Threading.Tasks.Task<string>",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/OrchardCore/OrchardCore.Elasticsearch.Core/OrchardCore.Elasticsearch.Core.csproj@net10.0::OrchardCore.Elasticsearch.Core.Services.ElasticsearchIndexManager.GetIndexInfoAsync(string)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.Elasticsearch.Core/Services/ElasticsearchIndexManager.cs",
+              "startLine": 179,
+              "startColumn": 5,
+              "endLine": 204,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 80,
+                "startColumn": 26,
+                "endLine": 80,
+                "endColumn": 85
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n4",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "JNode.Parse",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::System.Text.Json.Nodes.JNode.Parse(string)",
+            "signature": "System.Text.Json.Nodes.JNode.Parse(string) -> System.Text.Json.Nodes.JsonNode?",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::System.Text.Json.Nodes.JNode.Parse(string)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.Abstractions/Json/Nodes/JNode.cs",
+              "startLine": 34,
+              "startColumn": 5,
+              "endLine": 34,
+              "endColumn": 97
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 77,
+                "startColumn": 29,
+                "endLine": 77,
+                "endColumn": 46
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::System.Text.Json.Nodes.JNode.Parse(string)",
+            "signature": "System.Text.Json.Nodes.JNode.Parse(string) -> System.Text.Json.Nodes.JsonNode?",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::System.Text.Json.Nodes.JNode.Parse(string)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.Abstractions/Json/Nodes/JNode.cs",
+              "startLine": 34,
+              "startColumn": 5,
+              "endLine": 34,
+              "endColumn": 97
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 82,
+                "startColumn": 29,
+                "endLine": 82,
+                "endColumn": 46
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n5",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "new IndexInfoViewModel",
+          "detail": null,
+          "before": {
+            "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.ViewModels.IndexInfoViewModel..ctor()",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.ViewModels.IndexInfoViewModel..ctor()"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 78,
+                "startColumn": 21,
+                "endLine": 83,
+                "endColumn": 10
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.ViewModels.IndexInfoViewModel..ctor()",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.ViewModels.IndexInfoViewModel..ctor()"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 83,
+                "startColumn": 21,
+                "endLine": 88,
+                "endColumn": 10
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n6",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "AdminController.QueryIndex",
+      "detail": null,
+      "before": {
+        "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.AdminController.QueryIndex(string,string,string)",
+        "signature": "OrchardCore.Elasticsearch.AdminController.QueryIndex(string, string, string) -> System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.IActionResult>",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.AdminController.QueryIndex(string,string,string)"
+        ],
+        "definition": {
+          "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+          "startLine": 86,
+          "startColumn": 5,
+          "endLine": 104,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.AdminController.QueryIndex(string,string,string)",
+        "signature": "OrchardCore.Elasticsearch.AdminController.QueryIndex(string, string, string) -> System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.IActionResult>",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.AdminController.QueryIndex(string,string,string)"
+        ],
+        "definition": {
+          "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+          "startLine": 91,
+          "startColumn": 5,
+          "endLine": 114,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n7",
+          "kind": "call",
+          "change": "added",
+          "label": "AuthorizationServiceExtensions.AuthorizeAsync",
+          "detail": "depth limit",
+          "before": null,
+          "after": {
+            "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(global::Microsoft.AspNetCore.Authorization.IAuthorizationService,global::System.Security.Claims.ClaimsPrincipal,global::OrchardCore.Security.Permissions.Permission)",
+            "signature": "Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(Microsoft.AspNetCore.Authorization.IAuthorizationService, System.Security.Claims.ClaimsPrincipal, OrchardCore.Security.Permissions.Permission) -> System.Threading.Tasks.Task<bool>",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(global::Microsoft.AspNetCore.Authorization.IAuthorizationService,global::System.Security.Claims.ClaimsPrincipal,global::OrchardCore.Security.Permissions.Permission)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/AuthorizationServiceExtensions.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 12,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 94,
+                "startColumn": 20,
+                "endLine": 94,
+                "endColumn": 109
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n8",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "IIndexProfileStore.FindByNameAsync → DefaultIndexProfileStore.FindByNameAsync",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/OrchardCore/OrchardCore.Indexing.Abstractions/OrchardCore.Indexing.Abstractions.csproj@net10.0::OrchardCore.Indexing.IIndexProfileStore.FindByNameAsync(string)",
+            "signature": "OrchardCore.Indexing.IIndexProfileStore.FindByNameAsync(string) -> System.Threading.Tasks.ValueTask<OrchardCore.Indexing.Models.IndexProfile>",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:src/OrchardCore/OrchardCore.Indexing.Core/OrchardCore.Indexing.Core.csproj@net10.0::OrchardCore.Indexing.Core.DefaultIndexProfileStore.FindByNameAsync(string)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.Indexing.Abstractions/IIndexProfileStore.cs",
+              "startLine": 111,
+              "startColumn": 5,
+              "endLine": 111,
+              "endColumn": 58
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 89,
+                "startColumn": 27,
+                "endLine": 89,
+                "endColumn": 72
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/OrchardCore/OrchardCore.Indexing.Abstractions/OrchardCore.Indexing.Abstractions.csproj@net10.0::OrchardCore.Indexing.IIndexProfileStore.FindByNameAsync(string)",
+            "signature": "OrchardCore.Indexing.IIndexProfileStore.FindByNameAsync(string) -> System.Threading.Tasks.ValueTask<OrchardCore.Indexing.Models.IndexProfile>",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:src/OrchardCore/OrchardCore.Indexing.Core/OrchardCore.Indexing.Core.csproj@net10.0::OrchardCore.Indexing.Core.DefaultIndexProfileStore.FindByNameAsync(string)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.Indexing.Abstractions/IIndexProfileStore.cs",
+              "startLine": 111,
+              "startColumn": 5,
+              "endLine": 111,
+              "endColumn": 58
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 99,
+                "startColumn": 27,
+                "endLine": 99,
+                "endColumn": 72
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n9",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "new AdminQueryViewModel",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.ViewModels.AdminQueryViewModel..ctor()",
+            "signature": "OrchardCore.Elasticsearch.ViewModels.AdminQueryViewModel.AdminQueryViewModel()",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.ViewModels.AdminQueryViewModel..ctor()"
+            ],
+            "definition": {
+              "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/ViewModels/AdminQueryViewModel.cs",
+              "startLine": 7,
+              "startColumn": 1,
+              "endLine": 34,
+              "endColumn": 2
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 96,
+                "startColumn": 28,
+                "endLine": 103,
+                "endColumn": 10
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.ViewModels.AdminQueryViewModel..ctor()",
+            "signature": "OrchardCore.Elasticsearch.ViewModels.AdminQueryViewModel.AdminQueryViewModel()",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.ViewModels.AdminQueryViewModel..ctor()"
+            ],
+            "definition": {
+              "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/ViewModels/AdminQueryViewModel.cs",
+              "startLine": 7,
+              "startColumn": 1,
+              "endLine": 34,
+              "endColumn": 2
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 106,
+                "startColumn": 28,
+                "endLine": 113,
+                "endColumn": 10
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n10",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "else (!(string.IsNullOrWhiteSpace(query)))",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 101,
+                "startColumn": 19,
+                "endLine": 101,
+                "endColumn": 53
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 111,
+                "startColumn": 19,
+                "endLine": 111,
+                "endColumn": 53
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n11",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Base64.FromUTF8Base64String",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::OrchardCore.Base64.FromUTF8Base64String(string)",
+                "signature": "OrchardCore.Base64.FromUTF8Base64String(string) -> string",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::OrchardCore.Base64.FromUTF8Base64String(string)"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Abstractions/Base64.cs",
+                  "startLine": 13,
+                  "startColumn": 5,
+                  "endLine": 29,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                    "startLine": 101,
+                    "startColumn": 19,
+                    "endLine": 101,
+                    "endColumn": 53
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::OrchardCore.Base64.FromUTF8Base64String(string)",
+                "signature": "OrchardCore.Base64.FromUTF8Base64String(string) -> string",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::OrchardCore.Base64.FromUTF8Base64String(string)"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Abstractions/Base64.cs",
+                  "startLine": 13,
+                  "startColumn": 5,
+                  "endLine": 29,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                    "startLine": 111,
+                    "startColumn": 19,
+                    "endLine": 111,
+                    "endColumn": 53
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n12",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "AdminController.Query",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.AdminController.Query(global::OrchardCore.Elasticsearch.ViewModels.AdminQueryViewModel)",
+            "signature": "OrchardCore.Elasticsearch.AdminController.Query(OrchardCore.Elasticsearch.ViewModels.AdminQueryViewModel) -> System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.IActionResult>",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.AdminController.Query(global::OrchardCore.Elasticsearch.ViewModels.AdminQueryViewModel)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+              "startLine": 131,
+              "startColumn": 5,
+              "endLine": 215,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 96,
+                "startColumn": 22,
+                "endLine": 103,
+                "endColumn": 11
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.AdminController.Query(global::OrchardCore.Elasticsearch.ViewModels.AdminQueryViewModel)",
+            "signature": "OrchardCore.Elasticsearch.AdminController.Query(OrchardCore.Elasticsearch.ViewModels.AdminQueryViewModel) -> System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.IActionResult>",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj@net10.0::OrchardCore.Elasticsearch.AdminController.Query(global::OrchardCore.Elasticsearch.ViewModels.AdminQueryViewModel)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+              "startLine": 141,
+              "startColumn": 5,
+              "endLine": 225,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 106,
+                "startColumn": 22,
+                "endLine": 113,
+                "endColumn": 11
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

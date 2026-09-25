@@ -1,0 +1,59 @@
+﻿format: text
+exit: 0
+stdout:
+  AdminController.IndexInfo
++ ├─ ? _authorizationService.AuthorizeAsync
++ ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
++ │  └─ ? Forbid
+  ├─ IIndexProfileStore.FindByIdAsync → DefaultIndexProfileStore.FindByIdAsync (depth limit)
+  ├─ if (index is null)
+  └─ …
+
+  AdminController.QueryIndex
++ ├─ ? _authorizationService.AuthorizeAsync
++ ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
++ │  └─ ? Forbid
+  ├─ IIndexProfileStore.FindByNameAsync → DefaultIndexProfileStore.FindByNameAsync (depth limit)
+  ├─ if (index is null)
+  └─ …
+stderr:
+src/OrchardCore.AspireHost/ClamAV.cs:13: unresolved-call: Cannot bind : base(name).
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag("latest").WithEnvironment("CLAMAV_NO_FRESHCLAMD", "true").WithEndpoint.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag("latest").WithEnvironment.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource.
+src/OrchardCore.AspireHost/ClamAV.cs:46: unresolved-call: Cannot bind builder.WithVolume.
+16187 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  AdminController.IndexInfo
++ ├─ ? _authorizationService.AuthorizeAsync
++ ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
++ │  └─ ? Forbid
+  ├─ IIndexProfileStore.FindByIdAsync → DefaultIndexProfileStore.FindByIdAsync (depth limit)
+  ├─ if (index is null)
+  └─ …
+
+  AdminController.QueryIndex
++ ├─ ? _authorizationService.AuthorizeAsync
++ ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
++ │  └─ ? Forbid
+  ├─ IIndexProfileStore.FindByNameAsync → DefaultIndexProfileStore.FindByNameAsync (depth limit)
+  ├─ if (index is null)
+  └─ …
+```
+stderr:
+src/OrchardCore.AspireHost/ClamAV.cs:13: unresolved-call: Cannot bind : base(name).
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag("latest").WithEnvironment("CLAMAV_NO_FRESHCLAMD", "true").WithEndpoint.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag("latest").WithEnvironment.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource.
+src/OrchardCore.AspireHost/ClamAV.cs:46: unresolved-call: Cannot bind builder.WithVolume.
+16187 additional diagnostics; use --diagnostics full.

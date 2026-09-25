@@ -1451,5 +1451,155 @@
         "routine": false
       }
     ]
+  },
+  {
+    "id": "orchardcore-elasticsearch-authorization",
+    "repository": "https://github.com/OrchardCMS/OrchardCore.git",
+    "before": "ca940915513382013d941ddeb86267cfcfe4df75",
+    "after": "008eb1e7da318fb28a80b40083e01ef57480bccb",
+    "license": "BSD-3-Clause",
+    "licenseFile": "LICENSE",
+    "beforeLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
+    "afterLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
+    "cacheName": "orchardcore",
+    "reason": "Add authorization guards to Elasticsearch index endpoints",
+    "tags": [
+      "branch-guard",
+      "authorization",
+      "cross-project",
+      "automatic-roots"
+    ],
+    "options": [],
+    "knownIssue": "issues/orchardcore-coverage.md",
+    "review": "reviews/orchardcore-elasticsearch-authorization.md",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "3",
+          "--externals",
+          "--entry",
+          "OrchardCore.Elasticsearch.AdminController.IndexInfo(string)",
+          "--entry",
+          "OrchardCore.Elasticsearch.AdminController.QueryIndex(string,string,string)"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1",
+          "--project",
+          "src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj",
+          "--framework",
+          "net10.0"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "3",
+          "--externals",
+          "--entry",
+          "OrchardCore.Elasticsearch.AdminController.IndexInfo(string)",
+          "--entry",
+          "OrchardCore.Elasticsearch.AdminController.QueryIndex(string,string,string)",
+          "--project",
+          "src/OrchardCore.Modules/OrchardCore.Elasticsearch/OrchardCore.Elasticsearch.csproj",
+          "--framework",
+          "net10.0"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "orchardcore-openid-logout",
+    "repository": "https://github.com/OrchardCMS/OrchardCore.git",
+    "before": "d41228cd63be19b4cba09cad577bf711364acf16",
+    "after": "9866770c0e90e1e2b60681922e247fda7ec4ec01",
+    "license": "BSD-3-Clause",
+    "licenseFile": "LICENSE",
+    "beforeLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
+    "afterLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
+    "cacheName": "orchardcore",
+    "reason": "Extract logout sign-out and redirect handling and preserve end-session settings in recipes and deployment",
+    "tags": [
+      "branch-guard",
+      "async",
+      "helper-extraction",
+      "method-move",
+      "cross-project",
+      "automatic-roots"
+    ],
+    "options": [],
+    "knownIssue": "issues/orchardcore-coverage.md",
+    "review": "reviews/orchardcore-openid-logout.md",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "3",
+          "--externals",
+          "--entry",
+          "OrchardCore.OpenId.Controllers.AccessController.Logout()",
+          "--entry",
+          "OrchardCore.OpenId.Controllers.AccessController.LogoutAccept()"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1",
+          "--project",
+          "src/OrchardCore.Modules/OrchardCore.OpenId/OrchardCore.OpenId.csproj",
+          "--framework",
+          "net10.0"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "3",
+          "--externals",
+          "--entry",
+          "OrchardCore.OpenId.Controllers.AccessController.Logout()",
+          "--entry",
+          "OrchardCore.OpenId.Controllers.AccessController.LogoutAccept()",
+          "--project",
+          "src/OrchardCore.Modules/OrchardCore.OpenId/OrchardCore.OpenId.csproj",
+          "--framework",
+          "net10.0"
+        ]
+      }
+    ]
   }
 ]

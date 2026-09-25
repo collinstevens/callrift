@@ -1,0 +1,57 @@
+﻿format: text
+exit: 0
+stdout:
+  AdminController.IndexInfo
++ ├─ AuthorizationServiceExtensions.AuthorizeAsync
++ │  └─ AuthorizationServiceExtensions.AuthorizeAsync
++ │     ├─ if (user == null)
++ │     │  └─ Task.FromResult
++ │     ├─ new PermissionRequirement (depth limit)
++ │     ├─ service.AuthorizeAsync
++ │     ├─ if (task.IsCompletedSuccessfully)
++ │     │  └─ Task.FromResult
++ │     └─ AuthorizationServiceExtensions.AuthorizeAsync.Awaited (depth limit)
++ ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
++ │  └─ Forbid
+  ├─ IIndexProfileStore.FindByIdAsync → DefaultIndexProfileStore.FindByIdAsync
+  ├─ if (index is null)
+  └─ …
+
+  AdminController.QueryIndex
++ ├─ AuthorizationServiceExtensions.AuthorizeAsync ↑ as above
++ ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
++ │  └─ Forbid
+  ├─ IIndexProfileStore.FindByNameAsync → DefaultIndexProfileStore.FindByNameAsync
+  ├─ if (index is null)
+  └─ …
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  AdminController.IndexInfo
++ ├─ AuthorizationServiceExtensions.AuthorizeAsync
++ │  └─ AuthorizationServiceExtensions.AuthorizeAsync
++ │     ├─ if (user == null)
++ │     │  └─ Task.FromResult
++ │     ├─ new PermissionRequirement (depth limit)
++ │     ├─ service.AuthorizeAsync
++ │     ├─ if (task.IsCompletedSuccessfully)
++ │     │  └─ Task.FromResult
++ │     └─ AuthorizationServiceExtensions.AuthorizeAsync.Awaited (depth limit)
++ ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
++ │  └─ Forbid
+  ├─ IIndexProfileStore.FindByIdAsync → DefaultIndexProfileStore.FindByIdAsync
+  ├─ if (index is null)
+  └─ …
+
+  AdminController.QueryIndex
++ ├─ AuthorizationServiceExtensions.AuthorizeAsync ↑ as above
++ ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
++ │  └─ Forbid
+  ├─ IIndexProfileStore.FindByNameAsync → DefaultIndexProfileStore.FindByNameAsync
+  ├─ if (index is null)
+  └─ …
+```
+stderr:

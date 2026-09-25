@@ -1,0 +1,125 @@
+﻿format: text
+exit: 0
+stdout:
+  AccessController.Logout
+  ├─ …
+  ├─ IOpenIdServerService.GetSettingsAsync → OpenIdServerService.GetSettingsAsync
+  ├─ if (!settings.RequireEndSessionConfirmation)
+  ├─ if (!settings.RequireEndSessionConfirmation && !string.IsNullOrEmpty(request.IdTokenHint))
+  │  ├─ HttpContext.AuthenticateAsync
+- │  ├─ if (hintResult is { Succeeded: true, Principal: not null })
+- │  │  ├─ hintResult.Principal.GetClaim
+- │  │  ├─ OpenIdExtensions.GetUserIdentifier (changes below depth limit)
+- │  │  ├─ if (hintSub != null)
+- │  │  │  ├─ hintSub.AsSpan
+- │  │  │  ├─ MemoryMarshal.AsBytes<char>
+- │  │  │  ├─ (cookieSub ?? string.Empty).AsSpan
+- │  │  │  ├─ MemoryMarshal.AsBytes<char>
+- │  │  │  └─ CryptographicOperations.FixedTimeEquals
+- │  │  └─ if (hintSub != null && CryptographicOperations.FixedTimeEquals(MemoryMarshal.AsBytes<char>(hintSu…
+- │  │     ├─ new AuthenticationProperties
+- │  │     └─ SignOut
++ │  ├─ if (hintResult is { Succeeded: true })
++ │  │  └─ if (hintResult.Principal is not null)
++ │  │     └─ .GetClaim
++ │  ├─ OpenIdExtensions.FindUserIdentifier
++ │  │  ├─ principal.FindFirst
++ │  │  └─ if (principal.FindFirst(Claims.Subject)?.Value is null)
++ │  │     ├─ principal.FindFirst
++ │  │     └─ if (principal.FindFirst(ClaimTypes.NameIdentifier)?.Value is null)
++ │  │        └─ principal.FindFirst
++ │  ├─ string.IsNullOrEmpty
++ │  ├─ if (!string.IsNullOrEmpty(hintSubject))
++ │  │  └─ string.IsNullOrEmpty
++ │  ├─ if (!string.IsNullOrEmpty(hintSubject) && !string.IsNullOrEmpty(userIdentifier))
++ │  │  ├─ hintSubject.AsSpan
++ │  │  ├─ MemoryMarshal.AsBytes<char>
++ │  │  ├─ userIdentifier.AsSpan
++ │  │  ├─ MemoryMarshal.AsBytes<char>
++ │  │  └─ CryptographicOperations.FixedTimeEquals
++ │  └─ if (!string.IsNullOrEmpty(hintSubject) && !string.IsNullOrEmpty(userIdentifier) && CryptographicO…
++ │     └─ AccessController.SignOutAndRedirectAsync (changes below depth limit)
+  └─ View
+
+  AccessController.LogoutAccept
+  ├─ …
+  ├─ HttpContext.GetOpenIddictServerRequest
+  ├─ if (request == null)
+- ├─ HttpContext.SignOutAsync
+- ├─ string.IsNullOrEmpty
+- ├─ if (string.IsNullOrEmpty(request.PostLogoutRedirectUri))
+- │  └─ Redirect
+- ├─ new AuthenticationProperties
+- ├─ SignOut
++ └─ AccessController.SignOutAndRedirectAsync
++    ├─ HttpContext.SignOutAsync
++    ├─ string.IsNullOrEmpty
++    ├─ if (string.IsNullOrEmpty(request.PostLogoutRedirectUri))
++    │  └─ Redirect
++    ├─ new AuthenticationProperties
++    └─ SignOut
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  AccessController.Logout
+  ├─ …
+  ├─ IOpenIdServerService.GetSettingsAsync → OpenIdServerService.GetSettingsAsync
+  ├─ if (!settings.RequireEndSessionConfirmation)
+  ├─ if (!settings.RequireEndSessionConfirmation && !string.IsNullOrEmpty(request.IdTokenHint))
+  │  ├─ HttpContext.AuthenticateAsync
+- │  ├─ if (hintResult is { Succeeded: true, Principal: not null })
+- │  │  ├─ hintResult.Principal.GetClaim
+- │  │  ├─ OpenIdExtensions.GetUserIdentifier (changes below depth limit)
+- │  │  ├─ if (hintSub != null)
+- │  │  │  ├─ hintSub.AsSpan
+- │  │  │  ├─ MemoryMarshal.AsBytes<char>
+- │  │  │  ├─ (cookieSub ?? string.Empty).AsSpan
+- │  │  │  ├─ MemoryMarshal.AsBytes<char>
+- │  │  │  └─ CryptographicOperations.FixedTimeEquals
+- │  │  └─ if (hintSub != null && CryptographicOperations.FixedTimeEquals(MemoryMarshal.AsBytes<char>(hintSu…
+- │  │     ├─ new AuthenticationProperties
+- │  │     └─ SignOut
++ │  ├─ if (hintResult is { Succeeded: true })
++ │  │  └─ if (hintResult.Principal is not null)
++ │  │     └─ .GetClaim
++ │  ├─ OpenIdExtensions.FindUserIdentifier
++ │  │  ├─ principal.FindFirst
++ │  │  └─ if (principal.FindFirst(Claims.Subject)?.Value is null)
++ │  │     ├─ principal.FindFirst
++ │  │     └─ if (principal.FindFirst(ClaimTypes.NameIdentifier)?.Value is null)
++ │  │        └─ principal.FindFirst
++ │  ├─ string.IsNullOrEmpty
++ │  ├─ if (!string.IsNullOrEmpty(hintSubject))
++ │  │  └─ string.IsNullOrEmpty
++ │  ├─ if (!string.IsNullOrEmpty(hintSubject) && !string.IsNullOrEmpty(userIdentifier))
++ │  │  ├─ hintSubject.AsSpan
++ │  │  ├─ MemoryMarshal.AsBytes<char>
++ │  │  ├─ userIdentifier.AsSpan
++ │  │  ├─ MemoryMarshal.AsBytes<char>
++ │  │  └─ CryptographicOperations.FixedTimeEquals
++ │  └─ if (!string.IsNullOrEmpty(hintSubject) && !string.IsNullOrEmpty(userIdentifier) && CryptographicO…
++ │     └─ AccessController.SignOutAndRedirectAsync (changes below depth limit)
+  └─ View
+
+  AccessController.LogoutAccept
+  ├─ …
+  ├─ HttpContext.GetOpenIddictServerRequest
+  ├─ if (request == null)
+- ├─ HttpContext.SignOutAsync
+- ├─ string.IsNullOrEmpty
+- ├─ if (string.IsNullOrEmpty(request.PostLogoutRedirectUri))
+- │  └─ Redirect
+- ├─ new AuthenticationProperties
+- ├─ SignOut
++ └─ AccessController.SignOutAndRedirectAsync
++    ├─ HttpContext.SignOutAsync
++    ├─ string.IsNullOrEmpty
++    ├─ if (string.IsNullOrEmpty(request.PostLogoutRedirectUri))
++    │  └─ Redirect
++    ├─ new AuthenticationProperties
++    └─ SignOut
+```
+stderr:

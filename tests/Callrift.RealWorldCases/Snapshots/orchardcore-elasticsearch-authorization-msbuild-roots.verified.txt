@@ -1,0 +1,33 @@
+﻿format: text
+exit: 0
+stdout:
+  AdminController.IndexInfo
++ ├─ AuthorizationServiceExtensions.AuthorizeAsync (depth limit)
+  ├─ IIndexProfileStore.FindByIdAsync → DefaultIndexProfileStore.FindByIdAsync (depth limit)
+  ├─ ElasticsearchIndexManager.GetIndexInfoAsync (depth limit)
+  └─ …
+
+  AdminController.QueryIndex
++ ├─ AuthorizationServiceExtensions.AuthorizeAsync (depth limit)
+  ├─ IIndexProfileStore.FindByNameAsync → DefaultIndexProfileStore.FindByNameAsync (depth limit)
+  ├─ new AdminQueryViewModel (depth limit)
+  └─ …
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  AdminController.IndexInfo
++ ├─ AuthorizationServiceExtensions.AuthorizeAsync (depth limit)
+  ├─ IIndexProfileStore.FindByIdAsync → DefaultIndexProfileStore.FindByIdAsync (depth limit)
+  ├─ ElasticsearchIndexManager.GetIndexInfoAsync (depth limit)
+  └─ …
+
+  AdminController.QueryIndex
++ ├─ AuthorizationServiceExtensions.AuthorizeAsync (depth limit)
+  ├─ IIndexProfileStore.FindByNameAsync → DefaultIndexProfileStore.FindByNameAsync (depth limit)
+  ├─ new AdminQueryViewModel (depth limit)
+  └─ …
+```
+stderr:
