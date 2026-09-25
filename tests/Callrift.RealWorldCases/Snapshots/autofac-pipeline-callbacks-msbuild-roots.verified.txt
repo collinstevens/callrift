@@ -1,0 +1,821 @@
+﻿format: text
+exit: 0
+stdout:
+  RegistrationExtensions.RegisterGeneratedFactory
+  ├─ …
+  ├─ InternalTypeExtensions.FunctionReturnType (depth limit)
+  ├─ new TypedService (depth limit)
+~ └─ RegistrationExtensions.RegisterGeneratedFactory (changes below depth limit)
+
+  RegistrationExtensions.RegisterGeneratedFactory
+  ├─ …
+  ├─ InternalTypeExtensions.FunctionReturnType (depth limit)
+  ├─ new TypedService (depth limit)
+~ └─ RegistrationExtensions.RegisterGeneratedFactory (changes below depth limit)
+
+  ContainerBuilder.RegisterBuildCallback
+  ├─ if (_buildCallbacks == null)
+  │  ├─ new BuildCallbackService (depth limit)
+~ │  └─ RegistrationExtensions.RegisterInstance (changes below depth limit)
+  └─ BuildCallbackService.AddCallback (depth limit)
+
+  Container.BeginLifetimeScope
+~ └─ LifetimeScope.BeginLifetimeScope (changes below depth limit)
+
+  Container.BeginLifetimeScope
+~ └─ LifetimeScope.BeginLifetimeScope (changes below depth limit)
+
+  Container.BeginLoadContextLifetimeScope
+~ └─ LifetimeScope.BeginLoadContextLifetimeScope (changes below depth limit)
+
+  Container.BeginLoadContextLifetimeScope
+~ └─ LifetimeScope.BeginLoadContextLifetimeScope (changes below depth limit)
+
+  Container.GetService
+~ └─ ((IServiceProvider)_rootLifetimeScope).GetService → LifetimeScope.GetService (changes below depth limit)
+
+  ImplicitRegistrationSource.CreateRegistration
+  ├─ RegistrationBuilder.ForDelegate (depth limit)
+  │  ├─ new ResolveRequest (depth limit)
+  │  └─ ImplicitRegistrationSource.ResolveInstance
+~ │     ├─ ⇢ LazyRegistrationSource.ResolveInstance (changes below depth limit)
+  │     ├─ ⇢ MetaRegistrationSource.ResolveInstance (depth limit)
+~ │     └─ ⇢ OwnedInstanceRegistrationSource.ResolveInstance (changes below depth limit)
+  ├─ ImplicitRegistrationSource.BuildRegistration
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
+  └─ …
+
+  ComponentRegistry.TryGetRegistration
+~ └─ IComponentRegistryServices.TryGetRegistration → DefaultRegisteredServicesTracker.TryGetRegistration (changes below depth limit)
+
+  ResolvedParameter.ForNamed
+~ └─ ResolvedParameter.ForKeyed (changes below depth limit)
+
+  MetadataFilterAttribute.CanResolve
+~ ├─ ResolutionExtensions.Resolve (changes below depth limit)
+  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>() .Any
+
+  MetadataFilterAttribute.FilterAll
+~ ├─ ResolutionExtensions.Resolve (changes below depth limit)
+  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>() .Where
+
+  MetadataFilterAttribute.FilterOne
+~ ├─ ResolutionExtensions.Resolve (changes below depth limit)
+  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>() .Where
+
+  RegistrationExtensions.WithAttributeFiltering
+  └─ RegistrationExtensions.WithParameter (depth limit)
+     ├─ if (filter is not null)
+     │  └─ ParameterFilterAttribute.CanResolveParameter
+~    │     ├─ ⇢ KeyFilterAttribute.CanResolveParameter (changes below depth limit)
+     │     └─ ⇢ MetadataFilterAttribute.CanResolveParameter (depth limit)
+     └─ ParameterFilterAttribute.ResolveParameter
+~       ├─ ⇢ KeyFilterAttribute.ResolveParameter (changes below depth limit)
+        └─ ⇢ MetadataFilterAttribute.ResolveParameter (depth limit)
+
+  new FactoryGenerator
+  ├─ Enforce.ArgumentTypeIsFunction (depth limit)
+  ├─ FactoryGenerator.GetParameterMapping (depth limit)
+  └─ ReflectionCacheSet.Shared.Internal.GeneratedFactoryServiceOnlyGenerators.GetOrAdd
+~    └─ FactoryGenerator.CreateServiceOnlyGenerator (changes below depth limit)
+
+  FactoryGenerator.GenerateFactory
+~ └─ FactoryGenerator.GenerateFactory (changes below depth limit)
+
+  KeyedServiceIndex<TKey, TValue>.TryGetValue
+  ├─ KeyedServiceIndex<TKey, TValue>.GetService (depth limit)
+~ └─ ResolutionExtensions.TryResolveService (changes below depth limit)
+
+  LazyWithMetadataRegistrationSource.CreateLazyRegistration
+  ├─ MetadataViewProvider.GetMetadataViewProvider (depth limit)
+  ├─ RegistrationBuilder.ForDelegate (depth limit)
+~ │  ├─ ResolutionExtensions.Resolve (changes below depth limit)
+  │  ├─ new ResolveRequest (depth limit)
+  │  └─ new Func<T>
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
+  ├─ RegistrationExtensions.Targeting (depth limit)
+  └─ …
+
+  ModuleRegistrationExtensions.IfNotRegistered
+  └─ ModuleRegistrationExtensions.OnlyIf (depth limit)
+     ├─ new TypedService (depth limit)
+~    └─ IComponentRegistryBuilder.IsRegistered → ComponentRegistryBuilder.IsRegistered (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterAssemblyModules
+  ├─ new ModuleRegistrar (depth limit)
+~ └─ ModuleRegistrationExtensions.RegisterAssemblyModules (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterAssemblyModules
+  ├─ new ModuleRegistrar (depth limit)
+~ └─ ModuleRegistrationExtensions.RegisterAssemblyModules (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterAssemblyModules
+~ └─ ModuleRegistrationExtensions.RegisterAssemblyModules (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterAssemblyModules
+  ├─ new ModuleRegistrar (depth limit)
+~ └─ ModuleRegistrationExtensions.RegisterAssemblyModules (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterModule
+  ├─ new ModuleRegistrar (depth limit)
+~ └─ ModuleRegistrar.RegisterModule (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterModule
+  ├─ new ModuleRegistrar (depth limit)
+~ └─ ModuleRegistrationExtensions.RegisterModule (changes below depth limit)
+
+  RegistrationExtensions.Except
+  ├─ RegistrationExtensions.Except (depth limit)
+  └─ result.ActivatorData.PostScanningCallbacks.Add
+     ├─ RegistrationBuilder.ForType (depth limit)
+~    └─ RegistrationBuilder.RegisterSingleComponent (changes below depth limit)
+
+  RegistrationExtensions.IfNotRegistered
+  └─ RegistrationExtensions.OnlyIf (depth limit)
+     ├─ new TypedService (depth limit)
+~    └─ IComponentRegistryBuilder.IsRegistered → ComponentRegistryBuilder.IsRegistered (changes below depth limit)
+
+  RegistrationExtensions.PropertiesAutowired
+  ├─ new DefaultPropertySelector (depth limit)
+~ └─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired (changes below depth limit)
+
+  RegistrationExtensions.PropertiesAutowired
+  ├─ new DelegatePropertySelector (depth limit)
+~ └─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired (changes below depth limit)
+
+  RegistrationExtensions.Register
+~ └─ RegistrationExtensions.Register (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker9<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker9<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker9WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker9WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker10<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TDependency10, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker10<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TDependency10, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker10WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TDependency10, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker10WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TDependency10, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker1<TDependency1, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker1<TDependency1, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker1WithComponentContext<TDependency1, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker1WithComponentContext<TDependency1, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker2<TDependency1, TDependency2, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker2<TDependency1, TDependency2, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker2WithComponentContext<TDependency1, TDependency2, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker2WithComponentContext<TDependency1, TDependency2, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker3<TDependency1, TDependency2, TDependency3, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker3<TDependency1, TDependency2, TDependency3, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker3WithComponentContext<TDependency1, TDependency2, TDependency3, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker3WithComponentContext<TDependency1, TDependency2, TDependency3, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker4<TDependency1, TDependency2, TDependency3, TDependency4, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker4<TDependency1, TDependency2, TDependency3, TDependency4, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker4WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker4WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker5<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker5<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker5WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker5WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker6<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker6<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker6WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker6WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker7<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker7<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker7WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker7WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker8<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker8<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker8WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker8WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.RegisterComponent
+  └─ ContainerBuilder.RegisterCallback (depth limit)
+~    └─ IComponentRegistryBuilder.Register → ComponentRegistryBuilder.Register (changes below depth limit)
+
+  RegistrationExtensions.RegisterComposite
+~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
+  └─ RegistrationExtensions.ApplyCompositeConfiguration (depth limit)
+
+  RegistrationExtensions.RegisterComposite
+~ └─ RegistrationExtensions.RegisterComposite (changes below depth limit)
+
+  RegistrationExtensions.RegisterComposite
+~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
+  └─ RegistrationExtensions.ApplyCompositeConfiguration (depth limit)
+
+  RegistrationExtensions.RegisterDecorator
+  ├─ …
+  ├─ new DecoratorMiddleware (depth limit)
+  ├─ ServiceMiddlewareRegistrationExtensions.RegisterServiceMiddleware (depth limit)
+  └─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+
+  RegistrationExtensions.RegisterDecorator
+  ├─ …
+  ├─ new DecoratorMiddleware (depth limit)
+  ├─ ServiceMiddlewareRegistrationExtensions.RegisterServiceMiddleware (depth limit)
+  └─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+
+  RegistrationExtensions.RegisterDecorator
+  ├─ …
+  ├─ new DecoratorMiddleware (depth limit)
+  ├─ ServiceMiddlewareRegistrationExtensions.RegisterServiceMiddleware (depth limit)
+  └─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+
+  RegistrationExtensions.RegisterTypes
+~ └─ ScanningRegistrationExtensions.ScanAndRegisterTypes (changes below depth limit)
+
+  ResolutionExtensions.InjectProperties
+~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  ResolutionExtensions.InjectProperties
+~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  ResolutionExtensions.InjectProperties
+~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  ResolutionExtensions.InjectProperties
+~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  ResolutionExtensions.InjectProperties
+~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  ResolutionExtensions.InjectProperties
+~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  ResolutionExtensions.InjectUnsetProperties
+~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  ResolutionExtensions.InjectUnsetProperties
+~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  ResolutionExtensions.InjectUnsetProperties
+~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  ResolutionExtensions.IsRegistered
+~ └─ ResolutionExtensions.IsRegistered (changes below depth limit)
+
+  ResolutionExtensions.IsRegisteredWithName
+~ └─ ResolutionExtensions.IsRegisteredWithKey (changes below depth limit)
+
+  ResolutionExtensions.IsRegisteredWithName
+~ └─ ResolutionExtensions.IsRegisteredWithKey (changes below depth limit)
+
+  ResolutionExtensions.Resolve
+~ └─ ResolutionExtensions.Resolve (changes below depth limit)
+
+  ResolutionExtensions.Resolve
+~ └─ ResolutionExtensions.Resolve (changes below depth limit)
+
+  ResolutionExtensions.Resolve
+~ └─ ResolutionExtensions.Resolve (changes below depth limit)
+
+  ResolutionExtensions.ResolveKeyed
+~ └─ ResolutionExtensions.ResolveKeyed (changes below depth limit)
+
+  ResolutionExtensions.ResolveKeyed
+~ └─ ResolutionExtensions.ResolveKeyed (changes below depth limit)
+
+  ResolutionExtensions.ResolveKeyed
+~ └─ ResolutionExtensions.ResolveKeyed (changes below depth limit)
+
+  ResolutionExtensions.ResolveKeyed
+~ └─ ResolutionExtensions.ResolveKeyed (changes below depth limit)
+
+  ResolutionExtensions.ResolveNamed
+~ └─ ResolutionExtensions.ResolveNamed (changes below depth limit)
+
+  ResolutionExtensions.ResolveNamed
+~ └─ ResolutionExtensions.ResolveNamed (changes below depth limit)
+
+  ResolutionExtensions.ResolveNamed
+~ └─ ResolutionExtensions.ResolveNamed (changes below depth limit)
+
+  ResolutionExtensions.ResolveNamed
+~ └─ ResolutionExtensions.ResolveNamed (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptional
+~ └─ ResolutionExtensions.ResolveOptional (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptional
+~ └─ ResolutionExtensions.ResolveOptional (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptional
+~ └─ ResolutionExtensions.ResolveOptional (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptionalNamed
+~ └─ ResolutionExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptionalNamed
+~ └─ ResolutionExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptionalNamed
+~ └─ ResolutionExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptionalService
+~ └─ ResolutionExtensions.ResolveOptionalService (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptionalService
+~ └─ ResolutionExtensions.ResolveOptionalService (changes below depth limit)
+
+  ResolutionExtensions.TryResolve
+~ ├─ ResolutionExtensions.TryResolve (changes below depth limit)
+  └─ if (context.TryResolve(typeof(T), out var component))
+
+  ResolutionExtensions.TryResolveKeyed
+~ ├─ ResolutionExtensions.TryResolveKeyed (changes below depth limit)
+  └─ if (context.TryResolveKeyed(serviceKey, typeof(T), out var component))
+
+  ResolutionExtensions.TryResolveNamed
+~ ├─ ResolutionExtensions.TryResolveNamed (changes below depth limit)
+  └─ if (context.TryResolveNamed(serviceName, typeof(T), out var component))
+
+  ResolutionValueExtensions.ResolveOptional
+~ └─ ResolutionValueExtensions.ResolveOptional (changes below depth limit)
+
+  ResolutionValueExtensions.ResolveOptional
+~ └─ ResolutionValueExtensions.ResolveOptional (changes below depth limit)
+
+  ResolutionValueExtensions.ResolveOptionalNamed
+~ └─ ResolutionValueExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionValueExtensions.ResolveOptionalNamed
+~ └─ ResolutionValueExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionValueExtensions.ResolveOptionalNamed
+~ └─ ResolutionValueExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionValueExtensions.TryResolve
+~ └─ ResolutionExtensions.TryResolve (changes below depth limit)
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  RegistrationExtensions.RegisterGeneratedFactory
+  ├─ …
+  ├─ InternalTypeExtensions.FunctionReturnType (depth limit)
+  ├─ new TypedService (depth limit)
+~ └─ RegistrationExtensions.RegisterGeneratedFactory (changes below depth limit)
+
+  RegistrationExtensions.RegisterGeneratedFactory
+  ├─ …
+  ├─ InternalTypeExtensions.FunctionReturnType (depth limit)
+  ├─ new TypedService (depth limit)
+~ └─ RegistrationExtensions.RegisterGeneratedFactory (changes below depth limit)
+
+  ContainerBuilder.RegisterBuildCallback
+  ├─ if (_buildCallbacks == null)
+  │  ├─ new BuildCallbackService (depth limit)
+~ │  └─ RegistrationExtensions.RegisterInstance (changes below depth limit)
+  └─ BuildCallbackService.AddCallback (depth limit)
+
+  Container.BeginLifetimeScope
+~ └─ LifetimeScope.BeginLifetimeScope (changes below depth limit)
+
+  Container.BeginLifetimeScope
+~ └─ LifetimeScope.BeginLifetimeScope (changes below depth limit)
+
+  Container.BeginLoadContextLifetimeScope
+~ └─ LifetimeScope.BeginLoadContextLifetimeScope (changes below depth limit)
+
+  Container.BeginLoadContextLifetimeScope
+~ └─ LifetimeScope.BeginLoadContextLifetimeScope (changes below depth limit)
+
+  Container.GetService
+~ └─ ((IServiceProvider)_rootLifetimeScope).GetService → LifetimeScope.GetService (changes below depth limit)
+
+  ImplicitRegistrationSource.CreateRegistration
+  ├─ RegistrationBuilder.ForDelegate (depth limit)
+  │  ├─ new ResolveRequest (depth limit)
+  │  └─ ImplicitRegistrationSource.ResolveInstance
+~ │     ├─ ⇢ LazyRegistrationSource.ResolveInstance (changes below depth limit)
+  │     ├─ ⇢ MetaRegistrationSource.ResolveInstance (depth limit)
+~ │     └─ ⇢ OwnedInstanceRegistrationSource.ResolveInstance (changes below depth limit)
+  ├─ ImplicitRegistrationSource.BuildRegistration
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
+  └─ …
+
+  ComponentRegistry.TryGetRegistration
+~ └─ IComponentRegistryServices.TryGetRegistration → DefaultRegisteredServicesTracker.TryGetRegistration (changes below depth limit)
+
+  ResolvedParameter.ForNamed
+~ └─ ResolvedParameter.ForKeyed (changes below depth limit)
+
+  MetadataFilterAttribute.CanResolve
+~ ├─ ResolutionExtensions.Resolve (changes below depth limit)
+  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>() .Any
+
+  MetadataFilterAttribute.FilterAll
+~ ├─ ResolutionExtensions.Resolve (changes below depth limit)
+  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>() .Where
+
+  MetadataFilterAttribute.FilterOne
+~ ├─ ResolutionExtensions.Resolve (changes below depth limit)
+  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>() .Where
+
+  RegistrationExtensions.WithAttributeFiltering
+  └─ RegistrationExtensions.WithParameter (depth limit)
+     ├─ if (filter is not null)
+     │  └─ ParameterFilterAttribute.CanResolveParameter
+~    │     ├─ ⇢ KeyFilterAttribute.CanResolveParameter (changes below depth limit)
+     │     └─ ⇢ MetadataFilterAttribute.CanResolveParameter (depth limit)
+     └─ ParameterFilterAttribute.ResolveParameter
+~       ├─ ⇢ KeyFilterAttribute.ResolveParameter (changes below depth limit)
+        └─ ⇢ MetadataFilterAttribute.ResolveParameter (depth limit)
+
+  new FactoryGenerator
+  ├─ Enforce.ArgumentTypeIsFunction (depth limit)
+  ├─ FactoryGenerator.GetParameterMapping (depth limit)
+  └─ ReflectionCacheSet.Shared.Internal.GeneratedFactoryServiceOnlyGenerators.GetOrAdd
+~    └─ FactoryGenerator.CreateServiceOnlyGenerator (changes below depth limit)
+
+  FactoryGenerator.GenerateFactory
+~ └─ FactoryGenerator.GenerateFactory (changes below depth limit)
+
+  KeyedServiceIndex<TKey, TValue>.TryGetValue
+  ├─ KeyedServiceIndex<TKey, TValue>.GetService (depth limit)
+~ └─ ResolutionExtensions.TryResolveService (changes below depth limit)
+
+  LazyWithMetadataRegistrationSource.CreateLazyRegistration
+  ├─ MetadataViewProvider.GetMetadataViewProvider (depth limit)
+  ├─ RegistrationBuilder.ForDelegate (depth limit)
+~ │  ├─ ResolutionExtensions.Resolve (changes below depth limit)
+  │  ├─ new ResolveRequest (depth limit)
+  │  └─ new Func<T>
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
+  ├─ RegistrationExtensions.Targeting (depth limit)
+  └─ …
+
+  ModuleRegistrationExtensions.IfNotRegistered
+  └─ ModuleRegistrationExtensions.OnlyIf (depth limit)
+     ├─ new TypedService (depth limit)
+~    └─ IComponentRegistryBuilder.IsRegistered → ComponentRegistryBuilder.IsRegistered (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterAssemblyModules
+  ├─ new ModuleRegistrar (depth limit)
+~ └─ ModuleRegistrationExtensions.RegisterAssemblyModules (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterAssemblyModules
+  ├─ new ModuleRegistrar (depth limit)
+~ └─ ModuleRegistrationExtensions.RegisterAssemblyModules (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterAssemblyModules
+~ └─ ModuleRegistrationExtensions.RegisterAssemblyModules (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterAssemblyModules
+  ├─ new ModuleRegistrar (depth limit)
+~ └─ ModuleRegistrationExtensions.RegisterAssemblyModules (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterModule
+  ├─ new ModuleRegistrar (depth limit)
+~ └─ ModuleRegistrar.RegisterModule (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterModule
+  ├─ new ModuleRegistrar (depth limit)
+~ └─ ModuleRegistrationExtensions.RegisterModule (changes below depth limit)
+
+  RegistrationExtensions.Except
+  ├─ RegistrationExtensions.Except (depth limit)
+  └─ result.ActivatorData.PostScanningCallbacks.Add
+     ├─ RegistrationBuilder.ForType (depth limit)
+~    └─ RegistrationBuilder.RegisterSingleComponent (changes below depth limit)
+
+  RegistrationExtensions.IfNotRegistered
+  └─ RegistrationExtensions.OnlyIf (depth limit)
+     ├─ new TypedService (depth limit)
+~    └─ IComponentRegistryBuilder.IsRegistered → ComponentRegistryBuilder.IsRegistered (changes below depth limit)
+
+  RegistrationExtensions.PropertiesAutowired
+  ├─ new DefaultPropertySelector (depth limit)
+~ └─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired (changes below depth limit)
+
+  RegistrationExtensions.PropertiesAutowired
+  ├─ new DelegatePropertySelector (depth limit)
+~ └─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired (changes below depth limit)
+
+  RegistrationExtensions.Register
+~ └─ RegistrationExtensions.Register (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker9<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker9<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker9WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker9WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker10<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TDependency10, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker10<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TDependency10, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker10WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TDependency10, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker10WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TDependency10, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker1<TDependency1, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker1<TDependency1, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker1WithComponentContext<TDependency1, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker1WithComponentContext<TDependency1, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker2<TDependency1, TDependency2, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker2<TDependency1, TDependency2, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker2WithComponentContext<TDependency1, TDependency2, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker2WithComponentContext<TDependency1, TDependency2, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker3<TDependency1, TDependency2, TDependency3, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker3<TDependency1, TDependency2, TDependency3, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker3WithComponentContext<TDependency1, TDependency2, TDependency3, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker3WithComponentContext<TDependency1, TDependency2, TDependency3, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker4<TDependency1, TDependency2, TDependency3, TDependency4, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker4<TDependency1, TDependency2, TDependency3, TDependency4, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker4WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker4WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker5<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker5<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker5WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker5WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker6<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker6<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker6WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker6WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker7<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker7<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker7WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker7WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker8<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker8<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker8WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TComponent> (depth limit)
+  └─ RegistrationExtensions.Register (changes below depth limit)
+~    └─ DelegateInvokers.DelegateInvoker8WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.RegisterComponent
+  └─ ContainerBuilder.RegisterCallback (depth limit)
+~    └─ IComponentRegistryBuilder.Register → ComponentRegistryBuilder.Register (changes below depth limit)
+
+  RegistrationExtensions.RegisterComposite
+~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
+  └─ RegistrationExtensions.ApplyCompositeConfiguration (depth limit)
+
+  RegistrationExtensions.RegisterComposite
+~ └─ RegistrationExtensions.RegisterComposite (changes below depth limit)
+
+  RegistrationExtensions.RegisterComposite
+~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
+  └─ RegistrationExtensions.ApplyCompositeConfiguration (depth limit)
+
+  RegistrationExtensions.RegisterDecorator
+  ├─ …
+  ├─ new DecoratorMiddleware (depth limit)
+  ├─ ServiceMiddlewareRegistrationExtensions.RegisterServiceMiddleware (depth limit)
+  └─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+
+  RegistrationExtensions.RegisterDecorator
+  ├─ …
+  ├─ new DecoratorMiddleware (depth limit)
+  ├─ ServiceMiddlewareRegistrationExtensions.RegisterServiceMiddleware (depth limit)
+  └─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+
+  RegistrationExtensions.RegisterDecorator
+  ├─ …
+  ├─ new DecoratorMiddleware (depth limit)
+  ├─ ServiceMiddlewareRegistrationExtensions.RegisterServiceMiddleware (depth limit)
+  └─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+
+  RegistrationExtensions.RegisterTypes
+~ └─ ScanningRegistrationExtensions.ScanAndRegisterTypes (changes below depth limit)
+
+  ResolutionExtensions.InjectProperties
+~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  ResolutionExtensions.InjectProperties
+~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  ResolutionExtensions.InjectProperties
+~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  ResolutionExtensions.InjectProperties
+~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  ResolutionExtensions.InjectProperties
+~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  ResolutionExtensions.InjectProperties
+~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  ResolutionExtensions.InjectUnsetProperties
+~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  ResolutionExtensions.InjectUnsetProperties
+~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  ResolutionExtensions.InjectUnsetProperties
+~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  ResolutionExtensions.IsRegistered
+~ └─ ResolutionExtensions.IsRegistered (changes below depth limit)
+
+  ResolutionExtensions.IsRegisteredWithName
+~ └─ ResolutionExtensions.IsRegisteredWithKey (changes below depth limit)
+
+  ResolutionExtensions.IsRegisteredWithName
+~ └─ ResolutionExtensions.IsRegisteredWithKey (changes below depth limit)
+
+  ResolutionExtensions.Resolve
+~ └─ ResolutionExtensions.Resolve (changes below depth limit)
+
+  ResolutionExtensions.Resolve
+~ └─ ResolutionExtensions.Resolve (changes below depth limit)
+
+  ResolutionExtensions.Resolve
+~ └─ ResolutionExtensions.Resolve (changes below depth limit)
+
+  ResolutionExtensions.ResolveKeyed
+~ └─ ResolutionExtensions.ResolveKeyed (changes below depth limit)
+
+  ResolutionExtensions.ResolveKeyed
+~ └─ ResolutionExtensions.ResolveKeyed (changes below depth limit)
+
+  ResolutionExtensions.ResolveKeyed
+~ └─ ResolutionExtensions.ResolveKeyed (changes below depth limit)
+
+  ResolutionExtensions.ResolveKeyed
+~ └─ ResolutionExtensions.ResolveKeyed (changes below depth limit)
+
+  ResolutionExtensions.ResolveNamed
+~ └─ ResolutionExtensions.ResolveNamed (changes below depth limit)
+
+  ResolutionExtensions.ResolveNamed
+~ └─ ResolutionExtensions.ResolveNamed (changes below depth limit)
+
+  ResolutionExtensions.ResolveNamed
+~ └─ ResolutionExtensions.ResolveNamed (changes below depth limit)
+
+  ResolutionExtensions.ResolveNamed
+~ └─ ResolutionExtensions.ResolveNamed (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptional
+~ └─ ResolutionExtensions.ResolveOptional (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptional
+~ └─ ResolutionExtensions.ResolveOptional (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptional
+~ └─ ResolutionExtensions.ResolveOptional (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptionalNamed
+~ └─ ResolutionExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptionalNamed
+~ └─ ResolutionExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptionalNamed
+~ └─ ResolutionExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptionalService
+~ └─ ResolutionExtensions.ResolveOptionalService (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptionalService
+~ └─ ResolutionExtensions.ResolveOptionalService (changes below depth limit)
+
+  ResolutionExtensions.TryResolve
+~ ├─ ResolutionExtensions.TryResolve (changes below depth limit)
+  └─ if (context.TryResolve(typeof(T), out var component))
+
+  ResolutionExtensions.TryResolveKeyed
+~ ├─ ResolutionExtensions.TryResolveKeyed (changes below depth limit)
+  └─ if (context.TryResolveKeyed(serviceKey, typeof(T), out var component))
+
+  ResolutionExtensions.TryResolveNamed
+~ ├─ ResolutionExtensions.TryResolveNamed (changes below depth limit)
+  └─ if (context.TryResolveNamed(serviceName, typeof(T), out var component))
+
+  ResolutionValueExtensions.ResolveOptional
+~ └─ ResolutionValueExtensions.ResolveOptional (changes below depth limit)
+
+  ResolutionValueExtensions.ResolveOptional
+~ └─ ResolutionValueExtensions.ResolveOptional (changes below depth limit)
+
+  ResolutionValueExtensions.ResolveOptionalNamed
+~ └─ ResolutionValueExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionValueExtensions.ResolveOptionalNamed
+~ └─ ResolutionValueExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionValueExtensions.ResolveOptionalNamed
+~ └─ ResolutionValueExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionValueExtensions.TryResolve
+~ └─ ResolutionExtensions.TryResolve (changes below depth limit)
+```
+stderr:

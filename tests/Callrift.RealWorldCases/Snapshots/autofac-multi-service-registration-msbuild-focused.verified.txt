@@ -1,0 +1,131 @@
+﻿format: text
+exit: 0
+stdout:
+  DefaultRegisteredServicesTracker.PopulateServiceInfo
+  ├─ if (!info.IsInitializing)
+  │  └─ DefaultRegisteredServicesTracker.BeginServiceInfoInitialization
+  │     ├─ foreach (var servicePipelineSource in _servicePipelineSources)
+  │     │  └─ IServiceMiddlewareSource.ProvideMiddleware
+~ │     │     ├─ ⇢ ExternalRegistryServiceMiddlewareSource.ProvideMiddleware (changes below depth limit)
+  │     │     ├─ ⇢ ServiceWithTypeMiddlewareSource.ProvideMiddleware (depth limit)
+~ │     │     └─ ⇢ OpenGenericDecoratorMiddlewareSource.ProvideMiddleware (changes below depth limit)
+  │     └─ ServiceRegistrationInfo.BeginInitialization
+  └─ while (info.HasSourcesToQuery)
+     ├─ ServiceRegistrationInfo.DequeueNextSource
++    ├─ if (held is not null)
++    │  └─ DefaultRegisteredServicesTracker.TryApplyDeferredSourceImplementations
++    │     └─ foreach (var provided in implementations)
++    │        └─ ServiceRegistrationInfo.AddImplementation (depth limit)
+     ├─ IRegistrationSource.RegistrationsFor
+     │  ├─ ⇢ ImplicitRegistrationSource.RegistrationsFor
+     │  ├─ ⇢ ExternalRegistrySource.RegistrationsFor
+     │  │  ├─ if (_isolatedScope)
+~    │  │  ├─ IComponentRegistry.RegistrationsFor → ComponentRegistry.RegistrationsFor (changes below depth limit)
+     │  │  └─ foreach (var registration in _registry.RegistrationsFor(serviceForLookup))
+     │  ├─ ⇢ CollectionRegistrationSource.RegistrationsFor
+     │  │  ├─ …
+     │  │  ├─ IServiceWithType.ChangeType
+     │  │  ├─ if (service is KeyedService keyedService)
+     │  │  ├─ new DelegateActivator (depth limit)
+     │  │  │  ├─ if (isAnyKeyQuery)
+~    │  │  │  │  └─ CollectionRegistrationSource.GetAllSpecificKeyedRegistrations (changes below depth limit)
+     │  │  │  ├─ else (!(isAnyKeyQuery))
+~    │  │  │  │  └─ CollectionRegistrationSource.BuildStandardRegistrationList (changes below depth limit)
+     │  │  │  ├─ CollectionRegistrationSource.GetCollectionMetricsDetails (depth limit)
+     │  │  │  └─ CollectionRegistrationSource.BuildCollection (depth limit)
+     │  │  └─ new ComponentRegistration (depth limit)
+     │  ├─ ⇢ GeneratedFactoryRegistrationSource.RegistrationsFor
+     │  │  ├─ …
+     │  │  ├─ InternalTypeExtensions.FunctionReturnType (depth limit)
+     │  │  ├─ IServiceWithType.ChangeType
+     │  │  └─ registrationAccessor(resultTypeService) .Select
+     │  │     ├─ new FactoryGenerator (depth limit)
+     │  │     ├─ RegistrationBuilder.ForDelegate (depth limit)
+~    │  │     │  └─ FactoryGenerator.GenerateFactory (changes below depth limit)
+     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned (depth limit)
+     │  │     └─ …
+     │  ├─ ⇢ AnyKeyRegistrationSource.RegistrationsFor
+     │  ├─ ⇢ LazyWithMetadataRegistrationSource.RegistrationsFor
+     │  └─ …
+     └─ foreach (var provided in next.RegistrationsFor(service, _registrationAccessor))
+        ├─ DefaultRegisteredServicesTracker.PopulateAdditionalServicesForProvidedRegistration
+        │  └─ foreach (var additionalService in provided.Services)
+        │     ├─ DefaultRegisteredServicesTracker.GetServiceInfo (depth limit)
+        │     ├─ DefaultRegisteredServicesTracker.UseEphemeralAdditionalInfoIfNeeded (depth limit)
+-       │     ├─ DefaultRegisteredServicesTracker.InitializeOrSkipSource (changes below depth limit)
++       │     └─ DefaultRegisteredServicesTracker.HoldOrApplyForAdditionalService (changes below depth limit)
+-       ├─ DefaultRegisteredServicesTracker.AddRegistration
+-       │  ├─ ⇢ DefaultRegisteredServicesTracker.AddRegistration (changes below depth limit)
+-       │  └─ ⇢ ScopeRestrictedRegisteredServicesTracker.AddRegistration (changes below depth limit)
++       └─ DefaultRegisteredServicesTracker.AddRegistration
++          ├─ ⇢ DefaultRegisteredServicesTracker.AddRegistration (changes below depth limit)
++          └─ ⇢ ScopeRestrictedRegisteredServicesTracker.AddRegistration (changes below depth limit)
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  DefaultRegisteredServicesTracker.PopulateServiceInfo
+  ├─ if (!info.IsInitializing)
+  │  └─ DefaultRegisteredServicesTracker.BeginServiceInfoInitialization
+  │     ├─ foreach (var servicePipelineSource in _servicePipelineSources)
+  │     │  └─ IServiceMiddlewareSource.ProvideMiddleware
+~ │     │     ├─ ⇢ ExternalRegistryServiceMiddlewareSource.ProvideMiddleware (changes below depth limit)
+  │     │     ├─ ⇢ ServiceWithTypeMiddlewareSource.ProvideMiddleware (depth limit)
+~ │     │     └─ ⇢ OpenGenericDecoratorMiddlewareSource.ProvideMiddleware (changes below depth limit)
+  │     └─ ServiceRegistrationInfo.BeginInitialization
+  └─ while (info.HasSourcesToQuery)
+     ├─ ServiceRegistrationInfo.DequeueNextSource
++    ├─ if (held is not null)
++    │  └─ DefaultRegisteredServicesTracker.TryApplyDeferredSourceImplementations
++    │     └─ foreach (var provided in implementations)
++    │        └─ ServiceRegistrationInfo.AddImplementation (depth limit)
+     ├─ IRegistrationSource.RegistrationsFor
+     │  ├─ ⇢ ImplicitRegistrationSource.RegistrationsFor
+     │  ├─ ⇢ ExternalRegistrySource.RegistrationsFor
+     │  │  ├─ if (_isolatedScope)
+~    │  │  ├─ IComponentRegistry.RegistrationsFor → ComponentRegistry.RegistrationsFor (changes below depth limit)
+     │  │  └─ foreach (var registration in _registry.RegistrationsFor(serviceForLookup))
+     │  ├─ ⇢ CollectionRegistrationSource.RegistrationsFor
+     │  │  ├─ …
+     │  │  ├─ IServiceWithType.ChangeType
+     │  │  ├─ if (service is KeyedService keyedService)
+     │  │  ├─ new DelegateActivator (depth limit)
+     │  │  │  ├─ if (isAnyKeyQuery)
+~    │  │  │  │  └─ CollectionRegistrationSource.GetAllSpecificKeyedRegistrations (changes below depth limit)
+     │  │  │  ├─ else (!(isAnyKeyQuery))
+~    │  │  │  │  └─ CollectionRegistrationSource.BuildStandardRegistrationList (changes below depth limit)
+     │  │  │  ├─ CollectionRegistrationSource.GetCollectionMetricsDetails (depth limit)
+     │  │  │  └─ CollectionRegistrationSource.BuildCollection (depth limit)
+     │  │  └─ new ComponentRegistration (depth limit)
+     │  ├─ ⇢ GeneratedFactoryRegistrationSource.RegistrationsFor
+     │  │  ├─ …
+     │  │  ├─ InternalTypeExtensions.FunctionReturnType (depth limit)
+     │  │  ├─ IServiceWithType.ChangeType
+     │  │  └─ registrationAccessor(resultTypeService) .Select
+     │  │     ├─ new FactoryGenerator (depth limit)
+     │  │     ├─ RegistrationBuilder.ForDelegate (depth limit)
+~    │  │     │  └─ FactoryGenerator.GenerateFactory (changes below depth limit)
+     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned (depth limit)
+     │  │     └─ …
+     │  ├─ ⇢ AnyKeyRegistrationSource.RegistrationsFor
+     │  ├─ ⇢ LazyWithMetadataRegistrationSource.RegistrationsFor
+     │  └─ …
+     └─ foreach (var provided in next.RegistrationsFor(service, _registrationAccessor))
+        ├─ DefaultRegisteredServicesTracker.PopulateAdditionalServicesForProvidedRegistration
+        │  └─ foreach (var additionalService in provided.Services)
+        │     ├─ DefaultRegisteredServicesTracker.GetServiceInfo (depth limit)
+        │     ├─ DefaultRegisteredServicesTracker.UseEphemeralAdditionalInfoIfNeeded (depth limit)
+-       │     ├─ DefaultRegisteredServicesTracker.InitializeOrSkipSource (changes below depth limit)
++       │     └─ DefaultRegisteredServicesTracker.HoldOrApplyForAdditionalService (changes below depth limit)
+-       ├─ DefaultRegisteredServicesTracker.AddRegistration
+-       │  ├─ ⇢ DefaultRegisteredServicesTracker.AddRegistration (changes below depth limit)
+-       │  └─ ⇢ ScopeRestrictedRegisteredServicesTracker.AddRegistration (changes below depth limit)
++       └─ DefaultRegisteredServicesTracker.AddRegistration
++          ├─ ⇢ DefaultRegisteredServicesTracker.AddRegistration (changes below depth limit)
++          └─ ⇢ ScopeRestrictedRegisteredServicesTracker.AddRegistration (changes below depth limit)
+```
+stderr:

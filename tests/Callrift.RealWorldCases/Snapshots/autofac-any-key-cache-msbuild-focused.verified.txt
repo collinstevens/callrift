@@ -1,0 +1,33 @@
+﻿format: text
+exit: 0
+stdout:
+  AnyKeyRegistrationSource.RegistrationsFor
+  ├─ …
+  ├─ if (!(service is not KeyedService keyedService || KeyedService.IsAnyKey(keyedService.ServiceKey)))
+  ├─ if (service is not KeyedService keyedService || KeyedService.IsAnyKey(keyedService.ServiceKey) ||…
+- ├─ _adapterCache.TryGetValue
+  ├─ registrationAccessor
+  ├─ registrationAccessor(service).Any
+  ├─ …
+  ├─ if (anyKeyRegistrations.Length == 0)
+  ├─ for (i < anyKeyRegistrations.Length)
+- └─ _adapterCache.TryAdd
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  AnyKeyRegistrationSource.RegistrationsFor
+  ├─ …
+  ├─ if (!(service is not KeyedService keyedService || KeyedService.IsAnyKey(keyedService.ServiceKey)))
+  ├─ if (service is not KeyedService keyedService || KeyedService.IsAnyKey(keyedService.ServiceKey) ||…
+- ├─ _adapterCache.TryGetValue
+  ├─ registrationAccessor
+  ├─ registrationAccessor(service).Any
+  ├─ …
+  ├─ if (anyKeyRegistrations.Length == 0)
+  ├─ for (i < anyKeyRegistrations.Length)
+- └─ _adapterCache.TryAdd
+```
+stderr:

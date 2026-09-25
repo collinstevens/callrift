@@ -1,0 +1,929 @@
+﻿exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "cdf6a83b8e85eefb60e02b9056be51fe050a2fef",
+    "commit": "cdf6a83b8e85eefb60e02b9056be51fe050a2fef",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "0f0be581167e22671f73de59e410e8d1552540e0",
+    "commit": "0f0be581167e22671f73de59e410e8d1552540e0",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "msbuild",
+    "status": "partial",
+    "limitations": [
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "virtual-nonabstract-dispatch",
+      "callbacks-are-possible-calls",
+      "no-framework-dispatch-plugins"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": true,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "ReflectionActivator.UsesServiceKeyAttribute",
+      "detail": null,
+      "before": {
+        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Activators.Reflection.ReflectionActivator.UsesServiceKeyAttribute(global::System.Type)",
+        "signature": "Autofac.Core.Activators.Reflection.ReflectionActivator.UsesServiceKeyAttribute(System.Type) -> bool",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Activators.Reflection.ReflectionActivator.UsesServiceKeyAttribute(global::System.Type)"
+        ],
+        "definition": {
+          "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+          "startLine": 132,
+          "startColumn": 5,
+          "endLine": 164,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Activators.Reflection.ReflectionActivator.UsesServiceKeyAttribute(global::System.Type)",
+        "signature": "Autofac.Core.Activators.Reflection.ReflectionActivator.UsesServiceKeyAttribute(System.Type) -> bool",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Activators.Reflection.ReflectionActivator.UsesServiceKeyAttribute(global::System.Type)"
+        ],
+        "definition": {
+          "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+          "startLine": 125,
+          "startColumn": 5,
+          "endLine": 186,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "branch",
+          "change": "removed",
+          "label": "foreach (var constructor in implementationType.GetConstructors(BindingFlags.Instance | BindingFla…",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                "startLine": 144,
+                "startColumn": 9,
+                "endLine": 153,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": null,
+          "children": [
+            {
+              "id": "n2",
+              "kind": "branch",
+              "change": "removed",
+              "label": "foreach (var parameter in constructor.GetParameters())",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                    "startLine": 146,
+                    "startColumn": 13,
+                    "endLine": 152,
+                    "endColumn": 14
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": null,
+              "children": [
+                {
+                  "id": "n3",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "ServiceKeyAttributeCache.ParameterHasServiceKey",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ServiceKeyAttributeCache.ParameterHasServiceKey(global::System.Reflection.ParameterInfo)",
+                    "signature": "Autofac.Core.ServiceKeyAttributeCache.ParameterHasServiceKey(System.Reflection.ParameterInfo) -> bool",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ServiceKeyAttributeCache.ParameterHasServiceKey(global::System.Reflection.ParameterInfo)"
+                    ],
+                    "definition": {
+                      "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                      "startLine": 25,
+                      "startColumn": 5,
+                      "endLine": 43,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                        "startLine": 148,
+                        "startColumn": 21,
+                        "endLine": 148,
+                        "endColumn": 79
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [
+                    {
+                      "id": "n4",
+                      "kind": "call",
+                      "change": "removed",
+                      "label": "ReflectionCacheSet.Shared.Internal.ServiceKeyParameterAttributes.GetOrAdd",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "metadata:System.Collections.Concurrent::System.Collections.Concurrent.ConcurrentDictionary<TKey, TValue>.GetOrAdd(TKey,global::System.Func<TKey, TValue>)",
+                        "signature": null,
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "metadata:System.Collections.Concurrent::System.Collections.Concurrent.ConcurrentDictionary<TKey, TValue>.GetOrAdd(TKey,global::System.Func<TKey, TValue>)"
+                        ],
+                        "definition": null,
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                            "startLine": 32,
+                            "startColumn": 16,
+                            "endLine": 42,
+                            "endColumn": 15
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "metadata"
+                      },
+                      "after": null,
+                      "children": [
+                        {
+                          "id": "n5",
+                          "kind": "call",
+                          "change": "removed",
+                          "label": "ReflectionExtensions.TryGetDeclaringProperty",
+                          "detail": "depth limit",
+                          "before": {
+                            "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Util.ReflectionExtensions.TryGetDeclaringProperty(global::System.Reflection.ParameterInfo,out global::System.Reflection.PropertyInfo)",
+                            "signature": "Autofac.Util.ReflectionExtensions.TryGetDeclaringProperty(System.Reflection.ParameterInfo, out System.Reflection.PropertyInfo?) -> bool",
+                            "binding": "resolved",
+                            "dispatch": "direct",
+                            "targetIds": [
+                              "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Util.ReflectionExtensions.TryGetDeclaringProperty(global::System.Reflection.ParameterInfo,out global::System.Reflection.PropertyInfo)"
+                            ],
+                            "definition": {
+                              "path": "src/Autofac/Util/ReflectionExtensions.cs",
+                              "startLine": 32,
+                              "startColumn": 5,
+                              "endLine": 47,
+                              "endColumn": 6
+                            },
+                            "callSites": [
+                              {
+                                "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                                "startLine": 41,
+                                "startColumn": 24,
+                                "endLine": 41,
+                                "endColumn": 67
+                              }
+                            ],
+                            "relation": "callback",
+                            "candidates": [],
+                            "origin": "source"
+                          },
+                          "after": null,
+                          "children": [],
+                          "omission": {
+                            "reason": "depth-limit",
+                            "symbolId": null,
+                            "referenceId": null
+                          }
+                        },
+                        {
+                          "id": "n6",
+                          "kind": "branch",
+                          "change": "removed",
+                          "label": "if (p.TryGetDeclaringProperty(out var property))",
+                          "detail": null,
+                          "before": {
+                            "symbolId": null,
+                            "signature": null,
+                            "binding": "structural",
+                            "dispatch": "none",
+                            "targetIds": [],
+                            "definition": null,
+                            "callSites": [
+                              {
+                                "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                                "startLine": 41,
+                                "startColumn": 24,
+                                "endLine": 41,
+                                "endColumn": 102
+                              }
+                            ],
+                            "relation": "callback",
+                            "candidates": null,
+                            "origin": "structural"
+                          },
+                          "after": null,
+                          "children": [
+                            {
+                              "id": "n7",
+                              "kind": "call",
+                              "change": "removed",
+                              "label": "ServiceKeyAttributeCache.PropertyHasServiceKey",
+                              "detail": "depth limit",
+                              "before": {
+                                "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ServiceKeyAttributeCache.PropertyHasServiceKey(global::System.Reflection.PropertyInfo)",
+                                "signature": "Autofac.Core.ServiceKeyAttributeCache.PropertyHasServiceKey(System.Reflection.PropertyInfo) -> bool",
+                                "binding": "resolved",
+                                "dispatch": "direct",
+                                "targetIds": [
+                                  "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ServiceKeyAttributeCache.PropertyHasServiceKey(global::System.Reflection.PropertyInfo)"
+                                ],
+                                "definition": {
+                                  "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                                  "startLine": 50,
+                                  "startColumn": 5,
+                                  "endLine": 60,
+                                  "endColumn": 6
+                                },
+                                "callSites": [
+                                  {
+                                    "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                                    "startLine": 41,
+                                    "startColumn": 71,
+                                    "endLine": 41,
+                                    "endColumn": 102
+                                  }
+                                ],
+                                "relation": "call",
+                                "candidates": [],
+                                "origin": "source"
+                              },
+                              "after": null,
+                              "children": [],
+                              "omission": {
+                                "reason": "depth-limit",
+                                "symbolId": null,
+                                "referenceId": null
+                              }
+                            }
+                          ],
+                          "omission": null
+                        }
+                      ],
+                      "omission": null
+                    }
+                  ],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n8",
+          "kind": "branch",
+          "change": "removed",
+          "label": "foreach (var property in implementationType.GetProperties(BindingFlags.Instance | BindingFlags.Pu…",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                "startLine": 155,
+                "startColumn": 9,
+                "endLine": 161,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": null,
+          "children": [
+            {
+              "id": "n9",
+              "kind": "branch",
+              "change": "removed",
+              "label": "if (property.CanWrite)",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                    "startLine": 157,
+                    "startColumn": 17,
+                    "endLine": 157,
+                    "endColumn": 94
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": null,
+              "children": [
+                {
+                  "id": "n10",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "ServiceKeyAttributeCache.PropertyHasServiceKey",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ServiceKeyAttributeCache.PropertyHasServiceKey(global::System.Reflection.PropertyInfo)",
+                    "signature": "Autofac.Core.ServiceKeyAttributeCache.PropertyHasServiceKey(System.Reflection.PropertyInfo) -> bool",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ServiceKeyAttributeCache.PropertyHasServiceKey(global::System.Reflection.PropertyInfo)"
+                    ],
+                    "definition": {
+                      "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                      "startLine": 50,
+                      "startColumn": 5,
+                      "endLine": 60,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                        "startLine": 157,
+                        "startColumn": 38,
+                        "endLine": 157,
+                        "endColumn": 94
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n11",
+          "kind": "branch",
+          "change": "added",
+          "label": "foreach (var constructor in implementationType.GetConstructors(DeclaredMembers))",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                "startLine": 158,
+                "startColumn": 9,
+                "endLine": 167,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n12",
+              "kind": "branch",
+              "change": "added",
+              "label": "foreach (var parameter in constructor.GetParameters())",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                    "startLine": 160,
+                    "startColumn": 13,
+                    "endLine": 166,
+                    "endColumn": 14
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n13",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "ServiceKeyAttributeCache.ParameterHasServiceKey",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ServiceKeyAttributeCache.ParameterHasServiceKey(global::System.Reflection.ParameterInfo)",
+                    "signature": "Autofac.Core.ServiceKeyAttributeCache.ParameterHasServiceKey(System.Reflection.ParameterInfo) -> bool",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ServiceKeyAttributeCache.ParameterHasServiceKey(global::System.Reflection.ParameterInfo)"
+                    ],
+                    "definition": {
+                      "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                      "startLine": 25,
+                      "startColumn": 5,
+                      "endLine": 43,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                        "startLine": 162,
+                        "startColumn": 21,
+                        "endLine": 162,
+                        "endColumn": 79
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [
+                    {
+                      "id": "n14",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "ReflectionCacheSet.Shared.Internal.ServiceKeyParameterAttributes.GetOrAdd",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "metadata:System.Collections.Concurrent::System.Collections.Concurrent.ConcurrentDictionary<TKey, TValue>.GetOrAdd(TKey,global::System.Func<TKey, TValue>)",
+                        "signature": null,
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "metadata:System.Collections.Concurrent::System.Collections.Concurrent.ConcurrentDictionary<TKey, TValue>.GetOrAdd(TKey,global::System.Func<TKey, TValue>)"
+                        ],
+                        "definition": null,
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                            "startLine": 32,
+                            "startColumn": 16,
+                            "endLine": 42,
+                            "endColumn": 15
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "metadata"
+                      },
+                      "children": [
+                        {
+                          "id": "n15",
+                          "kind": "call",
+                          "change": "added",
+                          "label": "ReflectionExtensions.TryGetDeclaringProperty",
+                          "detail": "depth limit",
+                          "before": null,
+                          "after": {
+                            "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Util.ReflectionExtensions.TryGetDeclaringProperty(global::System.Reflection.ParameterInfo,out global::System.Reflection.PropertyInfo)",
+                            "signature": "Autofac.Util.ReflectionExtensions.TryGetDeclaringProperty(System.Reflection.ParameterInfo, out System.Reflection.PropertyInfo?) -> bool",
+                            "binding": "resolved",
+                            "dispatch": "direct",
+                            "targetIds": [
+                              "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Util.ReflectionExtensions.TryGetDeclaringProperty(global::System.Reflection.ParameterInfo,out global::System.Reflection.PropertyInfo)"
+                            ],
+                            "definition": {
+                              "path": "src/Autofac/Util/ReflectionExtensions.cs",
+                              "startLine": 32,
+                              "startColumn": 5,
+                              "endLine": 47,
+                              "endColumn": 6
+                            },
+                            "callSites": [
+                              {
+                                "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                                "startLine": 41,
+                                "startColumn": 24,
+                                "endLine": 41,
+                                "endColumn": 67
+                              }
+                            ],
+                            "relation": "callback",
+                            "candidates": [],
+                            "origin": "source"
+                          },
+                          "children": [],
+                          "omission": {
+                            "reason": "depth-limit",
+                            "symbolId": null,
+                            "referenceId": null
+                          }
+                        },
+                        {
+                          "id": "n16",
+                          "kind": "branch",
+                          "change": "added",
+                          "label": "if (p.TryGetDeclaringProperty(out var property))",
+                          "detail": null,
+                          "before": null,
+                          "after": {
+                            "symbolId": null,
+                            "signature": null,
+                            "binding": "structural",
+                            "dispatch": "none",
+                            "targetIds": [],
+                            "definition": null,
+                            "callSites": [
+                              {
+                                "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                                "startLine": 41,
+                                "startColumn": 24,
+                                "endLine": 41,
+                                "endColumn": 102
+                              }
+                            ],
+                            "relation": "callback",
+                            "candidates": null,
+                            "origin": "structural"
+                          },
+                          "children": [
+                            {
+                              "id": "n17",
+                              "kind": "call",
+                              "change": "added",
+                              "label": "ServiceKeyAttributeCache.PropertyHasServiceKey",
+                              "detail": "depth limit",
+                              "before": null,
+                              "after": {
+                                "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ServiceKeyAttributeCache.PropertyHasServiceKey(global::System.Reflection.PropertyInfo)",
+                                "signature": "Autofac.Core.ServiceKeyAttributeCache.PropertyHasServiceKey(System.Reflection.PropertyInfo) -> bool",
+                                "binding": "resolved",
+                                "dispatch": "direct",
+                                "targetIds": [
+                                  "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ServiceKeyAttributeCache.PropertyHasServiceKey(global::System.Reflection.PropertyInfo)"
+                                ],
+                                "definition": {
+                                  "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                                  "startLine": 50,
+                                  "startColumn": 5,
+                                  "endLine": 60,
+                                  "endColumn": 6
+                                },
+                                "callSites": [
+                                  {
+                                    "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                                    "startLine": 41,
+                                    "startColumn": 71,
+                                    "endLine": 41,
+                                    "endColumn": 102
+                                  }
+                                ],
+                                "relation": "call",
+                                "candidates": [],
+                                "origin": "source"
+                              },
+                              "children": [],
+                              "omission": {
+                                "reason": "depth-limit",
+                                "symbolId": null,
+                                "referenceId": null
+                              }
+                            }
+                          ],
+                          "omission": null
+                        }
+                      ],
+                      "omission": null
+                    }
+                  ],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n18",
+          "kind": "branch",
+          "change": "added",
+          "label": "foreach (var property in implementationType.GetProperties(DeclaredMembers))",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                "startLine": 169,
+                "startColumn": 9,
+                "endLine": 175,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n19",
+              "kind": "branch",
+              "change": "added",
+              "label": "if (property.CanWrite)",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                    "startLine": 171,
+                    "startColumn": 17,
+                    "endLine": 171,
+                    "endColumn": 94
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n20",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "ServiceKeyAttributeCache.PropertyHasServiceKey",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ServiceKeyAttributeCache.PropertyHasServiceKey(global::System.Reflection.PropertyInfo)",
+                    "signature": "Autofac.Core.ServiceKeyAttributeCache.PropertyHasServiceKey(System.Reflection.PropertyInfo) -> bool",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ServiceKeyAttributeCache.PropertyHasServiceKey(global::System.Reflection.PropertyInfo)"
+                    ],
+                    "definition": {
+                      "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                      "startLine": 50,
+                      "startColumn": 5,
+                      "endLine": 60,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                        "startLine": 171,
+                        "startColumn": 38,
+                        "endLine": 171,
+                        "endColumn": 94
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n21",
+          "kind": "branch",
+          "change": "added",
+          "label": "if (baseType is not null && baseType != typeof(object))",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                "startLine": 178,
+                "startColumn": 9,
+                "endLine": 183,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n22",
+              "kind": "call",
+              "change": "added",
+              "label": "ReflectionActivator.UsesServiceKeyAttributeCached",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Activators.Reflection.ReflectionActivator.UsesServiceKeyAttributeCached(global::System.Type)",
+                "signature": "Autofac.Core.Activators.Reflection.ReflectionActivator.UsesServiceKeyAttributeCached(System.Type) -> bool",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Activators.Reflection.ReflectionActivator.UsesServiceKeyAttributeCached(global::System.Type)"
+                ],
+                "definition": {
+                  "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                  "startLine": 192,
+                  "startColumn": 5,
+                  "endLine": 196,
+                  "endColumn": 49
+                },
+                "callSites": [
+                  {
+                    "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                    "startLine": 182,
+                    "startColumn": 20,
+                    "endLine": 182,
+                    "endColumn": 59
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n23",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "ReflectionCacheSet.Shared.Internal.ServiceKeyUsageByType.GetOrAdd",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "metadata:System.Collections.Concurrent::System.Collections.Concurrent.ConcurrentDictionary<TKey, TValue>.GetOrAdd(TKey,global::System.Func<TKey, TValue>)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Collections.Concurrent::System.Collections.Concurrent.ConcurrentDictionary<TKey, TValue>.GetOrAdd(TKey,global::System.Func<TKey, TValue>)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                        "startLine": 194,
+                        "startColumn": 12,
+                        "endLine": 196,
+                        "endColumn": 48
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [
+                    {
+                      "id": "n24",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "ReflectionActivator.UsesServiceKeyAttribute",
+                      "detail": "↺ cycle",
+                      "before": null,
+                      "after": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Activators.Reflection.ReflectionActivator.UsesServiceKeyAttribute(global::System.Type)",
+                        "signature": "Autofac.Core.Activators.Reflection.ReflectionActivator.UsesServiceKeyAttribute(System.Type) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Activators.Reflection.ReflectionActivator.UsesServiceKeyAttribute(global::System.Type)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                          "startLine": 125,
+                          "startColumn": 5,
+                          "endLine": 186,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                            "startLine": 196,
+                            "startColumn": 18,
+                            "endLine": 196,
+                            "endColumn": 47
+                          }
+                        ],
+                        "relation": "callback",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": {
+                        "reason": "cycle",
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Activators.Reflection.ReflectionActivator.UsesServiceKeyAttribute(global::System.Type)",
+                        "referenceId": "n0"
+                      }
+                    }
+                  ],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

@@ -217,5 +217,274 @@
         "options": ["--project", "src/Autofac/Autofac.csproj", "--framework", "net10.0", "--entry", "DefaultRegisteredServicesTracker.HoldForAdditionalService", "--depth", "3"]
       }
     ]
+  },
+  {
+    "id": "autofac-any-key-cache",
+    "repository": "https://github.com/autofac/Autofac.git",
+    "cacheName": "autofac",
+    "license": "MIT",
+    "licenseFile": "LICENSE",
+    "beforeLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
+    "afterLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
+    "before": "6a2e0f806960a5796450abd6184f22ac039cb03a",
+    "after": "30842446a27c81cee45748d8f1916eeac2a5d58d",
+    "reason": "Remove shared any-key adapters so registrations remain specific to each registry",
+    "tags": [
+      "cache-removal",
+      "branch-guard",
+      "constructor-removal",
+      "registration-scopes"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "review": "reviews/autofac-any-key-cache.md",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--entry",
+          "AnyKeyRegistrationSource.RegistrationsFor",
+          "--depth",
+          "3",
+          "--externals"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Autofac/Autofac.csproj",
+          "--framework",
+          "net10.0",
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--project",
+          "src/Autofac/Autofac.csproj",
+          "--framework",
+          "net10.0",
+          "--entry",
+          "AnyKeyRegistrationSource.RegistrationsFor",
+          "--depth",
+          "3",
+          "--externals"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "autofac-service-key-inheritance",
+    "repository": "https://github.com/autofac/Autofac.git",
+    "cacheName": "autofac",
+    "license": "MIT",
+    "licenseFile": "LICENSE",
+    "beforeLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
+    "afterLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
+    "before": "cdf6a83b8e85eefb60e02b9056be51fe050a2fef",
+    "after": "0f0be581167e22671f73de59e410e8d1552540e0",
+    "reason": "Scan declared members and recurse through cached base-type service-key checks",
+    "tags": [
+      "recursion",
+      "callback",
+      "reflection",
+      "helper-extraction"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "review": "reviews/autofac-service-key-inheritance.md",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--entry",
+          "ReflectionActivator.UsesServiceKeyAttribute",
+          "--depth",
+          "4"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Autofac/Autofac.csproj",
+          "--framework",
+          "net10.0",
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--project",
+          "src/Autofac/Autofac.csproj",
+          "--framework",
+          "net10.0",
+          "--entry",
+          "ReflectionActivator.UsesServiceKeyAttribute",
+          "--depth",
+          "4"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "autofac-pipeline-callbacks",
+    "repository": "https://github.com/autofac/Autofac.git",
+    "cacheName": "autofac",
+    "license": "MIT",
+    "licenseFile": "LICENSE",
+    "beforeLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
+    "afterLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
+    "before": "b7f65d61fcd650ac5850b05f83df1b5dbaaf8d27",
+    "after": "66c7093f139336f661094284261b2c9a17615b7d",
+    "reason": "Move middleware-chain builders out of local functions and expand returned diagnostic callbacks",
+    "tags": [
+      "returned-callback",
+      "local-function",
+      "method-move",
+      "exception-path",
+      "interface-dispatch"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "review": "reviews/autofac-pipeline-callbacks.md",
+    "routine": true,
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--entry",
+          "ResolvePipelineBuilder.BuildPipeline",
+          "--depth",
+          "5"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Autofac/Autofac.csproj",
+          "--framework",
+          "net10.0",
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--project",
+          "src/Autofac/Autofac.csproj",
+          "--framework",
+          "net10.0",
+          "--entry",
+          "ResolvePipelineBuilder.BuildPipeline",
+          "--depth",
+          "5"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "autofac-multi-service-registration",
+    "repository": "https://github.com/autofac/Autofac.git",
+    "cacheName": "autofac",
+    "license": "MIT",
+    "licenseFile": "LICENSE",
+    "beforeLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
+    "afterLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
+    "before": "30842446a27c81cee45748d8f1916eeac2a5d58d",
+    "after": "6d74fde113aed93ec0b0118561f5fc94dd22bdd1",
+    "reason": "Hold multi-service source registrations until each service drains the producing source",
+    "tags": [
+      "feature-change",
+      "signature-change",
+      "branch-guard",
+      "concurrency",
+      "interface-dispatch",
+      "application-entry"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "review": "reviews/autofac-multi-service-registration.md",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--entry",
+          "DefaultRegisteredServicesTracker.PopulateServiceInfo",
+          "--depth",
+          "4"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Autofac/Autofac.csproj",
+          "--framework",
+          "net10.0",
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--project",
+          "src/Autofac/Autofac.csproj",
+          "--framework",
+          "net10.0",
+          "--entry",
+          "DefaultRegisteredServicesTracker.PopulateServiceInfo",
+          "--depth",
+          "4"
+        ]
+      }
+    ]
   }
 ]

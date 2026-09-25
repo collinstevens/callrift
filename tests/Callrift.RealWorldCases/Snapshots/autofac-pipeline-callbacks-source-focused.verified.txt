@@ -1,0 +1,223 @@
+﻿format: text
+exit: 0
+stdout:
+  ResolvePipelineBuilder.BuildPipeline
+  ├─ while (current is not null)
+- │  ├─ ResolvePipelineBuilder.BuildPipeline.BuildMiddlewareChain
+- │  │  ├─ if (AutofacMetrics.MetricsEnabled)
+- │  │  │  └─ ResolvePipelineBuilder.BuildPipeline.BuildMetricsMiddlewareChain
+- │  │  │     ├─ stage.ToString
+- │  │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.ToString (depth limit)
+- │  │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.ToString (depth limit)
+- │  │  │     │  ├─ ⇢ CoreEventMiddleware.ToString (depth limit)
+- │  │  │     │  ├─ ⇢ DelegateMiddleware.ToString (depth limit)
+- │  │  │     │  ├─ ⇢ DisposalTrackingMiddleware.ToString (depth limit)
+- │  │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.ToString (depth limit)
+- │  │  │     │  ├─ ⇢ ScopeSelectionMiddleware.ToString (depth limit)
+- │  │  │     │  ├─ ⇢ SharingMiddleware.ToString (depth limit)
+- │  │  │     │  ├─ ⇢ StartableMiddleware.ToString (depth limit)
+- │  │  │     │  └─ ⇢ DecoratorMiddleware.ToString (depth limit)
+- │  │  │     └─ callback
+- │  │  │        └─ ResolvePipelineBuilder.BuildPipeline.ExecuteWithDiagnostics (changes below depth limit)
+- │  │  │           ├─ ValueStopwatch.StartNew (depth limit)
+- │  │  │           ├─ try
+- │  │  │           │  └─ IResolveMiddleware.Execute
+- │  │  │           │     ├─ ⇢ ActivatorErrorHandlingMiddleware.Execute (depth limit)
+- │  │  │           │     ├─ ⇢ CircularDependencyDetectorMiddleware.Execute (depth limit)
+- │  │  │           │     ├─ ⇢ CoreEventMiddleware.Execute (depth limit)
+- │  │  │           │     ├─ ⇢ DelegateMiddleware.Execute (depth limit)
+- │  │  │           │     ├─ ⇢ DisposalTrackingMiddleware.Execute (depth limit)
+- │  │  │           │     ├─ ⇢ RegistrationPipelineInvokeMiddleware.Execute (depth limit)
+- │  │  │           │     ├─ ⇢ ScopeSelectionMiddleware.Execute (depth limit)
+- │  │  │           │     ├─ ⇢ SharingMiddleware.Execute (depth limit)
+- │  │  │           │     ├─ ⇢ StartableMiddleware.Execute (depth limit)
+- │  │  │           │     └─ ⇢ DecoratorMiddleware.Execute (depth limit)
+- │  │  │           └─ finally
+- │  │  │              ├─ ValueStopwatch.GetElapsedTime (depth limit)
+- │  │  │              └─ AutofacMetrics.RecordMiddlewareExecution (depth limit)
+- │  │  └─ else (!(AutofacMetrics.MetricsEnabled))
+- │  │     └─ ResolvePipelineBuilder.BuildPipeline.BuildStandardMiddlewareChain
+- │  │        └─ callback
+- │  │           └─ ResolvePipelineBuilder.BuildPipeline.ExecuteWithDiagnostics (changes below depth limit)
+- │  │              └─ IResolveMiddleware.Execute ↑ as above
++ │  ├─ if (AutofacMetrics.MetricsEnabled)
++ │  │  └─ ResolvePipelineBuilder.BuildMetricsMiddlewareChain
++ │  │     ├─ stage.ToString
++ │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.ToString (depth limit)
++ │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.ToString (depth limit)
++ │  │     │  ├─ ⇢ CoreEventMiddleware.ToString (depth limit)
++ │  │     │  ├─ ⇢ DelegateMiddleware.ToString (depth limit)
++ │  │     │  ├─ ⇢ DisposalTrackingMiddleware.ToString (depth limit)
++ │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.ToString (depth limit)
++ │  │     │  ├─ ⇢ ScopeSelectionMiddleware.ToString (depth limit)
++ │  │     │  ├─ ⇢ SharingMiddleware.ToString (depth limit)
++ │  │     │  ├─ ⇢ StartableMiddleware.ToString (depth limit)
++ │  │     │  └─ ⇢ DecoratorMiddleware.ToString (depth limit)
++ │  │     └─ callback
++ │  │        ├─ if (!context.DiagnosticSource.IsEnabled())
++ │  │        │  ├─ ValueStopwatch.StartNew (depth limit)
++ │  │        │  ├─ try
++ │  │        │  │  └─ IResolveMiddleware.Execute
++ │  │        │  │     ├─ ⇢ ActivatorErrorHandlingMiddleware.Execute (depth limit)
++ │  │        │  │     ├─ ⇢ CircularDependencyDetectorMiddleware.Execute (depth limit)
++ │  │        │  │     ├─ ⇢ CoreEventMiddleware.Execute (depth limit)
++ │  │        │  │     ├─ ⇢ DelegateMiddleware.Execute (depth limit)
++ │  │        │  │     ├─ ⇢ DisposalTrackingMiddleware.Execute (depth limit)
++ │  │        │  │     ├─ ⇢ RegistrationPipelineInvokeMiddleware.Execute (depth limit)
++ │  │        │  │     ├─ ⇢ ScopeSelectionMiddleware.Execute (depth limit)
++ │  │        │  │     ├─ ⇢ SharingMiddleware.Execute (depth limit)
++ │  │        │  │     ├─ ⇢ StartableMiddleware.Execute (depth limit)
++ │  │        │  │     └─ ⇢ DecoratorMiddleware.Execute (depth limit)
++ │  │        │  └─ finally
++ │  │        │     ├─ ValueStopwatch.GetElapsedTime (depth limit)
++ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution (depth limit)
++ │  │        ├─ DiagnosticSourceExtensions.MiddlewareStart (depth limit)
++ │  │        ├─ try
++ │  │        │  ├─ ValueStopwatch.StartNew (depth limit)
++ │  │        │  ├─ try
++ │  │        │  │  └─ IResolveMiddleware.Execute ↑ as above
++ │  │        │  └─ finally
++ │  │        │     ├─ ValueStopwatch.GetElapsedTime (depth limit)
++ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution (depth limit)
++ │  │        └─ finally
++ │  │           ├─ if (succeeded)
++ │  │           │  └─ DiagnosticSourceExtensions.MiddlewareSuccess (depth limit)
++ │  │           └─ else (!(succeeded))
++ │  │              └─ DiagnosticSourceExtensions.MiddlewareFailure (depth limit)
++ │  └─ else (!(AutofacMetrics.MetricsEnabled))
++ │     └─ ResolvePipelineBuilder.BuildStandardMiddlewareChain
++ │        └─ callback
++ │           ├─ if (!context.DiagnosticSource.IsEnabled())
++ │           │  └─ IResolveMiddleware.Execute ↑ as above
++ │           ├─ DiagnosticSourceExtensions.MiddlewareStart (depth limit)
++ │           ├─ try
++ │           │  └─ IResolveMiddleware.Execute ↑ as above
++ │           └─ finally
++ │              ├─ if (succeeded)
++ │              │  └─ DiagnosticSourceExtensions.MiddlewareSuccess (depth limit)
++ │              └─ else (!(succeeded))
++ │                 └─ DiagnosticSourceExtensions.MiddlewareFailure (depth limit)
+  └─ new ResolvePipeline
+stderr:
+bench/Autofac.BenchmarkProfiling/Program.cs:35: unresolved-call: Cannot bind BenchmarkConverter.TypeToBenchmarks.
+bench/Autofac.BenchmarkProfiling/Program.cs:62: unresolved-call: Cannot bind PrintCases; candidates: source::Autofac.BenchmarkProfiling.Program.PrintCases(BenchmarkRunInfo)
+bench/Autofac.BenchmarkProfiling/Program.cs:74: unresolved-call: Cannot bind PrintCases; candidates: source::Autofac.BenchmarkProfiling.Program.PrintCases(BenchmarkRunInfo)
+bench/Autofac.BenchmarkProfiling/Program.cs:80: unresolved-call: Cannot bind Activator.CreateInstance; candidates: source::System.Activator.CreateInstance(global::System.Type), source::System.Activator.CreateInstance(global::System.Type,bool), source::System.Activator.CreateInstance(global::System.Type,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo), source::System.Activator.CreateInstance(global::System.Type,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo,object[]), source::System.Activator.CreateInstance(global::System.Type,object[]), source::System.Activator.CreateInstance(global::System.Type,object[],object[]), source::System.Activator.CreateInstance(string,string), source::System.Activator.CreateInstance(string,string,bool,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo,object[]), source::System.Activator.CreateInstance(string,string,object[]), source::System.Activator.CreateInstance`1()
+bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalSetup.
+bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
+bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
+bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
+168 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  ResolvePipelineBuilder.BuildPipeline
+  ├─ while (current is not null)
+- │  ├─ ResolvePipelineBuilder.BuildPipeline.BuildMiddlewareChain
+- │  │  ├─ if (AutofacMetrics.MetricsEnabled)
+- │  │  │  └─ ResolvePipelineBuilder.BuildPipeline.BuildMetricsMiddlewareChain
+- │  │  │     ├─ stage.ToString
+- │  │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.ToString (depth limit)
+- │  │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.ToString (depth limit)
+- │  │  │     │  ├─ ⇢ CoreEventMiddleware.ToString (depth limit)
+- │  │  │     │  ├─ ⇢ DelegateMiddleware.ToString (depth limit)
+- │  │  │     │  ├─ ⇢ DisposalTrackingMiddleware.ToString (depth limit)
+- │  │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.ToString (depth limit)
+- │  │  │     │  ├─ ⇢ ScopeSelectionMiddleware.ToString (depth limit)
+- │  │  │     │  ├─ ⇢ SharingMiddleware.ToString (depth limit)
+- │  │  │     │  ├─ ⇢ StartableMiddleware.ToString (depth limit)
+- │  │  │     │  └─ ⇢ DecoratorMiddleware.ToString (depth limit)
+- │  │  │     └─ callback
+- │  │  │        └─ ResolvePipelineBuilder.BuildPipeline.ExecuteWithDiagnostics (changes below depth limit)
+- │  │  │           ├─ ValueStopwatch.StartNew (depth limit)
+- │  │  │           ├─ try
+- │  │  │           │  └─ IResolveMiddleware.Execute
+- │  │  │           │     ├─ ⇢ ActivatorErrorHandlingMiddleware.Execute (depth limit)
+- │  │  │           │     ├─ ⇢ CircularDependencyDetectorMiddleware.Execute (depth limit)
+- │  │  │           │     ├─ ⇢ CoreEventMiddleware.Execute (depth limit)
+- │  │  │           │     ├─ ⇢ DelegateMiddleware.Execute (depth limit)
+- │  │  │           │     ├─ ⇢ DisposalTrackingMiddleware.Execute (depth limit)
+- │  │  │           │     ├─ ⇢ RegistrationPipelineInvokeMiddleware.Execute (depth limit)
+- │  │  │           │     ├─ ⇢ ScopeSelectionMiddleware.Execute (depth limit)
+- │  │  │           │     ├─ ⇢ SharingMiddleware.Execute (depth limit)
+- │  │  │           │     ├─ ⇢ StartableMiddleware.Execute (depth limit)
+- │  │  │           │     └─ ⇢ DecoratorMiddleware.Execute (depth limit)
+- │  │  │           └─ finally
+- │  │  │              ├─ ValueStopwatch.GetElapsedTime (depth limit)
+- │  │  │              └─ AutofacMetrics.RecordMiddlewareExecution (depth limit)
+- │  │  └─ else (!(AutofacMetrics.MetricsEnabled))
+- │  │     └─ ResolvePipelineBuilder.BuildPipeline.BuildStandardMiddlewareChain
+- │  │        └─ callback
+- │  │           └─ ResolvePipelineBuilder.BuildPipeline.ExecuteWithDiagnostics (changes below depth limit)
+- │  │              └─ IResolveMiddleware.Execute ↑ as above
++ │  ├─ if (AutofacMetrics.MetricsEnabled)
++ │  │  └─ ResolvePipelineBuilder.BuildMetricsMiddlewareChain
++ │  │     ├─ stage.ToString
++ │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.ToString (depth limit)
++ │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.ToString (depth limit)
++ │  │     │  ├─ ⇢ CoreEventMiddleware.ToString (depth limit)
++ │  │     │  ├─ ⇢ DelegateMiddleware.ToString (depth limit)
++ │  │     │  ├─ ⇢ DisposalTrackingMiddleware.ToString (depth limit)
++ │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.ToString (depth limit)
++ │  │     │  ├─ ⇢ ScopeSelectionMiddleware.ToString (depth limit)
++ │  │     │  ├─ ⇢ SharingMiddleware.ToString (depth limit)
++ │  │     │  ├─ ⇢ StartableMiddleware.ToString (depth limit)
++ │  │     │  └─ ⇢ DecoratorMiddleware.ToString (depth limit)
++ │  │     └─ callback
++ │  │        ├─ if (!context.DiagnosticSource.IsEnabled())
++ │  │        │  ├─ ValueStopwatch.StartNew (depth limit)
++ │  │        │  ├─ try
++ │  │        │  │  └─ IResolveMiddleware.Execute
++ │  │        │  │     ├─ ⇢ ActivatorErrorHandlingMiddleware.Execute (depth limit)
++ │  │        │  │     ├─ ⇢ CircularDependencyDetectorMiddleware.Execute (depth limit)
++ │  │        │  │     ├─ ⇢ CoreEventMiddleware.Execute (depth limit)
++ │  │        │  │     ├─ ⇢ DelegateMiddleware.Execute (depth limit)
++ │  │        │  │     ├─ ⇢ DisposalTrackingMiddleware.Execute (depth limit)
++ │  │        │  │     ├─ ⇢ RegistrationPipelineInvokeMiddleware.Execute (depth limit)
++ │  │        │  │     ├─ ⇢ ScopeSelectionMiddleware.Execute (depth limit)
++ │  │        │  │     ├─ ⇢ SharingMiddleware.Execute (depth limit)
++ │  │        │  │     ├─ ⇢ StartableMiddleware.Execute (depth limit)
++ │  │        │  │     └─ ⇢ DecoratorMiddleware.Execute (depth limit)
++ │  │        │  └─ finally
++ │  │        │     ├─ ValueStopwatch.GetElapsedTime (depth limit)
++ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution (depth limit)
++ │  │        ├─ DiagnosticSourceExtensions.MiddlewareStart (depth limit)
++ │  │        ├─ try
++ │  │        │  ├─ ValueStopwatch.StartNew (depth limit)
++ │  │        │  ├─ try
++ │  │        │  │  └─ IResolveMiddleware.Execute ↑ as above
++ │  │        │  └─ finally
++ │  │        │     ├─ ValueStopwatch.GetElapsedTime (depth limit)
++ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution (depth limit)
++ │  │        └─ finally
++ │  │           ├─ if (succeeded)
++ │  │           │  └─ DiagnosticSourceExtensions.MiddlewareSuccess (depth limit)
++ │  │           └─ else (!(succeeded))
++ │  │              └─ DiagnosticSourceExtensions.MiddlewareFailure (depth limit)
++ │  └─ else (!(AutofacMetrics.MetricsEnabled))
++ │     └─ ResolvePipelineBuilder.BuildStandardMiddlewareChain
++ │        └─ callback
++ │           ├─ if (!context.DiagnosticSource.IsEnabled())
++ │           │  └─ IResolveMiddleware.Execute ↑ as above
++ │           ├─ DiagnosticSourceExtensions.MiddlewareStart (depth limit)
++ │           ├─ try
++ │           │  └─ IResolveMiddleware.Execute ↑ as above
++ │           └─ finally
++ │              ├─ if (succeeded)
++ │              │  └─ DiagnosticSourceExtensions.MiddlewareSuccess (depth limit)
++ │              └─ else (!(succeeded))
++ │                 └─ DiagnosticSourceExtensions.MiddlewareFailure (depth limit)
+  └─ new ResolvePipeline
+```
+stderr:
+bench/Autofac.BenchmarkProfiling/Program.cs:35: unresolved-call: Cannot bind BenchmarkConverter.TypeToBenchmarks.
+bench/Autofac.BenchmarkProfiling/Program.cs:62: unresolved-call: Cannot bind PrintCases; candidates: source::Autofac.BenchmarkProfiling.Program.PrintCases(BenchmarkRunInfo)
+bench/Autofac.BenchmarkProfiling/Program.cs:74: unresolved-call: Cannot bind PrintCases; candidates: source::Autofac.BenchmarkProfiling.Program.PrintCases(BenchmarkRunInfo)
+bench/Autofac.BenchmarkProfiling/Program.cs:80: unresolved-call: Cannot bind Activator.CreateInstance; candidates: source::System.Activator.CreateInstance(global::System.Type), source::System.Activator.CreateInstance(global::System.Type,bool), source::System.Activator.CreateInstance(global::System.Type,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo), source::System.Activator.CreateInstance(global::System.Type,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo,object[]), source::System.Activator.CreateInstance(global::System.Type,object[]), source::System.Activator.CreateInstance(global::System.Type,object[],object[]), source::System.Activator.CreateInstance(string,string), source::System.Activator.CreateInstance(string,string,bool,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo,object[]), source::System.Activator.CreateInstance(string,string,object[]), source::System.Activator.CreateInstance`1()
+bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalSetup.
+bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
+bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
+bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
+168 additional diagnostics; use --diagnostics full.

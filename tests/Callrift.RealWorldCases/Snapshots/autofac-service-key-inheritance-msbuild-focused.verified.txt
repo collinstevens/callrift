@@ -1,0 +1,61 @@
+﻿format: text
+exit: 0
+stdout:
+  ReflectionActivator.UsesServiceKeyAttribute
+- ├─ foreach (var constructor in implementationType.GetConstructors(BindingFlags.Instance | BindingFla…
+- │  └─ foreach (var parameter in constructor.GetParameters())
+- │     └─ ServiceKeyAttributeCache.ParameterHasServiceKey
+- │        └─ ReflectionCacheSet.Shared.Internal.ServiceKeyParameterAttributes.GetOrAdd
+- │           ├─ ReflectionExtensions.TryGetDeclaringProperty (depth limit)
+- │           └─ if (p.TryGetDeclaringProperty(out var property))
+- │              └─ ServiceKeyAttributeCache.PropertyHasServiceKey (depth limit)
+- ├─ foreach (var property in implementationType.GetProperties(BindingFlags.Instance | BindingFlags.Pu…
+- │  └─ if (property.CanWrite)
+- │     └─ ServiceKeyAttributeCache.PropertyHasServiceKey
++ ├─ foreach (var constructor in implementationType.GetConstructors(DeclaredMembers))
++ │  └─ foreach (var parameter in constructor.GetParameters())
++ │     └─ ServiceKeyAttributeCache.ParameterHasServiceKey
++ │        └─ ReflectionCacheSet.Shared.Internal.ServiceKeyParameterAttributes.GetOrAdd
++ │           ├─ ReflectionExtensions.TryGetDeclaringProperty (depth limit)
++ │           └─ if (p.TryGetDeclaringProperty(out var property))
++ │              └─ ServiceKeyAttributeCache.PropertyHasServiceKey (depth limit)
++ ├─ foreach (var property in implementationType.GetProperties(DeclaredMembers))
++ │  └─ if (property.CanWrite)
++ │     └─ ServiceKeyAttributeCache.PropertyHasServiceKey
++ └─ if (baseType is not null && baseType != typeof(object))
++    └─ ReflectionActivator.UsesServiceKeyAttributeCached
++       └─ ReflectionCacheSet.Shared.Internal.ServiceKeyUsageByType.GetOrAdd
++          └─ ReflectionActivator.UsesServiceKeyAttribute (↺ cycle)
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  ReflectionActivator.UsesServiceKeyAttribute
+- ├─ foreach (var constructor in implementationType.GetConstructors(BindingFlags.Instance | BindingFla…
+- │  └─ foreach (var parameter in constructor.GetParameters())
+- │     └─ ServiceKeyAttributeCache.ParameterHasServiceKey
+- │        └─ ReflectionCacheSet.Shared.Internal.ServiceKeyParameterAttributes.GetOrAdd
+- │           ├─ ReflectionExtensions.TryGetDeclaringProperty (depth limit)
+- │           └─ if (p.TryGetDeclaringProperty(out var property))
+- │              └─ ServiceKeyAttributeCache.PropertyHasServiceKey (depth limit)
+- ├─ foreach (var property in implementationType.GetProperties(BindingFlags.Instance | BindingFlags.Pu…
+- │  └─ if (property.CanWrite)
+- │     └─ ServiceKeyAttributeCache.PropertyHasServiceKey
++ ├─ foreach (var constructor in implementationType.GetConstructors(DeclaredMembers))
++ │  └─ foreach (var parameter in constructor.GetParameters())
++ │     └─ ServiceKeyAttributeCache.ParameterHasServiceKey
++ │        └─ ReflectionCacheSet.Shared.Internal.ServiceKeyParameterAttributes.GetOrAdd
++ │           ├─ ReflectionExtensions.TryGetDeclaringProperty (depth limit)
++ │           └─ if (p.TryGetDeclaringProperty(out var property))
++ │              └─ ServiceKeyAttributeCache.PropertyHasServiceKey (depth limit)
++ ├─ foreach (var property in implementationType.GetProperties(DeclaredMembers))
++ │  └─ if (property.CanWrite)
++ │     └─ ServiceKeyAttributeCache.PropertyHasServiceKey
++ └─ if (baseType is not null && baseType != typeof(object))
++    └─ ReflectionActivator.UsesServiceKeyAttributeCached
++       └─ ReflectionCacheSet.Shared.Internal.ServiceKeyUsageByType.GetOrAdd
++          └─ ReflectionActivator.UsesServiceKeyAttribute (↺ cycle)
+```
+stderr:
