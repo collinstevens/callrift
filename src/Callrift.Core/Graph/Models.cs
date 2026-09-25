@@ -64,12 +64,13 @@ public sealed record CallGraph(
 {
     public AnalysisCoverage Coverage { get; init; } = AnalysisCoverage.SourceOnly;
     public IReadOnlyDictionary<string, IReadOnlyList<DispatchContract>> DispatchContracts { get; init; } = new Dictionary<string, IReadOnlyList<DispatchContract>>();
+    public IReadOnlyDictionary<string, DispatchTypeDefinition> TypeDefinitions { get; init; } = new Dictionary<string, DispatchTypeDefinition>();
 
     public IReadOnlyList<string> Targets(CallStep call)
     {
         if (call.SuppressDispatch || !Implementations.TryGetValue(call.Key, out var targets)) return [];
         if (call.DispatchType is null || !DispatchContracts.TryGetValue(call.Key, out var contracts)) return targets;
-        return contracts.Where(c => c.CanMatch(call.DispatchType, call.ReceiverType)).Select(c => c.Target).Distinct(StringComparer.Ordinal).Order(StringComparer.Ordinal).ToArray();
+        return contracts.Where(c => c.CanMatch(call.DispatchType, call.ReceiverType, TypeDefinitions)).Select(c => c.Target).Distinct(StringComparer.Ordinal).Order(StringComparer.Ordinal).ToArray();
     }
 }
 

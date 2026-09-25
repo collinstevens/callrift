@@ -55,11 +55,12 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
         var members = new ConcurrentBag<Member>();
         var types = new ConcurrentBag<INamedTypeSymbol>();
         var diagnostics = new ConcurrentBag<AnalysisDiagnostic>();
+        var dispatchTypes = new ConcurrentBag<ITypeSymbol>();
         Parallel.ForEach(trees, new ParallelOptions { CancellationToken = cancellationToken, MaxDegreeOfParallelism = Math.Max(1, Environment.ProcessorCount / 2) }, tree =>
         {
             var model = compilation.GetSemanticModel(tree);
             var root = tree.GetRoot(cancellationToken);
-            var collector = new CallCollector(model, symbols, diagnostics, cancellationToken);
+            var collector = new CallCollector(model, symbols, diagnostics, dispatchTypes, cancellationToken);
             foreach (var node in root.DescendantNodes())
             {
                 cancellationToken.ThrowIfCancellationRequested();
@@ -126,8 +127,8 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                 indexed[group.Key] = bodies.FirstOrDefault() ?? group.First();
         }
         var distinctTypes = types.Distinct<INamedTypeSymbol>(SymbolEqualityComparer.Default).ToArray();
-        AddInitializers(distinctTypes, compilation, indexed, symbols, diagnostics, cancellationToken);
-        var dispatch = BuildDispatchMap(distinctTypes, indexed, symbols, cancellationToken);
+        AddInitializers(distinctTypes, compilation, indexed, symbols, diagnostics, dispatchTypes, cancellationToken);
+        var dispatch = BuildDispatchMap(distinctTypes, indexed, symbols, cancellationToken, dispatchTypes);
         if (includeBodyFingerprints)
             foreach (var key in indexed.Keys.ToArray())
             {
@@ -140,11 +141,11 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
             }
         return new CallGraph(indexed, dispatch.Implementations, diagnostics.Distinct().OrderBy(d => d.Location?.Path, StringComparer.Ordinal)
             .ThenBy(d => d.Location?.Line).ThenBy(d => d.Code, StringComparer.Ordinal).ThenBy(d => d.Message, StringComparer.Ordinal).ToArray())
-        { DispatchContracts = dispatch.Contracts };
+        { DispatchContracts = dispatch.Contracts, TypeDefinitions = dispatch.TypeDefinitions };
     }
 
     private static void AddInitializers(IEnumerable<INamedTypeSymbol> types, CSharpCompilation compilation, Dictionary<string, Member> members, SymbolNames symbols,
-        ConcurrentBag<AnalysisDiagnostic> diagnostics, CancellationToken cancellationToken)
+        ConcurrentBag<AnalysisDiagnostic> diagnostics, ConcurrentBag<ITypeSymbol> dispatchTypes, CancellationToken cancellationToken)
     {
         foreach (var type in types)
         {
@@ -163,12 +164,12 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                 var key = symbols.Key(constructor);
                 members.TryGetValue(key, out var existing);
                 if (initializers.Length == 0 && syntax is not TypeDeclarationSyntax) continue;
-                var calls = initializers.SelectMany(e => new CallCollector(compilation.GetSemanticModel(e.SyntaxTree), symbols, diagnostics, cancellationToken).Collect(e)).ToList();
+                var calls = initializers.SelectMany(e => new CallCollector(compilation.GetSemanticModel(e.SyntaxTree), symbols, diagnostics, dispatchTypes, cancellationToken).Collect(e)).ToList();
                 var bodyParts = initializers.Select(e => (StatementSyntax)SyntaxFactory.ExpressionStatement(e)).ToList();
                 if (syntax is TypeDeclarationSyntax { BaseList: { } bases })
                     foreach (var primaryBase in bases.Types.OfType<PrimaryConstructorBaseTypeSyntax>())
                     {
-                        calls.AddRange(new CallCollector(compilation.GetSemanticModel(primaryBase.SyntaxTree), symbols, diagnostics, cancellationToken).Collect(primaryBase));
+                        calls.AddRange(new CallCollector(compilation.GetSemanticModel(primaryBase.SyntaxTree), symbols, diagnostics, dispatchTypes, cancellationToken).Collect(primaryBase));
                         foreach (var argument in primaryBase.ArgumentList.Arguments) bodyParts.Add(SyntaxFactory.ExpressionStatement(argument.Expression));
                     }
                 if (existing is not null)
@@ -203,8 +204,10 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
         Func<IMethodSymbol, string> scope, Func<IMethodSymbol, string, string> declaringPath, CancellationToken cancellationToken = default)
         => BuildDispatchMap(types, members, new SymbolNames(scope, declaringPath: declaringPath), cancellationToken);
 
-    private static DispatchMap BuildDispatchMap(IEnumerable<INamedTypeSymbol> types, IReadOnlyDictionary<string, Member> members, SymbolNames symbols, CancellationToken cancellationToken)
+    private static DispatchMap BuildDispatchMap(IEnumerable<INamedTypeSymbol> types, IReadOnlyDictionary<string, Member> members, SymbolNames symbols,
+        CancellationToken cancellationToken, IEnumerable<ITypeSymbol>? observedTypes = null)
     {
+        var declaredTypes = types.ToArray();
         var map = new Dictionary<string, SortedSet<string>>(StringComparer.Ordinal);
         var contracts = new Dictionary<string, List<DispatchContract>>(StringComparer.Ordinal);
         void Add(IMethodSymbol contract, IMethodSymbol implementation, IReadOnlyList<DispatchType> receiverTypes, bool includeSelf = false)
@@ -219,7 +222,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
             if (!contracts.TryGetValue(key, out var candidates)) contracts[key] = candidates = [];
             candidates.Add(new DispatchContract(target, DispatchType.From(contract.ContainingType), receiverTypes));
         }
-        foreach (var type in types)
+        foreach (var type in declaredTypes)
         {
             cancellationToken.ThrowIfCancellationRequested();
             if (type.TypeKind == TypeKind.Interface)
@@ -258,7 +261,8 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
         var implementations = map.Where(p => p.Value.Any(target => target != p.Key))
             .ToDictionary(p => p.Key, p => (IReadOnlyList<string>)p.Value.ToArray(), StringComparer.Ordinal);
         return new DispatchMap(implementations, contracts.Where(p => implementations.ContainsKey(p.Key))
-            .ToDictionary(p => p.Key, p => (IReadOnlyList<DispatchContract>)p.Value.OrderBy(c => c.Target, StringComparer.Ordinal).ToArray(), StringComparer.Ordinal));
+            .ToDictionary(p => p.Key, p => (IReadOnlyList<DispatchContract>)p.Value.OrderBy(c => c.Target, StringComparer.Ordinal).ToArray(), StringComparer.Ordinal))
+        { TypeDefinitions = DispatchTypeCatalog.Create(declaredTypes.Concat(observedTypes ?? []), cancellationToken) };
     }
 
     private static bool Overrides(IMethodSymbol method, IMethodSymbol ancestor)

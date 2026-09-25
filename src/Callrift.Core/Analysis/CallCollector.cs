@@ -6,7 +6,8 @@ using Microsoft.CodeAnalysis.Operations;
 
 namespace Callrift.Core;
 
-internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, ConcurrentBag<AnalysisDiagnostic> diagnostics, CancellationToken cancellationToken)
+internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, ConcurrentBag<AnalysisDiagnostic> diagnostics,
+    ConcurrentBag<ITypeSymbol> dispatchTypes, CancellationToken cancellationToken)
 {
     public IReadOnlyList<CallStep> Collect(SyntaxNode node)
     {
@@ -192,7 +193,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         return new CallStep("call", symbols.Key(normalized), source ? symbols.Label(normalized) : SymbolNames.SyntaxLabel(node), source, symbols.Location(node), children)
         {
             SuppressDispatch = exactReceiver,
-            DispatchType = dispatches ? DispatchType.From(method.ContainingType) : null,
+            DispatchType = dispatches ? DescribeType(method.ContainingType) : null,
             ReceiverType = dispatches ? ReceiverConstraint(receiver, node.SpanStart) : null
         };
     }
@@ -201,7 +202,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
     {
         if (receiver is null)
             return model.GetEnclosingSymbol(position, cancellationToken)?.ContainingType is { TypeKind: TypeKind.Class or TypeKind.Struct } owner
-                ? DispatchType.From(owner) : null;
+                ? DescribeType(owner) : null;
         ITypeSymbol? constraint = null;
         while (receiver is not null)
         {
@@ -220,7 +221,13 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 || !(conversion.Conversion.IsReference || conversion.Conversion.IsIdentity)) break;
             receiver = conversion.Operand.Syntax as ExpressionSyntax;
         }
-        return constraint is null ? null : DispatchType.From(constraint);
+        return constraint is null ? null : DescribeType(constraint);
+    }
+
+    private DispatchType DescribeType(ITypeSymbol type)
+    {
+        dispatchTypes.Add(type);
+        return DispatchType.From(type);
     }
 
     private void Branch(string label, SyntaxNode node, IEnumerable<SyntaxNode> bodies, List<CallStep> result)

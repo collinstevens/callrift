@@ -140,6 +140,7 @@ public static class WorkspaceAnalysis
         }
         var members = new Dictionary<string, Member>(StringComparer.Ordinal);
         var types = new List<INamedTypeSymbol>();
+        var typeDefinitions = new Dictionary<string, DispatchTypeDefinition>(StringComparer.Ordinal);
         var declaringPaths = new Dictionary<(string Scope, string Path), string>();
         var diagnostics = workspace.Diagnostics.Where(d => d.Kind == WorkspaceDiagnosticKind.Warning)
             .Where(d => d is not ProjectDiagnostic projectDiagnostic || selected.Contains(projectDiagnostic.ProjectId))
@@ -158,6 +159,7 @@ public static class WorkspaceAnalysis
             var graph = SourceOnlyAnalysisProvider.AnalyzeCompilation(item.Compilation, scope: Scope, logicalPath: LogicalPath,
                 includeBodyFingerprints: true, cancellationToken: cancellationToken);
             foreach (var member in graph.Members) members.Add(member.Key, member.Value);
+            foreach (var definition in graph.TypeDefinitions) typeDefinitions[definition.Key] = definition.Value;
             diagnostics.AddRange(graph.Diagnostics);
             foreach (var tree in item.Compilation.SyntaxTrees)
             {
@@ -193,9 +195,10 @@ public static class WorkspaceAnalysis
         var dispatch = SourceOnlyAnalysisProvider.BuildDispatchMap(types.Distinct<INamedTypeSymbol>(SymbolEqualityComparer.Default), members, Scope,
             (method, path) => declaringPaths.TryGetValue((Scope(method), path), out var logical) ? logical
                 : throw new InvalidOperationException($"Cannot identify the declaring file for {method.ToDisplayString()}."), cancellationToken);
+        foreach (var definition in dispatch.TypeDefinitions) typeDefinitions[definition.Key] = definition.Value;
         return new CallGraph(members, dispatch.Implementations, diagnostics.Distinct().OrderBy(d => d.Location?.Path, StringComparer.Ordinal)
             .ThenBy(d => d.Location?.Line).ThenBy(d => d.Code, StringComparer.Ordinal).ThenBy(d => d.Message, StringComparer.Ordinal).ToArray())
-        { Coverage = MSBuildAnalysisProvider.WorkspaceCoverage, DispatchContracts = dispatch.Contracts };
+        { Coverage = MSBuildAnalysisProvider.WorkspaceCoverage, DispatchContracts = dispatch.Contracts, TypeDefinitions = typeDefinitions };
     }
 
     private static string MetadataName(INamedTypeSymbol type) => type.ContainingType is { } containing
