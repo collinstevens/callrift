@@ -9,6 +9,8 @@ public sealed record CallTree(string Key, string Label, string MatchName, string
 
 public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, DiffOptions options)
 {
+    private readonly Dictionary<string, bool> changeReachability = new(StringComparer.Ordinal);
+
     public CallTree Expand(string key)
     {
         if (!graph.Implementations.TryGetValue(key, out var targets) || targets.Count == 0)
@@ -34,7 +36,7 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
             return new CallTree(key, member.Label, member.MatchName, member.Signature, [], false, "↺ cycle")
             { Kind = "member", Side = side, Omission = new Omission("cycle", key) };
         if (depth >= options.MaxDepth)
-            return new CallTree(key, member.Label, member.MatchName, member.Signature, [], ReachesChange(key, []), ReachesChange(key, []) ? "changes below depth limit" : "depth limit")
+            return new CallTree(key, member.Label, member.MatchName, member.Signature, [], ReachesChange(key), ReachesChange(key) ? "changes below depth limit" : "depth limit")
             { Kind = "member", Side = side, Omission = new Omission("depth-limit") };
         var path = new HashSet<string>(active, StringComparer.Ordinal) { key };
         return new CallTree(key, member.Label, member.MatchName, member.Signature, ExpandCalls(member.Calls, path, depth + 1), changed.Contains(key))
@@ -88,10 +90,28 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
         return trees;
     }
 
-    private bool ReachesChange(string key, HashSet<string> visited)
+    private bool ReachesChange(string key)
     {
+        if (changed.Count == 0) return false;
+        lock (changeReachability)
+        {
+            if (changeReachability.TryGetValue(key, out var known)) return known;
+            var visited = new HashSet<string>(StringComparer.Ordinal);
+            var result = FindChangedPath(key, visited);
+            if (!result)
+                foreach (var missing in visited) changeReachability[missing] = false;
+            return result;
+        }
+    }
+
+    private bool FindChangedPath(string key, HashSet<string> visited)
+    {
+        if (changeReachability.TryGetValue(key, out var known)) return known;
+        if (changed.Contains(key)) return changeReachability[key] = true;
         if (!visited.Add(key)) return false;
-        if (changed.Contains(key)) return true;
-        return graph.Members.TryGetValue(key, out var member) && EntrySelector.Targets(member.Calls, graph).Any(t => ReachesChange(t, visited));
+        if (graph.Members.TryGetValue(key, out var member))
+            foreach (var target in EntrySelector.Targets(member.Calls, graph))
+                if (FindChangedPath(target, visited)) return changeReachability[key] = true;
+        return false;
     }
 }

@@ -1,0 +1,717 @@
+{
+  "description": "Controlled source-mode expansion measurements with identical graph inputs and sampled output hashes across four implementations.",
+  "implementations": {
+    "baselineCommit": "78425692f2e92e2bc99ea7e5d38d2e6277cce3d7",
+    "baselineDirectory": "C:\\Users\\Admin\\AppData\\Local\\Callrift\\benchmarks\\reachability-baseline-7842569",
+    "sharedBenchmarkSha256": "6675b0977183669de49fdda6f3b72acdafcdf8637c986b0cea3def823c298afc",
+    "baselineTreeExpanderSha256": "819d7e564091ce78ba361403a2f60073c9668b37ad1cbb483e93337ca33ffa12",
+    "candidateTreeExpanderSha256": "c542698aa24af521b55b19729fdba2efb7ef92cb60a2ee91bb9d4dc4ce528faf",
+    "status": "Final synchronized cache measured and validated",
+    "candidateDirectory": "C:\\Users\\Admin\\AppData\\Local\\Callrift\\benchmarks\\reachability-candidate-7842569",
+    "memoDirectory": "C:\\Users\\Admin\\AppData\\Local\\Callrift\\benchmarks\\reachability-memo-7842569",
+    "memoTreeExpanderSha256": "51d0f6bb88a853cab185ac11400d05d07e8e5c6ac3255788928965b55508a914",
+    "finalDirectory": "C:\\Users\\Admin\\AppData\\Local\\Callrift\\benchmarks\\reachability-final-7842569",
+    "finalTreeExpanderSha256": "2d1764c5a22f3b37d119f8f94d4e94e7ab239b992075549367c1472f15ee3d27",
+    "discardedVariantPatches": {
+      "candidate": "reachability-reverse-index.patch",
+      "memo": "reachability-unsynchronized-cache.patch"
+    }
+  },
+  "gitVersion": "git version 2.55.0.windows.3",
+  "scope": {
+    "operation": "Fresh TreeExpander per invocation, shared across up to the first ten sorted automatic after-side root definitions, depth one.",
+    "emptyChangeSet": "ExpandUnchanged uses the same roots and graph with an empty change set.",
+    "setup": "Git reads, parsing, binding, change detection, root selection, and output-hash computation occur before measurement.",
+    "memory": "Managed benchmark-process allocations include expander and cache construction. No MSBuild worker participates in this source-stage measurement.",
+    "cacheConditions": "Pinned inputs already fetched; filesystem and package caches warm. Each workload uses a fresh benchmark process.",
+    "controls": "Same machine, SDK, dependency versions, benchmark source, pinned inputs and root identities. No concurrent agent builds, tests or CLI trials during measurement.",
+    "iterations": "Three warmups, fifteen requested measurements, one launch; full exports retain raw measurements and outlier decisions.",
+    "remaining": "Complete diff/tree/reach commands, graph construction stages, cold inputs, workspace stages and worker allocations remain separate requirements."
+  },
+  "workloads": [
+    {
+      "Id": "aspnetcore-header-recovery",
+      "Before": "45317bee954f2eb1e4f892c63166dec822caedae",
+      "After": "66e8a029d94b5ce2af03c2c8f8023aba1f39a093",
+      "Inputs": 11193,
+      "Members": 32487,
+      "Changed": 12,
+      "MaxDepth": 1,
+      "Roots": [
+        "source::<top-level>:src/Components/Samples/BlazorWebAppGlobal.Client/Program.cs",
+        "source::<top-level>:src/Components/Samples/BlazorWebAppPerPage.Client/Program.cs",
+        "source::<top-level>:src/Components/Testing/testassets/PackageConsumer/App/Program.cs",
+        "source::<top-level>:src/Components/Testing/testassets/TestApp.Client/Program.cs",
+        "source::<top-level>:src/Components/WebAssembly/Samples/BlazorWebAssemblyStandalone/Program.cs",
+        "source::<top-level>:src/Identity/samples/IdentitySample.PasskeyUI/Program.cs",
+        "source::<top-level>:src/Middleware/RateLimiting/samples/RateLimitingSample/Program.cs",
+        "source::<top-level>:src/ProjectTemplates/Web.ProjectTemplates/content/BlazorWeb-CSharp/BlazorWebCSharp.1.Client/Program.cs",
+        "source::<top-level>:src/ProjectTemplates/Web.ProjectTemplates/content/ComponentsWebAssembly-CSharp/Program.cs",
+        "source::<top-level>:src/Servers/HttpSys/samples/TlsFeaturesObserve/Program.cs"
+      ],
+      "ChangedTreesSha256": "93AB107468EE44CA0BA22F2189CE3FE02E3BF8B422939514041340983CD499AD",
+      "UnchangedTreesSha256": "71B8B0780023860C3F0259728F02E1CE5A98ADAC1024F0D83B55F066B2467EB1",
+      "repository": "https://github.com/dotnet/aspnetcore.git",
+      "license": "MIT",
+      "licenseFile": "LICENSE.txt",
+      "beforeLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
+      "afterLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
+      "sourceInputs": [
+        {
+          "Id": "aspnetcore-header-recovery",
+          "Revision": "45317bee954f2eb1e4f892c63166dec822caedae",
+          "Inputs": 11192,
+          "RepositoryCSharpFiles": 10471,
+          "ParsedCSharpFiles": 7213,
+          "ExcludedCSharpFiles": 3258,
+          "ParsedPathsSha256": "948B338F54470189100187AE990300DA4EAEDDDAFCC8CEAB3BB76DAABC641084"
+        },
+        {
+          "Id": "aspnetcore-header-recovery",
+          "Revision": "66e8a029d94b5ce2af03c2c8f8023aba1f39a093",
+          "Inputs": 11193,
+          "RepositoryCSharpFiles": 10472,
+          "ParsedCSharpFiles": 7214,
+          "ExcludedCSharpFiles": 3258,
+          "ParsedPathsSha256": "6998B2910AFC8A476D4CAAB8797B6F46707EEB6872A9567E712EC6FA3052B11A"
+        }
+      ]
+    },
+    {
+      "Id": "orchardcore-breadcrumbs",
+      "Before": "cd7d8430905d2f2ab3ba3aef49577d73647ccfbf",
+      "After": "4910d1722d33f1b06d9ddb1cf8f6de2aa871dc8a",
+      "Inputs": 5901,
+      "Members": 13383,
+      "Changed": 60,
+      "MaxDepth": 1,
+      "Roots": [
+        "source::AliasPartRazorHelperExtensions.GetContentItemByAliasAsync(global::OrchardCore.IOrchardHelper,string,bool)",
+        "source::AutoroutePartRazorHelperExtensions.GetContentItemBySlugAsync(global::OrchardCore.IOrchardHelper,string,bool)",
+        "source::ContentOrchardRazorHelperExtensions.DisplayAsync(global::OrchardCore.DisplayManagement.Razor.IOrchardDisplayHelper,global::OrchardCore.ContentManagement.ContentItem,string,string,global::OrchardCore.DisplayManagement.ModelBinding.IUpdateModel)",
+        "source::OrchardCore.Admin.AdminMenuFilter.OnResultExecutionAsync(ResultExecutingContext,ResultExecutionDelegate)",
+        "source::OrchardCore.Admin.Models.AdminSettings..ctor()",
+        "source::OrchardCore.AdminDashboard.Controllers.DashboardController.Index()",
+        "source::OrchardCore.AdminDashboard.Controllers.DashboardController.Manage()",
+        "source::OrchardCore.AdminDashboard.Controllers.DashboardController.Update(global::OrchardCore.AdminDashboard.ViewModels.DashboardPartViewModel[])",
+        "source::OrchardCore.AdminDashboard.Migrations.CreateAsync()",
+        "source::OrchardCore.AdminDashboard.Migrations.UpdateFrom1Async()"
+      ],
+      "ChangedTreesSha256": "09304EF239EE76D02EF58849185427F5F7E6DB8FD35ECF3AD0A7C2AA29D50CD2",
+      "UnchangedTreesSha256": "8B2AC40BE64FA17DBE0F9B826AD498C5424BBE401AA093E960429DA16AACBABF",
+      "repository": "https://github.com/OrchardCMS/OrchardCore.git",
+      "license": "BSD-3-Clause",
+      "licenseFile": "LICENSE",
+      "beforeLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
+      "afterLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
+      "sourceInputs": [
+        {
+          "Id": "orchardcore-breadcrumbs",
+          "Revision": "cd7d8430905d2f2ab3ba3aef49577d73647ccfbf",
+          "Inputs": 5881,
+          "RepositoryCSharpFiles": 5621,
+          "ParsedCSharpFiles": 5224,
+          "ExcludedCSharpFiles": 397,
+          "ParsedPathsSha256": "8867E3D0B292A5171D3C74A5C00118321D31E02AED79C57369904C612279B68B"
+        },
+        {
+          "Id": "orchardcore-breadcrumbs",
+          "Revision": "4910d1722d33f1b06d9ddb1cf8f6de2aa871dc8a",
+          "Inputs": 5901,
+          "RepositoryCSharpFiles": 5641,
+          "ParsedCSharpFiles": 5233,
+          "ExcludedCSharpFiles": 408,
+          "ParsedPathsSha256": "1411CC2E763B0A5970E32F05F674BFE5D2339FA89F82B1939FFADB909E2CD9FC"
+        }
+      ]
+    },
+    {
+      "Id": "polly-secondary-action",
+      "Before": "e6582c39e7ba10c8fbcddbfefccd7a09e8dd8aab",
+      "After": "1a80392b1f093f40e59c515f4aeb989bea5db857",
+      "Inputs": 826,
+      "Members": 2036,
+      "Changed": 9,
+      "MaxDepth": 1,
+      "Roots": [
+        "source::<top-level>:cake.cs",
+        "source::Polly.Hedging.Controller.TaskExecution<T>.InitializeAsync`1(global::Polly.Hedging.Utils.HedgedTaskType,global::Polly.ResilienceContext,global::System.Func<global::Polly.ResilienceContext, TState, global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<T>>>,TState,int)",
+        "source::Polly.Telemetry.TelemetryOptions..ctor(global::Polly.Telemetry.TelemetryOptions)",
+        "source::Program.<Main>$(string[])/GetAssemblyCoverage`0(string,string)",
+        "source::Program.<Main>$(string[])/GetCoverageAssemblyName`0(string)",
+        "source::Program.<Main>$(string[])/GetCoverageThresholds`0(string)"
+      ],
+      "ChangedTreesSha256": "2347E521C933E4A376E5C7993D83DC737E61DEEEEB37D8398D59044EF5210737",
+      "UnchangedTreesSha256": "82E4C26D9627DB1355C1DF9DB96889274B1F9D68B0954ECA19C40E0777AA7CF1",
+      "repository": "https://github.com/App-vNext/Polly.git",
+      "license": "BSD-3-Clause",
+      "licenseFile": "LICENSE",
+      "beforeLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+      "afterLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+      "sourceInputs": [
+        {
+          "Id": "polly-secondary-action",
+          "Revision": "e6582c39e7ba10c8fbcddbfefccd7a09e8dd8aab",
+          "Inputs": 822,
+          "RepositoryCSharpFiles": 797,
+          "ParsedCSharpFiles": 480,
+          "ExcludedCSharpFiles": 317,
+          "ParsedPathsSha256": "9EDBC68945E1B809E5B75A11D0FF632C4E755D9A1F69F086297C6834795AA46F"
+        },
+        {
+          "Id": "polly-secondary-action",
+          "Revision": "1a80392b1f093f40e59c515f4aeb989bea5db857",
+          "Inputs": 826,
+          "RepositoryCSharpFiles": 801,
+          "ParsedCSharpFiles": 479,
+          "ExcludedCSharpFiles": 322,
+          "ParsedPathsSha256": "7E3CE1DCFBCF4560FA25591B1E24E8F59A5A35559937776410F206BA85080F21"
+        }
+      ]
+    },
+    {
+      "Id": "serilog-alignment-guard",
+      "Before": "49b5339ce85385dc52d4d8e8f2b8308becf23506",
+      "After": "bebc7719004f76187ae72e64ce138ec2540f2070",
+      "Inputs": 224,
+      "Members": 696,
+      "Changed": 1,
+      "MaxDepth": 1,
+      "Roots": [
+        "source::Serilog.Core.Logger.Debug(global::System.Exception,string)",
+        "source::Serilog.Core.Logger.Debug(string)",
+        "source::Serilog.Core.Logger.Debug`1(global::System.Exception,string,T)",
+        "source::Serilog.Core.Logger.Debug`1(string,T)",
+        "source::Serilog.Core.Logger.Debug`2(global::System.Exception,string,T0,T1)",
+        "source::Serilog.Core.Logger.Debug`2(string,T0,T1)",
+        "source::Serilog.Core.Logger.Debug`3(global::System.Exception,string,T0,T1,T2)",
+        "source::Serilog.Core.Logger.Debug`3(string,T0,T1,T2)",
+        "source::Serilog.Core.Logger.Error(global::System.Exception,string)",
+        "source::Serilog.Core.Logger.Error(string)"
+      ],
+      "ChangedTreesSha256": "B21A3F16834B1BFBD375876CD4324C414E2BABEB5D62E4DBA15142FE69895E6E",
+      "UnchangedTreesSha256": "109127FAFCBD0A15503777E8A37A40FA368AD46D5BC3FD873D4DA72BBDAC4A76",
+      "repository": "https://github.com/serilog/serilog.git",
+      "license": "Apache-2.0",
+      "licenseFile": "LICENSE",
+      "beforeLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+      "afterLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+      "sourceInputs": [
+        {
+          "Id": "serilog-alignment-guard",
+          "Revision": "49b5339ce85385dc52d4d8e8f2b8308becf23506",
+          "Inputs": 224,
+          "RepositoryCSharpFiles": 216,
+          "ParsedCSharpFiles": 114,
+          "ExcludedCSharpFiles": 102,
+          "ParsedPathsSha256": "1C5FEFFC6C02429C8C3113C906D802F3794F0B0858C5A1AD5E8C3CA42F35EC7D"
+        },
+        {
+          "Id": "serilog-alignment-guard",
+          "Revision": "bebc7719004f76187ae72e64ce138ec2540f2070",
+          "Inputs": 224,
+          "RepositoryCSharpFiles": 216,
+          "ParsedCSharpFiles": 114,
+          "ExcludedCSharpFiles": 102,
+          "ParsedPathsSha256": "1C5FEFFC6C02429C8C3113C906D802F3794F0B0858C5A1AD5E8C3CA42F35EC7D"
+        }
+      ]
+    }
+  ],
+  "runs": [
+    {
+      "version": "baseline",
+      "startedUtc": "2026-09-25T10:18:34.468562+00:00",
+      "finishedUtc": "2026-09-25T10:25:37.793750+00:00",
+      "command": [
+        "C:\\Users\\Admin\\AppData\\Local\\mise\\dotnet-root\\dotnet.exe",
+        "run",
+        "-c",
+        "Release",
+        "--no-build",
+        "--project",
+        "benchmarks/Callrift.Benchmarks",
+        "--",
+        "--filter",
+        "*ReachabilityBenchmarks*",
+        "--warmupCount",
+        "3",
+        "--iterationCount",
+        "15",
+        "--launchCount",
+        "1",
+        "--artifacts",
+        "C:\\Users\\Admin\\projects\\collinstevens\\calldiff-dotnet\\artifacts\\reachability-baseline-controlled"
+      ],
+      "cwd": "C:\\Users\\Admin\\AppData\\Local\\Callrift\\benchmarks\\reachability-baseline-7842569",
+      "export": "reachability-windows-original.json",
+      "workloads": {
+        "aspnetcore-header-recovery": {
+          "Id": "aspnetcore-header-recovery",
+          "Before": "45317bee954f2eb1e4f892c63166dec822caedae",
+          "After": "66e8a029d94b5ce2af03c2c8f8023aba1f39a093",
+          "Inputs": 11193,
+          "Members": 32487,
+          "Changed": 12,
+          "MaxDepth": 1,
+          "Roots": [
+            "source::<top-level>:src/Components/Samples/BlazorWebAppGlobal.Client/Program.cs",
+            "source::<top-level>:src/Components/Samples/BlazorWebAppPerPage.Client/Program.cs",
+            "source::<top-level>:src/Components/Testing/testassets/PackageConsumer/App/Program.cs",
+            "source::<top-level>:src/Components/Testing/testassets/TestApp.Client/Program.cs",
+            "source::<top-level>:src/Components/WebAssembly/Samples/BlazorWebAssemblyStandalone/Program.cs",
+            "source::<top-level>:src/Identity/samples/IdentitySample.PasskeyUI/Program.cs",
+            "source::<top-level>:src/Middleware/RateLimiting/samples/RateLimitingSample/Program.cs",
+            "source::<top-level>:src/ProjectTemplates/Web.ProjectTemplates/content/BlazorWeb-CSharp/BlazorWebCSharp.1.Client/Program.cs",
+            "source::<top-level>:src/ProjectTemplates/Web.ProjectTemplates/content/ComponentsWebAssembly-CSharp/Program.cs",
+            "source::<top-level>:src/Servers/HttpSys/samples/TlsFeaturesObserve/Program.cs"
+          ],
+          "ChangedTreesSha256": "93AB107468EE44CA0BA22F2189CE3FE02E3BF8B422939514041340983CD499AD",
+          "UnchangedTreesSha256": "71B8B0780023860C3F0259728F02E1CE5A98ADAC1024F0D83B55F066B2467EB1"
+        },
+        "orchardcore-breadcrumbs": {
+          "Id": "orchardcore-breadcrumbs",
+          "Before": "cd7d8430905d2f2ab3ba3aef49577d73647ccfbf",
+          "After": "4910d1722d33f1b06d9ddb1cf8f6de2aa871dc8a",
+          "Inputs": 5901,
+          "Members": 13383,
+          "Changed": 60,
+          "MaxDepth": 1,
+          "Roots": [
+            "source::AliasPartRazorHelperExtensions.GetContentItemByAliasAsync(global::OrchardCore.IOrchardHelper,string,bool)",
+            "source::AutoroutePartRazorHelperExtensions.GetContentItemBySlugAsync(global::OrchardCore.IOrchardHelper,string,bool)",
+            "source::ContentOrchardRazorHelperExtensions.DisplayAsync(global::OrchardCore.DisplayManagement.Razor.IOrchardDisplayHelper,global::OrchardCore.ContentManagement.ContentItem,string,string,global::OrchardCore.DisplayManagement.ModelBinding.IUpdateModel)",
+            "source::OrchardCore.Admin.AdminMenuFilter.OnResultExecutionAsync(ResultExecutingContext,ResultExecutionDelegate)",
+            "source::OrchardCore.Admin.Models.AdminSettings..ctor()",
+            "source::OrchardCore.AdminDashboard.Controllers.DashboardController.Index()",
+            "source::OrchardCore.AdminDashboard.Controllers.DashboardController.Manage()",
+            "source::OrchardCore.AdminDashboard.Controllers.DashboardController.Update(global::OrchardCore.AdminDashboard.ViewModels.DashboardPartViewModel[])",
+            "source::OrchardCore.AdminDashboard.Migrations.CreateAsync()",
+            "source::OrchardCore.AdminDashboard.Migrations.UpdateFrom1Async()"
+          ],
+          "ChangedTreesSha256": "09304EF239EE76D02EF58849185427F5F7E6DB8FD35ECF3AD0A7C2AA29D50CD2",
+          "UnchangedTreesSha256": "8B2AC40BE64FA17DBE0F9B826AD498C5424BBE401AA093E960429DA16AACBABF"
+        },
+        "polly-secondary-action": {
+          "Id": "polly-secondary-action",
+          "Before": "e6582c39e7ba10c8fbcddbfefccd7a09e8dd8aab",
+          "After": "1a80392b1f093f40e59c515f4aeb989bea5db857",
+          "Inputs": 826,
+          "Members": 2036,
+          "Changed": 9,
+          "MaxDepth": 1,
+          "Roots": [
+            "source::<top-level>:cake.cs",
+            "source::Polly.Hedging.Controller.TaskExecution<T>.InitializeAsync`1(global::Polly.Hedging.Utils.HedgedTaskType,global::Polly.ResilienceContext,global::System.Func<global::Polly.ResilienceContext, TState, global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<T>>>,TState,int)",
+            "source::Polly.Telemetry.TelemetryOptions..ctor(global::Polly.Telemetry.TelemetryOptions)",
+            "source::Program.<Main>$(string[])/GetAssemblyCoverage`0(string,string)",
+            "source::Program.<Main>$(string[])/GetCoverageAssemblyName`0(string)",
+            "source::Program.<Main>$(string[])/GetCoverageThresholds`0(string)"
+          ],
+          "ChangedTreesSha256": "2347E521C933E4A376E5C7993D83DC737E61DEEEEB37D8398D59044EF5210737",
+          "UnchangedTreesSha256": "82E4C26D9627DB1355C1DF9DB96889274B1F9D68B0954ECA19C40E0777AA7CF1"
+        },
+        "serilog-alignment-guard": {
+          "Id": "serilog-alignment-guard",
+          "Before": "49b5339ce85385dc52d4d8e8f2b8308becf23506",
+          "After": "bebc7719004f76187ae72e64ce138ec2540f2070",
+          "Inputs": 224,
+          "Members": 696,
+          "Changed": 1,
+          "MaxDepth": 1,
+          "Roots": [
+            "source::Serilog.Core.Logger.Debug(global::System.Exception,string)",
+            "source::Serilog.Core.Logger.Debug(string)",
+            "source::Serilog.Core.Logger.Debug`1(global::System.Exception,string,T)",
+            "source::Serilog.Core.Logger.Debug`1(string,T)",
+            "source::Serilog.Core.Logger.Debug`2(global::System.Exception,string,T0,T1)",
+            "source::Serilog.Core.Logger.Debug`2(string,T0,T1)",
+            "source::Serilog.Core.Logger.Debug`3(global::System.Exception,string,T0,T1,T2)",
+            "source::Serilog.Core.Logger.Debug`3(string,T0,T1,T2)",
+            "source::Serilog.Core.Logger.Error(global::System.Exception,string)",
+            "source::Serilog.Core.Logger.Error(string)"
+          ],
+          "ChangedTreesSha256": "B21A3F16834B1BFBD375876CD4324C414E2BABEB5D62E4DBA15142FE69895E6E",
+          "UnchangedTreesSha256": "109127FAFCBD0A15503777E8A37A40FA368AD46D5BC3FD873D4DA72BBDAC4A76"
+        }
+      },
+      "originalExportSha256": "99311f2a415313c3e95d886fbf7d3f57fc174e7b02e91c8d8ab5b360dd572cb0",
+      "committedExportSha256": "6d60f275b36a49940ce71aaffb137097bc835f71fbf1ea6a3a46a1c65a92920c"
+    },
+    {
+      "version": "candidate",
+      "startedUtc": "2026-09-25T10:25:37.794739+00:00",
+      "finishedUtc": "2026-09-25T10:32:05.135599+00:00",
+      "command": [
+        "C:\\Users\\Admin\\AppData\\Local\\mise\\dotnet-root\\dotnet.exe",
+        "run",
+        "-c",
+        "Release",
+        "--no-build",
+        "--project",
+        "benchmarks/Callrift.Benchmarks",
+        "--",
+        "--filter",
+        "*ReachabilityBenchmarks*",
+        "--warmupCount",
+        "3",
+        "--iterationCount",
+        "15",
+        "--launchCount",
+        "1",
+        "--artifacts",
+        "C:\\Users\\Admin\\projects\\collinstevens\\calldiff-dotnet\\artifacts\\reachability-candidate-controlled"
+      ],
+      "cwd": "C:\\Users\\Admin\\AppData\\Local\\Callrift\\benchmarks\\reachability-candidate-7842569",
+      "export": "reachability-windows-reverse-index.json",
+      "workloads": {
+        "aspnetcore-header-recovery": {
+          "Id": "aspnetcore-header-recovery",
+          "Before": "45317bee954f2eb1e4f892c63166dec822caedae",
+          "After": "66e8a029d94b5ce2af03c2c8f8023aba1f39a093",
+          "Inputs": 11193,
+          "Members": 32487,
+          "Changed": 12,
+          "MaxDepth": 1,
+          "Roots": [
+            "source::<top-level>:src/Components/Samples/BlazorWebAppGlobal.Client/Program.cs",
+            "source::<top-level>:src/Components/Samples/BlazorWebAppPerPage.Client/Program.cs",
+            "source::<top-level>:src/Components/Testing/testassets/PackageConsumer/App/Program.cs",
+            "source::<top-level>:src/Components/Testing/testassets/TestApp.Client/Program.cs",
+            "source::<top-level>:src/Components/WebAssembly/Samples/BlazorWebAssemblyStandalone/Program.cs",
+            "source::<top-level>:src/Identity/samples/IdentitySample.PasskeyUI/Program.cs",
+            "source::<top-level>:src/Middleware/RateLimiting/samples/RateLimitingSample/Program.cs",
+            "source::<top-level>:src/ProjectTemplates/Web.ProjectTemplates/content/BlazorWeb-CSharp/BlazorWebCSharp.1.Client/Program.cs",
+            "source::<top-level>:src/ProjectTemplates/Web.ProjectTemplates/content/ComponentsWebAssembly-CSharp/Program.cs",
+            "source::<top-level>:src/Servers/HttpSys/samples/TlsFeaturesObserve/Program.cs"
+          ],
+          "ChangedTreesSha256": "93AB107468EE44CA0BA22F2189CE3FE02E3BF8B422939514041340983CD499AD",
+          "UnchangedTreesSha256": "71B8B0780023860C3F0259728F02E1CE5A98ADAC1024F0D83B55F066B2467EB1"
+        },
+        "orchardcore-breadcrumbs": {
+          "Id": "orchardcore-breadcrumbs",
+          "Before": "cd7d8430905d2f2ab3ba3aef49577d73647ccfbf",
+          "After": "4910d1722d33f1b06d9ddb1cf8f6de2aa871dc8a",
+          "Inputs": 5901,
+          "Members": 13383,
+          "Changed": 60,
+          "MaxDepth": 1,
+          "Roots": [
+            "source::AliasPartRazorHelperExtensions.GetContentItemByAliasAsync(global::OrchardCore.IOrchardHelper,string,bool)",
+            "source::AutoroutePartRazorHelperExtensions.GetContentItemBySlugAsync(global::OrchardCore.IOrchardHelper,string,bool)",
+            "source::ContentOrchardRazorHelperExtensions.DisplayAsync(global::OrchardCore.DisplayManagement.Razor.IOrchardDisplayHelper,global::OrchardCore.ContentManagement.ContentItem,string,string,global::OrchardCore.DisplayManagement.ModelBinding.IUpdateModel)",
+            "source::OrchardCore.Admin.AdminMenuFilter.OnResultExecutionAsync(ResultExecutingContext,ResultExecutionDelegate)",
+            "source::OrchardCore.Admin.Models.AdminSettings..ctor()",
+            "source::OrchardCore.AdminDashboard.Controllers.DashboardController.Index()",
+            "source::OrchardCore.AdminDashboard.Controllers.DashboardController.Manage()",
+            "source::OrchardCore.AdminDashboard.Controllers.DashboardController.Update(global::OrchardCore.AdminDashboard.ViewModels.DashboardPartViewModel[])",
+            "source::OrchardCore.AdminDashboard.Migrations.CreateAsync()",
+            "source::OrchardCore.AdminDashboard.Migrations.UpdateFrom1Async()"
+          ],
+          "ChangedTreesSha256": "09304EF239EE76D02EF58849185427F5F7E6DB8FD35ECF3AD0A7C2AA29D50CD2",
+          "UnchangedTreesSha256": "8B2AC40BE64FA17DBE0F9B826AD498C5424BBE401AA093E960429DA16AACBABF"
+        },
+        "polly-secondary-action": {
+          "Id": "polly-secondary-action",
+          "Before": "e6582c39e7ba10c8fbcddbfefccd7a09e8dd8aab",
+          "After": "1a80392b1f093f40e59c515f4aeb989bea5db857",
+          "Inputs": 826,
+          "Members": 2036,
+          "Changed": 9,
+          "MaxDepth": 1,
+          "Roots": [
+            "source::<top-level>:cake.cs",
+            "source::Polly.Hedging.Controller.TaskExecution<T>.InitializeAsync`1(global::Polly.Hedging.Utils.HedgedTaskType,global::Polly.ResilienceContext,global::System.Func<global::Polly.ResilienceContext, TState, global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<T>>>,TState,int)",
+            "source::Polly.Telemetry.TelemetryOptions..ctor(global::Polly.Telemetry.TelemetryOptions)",
+            "source::Program.<Main>$(string[])/GetAssemblyCoverage`0(string,string)",
+            "source::Program.<Main>$(string[])/GetCoverageAssemblyName`0(string)",
+            "source::Program.<Main>$(string[])/GetCoverageThresholds`0(string)"
+          ],
+          "ChangedTreesSha256": "2347E521C933E4A376E5C7993D83DC737E61DEEEEB37D8398D59044EF5210737",
+          "UnchangedTreesSha256": "82E4C26D9627DB1355C1DF9DB96889274B1F9D68B0954ECA19C40E0777AA7CF1"
+        },
+        "serilog-alignment-guard": {
+          "Id": "serilog-alignment-guard",
+          "Before": "49b5339ce85385dc52d4d8e8f2b8308becf23506",
+          "After": "bebc7719004f76187ae72e64ce138ec2540f2070",
+          "Inputs": 224,
+          "Members": 696,
+          "Changed": 1,
+          "MaxDepth": 1,
+          "Roots": [
+            "source::Serilog.Core.Logger.Debug(global::System.Exception,string)",
+            "source::Serilog.Core.Logger.Debug(string)",
+            "source::Serilog.Core.Logger.Debug`1(global::System.Exception,string,T)",
+            "source::Serilog.Core.Logger.Debug`1(string,T)",
+            "source::Serilog.Core.Logger.Debug`2(global::System.Exception,string,T0,T1)",
+            "source::Serilog.Core.Logger.Debug`2(string,T0,T1)",
+            "source::Serilog.Core.Logger.Debug`3(global::System.Exception,string,T0,T1,T2)",
+            "source::Serilog.Core.Logger.Debug`3(string,T0,T1,T2)",
+            "source::Serilog.Core.Logger.Error(global::System.Exception,string)",
+            "source::Serilog.Core.Logger.Error(string)"
+          ],
+          "ChangedTreesSha256": "B21A3F16834B1BFBD375876CD4324C414E2BABEB5D62E4DBA15142FE69895E6E",
+          "UnchangedTreesSha256": "109127FAFCBD0A15503777E8A37A40FA368AD46D5BC3FD873D4DA72BBDAC4A76"
+        }
+      },
+      "originalExportSha256": "2f026b6f6950466a36b4a00b9e7153b0fae523ea6b16aa9ab5dab4bd63a9cead",
+      "committedExportSha256": "9f182e21284d7ac3bf59c31b4105bcaed7bba53be17ccbfdecd7c2f41d647d19"
+    },
+    {
+      "version": "memo",
+      "startedUtc": "2026-09-25T10:49:22.229493+00:00",
+      "finishedUtc": "2026-09-25T10:55:31.986727+00:00",
+      "command": [
+        "C:\\Users\\Admin\\AppData\\Local\\mise\\dotnet-root\\dotnet.exe",
+        "run",
+        "-c",
+        "Release",
+        "--no-build",
+        "--project",
+        "benchmarks/Callrift.Benchmarks",
+        "--",
+        "--filter",
+        "*ReachabilityBenchmarks*",
+        "--warmupCount",
+        "3",
+        "--iterationCount",
+        "15",
+        "--launchCount",
+        "1",
+        "--artifacts",
+        "C:\\Users\\Admin\\projects\\collinstevens\\calldiff-dotnet\\artifacts\\reachability-memo-controlled"
+      ],
+      "cwd": "C:\\Users\\Admin\\AppData\\Local\\Callrift\\benchmarks\\reachability-memo-7842569",
+      "export": "reachability-windows-unsynchronized-cache.json",
+      "workloads": {
+        "aspnetcore-header-recovery": {
+          "Id": "aspnetcore-header-recovery",
+          "Before": "45317bee954f2eb1e4f892c63166dec822caedae",
+          "After": "66e8a029d94b5ce2af03c2c8f8023aba1f39a093",
+          "Inputs": 11193,
+          "Members": 32487,
+          "Changed": 12,
+          "MaxDepth": 1,
+          "Roots": [
+            "source::<top-level>:src/Components/Samples/BlazorWebAppGlobal.Client/Program.cs",
+            "source::<top-level>:src/Components/Samples/BlazorWebAppPerPage.Client/Program.cs",
+            "source::<top-level>:src/Components/Testing/testassets/PackageConsumer/App/Program.cs",
+            "source::<top-level>:src/Components/Testing/testassets/TestApp.Client/Program.cs",
+            "source::<top-level>:src/Components/WebAssembly/Samples/BlazorWebAssemblyStandalone/Program.cs",
+            "source::<top-level>:src/Identity/samples/IdentitySample.PasskeyUI/Program.cs",
+            "source::<top-level>:src/Middleware/RateLimiting/samples/RateLimitingSample/Program.cs",
+            "source::<top-level>:src/ProjectTemplates/Web.ProjectTemplates/content/BlazorWeb-CSharp/BlazorWebCSharp.1.Client/Program.cs",
+            "source::<top-level>:src/ProjectTemplates/Web.ProjectTemplates/content/ComponentsWebAssembly-CSharp/Program.cs",
+            "source::<top-level>:src/Servers/HttpSys/samples/TlsFeaturesObserve/Program.cs"
+          ],
+          "ChangedTreesSha256": "93AB107468EE44CA0BA22F2189CE3FE02E3BF8B422939514041340983CD499AD",
+          "UnchangedTreesSha256": "71B8B0780023860C3F0259728F02E1CE5A98ADAC1024F0D83B55F066B2467EB1"
+        },
+        "orchardcore-breadcrumbs": {
+          "Id": "orchardcore-breadcrumbs",
+          "Before": "cd7d8430905d2f2ab3ba3aef49577d73647ccfbf",
+          "After": "4910d1722d33f1b06d9ddb1cf8f6de2aa871dc8a",
+          "Inputs": 5901,
+          "Members": 13383,
+          "Changed": 60,
+          "MaxDepth": 1,
+          "Roots": [
+            "source::AliasPartRazorHelperExtensions.GetContentItemByAliasAsync(global::OrchardCore.IOrchardHelper,string,bool)",
+            "source::AutoroutePartRazorHelperExtensions.GetContentItemBySlugAsync(global::OrchardCore.IOrchardHelper,string,bool)",
+            "source::ContentOrchardRazorHelperExtensions.DisplayAsync(global::OrchardCore.DisplayManagement.Razor.IOrchardDisplayHelper,global::OrchardCore.ContentManagement.ContentItem,string,string,global::OrchardCore.DisplayManagement.ModelBinding.IUpdateModel)",
+            "source::OrchardCore.Admin.AdminMenuFilter.OnResultExecutionAsync(ResultExecutingContext,ResultExecutionDelegate)",
+            "source::OrchardCore.Admin.Models.AdminSettings..ctor()",
+            "source::OrchardCore.AdminDashboard.Controllers.DashboardController.Index()",
+            "source::OrchardCore.AdminDashboard.Controllers.DashboardController.Manage()",
+            "source::OrchardCore.AdminDashboard.Controllers.DashboardController.Update(global::OrchardCore.AdminDashboard.ViewModels.DashboardPartViewModel[])",
+            "source::OrchardCore.AdminDashboard.Migrations.CreateAsync()",
+            "source::OrchardCore.AdminDashboard.Migrations.UpdateFrom1Async()"
+          ],
+          "ChangedTreesSha256": "09304EF239EE76D02EF58849185427F5F7E6DB8FD35ECF3AD0A7C2AA29D50CD2",
+          "UnchangedTreesSha256": "8B2AC40BE64FA17DBE0F9B826AD498C5424BBE401AA093E960429DA16AACBABF"
+        },
+        "polly-secondary-action": {
+          "Id": "polly-secondary-action",
+          "Before": "e6582c39e7ba10c8fbcddbfefccd7a09e8dd8aab",
+          "After": "1a80392b1f093f40e59c515f4aeb989bea5db857",
+          "Inputs": 826,
+          "Members": 2036,
+          "Changed": 9,
+          "MaxDepth": 1,
+          "Roots": [
+            "source::<top-level>:cake.cs",
+            "source::Polly.Hedging.Controller.TaskExecution<T>.InitializeAsync`1(global::Polly.Hedging.Utils.HedgedTaskType,global::Polly.ResilienceContext,global::System.Func<global::Polly.ResilienceContext, TState, global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<T>>>,TState,int)",
+            "source::Polly.Telemetry.TelemetryOptions..ctor(global::Polly.Telemetry.TelemetryOptions)",
+            "source::Program.<Main>$(string[])/GetAssemblyCoverage`0(string,string)",
+            "source::Program.<Main>$(string[])/GetCoverageAssemblyName`0(string)",
+            "source::Program.<Main>$(string[])/GetCoverageThresholds`0(string)"
+          ],
+          "ChangedTreesSha256": "2347E521C933E4A376E5C7993D83DC737E61DEEEEB37D8398D59044EF5210737",
+          "UnchangedTreesSha256": "82E4C26D9627DB1355C1DF9DB96889274B1F9D68B0954ECA19C40E0777AA7CF1"
+        },
+        "serilog-alignment-guard": {
+          "Id": "serilog-alignment-guard",
+          "Before": "49b5339ce85385dc52d4d8e8f2b8308becf23506",
+          "After": "bebc7719004f76187ae72e64ce138ec2540f2070",
+          "Inputs": 224,
+          "Members": 696,
+          "Changed": 1,
+          "MaxDepth": 1,
+          "Roots": [
+            "source::Serilog.Core.Logger.Debug(global::System.Exception,string)",
+            "source::Serilog.Core.Logger.Debug(string)",
+            "source::Serilog.Core.Logger.Debug`1(global::System.Exception,string,T)",
+            "source::Serilog.Core.Logger.Debug`1(string,T)",
+            "source::Serilog.Core.Logger.Debug`2(global::System.Exception,string,T0,T1)",
+            "source::Serilog.Core.Logger.Debug`2(string,T0,T1)",
+            "source::Serilog.Core.Logger.Debug`3(global::System.Exception,string,T0,T1,T2)",
+            "source::Serilog.Core.Logger.Debug`3(string,T0,T1,T2)",
+            "source::Serilog.Core.Logger.Error(global::System.Exception,string)",
+            "source::Serilog.Core.Logger.Error(string)"
+          ],
+          "ChangedTreesSha256": "B21A3F16834B1BFBD375876CD4324C414E2BABEB5D62E4DBA15142FE69895E6E",
+          "UnchangedTreesSha256": "109127FAFCBD0A15503777E8A37A40FA368AD46D5BC3FD873D4DA72BBDAC4A76"
+        }
+      },
+      "originalExportSha256": "512630d011f18947d73976b25dd0c442037ea834f074518cff6eac9d8802bef9",
+      "committedExportSha256": "47c89981d3b6df4b4e325151685a2f5bf1ad6888219a4d3002a5fd4428ffba12"
+    },
+    {
+      "version": "final",
+      "startedUtc": "2026-09-25T11:04:52.298194+00:00",
+      "finishedUtc": "2026-09-25T11:11:05.979839+00:00",
+      "command": [
+        "C:\\Users\\Admin\\AppData\\Local\\mise\\dotnet-root\\dotnet.exe",
+        "run",
+        "-c",
+        "Release",
+        "--no-build",
+        "--project",
+        "benchmarks/Callrift.Benchmarks",
+        "--",
+        "--filter",
+        "*ReachabilityBenchmarks*",
+        "--warmupCount",
+        "3",
+        "--iterationCount",
+        "15",
+        "--launchCount",
+        "1",
+        "--artifacts",
+        "C:\\Users\\Admin\\projects\\collinstevens\\calldiff-dotnet\\artifacts\\reachability-final-controlled"
+      ],
+      "cwd": "C:\\Users\\Admin\\AppData\\Local\\Callrift\\benchmarks\\reachability-final-7842569",
+      "export": "reachability-windows-cache.json",
+      "workloads": {
+        "aspnetcore-header-recovery": {
+          "Id": "aspnetcore-header-recovery",
+          "Before": "45317bee954f2eb1e4f892c63166dec822caedae",
+          "After": "66e8a029d94b5ce2af03c2c8f8023aba1f39a093",
+          "Inputs": 11193,
+          "Members": 32487,
+          "Changed": 12,
+          "MaxDepth": 1,
+          "Roots": [
+            "source::<top-level>:src/Components/Samples/BlazorWebAppGlobal.Client/Program.cs",
+            "source::<top-level>:src/Components/Samples/BlazorWebAppPerPage.Client/Program.cs",
+            "source::<top-level>:src/Components/Testing/testassets/PackageConsumer/App/Program.cs",
+            "source::<top-level>:src/Components/Testing/testassets/TestApp.Client/Program.cs",
+            "source::<top-level>:src/Components/WebAssembly/Samples/BlazorWebAssemblyStandalone/Program.cs",
+            "source::<top-level>:src/Identity/samples/IdentitySample.PasskeyUI/Program.cs",
+            "source::<top-level>:src/Middleware/RateLimiting/samples/RateLimitingSample/Program.cs",
+            "source::<top-level>:src/ProjectTemplates/Web.ProjectTemplates/content/BlazorWeb-CSharp/BlazorWebCSharp.1.Client/Program.cs",
+            "source::<top-level>:src/ProjectTemplates/Web.ProjectTemplates/content/ComponentsWebAssembly-CSharp/Program.cs",
+            "source::<top-level>:src/Servers/HttpSys/samples/TlsFeaturesObserve/Program.cs"
+          ],
+          "ChangedTreesSha256": "93AB107468EE44CA0BA22F2189CE3FE02E3BF8B422939514041340983CD499AD",
+          "UnchangedTreesSha256": "71B8B0780023860C3F0259728F02E1CE5A98ADAC1024F0D83B55F066B2467EB1"
+        },
+        "orchardcore-breadcrumbs": {
+          "Id": "orchardcore-breadcrumbs",
+          "Before": "cd7d8430905d2f2ab3ba3aef49577d73647ccfbf",
+          "After": "4910d1722d33f1b06d9ddb1cf8f6de2aa871dc8a",
+          "Inputs": 5901,
+          "Members": 13383,
+          "Changed": 60,
+          "MaxDepth": 1,
+          "Roots": [
+            "source::AliasPartRazorHelperExtensions.GetContentItemByAliasAsync(global::OrchardCore.IOrchardHelper,string,bool)",
+            "source::AutoroutePartRazorHelperExtensions.GetContentItemBySlugAsync(global::OrchardCore.IOrchardHelper,string,bool)",
+            "source::ContentOrchardRazorHelperExtensions.DisplayAsync(global::OrchardCore.DisplayManagement.Razor.IOrchardDisplayHelper,global::OrchardCore.ContentManagement.ContentItem,string,string,global::OrchardCore.DisplayManagement.ModelBinding.IUpdateModel)",
+            "source::OrchardCore.Admin.AdminMenuFilter.OnResultExecutionAsync(ResultExecutingContext,ResultExecutionDelegate)",
+            "source::OrchardCore.Admin.Models.AdminSettings..ctor()",
+            "source::OrchardCore.AdminDashboard.Controllers.DashboardController.Index()",
+            "source::OrchardCore.AdminDashboard.Controllers.DashboardController.Manage()",
+            "source::OrchardCore.AdminDashboard.Controllers.DashboardController.Update(global::OrchardCore.AdminDashboard.ViewModels.DashboardPartViewModel[])",
+            "source::OrchardCore.AdminDashboard.Migrations.CreateAsync()",
+            "source::OrchardCore.AdminDashboard.Migrations.UpdateFrom1Async()"
+          ],
+          "ChangedTreesSha256": "09304EF239EE76D02EF58849185427F5F7E6DB8FD35ECF3AD0A7C2AA29D50CD2",
+          "UnchangedTreesSha256": "8B2AC40BE64FA17DBE0F9B826AD498C5424BBE401AA093E960429DA16AACBABF"
+        },
+        "polly-secondary-action": {
+          "Id": "polly-secondary-action",
+          "Before": "e6582c39e7ba10c8fbcddbfefccd7a09e8dd8aab",
+          "After": "1a80392b1f093f40e59c515f4aeb989bea5db857",
+          "Inputs": 826,
+          "Members": 2036,
+          "Changed": 9,
+          "MaxDepth": 1,
+          "Roots": [
+            "source::<top-level>:cake.cs",
+            "source::Polly.Hedging.Controller.TaskExecution<T>.InitializeAsync`1(global::Polly.Hedging.Utils.HedgedTaskType,global::Polly.ResilienceContext,global::System.Func<global::Polly.ResilienceContext, TState, global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<T>>>,TState,int)",
+            "source::Polly.Telemetry.TelemetryOptions..ctor(global::Polly.Telemetry.TelemetryOptions)",
+            "source::Program.<Main>$(string[])/GetAssemblyCoverage`0(string,string)",
+            "source::Program.<Main>$(string[])/GetCoverageAssemblyName`0(string)",
+            "source::Program.<Main>$(string[])/GetCoverageThresholds`0(string)"
+          ],
+          "ChangedTreesSha256": "2347E521C933E4A376E5C7993D83DC737E61DEEEEB37D8398D59044EF5210737",
+          "UnchangedTreesSha256": "82E4C26D9627DB1355C1DF9DB96889274B1F9D68B0954ECA19C40E0777AA7CF1"
+        },
+        "serilog-alignment-guard": {
+          "Id": "serilog-alignment-guard",
+          "Before": "49b5339ce85385dc52d4d8e8f2b8308becf23506",
+          "After": "bebc7719004f76187ae72e64ce138ec2540f2070",
+          "Inputs": 224,
+          "Members": 696,
+          "Changed": 1,
+          "MaxDepth": 1,
+          "Roots": [
+            "source::Serilog.Core.Logger.Debug(global::System.Exception,string)",
+            "source::Serilog.Core.Logger.Debug(string)",
+            "source::Serilog.Core.Logger.Debug`1(global::System.Exception,string,T)",
+            "source::Serilog.Core.Logger.Debug`1(string,T)",
+            "source::Serilog.Core.Logger.Debug`2(global::System.Exception,string,T0,T1)",
+            "source::Serilog.Core.Logger.Debug`2(string,T0,T1)",
+            "source::Serilog.Core.Logger.Debug`3(global::System.Exception,string,T0,T1,T2)",
+            "source::Serilog.Core.Logger.Debug`3(string,T0,T1,T2)",
+            "source::Serilog.Core.Logger.Error(global::System.Exception,string)",
+            "source::Serilog.Core.Logger.Error(string)"
+          ],
+          "ChangedTreesSha256": "B21A3F16834B1BFBD375876CD4324C414E2BABEB5D62E4DBA15142FE69895E6E",
+          "UnchangedTreesSha256": "109127FAFCBD0A15503777E8A37A40FA368AD46D5BC3FD873D4DA72BBDAC4A76"
+        }
+      },
+      "originalExportSha256": "3b87244828b882a4ad4332d359cb917940ac1255c5bbb0efc7f5c5f4f91761b2",
+      "committedExportSha256": "5ee7ec0cc2734bd9b2f2847e6a366d4c1bad5b87d01da0325663366196e07c5b"
+    }
+  ],
+  "validation": {
+    "sampledOutputs": "All eight complete sampled-tree hashes match every implementation and repeat setup.",
+    "semanticAlgorithm": "All 51 existing real-world checks and 22 workspace checks passed the selective cache before synchronization was added.",
+    "finalTargetedScenarios": 58,
+    "finalExhaustiveGraphChecks": 12288,
+    "finalConcurrentExpansions": 30720,
+    "concurrencyControl": "Original implementation passed; unsynchronized memoization failed immediately with dictionary corruption; synchronized implementation passed.",
+    "fullHeaderOutput": {
+      "before": "45317bee954f2eb1e4f892c63166dec822caedae",
+      "after": "66e8a029d94b5ce2af03c2c8f8023aba1f39a093",
+      "comparison": "reverse-index diagnostic trial versus final synchronized memoization",
+      "equalBytes": true,
+      "length": 64782522,
+      "sha256": "9c05be61fd66a3a3aa1c89e89c612747b0a1f39b7e545868ee4dd4571fe1b864"
+    },
+    "packageAndFormatting": "Final package smoke and formatting passed.",
+    "largeCorpusCases": "The two larger benchmark pairs remain unaccepted corpus candidates."
+  }
+}

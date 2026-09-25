@@ -24,7 +24,7 @@ M4 adds fresh-process tree/reach measurements and refreshes the [command baselin
 
 The scheduled benchmark workflow flags time above 2x or allocations above 1.5x the checked-in baseline. Warnings request review rather than failing on different hosted hardware. Exported measurements remain artifacts for investigation.
 
-Medium/large workloads, finer workspace-stage floors, and cold restore measurements remain follow-up work. The prototype's 30 seconds for about 5,000 files has not been reproduced by this small workload.
+Complete medium/large command workloads, finer workspace-stage floors, and cold restore measurements remain follow-up work. The prototype's 30 seconds for about 5,000 files has not been reproduced by this small workload.
 
 The .NET 11 suite pins BenchmarkDotNet 0.16.0-preview.2. Version 0.15.8 fails during runtime recognition on net11.0. Use the same BenchmarkDotNet package and managed SDK for before/after comparisons; older .NET 10 exports are historical baselines.
 
@@ -50,3 +50,24 @@ The controlled Windows Git comparison uses the original reader at `f0e83a85c79be
 Batching reduced this local-transport cold blob stage by approximately 9.3x for Serilog and 11.2x for Polly. The warm-time confidence intervals overlap; the experiment establishes no material warm-time change. Managed parent allocation increases by about 82 KB for the warm operation and 606–608 KB for the cold operations. The extra process environment, missing-input bookkeeping, and fetch/probe output contribute to these allocations; native Git heaps remain unmeasured.
 
 An initial version probed every blob before reading. It measured 278.79 ms warm against an initial 199.60 ms baseline, a 39.7% penalty. The final version reads available blobs first with child-process lazy fetching disabled, then probes and hydrates only missing inputs. A repeated baseline measured 206.45 ms before the final 205.18 ms run. The initial version's complete exports are retained so the overhead investigation is reproducible; reconstruct it by applying the [initial reader patch](baselines/git-batching-probe-first.patch) to the baseline with `git apply --unidiff-zero`, using the same benchmark code and dependencies. These measurements establish a Git-stage improvement only. They do not establish full-command speedups, network performance, or the required large-repository analysis result.
+
+`ReachabilityBenchmarks` isolates depth-one expansion on four pinned source graphs. Each invocation creates an expander shared across the first ten sorted automatic after-side roots, or all six for Polly. Setup analyzes both revisions and selects roots outside measurement. `ExpandChanged` uses the detected changes; `ExpandUnchanged` uses the same graph and roots with an empty change set.
+
+```sh
+mise run benchmark -- --filter '*ReachabilityBenchmarks*' --warmupCount 3 --iterationCount 15 --launchCount 1
+```
+
+The controlled Windows comparison uses original commit `78425692f2e92e2bc99ea7e5d38d2e6277cce3d7`, identical benchmark source, and SDK 11.0.100-rc.1.26425.128 on a Ryzen 9 7950X3D. Every run requested fifteen measurements after three warmups with no concurrent validation work. Values are means with one standard deviation. The [metadata](baselines/reachability-windows-metadata.json) records full revision pins, license blobs, parsed inputs, root identities, output hashes, commands, implementation hashes, and all four exports.
+
+| Changed-root sample | Original expansion | Synchronized cache | Managed allocation, original → final |
+|---|---:|---:|---:|
+| Serilog, 114 parsed C# files | 0.08165 ± 0.00083 ms | 0.00996 ± 0.00018 ms | 214,600 → 25,192 bytes |
+| Polly, 479 parsed C# files | 0.16223 ± 0.00138 ms | 0.05913 ± 0.00040 ms | 473,592 → 173,768 bytes |
+| OrchardCore, 5,233 parsed C# files | 19.075 ± 0.134 ms | 2.757 ± 0.068 ms | 36,265,224 → 5,084,024 bytes |
+| ASP.NET Core, 7,214 parsed C# files | 1,657.674 ± 46.801 ms | 23.543 ± 0.479 ms | 4,654,482,416 → 60,220,152 bytes |
+
+Caching requested reachability reduces these sampled expansion times by 8.2x, 2.7x, 6.9x, and 70.4x respectively. Empty-change expansion avoids traversal entirely; its final means are 0.00309, 0.02547, 0.01997, and 0.03332 ms. Full original and final distributions and allocations are retained in the [original export](baselines/reachability-windows-original.json) and [final export](baselines/reachability-windows-cache.json). All eight complete sampled-tree hashes match across all four implementations.
+
+An initial full reverse index improved ASP.NET Core but increased changed-root time on the other three graphs. Its [export](baselines/reachability-windows-reverse-index.json) and [reproduction patch](baselines/reachability-reverse-index.patch) are retained. Selective caching fixed that overhead, but the first cache corrupted its dictionary during concurrent public API calls. Its [export](baselines/reachability-windows-unsynchronized-cache.json) and [patch](baselines/reachability-unsynchronized-cache.patch) document the rejected variant. Apply either patch to the original commit with the shared benchmark source to reproduce it. The final cache synchronizes reachability searches and passes the concurrent expansion regression.
+
+These measurements cover an isolated expansion stage with warm inputs. They exclude graph construction, command startup, rendering, and MSBuild workers. The two larger pairs remain unaccepted corpus candidates. Neither the sampled timings nor their file counts establish the required complete 5,000-file comparison or full-command speedups. See the [correctness review](../real-world-cases/reviews/depth-reachability.md) for cycle, concurrency, and output checks.

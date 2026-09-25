@@ -1,0 +1,48 @@
+diff --git a/src/Callrift.Core/Diffing/TreeExpander.cs b/src/Callrift.Core/Diffing/TreeExpander.cs
+--- a/src/Callrift.Core/Diffing/TreeExpander.cs
++++ b/src/Callrift.Core/Diffing/TreeExpander.cs
+@@ -9,6 +9,8 @@
+ 
+ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, DiffOptions options)
+ {
++    private readonly Lazy<HashSet<string>> affected = new(() => FindAffected(graph, changed));
++
+     public CallTree Expand(string key)
+     {
+         if (!graph.Implementations.TryGetValue(key, out var targets) || targets.Count == 0)
+@@ -34,7 +36,7 @@
+             return new CallTree(key, member.Label, member.MatchName, member.Signature, [], false, "↺ cycle")
+             { Kind = "member", Side = side, Omission = new Omission("cycle", key) };
+         if (depth >= options.MaxDepth)
+-            return new CallTree(key, member.Label, member.MatchName, member.Signature, [], ReachesChange(key, []), ReachesChange(key, []) ? "changes below depth limit" : "depth limit")
++            return new CallTree(key, member.Label, member.MatchName, member.Signature, [], affected.Value.Contains(key), affected.Value.Contains(key) ? "changes below depth limit" : "depth limit")
+             { Kind = "member", Side = side, Omission = new Omission("depth-limit") };
+         var path = new HashSet<string>(active, StringComparer.Ordinal) { key };
+         return new CallTree(key, member.Label, member.MatchName, member.Signature, ExpandCalls(member.Calls, path, depth + 1), changed.Contains(key))
+@@ -88,10 +90,22 @@
+         return trees;
+     }
+ 
+-    private bool ReachesChange(string key, HashSet<string> visited)
++    private static HashSet<string> FindAffected(CallGraph graph, IReadOnlySet<string> changed)
+     {
+-        if (!visited.Add(key)) return false;
+-        if (changed.Contains(key)) return true;
+-        return graph.Members.TryGetValue(key, out var member) && EntrySelector.Targets(member.Calls, graph).Any(t => ReachesChange(t, visited));
++        var affected = new HashSet<string>(changed, StringComparer.Ordinal);
++        if (affected.Count == 0) return affected;
++        var callers = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
++        foreach (var member in graph.Members.Values)
++            foreach (var target in EntrySelector.Targets(member.Calls, graph))
++            {
++                if (!callers.TryGetValue(target, out var incoming)) callers[target] = incoming = [];
++                incoming.Add(member.Key);
++            }
++        var pending = new Queue<string>(affected);
++        while (pending.TryDequeue(out var key))
++            if (callers.TryGetValue(key, out var incoming))
++                foreach (var caller in incoming)
++                    if (affected.Add(caller)) pending.Enqueue(caller);
++        return affected;
+     }
+ }
