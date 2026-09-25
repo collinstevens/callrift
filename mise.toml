@@ -21,23 +21,23 @@ description = "Build callrift and its verification tools"
 run = "dotnet build callrift.slnx"
 
 [tasks.test]
-description = "Run signed Git scenario snapshots"
+description = "Run Git scenario snapshots"
 run = "dotnet test tests/Callrift.Scenarios/Callrift.Scenarios.csproj"
 
-[tasks.corpus]
+[tasks.cases]
 description = "Run the pinned real-history snapshots"
-run = "dotnet test tests/Callrift.Corpus/Callrift.Corpus.csproj"
+run = "dotnet test tests/Callrift.RealWorldCases/Callrift.RealWorldCases.csproj"
 
 [tasks.workspaces]
 description = "Run restored-project and generator snapshots"
 run = "dotnet test tests/Callrift.Workspaces/Callrift.Workspaces.csproj"
 
-[tasks."corpus:candidates"]
-description = "Propose commits for manual corpus review"
-run = "dotnet run --project tools/Callrift.Corpus -- candidates"
+[tasks."cases:candidates"]
+description = "Propose real-world changes for manual review"
+run = "dotnet run --project tools/Callrift.RealWorldCases -- candidates"
 
 [tasks.benchmark]
-description = "Run corpus floor benchmarks with allocations"
+description = "Run stage benchmarks on real-world cases with allocations"
 run = "dotnet run -c Release --project benchmarks/Callrift.Benchmarks --"
 
 [tasks.format]
@@ -49,8 +49,8 @@ description = "Pack and exercise local tool installation and dnx"
 run = "pwsh -NoProfile -File scripts/Package-Smoke.ps1"
 
 [tasks.sweep]
-description = "Analyze recent corpus history and record crashes and timings"
-run = "dotnet run -c Release --project tools/Callrift.Corpus -- sweep"
+description = "Analyze recent repository history and record crashes and timings"
+run = "dotnet run -c Release --project tools/Callrift.RealWorldCases -- sweep"
 
 [tasks.workflows]
 description = "Validate GitHub Actions workflows"

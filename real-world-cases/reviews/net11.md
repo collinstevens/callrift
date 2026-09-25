@@ -1,6 +1,6 @@
 # .NET 11 snapshot review
 
-Reviewed the five pinned CleanArchitecture source diffs in `corpus/manifest.json` against SDK 11.0.100-rc.1.26425.128. Source analysis references the running framework assemblies. The .NET 11 runtime includes Microsoft.Extensions logging, dependency injection, configuration, and hosting abstractions that were missing from the .NET 10 reference set.
+Reviewed the five pinned CleanArchitecture source diffs in `real-world-cases/manifest.json` against SDK 11.0.100-rc.1.26425.128. Source analysis references the running framework assemblies. The .NET 11 runtime includes Microsoft.Extensions logging, dependency injection, configuration, and hosting abstractions that were missing from the .NET 10 reference set.
 
 | Pair | Diagnostics before / after migration | Reviewed output change |
 |---|---|---|

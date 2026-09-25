@@ -1,18 +1,18 @@
 using System.Text.Json;
 using Callrift.Core;
-using Callrift.Corpus;
+using Callrift.RealWorldCases;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 if (args.Length == 0)
 {
-    Console.Error.WriteLine("Usage: corpus prepare | candidates REPOSITORY [LIMIT] | sweep [LIMIT]");
+    Console.Error.WriteLine("Usage: cases prepare | candidates REPOSITORY [LIMIT] | sweep [LIMIT]");
     return 2;
 }
 if (args[0] == "prepare")
 {
-    foreach (var entry in CorpusStore.ReadManifest())
-        Console.WriteLine(await CorpusStore.PrepareAsync(entry));
+    foreach (var entry in RealWorldCaseStore.ReadManifest())
+        Console.WriteLine(await RealWorldCaseStore.PrepareAsync(entry));
     return 0;
 }
 if (args[0] == "sweep")

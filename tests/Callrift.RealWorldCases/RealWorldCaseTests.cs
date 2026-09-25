@@ -4,15 +4,15 @@ using Xunit;
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
 
-namespace Callrift.Corpus;
+namespace Callrift.RealWorldCases;
 
-public sealed class CorpusTests
+public sealed class RealWorldCaseTests
 {
     [Fact]
     public async Task RestoredSerilog()
     {
-        var entry = CorpusStore.ReadManifest().Single(e => e.Id == "serilog-alignment-guard");
-        var repository = await CorpusStore.PrepareAsync(entry);
+        var entry = RealWorldCaseStore.ReadManifest().Single(e => e.Id == "serilog-alignment-guard");
+        var repository = await RealWorldCaseStore.PrepareAsync(entry);
         var outputs = new List<string>();
         foreach (var format in new[] { "text", "md", "json" })
         {
@@ -25,14 +25,14 @@ public sealed class CorpusTests
         await Verifier.Verify(string.Join("\n", outputs)).UseDirectory("Snapshots").UseFileName("serilog-msbuild").DisableDiff();
     }
 
-    public static IEnumerable<object[]> Entries => CorpusStore.ReadManifest().Select(e => new object[] { e.Id });
+    public static IEnumerable<object[]> Entries => RealWorldCaseStore.ReadManifest().Select(e => new object[] { e.Id });
 
     [Theory]
     [MemberData(nameof(Entries))]
     public async Task PinnedHistory(string id)
     {
-        var entry = CorpusStore.ReadManifest().Single(e => e.Id == id);
-        var repository = await CorpusStore.PrepareAsync(entry);
+        var entry = RealWorldCaseStore.ReadManifest().Single(e => e.Id == id);
+        var repository = await RealWorldCaseStore.PrepareAsync(entry);
         var outputs = new List<string>();
         foreach (var format in new[] { "text", "md" })
         {

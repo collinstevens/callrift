@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 60
     env:
-      CALLRIFT_CORPUS_CACHE: ${{ github.workspace }}/.cache/corpus
+      CALLRIFT_CASES_CACHE: ${{ github.workspace }}/../callrift-real-world-cases
     defaults:
       run:
         shell: pwsh
@@ -19,8 +19,8 @@ jobs:
       - uses: jdx/mise-action@v3
       - uses: actions/cache@v4
         with:
-          path: .cache/corpus
-          key: corpus-${{ runner.os }}-${{ hashFiles('corpus/manifest.json') }}
+          path: ${{ github.workspace }}/../callrift-real-world-cases
+          key: cases-${{ runner.os }}-${{ hashFiles('real-world-cases/manifest.json') }}
       - run: dotnet run -c Release --project benchmarks/Callrift.Benchmarks -- --filter '*CommandBenchmarks*' '*WorkspaceBenchmarks*' --job short
       - run: |
           ./scripts/Compare-Benchmarks.ps1 -Baseline benchmarks/baselines/m4-windows-commands.json -Current BenchmarkDotNet.Artifacts/results/Callrift.Benchmarks.CommandBenchmarks-report-full.json

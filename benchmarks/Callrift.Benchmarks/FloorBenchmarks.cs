@@ -1,6 +1,6 @@
 using BenchmarkDotNet.Attributes;
 using Callrift.Core;
-using Callrift.Corpus;
+using Callrift.RealWorldCases;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -13,7 +13,7 @@ public class FloorBenchmarks
 {
     private readonly SourceOnlyAnalysisProvider provider = new();
     private GitRepository repository = null!;
-    private CorpusEntry entry = null!;
+    private RealWorldCase entry = null!;
     private IReadOnlyList<GitEntry> entries = null!;
     private SourceSnapshot before = null!;
     private SourceSnapshot after = null!;
@@ -30,8 +30,8 @@ public class FloorBenchmarks
     [GlobalSetup]
     public async Task Setup()
     {
-        entry = CorpusStore.ReadManifest().Single(e => e.Id == "serilog-alignment-guard");
-        repository = await GitRepository.OpenAsync(await CorpusStore.PrepareAsync(entry));
+        entry = RealWorldCaseStore.ReadManifest().Single(e => e.Id == "serilog-alignment-guard");
+        repository = await GitRepository.OpenAsync(await RealWorldCaseStore.PrepareAsync(entry));
         entries = await repository.ListEntriesAsync(entry.After);
         before = await repository.ReadSnapshotAsync(entry.Before);
         after = await repository.ReadSnapshotAsync(entry.After);

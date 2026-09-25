@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using Callrift.Core;
 
-namespace Callrift.Corpus;
+namespace Callrift.RealWorldCases;
 
 public static class CrashSweep
 {
@@ -10,9 +10,9 @@ public static class CrashSweep
     {
         if (limit is < 1 or > 1000) throw new ArgumentException("Sweep limit must be between 1 and 1000.");
         var failed = false;
-        foreach (var entry in CorpusStore.ReadManifest().DistinctBy(e => e.Repository))
+        foreach (var entry in RealWorldCaseStore.ReadManifest().DistinctBy(e => e.Repository))
         {
-            var repository = await CorpusStore.PrepareAsync(entry);
+            var repository = await RealWorldCaseStore.PrepareAsync(entry);
             await GitRepository.RunAsync(repository, ["fetch", "--filter=blob:none", "origin", "HEAD"]);
             var history = await GitRepository.RunAsync(repository, ["log", "FETCH_HEAD", "--no-merges", "--format=%H", "-" + limit, "--", "*.cs"]);
             foreach (var revision in history.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries))

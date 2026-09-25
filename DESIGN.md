@@ -10,7 +10,7 @@ Project, repository, tool package, and executable: `callrift`. The separately co
 
 On September 24, public [GitHub repository search](https://api.github.com/search/repositories?q=callrift+in:name) returned zero results. NuGet's flat-container endpoints for [the tool](https://api.nuget.org/v3-flatcontainer/callrift/index.json) and [the proposed library](https://api.nuget.org/v3-flatcontainer/callrift.core/index.json) returned HTTP 404. No collision was found. These checks do not reserve names or expose private repositories or reserved NuGet prefixes; repeat them before publication.
 
-Target `net11.0` per the owner's September 24 update. Pin SDK `11.0.100-rc.1.26425.128`, the [.NET 11 RC1 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/11.0), through mise and matching `global.json`. Keep SDK 10.0.303 available through mise for pinned historical corpus projects. Verify package compatibility when selecting exact dependency versions.
+Target `net11.0` per the owner's September 24 update. Pin SDK `11.0.100-rc.1.26425.128`, the [.NET 11 RC1 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/11.0), through mise and matching `global.json`. Keep SDK 10.0.303 available through mise for pinned historical projects used by real-world cases. Verify package compatibility when selecting exact dependency versions.
 
 **Architecture: proposed calls**
 
@@ -204,18 +204,18 @@ Use deterministic traversal IDs and reference IDs for cycles. `omission` disting
 +│  └─ Callrift.WorkspaceWorker/
 +├─ tests/
 +│  ├─ Callrift.Scenarios/
-+│  └─ Callrift.Corpus/
++│  └─ Callrift.RealWorldCases/
 +├─ benchmarks/
 +│  ├─ Callrift.Benchmarks/
 +│  └─ baselines/
-+├─ corpus/
++├─ real-world-cases/
 +│  ├─ manifest.json
 +│  └─ reviews/
-+├─ tools/Callrift.CorpusCandidates/
++├─ tools/Callrift.RealWorldCases/
 +├─ schemas/output-v1.schema.json
 +└─ .github/workflows/
 +   ├─ ci.yml
-+   ├─ corpus-sweep.yml
++   ├─ real-world-sweep.yml
 +   └─ release.yml
 ```
 
@@ -223,9 +223,9 @@ Folders describe responsibility; add individual classes only when their mileston
 
 **Development tools, dependencies, and contribution rules**
 
-Use [mise](https://mise.jdx.dev/lang/dotnet.html) for pinned SDK and hk versions, environment setup, and shared tasks: restore, build, format-check, test, corpus, benchmark, and pack. Keep `global.json` aligned because SDK selection can otherwise prefer another installed version. NuGet dependencies remain centrally pinned in `Directory.Packages.props`. Enable nullable, deterministic builds, and warnings as errors; use `.gitattributes` to keep snapshots LF.
+Use [mise](https://mise.jdx.dev/lang/dotnet.html) for pinned SDK and hk versions, environment setup, and shared tasks: restore, build, format-check, test, cases, benchmark, and pack. Keep `global.json` aligned because SDK selection can otherwise prefer another installed version. NuGet dependencies remain centrally pinned in `Directory.Packages.props`. Enable nullable, deterministic builds, and warnings as errors; use `.gitattributes` to keep snapshots LF.
 
-Use [hk with mise integration](https://hk.jdx.dev/mise_integration) through repository-scoped `hk install --mise`. Pre-commit enforces EditorConfig and dotnet formatting; commit-msg enforces conventional commits. Add pre-push build and fast scenarios when M1 provides projects and tests. Hooks check without auto-accepting snapshots. Configure staged-content isolation explicitly and verify partial-staging behavior. CI invokes the same tasks. Corpus downloads and full benchmarks stay outside ordinary commit hooks.
+Use [hk with mise integration](https://hk.jdx.dev/mise_integration) through repository-scoped `hk install --mise`. Pre-commit enforces EditorConfig and dotnet formatting; commit-msg enforces conventional commits. Add pre-push build and fast scenarios when M1 provides projects and tests. Hooks check without auto-accepting snapshots. Configure staged-content isolation explicitly and verify partial-staging behavior. CI invokes the same tasks. Downloads for real-world cases and full benchmarks stay outside ordinary commit hooks.
 
 Use System.CommandLine for CLI parsing, System.Text.Json for serialization, Roslyn for analysis, xUnit with Verify.Xunit for snapshots, and BenchmarkDotNet with MemoryDiagnoser. The M1 direct and transitive packages were inspected before addition; the [dependency audit](docs/dependencies.md) records the exact versions and licenses. Recheck the closure before adding or upgrading packages, including MSBuild packages. Preserve required dependency notices in distributed artifacts.
 
@@ -259,22 +259,22 @@ Inspect effective Git identity and signing configuration before authoring projec
 
 | Milestone | Working deliverable and exit evidence |
 |---|---|
-| M1 | Source-only diff, revision/index/working snapshots, selectors, branch/callback/dispatch handling, text/markdown, and noise controls. All requested scenario families have reviewed snapshots. First small corpus: five curated pairs each from two permissively licensed repositories. Floor benchmarks and source-mode diff baseline are committed. |
-| M2 | Versioned JSON and schema, locations, tree, bounded reach, and merge-base syntax. Review JSON snapshots for every existing fixture and corpus entry, plus command/revision snapshots. Add tree/reach floors and end-to-end baselines. |
+| M1 | Source-only diff, revision/index/working snapshots, selectors, branch/callback/dispatch handling, text/markdown, and noise controls. All requested scenario families have reviewed snapshots. Initial real-world cases: five curated pairs each from two permissively licensed repositories. Floor benchmarks and source-mode diff baseline are committed. |
+| M2 | Versioned JSON and schema, locations, tree, bounded reach, and merge-base syntax. Review JSON snapshots for every existing fixture and real-world case, plus command/revision snapshots. Add tree/reach floors and end-to-end baselines. |
 | M3 | Isolated MSBuild loading and restore, real project references/defines/generated code, explicit workspace failures. Review parity and mode-specific snapshots. Add materialization, restore, workspace, generator, and accurate-mode end-to-end benchmarks. |
 | M4 | Tool/library packages, local install and dnx smoke checks, README, three-OS Actions matrix, scheduled crash sweep, and release workflow. Review any output changes and refresh comparable benchmark baselines. Publishing remains a separate approval. |
 
-Implement M1 as vertical slices: first a working direct-call diff through the real CLI, then DI/callbacks, branches and identities, then coverage/noise controls and corpus. Tests are explicitly authorized by this project brief. Use xUnit + Verify snapshots of CLI stdout/stderr/exit status, with text and Markdown recorded together per scenario. JSON snapshot coverage begins in M2 when the public format exists.
+Implement M1 as vertical slices: first a working direct-call diff through the real CLI, then DI/callbacks, branches and identities, then coverage/noise controls and real-world cases. Tests are explicitly authorized by this project brief. Use xUnit + Verify snapshots of CLI stdout/stderr/exit status, with text and Markdown recorded together per scenario. JSON snapshot coverage begins in M2 when the public format exists.
 
 Scenario repositories cover primary-constructor and field DI; same-class calls, lambda wrapping, and method groups; new guards and signatures; overloads, extensions, and generics; local functions, conditional access, and await; records and partial classes; multiple implementations, abstract overrides, decorators, and recursion; top-level/minimal API callbacks; and test exclusion including `Latest`. Add behavioral cases for ambiguous binding, changed dispatch without changed caller syntax, body-only changes, staged versus unstaged content, and changes below the depth limit.
 
-Generate each fixture repository in a temporary directory, commit before/after states, and invoke the CLI. Review every received snapshot against the scenario description. For corpus snapshots, read `git show AFTER` before accepting; record the reviewer rationale beside the manifest entry. Never bulk-accept. Known-wrong snapshots need an issue link; before GitHub exists, use a local issue document that can later be linked to its public issue.
+Generate each fixture repository in a temporary directory, commit before/after states, and invoke the CLI. Review every received snapshot against the scenario description. For real-world case snapshots, read `git show AFTER` before accepting; record the reviewer rationale beside the manifest entry. Never bulk-accept. Known-wrong snapshots need an issue link; before GitHub exists, use a local issue document that can later be linked to its public issue.
 
 The manifest records URL, verified license and license-file reference, immutable before/after SHAs, rationale, tags, command options, and known issues. Start candidate investigation with Serilog and one small DI repository; verify licenses before inclusion. A separate developer command proposes non-merge commits touching roughly 1–30 C# files and excludes formatting-only/test-only candidates. Hand-curate five per repository first, then grow toward 5–20 per repository and add medium/large workloads.
 
 Clone at test time into a cache outside the tracked tree with `--filter=blob:none --no-checkout`, then fetch pinned SHAs. Cache CI clones by manifest hash. Persist only tool output and review records. A scheduled crash sweep analyzes many recent commits and records exceptions/timings without accepting snapshots.
 
-Every benchmark uses real pinned corpus input and MemoryDiagnoser. Measure listing, blob reads, parse, reference loading/compilation, symbol binding, dispatch mapping, body equivalence, expansion, LCS, rendering, and later workspace loading independently. Keep setup out of stage measurements; include it in end-to-end runs. Compare total time to the serial sum and the parallel critical path of stage floors. Use BenchmarkDotNet JSON exports with environment metadata, cold process and warm process runs, and small/medium/large workloads. State filesystem-cache conditions rather than claiming a portable cold disk cache.
+Every benchmark uses pinned real-world cases and MemoryDiagnoser. Measure listing, blob reads, parse, reference loading/compilation, symbol binding, dispatch mapping, body equivalence, expansion, LCS, rendering, and later workspace loading independently. Keep setup out of stage measurements; include it in end-to-end runs. Compare total time to the serial sum and the parallel critical path of stage floors. Use BenchmarkDotNet JSON exports with environment metadata, cold process and warm process runs, and small/medium/large workloads. State filesystem-cache conditions rather than claiming a portable cold disk cache.
 
 Before each optimization, capture a baseline on the same workload and environment; follow with time and allocation comparisons and unchanged observable snapshots. Syntax-tree reuse must include blob ID, logical path, and parse options. Persistent caches must also include reference and analysis configuration. Binding prefilters require equivalence evidence before adoption. CI initially flags generous time/allocation regressions and uses same-run comparisons where practical. The reported prototype's 30 seconds for about 5,000 files is a target to reproduce, not a measured baseline for this implementation.
 
@@ -286,4 +286,4 @@ Read calldiff's [README](https://github.com/tanishqkancharla/calldiff) and [C# e
 
 Read the [Roslyn repository](https://github.com/dotnet/roslyn), semantic analysis and MSBuild Locator documentation linked above, [tool packaging guidance](https://learn.microsoft.com/en-us/dotnet/core/tools/global-tools-how-to-create), [one-shot execution documentation](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-exec), and [file-based app documentation](https://learn.microsoft.com/en-us/dotnet/core/sdk/file-based-apps). Planned installation is `dotnet tool install -g callrift`; one-shot use is `dnx callrift -- diff main...HEAD`.
 
-Both supplied X links could not be fetched. The supplied YouTube page exposed no transcript, so its talk was not independently reviewed. `wsff.md` supplies the overlapping material, as the brief permits. M1 has 29 scenario snapshots, ten corpus snapshots, and 14 measured benchmarks. GitHub repository creation, pushes, and publication still require approval.
+Both supplied X links could not be fetched. The supplied YouTube page exposed no transcript, so its talk was not independently reviewed. `wsff.md` supplies the overlapping material, as the brief permits. M1 has 29 scenario snapshots, ten real-world case snapshots, and 14 measured benchmarks. GitHub repository creation, pushes, and publication still require approval.

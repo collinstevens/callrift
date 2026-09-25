@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using BenchmarkDotNet.Attributes;
 using Callrift.Cli;
-using Callrift.Corpus;
+using Callrift.RealWorldCases;
 
 namespace Callrift.Benchmarks;
 
@@ -16,8 +16,8 @@ public class CommandBenchmarks
     [GlobalSetup]
     public async Task Setup()
     {
-        var entry = CorpusStore.ReadManifest().Single(e => e.Id == "serilog-alignment-guard");
-        repository = await CorpusStore.PrepareAsync(entry);
+        var entry = RealWorldCaseStore.ReadManifest().Single(e => e.Id == "serilog-alignment-guard");
+        repository = await RealWorldCaseStore.PrepareAsync(entry);
         revision = entry.After;
         arguments = ["diff", entry.Before, entry.After, "--entry", "MessageTemplateParser.ParsePropertyToken", "--color", "never"];
     }

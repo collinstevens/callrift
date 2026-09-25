@@ -1,7 +1,7 @@
 using BenchmarkDotNet.Attributes;
 using Callrift.Core;
-using Callrift.Corpus;
 using Callrift.MSBuild;
+using Callrift.RealWorldCases;
 
 namespace Callrift.Benchmarks;
 
@@ -10,7 +10,7 @@ namespace Callrift.Benchmarks;
 public class WorkspaceBenchmarks
 {
     private GitRepository repository = null!;
-    private CorpusEntry entry = null!;
+    private RealWorldCase entry = null!;
     private SourceSnapshot snapshot = null!;
     private readonly MSBuildAnalysisProvider provider = new(new MSBuildOptions("src/Serilog/Serilog.csproj", "net10.0", NoRestore: true));
     private readonly DiffOptions options = new() { Entries = ["MessageTemplateParser.ParsePropertyToken"] };
@@ -18,8 +18,8 @@ public class WorkspaceBenchmarks
     [GlobalSetup]
     public async Task Setup()
     {
-        entry = CorpusStore.ReadManifest().Single(e => e.Id == "serilog-alignment-guard");
-        repository = await GitRepository.OpenAsync(await CorpusStore.PrepareAsync(entry));
+        entry = RealWorldCaseStore.ReadManifest().Single(e => e.Id == "serilog-alignment-guard");
+        repository = await GitRepository.OpenAsync(await RealWorldCaseStore.PrepareAsync(entry));
         snapshot = await repository.ReadSnapshotAsync(entry.After, allFiles: true);
         var restore = new MSBuildAnalysisProvider(new MSBuildOptions("src/Serilog/Serilog.csproj", "net10.0"));
         await restore.AnalyzeAsync(snapshot, new AnalysisOptions());

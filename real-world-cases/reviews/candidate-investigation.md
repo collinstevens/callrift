@@ -1,6 +1,6 @@
-# Expanded corpus investigation
+# Expanded real-world cases investigation
 
-These are inspected candidates, not accepted snapshots or completed corpus pairs. Clones were created with `--filter=blob:none --no-checkout` under the external user-local `Callrift/corpus` cache. No upstream source was copied into this checkout.
+These are inspected candidates, not accepted snapshots or completed real-world cases. Clones were created with `--filter=blob:none --no-checkout` under the external user-local `Callrift/real-world-cases` cache. No upstream source was copied into this checkout.
 
 License files were read from these immutable revisions on September 24, 2026. Each accepted historical pair still needs its own license evidence.
 
