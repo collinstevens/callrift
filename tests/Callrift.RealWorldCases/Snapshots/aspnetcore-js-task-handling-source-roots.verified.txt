@@ -1,0 +1,69 @@
+﻿format: text
+exit: 0
+stdout:
+  ComponentHub.BeginInvokeDotNetFromJS
+  ├─ ComponentHub.GetActiveCircuitAsync (depth limit)
+~ └─ CircuitHost.BeginInvokeDotNetFromJS (changes below depth limit)
+
+  DefaultWebAssemblyJSRuntime.BeginInvokeDotNet
+  ├─ new DotNetInvocationInfo (depth limit)
+  └─ WebAssemblyCallQueue.Schedule (depth limit)
+~    └─ DotNetDispatcher.BeginInvokeDotNet (changes below depth limit)
+
+  DefaultWebAssemblyJSRuntime.InvokeDotNet
+  ├─ new DotNetInvocationInfo (depth limit)
+~ └─ DotNetDispatcher.Invoke (changes below depth limit)
+
+  new PhotinoWebViewManager
+  ├─ new WebViewManager (depth limit)
+  └─ callback
+     └─ ? Task.Factory.StartNew
+~       └─ WebViewManager.MessageReceived (changes below depth limit)
+
++ new AsyncInteropResult
+stderr:
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:19: unresolved-call: Cannot bind new RootCommand.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind new Option.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:24: unresolved-call: Cannot bind new Argument<string[]>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind new Option.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot bind new Argument<string>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
+22595 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  ComponentHub.BeginInvokeDotNetFromJS
+  ├─ ComponentHub.GetActiveCircuitAsync (depth limit)
+~ └─ CircuitHost.BeginInvokeDotNetFromJS (changes below depth limit)
+
+  DefaultWebAssemblyJSRuntime.BeginInvokeDotNet
+  ├─ new DotNetInvocationInfo (depth limit)
+  └─ WebAssemblyCallQueue.Schedule (depth limit)
+~    └─ DotNetDispatcher.BeginInvokeDotNet (changes below depth limit)
+
+  DefaultWebAssemblyJSRuntime.InvokeDotNet
+  ├─ new DotNetInvocationInfo (depth limit)
+~ └─ DotNetDispatcher.Invoke (changes below depth limit)
+
+  new PhotinoWebViewManager
+  ├─ new WebViewManager (depth limit)
+  └─ callback
+     └─ ? Task.Factory.StartNew
+~       └─ WebViewManager.MessageReceived (changes below depth limit)
+
++ new AsyncInteropResult
+```
+stderr:
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:19: unresolved-call: Cannot bind new RootCommand.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind new Option.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:24: unresolved-call: Cannot bind new Argument<string[]>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind new Option.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot bind new Argument<string>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
+22595 additional diagnostics; use --diagnostics full.

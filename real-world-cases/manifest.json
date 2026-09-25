@@ -1405,5 +1405,51 @@
         "routine": false
       }
     ]
+  },
+  {
+    "repository": "https://github.com/dotnet/aspnetcore.git",
+    "license": "MIT",
+    "licenseFile": "LICENSE.txt",
+    "before": "983abcdf5d7f50f5c3c877ff120b1e975dead25f",
+    "after": "5f5f31f9a84de3461271a56f726e9b532810b071",
+    "beforeLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
+    "afterLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
+    "id": "aspnetcore-js-task-handling",
+    "cacheName": "aspnetcore",
+    "reason": "Preserve non-generic task results, report cancellation, and support reflection-based JS interop task conversion",
+    "tags": [
+      "async-callback",
+      "signature-change",
+      "reflection",
+      "exception-path",
+      "cross-project"
+    ],
+    "options": [],
+    "knownIssue": "issues/aspnetcore-source-coverage.md",
+    "review": "reviews/aspnetcore-js-task-handling.md",
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--depth",
+          "4",
+          "--externals",
+          "--entry",
+          "DotNetDispatcher.EndInvokeDotNetAfterTask",
+          "--entry",
+          "DotNetDispatcher.GetTaskByType",
+          "--entry",
+          "TaskGenericsUtil.GetTaskResult"
+        ],
+        "routine": false
+      }
+    ]
   }
 ]
