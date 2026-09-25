@@ -1,5 +1,7 @@
 # autofac-any-key-cache
 
+The subsequent [test-helper classification review](test-classification.md) records the current source counts and diagnostics. It supersedes the source counts below; restored and focused graph structures are unchanged.
+
 Status: snapshots reviewed locally. Repeatability and cross-platform execution are tracked in [the shared review](autofac-expansion.md).
 
 Repository: https://github.com/autofac/Autofac. Before: `6a2e0f806960a5796450abd6184f22ac039cb03a`. After: `30842446a27c81cee45748d8f1916eeac2a5d58d`. Both `LICENSE` files contain MIT text at blob `e89fb634a4319b9488446ec6fb04e58cdbb1f2ad`; their identities and the license text were checked before generation.

@@ -1,5 +1,7 @@
 # autofac-pipeline-callbacks
 
+The subsequent [test-helper classification review](test-classification.md) records the current source counts and diagnostics. It supersedes the source counts below; restored and focused graph structures are unchanged.
+
 Status: snapshots reviewed locally. Repeatability and cross-platform execution are tracked in [the shared review](autofac-expansion.md).
 
 Repository: https://github.com/autofac/Autofac. Before: `b7f65d61fcd650ac5850b05f83df1b5dbaaf8d27`. After: `66c7093f139336f661094284261b2c9a17615b7d`. Both `LICENSE` files contain MIT text at blob `e89fb634a4319b9488446ec6fb04e58cdbb1f2ad`; their identities and the license text were checked before generation.

@@ -30,7 +30,19 @@ stdout:
   },
   "hasChanges": true,
   "truncated": true,
-  "diagnostics": [],
+  "diagnostics": [
+    {
+      "code": "test-project-inferred",
+      "message": "Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.",
+      "location": {
+        "path": "test/TestDummies/TestDummies.csproj",
+        "startLine": 1,
+        "startColumn": 1,
+        "endLine": null,
+        "endColumn": null
+      }
+    }
+  ],
   "trees": [
     {
       "id": "n0",
@@ -1495,9 +1507,7 @@ stdout:
                                         "targetIds": [
                                           "source::Serilog.Policies.DelegateDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
                                           "source::Serilog.Policies.ProjectedDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                          "source::Serilog.Policies.ReflectionTypesScalarDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                          "source::TestDummies.DummyHardCodedStringDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                          "source::TestDummies.DummyReduceVersionToMajorPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)"
+                                          "source::Serilog.Policies.ReflectionTypesScalarDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)"
                                         ],
                                         "definition": {
                                           "path": "src/Serilog/Core/IDestructuringPolicy.cs",
@@ -1527,9 +1537,7 @@ stdout:
                                         "targetIds": [
                                           "source::Serilog.Policies.DelegateDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
                                           "source::Serilog.Policies.ProjectedDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                          "source::Serilog.Policies.ReflectionTypesScalarDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                          "source::TestDummies.DummyHardCodedStringDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                          "source::TestDummies.DummyReduceVersionToMajorPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)"
+                                          "source::Serilog.Policies.ReflectionTypesScalarDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)"
                                         ],
                                         "definition": {
                                           "path": "src/Serilog/Core/IDestructuringPolicy.cs",
@@ -1710,112 +1718,6 @@ stdout:
                                             "symbolId": null,
                                             "referenceId": null
                                           }
-                                        },
-                                        {
-                                          "id": "n31",
-                                          "kind": "dispatchTarget",
-                                          "change": "unchanged",
-                                          "label": "⇢ DummyHardCodedStringDestructuringPolicy.TryDestructure",
-                                          "detail": "depth limit",
-                                          "before": {
-                                            "symbolId": "source::TestDummies.DummyHardCodedStringDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                            "signature": "TestDummies.DummyHardCodedStringDestructuringPolicy.TryDestructure(object, Serilog.Core.ILogEventPropertyValueFactory, out Serilog.Events.LogEventPropertyValue?) -> bool",
-                                            "binding": "resolved",
-                                            "dispatch": "direct",
-                                            "targetIds": [
-                                              "source::TestDummies.DummyHardCodedStringDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)"
-                                            ],
-                                            "definition": {
-                                              "path": "test/TestDummies/DummyHardCodedStringDestructuringPolicy.cs",
-                                              "startLine": 12,
-                                              "startColumn": 5,
-                                              "endLine": 16,
-                                              "endColumn": 6
-                                            },
-                                            "callSites": [],
-                                            "relation": "definition",
-                                            "candidates": null,
-                                            "origin": "source"
-                                          },
-                                          "after": {
-                                            "symbolId": "source::TestDummies.DummyHardCodedStringDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                            "signature": "TestDummies.DummyHardCodedStringDestructuringPolicy.TryDestructure(object, Serilog.Core.ILogEventPropertyValueFactory, out Serilog.Events.LogEventPropertyValue?) -> bool",
-                                            "binding": "resolved",
-                                            "dispatch": "direct",
-                                            "targetIds": [
-                                              "source::TestDummies.DummyHardCodedStringDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)"
-                                            ],
-                                            "definition": {
-                                              "path": "test/TestDummies/DummyHardCodedStringDestructuringPolicy.cs",
-                                              "startLine": 12,
-                                              "startColumn": 5,
-                                              "endLine": 16,
-                                              "endColumn": 6
-                                            },
-                                            "callSites": [],
-                                            "relation": "definition",
-                                            "candidates": null,
-                                            "origin": "source"
-                                          },
-                                          "children": [],
-                                          "omission": {
-                                            "reason": "depth-limit",
-                                            "symbolId": null,
-                                            "referenceId": null
-                                          }
-                                        },
-                                        {
-                                          "id": "n32",
-                                          "kind": "dispatchTarget",
-                                          "change": "unchanged",
-                                          "label": "⇢ DummyReduceVersionToMajorPolicy.TryDestructure",
-                                          "detail": "depth limit",
-                                          "before": {
-                                            "symbolId": "source::TestDummies.DummyReduceVersionToMajorPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                            "signature": "TestDummies.DummyReduceVersionToMajorPolicy.TryDestructure(object, Serilog.Core.ILogEventPropertyValueFactory, out Serilog.Events.LogEventPropertyValue?) -> bool",
-                                            "binding": "resolved",
-                                            "dispatch": "direct",
-                                            "targetIds": [
-                                              "source::TestDummies.DummyReduceVersionToMajorPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)"
-                                            ],
-                                            "definition": {
-                                              "path": "test/TestDummies/DummyReduceVersionToMajorPolicy.cs",
-                                              "startLine": 5,
-                                              "startColumn": 5,
-                                              "endLine": 15,
-                                              "endColumn": 6
-                                            },
-                                            "callSites": [],
-                                            "relation": "definition",
-                                            "candidates": null,
-                                            "origin": "source"
-                                          },
-                                          "after": {
-                                            "symbolId": "source::TestDummies.DummyReduceVersionToMajorPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                            "signature": "TestDummies.DummyReduceVersionToMajorPolicy.TryDestructure(object, Serilog.Core.ILogEventPropertyValueFactory, out Serilog.Events.LogEventPropertyValue?) -> bool",
-                                            "binding": "resolved",
-                                            "dispatch": "direct",
-                                            "targetIds": [
-                                              "source::TestDummies.DummyReduceVersionToMajorPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)"
-                                            ],
-                                            "definition": {
-                                              "path": "test/TestDummies/DummyReduceVersionToMajorPolicy.cs",
-                                              "startLine": 5,
-                                              "startColumn": 5,
-                                              "endLine": 15,
-                                              "endColumn": 6
-                                            },
-                                            "callSites": [],
-                                            "relation": "definition",
-                                            "candidates": null,
-                                            "origin": "source"
-                                          },
-                                          "children": [],
-                                          "omission": {
-                                            "reason": "depth-limit",
-                                            "symbolId": null,
-                                            "referenceId": null
-                                          }
                                         }
                                       ],
                                       "omission": null
@@ -1827,7 +1729,7 @@ stdout:
                               "omission": null
                             },
                             {
-                              "id": "n33",
+                              "id": "n31",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "PropertyValueConverter.TryConvertEnumerable",
@@ -1896,7 +1798,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n34",
+                              "id": "n32",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "PropertyValueConverter.TryConvertValueTuple",
@@ -1965,7 +1867,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n35",
+                              "id": "n33",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "PropertyValueConverter.TryConvertStructure",
@@ -2034,7 +1936,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n36",
+                              "id": "n34",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "value.ToString",
@@ -2091,7 +1993,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n37",
+                                  "id": "n35",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
                                   "label": "⇢ LogEventPropertyValue.ToString",
@@ -2144,7 +2046,7 @@ stdout:
                                   }
                                 },
                                 {
-                                  "id": "n38",
+                                  "id": "n36",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
                                   "label": "⇢ MessageTemplate.ToString",
@@ -2197,7 +2099,7 @@ stdout:
                                   }
                                 },
                                 {
-                                  "id": "n39",
+                                  "id": "n37",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
                                   "label": "⇢ PropertyToken.ToString",
@@ -2250,7 +2152,7 @@ stdout:
                                   }
                                 },
                                 {
-                                  "id": "n40",
+                                  "id": "n38",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
                                   "label": "⇢ TextToken.ToString",
@@ -2306,7 +2208,7 @@ stdout:
                               "omission": null
                             },
                             {
-                              "id": "n41",
+                              "id": "n39",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "new ScalarValue",
@@ -2381,7 +2283,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n42",
+                      "id": "n40",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "catch (Exception ex)",
@@ -2428,7 +2330,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n43",
+                          "id": "n41",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "SelfLog.WriteLine",
@@ -2493,7 +2395,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n44",
+                          "id": "n42",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "new ScalarValue",
@@ -2564,7 +2466,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n45",
+                  "id": "n43",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new EventProperty",
@@ -2627,7 +2529,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n46",
+                      "id": "n44",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "Guard.AgainstNull",
@@ -2692,7 +2594,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n47",
+                      "id": "n45",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "LogEventProperty.EnsureValidName",
@@ -2755,7 +2657,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n48",
+                          "id": "n46",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "Guard.AgainstNull",
@@ -2820,7 +2722,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n49",
+                          "id": "n47",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "LogEventProperty.IsValidName",
@@ -2897,7 +2799,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n50",
+          "id": "n48",
           "kind": "branch",
           "change": "unchanged",
           "label": "for (i < messageTemplateParameters.Length)",
@@ -2944,7 +2846,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n51",
+              "id": "n49",
               "kind": "call",
               "change": "unchanged",
               "label": "PropertyValueConverter.CreatePropertyValue",
@@ -3007,7 +2909,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n52",
+                  "id": "n50",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "PropertyValueConverter.CreatePropertyValue",
@@ -3070,7 +2972,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n53",
+                      "id": "n51",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "PropertyValueConverter.CreatePropertyValue",
@@ -3133,7 +3035,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n54",
+                          "id": "n52",
                           "kind": "branch",
                           "change": "unchanged",
                           "label": "if (destructuring == Destructuring.Stringify)",
@@ -3180,7 +3082,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n55",
+                              "id": "n53",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "PropertyValueConverter.Stringify",
@@ -3252,7 +3154,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n56",
+                          "id": "n54",
                           "kind": "branch",
                           "change": "unchanged",
                           "label": "if (destructuring == Destructuring.Destructure)",
@@ -3299,7 +3201,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n57",
+                              "id": "n55",
                               "kind": "branch",
                               "change": "unchanged",
                               "label": "if (value is string stringValue)",
@@ -3346,7 +3248,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n58",
+                                  "id": "n56",
                                   "kind": "call",
                                   "change": "unchanged",
                                   "label": "PropertyValueConverter.TruncateIfNecessary",
@@ -3421,7 +3323,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n59",
+                          "id": "n57",
                           "kind": "branch",
                           "change": "unchanged",
                           "label": "if (value is string)",
@@ -3468,7 +3370,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n60",
+                              "id": "n58",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "new ScalarValue",
@@ -3540,7 +3442,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n61",
+                          "id": "n59",
                           "kind": "branch",
                           "change": "unchanged",
                           "label": "foreach (var scalarConversionPolicy in _scalarConversionPolicies)",
@@ -3587,7 +3489,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n62",
+                              "id": "n60",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "IScalarConversionPolicy.TryConvertToScalar",
@@ -3656,7 +3558,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n63",
+                                  "id": "n61",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
                                   "label": "⇢ ByteArrayScalarConversionPolicy.TryConvertToScalar",
@@ -3709,7 +3611,7 @@ stdout:
                                   }
                                 },
                                 {
-                                  "id": "n64",
+                                  "id": "n62",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
                                   "label": "⇢ EnumScalarConversionPolicy.TryConvertToScalar",
@@ -3762,7 +3664,7 @@ stdout:
                                   }
                                 },
                                 {
-                                  "id": "n65",
+                                  "id": "n63",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
                                   "label": "⇢ PrimitiveScalarConversionPolicy.TryConvertToScalar",
@@ -3815,7 +3717,7 @@ stdout:
                                   }
                                 },
                                 {
-                                  "id": "n66",
+                                  "id": "n64",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
                                   "label": "⇢ SimpleScalarConversionPolicy.TryConvertToScalar",
@@ -3874,7 +3776,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n67",
+                          "id": "n65",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "PropertyValueConverter.DepthLimiter.SetCurrentDepth",
@@ -3939,7 +3841,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n68",
+                          "id": "n66",
                           "kind": "branch",
                           "change": "unchanged",
                           "label": "if (destructuring == Destructuring.Destructure)",
@@ -3986,7 +3888,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n69",
+                              "id": "n67",
                               "kind": "branch",
                               "change": "unchanged",
                               "label": "foreach (var destructuringPolicy in _destructuringPolicies)",
@@ -4033,7 +3935,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n70",
+                                  "id": "n68",
                                   "kind": "call",
                                   "change": "unchanged",
                                   "label": "IDestructuringPolicy.TryDestructure",
@@ -4046,9 +3948,7 @@ stdout:
                                     "targetIds": [
                                       "source::Serilog.Policies.DelegateDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
                                       "source::Serilog.Policies.ProjectedDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                      "source::Serilog.Policies.ReflectionTypesScalarDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                      "source::TestDummies.DummyHardCodedStringDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                      "source::TestDummies.DummyReduceVersionToMajorPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)"
+                                      "source::Serilog.Policies.ReflectionTypesScalarDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)"
                                     ],
                                     "definition": {
                                       "path": "src/Serilog/Core/IDestructuringPolicy.cs",
@@ -4078,9 +3978,7 @@ stdout:
                                     "targetIds": [
                                       "source::Serilog.Policies.DelegateDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
                                       "source::Serilog.Policies.ProjectedDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                      "source::Serilog.Policies.ReflectionTypesScalarDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                      "source::TestDummies.DummyHardCodedStringDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                      "source::TestDummies.DummyReduceVersionToMajorPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)"
+                                      "source::Serilog.Policies.ReflectionTypesScalarDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)"
                                     ],
                                     "definition": {
                                       "path": "src/Serilog/Core/IDestructuringPolicy.cs",
@@ -4104,7 +4002,7 @@ stdout:
                                   },
                                   "children": [
                                     {
-                                      "id": "n71",
+                                      "id": "n69",
                                       "kind": "dispatchTarget",
                                       "change": "unchanged",
                                       "label": "⇢ DelegateDestructuringPolicy.TryDestructure",
@@ -4157,7 +4055,7 @@ stdout:
                                       }
                                     },
                                     {
-                                      "id": "n72",
+                                      "id": "n70",
                                       "kind": "dispatchTarget",
                                       "change": "unchanged",
                                       "label": "⇢ ProjectedDestructuringPolicy.TryDestructure",
@@ -4210,7 +4108,7 @@ stdout:
                                       }
                                     },
                                     {
-                                      "id": "n73",
+                                      "id": "n71",
                                       "kind": "dispatchTarget",
                                       "change": "unchanged",
                                       "label": "⇢ ReflectionTypesScalarDestructuringPolicy.TryDestructure",
@@ -4261,112 +4159,6 @@ stdout:
                                         "symbolId": null,
                                         "referenceId": null
                                       }
-                                    },
-                                    {
-                                      "id": "n74",
-                                      "kind": "dispatchTarget",
-                                      "change": "unchanged",
-                                      "label": "⇢ DummyHardCodedStringDestructuringPolicy.TryDestructure",
-                                      "detail": "depth limit",
-                                      "before": {
-                                        "symbolId": "source::TestDummies.DummyHardCodedStringDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                        "signature": "TestDummies.DummyHardCodedStringDestructuringPolicy.TryDestructure(object, Serilog.Core.ILogEventPropertyValueFactory, out Serilog.Events.LogEventPropertyValue?) -> bool",
-                                        "binding": "resolved",
-                                        "dispatch": "direct",
-                                        "targetIds": [
-                                          "source::TestDummies.DummyHardCodedStringDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)"
-                                        ],
-                                        "definition": {
-                                          "path": "test/TestDummies/DummyHardCodedStringDestructuringPolicy.cs",
-                                          "startLine": 12,
-                                          "startColumn": 5,
-                                          "endLine": 16,
-                                          "endColumn": 6
-                                        },
-                                        "callSites": [],
-                                        "relation": "definition",
-                                        "candidates": null,
-                                        "origin": "source"
-                                      },
-                                      "after": {
-                                        "symbolId": "source::TestDummies.DummyHardCodedStringDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                        "signature": "TestDummies.DummyHardCodedStringDestructuringPolicy.TryDestructure(object, Serilog.Core.ILogEventPropertyValueFactory, out Serilog.Events.LogEventPropertyValue?) -> bool",
-                                        "binding": "resolved",
-                                        "dispatch": "direct",
-                                        "targetIds": [
-                                          "source::TestDummies.DummyHardCodedStringDestructuringPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)"
-                                        ],
-                                        "definition": {
-                                          "path": "test/TestDummies/DummyHardCodedStringDestructuringPolicy.cs",
-                                          "startLine": 12,
-                                          "startColumn": 5,
-                                          "endLine": 16,
-                                          "endColumn": 6
-                                        },
-                                        "callSites": [],
-                                        "relation": "definition",
-                                        "candidates": null,
-                                        "origin": "source"
-                                      },
-                                      "children": [],
-                                      "omission": {
-                                        "reason": "depth-limit",
-                                        "symbolId": null,
-                                        "referenceId": null
-                                      }
-                                    },
-                                    {
-                                      "id": "n75",
-                                      "kind": "dispatchTarget",
-                                      "change": "unchanged",
-                                      "label": "⇢ DummyReduceVersionToMajorPolicy.TryDestructure",
-                                      "detail": "depth limit",
-                                      "before": {
-                                        "symbolId": "source::TestDummies.DummyReduceVersionToMajorPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                        "signature": "TestDummies.DummyReduceVersionToMajorPolicy.TryDestructure(object, Serilog.Core.ILogEventPropertyValueFactory, out Serilog.Events.LogEventPropertyValue?) -> bool",
-                                        "binding": "resolved",
-                                        "dispatch": "direct",
-                                        "targetIds": [
-                                          "source::TestDummies.DummyReduceVersionToMajorPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)"
-                                        ],
-                                        "definition": {
-                                          "path": "test/TestDummies/DummyReduceVersionToMajorPolicy.cs",
-                                          "startLine": 5,
-                                          "startColumn": 5,
-                                          "endLine": 15,
-                                          "endColumn": 6
-                                        },
-                                        "callSites": [],
-                                        "relation": "definition",
-                                        "candidates": null,
-                                        "origin": "source"
-                                      },
-                                      "after": {
-                                        "symbolId": "source::TestDummies.DummyReduceVersionToMajorPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)",
-                                        "signature": "TestDummies.DummyReduceVersionToMajorPolicy.TryDestructure(object, Serilog.Core.ILogEventPropertyValueFactory, out Serilog.Events.LogEventPropertyValue?) -> bool",
-                                        "binding": "resolved",
-                                        "dispatch": "direct",
-                                        "targetIds": [
-                                          "source::TestDummies.DummyReduceVersionToMajorPolicy.TryDestructure(object,global::Serilog.Core.ILogEventPropertyValueFactory,out global::Serilog.Events.LogEventPropertyValue)"
-                                        ],
-                                        "definition": {
-                                          "path": "test/TestDummies/DummyReduceVersionToMajorPolicy.cs",
-                                          "startLine": 5,
-                                          "startColumn": 5,
-                                          "endLine": 15,
-                                          "endColumn": 6
-                                        },
-                                        "callSites": [],
-                                        "relation": "definition",
-                                        "candidates": null,
-                                        "origin": "source"
-                                      },
-                                      "children": [],
-                                      "omission": {
-                                        "reason": "depth-limit",
-                                        "symbolId": null,
-                                        "referenceId": null
-                                      }
                                     }
                                   ],
                                   "omission": null
@@ -4378,7 +4170,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n76",
+                          "id": "n72",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "PropertyValueConverter.TryConvertEnumerable",
@@ -4441,7 +4233,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n77",
+                              "id": "n73",
                               "kind": "branch",
                               "change": "unchanged",
                               "label": "if (value is IEnumerable enumerable)",
@@ -4488,7 +4280,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n78",
+                                  "id": "n74",
                                   "kind": "call",
                                   "change": "unchanged",
                                   "label": "PropertyValueConverter.TryGetDictionary",
@@ -4557,7 +4349,7 @@ stdout:
                                   }
                                 },
                                 {
-                                  "id": "n79",
+                                  "id": "n75",
                                   "kind": "branch",
                                   "change": "unchanged",
                                   "label": "if (TryGetDictionary(value, type, out var dictionary))",
@@ -4604,7 +4396,7 @@ stdout:
                                   },
                                   "children": [
                                     {
-                                      "id": "n80",
+                                      "id": "n76",
                                       "kind": "call",
                                       "change": "unchanged",
                                       "label": "PropertyValueConverter.TryConvertEnumerable.MapToDictionaryElements",
@@ -4673,7 +4465,7 @@ stdout:
                                       }
                                     },
                                     {
-                                      "id": "n81",
+                                      "id": "n77",
                                       "kind": "call",
                                       "change": "unchanged",
                                       "label": "new DictionaryValue",
@@ -4745,7 +4537,7 @@ stdout:
                                   "omission": null
                                 },
                                 {
-                                  "id": "n82",
+                                  "id": "n78",
                                   "kind": "branch",
                                   "change": "unchanged",
                                   "label": "if (value is Array { Rank: > 1 } array)",
@@ -4792,7 +4584,7 @@ stdout:
                                   },
                                   "children": [
                                     {
-                                      "id": "n83",
+                                      "id": "n79",
                                       "kind": "call",
                                       "change": "unchanged",
                                       "label": "PropertyValueConverter.BuildArrayValue",
@@ -4864,7 +4656,7 @@ stdout:
                                   "omission": null
                                 },
                                 {
-                                  "id": "n84",
+                                  "id": "n80",
                                   "kind": "branch",
                                   "change": "unchanged",
                                   "label": "if (enumerable is IList list && list.Count <= _maximumCollectionCount)",
@@ -4911,7 +4703,7 @@ stdout:
                                   },
                                   "children": [
                                     {
-                                      "id": "n85",
+                                      "id": "n81",
                                       "kind": "branch",
                                       "change": "unchanged",
                                       "label": "else (!(list.Count == 0))",
@@ -4958,7 +4750,7 @@ stdout:
                                       },
                                       "children": [
                                         {
-                                          "id": "n86",
+                                          "id": "n82",
                                           "kind": "branch",
                                           "change": "unchanged",
                                           "label": "for (i < list.Count)",
@@ -5005,7 +4797,7 @@ stdout:
                                           },
                                           "children": [
                                             {
-                                              "id": "n87",
+                                              "id": "n83",
                                               "kind": "call",
                                               "change": "unchanged",
                                               "label": "PropertyValueConverter.DepthLimiter.CreatePropertyValue",
@@ -5077,7 +4869,7 @@ stdout:
                                           "omission": null
                                         },
                                         {
-                                          "id": "n88",
+                                          "id": "n84",
                                           "kind": "call",
                                           "change": "unchanged",
                                           "label": "new SequenceValue",
@@ -5152,7 +4944,7 @@ stdout:
                                   "omission": null
                                 },
                                 {
-                                  "id": "n89",
+                                  "id": "n85",
                                   "kind": "branch",
                                   "change": "unchanged",
                                   "label": "else (!(enumerable is IList list && list.Count <= _maximumCollectionCount))",
@@ -5199,7 +4991,7 @@ stdout:
                                   },
                                   "children": [
                                     {
-                                      "id": "n90",
+                                      "id": "n86",
                                       "kind": "call",
                                       "change": "unchanged",
                                       "label": "PropertyValueConverter.TryConvertEnumerable.MapToSequenceElements",
@@ -5268,7 +5060,7 @@ stdout:
                                       }
                                     },
                                     {
-                                      "id": "n91",
+                                      "id": "n87",
                                       "kind": "call",
                                       "change": "unchanged",
                                       "label": "new SequenceValue",
@@ -5346,7 +5138,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n92",
+                          "id": "n88",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "PropertyValueConverter.TryConvertValueTuple",
@@ -5409,7 +5201,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n93",
+                              "id": "n89",
                               "kind": "branch",
                               "change": "unchanged",
                               "label": "if (definition == typeof(ValueTuple<>) || definition == typeof(ValueTuple<,>) || definition == ty…",
@@ -5456,7 +5248,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n94",
+                                  "id": "n90",
                                   "kind": "branch",
                                   "change": "unchanged",
                                   "label": "for (index < fields.Length)",
@@ -5503,7 +5295,7 @@ stdout:
                                   },
                                   "children": [
                                     {
-                                      "id": "n95",
+                                      "id": "n91",
                                       "kind": "call",
                                       "change": "unchanged",
                                       "label": "PropertyValueConverter.DepthLimiter.CreatePropertyValue",
@@ -5575,7 +5367,7 @@ stdout:
                                   "omission": null
                                 },
                                 {
-                                  "id": "n96",
+                                  "id": "n92",
                                   "kind": "call",
                                   "change": "unchanged",
                                   "label": "new SequenceValue",
@@ -5650,7 +5442,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n97",
+                          "id": "n93",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "PropertyValueConverter.TryConvertStructure",
@@ -5713,7 +5505,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n98",
+                              "id": "n94",
                               "kind": "branch",
                               "change": "unchanged",
                               "label": "if (destructuring == Destructuring.Destructure)",
@@ -5760,7 +5552,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n99",
+                                  "id": "n95",
                                   "kind": "branch",
                                   "change": "unchanged",
                                   "label": "if (TrimConfiguration.IsStructureValueSupported)",
@@ -5807,7 +5599,7 @@ stdout:
                                   },
                                   "children": [
                                     {
-                                      "id": "n100",
+                                      "id": "n96",
                                       "kind": "call",
                                       "change": "unchanged",
                                       "label": "PropertyValueConverter.IsCompilerGeneratedType",
@@ -5876,7 +5668,7 @@ stdout:
                                       }
                                     },
                                     {
-                                      "id": "n101",
+                                      "id": "n97",
                                       "kind": "call",
                                       "change": "unchanged",
                                       "label": "PropertyValueConverter.CreateStructureValue",
@@ -5954,7 +5746,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n102",
+                          "id": "n98",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "value.ToString",
@@ -6011,7 +5803,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n103",
+                              "id": "n99",
                               "kind": "dispatchTarget",
                               "change": "unchanged",
                               "label": "⇢ LogEventPropertyValue.ToString",
@@ -6064,7 +5856,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n104",
+                              "id": "n100",
                               "kind": "dispatchTarget",
                               "change": "unchanged",
                               "label": "⇢ MessageTemplate.ToString",
@@ -6117,7 +5909,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n105",
+                              "id": "n101",
                               "kind": "dispatchTarget",
                               "change": "unchanged",
                               "label": "⇢ PropertyToken.ToString",
@@ -6170,7 +5962,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n106",
+                              "id": "n102",
                               "kind": "dispatchTarget",
                               "change": "unchanged",
                               "label": "⇢ TextToken.ToString",
@@ -6226,7 +6018,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n107",
+                          "id": "n103",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "new ScalarValue",
@@ -6300,7 +6092,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n108",
+              "id": "n104",
               "kind": "call",
               "change": "unchanged",
               "label": "new EventProperty",
@@ -6363,7 +6155,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n109",
+                  "id": "n105",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "Guard.AgainstNull",
@@ -6428,7 +6220,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n110",
+                  "id": "n106",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "LogEventProperty.EnsureValidName",
@@ -6491,7 +6283,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n111",
+                      "id": "n107",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "Guard.AgainstNull",
@@ -6556,7 +6348,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n112",
+                      "id": "n108",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "LogEventProperty.IsValidName",
@@ -6636,3 +6428,4 @@ stdout:
   "paths": []
 }
 stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.

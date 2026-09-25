@@ -63,6 +63,8 @@ Create one source-only compilation per side with BCL references selected from `T
 
 Read lightweight project metadata without evaluating MSBuild to identify test projects. Prefer literal `IsTestProject` and known test-framework references, including straightforward local props imports. Treat conditional or computed metadata as uncertain. Use exact conventional directory segments only as a fallback; `Latest` must remain production code. Exclude test members from dispatch candidates, caller traversal, and roots by default; `--tests` includes them. Diagnose uncertain project membership.
 
+The current source classifier reads the project and nearest `Directory.Build.props`. Explicit literal `IsTestProject` overrides conventional hints. Known test-framework references and `ProjectType=Test` identify test projects; the latter is an inferred convention and emits a diagnostic. Explicit executable and Web application projects remain included unless stronger test metadata applies. Unknown projects fall back to exact `test`, `tests`, or `.Tests` directory segments. Inferred test-directory exclusions and conditional metadata produce `test-project-inferred` diagnostics. Arbitrary imports and targets are not evaluated; lightweight local props import support remains incomplete. Use MSBuild mode for evaluated membership.
+
 M3 replaces loading while retaining graph and query behavior:
 
 ```diff

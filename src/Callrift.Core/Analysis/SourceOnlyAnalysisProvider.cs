@@ -16,9 +16,11 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
     public Task<CallGraph> AnalyzeAsync(SourceSnapshot snapshot, AnalysisOptions options, CancellationToken cancellationToken = default) =>
         Task.Run(() => Analyze(snapshot, options, cancellationToken), cancellationToken);
 
-    public SyntaxTree[] Parse(SourceSnapshot snapshot, AnalysisOptions options, CancellationToken cancellationToken = default)
+    public SyntaxTree[] Parse(SourceSnapshot snapshot, AnalysisOptions options, CancellationToken cancellationToken = default) =>
+        Parse(snapshot, options, new ProjectClassifier(snapshot), cancellationToken);
+
+    private static SyntaxTree[] Parse(SourceSnapshot snapshot, AnalysisOptions options, ProjectClassifier classifier, CancellationToken cancellationToken)
     {
-        var classifier = new ProjectClassifier(snapshot);
         var files = snapshot.Files.Where(f => f.Path.EndsWith(".cs", StringComparison.OrdinalIgnoreCase) && (options.IncludeTests || !classifier.IsTest(f.Path))).ToArray();
         var trees = new SyntaxTree[files.Length];
         Parallel.For(0, files.Length, new ParallelOptions { CancellationToken = cancellationToken, MaxDegreeOfParallelism = Math.Max(1, Environment.ProcessorCount / 2) },
@@ -32,9 +34,15 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
 
     private CallGraph Analyze(SourceSnapshot snapshot, AnalysisOptions options, CancellationToken cancellationToken)
     {
-        var trees = Parse(snapshot, options, cancellationToken);
+        var classifier = new ProjectClassifier(snapshot);
+        var trees = Parse(snapshot, options, classifier, cancellationToken);
         var compilation = CreateCompilation(trees);
-        return AnalyzeCompilation(compilation, trees, cancellationToken: cancellationToken);
+        var graph = AnalyzeCompilation(compilation, trees, cancellationToken: cancellationToken);
+        return options.IncludeTests ? graph : graph with
+        {
+            Diagnostics = graph.Diagnostics.Concat(classifier.Diagnostics).OrderBy(d => d.Location?.Path, StringComparer.Ordinal)
+                .ThenBy(d => d.Location?.Line).ThenBy(d => d.Code, StringComparer.Ordinal).ThenBy(d => d.Message, StringComparer.Ordinal).ToArray()
+        };
     }
 
     public static CallGraph AnalyzeCompilation(CSharpCompilation compilation, IEnumerable<SyntaxTree>? syntaxTrees = null,

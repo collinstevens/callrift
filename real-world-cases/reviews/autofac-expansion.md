@@ -1,5 +1,7 @@
 # Autofac cache, inheritance, callback, and registration cases
 
+The subsequent [test-helper classification review](test-classification.md) records the current source counts and diagnostics. It supersedes the source counts below; restored and focused graph structures are unchanged.
+
 Review date: 2026-09-24. This review covers the four immutable pairs documented in the adjacent any-key-cache, service-key-inheritance, pipeline-callbacks, and multi-service-registration reviews.
 
 Production diffs, surrounding methods, added benchmark implementations, and benchmark registration changes were inspected before acceptance. All seven distinct revisions contain the same inspected MIT license blob, `e89fb634a4319b9488446ec6fb04e58cdbb1f2ad`. Generator inputs also share the complete tree `ca23e2eeb28e7b746c0b7e175350031c9004d4ee`.

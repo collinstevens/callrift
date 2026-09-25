@@ -1,5 +1,7 @@
 # autofac-service-key-inheritance
 
+The subsequent [test-helper classification review](test-classification.md) records the current source counts and diagnostics. It supersedes the source counts below; restored and focused graph structures are unchanged.
+
 Status: snapshots reviewed locally. Repeatability and cross-platform execution are tracked in [the shared review](autofac-expansion.md).
 
 Repository: https://github.com/autofac/Autofac. Before: `cdf6a83b8e85eefb60e02b9056be51fe050a2fef`. After: `0f0be581167e22671f73de59e410e8d1552540e0`. Both `LICENSE` files contain MIT text at blob `e89fb634a4319b9488446ec6fb04e58cdbb1f2ad`; their identities and the license text were checked before generation.

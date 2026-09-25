@@ -1,5 +1,7 @@
 # Autofac held pipeline review
 
+The subsequent [test-helper classification review](test-classification.md) records the current source counts and diagnostics. It supersedes the source counts below; restored and focused graph structures are unchanged.
+
 Status: source and snapshot review complete. Local repeatability and cross-platform execution are checked separately below.
 
 Repository: https://github.com/autofac/Autofac. Before: `dc2252d59922c8b62f8305edabce96fe6211f786`. After: `ae9e1e1129b9c22e7ab111381308dcb02f80a8d2`. Both `LICENSE` files are MIT text at blob `e89fb634a4319b9488446ec6fb04e58cdbb1f2ad`. The case runner checks those immutable license identities.
