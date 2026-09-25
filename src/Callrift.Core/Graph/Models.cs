@@ -30,6 +30,12 @@ public sealed record CallStep(
     public bool SuppressDispatch { get; init; }
     public DispatchType? DispatchType { get; init; }
     public DispatchType? ReceiverType { get; init; }
+    public IReadOnlyDictionary<string, DispatchType> GenericArguments { get; init; } = new Dictionary<string, DispatchType>();
+    public IReadOnlyList<DispatchType> MethodArguments { get; init; } = [];
+    internal string? DefinitionKey { get; init; }
+    internal IReadOnlyList<string>? ContextTargets { get; init; }
+    internal string? SemanticKey { get; init; }
+    internal IReadOnlyList<string>? SemanticTargets { get; init; }
     public IReadOnlyList<string> Candidates { get; init; } = [];
 }
 
@@ -38,9 +44,13 @@ public sealed record NodeSide(string? SymbolId, string? Signature, string Bindin
     string Relation = "call", IReadOnlyList<string>? Candidates = null)
 {
     public string Origin { get; init; } = "source";
+    internal string? ContextTargetKey { get; init; }
 }
 
-public sealed record Omission(string Reason, string? SymbolId = null);
+public sealed record Omission(string Reason, string? SymbolId = null)
+{
+    internal string? ReferenceKey { get; init; }
+}
 
 public sealed record SnapshotIdentity(string Kind, string? Ref = null, string? Commit = null, string? ContentId = null);
 
@@ -55,6 +65,10 @@ public sealed record Member(
 {
     internal SyntaxNode? Body { get; init; }
     public string? BodyFingerprint { get; init; }
+    public IReadOnlyList<string> GenericParameters { get; init; } = [];
+    public IReadOnlyList<string> MethodParameters { get; init; } = [];
+    internal string? DefinitionKey { get; init; }
+    internal bool ContextOmitted { get; init; }
 }
 
 public sealed record CallGraph(
@@ -66,11 +80,16 @@ public sealed record CallGraph(
     public IReadOnlyDictionary<string, IReadOnlyList<DispatchContract>> DispatchContracts { get; init; } = new Dictionary<string, IReadOnlyList<DispatchContract>>();
     public IReadOnlyDictionary<string, DispatchTypeDefinition> TypeDefinitions { get; init; } = new Dictionary<string, DispatchTypeDefinition>();
 
+    internal bool Contextual { get; init; }
+    internal bool ContextTruncated { get; init; }
+    internal IReadOnlySet<string>? ActiveMembers { get; init; }
+
     public IReadOnlyList<string> Targets(CallStep call) => Targets(call, default);
 
     public IReadOnlyList<string> Targets(CallStep call, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        if (call.ContextTargets is { } contextual) return contextual;
         if (call.SuppressDispatch || !Implementations.TryGetValue(call.Key, out var targets)) return [];
         if (call.DispatchType is null || !DispatchContracts.TryGetValue(call.Key, out var contracts)) return targets;
         return contracts.Where(c =>

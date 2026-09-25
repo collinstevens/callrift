@@ -26,10 +26,11 @@ public sealed class CallQueries(IAnalysisProvider? provider = null)
     {
         Validate(request);
         cancellationToken.ThrowIfCancellationRequested();
+        graph = ContextGraph.Create(graph, cancellationToken);
         var roots = EntrySelector.Select(graph, graph, new HashSet<string>(), request.Options, cancellationToken);
         var expander = new TreeExpander(graph, new HashSet<string>(), request.Options, cancellationToken);
         var trees = roots.Select(expander.Expand).Select(tree => TreeDiffer.Present(tree, cancellationToken)).ToArray();
-        var truncated = trees.Any(tree => CallriftService.IsTruncated(tree, cancellationToken));
+        var truncated = graph.ContextTruncated || trees.Any(tree => CallriftService.IsTruncated(tree, cancellationToken));
         if (request.Target is not null)
         {
             var targets = EntrySelector.Select(graph, graph, new HashSet<string>(), new DiffOptions { Entries = [request.Target] }, cancellationToken).ToHashSet(StringComparer.Ordinal);

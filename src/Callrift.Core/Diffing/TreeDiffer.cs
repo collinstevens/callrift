@@ -12,6 +12,8 @@ public static class TreeDiffer
             cancellationToken.ThrowIfCancellationRequested();
             var left = before[i];
             var right = after[j];
+            if ((left.SemanticKey ?? left.Key) == (right.SemanticKey ?? right.Key)
+                && (left.Omission?.Reason == "generic-context-limit" || right.Omission?.Reason == "generic-context-limit")) return true;
             if (left.Key == right.Key && left.Label == right.Label) return true;
             return left.Label == right.Label && left.MatchName == right.MatchName
                 && before.Count(n => n.Label == left.Label) == 1 && after.Count(n => n.Label == right.Label) == 1;
@@ -33,12 +35,15 @@ public static class TreeDiffer
             {
                 var left = before[oldIndex++];
                 var right = after[newIndex++];
-                var children = Compare(left.Children, right.Children, cancellationToken);
-                var signatureChanged = left.Key != right.Key || left.Signature != right.Signature;
+                var sameContext = (left.SemanticKey ?? left.Key) == (right.SemanticKey ?? right.Key);
+                var contextLimited = sameContext && (left.Omission?.Reason == "generic-context-limit" || right.Omission?.Reason == "generic-context-limit");
+                var children = contextLimited ? [] : Compare(left.Children, right.Children, cancellationToken);
+                var signatureChanged = left.Side?.SymbolId != right.Side?.SymbolId || left.Signature != right.Signature;
+                var contextChanged = !signatureChanged && (left.InvocationKey ?? left.Key) != (right.InvocationKey ?? right.Key);
                 var hiddenBodyChange = (left.BodyChanged || right.BodyChanged) && !children.Any(c => c.HasChanges);
-                result.Add(new DiffNode(right.Key, right.Label, signatureChanged || hiddenBodyChange ? '~' : ' ', children,
-                    signatureChanged ? "signature changed" : right.Detail ?? (hiddenBodyChange ? "body changed; visible calls unchanged" : null))
-                { Kind = right.Kind, Before = left.Side, After = right.Side, Omission = right.Omission });
+                result.Add(new DiffNode(right.Key, right.Label, signatureChanged || contextChanged || hiddenBodyChange ? '~' : ' ', children,
+                    signatureChanged ? "signature changed" : contextChanged ? "generic arguments changed" : contextLimited ? "generic context limit" : right.Detail ?? (hiddenBodyChange ? "body changed; visible calls unchanged" : null))
+                { Kind = right.Kind, Before = left.Side, After = right.Side, Omission = contextLimited ? new Omission("generic-context-limit") : right.Omission });
             }
             else if (oldIndex < before.Count && (newIndex == after.Count || lengths[oldIndex + 1, newIndex] >= lengths[oldIndex, newIndex + 1]))
                 result.Add(Mark(before[oldIndex++], '-', cancellationToken));

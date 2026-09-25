@@ -12,13 +12,15 @@ The Razor list adds a warning badge using IsMissingStartActivity. Generated Razo
 
 | View | Roots | Nodes | Diagnostics | Truncated |
 |---|---:|---:|---:|---|
-| source-roots | 2 | 27 | 16213 | yes |
-| source-focused | 2 | 130 | 16213 | yes |
+| source-roots | 2 | 27 | 16254 | yes |
+| source-focused | 2 | 210 | 16254 | yes |
 | msbuild-roots | 2 | 21 | 6 | yes |
-| msbuild-focused | 2 | 149 | 6 | yes |
+| msbuild-focused | 2 | 178 | 6 | yes |
 
 Both modes include automatic depth-one discovery and focused depth-three views with externals. Restored views select the named module project and references at net10.0; historical global.json selects SDK 10.0.401 with latestMajor roll-forward. Source mode uses the whole eligible repository C# input set and retains missing-package/build-input diagnostics. Coverage is partial in both modes. No potential path establishes runtime registration or execution.
 
 The complete twenty-view Orchard trial audit checked unique traversal IDs, relative paths and side-specific UTF-16 source-location bounds, plus exact text/Markdown agreement after removing fences. These two pairs contain no generated locations. The source changes and surrounding methods were inspected independently of generated expectations. No CI repeat is claimed yet.
 
 All eight views for these two pairs passed against the cancellation implementation in the 28-view addition replay. The 51 existing corpus checks passed separately against the same build. No snapshot contents changed during this replay.
+
+The [generic-context review](generic-context.md) retains inherited display-driver instantiations separately. `ActivityDisplayManager` calls `DisplayManager<IActivity>`. The focused callback now contains 82 source and 31 restored instantiations of the same two implementation declarations, including 67 and 24 concrete activity types respectively. The remaining instances include open generic constraints and the common activity-model base context. Each repeated node is unchanged and depth-limited; all other tree fields agree after traversal-ID renumbering. Text/Markdown stdout and declaration target lists are unchanged. Source views gain 41 explicit total-state limit diagnostics. Restored diagnostics remain the same six dynamic-call diagnostics.

@@ -51,6 +51,8 @@ public sealed class CallriftService(IAnalysisProvider? provider = null)
     public static DiffResult Compare(CallGraph before, CallGraph after, DiffOptions options, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        before = ContextGraph.Create(before, cancellationToken);
+        after = ContextGraph.Create(after, cancellationToken);
         var changed = ChangeDetector.FindChanges(before, after, cancellationToken);
         var roots = EntrySelector.Select(before, after, changed, options, cancellationToken);
         var oldExpander = new TreeExpander(before, changed, options, cancellationToken);
@@ -65,7 +67,7 @@ public sealed class CallriftService(IAnalysisProvider? provider = null)
         cancellationToken.ThrowIfCancellationRequested();
         var result = new DiffResult(trees, before.Diagnostics.Concat(after.Diagnostics).Distinct().ToArray(), trees.Length > 0)
         {
-            Truncated = trees.Any(t => IsTruncated(t, cancellationToken)),
+            Truncated = before.ContextTruncated || after.ContextTruncated || trees.Any(t => IsTruncated(t, cancellationToken)),
             Coverage = new AnalysisCoverage(after.Coverage.Mode,
                 before.Coverage.Status == "complete" && after.Coverage.Status == "complete" ? "complete" : "partial",
                 before.Coverage.Limitations.Concat(after.Coverage.Limitations).Distinct(StringComparer.Ordinal).ToArray())
@@ -79,6 +81,6 @@ public sealed class CallriftService(IAnalysisProvider? provider = null)
     internal static bool IsTruncated(DiffNode node, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        return node.Omission?.Reason == "depth-limit" || node.Children.Any(child => IsTruncated(child, cancellationToken));
+        return node.Omission?.Reason is "depth-limit" or "generic-context-limit" || node.Children.Any(child => IsTruncated(child, cancellationToken));
     }
 }

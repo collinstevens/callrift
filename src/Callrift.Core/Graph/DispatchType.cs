@@ -98,21 +98,33 @@ public sealed record DispatchType(string Name, IReadOnlyList<DispatchType> Argum
 
 public sealed record DispatchContract(string Target, DispatchType Type, IReadOnlyList<DispatchType>? ReceiverTypes = null)
 {
+    public IReadOnlyDictionary<string, DispatchType> GenericArguments { get; init; } = new Dictionary<string, DispatchType>();
+
+    internal IEnumerable<IReadOnlyDictionary<string, (DispatchType Type, string Side)>> Bind(DispatchType contract, DispatchType? receiver,
+        IReadOnlyDictionary<string, DispatchTypeDefinition>? definitions, CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        var bindings = new Dictionary<string, (DispatchType Type, string Side)>(StringComparer.Ordinal);
+        if (!Type.CanMatch(contract, bindings, definitions)) yield break;
+        if (receiver is null || ReceiverTypes is null)
+        {
+            if (DispatchConstraints.Allow(Type, bindings, "candidate:", definitions)) yield return bindings;
+            yield break;
+        }
+        foreach (var type in ReceiverTypes)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var constrained = new Dictionary<string, (DispatchType Type, string Side)>(bindings, StringComparer.Ordinal);
+            if (type.CanMatch(receiver, constrained, definitions) && Type.CanMatch(contract, constrained, definitions)
+                && DispatchConstraints.Allow(Type, constrained, "candidate:", definitions)
+                && DispatchConstraints.Allow(type, constrained, "candidate:", definitions)) yield return constrained;
+        }
+    }
+
     public bool CanMatch(DispatchType contract, DispatchType? receiver) => CanMatch(contract, receiver, null);
 
     public bool CanMatch(DispatchType contract, DispatchType? receiver, IReadOnlyDictionary<string, DispatchTypeDefinition>? definitions)
-    {
-        var bindings = new Dictionary<string, (DispatchType Type, string Side)>(StringComparer.Ordinal);
-        if (!Type.CanMatch(contract, bindings, definitions)) return false;
-        if (receiver is null || ReceiverTypes is null) return DispatchConstraints.Allow(Type, bindings, "candidate:", definitions);
-        return ReceiverTypes.Any(t =>
-        {
-            var constrained = new Dictionary<string, (DispatchType Type, string Side)>(bindings, StringComparer.Ordinal);
-            return t.CanMatch(receiver, constrained, definitions) && Type.CanMatch(contract, constrained, definitions)
-                && DispatchConstraints.Allow(Type, constrained, "candidate:", definitions)
-                && DispatchConstraints.Allow(t, constrained, "candidate:", definitions);
-        });
-    }
+        => Bind(contract, receiver, definitions).Any();
 }
 
 public sealed record DispatchMap(IReadOnlyDictionary<string, IReadOnlyList<string>> Implementations,

@@ -178,6 +178,8 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
     private CallStep CreateCall(SyntaxNode node, IMethodSymbol method, IReadOnlyList<CallStep> children)
     {
         var normalized = SymbolNames.Normalize(method);
+        dispatchTypes.Add(method.ContainingType);
+        foreach (var argument in method.TypeArguments) dispatchTypes.Add(argument);
         var source = method.MethodKind != MethodKind.DelegateInvoke && normalized.ContainingType.Locations.Any(l => l.IsInSource);
         var expression = node is InvocationExpressionSyntax invocation ? invocation.Expression : node;
         var receiver = expression switch
@@ -194,7 +196,9 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         {
             SuppressDispatch = exactReceiver,
             DispatchType = dispatches ? DescribeType(method.ContainingType) : null,
-            ReceiverType = dispatches ? ReceiverConstraint(receiver, node.SpanStart) : null
+            ReceiverType = dispatches ? ReceiverConstraint(receiver, node.SpanStart) : null,
+            GenericArguments = GenericBindings.FromMethod(method),
+            MethodArguments = method.TypeArguments.Select(DispatchType.From).ToArray()
         };
     }
 

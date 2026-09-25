@@ -24,9 +24,10 @@ public static class JsonRenderer
             foreach (var side in new[] { node.Before, node.After })
             {
                 if (side?.SymbolId is { } key) path[key] = id;
+                if (side?.ContextTargetKey is { } targetKey) path[targetKey] = id;
                 if (side is { TargetIds.Count: 1 }) path[side.TargetIds[0]] = id;
             }
-            var reference = node.Omission?.SymbolId is { } symbol && ancestors.TryGetValue(symbol, out var referenceId) ? referenceId : null;
+            var reference = (node.Omission?.ReferenceKey ?? node.Omission?.SymbolId) is { } symbol && ancestors.TryGetValue(symbol, out var referenceId) ? referenceId : null;
             return new
             {
                 id,

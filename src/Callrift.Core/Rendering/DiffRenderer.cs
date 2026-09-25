@@ -54,7 +54,7 @@ public static class DiffRenderer
 
     private static bool WasExpanded(DiffNode node, Dictionary<string, List<DiffNode>> expanded, bool locations)
     {
-        var key = node.Mark + node.Key;
+        var key = node.Mark + Identity(node);
         if (!expanded.TryGetValue(key, out var previous)) expanded[key] = previous = [];
         if (previous.Any(p => Equivalent(p, node, locations))) return true;
         previous.Add(node);
@@ -85,7 +85,13 @@ public static class DiffRenderer
         return side?.CallSites.FirstOrDefault() ?? side?.Definition;
     }
 
-    private static bool Equivalent(DiffNode left, DiffNode right, bool locations) => left.Key == right.Key && left.Mark == right.Mark && left.Label == right.Label
+    private static string Identity(DiffNode node) => node.After?.SymbolId ?? node.Before?.SymbolId ?? node.Key;
+
+    private static bool EquivalentSide(NodeSide? left, NodeSide? right) => left is null || right is null ? left == right
+        : left.SymbolId == right.SymbolId && left.TargetIds.SequenceEqual(right.TargetIds, StringComparer.Ordinal);
+
+    private static bool Equivalent(DiffNode left, DiffNode right, bool locations) => Identity(left) == Identity(right) && left.Mark == right.Mark && left.Label == right.Label
+        && EquivalentSide(left.Before, right.Before) && EquivalentSide(left.After, right.After)
         && left.Detail == right.Detail && (!locations || Location(left) == Location(right))
         && left.Children.Count == right.Children.Count && left.Children.Zip(right.Children).All(p => Equivalent(p.First, p.Second, locations));
 }

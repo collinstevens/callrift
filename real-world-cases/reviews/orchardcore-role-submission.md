@@ -10,8 +10,8 @@ Automatic discovery in both modes returns exactly these two methods. JSON retain
 
 | View | Roots | Nodes | Diagnostics | Truncated |
 |---|---:|---:|---:|---|
-| source-roots | 2 | 35 | 16240 | yes |
-| source-focused | 2 | 53 | 16240 | yes |
+| source-roots | 2 | 35 | 16281 | yes |
+| source-focused | 2 | 53 | 16281 | yes |
 | msbuild-roots | 2 | 17 | 0 | yes |
 | msbuild-focused | 2 | 76 | 0 | yes |
 
@@ -20,3 +20,5 @@ Both modes include automatic depth-one discovery and focused depth-three views w
 The complete twenty-view Orchard trial audit checked unique traversal IDs, relative paths and side-specific UTF-16 source-location bounds, plus exact text/Markdown agreement after removing fences. These two pairs contain no generated locations. The source changes and surrounding methods were inspected independently of generated expectations. No CI repeat is claimed yet.
 
 All eight views for these two pairs passed against the cancellation implementation in the 28-view addition replay. The 51 existing corpus checks passed separately against the same build. No snapshot contents changed during this replay.
+
+The [generic-context review](generic-context.md) adds 41 explicit total-state limit diagnostics to each source view. The two roots, every JSON call tree, and rendered stdout remain identical. Restored views remain unchanged. The source graph includes all eligible projects and exhausts its 65,536 additional-state budget; a focused selector does not hide this limitation.

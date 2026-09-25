@@ -22,12 +22,168 @@ stdout:
       "possible-dispatch",
       "unfollowed-accessors-operators-events",
       "callbacks-are-possible-calls",
-      "no-framework-dispatch-plugins"
+      "no-framework-dispatch-plugins",
+      "generic-context-limit"
     ]
   },
   "hasChanges": true,
   "truncated": true,
-  "diagnostics": [],
+  "diagnostics": [
+    {
+      "code": "generic-context-limit",
+      "message": "Generic invocation expansion for CircuitBreakerResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.",
+      "location": {
+        "path": "src/Polly.Core/CircuitBreaker/CircuitBreakerResilienceStrategy.cs",
+        "startLine": 30,
+        "startColumn": 5,
+        "endLine": 60,
+        "endColumn": 6
+      }
+    },
+    {
+      "code": "generic-context-limit",
+      "message": "Generic invocation expansion for FallbackResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.",
+      "location": {
+        "path": "src/Polly.Core/Fallback/FallbackResilienceStrategy.cs",
+        "startLine": 20,
+        "startColumn": 5,
+        "endLine": 55,
+        "endColumn": 6
+      }
+    },
+    {
+      "code": "generic-context-limit",
+      "message": "Generic invocation expansion for HedgingResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.",
+      "location": {
+        "path": "src/Polly.Core/Hedging/HedgingResilienceStrategy.cs",
+        "startLine": 34,
+        "startColumn": 5,
+        "endLine": 84,
+        "endColumn": 6
+      }
+    },
+    {
+      "code": "generic-context-limit",
+      "message": "Generic invocation expansion for RetryResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.",
+      "location": {
+        "path": "src/Polly.Core/Retry/RetryResilienceStrategy.cs",
+        "startLine": 46,
+        "startColumn": 5,
+        "endLine": 135,
+        "endColumn": 6
+      }
+    },
+    {
+      "code": "generic-context-limit",
+      "message": "Generic invocation expansion for ChaosOutcomeStrategy<T>.ExecuteCore exceeded 128 type nodes.",
+      "location": {
+        "path": "src/Polly.Core/Simmy/Outcomes/ChaosOutcomeStrategy.cs",
+        "startLine": 19,
+        "startColumn": 5,
+        "endLine": 44,
+        "endColumn": 6
+      }
+    },
+    {
+      "code": "generic-context-limit",
+      "message": "Generic invocation expansion for BridgeComponent.ExecuteCore exceeded 128 type nodes.",
+      "location": {
+        "path": "src/Polly.Core/Utils/Pipeline/BridgeComponent.cs",
+        "startLine": 11,
+        "startColumn": 5,
+        "endLine": 14,
+        "endColumn": 73
+      }
+    },
+    {
+      "code": "generic-context-limit",
+      "message": "Generic invocation expansion for BridgeComponent<T>.ExecuteCore exceeded 128 type nodes.",
+      "location": {
+        "path": "src/Polly.Core/Utils/Pipeline/BridgeComponent.TResult.cs",
+        "startLine": 13,
+        "startColumn": 5,
+        "endLine": 51,
+        "endColumn": 6
+      }
+    },
+    {
+      "code": "generic-context-limit",
+      "message": "Generic invocation expansion for ComponentWithDisposeCallbacks.ExecuteCore exceeded 128 type nodes.",
+      "location": {
+        "path": "src/Polly.Core/Utils/Pipeline/ComponentWithDisposeCallbacks.cs",
+        "startLine": 22,
+        "startColumn": 5,
+        "endLine": 25,
+        "endColumn": 74
+      }
+    },
+    {
+      "code": "generic-context-limit",
+      "message": "Generic invocation expansion for CompositeComponent.ExecuteCore exceeded 128 type nodes.",
+      "location": {
+        "path": "src/Polly.Core/Utils/Pipeline/CompositeComponent.cs",
+        "startLine": 71,
+        "startColumn": 5,
+        "endLine": 82,
+        "endColumn": 6
+      }
+    },
+    {
+      "code": "generic-context-limit",
+      "message": "Generic invocation expansion for DelegatingComponent.ExecuteCore exceeded 128 type nodes.",
+      "location": {
+        "path": "src/Polly.Core/Utils/Pipeline/DelegatingComponent.cs",
+        "startLine": 19,
+        "startColumn": 5,
+        "endLine": 25,
+        "endColumn": 140
+      }
+    },
+    {
+      "code": "generic-context-limit",
+      "message": "Generic invocation expansion for ExecutionTrackingComponent.ExecuteCore exceeded 128 type nodes.",
+      "location": {
+        "path": "src/Polly.Core/Utils/Pipeline/ExecutionTrackingComponent.cs",
+        "startLine": 22,
+        "startColumn": 5,
+        "endLine": 37,
+        "endColumn": 6
+      }
+    },
+    {
+      "code": "generic-context-limit",
+      "message": "Generic invocation expansion for ExternalComponent.ExecuteCore exceeded 128 type nodes.",
+      "location": {
+        "path": "src/Polly.Core/Utils/Pipeline/ExternalComponent.cs",
+        "startLine": 10,
+        "startColumn": 5,
+        "endLine": 13,
+        "endColumn": 74
+      }
+    },
+    {
+      "code": "generic-context-limit",
+      "message": "Generic invocation expansion for PipelineComponent.NullComponent.ExecuteCore exceeded 128 type nodes.",
+      "location": {
+        "path": "src/Polly.Core/Utils/Pipeline/PipelineComponent.cs",
+        "startLine": 43,
+        "startColumn": 9,
+        "endLine": 44,
+        "endColumn": 41
+      }
+    },
+    {
+      "code": "generic-context-limit",
+      "message": "Generic invocation expansion for ReloadableComponent.ExecuteCore exceeded 128 type nodes.",
+      "location": {
+        "path": "src/Polly.Core/Utils/Pipeline/ReloadableComponent.cs",
+        "startLine": 31,
+        "startColumn": 5,
+        "endLine": 34,
+        "endColumn": 74
+      }
+    }
+  ],
   "trees": [
     {
       "id": "n0",
@@ -5038,3 +5194,12 @@ stdout:
   "paths": []
 }
 stderr:
+src/Polly.Core/CircuitBreaker/CircuitBreakerResilienceStrategy.cs:30: generic-context-limit: Generic invocation expansion for CircuitBreakerResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Fallback/FallbackResilienceStrategy.cs:20: generic-context-limit: Generic invocation expansion for FallbackResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Hedging/HedgingResilienceStrategy.cs:34: generic-context-limit: Generic invocation expansion for HedgingResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Retry/RetryResilienceStrategy.cs:46: generic-context-limit: Generic invocation expansion for RetryResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Simmy/Outcomes/ChaosOutcomeStrategy.cs:19: generic-context-limit: Generic invocation expansion for ChaosOutcomeStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/BridgeComponent.cs:11: generic-context-limit: Generic invocation expansion for BridgeComponent.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/BridgeComponent.TResult.cs:13: generic-context-limit: Generic invocation expansion for BridgeComponent<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/ComponentWithDisposeCallbacks.cs:22: generic-context-limit: Generic invocation expansion for ComponentWithDisposeCallbacks.ExecuteCore exceeded 128 type nodes.
+6 additional diagnostics; use --diagnostics full.

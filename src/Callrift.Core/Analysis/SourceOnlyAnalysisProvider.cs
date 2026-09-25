@@ -101,7 +101,11 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                 }
                 members.Add(new Member(symbols.Key(symbol), symbols.Label(symbol), symbols.MatchName(symbol), symbols.Signature(symbol),
                     symbols.Location(node), body is not null, calls)
-                { Body = comparisonBody });
+                {
+                    Body = comparisonBody,
+                    GenericParameters = GenericBindings.FromMethod(symbol).Keys.Order(StringComparer.Ordinal).ToArray(),
+                    MethodParameters = symbol.TypeParameters.Select(p => DispatchType.From(p).Name).ToArray()
+                });
             }
             if (root is CompilationUnitSyntax unit && unit.Members.OfType<GlobalStatementSyntax>().Any())
             {
@@ -183,7 +187,10 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                 {
                     var locationNode = syntax ?? declarations.First();
                     members[key] = new Member(key, symbols.Label(constructor), symbols.MatchName(constructor), constructor.ToDisplayString(), symbols.Location(locationNode), true, calls)
-                    { Body = SyntaxFactory.Block(bodyParts) };
+                    {
+                        Body = SyntaxFactory.Block(bodyParts),
+                        GenericParameters = GenericBindings.FromMethod(constructor).Keys.Order(StringComparer.Ordinal).ToArray()
+                    };
                 }
             }
         }
@@ -220,7 +227,8 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                 map[key] = targets = new SortedSet<string>(StringComparer.Ordinal);
             targets.Add(target);
             if (!contracts.TryGetValue(key, out var candidates)) contracts[key] = candidates = [];
-            candidates.Add(new DispatchContract(target, DispatchType.From(contract.ContainingType), receiverTypes));
+            candidates.Add(new DispatchContract(target, DispatchType.From(contract.ContainingType), receiverTypes)
+            { GenericArguments = GenericBindings.FromMethod(implementation) });
         }
         foreach (var type in declaredTypes)
         {

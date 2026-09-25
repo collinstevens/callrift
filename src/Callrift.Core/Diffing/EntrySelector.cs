@@ -8,12 +8,16 @@ public static class EntrySelector
     public static IReadOnlyList<string> Select(CallGraph before, CallGraph after, IReadOnlySet<string> changed, DiffOptions options, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        var shared = ReferenceEquals(before, after);
+        before = ContextGraph.Create(before, cancellationToken);
+        after = shared ? before : ContextGraph.Create(after, cancellationToken);
         var members = new Dictionary<string, Member>(StringComparer.Ordinal);
         foreach (var pair in before.Members.Concat(after.Members))
         {
             cancellationToken.ThrowIfCancellationRequested();
             members[pair.Key] = pair.Value;
         }
+        var declarations = members.Values.Where(member => member.DefinitionKey is null || member.DefinitionKey == member.Key).ToArray();
         if (options.Entries.Count > 0 || options.Files.Count > 0)
         {
             var selected = new HashSet<string>(StringComparer.Ordinal);
@@ -22,9 +26,9 @@ public static class EntrySelector
                 cancellationToken.ThrowIfCancellationRequested();
                 var matches = members.Values.Where(m => m.Key == entry).ToArray();
                 if (matches.Length == 0)
-                    matches = members.Values.Where(m => m.Label == entry).ToArray();
+                    matches = declarations.Where(m => m.Label == entry).ToArray();
                 if (matches.Length == 0)
-                    matches = members.Values.Where(m => m.Label.EndsWith("." + entry, StringComparison.Ordinal) || m.Key.EndsWith(entry, StringComparison.Ordinal)).ToArray();
+                    matches = declarations.Where(m => m.Label.EndsWith("." + entry, StringComparison.Ordinal) || m.Key.EndsWith(entry, StringComparison.Ordinal)).ToArray();
                 if (matches.Select(m => m.MatchName).Distinct().Count() == 1 && matches.Length <= 2
                     && matches.Count(m => before.Members.ContainsKey(m.Key)) == 1 && matches.Count(m => after.Members.ContainsKey(m.Key)) == 1)
                     selected.UnionWith(matches.Select(m => m.Key));
@@ -43,16 +47,18 @@ public static class EntrySelector
                     matching = paths.Where(p => p.EndsWith("/" + normalized, StringComparison.Ordinal)).ToArray();
                 if (matching.Length != 1)
                     throw new InvalidOperationException(matching.Length == 0 ? $"File not found: {file}" : $"Ambiguous file: {file}");
-                selected.UnionWith(members.Values.Where(m => m.Location.Path == matching[0]).Select(m => m.Key));
+                selected.UnionWith(declarations.Where(m => m.Location.Path == matching[0]).Select(m => m.Key));
             }
             var result = selected.Order(StringComparer.Ordinal).ToArray();
             cancellationToken.ThrowIfCancellationRequested();
             return result;
         }
-        var callers = members.Keys.ToDictionary(k => k, _ => new HashSet<string>(StringComparer.Ordinal), StringComparer.Ordinal);
+        var active = (before.ActiveMembers ?? before.Members.Keys.ToHashSet(StringComparer.Ordinal))
+            .Concat(after.ActiveMembers ?? after.Members.Keys.ToHashSet(StringComparer.Ordinal)).ToHashSet(StringComparer.Ordinal);
+        var callers = members.Keys.Where(active.Contains).ToDictionary(k => k, _ => new HashSet<string>(StringComparer.Ordinal), StringComparer.Ordinal);
         foreach (var graph in new[] { before, after })
         {
-            foreach (var member in graph.Members.Values)
+            foreach (var member in graph.Members.Values.Where(member => graph.ActiveMembers is null || graph.ActiveMembers.Contains(member.Key)))
                 foreach (var target in Targets(member.Calls, graph, cancellationToken))
                 {
                     if (!callers.ContainsKey(target) && graph.Implementations.ContainsKey(target)) callers[target] = [];
@@ -60,7 +66,7 @@ public static class EntrySelector
                         incoming.Add(member.Key);
                 }
         }
-        var affected = new HashSet<string>(changed.Where(key => options.Paths.Count == 0 ||
+        var affected = new HashSet<string>(changed.Where(active.Contains).Where(key => options.Paths.Count == 0 ||
             options.Paths.Any(p => members.TryGetValue(key, out var member) && (member.Location.Path == p || member.Location.Path.StartsWith(p.TrimEnd('/') + "/", StringComparison.Ordinal)))), StringComparer.Ordinal);
         var pending = new Queue<string>(affected);
         while (pending.TryDequeue(out var key))

@@ -5,20 +5,23 @@ public sealed record CallTree(string Key, string Label, string MatchName, string
     public string Kind { get; init; } = "call";
     public NodeSide? Side { get; init; }
     public Omission? Omission { get; init; }
+    internal string? SemanticKey { get; init; }
+    internal string? InvocationKey { get; init; }
 }
 
 public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, DiffOptions options, CancellationToken cancellationToken)
 {
     public TreeExpander(CallGraph graph, IReadOnlySet<string> changed, DiffOptions options) : this(graph, changed, options, default) { }
 
+    private readonly CallGraph resolvedGraph = ContextGraph.Create(graph, cancellationToken);
     private readonly Dictionary<string, bool> changeReachability = new(StringComparer.Ordinal);
 
     public CallTree Expand(string key)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        if (!graph.Implementations.TryGetValue(key, out var targets) || targets.Count == 0)
+        if (!resolvedGraph.Implementations.TryGetValue(key, out var targets) || targets.Count == 0)
             return ExpandMember(key, [], 0);
-        var member = graph.Members[key];
+        var member = resolvedGraph.Members[key];
         var call = new CallStep("call", key, member.Label, true, member.Location, []);
         var tree = ExpandCalls([call], [], 0).Single();
         return tree with
@@ -34,11 +37,15 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
     private CallTree ExpandMember(string key, HashSet<string> active, int depth)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        var member = graph.Members[key];
-        var side = new NodeSide(key, member.Signature, "resolved", "direct", [key], member.Location, [], "definition");
+        var member = resolvedGraph.Members[key];
+        var definition = member.DefinitionKey ?? key;
+        var side = new NodeSide(definition, member.Signature, "resolved", "direct", [definition], member.Location, [], "definition");
+        if (member.ContextOmitted)
+            return new CallTree(key, member.Label, member.MatchName, member.Signature, [], changed.Contains(key), "generic context limit")
+            { Kind = "member", Side = side, Omission = new Omission("generic-context-limit") };
         if (active.Contains(key))
             return new CallTree(key, member.Label, member.MatchName, member.Signature, [], false, "↺ cycle")
-            { Kind = "member", Side = side, Omission = new Omission("cycle", key) };
+            { Kind = "member", Side = side, Omission = new Omission("cycle", definition) { ReferenceKey = key } };
         if (depth >= options.MaxDepth)
             return new CallTree(key, member.Label, member.MatchName, member.Signature, [], ReachesChange(key), ReachesChange(key) ? "changes below depth limit" : "depth limit")
             { Kind = "member", Side = side, Omission = new Omission("depth-limit") };
@@ -54,7 +61,7 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
         {
             cancellationToken.ThrowIfCancellationRequested();
             var children = ExpandCalls(call.Children, active, depth + 1);
-            var possibleTargets = graph.Targets(call, cancellationToken);
+            var possibleTargets = resolvedGraph.Targets(call, cancellationToken);
             if (call.Kind == "branch")
             {
                 if (children.Count > 0)
@@ -63,7 +70,7 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
                 continue;
             }
             if (!call.IsSource && call.Kind != "unresolved" && !options.IncludeExternals && children.Count == 0
-                && !graph.Members.ContainsKey(call.Key) && possibleTargets.Count == 0)
+                && !resolvedGraph.Members.ContainsKey(call.Key) && possibleTargets.Count == 0)
                 continue;
             CallTree tree;
             if (possibleTargets.Count > 0)
@@ -74,23 +81,34 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
                     tree = implementation with { Key = call.Key, Label = call.Label + " → " + implementation.Label, MatchName = call.Label + " → " + implementation.MatchName };
                 }
                 else
-                    tree = new CallTree(call.Key, call.Label, call.Key, call.Key, possibleTargets.Select(t =>
+                    tree = new CallTree(call.Key, call.Label, call.Key, call.Key, possibleTargets.Select((t, index) =>
                     {
                         var implementation = ExpandMember(t, active, depth + 1);
-                        return implementation with { Label = "⇢ " + implementation.Label, Kind = "dispatchTarget" };
+                        return implementation with { Key = call.SemanticTargets?[index] ?? t, Label = "⇢ " + implementation.Label, Kind = "dispatchTarget" };
                     }).ToArray());
             }
-            else if (graph.Members.ContainsKey(call.Key))
+            else if (resolvedGraph.Members.ContainsKey(call.Key))
                 tree = ExpandMember(call.Key, active, depth);
             else
                 tree = new CallTree(call.Key, call.Label, call.Key, call.Key, []);
-            graph.Members.TryGetValue(call.Key, out var declaration);
-            var side = new NodeSide(call.Kind == "unresolved" ? null : call.Key, declaration?.Signature,
+            resolvedGraph.Members.TryGetValue(call.Key, out var declaration);
+            var side = new NodeSide(call.Kind == "unresolved" ? null : call.DefinitionKey ?? call.Key, declaration?.Signature,
                 call.Kind == "unresolved" ? "unresolved" : "resolved", possibleTargets.Count > 0 ? "possible" : "direct",
-                possibleTargets.Count > 0 ? possibleTargets : call.Kind == "unresolved" ? [] : [call.Key], declaration?.Location,
+                possibleTargets.Count > 0 ? possibleTargets.Select(target => resolvedGraph.Members.GetValueOrDefault(target)?.DefinitionKey ?? target).Distinct(StringComparer.Ordinal).ToArray()
+                    : call.Kind == "unresolved" ? [] : [call.DefinitionKey ?? call.Key], declaration?.Location,
                 [call.Location], call.Relation, call.Candidates)
-            { Origin = call.Kind == "unresolved" ? "unknown" : call.IsSource ? "source" : "metadata" };
-            trees.Add(tree with { Kind = "call", Side = side, Children = tree.Children.Concat(children).ToArray() });
+            {
+                Origin = call.Kind == "unresolved" ? "unknown" : call.IsSource ? "source" : "metadata",
+                ContextTargetKey = possibleTargets.Count == 1 ? possibleTargets[0] : null
+            };
+            trees.Add(tree with
+            {
+                Kind = "call",
+                Side = side,
+                Children = tree.Children.Concat(children).ToArray(),
+                InvocationKey = InvocationContext.Create(resolvedGraph, call.DefinitionKey ?? call.Key, call.GenericArguments).Identity,
+                SemanticKey = (call.SemanticKey ?? call.Key) + (call.SemanticTargets is { Count: > 0 } semanticTargets ? "→" + string.Join(";", semanticTargets) : "")
+            });
         }
         return trees;
     }
@@ -121,8 +139,8 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
         if (changeReachability.TryGetValue(key, out var known)) return known;
         if (changed.Contains(key)) return changeReachability[key] = true;
         if (!visited.Add(key)) return false;
-        if (graph.Members.TryGetValue(key, out var member))
-            foreach (var target in EntrySelector.Targets(member.Calls, graph, cancellationToken))
+        if (resolvedGraph.Members.TryGetValue(key, out var member))
+            foreach (var target in EntrySelector.Targets(member.Calls, resolvedGraph, cancellationToken))
                 if (FindChangedPath(target, visited)) return changeReachability[key] = true;
         return false;
     }
