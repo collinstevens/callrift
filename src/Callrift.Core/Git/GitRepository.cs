@@ -97,6 +97,7 @@ public sealed class GitRepository(string root)
 
     public async Task<IReadOnlyList<SourceFile>> ReadBlobsAsync(IReadOnlyList<GitEntry> entries, CancellationToken cancellationToken = default, bool preserveBytes = false)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         if (entries.Count == 0)
             return [];
         var noLazyFetch = Environment.GetEnvironmentVariable("GIT_NO_LAZY_FETCH");
@@ -119,6 +120,7 @@ public sealed class GitRepository(string root)
     private async Task<IReadOnlyList<SourceFile>> ReadAvailableBlobsAsync(IReadOnlyList<GitEntry> entries, List<int>? missing,
         CancellationToken cancellationToken, bool preserveBytes)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         using var process = Start(Root, ["cat-file", "--batch"], noLazyFetch: missing is not null);
         using var registration = cancellationToken.Register(() => Kill(process));
         var errors = process.StandardError.ReadToEndAsync(cancellationToken);
@@ -158,8 +160,7 @@ public sealed class GitRepository(string root)
         }
         finally
         {
-            Kill(process);
-            try { await writer; } catch (IOException) { }
+            await StopAsync(process, cancellationToken, writer, errors);
         }
     }
 
@@ -240,6 +241,7 @@ public sealed class GitRepository(string root)
 
     private static async Task<(int Code, string Output, string Error)> ExecuteAsync(string directory, IReadOnlyList<string> arguments, CancellationToken cancellationToken, string? input = null)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         using var process = Start(directory, arguments);
         using var registration = cancellationToken.Register(() => Kill(process));
         var output = process.StandardOutput.ReadToEndAsync(cancellationToken);
@@ -253,8 +255,19 @@ public sealed class GitRepository(string root)
         }
         finally
         {
-            Kill(process);
-            try { await write; } catch (IOException) { }
+            await StopAsync(process, cancellationToken, write, output, error);
+        }
+    }
+
+    private static async Task StopAsync(Process process, CancellationToken cancellationToken, params Task[] pending)
+    {
+        Kill(process);
+        await process.WaitForExitAsync();
+        foreach (var task in pending)
+        {
+            try { await task; }
+            catch (IOException) { }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { }
         }
     }
 
