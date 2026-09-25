@@ -1,0 +1,20 @@
+﻿A delegate-producing invocation is evaluated before invoking the returned delegate; its source calls stay reachable.
+
+exit: 0
+stdout:
+  Flow.Run
+  └─ Flow.Factory
+-    ├─ Flow.Before
++    └─ Flow.After
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Flow.Run
+  └─ Flow.Factory
+-    ├─ Flow.Before
++    └─ Flow.After
+```
+stderr:

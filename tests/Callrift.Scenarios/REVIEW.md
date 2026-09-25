@@ -58,3 +58,17 @@ The added recursive-signature scenario changes the root signature and removes a 
 `DispatchQueryTests` exercises the CLI process in source and MSBuild modes, with text, Markdown, and JSON. Selecting an interface or abstract declaration previously skipped implementation expansion. The independent fixture expectation is a path from the selected contract through each possible source implementation to `Worker.After`, plus the removed `Worker.Before` call in diffs. Single- and multiple-implementation cases preserve the contract identity, declaration relationship, empty root call-site list, and explicit possible target set in JSON. A separate parameter-type change must produce one modified contract root with both identities and a signature-change detail.
 
 All ten regression cases passed in `dispatch-query-final_net10.0_20260924153315.trx`. Existing snapshots were not rewritten for this fix.
+
+# Nested-expression regression review
+
+The three source fixtures in `ScenarioCatalog` change only a callee's `Before()` call to `After()`. Their caller syntax stays unchanged. Before the collector fix, all six source/MSBuild `CallCollectionTests` cases failed because automatic discovery lost `Flow.Run`. After the fix, all six pass through the real CLI for diff, tree, and reach in text, Markdown, and JSON.
+
+Reviewed the complete text/Markdown and JSON snapshots against the fixture source:
+
+| Fixture | Independent expectation and accepted evidence |
+|---|---|
+| switch-guard | `Flow.Run` reaches `Flow.Check` through the pattern guard on line 7, before `Flow.Save`. The removed/added calls remain beneath `Flow.Check`, not at the root. Both guard call spans are columns 35–46; the section body call is columns 48–54. |
+| delegate-factory | `Flow.Run` evaluates `Factory()` on line 4 before invoking its returned delegate. The factory call spans columns 26–35 and contains the changed calls. The external delegate invocation follows the normal external filter; no returned-lambda dataflow is inferred. |
+| converted-callback | `Flow.Run` passes the cast lambda to `Flow.Wrap`. `Flow.Work` remains a callback child with a line 4, columns 46–52 call site; its removed/added children remain ordinary calls. The callback relation means possible execution. |
+
+All three JSON envelopes retain schema version 1, stable canonical identities, separate before/after spans, empty diagnostics, partial coverage, and no truncation or cycle omissions. Each passed `schemas/output-v1.schema.json` with `Test-Json`. The existing 28 feature snapshots passed without changes. Source files, line numbers, and expected labels define the regression assertions independently of collector internals.

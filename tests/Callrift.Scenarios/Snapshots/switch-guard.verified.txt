@@ -1,0 +1,24 @@
+﻿A switch pattern guard calls changed source code before its section body; the caller remains the automatic root.
+
+exit: 0
+stdout:
+  Flow.Run
+  └─ case string text when Check(text):
+     ├─ Flow.Check
+-    │  ├─ Flow.Before
++    │  └─ Flow.After
+     └─ Flow.Save
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Flow.Run
+  └─ case string text when Check(text):
+     ├─ Flow.Check
+-    │  ├─ Flow.Before
++    │  └─ Flow.After
+     └─ Flow.Save
+```
+stderr:

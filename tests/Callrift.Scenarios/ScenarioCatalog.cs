@@ -19,6 +19,43 @@ public static class ScenarioCatalog
         Change("guard", "Existing call moves into a new if guard.", """
             class Flow { public void Run(bool ready) { Save(); } void Save() {} }
             """, "{ Save(); }", "{ if (ready) Save(); }"),
+        Change("switch-guard", "A switch pattern guard calls changed source code before its section body; the caller remains the automatic root.", """
+            class Flow
+            {
+                public void Run(object value)
+                {
+                    switch (value)
+                    {
+                        case string text when Check(text): Save(); break;
+                    }
+                }
+                bool Check(string text) { Before(); return true; }
+                void Save() {}
+                void Before() {}
+                void After() {}
+            }
+            """, "Before();", "After();"),
+        Change("delegate-factory", "A delegate-producing invocation is evaluated before invoking the returned delegate; its source calls stay reachable.", """
+            using System;
+            class Flow
+            {
+                public void Run() => Factory()();
+                Action Factory() { Before(); return () => {}; }
+                void Before() {}
+                void After() {}
+            }
+            """, "Before();", "After();"),
+        Change("converted-callback", "A cast lambda stays a possible callback beneath its receiving call and links the unchanged caller to changed source code.", """
+            using System;
+            class Flow
+            {
+                public void Run() => Wrap((Action)(() => Work()));
+                void Wrap(Action callback) => callback();
+                void Work() { Before(); }
+                void Before() {}
+                void After() {}
+            }
+            """, "Before();", "After();"),
         Change("signature", "A unique method gains a parameter without duplicating its unchanged subtree.", """
             class Flow { public void Run() { Save(); } void Save() {} }
             """, "void Run()", "void Run(int count)"),

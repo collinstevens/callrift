@@ -1,0 +1,22 @@
+﻿A cast lambda stays a possible callback beneath its receiving call and links the unchanged caller to changed source code.
+
+exit: 0
+stdout:
+  Flow.Run
+  └─ Flow.Wrap
+     └─ Flow.Work
+-       ├─ Flow.Before
++       └─ Flow.After
+stderr:
+
+markdown:
+exit: 0
+stdout:
+```diff
+  Flow.Run
+  └─ Flow.Wrap
+     └─ Flow.Work
+-       ├─ Flow.Before
++       └─ Flow.After
+```
+stderr:

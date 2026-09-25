@@ -26,8 +26,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             case InvocationExpressionSyntax invocation:
                 if (invocation.Expression is IdentifierNameSyntax { Identifier.ValueText: "nameof" } && model.GetConstantValue(invocation, cancellationToken).HasValue)
                     return;
-                if (invocation.Expression is MemberAccessExpressionSyntax receiverAccess)
-                    Walk(receiverAccess.Expression, result);
+                Walk(invocation.Expression, result);
                 Emit(invocation, invocation.ArgumentList.Arguments, result);
                 return;
             case BaseObjectCreationExpressionSyntax creation:
@@ -49,7 +48,8 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             case SwitchStatementSyntax selection:
                 Walk(selection.Expression, result);
                 foreach (var section in selection.Sections)
-                    Branch(string.Join(" ", section.Labels.Select(SymbolNames.Compact)), section, section.Statements, result);
+                    Branch(string.Join(" ", section.Labels.Select(SymbolNames.Compact)), section,
+                        section.Labels.OfType<CasePatternSwitchLabelSyntax>().Select(l => l.WhenClause).OfType<SyntaxNode>().Concat(section.Statements), result);
                 return;
             case SwitchExpressionSyntax selection:
                 Walk(selection.GoverningExpression, result);
@@ -116,8 +116,8 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         foreach (var argument in arguments)
         {
             var expression = argument.Expression;
-            while (expression is ParenthesizedExpressionSyntax parenthesized)
-                expression = parenthesized.Expression;
+            while (expression is ParenthesizedExpressionSyntax or CastExpressionSyntax)
+                expression = expression is ParenthesizedExpressionSyntax parenthesized ? parenthesized.Expression : ((CastExpressionSyntax)expression).Expression;
             if (expression is AnonymousFunctionExpressionSyntax lambda)
                 Walk(lambda.Body, callbacks);
             else if (expression is IdentifierNameSyntax or GenericNameSyntax or MemberAccessExpressionSyntax && model.GetSymbolInfo(expression, cancellationToken).Symbol is IMethodSymbol method)
