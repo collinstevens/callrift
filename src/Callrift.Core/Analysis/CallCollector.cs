@@ -2,6 +2,7 @@ using System.Collections.Concurrent;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Operations;
 
 namespace Callrift.Core;
 
@@ -130,7 +131,11 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 Walk(expression, result);
         }
         var info = model.GetSymbolInfo(invocation, cancellationToken);
-        if (info.Symbol is IMethodSymbol target)
+        var target = info.Symbol as IMethodSymbol;
+        if (target is null && invocation is BaseObjectCreationExpressionSyntax && model.GetOperation(invocation, cancellationToken) is IDelegateCreationOperation
+            { Type: INamedTypeSymbol delegateType, Target: IAnonymousFunctionOperation or IMethodReferenceOperation })
+            target = delegateType.InstanceConstructors.SingleOrDefault();
+        if (target is not null)
             result.Add(CreateCall(invocation, target, callbacks.Select(c => c with { Relation = "callback" }).ToArray()));
         else
         {
