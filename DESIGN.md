@@ -92,6 +92,8 @@ Walk receiver calls before invocation arguments, then emit the invocation. Ordin
 
 Returned and assigned anonymous functions and delegate-converted method groups retain their bodies under an explicit callback node. Creating or returning a delegate establishes a possible callback relationship; it does not prove invocation. Calls that evaluate a method group's receiver remain outside that deferred node.
 
+Use valid Roslyn delegate-creation operations to bind explicit delegate constructors, including copies of existing delegate values. Evaluate a factory operand before construction. A copied value does not supply a statically known callback body. Invalid operands and incompatible delegate signatures remain unresolved.
+
 Use `GetSymbolInfo`; normalize `(ReducedFrom ?? method).OriginalDefinition`. Candidate symbols are evidence of incomplete binding, not a successful overload decision: retain candidate identities with an uncertainty marker instead of selecting the first one. Delegate invocation remains external even for a source-declared delegate type. Unresolved calls remain visible as `? receiver.Method`; resolved external leaves are hidden unless `--externals`. External wrappers with visible callback descendants remain visible.
 
 Human labels are concise, such as `Outer.Inner.Run`, `Repo<T>.Load`, `Outer.Local`, and `new Order`. Canonical identities include project/TFM scope when available, namespace, containing type, generic arity, parameter types/ref kinds, and local-function owner. Keep a separate signature representation for return types and other changes that do not alter overload identity. Never use a short display label as a unique graph key.
@@ -104,7 +106,7 @@ Emit condition-bearing nodes for if/else, switch sections and expressions, try/c
 
 Branch and unresolved-call identities discard syntax trivia and normalize token spacing. Formatting a guard or fluent receiver must not create a call-flow change. Whitespace inside a string literal remains significant, including in unresolved receivers. Diagnostics use the same normalized syntax representation; comments embedded in a fluent expression do not become part of its call label.
 
-Virtual non-abstract dispatch, property/indexer bodies, operators, event dispatch, implicit conversions, reflection, and arbitrary delegate dataflow remain explicit coverage gaps for the initial release. Package conventions such as mediator handler routing need later evidence-based dispatch adapters. Accurate mode alone does not fill these gaps.
+Property/indexer bodies, operators, event dispatch, implicit conversions, reflection, and arbitrary delegate dataflow remain explicit coverage gaps. Package conventions such as mediator handler routing need later evidence-based dispatch adapters. Accurate mode alone does not fill these gaps.
 
 **Changes, roots, and presentation**
 

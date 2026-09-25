@@ -154,7 +154,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             ? InterceptorSymbols.Find(model, interceptable, cancellationToken) ?? info.Symbol as IMethodSymbol
             : info.Symbol as IMethodSymbol;
         if (target is null && invocation is BaseObjectCreationExpressionSyntax && model.GetOperation(invocation, cancellationToken) is IDelegateCreationOperation
-            { Type: INamedTypeSymbol delegateType, Target: IAnonymousFunctionOperation or IMethodReferenceOperation })
+            { Type: INamedTypeSymbol delegateType })
             target = delegateType.InstanceConstructors.SingleOrDefault();
         if (target is not null)
             result.Add(CreateCall(invocation, target, callbacks.Select(c => c with { Relation = "callback" }).ToArray()));
