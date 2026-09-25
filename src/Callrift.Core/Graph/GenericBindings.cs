@@ -4,6 +4,9 @@ namespace Callrift.Core;
 
 internal static class GenericBindings
 {
+    public static bool HasContainingInstance(IMethodSymbol method) => !method.IsStatic && method.MethodKind != MethodKind.DelegateInvoke && (method.MethodKind != MethodKind.LocalFunction
+        || method.ContainingSymbol is IMethodSymbol containing && HasContainingInstance(containing));
+
     public static IReadOnlyDictionary<string, DispatchType> FromMethod(IMethodSymbol method)
     {
         var bindings = new Dictionary<string, DispatchType>(StringComparer.Ordinal);

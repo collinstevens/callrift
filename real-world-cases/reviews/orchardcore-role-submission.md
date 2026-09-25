@@ -22,3 +22,5 @@ The complete twenty-view Orchard trial audit checked unique traversal IDs, relat
 All eight views for these two pairs passed against the cancellation implementation in the 28-view addition replay. The 51 existing corpus checks passed separately against the same build. No snapshot contents changed during this replay.
 
 The [generic-context review](generic-context.md) adds 41 explicit total-state limit diagnostics to each source view. The two roots, every JSON call tree, and rendered stdout remain identical. Restored views remain unchanged. The source graph includes all eligible projects and exhausts its 65,536 additional-state budget; a focused selector does not hide this limitation.
+
+The [receiver-context review](receiver-context.md) records the subsequent inherited-call changes, diagnostic updates, and source traces for this pair. Its current counts supersede the earlier snapshot counts above.

@@ -259,7 +259,8 @@ stdout:
 + new KeyedAnyKeyChildScopeBenchmark
 
 + KeyedAnyKeyChildScopeBenchmark.Cleanup
-+ ├─ _existingScope.Dispose → Disposable.Dispose (depth limit)
++ ├─ _existingScope.Dispose
++ │  └─ ⇢ Disposable.Dispose ×2 (depth limit)
 + └─ _container.Dispose → Disposable.Dispose (depth limit)
 
 + KeyedAnyKeyChildScopeBenchmark.ResolveAnyKeyFromExistingChildScope
@@ -465,7 +466,8 @@ stdout:
      └─ IReflectionCache.Clear ↑ as above
 
   ComponentRegistry.TryGetRegistration
-~ └─ IComponentRegistryServices.TryGetRegistration → DefaultRegisteredServicesTracker.TryGetRegistration (changes below depth limit)
+  └─ IComponentRegistryServices.TryGetRegistration
+~    └─ ⇢ DefaultRegisteredServicesTracker.TryGetRegistration ×2 (changes below depth limit)
 
   ResolvedParameter.ForNamed
 ~ └─ ResolvedParameter.ForKeyed (changes below depth limit)
@@ -1028,7 +1030,8 @@ stdout:
 + new KeyedAnyKeyChildScopeBenchmark
 
 + KeyedAnyKeyChildScopeBenchmark.Cleanup
-+ ├─ _existingScope.Dispose → Disposable.Dispose (depth limit)
++ ├─ _existingScope.Dispose
++ │  └─ ⇢ Disposable.Dispose ×2 (depth limit)
 + └─ _container.Dispose → Disposable.Dispose (depth limit)
 
 + KeyedAnyKeyChildScopeBenchmark.ResolveAnyKeyFromExistingChildScope
@@ -1234,7 +1237,8 @@ stdout:
      └─ IReflectionCache.Clear ↑ as above
 
   ComponentRegistry.TryGetRegistration
-~ └─ IComponentRegistryServices.TryGetRegistration → DefaultRegisteredServicesTracker.TryGetRegistration (changes below depth limit)
+  └─ IComponentRegistryServices.TryGetRegistration
+~    └─ ⇢ DefaultRegisteredServicesTracker.TryGetRegistration ×2 (changes below depth limit)
 
   ResolvedParameter.ForNamed
 ~ └─ ResolvedParameter.ForKeyed (changes below depth limit)

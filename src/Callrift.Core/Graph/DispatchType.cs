@@ -98,6 +98,8 @@ public sealed record DispatchType(string Name, IReadOnlyList<DispatchType> Argum
 
 public sealed record DispatchContract(string Target, DispatchType Type, IReadOnlyList<DispatchType>? ReceiverTypes = null)
 {
+    public DispatchType? ImplementationType { get; init; }
+    public bool ImplementationTypeExact { get; init; }
     public IReadOnlyDictionary<string, DispatchType> GenericArguments { get; init; } = new Dictionary<string, DispatchType>();
 
     internal IEnumerable<IReadOnlyDictionary<string, (DispatchType Type, string Side)>> Bind(DispatchType contract, DispatchType? receiver,
@@ -106,7 +108,7 @@ public sealed record DispatchContract(string Target, DispatchType Type, IReadOnl
         cancellationToken.ThrowIfCancellationRequested();
         var bindings = new Dictionary<string, (DispatchType Type, string Side)>(StringComparer.Ordinal);
         if (!Type.CanMatch(contract, bindings, definitions)) yield break;
-        if (receiver is null || ReceiverTypes is null)
+        if (receiver is null || receiver.IsParameter || ReceiverTypes is null)
         {
             if (DispatchConstraints.Allow(Type, bindings, "candidate:", definitions)) yield return bindings;
             yield break;

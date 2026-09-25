@@ -30,6 +30,9 @@ public sealed record CallStep(
     public bool SuppressDispatch { get; init; }
     public DispatchType? DispatchType { get; init; }
     public DispatchType? ReceiverType { get; init; }
+    public DispatchType? InvocationReceiverType { get; init; }
+    public bool InvocationReceiverExact { get; init; }
+    public bool UsesContainingInstance { get; init; }
     public IReadOnlyDictionary<string, DispatchType> GenericArguments { get; init; } = new Dictionary<string, DispatchType>();
     public IReadOnlyList<DispatchType> MethodArguments { get; init; } = [];
     internal string? DefinitionKey { get; init; }
@@ -67,6 +70,7 @@ public sealed record Member(
     public string? BodyFingerprint { get; init; }
     public IReadOnlyList<string> GenericParameters { get; init; } = [];
     public IReadOnlyList<string> MethodParameters { get; init; } = [];
+    public DispatchType? InstanceType { get; init; }
     internal string? DefinitionKey { get; init; }
     internal bool ContextOmitted { get; init; }
 }
@@ -83,6 +87,7 @@ public sealed record CallGraph(
     internal bool Contextual { get; init; }
     internal bool ContextTruncated { get; init; }
     internal IReadOnlySet<string>? ActiveMembers { get; init; }
+    internal IReadOnlySet<string>? ReceiverSensitiveMembers { get; init; }
 
     public IReadOnlyList<string> Targets(CallStep call) => Targets(call, default);
 

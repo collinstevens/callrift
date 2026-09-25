@@ -103,6 +103,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                     symbols.Location(node), body is not null, calls)
                 {
                     Body = comparisonBody,
+                    InstanceType = GenericBindings.HasContainingInstance(symbol) ? DispatchType.From(symbol.ContainingType) : null,
                     GenericParameters = GenericBindings.FromMethod(symbol).Keys.Order(StringComparer.Ordinal).ToArray(),
                     MethodParameters = symbol.TypeParameters.Select(p => DispatchType.From(p).Name).ToArray()
                 });
@@ -189,6 +190,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                     members[key] = new Member(key, symbols.Label(constructor), symbols.MatchName(constructor), constructor.ToDisplayString(), symbols.Location(locationNode), true, calls)
                     {
                         Body = SyntaxFactory.Block(bodyParts),
+                        InstanceType = constructor.IsStatic ? null : DispatchType.From(constructor.ContainingType),
                         GenericParameters = GenericBindings.FromMethod(constructor).Keys.Order(StringComparer.Ordinal).ToArray()
                     };
                 }
@@ -211,13 +213,18 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
         Func<IMethodSymbol, string> scope, Func<IMethodSymbol, string, string> declaringPath, CancellationToken cancellationToken = default)
         => BuildDispatchMap(types, members, new SymbolNames(scope, declaringPath: declaringPath), cancellationToken);
 
+    public static DispatchMap BuildDispatchMap(IEnumerable<INamedTypeSymbol> types, IReadOnlyDictionary<string, Member> members,
+        Func<IMethodSymbol, string> scope, Func<IMethodSymbol, string, string> declaringPath,
+        Func<INamedTypeSymbol, string, string> typeDeclaringPath, CancellationToken cancellationToken = default)
+        => BuildDispatchMap(types, members, new SymbolNames(scope, declaringPath: declaringPath, typeDeclaringPath: typeDeclaringPath), cancellationToken);
+
     private static DispatchMap BuildDispatchMap(IEnumerable<INamedTypeSymbol> types, IReadOnlyDictionary<string, Member> members, SymbolNames symbols,
         CancellationToken cancellationToken, IEnumerable<ITypeSymbol>? observedTypes = null)
     {
         var declaredTypes = types.ToArray();
         var map = new Dictionary<string, SortedSet<string>>(StringComparer.Ordinal);
         var contracts = new Dictionary<string, List<DispatchContract>>(StringComparer.Ordinal);
-        void Add(IMethodSymbol contract, IMethodSymbol implementation, IReadOnlyList<DispatchType> receiverTypes, bool includeSelf = false)
+        void Add(IMethodSymbol contract, IMethodSymbol implementation, IReadOnlyList<DispatchType> receiverTypes, INamedTypeSymbol instanceType, bool includeSelf = false)
         {
             var key = symbols.Key(contract);
             var target = symbols.Key(implementation);
@@ -228,7 +235,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
             targets.Add(target);
             if (!contracts.TryGetValue(key, out var candidates)) contracts[key] = candidates = [];
             candidates.Add(new DispatchContract(target, DispatchType.From(contract.ContainingType), receiverTypes)
-            { GenericArguments = GenericBindings.FromMethod(implementation) });
+            { GenericArguments = GenericBindings.FromMethod(implementation), ImplementationType = DispatchType.From(instanceType), ImplementationTypeExact = !instanceType.IsAbstract });
         }
         foreach (var type in declaredTypes)
         {
@@ -249,7 +256,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                             resolved = candidate;
                             break;
                         }
-                        Add(method, resolved, receiverTypes);
+                        Add(method, resolved, receiverTypes, type);
                     }
             if (type.IsAbstract)
                 continue;
@@ -258,11 +265,11 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                 foreach (var method in current.GetMembers().OfType<IMethodSymbol>())
                 {
                     if (overridden.Contains(method)) continue;
-                    if (method.IsVirtual || method.IsOverride) Add(method, method, receiverTypes, includeSelf: true);
+                    if (method.IsVirtual || method.IsOverride) Add(method, method, receiverTypes, type, includeSelf: true);
                     for (var parent = method.OverriddenMethod; parent is not null; parent = parent.OverriddenMethod)
                     {
                         overridden.Add(parent);
-                        Add(parent, method, receiverTypes);
+                        Add(parent, method, receiverTypes, type);
                     }
                 }
         }
@@ -270,7 +277,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
             .ToDictionary(p => p.Key, p => (IReadOnlyList<string>)p.Value.ToArray(), StringComparer.Ordinal);
         return new DispatchMap(implementations, contracts.Where(p => implementations.ContainsKey(p.Key))
             .ToDictionary(p => p.Key, p => (IReadOnlyList<DispatchContract>)p.Value.OrderBy(c => c.Target, StringComparer.Ordinal).ToArray(), StringComparer.Ordinal))
-        { TypeDefinitions = DispatchTypeCatalog.Create(declaredTypes.Concat(observedTypes ?? []), cancellationToken) };
+        { TypeDefinitions = DispatchTypeCatalog.Create(declaredTypes.Concat(observedTypes ?? []), cancellationToken, symbols.TypeIdentity) };
     }
 
     private static bool Overrides(IMethodSymbol method, IMethodSymbol ancestor)

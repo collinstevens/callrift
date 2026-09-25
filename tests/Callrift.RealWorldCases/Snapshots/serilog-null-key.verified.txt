@@ -9,11 +9,42 @@ stdout:
 -    │  │     ├─ ReusableStringWriter.GetOrCreate
 -    │  │     │  └─ if (writer == null || !Equals(writer.FormatProvider, fmtProvider))
 -    │  │     │     └─ new ReusableStringWriter (depth limit)
--    │  │     └─ LogEventPropertyValue.Render
--    │  │        ├─ ⇢ DictionaryValue.Render (depth limit)
--    │  │        ├─ ⇢ ScalarValue.Render (depth limit)
--    │  │        ├─ ⇢ SequenceValue.Render (depth limit)
--    │  │        └─ ⇢ StructureValue.Render (depth limit)
+-    │  │     └─ LogEventPropertyValue.Render → DictionaryValue.Render
+-    │  │        ├─ Guard.AgainstNull (depth limit)
+-    │  │        └─ foreach (var kvp in Elements)
+-    │  │           ├─ ScalarValue.Render (depth limit)
+-    │  │           └─ LogEventPropertyValue.Render
+-    │  │              ├─ ⇢ DictionaryValue.Render (↺ cycle)
+-    │  │              ├─ ⇢ ScalarValue.Render (depth limit)
+-    │  │              ├─ ⇢ SequenceValue.Render (depth limit)
+-    │  │              └─ ⇢ StructureValue.Render (depth limit)
+-    │  ├─ ⇢ LogEventPropertyValue.ToString
+-    │  │  └─ LogEventPropertyValue.ToString
+-    │  │     ├─ ReusableStringWriter.GetOrCreate ↑ as above
+-    │  │     └─ LogEventPropertyValue.Render → ScalarValue.Render
+-    │  │        └─ ScalarValue.Render (depth limit)
+-    │  ├─ ⇢ LogEventPropertyValue.ToString
+-    │  │  └─ LogEventPropertyValue.ToString
+-    │  │     ├─ ReusableStringWriter.GetOrCreate ↑ as above
+-    │  │     └─ LogEventPropertyValue.Render → SequenceValue.Render
+-    │  │        ├─ Guard.AgainstNull (depth limit)
+-    │  │        ├─ for (i < allButLast)
+-    │  │        │  └─ LogEventPropertyValue.Render
+-    │  │        │     ├─ ⇢ DictionaryValue.Render (depth limit)
+-    │  │        │     ├─ ⇢ ScalarValue.Render (depth limit)
+-    │  │        │     ├─ ⇢ SequenceValue.Render (↺ cycle)
+-    │  │        │     └─ ⇢ StructureValue.Render (depth limit)
+-    │  │        └─ if (_elements.Length > 0)
+-    │  │           └─ LogEventPropertyValue.Render ↑ as above
+-    │  ├─ ⇢ LogEventPropertyValue.ToString
+-    │  │  └─ LogEventPropertyValue.ToString
+-    │  │     ├─ ReusableStringWriter.GetOrCreate ↑ as above
+-    │  │     └─ LogEventPropertyValue.Render → StructureValue.Render
+-    │  │        ├─ Guard.AgainstNull (depth limit)
+-    │  │        ├─ for (i < allButLast)
+-    │  │        │  └─ StructureValue.Render (depth limit)
+-    │  │        └─ if (_properties.Length > 0)
+-    │  │           └─ StructureValue.Render (depth limit)
 -    │  ├─ ⇢ MessageTemplate.ToString
 -    │  ├─ ⇢ PropertyToken.ToString
 -    │  └─ ⇢ TextToken.ToString
@@ -23,16 +54,55 @@ stdout:
 +    │  │  ├─ ⇢ LogEventPropertyValue.ToString
 +    │  │  │  └─ LogEventPropertyValue.ToString
 +    │  │  │     ├─ ReusableStringWriter.GetOrCreate (depth limit)
-+    │  │  │     └─ LogEventPropertyValue.Render
-+    │  │  │        ├─ ⇢ DictionaryValue.Render (depth limit)
-+    │  │  │        ├─ ⇢ ScalarValue.Render (depth limit)
-+    │  │  │        ├─ ⇢ SequenceValue.Render (depth limit)
-+    │  │  │        └─ ⇢ StructureValue.Render (depth limit)
++    │  │  │     └─ LogEventPropertyValue.Render → DictionaryValue.Render (depth limit)
++    │  │  ├─ ⇢ LogEventPropertyValue.ToString
++    │  │  │  └─ LogEventPropertyValue.ToString
++    │  │  │     ├─ ReusableStringWriter.GetOrCreate (depth limit)
++    │  │  │     └─ LogEventPropertyValue.Render → ScalarValue.Render (depth limit)
++    │  │  ├─ ⇢ LogEventPropertyValue.ToString
++    │  │  │  └─ LogEventPropertyValue.ToString
++    │  │  │     ├─ ReusableStringWriter.GetOrCreate (depth limit)
++    │  │  │     └─ LogEventPropertyValue.Render → SequenceValue.Render (depth limit)
++    │  │  ├─ ⇢ LogEventPropertyValue.ToString
++    │  │  │  └─ LogEventPropertyValue.ToString
++    │  │  │     ├─ ReusableStringWriter.GetOrCreate (depth limit)
++    │  │  │     └─ LogEventPropertyValue.Render → StructureValue.Render (depth limit)
 +    │  │  ├─ ⇢ MessageTemplate.ToString
 +    │  │  ├─ ⇢ PropertyToken.ToString
 +    │  │  └─ ⇢ TextToken.ToString
 +    │  └─ JsonValueFormatter.WriteQuotedJsonString
      └─ LogEventPropertyValueVisitor<TState, TResult>.Visit
+        ├─ Guard.AgainstNull
+        ├─ if (value is ScalarValue sv)
+        ├─ if (value is SequenceValue seqv)
+        │  └─ LogEventPropertyValueVisitor<TState, TResult>.VisitSequenceValue → JsonValueFormatter.VisitSequenceValue
+        │     ├─ Guard.AgainstNull
+        │     └─ for (i < sequence.Elements.Count)
+~       │        └─ LogEventPropertyValueVisitor<TState, TResult>.Visit (changes below depth limit)
+        ├─ if (value is StructureValue strv)
+        │  └─ LogEventPropertyValueVisitor<TState, TResult>.VisitStructureValue → JsonValueFormatter.VisitStructureValue
+        │     ├─ for (i < structure.Properties.Count)
+        │     │  ├─ JsonValueFormatter.WriteQuotedJsonString (depth limit)
+~       │     │  └─ LogEventPropertyValueVisitor<TState, TResult>.Visit (changes below depth limit)
+        │     └─ if (_typeTagName != null && structure.TypeTag != null)
+        ├─ if (value is DictionaryValue dictv)
+        │  └─ LogEventPropertyValueVisitor<TState, TResult>.VisitDictionaryValue → JsonValueFormatter.VisitDictionaryValue
+        │     └─ foreach (var element in dictionary.Elements)
+-       │        ├─ (element.Key.Value ?? "null").ToString
+-       │        │  ├─ ⇢ LogEventPropertyValue.ToString ×4 (depth limit)
+-       │        │  ├─ ⇢ MessageTemplate.ToString (depth limit)
+-       │        │  ├─ ⇢ PropertyToken.ToString (depth limit)
+-       │        │  └─ ⇢ TextToken.ToString (depth limit)
+-       │        ├─ JsonValueFormatter.WriteQuotedJsonString (depth limit)
++       │        ├─ else (!(key is null))
++       │        │  ├─ key.ToString
++       │        │  │  ├─ ⇢ LogEventPropertyValue.ToString ×4 (depth limit)
++       │        │  │  ├─ ⇢ MessageTemplate.ToString (depth limit)
++       │        │  │  ├─ ⇢ PropertyToken.ToString (depth limit)
++       │        │  │  └─ ⇢ TextToken.ToString (depth limit)
++       │        │  └─ JsonValueFormatter.WriteQuotedJsonString (depth limit)
+~       │        └─ LogEventPropertyValueVisitor<TState, TResult>.Visit (changes below depth limit)
+        └─ LogEventPropertyValueVisitor<TState, TResult>.VisitUnsupportedValue
 stderr:
 test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
 
@@ -48,11 +118,42 @@ stdout:
 -    │  │     ├─ ReusableStringWriter.GetOrCreate
 -    │  │     │  └─ if (writer == null || !Equals(writer.FormatProvider, fmtProvider))
 -    │  │     │     └─ new ReusableStringWriter (depth limit)
--    │  │     └─ LogEventPropertyValue.Render
--    │  │        ├─ ⇢ DictionaryValue.Render (depth limit)
--    │  │        ├─ ⇢ ScalarValue.Render (depth limit)
--    │  │        ├─ ⇢ SequenceValue.Render (depth limit)
--    │  │        └─ ⇢ StructureValue.Render (depth limit)
+-    │  │     └─ LogEventPropertyValue.Render → DictionaryValue.Render
+-    │  │        ├─ Guard.AgainstNull (depth limit)
+-    │  │        └─ foreach (var kvp in Elements)
+-    │  │           ├─ ScalarValue.Render (depth limit)
+-    │  │           └─ LogEventPropertyValue.Render
+-    │  │              ├─ ⇢ DictionaryValue.Render (↺ cycle)
+-    │  │              ├─ ⇢ ScalarValue.Render (depth limit)
+-    │  │              ├─ ⇢ SequenceValue.Render (depth limit)
+-    │  │              └─ ⇢ StructureValue.Render (depth limit)
+-    │  ├─ ⇢ LogEventPropertyValue.ToString
+-    │  │  └─ LogEventPropertyValue.ToString
+-    │  │     ├─ ReusableStringWriter.GetOrCreate ↑ as above
+-    │  │     └─ LogEventPropertyValue.Render → ScalarValue.Render
+-    │  │        └─ ScalarValue.Render (depth limit)
+-    │  ├─ ⇢ LogEventPropertyValue.ToString
+-    │  │  └─ LogEventPropertyValue.ToString
+-    │  │     ├─ ReusableStringWriter.GetOrCreate ↑ as above
+-    │  │     └─ LogEventPropertyValue.Render → SequenceValue.Render
+-    │  │        ├─ Guard.AgainstNull (depth limit)
+-    │  │        ├─ for (i < allButLast)
+-    │  │        │  └─ LogEventPropertyValue.Render
+-    │  │        │     ├─ ⇢ DictionaryValue.Render (depth limit)
+-    │  │        │     ├─ ⇢ ScalarValue.Render (depth limit)
+-    │  │        │     ├─ ⇢ SequenceValue.Render (↺ cycle)
+-    │  │        │     └─ ⇢ StructureValue.Render (depth limit)
+-    │  │        └─ if (_elements.Length > 0)
+-    │  │           └─ LogEventPropertyValue.Render ↑ as above
+-    │  ├─ ⇢ LogEventPropertyValue.ToString
+-    │  │  └─ LogEventPropertyValue.ToString
+-    │  │     ├─ ReusableStringWriter.GetOrCreate ↑ as above
+-    │  │     └─ LogEventPropertyValue.Render → StructureValue.Render
+-    │  │        ├─ Guard.AgainstNull (depth limit)
+-    │  │        ├─ for (i < allButLast)
+-    │  │        │  └─ StructureValue.Render (depth limit)
+-    │  │        └─ if (_properties.Length > 0)
+-    │  │           └─ StructureValue.Render (depth limit)
 -    │  ├─ ⇢ MessageTemplate.ToString
 -    │  ├─ ⇢ PropertyToken.ToString
 -    │  └─ ⇢ TextToken.ToString
@@ -62,16 +163,55 @@ stdout:
 +    │  │  ├─ ⇢ LogEventPropertyValue.ToString
 +    │  │  │  └─ LogEventPropertyValue.ToString
 +    │  │  │     ├─ ReusableStringWriter.GetOrCreate (depth limit)
-+    │  │  │     └─ LogEventPropertyValue.Render
-+    │  │  │        ├─ ⇢ DictionaryValue.Render (depth limit)
-+    │  │  │        ├─ ⇢ ScalarValue.Render (depth limit)
-+    │  │  │        ├─ ⇢ SequenceValue.Render (depth limit)
-+    │  │  │        └─ ⇢ StructureValue.Render (depth limit)
++    │  │  │     └─ LogEventPropertyValue.Render → DictionaryValue.Render (depth limit)
++    │  │  ├─ ⇢ LogEventPropertyValue.ToString
++    │  │  │  └─ LogEventPropertyValue.ToString
++    │  │  │     ├─ ReusableStringWriter.GetOrCreate (depth limit)
++    │  │  │     └─ LogEventPropertyValue.Render → ScalarValue.Render (depth limit)
++    │  │  ├─ ⇢ LogEventPropertyValue.ToString
++    │  │  │  └─ LogEventPropertyValue.ToString
++    │  │  │     ├─ ReusableStringWriter.GetOrCreate (depth limit)
++    │  │  │     └─ LogEventPropertyValue.Render → SequenceValue.Render (depth limit)
++    │  │  ├─ ⇢ LogEventPropertyValue.ToString
++    │  │  │  └─ LogEventPropertyValue.ToString
++    │  │  │     ├─ ReusableStringWriter.GetOrCreate (depth limit)
++    │  │  │     └─ LogEventPropertyValue.Render → StructureValue.Render (depth limit)
 +    │  │  ├─ ⇢ MessageTemplate.ToString
 +    │  │  ├─ ⇢ PropertyToken.ToString
 +    │  │  └─ ⇢ TextToken.ToString
 +    │  └─ JsonValueFormatter.WriteQuotedJsonString
      └─ LogEventPropertyValueVisitor<TState, TResult>.Visit
+        ├─ Guard.AgainstNull
+        ├─ if (value is ScalarValue sv)
+        ├─ if (value is SequenceValue seqv)
+        │  └─ LogEventPropertyValueVisitor<TState, TResult>.VisitSequenceValue → JsonValueFormatter.VisitSequenceValue
+        │     ├─ Guard.AgainstNull
+        │     └─ for (i < sequence.Elements.Count)
+~       │        └─ LogEventPropertyValueVisitor<TState, TResult>.Visit (changes below depth limit)
+        ├─ if (value is StructureValue strv)
+        │  └─ LogEventPropertyValueVisitor<TState, TResult>.VisitStructureValue → JsonValueFormatter.VisitStructureValue
+        │     ├─ for (i < structure.Properties.Count)
+        │     │  ├─ JsonValueFormatter.WriteQuotedJsonString (depth limit)
+~       │     │  └─ LogEventPropertyValueVisitor<TState, TResult>.Visit (changes below depth limit)
+        │     └─ if (_typeTagName != null && structure.TypeTag != null)
+        ├─ if (value is DictionaryValue dictv)
+        │  └─ LogEventPropertyValueVisitor<TState, TResult>.VisitDictionaryValue → JsonValueFormatter.VisitDictionaryValue
+        │     └─ foreach (var element in dictionary.Elements)
+-       │        ├─ (element.Key.Value ?? "null").ToString
+-       │        │  ├─ ⇢ LogEventPropertyValue.ToString ×4 (depth limit)
+-       │        │  ├─ ⇢ MessageTemplate.ToString (depth limit)
+-       │        │  ├─ ⇢ PropertyToken.ToString (depth limit)
+-       │        │  └─ ⇢ TextToken.ToString (depth limit)
+-       │        ├─ JsonValueFormatter.WriteQuotedJsonString (depth limit)
++       │        ├─ else (!(key is null))
++       │        │  ├─ key.ToString
++       │        │  │  ├─ ⇢ LogEventPropertyValue.ToString ×4 (depth limit)
++       │        │  │  ├─ ⇢ MessageTemplate.ToString (depth limit)
++       │        │  │  ├─ ⇢ PropertyToken.ToString (depth limit)
++       │        │  │  └─ ⇢ TextToken.ToString (depth limit)
++       │        │  └─ JsonValueFormatter.WriteQuotedJsonString (depth limit)
+~       │        └─ LogEventPropertyValueVisitor<TState, TResult>.Visit (changes below depth limit)
+        └─ LogEventPropertyValueVisitor<TState, TResult>.VisitUnsupportedValue
 ```
 stderr:
 test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.

@@ -124,19 +124,19 @@ public static class WorkspaceAnalysis
         if (projects.Count == 0) throw new InvalidOperationException("The workspace contains no included C# projects.");
         var byAssembly = new Dictionary<IAssemblySymbol, string>(ReferenceEqualityComparer.Instance);
         foreach (var project in projects) byAssembly.Add(project.Compilation.Assembly, project.Scope);
-        string Scope(IMethodSymbol method)
+        string Scope(ISymbol symbol)
         {
-            if (byAssembly.TryGetValue(method.ContainingAssembly, out var known)) return known;
-            var candidates = projects.Where(p => p.Compilation.AssemblyName == method.ContainingAssembly.Name).ToArray();
+            if (byAssembly.TryGetValue(symbol.ContainingAssembly, out var known)) return known;
+            var candidates = projects.Where(p => p.Compilation.AssemblyName == symbol.ContainingAssembly.Name).ToArray();
             if (candidates.Length == 1) return candidates[0].Scope;
             if (candidates.Length > 1)
             {
-                var paths = method.DeclaringSyntaxReferences.Select(r => r.SyntaxTree.FilePath).ToHashSet(StringComparer.Ordinal);
+                var paths = symbol.DeclaringSyntaxReferences.Select(r => r.SyntaxTree.FilePath).ToHashSet(StringComparer.Ordinal);
                 var owning = candidates.Where(p => p.Compilation.SyntaxTrees.Any(t => paths.Contains(t.FilePath))).ToArray();
                 if (owning.Length == 1) return owning[0].Scope;
-                throw new InvalidOperationException($"Cannot disambiguate project identity for {method.ToDisplayString()}.");
+                throw new InvalidOperationException($"Cannot disambiguate project identity for {symbol.ToDisplayString()}.");
             }
-            return "metadata:" + method.ContainingAssembly.Name;
+            return "metadata:" + symbol.ContainingAssembly.Name;
         }
         var members = new Dictionary<string, Member>(StringComparer.Ordinal);
         var types = new List<INamedTypeSymbol>();
@@ -194,7 +194,9 @@ public static class WorkspaceAnalysis
             }
         var dispatch = SourceOnlyAnalysisProvider.BuildDispatchMap(types.Distinct<INamedTypeSymbol>(SymbolEqualityComparer.Default), members, Scope,
             (method, path) => declaringPaths.TryGetValue((Scope(method), path), out var logical) ? logical
-                : throw new InvalidOperationException($"Cannot identify the declaring file for {method.ToDisplayString()}."), cancellationToken);
+                : throw new InvalidOperationException($"Cannot identify the declaring file for {method.ToDisplayString()}."),
+            (type, path) => declaringPaths.TryGetValue((Scope(type), path), out var logical) ? logical
+                : throw new InvalidOperationException($"Cannot identify the declaring file for {type.ToDisplayString()}."), cancellationToken);
         foreach (var definition in dispatch.TypeDefinitions) typeDefinitions[definition.Key] = definition.Value;
         return new CallGraph(members, dispatch.Implementations, diagnostics.Distinct().OrderBy(d => d.Location?.Path, StringComparer.Ordinal)
             .ThenBy(d => d.Location?.Line).ThenBy(d => d.Code, StringComparer.Ordinal).ThenBy(d => d.Message, StringComparer.Ordinal).ToArray())

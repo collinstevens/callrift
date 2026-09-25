@@ -36,3 +36,5 @@ Text and Markdown trees were read and compared; their content agrees after remov
 Possible implementation targets are conservative candidates. Event ordering, general receiver flow through guards and assignments, variance constraints, and implicit property execution are not proven by this case. The existing [receiver-flow issue](../issues/receiver-flow.md) remains open for guarded Serilog calls.
 
 The eight reviewed text/Markdown and JSON snapshots cover all four views. A second local run passed all 15 case checks, including byte-identical snapshot comparisons for these four views (`Admin_COLLIN_2026-09-24_19_34_48_net11.0.trx`). Routine discovery selects 13 checks and excludes only the two automatic Autofac views. Cross-platform acceptance remains pending the scheduled/manual all-case workflow; routine CI selects the two focused views.
+
+The [receiver-context review](receiver-context.md) records the subsequent inherited-call changes, diagnostic updates, and source traces for this pair. Its current counts supersede the earlier snapshot counts above.

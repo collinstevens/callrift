@@ -5,7 +5,8 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace Callrift.Core;
 
 internal sealed class SymbolNames(Func<IMethodSymbol, string>? scope = null, Func<string, string>? path = null,
-    IReadOnlyDictionary<IMethodSymbol, InterceptorIdentity>? interceptors = null, Func<IMethodSymbol, string, string>? declaringPath = null)
+    IReadOnlyDictionary<IMethodSymbol, InterceptorIdentity>? interceptors = null, Func<IMethodSymbol, string, string>? declaringPath = null,
+    Func<INamedTypeSymbol, string, string>? typeDeclaringPath = null)
 {
     private static readonly SymbolDisplayFormat TypeFormat = new(
         typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypes,
@@ -48,6 +49,19 @@ internal sealed class SymbolNames(Func<IMethodSymbol, string>? scope = null, Fun
             : method.ToDisplayString(SymbolDisplayFormat.CSharpErrorMessageFormat)) + " -> " + method.ReturnType.ToDisplayString();
 
     public string Path(string value) => (path?.Invoke(value) ?? value).Replace('\\', '/');
+
+    public string? TypeIdentity(INamedTypeSymbol type)
+    {
+        var identity = type.ContainingAssembly.Identity.Name + "::" + type.OriginalDefinition.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
+        var fileLocal = false;
+        for (var current = type; current is not null; current = current.ContainingType)
+            if (current.IsFileLocal && current.DeclaringSyntaxReferences.FirstOrDefault() is { } declaration)
+            {
+                fileLocal = true;
+                identity += "/file:" + (typeDeclaringPath?.Invoke(current, declaration.SyntaxTree.FilePath) ?? Path(declaration.SyntaxTree.FilePath));
+            }
+        return fileLocal ? identity : null;
+    }
 
     private string? Scope(IMethodSymbol method)
     {

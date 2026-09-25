@@ -4,7 +4,9 @@ namespace Callrift.Core;
 
 public sealed record DispatchTypeDefinition(DispatchType Type, IReadOnlyList<DispatchType> BaseTypes, bool IsReferenceType, SpecialType SpecialType)
 {
+    public string? ContextIdentity { get; init; }
     public bool IsValueType { get; init; }
+    public bool IsSealed { get; init; }
     public bool IsUnmanagedType { get; init; }
     public bool IsRefLikeType { get; init; }
     public bool HasPublicParameterlessConstructor { get; init; }
@@ -13,7 +15,8 @@ public sealed record DispatchTypeDefinition(DispatchType Type, IReadOnlyList<Dis
 
 internal static class DispatchTypeCatalog
 {
-    public static IReadOnlyDictionary<string, DispatchTypeDefinition> Create(IEnumerable<ITypeSymbol> types, CancellationToken cancellationToken)
+    public static IReadOnlyDictionary<string, DispatchTypeDefinition> Create(IEnumerable<ITypeSymbol> types, CancellationToken cancellationToken,
+        Func<INamedTypeSymbol, string?>? contextIdentity = null)
     {
         var definitions = new Dictionary<string, DispatchTypeDefinition>(StringComparer.Ordinal);
         var pending = new Queue<ITypeSymbol>(types.Distinct<ITypeSymbol>(SymbolEqualityComparer.Default));
@@ -38,7 +41,9 @@ internal static class DispatchTypeCatalog
             var fields = original.IsValueType && !original.IsUnmanagedType ? original.GetMembers().OfType<IFieldSymbol>().Where(f => !f.IsStatic).Select(f => f.Type).ToArray() : [];
             definitions.Add(shape.Name, new DispatchTypeDefinition(shape, bases.Select(DispatchType.From).ToArray(), original.IsReferenceType, original.SpecialType)
             {
+                ContextIdentity = contextIdentity?.Invoke(original),
                 IsValueType = original.IsValueType,
+                IsSealed = original.IsSealed,
                 IsUnmanagedType = original.IsUnmanagedType,
                 IsRefLikeType = original.IsRefLikeType,
                 HasPublicParameterlessConstructor = !original.IsAbstract && original.InstanceConstructors.Any(c => c.Parameters.Length == 0 && c.DeclaredAccessibility == Accessibility.Public

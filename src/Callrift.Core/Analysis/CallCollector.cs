@@ -197,6 +197,10 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             SuppressDispatch = exactReceiver,
             DispatchType = dispatches ? DescribeType(method.ContainingType) : null,
             ReceiverType = dispatches ? ReceiverConstraint(receiver, node.SpanStart) : null,
+            InvocationReceiverType = !GenericBindings.HasContainingInstance(method) ? null : method.MethodKind == MethodKind.Constructor
+                ? DescribeType(method.ContainingType) : ReceiverConstraint(receiver, node.SpanStart),
+            UsesContainingInstance = GenericBindings.HasContainingInstance(method) && UsesContainingInstance(node, receiver),
+            InvocationReceiverExact = GenericBindings.HasContainingInstance(method) && (node is BaseObjectCreationExpressionSyntax || ReceiverOperation(receiver) is IObjectCreationOperation),
             GenericArguments = GenericBindings.FromMethod(method),
             MethodArguments = method.TypeArguments.Select(DispatchType.From).ToArray()
         };
@@ -216,7 +220,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 continue;
             }
             var type = model.GetTypeInfo(receiver, cancellationToken).Type;
-            if (type is { TypeKind: TypeKind.Class or TypeKind.Struct or TypeKind.Array or TypeKind.Delegate or TypeKind.Interface }
+            if (type is { TypeKind: TypeKind.Class or TypeKind.Struct or TypeKind.Array or TypeKind.Delegate or TypeKind.Interface or TypeKind.TypeParameter }
                 && (constraint is null
                     || constraint.TypeKind == TypeKind.Interface && type.TypeKind != TypeKind.Interface && type.SpecialType != SpecialType.System_Object
                     || model.Compilation.ClassifyCommonConversion(type, constraint).IsImplicit))
@@ -226,6 +230,23 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             receiver = conversion.Operand.Syntax as ExpressionSyntax;
         }
         return constraint is null ? null : DescribeType(constraint);
+    }
+
+    private bool UsesContainingInstance(SyntaxNode node, ExpressionSyntax? receiver)
+    {
+        if (node is ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax) return true;
+        if (node is BaseObjectCreationExpressionSyntax) return false;
+        if (receiver is null) return true;
+        return ReceiverOperation(receiver) is IInstanceReferenceOperation { ReferenceKind: InstanceReferenceKind.ContainingTypeInstance };
+    }
+
+    private IOperation? ReceiverOperation(ExpressionSyntax? receiver)
+    {
+        while (receiver is ParenthesizedExpressionSyntax parenthesized) receiver = parenthesized.Expression;
+        var operation = receiver is null ? null : model.GetOperation(receiver, cancellationToken);
+        while (operation is IConversionOperation conversion && (conversion.Conversion.IsIdentity || conversion.Conversion.IsReference))
+            operation = conversion.Operand;
+        return operation;
     }
 
     private DispatchType DescribeType(ITypeSymbol type)

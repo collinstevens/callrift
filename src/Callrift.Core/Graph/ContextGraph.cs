@@ -9,7 +9,8 @@ internal static class ContextGraph
     {
         cancellationToken.ThrowIfCancellationRequested();
         if (graph.Contextual) return graph;
-        if (!graph.Members.Values.Any(member => member.GenericParameters.Count != 0)) return graph with { Contextual = true };
+        graph = graph with { ReceiverSensitiveMembers = ReceiverSensitiveMembers(graph, cancellationToken) };
+        if (graph.Implementations.Count == 0 && graph.ReceiverSensitiveMembers.Count == 0 && !graph.Members.Values.Any(member => member.GenericParameters.Count != 0)) return graph with { Contextual = true };
         var frames = new Dictionary<string, InvocationContext>(StringComparer.Ordinal);
         var members = new Dictionary<string, Member>(StringComparer.Ordinal);
         var pending = new Queue<InvocationContext>();
@@ -19,17 +20,17 @@ internal static class ContextGraph
         {
             cancellationToken.ThrowIfCancellationRequested();
             if (frames.TryGetValue(frame.Identity, out var known)) return known;
-            var stateLimited = frame.Arguments.Count != 0 && additional >= MaximumAdditionalStates;
-            var typeLimited = frame.Arguments.Count != 0 && TooLarge(frame.Arguments.Values);
+            var stateLimited = frame.HasSpecialization && additional >= MaximumAdditionalStates;
+            var typeLimited = frame.HasSpecialization && TooLarge(!frame.ReceiverSpecialized ? frame.Arguments.Values : frame.Arguments.Values.Append(frame.Receiver!));
             if (stateLimited || typeLimited)
             {
                 if (!omitted.TryGetValue(frame.Key, out var reasons)) omitted[frame.Key] = reasons = new SortedSet<string>(StringComparer.Ordinal);
                 if (stateLimited) reasons.Add("65536 additional invocation states");
                 if (typeLimited) reasons.Add("128 type nodes");
-                frame = frame with { Arguments = new Dictionary<string, DispatchType>(), Limited = true };
+                frame = frame with { Arguments = new Dictionary<string, DispatchType>(), Receiver = null, ReceiverSpecialized = false, ReceiverExact = false, Limited = true };
                 if (frames.TryGetValue(frame.Identity, out known)) return known;
             }
-            if (frame.Arguments.Count != 0) additional++;
+            if (frame.HasSpecialization) additional++;
             frames.Add(frame.Identity, frame);
             pending.Enqueue(frame);
             return frame;
@@ -43,13 +44,15 @@ internal static class ContextGraph
                 var call = frame.Resolve(original);
                 var requested = call.Kind == "call" ? InvocationContext.DispatchTargets(graph, call, cancellationToken)
                     .GroupBy(target => target.Identity, StringComparer.Ordinal).OrderBy(group => group.Key, StringComparer.Ordinal).Select(group => group.First()).ToArray() : [];
+                var direct = requested.Length == 1 && requested[0].Key == call.Key ? requested[0] : null;
+                if (direct is not null) requested = [];
                 var semanticTargets = requested.Select(target => target.Identity).ToArray();
                 var targets = requested.Select(Add).Select(target => target.Identity).ToArray();
                 var key = call.Key;
                 var semanticKey = key;
                 if (call.Kind == "call" && targets.Length == 0 && graph.Members.ContainsKey(key))
                 {
-                    var target = InvocationContext.Create(graph, key, call.GenericArguments);
+                    var target = direct ?? InvocationContext.Create(graph, key, call.GenericArguments, call.InvocationReceiverType, call.InvocationReceiverExact);
                     semanticKey = target.Identity;
                     key = Add(target).Identity;
                 }
@@ -146,5 +149,29 @@ internal static class ContextGraph
             foreach (var argument in type.Arguments) pending.Push(argument);
         }
         return false;
+    }
+
+    private static IReadOnlySet<string> ReceiverSensitiveMembers(CallGraph graph, CancellationToken cancellationToken)
+    {
+        var sensitive = new HashSet<string>(StringComparer.Ordinal);
+        var callers = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
+        foreach (var member in graph.Members.Values)
+            foreach (var call in Flatten(member.Calls))
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                if (!call.UsesContainingInstance) continue;
+                if (!call.SuppressDispatch && call.DispatchType is not null) sensitive.Add(member.Key);
+                if (!callers.TryGetValue(call.Key, out var incoming)) callers[call.Key] = incoming = new HashSet<string>(StringComparer.Ordinal);
+                incoming.Add(member.Key);
+            }
+        var pending = new Queue<string>(sensitive);
+        while (pending.TryDequeue(out var key))
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (!callers.TryGetValue(key, out var incoming)) continue;
+            foreach (var caller in incoming)
+                if (sensitive.Add(caller)) pending.Enqueue(caller);
+        }
+        return sensitive;
     }
 }
