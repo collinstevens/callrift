@@ -7,7 +7,7 @@ public static class DiffRenderer
     public static string Render(DiffResult result, DiffOptions options, bool markdown = false)
     {
         var output = new StringBuilder();
-        var expanded = new HashSet<string>(StringComparer.Ordinal);
+        var expanded = new Dictionary<string, List<DiffNode>>(StringComparer.Ordinal);
         var showAll = result.Command != "diff";
         foreach (var root in result.Trees.Where(t => showAll || t.HasChanges))
         {
@@ -22,15 +22,14 @@ public static class DiffRenderer
         return fence + "diff\n" + output + fence + "\n";
     }
 
-    private static void Write(DiffNode node, string indent, string connector, StringBuilder output, HashSet<string> expanded, DiffOptions options, bool showAll)
+    private static void Write(DiffNode node, string indent, string connector, StringBuilder output, Dictionary<string, List<DiffNode>> expanded, DiffOptions options, bool showAll)
     {
-        var repeated = !showAll && node.HasChanges && node.Children.Count > 0 && !node.Key.StartsWith("branch:", StringComparison.Ordinal) && !expanded.Add(node.Mark + node.Key);
+        var repeated = !showAll && node.HasChanges && node.Children.Count > 0 && !node.Key.StartsWith("branch:", StringComparison.Ordinal) && WasExpanded(node, expanded, options.Locations);
         output.Append(node.Mark).Append(' ').Append(indent).Append(connector).Append(node.Label);
         if (node.Detail is not null) output.Append(" (").Append(node.Detail).Append(')');
         if (options.Locations)
         {
-            var side = node.After ?? node.Before;
-            var location = side?.CallSites.FirstOrDefault() ?? side?.Definition;
+            var location = Location(node);
             if (location is not null) output.Append(" [").Append(location.Path).Append(':').Append(location.Line).Append(']');
         }
         if (repeated) output.Append(" ↑ as above");
@@ -40,7 +39,7 @@ public static class DiffRenderer
         var merged = new List<(DiffNode Node, int Count)>();
         foreach (var child in visible)
         {
-            if (merged.Count > 0 && Equivalent(merged[^1].Node, child))
+            if (merged.Count > 0 && Equivalent(merged[^1].Node, child, options.Locations))
                 merged[^1] = (merged[^1].Node, merged[^1].Count + 1);
             else merged.Add((child, 1));
         }
@@ -51,6 +50,15 @@ public static class DiffRenderer
             Write(count == 1 ? child : child with { Label = child.Label + " ×" + count }, nextIndent,
                 i == merged.Count - 1 ? "└─ " : "├─ ", output, expanded, options, showAll);
         }
+    }
+
+    private static bool WasExpanded(DiffNode node, Dictionary<string, List<DiffNode>> expanded, bool locations)
+    {
+        var key = node.Mark + node.Key;
+        if (!expanded.TryGetValue(key, out var previous)) expanded[key] = previous = [];
+        if (previous.Any(p => Equivalent(p, node, locations))) return true;
+        previous.Add(node);
+        return false;
     }
 
     private static IReadOnlyList<DiffNode> Trim(IReadOnlyList<DiffNode> children, int context)
@@ -71,6 +79,13 @@ public static class DiffRenderer
         return visible;
     }
 
-    private static bool Equivalent(DiffNode left, DiffNode right) => left.Key == right.Key && left.Mark == right.Mark && left.Label == right.Label
-        && left.Detail == right.Detail && left.Children.Count == right.Children.Count && left.Children.Zip(right.Children).All(p => Equivalent(p.First, p.Second));
+    private static SourceLocation? Location(DiffNode node)
+    {
+        var side = node.After ?? node.Before;
+        return side?.CallSites.FirstOrDefault() ?? side?.Definition;
+    }
+
+    private static bool Equivalent(DiffNode left, DiffNode right, bool locations) => left.Key == right.Key && left.Mark == right.Mark && left.Label == right.Label
+        && left.Detail == right.Detail && (!locations || Location(left) == Location(right))
+        && left.Children.Count == right.Children.Count && left.Children.Zip(right.Children).All(p => Equivalent(p.First, p.Second, locations));
 }

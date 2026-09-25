@@ -5,10 +5,12 @@ stdout:
   Flow.Start
   └─ IWorker.Run
      ├─ ⇢ Decorator.Run
-     │  └─ IWorker.Run ↑ as above
-     └─ ⇢ Worker.Run
--       ├─ Worker.Before
-+       └─ Worker.After
+     │  └─ IWorker.Run
+     │     ├─ ⇢ Decorator.Run (↺ cycle)
+     │     └─ ⇢ Worker.Run
+-    │        ├─ Worker.Before
++    │        └─ Worker.After
+     └─ ⇢ Worker.Run ↑ as above
 stderr:
 
 markdown:
@@ -18,9 +20,11 @@ stdout:
   Flow.Start
   └─ IWorker.Run
      ├─ ⇢ Decorator.Run
-     │  └─ IWorker.Run ↑ as above
-     └─ ⇢ Worker.Run
--       ├─ Worker.Before
-+       └─ Worker.After
+     │  └─ IWorker.Run
+     │     ├─ ⇢ Decorator.Run (↺ cycle)
+     │     └─ ⇢ Worker.Run
+-    │        ├─ Worker.Before
++    │        └─ Worker.After
+     └─ ⇢ Worker.Run ↑ as above
 ```
 stderr:

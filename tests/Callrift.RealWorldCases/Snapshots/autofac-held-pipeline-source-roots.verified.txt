@@ -51,7 +51,12 @@ stdout:
 
   ConcurrencyNestedScopeBenchmark.MultipleResolvesOnMultipleTasks
   └─ for (i < ConcurrentRequests)
-     └─ Task.Run ↑ as above
+     └─ Task.Run
+        └─ for (j < RepeatCount)
+           ├─ ILifetimeScope.BeginLifetimeScope → Container.BeginLifetimeScope (depth limit)
+~          ├─ ResolutionExtensions.Resolve (changes below depth limit)
+           ├─ ILifetimeScope.BeginLifetimeScope
+~          └─ ResolutionExtensions.Resolve ×2 (changes below depth limit)
 
   ContainerBuildBenchmark.Build
 ~ ├─ new ContainerBuilder (changes below depth limit)
@@ -140,7 +145,8 @@ stdout:
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
 ~ ├─ RegistrationExtensions.RegisterDecorator (changes below depth limit)
   │  └─ new CommandHandlerDecoratorOne (depth limit)
-~ ├─ RegistrationExtensions.RegisterDecorator (changes below depth limit) ↑ as above
+~ ├─ RegistrationExtensions.RegisterDecorator (changes below depth limit)
+  │  └─ new CommandHandlerDecoratorTwo (depth limit)
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
   KeylessNestedSharedInstanceBenchmark.Setup
@@ -495,7 +501,10 @@ stdout:
 
   LazyWithMetadataRegistrationSource.CreateLazyRegistration
   ├─ MetadataViewProvider.GetMetadataViewProvider (depth limit)
-  ├─ RegistrationBuilder.ForDelegate (depth limit) ↑ as above
+  ├─ RegistrationBuilder.ForDelegate (depth limit)
+~ │  ├─ ResolutionExtensions.Resolve (changes below depth limit)
+  │  ├─ new ResolveRequest (depth limit)
+  │  └─ new Func<T>
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
   ├─ RegistrationExtensions.Targeting (depth limit)
   └─ …
@@ -681,7 +690,9 @@ stdout:
   ├─ new ProvidedService
 ~ ├─ RegistrationExtensions.RegisterInstance (changes below depth limit)
   ├─ RegistrationExtensions.AsSelf (depth limit)
-  ├─ RegistrationExtensions.Register (changes below depth limit) ↑ as above
+  ├─ RegistrationExtensions.Register (changes below depth limit)
+~ │  ├─ ResolutionExtensions.Resolve (changes below depth limit)
+  │  └─ new LambdaService (depth limit)
   ├─ RegistrationExtensions.AsSelf (depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ RegistrationExtensions.AsSelf (depth limit)
@@ -691,16 +702,30 @@ stdout:
 ~ ├─ ContainerBuilder.Build (changes below depth limit)
   ├─ Program.Check (depth limit)
 ~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
+  ├─ Program.Check (depth limit)
+~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
+  ├─ Program.Check ×2 (depth limit)
+~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
+  ├─ Program.Check (depth limit)
+  │  ├─ new TypedParameter (depth limit)
+~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
+  ├─ Program.Check (depth limit)
+~ │  └─ ResolutionExtensions.ResolveKeyed (changes below depth limit)
+  ├─ Program.Check ×3 (depth limit)
+~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
+  ├─ Program.Check (depth limit)
+~ │  └─ ResolutionExtensions.Resolve ×2 (changes below depth limit)
+  ├─ Program.Check (depth limit)
+  │  ├─ ILifetimeScope.BeginLifetimeScope → Container.BeginLifetimeScope (depth limit)
+~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
+  ├─ Program.Check (depth limit)
+  │  ├─ ILifetimeScope.BeginLifetimeScope → Container.BeginLifetimeScope (changes below depth limit)
+~ │  │  ├─ RegistrationExtensions.RegisterType (changes below depth limit)
+  │  │  └─ RegistrationExtensions.AsSelf (depth limit)
+~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
   ├─ Program.Check (depth limit) ↑ as above
-  ├─ Program.Check ×2 (depth limit) ↑ as above
-  ├─ Program.Check (depth limit) ↑ as above
-  ├─ Program.Check (depth limit) ↑ as above
-  ├─ Program.Check ×3 (depth limit) ↑ as above
-  ├─ Program.Check (depth limit) ↑ as above
-  ├─ Program.Check (depth limit) ↑ as above
-  ├─ Program.Check (depth limit) ↑ as above
-  ├─ Program.Check (depth limit) ↑ as above
-  ├─ Program.Check ×6 (depth limit) ↑ as above
+  ├─ Program.Check ×6 (depth limit)
+~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
   └─ Program.CheckThrows (depth limit)
 ~    └─ ResolutionExtensions.Resolve (changes below depth limit)
 
@@ -776,7 +801,12 @@ stdout:
 
   ConcurrencyNestedScopeBenchmark.MultipleResolvesOnMultipleTasks
   └─ for (i < ConcurrentRequests)
-     └─ Task.Run ↑ as above
+     └─ Task.Run
+        └─ for (j < RepeatCount)
+           ├─ ILifetimeScope.BeginLifetimeScope → Container.BeginLifetimeScope (depth limit)
+~          ├─ ResolutionExtensions.Resolve (changes below depth limit)
+           ├─ ILifetimeScope.BeginLifetimeScope
+~          └─ ResolutionExtensions.Resolve ×2 (changes below depth limit)
 
   ContainerBuildBenchmark.Build
 ~ ├─ new ContainerBuilder (changes below depth limit)
@@ -865,7 +895,8 @@ stdout:
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
 ~ ├─ RegistrationExtensions.RegisterDecorator (changes below depth limit)
   │  └─ new CommandHandlerDecoratorOne (depth limit)
-~ ├─ RegistrationExtensions.RegisterDecorator (changes below depth limit) ↑ as above
+~ ├─ RegistrationExtensions.RegisterDecorator (changes below depth limit)
+  │  └─ new CommandHandlerDecoratorTwo (depth limit)
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
   KeylessNestedSharedInstanceBenchmark.Setup
@@ -1220,7 +1251,10 @@ stdout:
 
   LazyWithMetadataRegistrationSource.CreateLazyRegistration
   ├─ MetadataViewProvider.GetMetadataViewProvider (depth limit)
-  ├─ RegistrationBuilder.ForDelegate (depth limit) ↑ as above
+  ├─ RegistrationBuilder.ForDelegate (depth limit)
+~ │  ├─ ResolutionExtensions.Resolve (changes below depth limit)
+  │  ├─ new ResolveRequest (depth limit)
+  │  └─ new Func<T>
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
   ├─ RegistrationExtensions.Targeting (depth limit)
   └─ …
@@ -1406,7 +1440,9 @@ stdout:
   ├─ new ProvidedService
 ~ ├─ RegistrationExtensions.RegisterInstance (changes below depth limit)
   ├─ RegistrationExtensions.AsSelf (depth limit)
-  ├─ RegistrationExtensions.Register (changes below depth limit) ↑ as above
+  ├─ RegistrationExtensions.Register (changes below depth limit)
+~ │  ├─ ResolutionExtensions.Resolve (changes below depth limit)
+  │  └─ new LambdaService (depth limit)
   ├─ RegistrationExtensions.AsSelf (depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ RegistrationExtensions.AsSelf (depth limit)
@@ -1416,16 +1452,30 @@ stdout:
 ~ ├─ ContainerBuilder.Build (changes below depth limit)
   ├─ Program.Check (depth limit)
 ~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
+  ├─ Program.Check (depth limit)
+~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
+  ├─ Program.Check ×2 (depth limit)
+~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
+  ├─ Program.Check (depth limit)
+  │  ├─ new TypedParameter (depth limit)
+~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
+  ├─ Program.Check (depth limit)
+~ │  └─ ResolutionExtensions.ResolveKeyed (changes below depth limit)
+  ├─ Program.Check ×3 (depth limit)
+~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
+  ├─ Program.Check (depth limit)
+~ │  └─ ResolutionExtensions.Resolve ×2 (changes below depth limit)
+  ├─ Program.Check (depth limit)
+  │  ├─ ILifetimeScope.BeginLifetimeScope → Container.BeginLifetimeScope (depth limit)
+~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
+  ├─ Program.Check (depth limit)
+  │  ├─ ILifetimeScope.BeginLifetimeScope → Container.BeginLifetimeScope (changes below depth limit)
+~ │  │  ├─ RegistrationExtensions.RegisterType (changes below depth limit)
+  │  │  └─ RegistrationExtensions.AsSelf (depth limit)
+~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
   ├─ Program.Check (depth limit) ↑ as above
-  ├─ Program.Check ×2 (depth limit) ↑ as above
-  ├─ Program.Check (depth limit) ↑ as above
-  ├─ Program.Check (depth limit) ↑ as above
-  ├─ Program.Check ×3 (depth limit) ↑ as above
-  ├─ Program.Check (depth limit) ↑ as above
-  ├─ Program.Check (depth limit) ↑ as above
-  ├─ Program.Check (depth limit) ↑ as above
-  ├─ Program.Check (depth limit) ↑ as above
-  ├─ Program.Check ×6 (depth limit) ↑ as above
+  ├─ Program.Check ×6 (depth limit)
+~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
   └─ Program.CheckThrows (depth limit)
 ~    └─ ResolutionExtensions.Resolve (changes below depth limit)
 
