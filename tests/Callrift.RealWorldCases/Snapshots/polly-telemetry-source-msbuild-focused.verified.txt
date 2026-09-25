@@ -1,0 +1,31 @@
+﻿format: text
+exit: 0
+stdout:
++ new TelemetrySource
++ ├─ TelemetrySource.GetVersion
++ │  ├─ typeof(TelemetrySource).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>
++ │  ├─ informationalVersion!.IndexOf
++ │  ├─ if (index > 0)
++ │  │  └─ informationalVersion.Substring
++ │  ├─ informationalVersion!.IndexOf
++ │  └─ if (index > 0)
++ │     └─ informationalVersion.Substring
++ └─ new
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
++ new TelemetrySource
++ ├─ TelemetrySource.GetVersion
++ │  ├─ typeof(TelemetrySource).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>
++ │  ├─ informationalVersion!.IndexOf
++ │  ├─ if (index > 0)
++ │  │  └─ informationalVersion.Substring
++ │  ├─ informationalVersion!.IndexOf
++ │  └─ if (index > 0)
++ │     └─ informationalVersion.Substring
++ └─ new
+```
+stderr:

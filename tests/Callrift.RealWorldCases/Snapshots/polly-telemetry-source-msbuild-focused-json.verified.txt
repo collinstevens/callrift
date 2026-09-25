@@ -1,0 +1,360 @@
+﻿exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "af7e8b16a0c032149021693d326860c00e48fd0e",
+    "commit": "af7e8b16a0c032149021693d326860c00e48fd0e",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "b87f20347af528b6f7c6ff1f9e6c1bc02f97856c",
+    "commit": "b87f20347af528b6f7c6ff1f9e6c1bc02f97856c",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "msbuild",
+    "status": "partial",
+    "limitations": [
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "virtual-nonabstract-dispatch",
+      "callbacks-are-possible-calls",
+      "no-framework-dispatch-plugins"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": false,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "added",
+      "label": "new TelemetrySource",
+      "detail": null,
+      "before": null,
+      "after": {
+        "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Telemetry.TelemetrySource..ctor()",
+        "signature": "Polly.Telemetry.TelemetrySource.TelemetrySource() -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Telemetry.TelemetrySource..ctor()"
+        ],
+        "definition": {
+          "path": "src/Polly.Extensions/Telemetry/TelemetrySource.cs",
+          "startLine": 11,
+          "startColumn": 5,
+          "endLine": 15,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "added",
+          "label": "TelemetrySource.GetVersion",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Telemetry.TelemetrySource.GetVersion()",
+            "signature": "Polly.Telemetry.TelemetrySource.GetVersion() -> string",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Telemetry.TelemetrySource.GetVersion()"
+            ],
+            "definition": {
+              "path": "src/Polly.Extensions/Telemetry/TelemetrySource.cs",
+              "startLine": 19,
+              "startColumn": 5,
+              "endLine": 49,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/Telemetry/TelemetrySource.cs",
+                "startLine": 13,
+                "startColumn": 23,
+                "endLine": 13,
+                "endColumn": 35
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [
+            {
+              "id": "n2",
+              "kind": "call",
+              "change": "added",
+              "label": "typeof(TelemetrySource).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "metadata:System.Runtime::System.Reflection.CustomAttributeExtensions.GetCustomAttribute`1(global::System.Reflection.Assembly)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::System.Reflection.CustomAttributeExtensions.GetCustomAttribute`1(global::System.Reflection.Assembly)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Polly.Extensions/Telemetry/TelemetrySource.cs",
+                    "startLine": 22,
+                    "startColumn": 36,
+                    "endLine": 22,
+                    "endColumn": 128
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n3",
+              "kind": "call",
+              "change": "added",
+              "label": "informationalVersion!.IndexOf",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "metadata:System.Runtime::string.IndexOf(char,global::System.StringComparison)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::string.IndexOf(char,global::System.StringComparison)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Polly.Extensions/Telemetry/TelemetrySource.cs",
+                    "startLine": 25,
+                    "startColumn": 21,
+                    "endLine": 25,
+                    "endColumn": 81
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n4",
+              "kind": "branch",
+              "change": "added",
+              "label": "if (index > 0)",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Polly.Extensions/Telemetry/TelemetrySource.cs",
+                    "startLine": 30,
+                    "startColumn": 9,
+                    "endLine": 34,
+                    "endColumn": 10
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n5",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "informationalVersion.Substring",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "metadata:System.Runtime::string.Substring(int,int)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Runtime::string.Substring(int,int)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Polly.Extensions/Telemetry/TelemetrySource.cs",
+                        "startLine": 33,
+                        "startColumn": 36,
+                        "endLine": 33,
+                        "endColumn": 76
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n6",
+              "kind": "call",
+              "change": "added",
+              "label": "informationalVersion!.IndexOf",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "metadata:System.Runtime::string.IndexOf(char,global::System.StringComparison)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::string.IndexOf(char,global::System.StringComparison)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Polly.Extensions/Telemetry/TelemetrySource.cs",
+                    "startLine": 37,
+                    "startColumn": 17,
+                    "endLine": 37,
+                    "endColumn": 77
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n7",
+              "kind": "branch",
+              "change": "added",
+              "label": "if (index > 0)",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Polly.Extensions/Telemetry/TelemetrySource.cs",
+                    "startLine": 42,
+                    "startColumn": 9,
+                    "endLine": 46,
+                    "endColumn": 10
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n8",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "informationalVersion.Substring",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "metadata:System.Runtime::string.Substring(int,int)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Runtime::string.Substring(int,int)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Polly.Extensions/Telemetry/TelemetrySource.cs",
+                        "startLine": 45,
+                        "startColumn": 36,
+                        "endLine": 45,
+                        "endColumn": 76
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n9",
+          "kind": "call",
+          "change": "added",
+          "label": "new",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Metrics.Meter..ctor(string,string)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Metrics.Meter..ctor(string,string)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/Telemetry/TelemetrySource.cs",
+                "startLine": 14,
+                "startColumn": 17,
+                "endLine": 14,
+                "endColumn": 35
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "children": [],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

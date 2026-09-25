@@ -1,0 +1,2096 @@
+﻿exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "af7e8b16a0c032149021693d326860c00e48fd0e",
+    "commit": "af7e8b16a0c032149021693d326860c00e48fd0e",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "b87f20347af528b6f7c6ff1f9e6c1bc02f97856c",
+    "commit": "b87f20347af528b6f7c6ff1f9e6c1bc02f97856c",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "msbuild",
+    "status": "partial",
+    "limitations": [
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "virtual-nonabstract-dispatch",
+      "callbacks-are-possible-calls",
+      "no-framework-dispatch-plugins"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": true,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "ResiliencePipelineRegistry<TKey>.GetOrAddPipeline",
+      "detail": null,
+      "before": {
+        "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline(TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder>)",
+        "signature": "Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline(TKey, System.Action<Polly.ResiliencePipelineBuilder>) -> Polly.ResiliencePipeline",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline(TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder>)"
+        ],
+        "definition": {
+          "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+          "startLine": 98,
+          "startColumn": 5,
+          "endLine": 105,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline(TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder>)",
+        "signature": "Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline(TKey, System.Action<Polly.ResiliencePipelineBuilder>) -> Polly.ResiliencePipeline",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline(TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder>)"
+        ],
+        "definition": {
+          "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+          "startLine": 98,
+          "startColumn": 5,
+          "endLine": 105,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Guard.NotNull",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+                "startLine": 100,
+                "startColumn": 9,
+                "endLine": 100,
+                "endColumn": 33
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+                "startLine": 100,
+                "startColumn": 9,
+                "endLine": 100,
+                "endColumn": 33
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n2",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "ResiliencePipelineRegistry<TKey>.EnsureNotDisposed",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.EnsureNotDisposed()",
+            "signature": "Polly.Registry.ResiliencePipelineRegistry<TKey>.EnsureNotDisposed() -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.EnsureNotDisposed()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+              "startLine": 264,
+              "startColumn": 5,
+              "endLine": 270,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+                "startLine": 102,
+                "startColumn": 9,
+                "endLine": 102,
+                "endColumn": 28
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.EnsureNotDisposed()",
+            "signature": "Polly.Registry.ResiliencePipelineRegistry<TKey>.EnsureNotDisposed() -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.EnsureNotDisposed()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+              "startLine": 264,
+              "startColumn": 5,
+              "endLine": 270,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+                "startLine": 102,
+                "startColumn": 9,
+                "endLine": 102,
+                "endColumn": 28
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n3",
+          "kind": "call",
+          "change": "modified",
+          "label": "ResiliencePipelineRegistry<TKey>.GetOrAddPipeline",
+          "detail": "changes below depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline(TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder, global::Polly.Registry.ConfigureBuilderContext<TKey>>)",
+            "signature": "Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline(TKey, System.Action<Polly.ResiliencePipelineBuilder, Polly.Registry.ConfigureBuilderContext<TKey>>) -> Polly.ResiliencePipeline",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline(TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder, global::Polly.Registry.ConfigureBuilderContext<TKey>>)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+              "startLine": 114,
+              "startColumn": 5,
+              "endLine": 135,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+                "startLine": 104,
+                "startColumn": 16,
+                "endLine": 104,
+                "endColumn": 73
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline(TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder, global::Polly.Registry.ConfigureBuilderContext<TKey>>)",
+            "signature": "Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline(TKey, System.Action<Polly.ResiliencePipelineBuilder, Polly.Registry.ConfigureBuilderContext<TKey>>) -> Polly.ResiliencePipeline",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline(TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder, global::Polly.Registry.ConfigureBuilderContext<TKey>>)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+              "startLine": 114,
+              "startColumn": 5,
+              "endLine": 135,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+                "startLine": 104,
+                "startColumn": 16,
+                "endLine": 104,
+                "endColumn": 73
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n4",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "ResiliencePipelineRegistry<TKey>.GetOrAddPipeline",
+      "detail": null,
+      "before": {
+        "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline`1(TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder<TResult>>)",
+        "signature": "Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline<TResult>(TKey, System.Action<Polly.ResiliencePipelineBuilder<TResult>>) -> Polly.ResiliencePipeline<TResult>",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline`1(TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder<TResult>>)"
+        ],
+        "definition": {
+          "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+          "startLine": 145,
+          "startColumn": 5,
+          "endLine": 152,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline`1(TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder<TResult>>)",
+        "signature": "Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline<TResult>(TKey, System.Action<Polly.ResiliencePipelineBuilder<TResult>>) -> Polly.ResiliencePipeline<TResult>",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline`1(TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder<TResult>>)"
+        ],
+        "definition": {
+          "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+          "startLine": 145,
+          "startColumn": 5,
+          "endLine": 152,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n5",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Guard.NotNull",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+                "startLine": 147,
+                "startColumn": 9,
+                "endLine": 147,
+                "endColumn": 33
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+                "startLine": 147,
+                "startColumn": 9,
+                "endLine": 147,
+                "endColumn": 33
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n6",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "ResiliencePipelineRegistry<TKey>.EnsureNotDisposed",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.EnsureNotDisposed()",
+            "signature": "Polly.Registry.ResiliencePipelineRegistry<TKey>.EnsureNotDisposed() -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.EnsureNotDisposed()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+              "startLine": 264,
+              "startColumn": 5,
+              "endLine": 270,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+                "startLine": 149,
+                "startColumn": 9,
+                "endLine": 149,
+                "endColumn": 28
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.EnsureNotDisposed()",
+            "signature": "Polly.Registry.ResiliencePipelineRegistry<TKey>.EnsureNotDisposed() -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.EnsureNotDisposed()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+              "startLine": 264,
+              "startColumn": 5,
+              "endLine": 270,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+                "startLine": 149,
+                "startColumn": 9,
+                "endLine": 149,
+                "endColumn": 28
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n7",
+          "kind": "call",
+          "change": "modified",
+          "label": "ResiliencePipelineRegistry<TKey>.GetOrAddPipeline",
+          "detail": "changes below depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline`1(TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder<TResult>, global::Polly.Registry.ConfigureBuilderContext<TKey>>)",
+            "signature": "Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline<TResult>(TKey, System.Action<Polly.ResiliencePipelineBuilder<TResult>, Polly.Registry.ConfigureBuilderContext<TKey>>) -> Polly.ResiliencePipeline<TResult>",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline`1(TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder<TResult>, global::Polly.Registry.ConfigureBuilderContext<TKey>>)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+              "startLine": 162,
+              "startColumn": 5,
+              "endLine": 169,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+                "startLine": 151,
+                "startColumn": 16,
+                "endLine": 151,
+                "endColumn": 82
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline`1(TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder<TResult>, global::Polly.Registry.ConfigureBuilderContext<TKey>>)",
+            "signature": "Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline<TResult>(TKey, System.Action<Polly.ResiliencePipelineBuilder<TResult>, Polly.Registry.ConfigureBuilderContext<TKey>>) -> Polly.ResiliencePipeline<TResult>",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Registry.ResiliencePipelineRegistry<TKey>.GetOrAddPipeline`1(TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder<TResult>, global::Polly.Registry.ConfigureBuilderContext<TKey>>)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+              "startLine": 162,
+              "startColumn": 5,
+              "endLine": 169,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/Registry/ResiliencePipelineRegistry.cs",
+                "startLine": 151,
+                "startColumn": 16,
+                "endLine": 151,
+                "endColumn": 82
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n8",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "ResiliencePipelineBuilder.Build",
+      "detail": null,
+      "before": {
+        "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipelineBuilder.Build()",
+        "signature": "Polly.ResiliencePipelineBuilder.Build() -> Polly.ResiliencePipeline",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipelineBuilder.Build()"
+        ],
+        "definition": {
+          "path": "src/Polly.Core/ResiliencePipelineBuilder.cs",
+          "startLine": 20,
+          "startColumn": 5,
+          "endLine": 20,
+          "endColumn": 108
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipelineBuilder.Build()",
+        "signature": "Polly.ResiliencePipelineBuilder.Build() -> Polly.ResiliencePipeline",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipelineBuilder.Build()"
+        ],
+        "definition": {
+          "path": "src/Polly.Core/ResiliencePipelineBuilder.cs",
+          "startLine": 20,
+          "startColumn": 5,
+          "endLine": 20,
+          "endColumn": 108
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n9",
+          "kind": "call",
+          "change": "modified",
+          "label": "ResiliencePipelineBuilderBase.BuildPipelineComponent",
+          "detail": "changes below depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipelineBuilderBase.BuildPipelineComponent()",
+            "signature": "Polly.ResiliencePipelineBuilderBase.BuildPipelineComponent() -> Polly.Utils.Pipeline.PipelineComponent",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipelineBuilderBase.BuildPipelineComponent()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResiliencePipelineBuilderBase.cs",
+              "startLine": 118,
+              "startColumn": 5,
+              "endLine": 134,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/ResiliencePipelineBuilder.cs",
+                "startLine": 20,
+                "startColumn": 46,
+                "endLine": 20,
+                "endColumn": 70
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipelineBuilderBase.BuildPipelineComponent()",
+            "signature": "Polly.ResiliencePipelineBuilderBase.BuildPipelineComponent() -> Polly.Utils.Pipeline.PipelineComponent",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipelineBuilderBase.BuildPipelineComponent()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResiliencePipelineBuilderBase.cs",
+              "startLine": 118,
+              "startColumn": 5,
+              "endLine": 135,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/ResiliencePipelineBuilder.cs",
+                "startLine": 20,
+                "startColumn": 46,
+                "endLine": 20,
+                "endColumn": 70
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n10",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "new ResiliencePipeline",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipeline..ctor(global::Polly.Utils.Pipeline.PipelineComponent,global::Polly.Utils.DisposeBehavior,global::Polly.ResilienceContextPool)",
+            "signature": "Polly.ResiliencePipeline.ResiliencePipeline(Polly.Utils.Pipeline.PipelineComponent, Polly.Utils.DisposeBehavior, Polly.ResilienceContextPool?) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipeline..ctor(global::Polly.Utils.Pipeline.PipelineComponent,global::Polly.Utils.DisposeBehavior,global::Polly.ResilienceContextPool)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResiliencePipeline.cs",
+              "startLine": 19,
+              "startColumn": 5,
+              "endLine": 24,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/ResiliencePipelineBuilder.cs",
+                "startLine": 20,
+                "startColumn": 42,
+                "endLine": 20,
+                "endColumn": 107
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipeline..ctor(global::Polly.Utils.Pipeline.PipelineComponent,global::Polly.Utils.DisposeBehavior,global::Polly.ResilienceContextPool)",
+            "signature": "Polly.ResiliencePipeline.ResiliencePipeline(Polly.Utils.Pipeline.PipelineComponent, Polly.Utils.DisposeBehavior, Polly.ResilienceContextPool?) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipeline..ctor(global::Polly.Utils.Pipeline.PipelineComponent,global::Polly.Utils.DisposeBehavior,global::Polly.ResilienceContextPool)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResiliencePipeline.cs",
+              "startLine": 19,
+              "startColumn": 5,
+              "endLine": 24,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/ResiliencePipelineBuilder.cs",
+                "startLine": 20,
+                "startColumn": 42,
+                "endLine": 20,
+                "endColumn": 107
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n11",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "ResiliencePipelineBuilder<TResult>.Build",
+      "detail": null,
+      "before": {
+        "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipelineBuilder<TResult>.Build()",
+        "signature": "Polly.ResiliencePipelineBuilder<TResult>.Build() -> Polly.ResiliencePipeline<TResult>",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipelineBuilder<TResult>.Build()"
+        ],
+        "definition": {
+          "path": "src/Polly.Core/ResiliencePipelineBuilder.TResult.cs",
+          "startLine": 33,
+          "startColumn": 5,
+          "endLine": 33,
+          "endColumn": 117
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipelineBuilder<TResult>.Build()",
+        "signature": "Polly.ResiliencePipelineBuilder<TResult>.Build() -> Polly.ResiliencePipeline<TResult>",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipelineBuilder<TResult>.Build()"
+        ],
+        "definition": {
+          "path": "src/Polly.Core/ResiliencePipelineBuilder.TResult.cs",
+          "startLine": 33,
+          "startColumn": 5,
+          "endLine": 33,
+          "endColumn": 117
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n12",
+          "kind": "call",
+          "change": "modified",
+          "label": "ResiliencePipelineBuilderBase.BuildPipelineComponent",
+          "detail": "changes below depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipelineBuilderBase.BuildPipelineComponent()",
+            "signature": "Polly.ResiliencePipelineBuilderBase.BuildPipelineComponent() -> Polly.Utils.Pipeline.PipelineComponent",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipelineBuilderBase.BuildPipelineComponent()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResiliencePipelineBuilderBase.cs",
+              "startLine": 118,
+              "startColumn": 5,
+              "endLine": 134,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/ResiliencePipelineBuilder.TResult.cs",
+                "startLine": 33,
+                "startColumn": 55,
+                "endLine": 33,
+                "endColumn": 79
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipelineBuilderBase.BuildPipelineComponent()",
+            "signature": "Polly.ResiliencePipelineBuilderBase.BuildPipelineComponent() -> Polly.Utils.Pipeline.PipelineComponent",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipelineBuilderBase.BuildPipelineComponent()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResiliencePipelineBuilderBase.cs",
+              "startLine": 118,
+              "startColumn": 5,
+              "endLine": 135,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/ResiliencePipelineBuilder.TResult.cs",
+                "startLine": 33,
+                "startColumn": 55,
+                "endLine": 33,
+                "endColumn": 79
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n13",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "new ResiliencePipeline<T>",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipeline<T>..ctor(global::Polly.Utils.Pipeline.PipelineComponent,global::Polly.Utils.DisposeBehavior,global::Polly.ResilienceContextPool)",
+            "signature": "Polly.ResiliencePipeline<T>.ResiliencePipeline(Polly.Utils.Pipeline.PipelineComponent, Polly.Utils.DisposeBehavior, Polly.ResilienceContextPool?) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipeline<T>..ctor(global::Polly.Utils.Pipeline.PipelineComponent,global::Polly.Utils.DisposeBehavior,global::Polly.ResilienceContextPool)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResiliencePipelineT.cs",
+              "startLine": 20,
+              "startColumn": 5,
+              "endLine": 27,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/ResiliencePipelineBuilder.TResult.cs",
+                "startLine": 33,
+                "startColumn": 51,
+                "endLine": 33,
+                "endColumn": 116
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipeline<T>..ctor(global::Polly.Utils.Pipeline.PipelineComponent,global::Polly.Utils.DisposeBehavior,global::Polly.ResilienceContextPool)",
+            "signature": "Polly.ResiliencePipeline<T>.ResiliencePipeline(Polly.Utils.Pipeline.PipelineComponent, Polly.Utils.DisposeBehavior, Polly.ResilienceContextPool?) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.ResiliencePipeline<T>..ctor(global::Polly.Utils.Pipeline.PipelineComponent,global::Polly.Utils.DisposeBehavior,global::Polly.ResilienceContextPool)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResiliencePipelineT.cs",
+              "startLine": 20,
+              "startColumn": 5,
+              "endLine": 27,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Core/ResiliencePipelineBuilder.TResult.cs",
+                "startLine": 33,
+                "startColumn": 51,
+                "endLine": 33,
+                "endColumn": 116
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n14",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "PollyServiceCollectionExtensions.AddResiliencePipeline",
+      "detail": null,
+      "before": {
+        "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipeline`1(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder>)",
+        "signature": "Polly.PollyServiceCollectionExtensions.AddResiliencePipeline<TKey>(Microsoft.Extensions.DependencyInjection.IServiceCollection, TKey, System.Action<Polly.ResiliencePipelineBuilder>) -> Microsoft.Extensions.DependencyInjection.IServiceCollection",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipeline`1(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder>)"
+        ],
+        "definition": {
+          "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+          "startLine": 101,
+          "startColumn": 5,
+          "endLine": 111,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipeline`1(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder>)",
+        "signature": "Polly.PollyServiceCollectionExtensions.AddResiliencePipeline<TKey>(Microsoft.Extensions.DependencyInjection.IServiceCollection, TKey, System.Action<Polly.ResiliencePipelineBuilder>) -> Microsoft.Extensions.DependencyInjection.IServiceCollection",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipeline`1(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder>)"
+        ],
+        "definition": {
+          "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+          "startLine": 101,
+          "startColumn": 5,
+          "endLine": 111,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n15",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Guard.NotNull",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+                "startLine": 107,
+                "startColumn": 9,
+                "endLine": 107,
+                "endColumn": 32
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+                "startLine": 107,
+                "startColumn": 9,
+                "endLine": 107,
+                "endColumn": 32
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n16",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Guard.NotNull",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+                "startLine": 108,
+                "startColumn": 9,
+                "endLine": 108,
+                "endColumn": 33
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+                "startLine": 108,
+                "startColumn": 9,
+                "endLine": 108,
+                "endColumn": 33
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n17",
+          "kind": "call",
+          "change": "modified",
+          "label": "PollyServiceCollectionExtensions.AddResiliencePipeline",
+          "detail": "changes below depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipeline`1(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder, global::Polly.DependencyInjection.AddResiliencePipelineContext<TKey>>)",
+            "signature": "Polly.PollyServiceCollectionExtensions.AddResiliencePipeline<TKey>(Microsoft.Extensions.DependencyInjection.IServiceCollection, TKey, System.Action<Polly.ResiliencePipelineBuilder, Polly.DependencyInjection.AddResiliencePipelineContext<TKey>>) -> Microsoft.Extensions.DependencyInjection.IServiceCollection",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipeline`1(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder, global::Polly.DependencyInjection.AddResiliencePipelineContext<TKey>>)"
+            ],
+            "definition": {
+              "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+              "startLine": 128,
+              "startColumn": 5,
+              "endLine": 150,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+                "startLine": 110,
+                "startColumn": 16,
+                "endLine": 110,
+                "endColumn": 87
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipeline`1(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder, global::Polly.DependencyInjection.AddResiliencePipelineContext<TKey>>)",
+            "signature": "Polly.PollyServiceCollectionExtensions.AddResiliencePipeline<TKey>(Microsoft.Extensions.DependencyInjection.IServiceCollection, TKey, System.Action<Polly.ResiliencePipelineBuilder, Polly.DependencyInjection.AddResiliencePipelineContext<TKey>>) -> Microsoft.Extensions.DependencyInjection.IServiceCollection",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipeline`1(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder, global::Polly.DependencyInjection.AddResiliencePipelineContext<TKey>>)"
+            ],
+            "definition": {
+              "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+              "startLine": 128,
+              "startColumn": 5,
+              "endLine": 150,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+                "startLine": 110,
+                "startColumn": 16,
+                "endLine": 110,
+                "endColumn": 87
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n18",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "PollyServiceCollectionExtensions.AddResiliencePipeline",
+      "detail": null,
+      "before": {
+        "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipeline`2(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder<TResult>>)",
+        "signature": "Polly.PollyServiceCollectionExtensions.AddResiliencePipeline<TKey, TResult>(Microsoft.Extensions.DependencyInjection.IServiceCollection, TKey, System.Action<Polly.ResiliencePipelineBuilder<TResult>>) -> Microsoft.Extensions.DependencyInjection.IServiceCollection",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipeline`2(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder<TResult>>)"
+        ],
+        "definition": {
+          "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+          "startLine": 34,
+          "startColumn": 5,
+          "endLine": 44,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipeline`2(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder<TResult>>)",
+        "signature": "Polly.PollyServiceCollectionExtensions.AddResiliencePipeline<TKey, TResult>(Microsoft.Extensions.DependencyInjection.IServiceCollection, TKey, System.Action<Polly.ResiliencePipelineBuilder<TResult>>) -> Microsoft.Extensions.DependencyInjection.IServiceCollection",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipeline`2(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder<TResult>>)"
+        ],
+        "definition": {
+          "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+          "startLine": 34,
+          "startColumn": 5,
+          "endLine": 44,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n19",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Guard.NotNull",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+                "startLine": 40,
+                "startColumn": 9,
+                "endLine": 40,
+                "endColumn": 32
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+                "startLine": 40,
+                "startColumn": 9,
+                "endLine": 40,
+                "endColumn": 32
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n20",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Guard.NotNull",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+                "startLine": 41,
+                "startColumn": 9,
+                "endLine": 41,
+                "endColumn": 33
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+                "startLine": 41,
+                "startColumn": 9,
+                "endLine": 41,
+                "endColumn": 33
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n21",
+          "kind": "call",
+          "change": "modified",
+          "label": "PollyServiceCollectionExtensions.AddResiliencePipeline",
+          "detail": "changes below depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipeline`2(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder<TResult>, global::Polly.DependencyInjection.AddResiliencePipelineContext<TKey>>)",
+            "signature": "Polly.PollyServiceCollectionExtensions.AddResiliencePipeline<TKey, TResult>(Microsoft.Extensions.DependencyInjection.IServiceCollection, TKey, System.Action<Polly.ResiliencePipelineBuilder<TResult>, Polly.DependencyInjection.AddResiliencePipelineContext<TKey>>) -> Microsoft.Extensions.DependencyInjection.IServiceCollection",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipeline`2(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder<TResult>, global::Polly.DependencyInjection.AddResiliencePipelineContext<TKey>>)"
+            ],
+            "definition": {
+              "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+              "startLine": 62,
+              "startColumn": 5,
+              "endLine": 84,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+                "startLine": 43,
+                "startColumn": 16,
+                "endLine": 43,
+                "endColumn": 102
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipeline`2(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder<TResult>, global::Polly.DependencyInjection.AddResiliencePipelineContext<TKey>>)",
+            "signature": "Polly.PollyServiceCollectionExtensions.AddResiliencePipeline<TKey, TResult>(Microsoft.Extensions.DependencyInjection.IServiceCollection, TKey, System.Action<Polly.ResiliencePipelineBuilder<TResult>, Polly.DependencyInjection.AddResiliencePipelineContext<TKey>>) -> Microsoft.Extensions.DependencyInjection.IServiceCollection",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipeline`2(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,TKey,global::System.Action<global::Polly.ResiliencePipelineBuilder<TResult>, global::Polly.DependencyInjection.AddResiliencePipelineContext<TKey>>)"
+            ],
+            "definition": {
+              "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+              "startLine": 62,
+              "startColumn": 5,
+              "endLine": 84,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+                "startLine": 43,
+                "startColumn": 16,
+                "endLine": 43,
+                "endColumn": 102
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n22",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "PollyServiceCollectionExtensions.AddResiliencePipelineRegistry",
+      "detail": null,
+      "before": {
+        "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipelineRegistry`1(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::System.Action<global::Polly.Registry.ResiliencePipelineRegistryOptions<TKey>>)",
+        "signature": "Polly.PollyServiceCollectionExtensions.AddResiliencePipelineRegistry<TKey>(Microsoft.Extensions.DependencyInjection.IServiceCollection, System.Action<Polly.Registry.ResiliencePipelineRegistryOptions<TKey>>) -> Microsoft.Extensions.DependencyInjection.IServiceCollection",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipelineRegistry`1(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::System.Action<global::Polly.Registry.ResiliencePipelineRegistryOptions<TKey>>)"
+        ],
+        "definition": {
+          "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+          "startLine": 200,
+          "startColumn": 5,
+          "endLine": 212,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipelineRegistry`1(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::System.Action<global::Polly.Registry.ResiliencePipelineRegistryOptions<TKey>>)",
+        "signature": "Polly.PollyServiceCollectionExtensions.AddResiliencePipelineRegistry<TKey>(Microsoft.Extensions.DependencyInjection.IServiceCollection, System.Action<Polly.Registry.ResiliencePipelineRegistryOptions<TKey>>) -> Microsoft.Extensions.DependencyInjection.IServiceCollection",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipelineRegistry`1(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::System.Action<global::Polly.Registry.ResiliencePipelineRegistryOptions<TKey>>)"
+        ],
+        "definition": {
+          "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+          "startLine": 200,
+          "startColumn": 5,
+          "endLine": 212,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n23",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Guard.NotNull",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+                "startLine": 205,
+                "startColumn": 9,
+                "endLine": 205,
+                "endColumn": 32
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+                "startLine": 205,
+                "startColumn": 9,
+                "endLine": 205,
+                "endColumn": 32
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n24",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Guard.NotNull",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+                "startLine": 206,
+                "startColumn": 9,
+                "endLine": 206,
+                "endColumn": 33
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+                "startLine": 206,
+                "startColumn": 9,
+                "endLine": 206,
+                "endColumn": 33
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n25",
+          "kind": "call",
+          "change": "modified",
+          "label": "PollyServiceCollectionExtensions.AddResiliencePipelineRegistry",
+          "detail": "changes below depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipelineRegistry`1(global::Microsoft.Extensions.DependencyInjection.IServiceCollection)",
+            "signature": "Polly.PollyServiceCollectionExtensions.AddResiliencePipelineRegistry<TKey>(Microsoft.Extensions.DependencyInjection.IServiceCollection) -> Microsoft.Extensions.DependencyInjection.IServiceCollection",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipelineRegistry`1(global::Microsoft.Extensions.DependencyInjection.IServiceCollection)"
+            ],
+            "definition": {
+              "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+              "startLine": 225,
+              "startColumn": 5,
+              "endLine": 265,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+                "startLine": 208,
+                "startColumn": 9,
+                "endLine": 208,
+                "endColumn": 55
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipelineRegistry`1(global::Microsoft.Extensions.DependencyInjection.IServiceCollection)",
+            "signature": "Polly.PollyServiceCollectionExtensions.AddResiliencePipelineRegistry<TKey>(Microsoft.Extensions.DependencyInjection.IServiceCollection) -> Microsoft.Extensions.DependencyInjection.IServiceCollection",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.PollyServiceCollectionExtensions.AddResiliencePipelineRegistry`1(global::Microsoft.Extensions.DependencyInjection.IServiceCollection)"
+            ],
+            "definition": {
+              "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+              "startLine": 225,
+              "startColumn": 5,
+              "endLine": 265,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/PollyServiceCollectionExtensions.cs",
+                "startLine": 208,
+                "startColumn": 9,
+                "endLine": 208,
+                "endColumn": 55
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n26",
+      "kind": "member",
+      "change": "added",
+      "label": "new TelemetrySource",
+      "detail": null,
+      "before": null,
+      "after": {
+        "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Telemetry.TelemetrySource..ctor()",
+        "signature": "Polly.Telemetry.TelemetrySource.TelemetrySource() -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Telemetry.TelemetrySource..ctor()"
+        ],
+        "definition": {
+          "path": "src/Polly.Extensions/Telemetry/TelemetrySource.cs",
+          "startLine": 11,
+          "startColumn": 5,
+          "endLine": 15,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n27",
+          "kind": "call",
+          "change": "added",
+          "label": "TelemetrySource.GetVersion",
+          "detail": "changes below depth limit",
+          "before": null,
+          "after": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Telemetry.TelemetrySource.GetVersion()",
+            "signature": "Polly.Telemetry.TelemetrySource.GetVersion() -> string",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Telemetry.TelemetrySource.GetVersion()"
+            ],
+            "definition": {
+              "path": "src/Polly.Extensions/Telemetry/TelemetrySource.cs",
+              "startLine": 19,
+              "startColumn": 5,
+              "endLine": 49,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/Telemetry/TelemetrySource.cs",
+                "startLine": 13,
+                "startColumn": 23,
+                "endLine": 13,
+                "endColumn": 35
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n28",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry",
+      "detail": null,
+      "before": {
+        "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry`1(TBuilder,global::Microsoft.Extensions.Logging.ILoggerFactory)",
+        "signature": "Polly.TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry<TBuilder>(TBuilder, Microsoft.Extensions.Logging.ILoggerFactory) -> TBuilder",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry`1(TBuilder,global::Microsoft.Extensions.Logging.ILoggerFactory)"
+        ],
+        "definition": {
+          "path": "src/Polly.Extensions/Telemetry/TelemetryResiliencePipelineBuilderExtensions.cs",
+          "startLine": 25,
+          "startColumn": 5,
+          "endLine": 32,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry`1(TBuilder,global::Microsoft.Extensions.Logging.ILoggerFactory)",
+        "signature": "Polly.TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry<TBuilder>(TBuilder, Microsoft.Extensions.Logging.ILoggerFactory) -> TBuilder",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry`1(TBuilder,global::Microsoft.Extensions.Logging.ILoggerFactory)"
+        ],
+        "definition": {
+          "path": "src/Polly.Extensions/Telemetry/TelemetryResiliencePipelineBuilderExtensions.cs",
+          "startLine": 25,
+          "startColumn": 5,
+          "endLine": 32,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n29",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Guard.NotNull",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/Telemetry/TelemetryResiliencePipelineBuilderExtensions.cs",
+                "startLine": 28,
+                "startColumn": 9,
+                "endLine": 28,
+                "endColumn": 31
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/Telemetry/TelemetryResiliencePipelineBuilderExtensions.cs",
+                "startLine": 28,
+                "startColumn": 9,
+                "endLine": 28,
+                "endColumn": 31
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n30",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Guard.NotNull",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/Telemetry/TelemetryResiliencePipelineBuilderExtensions.cs",
+                "startLine": 29,
+                "startColumn": 9,
+                "endLine": 29,
+                "endColumn": 37
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+            "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/Utils/Guard.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 22,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/Telemetry/TelemetryResiliencePipelineBuilderExtensions.cs",
+                "startLine": 29,
+                "startColumn": 9,
+                "endLine": 29,
+                "endColumn": 37
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n31",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "new TelemetryOptions",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Telemetry.TelemetryOptions..ctor()",
+            "signature": "Polly.Telemetry.TelemetryOptions.TelemetryOptions() -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Telemetry.TelemetryOptions..ctor()"
+            ],
+            "definition": {
+              "path": "src/Polly.Extensions/Telemetry/TelemetryOptions.cs",
+              "startLine": 17,
+              "startColumn": 5,
+              "endLine": 19,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/Telemetry/TelemetryResiliencePipelineBuilderExtensions.cs",
+                "startLine": 31,
+                "startColumn": 43,
+                "endLine": 31,
+                "endColumn": 97
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Telemetry.TelemetryOptions..ctor()",
+            "signature": "Polly.Telemetry.TelemetryOptions.TelemetryOptions() -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.Telemetry.TelemetryOptions..ctor()"
+            ],
+            "definition": {
+              "path": "src/Polly.Extensions/Telemetry/TelemetryOptions.cs",
+              "startLine": 17,
+              "startColumn": 5,
+              "endLine": 19,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/Telemetry/TelemetryResiliencePipelineBuilderExtensions.cs",
+                "startLine": 31,
+                "startColumn": 43,
+                "endLine": 31,
+                "endColumn": 97
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n32",
+          "kind": "call",
+          "change": "modified",
+          "label": "TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry",
+          "detail": "changes below depth limit",
+          "before": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry`1(TBuilder,global::Polly.Telemetry.TelemetryOptions)",
+            "signature": "Polly.TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry<TBuilder>(TBuilder, Polly.Telemetry.TelemetryOptions) -> TBuilder",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry`1(TBuilder,global::Polly.Telemetry.TelemetryOptions)"
+            ],
+            "definition": {
+              "path": "src/Polly.Extensions/Telemetry/TelemetryResiliencePipelineBuilderExtensions.cs",
+              "startLine": 46,
+              "startColumn": 5,
+              "endLine": 57,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/Telemetry/TelemetryResiliencePipelineBuilderExtensions.cs",
+                "startLine": 31,
+                "startColumn": 16,
+                "endLine": 31,
+                "endColumn": 98
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry`1(TBuilder,global::Polly.Telemetry.TelemetryOptions)",
+            "signature": "Polly.TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry<TBuilder>(TBuilder, Polly.Telemetry.TelemetryOptions) -> TBuilder",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Polly.Extensions/Polly.Extensions.csproj@net8.0::Polly.TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry`1(TBuilder,global::Polly.Telemetry.TelemetryOptions)"
+            ],
+            "definition": {
+              "path": "src/Polly.Extensions/Telemetry/TelemetryResiliencePipelineBuilderExtensions.cs",
+              "startLine": 46,
+              "startColumn": 5,
+              "endLine": 57,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/Telemetry/TelemetryResiliencePipelineBuilderExtensions.cs",
+                "startLine": 31,
+                "startColumn": 16,
+                "endLine": 31,
+                "endColumn": 98
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

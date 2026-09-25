@@ -486,5 +486,347 @@
         ]
       }
     ]
+  },
+  {
+    "id": "polly-reload-monitor",
+    "repository": "https://github.com/App-vNext/Polly.git",
+    "cacheName": "polly",
+    "license": "BSD-3-Clause",
+    "licenseFile": "LICENSE",
+    "before": "6cc79edccae5d6f236fd011a69fb12e8f913be80",
+    "after": "f2a07e687b3020f6cbaaf9192f14e1f8845682e3",
+    "beforeLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+    "afterLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+    "reason": "Extract monitor-based reload setup with a null guard",
+    "tags": [
+      "helper-extraction",
+      "callback",
+      "project-reference"
+    ],
+    "options": [],
+    "knownIssue": "issues/polly-coverage.md",
+    "review": "reviews/polly-reload-monitor.md",
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": true,
+        "options": [
+          "--entry",
+          "AddResiliencePipelineContext<TKey>.EnableReloads",
+          "--depth",
+          "4",
+          "--externals"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Polly.Extensions/Polly.Extensions.csproj",
+          "--framework",
+          "net8.0",
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "routine": true,
+        "options": [
+          "--project",
+          "src/Polly.Extensions/Polly.Extensions.csproj",
+          "--framework",
+          "net8.0",
+          "--entry",
+          "AddResiliencePipelineContext<TKey>.EnableReloads",
+          "--depth",
+          "4",
+          "--externals"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "polly-caller-cancellation",
+    "repository": "https://github.com/App-vNext/Polly.git",
+    "cacheName": "polly",
+    "license": "BSD-3-Clause",
+    "licenseFile": "LICENSE",
+    "before": "27eb2bbb4d45a9570bc35c5ee70419fff4376b25",
+    "after": "e984839b8324a163270f0bc686929a1066de69e0",
+    "beforeLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+    "afterLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+    "reason": "Preserve the caller token through timeout and hedging cancellation",
+    "tags": [
+      "exception-path",
+      "branch-guard",
+      "async"
+    ],
+    "options": [],
+    "knownIssue": "issues/polly-coverage.md",
+    "review": "reviews/polly-caller-cancellation.md",
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--entry",
+          "OutcomeUtilities.WithCallerCancellationToken",
+          "--depth",
+          "4",
+          "--externals"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Polly.Core/Polly.Core.csproj",
+          "--framework",
+          "net8.0",
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Polly.Core/Polly.Core.csproj",
+          "--framework",
+          "net8.0",
+          "--entry",
+          "OutcomeUtilities.WithCallerCancellationToken",
+          "--depth",
+          "4",
+          "--externals"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "polly-telemetry-source",
+    "repository": "https://github.com/App-vNext/Polly.git",
+    "cacheName": "polly",
+    "license": "BSD-3-Clause",
+    "licenseFile": "LICENSE",
+    "before": "af7e8b16a0c032149021693d326860c00e48fd0e",
+    "after": "b87f20347af528b6f7c6ff1f9e6c1bc02f97856c",
+    "beforeLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+    "afterLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+    "reason": "Share versioned telemetry resources and refactor pipeline construction across projects",
+    "tags": [
+      "multi-project",
+      "primary-constructor",
+      "static-initialization"
+    ],
+    "options": [],
+    "knownIssue": "issues/polly-coverage.md",
+    "review": "reviews/polly-telemetry-source.md",
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--entry",
+          "new TelemetrySource",
+          "--depth",
+          "4",
+          "--externals"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Polly.Extensions/Polly.Extensions.csproj",
+          "--framework",
+          "net8.0",
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Polly.Extensions/Polly.Extensions.csproj",
+          "--framework",
+          "net8.0",
+          "--entry",
+          "new TelemetrySource",
+          "--depth",
+          "4",
+          "--externals"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "polly-executor-continuations",
+    "repository": "https://github.com/App-vNext/Polly.git",
+    "cacheName": "polly",
+    "license": "BSD-3-Clause",
+    "licenseFile": "LICENSE",
+    "before": "779aa834d9a317a7e26493385f2fdf48ce20f3ef",
+    "after": "016dd909db880b9d8d07954ff5f4ea3cc1e11c67",
+    "beforeLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+    "afterLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+    "reason": "Select asynchronous continuations through a completion-source constructor overload",
+    "tags": [
+      "overload-change",
+      "async",
+      "method-group"
+    ],
+    "options": [],
+    "knownIssue": "issues/polly-coverage.md",
+    "review": "reviews/polly-executor-continuations.md",
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--entry",
+          "ScheduledTaskExecutor.ScheduleTask",
+          "--depth",
+          "3",
+          "--externals"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Polly.Core/Polly.Core.csproj",
+          "--framework",
+          "net8.0",
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Polly.Core/Polly.Core.csproj",
+          "--framework",
+          "net8.0",
+          "--entry",
+          "ScheduledTaskExecutor.ScheduleTask",
+          "--depth",
+          "3",
+          "--externals"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "polly-secondary-action",
+    "repository": "https://github.com/App-vNext/Polly.git",
+    "cacheName": "polly",
+    "license": "BSD-3-Clause",
+    "licenseFile": "LICENSE",
+    "before": "e6582c39e7ba10c8fbcddbfefccd7a09e8dd8aab",
+    "after": "1a80392b1f093f40e59c515f4aeb989bea5db857",
+    "beforeLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+    "afterLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+    "reason": "Extract secondary action setup, chain telemetry constructors, and extend build coverage tasks",
+    "tags": [
+      "multi-project",
+      "helper-extraction",
+      "constructor-chain",
+      "exception-path",
+      "top-level"
+    ],
+    "options": [],
+    "knownIssue": "issues/polly-coverage.md",
+    "review": "reviews/polly-secondary-action.md",
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--entry",
+          "TaskExecution<T>.InitializeAsync",
+          "--depth",
+          "4",
+          "--externals"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Polly.Extensions/Polly.Extensions.csproj",
+          "--framework",
+          "net8.0",
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Polly.Extensions/Polly.Extensions.csproj",
+          "--framework",
+          "net8.0",
+          "--entry",
+          "TaskExecution<T>.InitializeAsync",
+          "--depth",
+          "4",
+          "--externals"
+        ]
+      }
+    ]
   }
 ]

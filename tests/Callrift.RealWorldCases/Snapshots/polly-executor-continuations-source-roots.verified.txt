@@ -1,0 +1,157 @@
+﻿format: text
+exit: 0
+stdout:
+  CompositeComponentBenchmark.CompositeComponent_ExecuteCore
+  └─ PipelineComponent.ExecuteCore
+     ├─ ⇢ BridgeComponent.ExecuteCore (depth limit)
+~    ├─ ⇢ BridgeComponent<T>.ExecuteCore (changes below depth limit)
+~    ├─ ⇢ ComponentWithDisposeCallbacks.ExecuteCore (changes below depth limit)
+~    ├─ ⇢ CompositeComponent.ExecuteCore (changes below depth limit)
+~    ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
+~    ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
+~    ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
+     ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore (depth limit)
+~    ├─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
+     └─ Outcome.FromResultAsValueTask (depth limit)
+
+  DelegatingComponentBenchmark.DelegatingComponent_ExecuteCore_Jit
+~ └─ DelegatingComponent.ExecuteComponent (changes below depth limit)
+     └─ Outcome.FromResultAsValueTask (depth limit)
+
+  MultipleStrategiesBenchmark.ExecuteStrategyPipeline_NonGenericTelemetry_V8
+  ├─ ResilienceContextPool.Get (depth limit)
+~ ├─ ResiliencePipeline.ExecuteOutcomeAsync (changes below depth limit)
+  │  └─ Outcome.FromResult (depth limit)
+  └─ ResilienceContextPool.Return → ResilienceContextPool.SharedPool.Return (depth limit)
+
+  MultipleStrategiesBenchmark.ExecuteStrategyPipeline_NonGeneric_V8
+  ├─ ResilienceContextPool.Get (depth limit)
+~ ├─ ResiliencePipeline.ExecuteOutcomeAsync (changes below depth limit) ↑ as above
+  └─ ResilienceContextPool.Return → ResilienceContextPool.SharedPool.Return (depth limit)
+
+  ResiliencePipelineBenchmark.ExecuteOutcomeAsync
+  ├─ ResilienceContextPool.Get (depth limit)
+~ ├─ ResiliencePipeline.ExecuteOutcomeAsync (changes below depth limit)
+  │  └─ Outcome.FromResultAsValueTask (depth limit)
+  └─ ResilienceContextPool.Return → ResilienceContextPool.SharedPool.Return (depth limit)
+
+  TelemetryBenchmark.Execute
+  ├─ ResilienceContextPool.Get (depth limit)
+~ ├─ ResiliencePipeline.ExecuteOutcomeAsync (changes below depth limit) ↑ as above
+  └─ ResilienceContextPool.Return → ResilienceContextPool.SharedPool.Return (depth limit)
+
+  Helper.CreateNonGenericStrategyPipeline
+  ├─ …
+  ├─ new CircuitBreakerStrategyOptions
+  ├─ callback
+~ ├─ CircuitBreakerResiliencePipelineBuilderExtensions.AddCircuitBreaker (changes below depth limit)
+  ├─ if (telemetry)
+  └─ ResiliencePipelineBuilder.Build (depth limit)
+
+  Helper.CreateStrategyPipeline
+  ├─ case PollyVersion.V7
+  └─ case PollyVersion.V8
+     └─ ? CreateStrategy
+        ├─ …
+        ├─ new CircuitBreakerStrategyOptions<TResult> (depth limit)
+        ├─ callback
+~       ├─ CircuitBreakerResiliencePipelineBuilderExtensions.AddCircuitBreaker (changes below depth limit)
+        └─ if (telemetry)
+
+  Helper.ExecuteAsync
+  ├─ case PollyVersion.V7:
+  └─ case PollyVersion.V8:
+     ├─ ResilienceContextPool.Get (depth limit)
+~    ├─ ResiliencePipeline<T>.ExecuteOutcomeAsync (changes below depth limit)
+     │  └─ Outcome.FromResultAsValueTask (depth limit)
+     └─ ResilienceContextPool.Return → ResilienceContextPool.SharedPool.Return (depth limit)
+stderr:
+bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
+bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
+2000 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  CompositeComponentBenchmark.CompositeComponent_ExecuteCore
+  └─ PipelineComponent.ExecuteCore
+     ├─ ⇢ BridgeComponent.ExecuteCore (depth limit)
+~    ├─ ⇢ BridgeComponent<T>.ExecuteCore (changes below depth limit)
+~    ├─ ⇢ ComponentWithDisposeCallbacks.ExecuteCore (changes below depth limit)
+~    ├─ ⇢ CompositeComponent.ExecuteCore (changes below depth limit)
+~    ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
+~    ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
+~    ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
+     ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore (depth limit)
+~    ├─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
+     └─ Outcome.FromResultAsValueTask (depth limit)
+
+  DelegatingComponentBenchmark.DelegatingComponent_ExecuteCore_Jit
+~ └─ DelegatingComponent.ExecuteComponent (changes below depth limit)
+     └─ Outcome.FromResultAsValueTask (depth limit)
+
+  MultipleStrategiesBenchmark.ExecuteStrategyPipeline_NonGenericTelemetry_V8
+  ├─ ResilienceContextPool.Get (depth limit)
+~ ├─ ResiliencePipeline.ExecuteOutcomeAsync (changes below depth limit)
+  │  └─ Outcome.FromResult (depth limit)
+  └─ ResilienceContextPool.Return → ResilienceContextPool.SharedPool.Return (depth limit)
+
+  MultipleStrategiesBenchmark.ExecuteStrategyPipeline_NonGeneric_V8
+  ├─ ResilienceContextPool.Get (depth limit)
+~ ├─ ResiliencePipeline.ExecuteOutcomeAsync (changes below depth limit) ↑ as above
+  └─ ResilienceContextPool.Return → ResilienceContextPool.SharedPool.Return (depth limit)
+
+  ResiliencePipelineBenchmark.ExecuteOutcomeAsync
+  ├─ ResilienceContextPool.Get (depth limit)
+~ ├─ ResiliencePipeline.ExecuteOutcomeAsync (changes below depth limit)
+  │  └─ Outcome.FromResultAsValueTask (depth limit)
+  └─ ResilienceContextPool.Return → ResilienceContextPool.SharedPool.Return (depth limit)
+
+  TelemetryBenchmark.Execute
+  ├─ ResilienceContextPool.Get (depth limit)
+~ ├─ ResiliencePipeline.ExecuteOutcomeAsync (changes below depth limit) ↑ as above
+  └─ ResilienceContextPool.Return → ResilienceContextPool.SharedPool.Return (depth limit)
+
+  Helper.CreateNonGenericStrategyPipeline
+  ├─ …
+  ├─ new CircuitBreakerStrategyOptions
+  ├─ callback
+~ ├─ CircuitBreakerResiliencePipelineBuilderExtensions.AddCircuitBreaker (changes below depth limit)
+  ├─ if (telemetry)
+  └─ ResiliencePipelineBuilder.Build (depth limit)
+
+  Helper.CreateStrategyPipeline
+  ├─ case PollyVersion.V7
+  └─ case PollyVersion.V8
+     └─ ? CreateStrategy
+        ├─ …
+        ├─ new CircuitBreakerStrategyOptions<TResult> (depth limit)
+        ├─ callback
+~       ├─ CircuitBreakerResiliencePipelineBuilderExtensions.AddCircuitBreaker (changes below depth limit)
+        └─ if (telemetry)
+
+  Helper.ExecuteAsync
+  ├─ case PollyVersion.V7:
+  └─ case PollyVersion.V8:
+     ├─ ResilienceContextPool.Get (depth limit)
+~    ├─ ResiliencePipeline<T>.ExecuteOutcomeAsync (changes below depth limit)
+     │  └─ Outcome.FromResultAsValueTask (depth limit)
+     └─ ResilienceContextPool.Return → ResilienceContextPool.SharedPool.Return (depth limit)
+```
+stderr:
+bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
+bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
+2000 additional diagnostics; use --diagnostics full.

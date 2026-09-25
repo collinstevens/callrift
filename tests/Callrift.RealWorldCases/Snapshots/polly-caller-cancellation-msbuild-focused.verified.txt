@@ -1,0 +1,37 @@
+﻿format: text
+exit: 0
+stdout:
++ OutcomeUtilities.WithCallerCancellationToken
++ └─ if (callerToken.IsCancellationRequested && outcome.Exception is OperationCanceledException oce &&…
++    ├─ new OperationCanceledException
++    ├─ ExceptionUtilities.TrySetStackTrace
++    │  ├─ string.IsNullOrWhiteSpace
++    │  └─ System.Runtime.ExceptionServices.ExceptionDispatchInfo.SetCurrentStackTrace
++    └─ Outcome.FromException
++       ├─ Guard.NotNull
++       │  └─ ArgumentNullException.ThrowIfNull
++       └─ new Outcome<TResult>
++          ├─ new Outcome<TResult>
++          ├─ Guard.NotNull (depth limit)
++          └─ ExceptionDispatchInfo.Capture
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
++ OutcomeUtilities.WithCallerCancellationToken
++ └─ if (callerToken.IsCancellationRequested && outcome.Exception is OperationCanceledException oce &&…
++    ├─ new OperationCanceledException
++    ├─ ExceptionUtilities.TrySetStackTrace
++    │  ├─ string.IsNullOrWhiteSpace
++    │  └─ System.Runtime.ExceptionServices.ExceptionDispatchInfo.SetCurrentStackTrace
++    └─ Outcome.FromException
++       ├─ Guard.NotNull
++       │  └─ ArgumentNullException.ThrowIfNull
++       └─ new Outcome<TResult>
++          ├─ new Outcome<TResult>
++          ├─ Guard.NotNull (depth limit)
++          └─ ExceptionDispatchInfo.Capture
+```
+stderr:

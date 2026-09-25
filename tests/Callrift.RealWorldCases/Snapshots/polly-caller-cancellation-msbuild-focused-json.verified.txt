@@ -1,0 +1,488 @@
+﻿exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "27eb2bbb4d45a9570bc35c5ee70419fff4376b25",
+    "commit": "27eb2bbb4d45a9570bc35c5ee70419fff4376b25",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "e984839b8324a163270f0bc686929a1066de69e0",
+    "commit": "e984839b8324a163270f0bc686929a1066de69e0",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "msbuild",
+    "status": "partial",
+    "limitations": [
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "virtual-nonabstract-dispatch",
+      "callbacks-are-possible-calls",
+      "no-framework-dispatch-plugins"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": true,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "added",
+      "label": "OutcomeUtilities.WithCallerCancellationToken",
+      "detail": null,
+      "before": null,
+      "after": {
+        "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Utils.OutcomeUtilities.WithCallerCancellationToken`1(global::Polly.Outcome<T>,global::System.Threading.CancellationToken)",
+        "signature": "Polly.Utils.OutcomeUtilities.WithCallerCancellationToken<T>(Polly.Outcome<T>, System.Threading.CancellationToken) -> Polly.Outcome<T>",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Utils.OutcomeUtilities.WithCallerCancellationToken`1(global::Polly.Outcome<T>,global::System.Threading.CancellationToken)"
+        ],
+        "definition": {
+          "path": "src/Polly.Core/Utils/OutcomeUtilities.cs",
+          "startLine": 23,
+          "startColumn": 5,
+          "endLine": 31,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "branch",
+          "change": "added",
+          "label": "if (callerToken.IsCancellationRequested && outcome.Exception is OperationCanceledException oce &&…",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Polly.Core/Utils/OutcomeUtilities.cs",
+                "startLine": 25,
+                "startColumn": 9,
+                "endLine": 28,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n2",
+              "kind": "call",
+              "change": "added",
+              "label": "new OperationCanceledException",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "metadata:System.Runtime::System.OperationCanceledException..ctor(string,global::System.Exception,global::System.Threading.CancellationToken)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::System.OperationCanceledException..ctor(string,global::System.Exception,global::System.Threading.CancellationToken)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Polly.Core/Utils/OutcomeUtilities.cs",
+                    "startLine": 27,
+                    "startColumn": 45,
+                    "endLine": 27,
+                    "endColumn": 106
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n3",
+              "kind": "call",
+              "change": "added",
+              "label": "ExceptionUtilities.TrySetStackTrace",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Utils.ExceptionUtilities.TrySetStackTrace`1(T)",
+                "signature": "Polly.Utils.ExceptionUtilities.TrySetStackTrace<T>(T) -> T",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Utils.ExceptionUtilities.TrySetStackTrace`1(T)"
+                ],
+                "definition": {
+                  "path": "src/Polly.Core/Utils/ExceptionUtilities.cs",
+                  "startLine": 14,
+                  "startColumn": 5,
+                  "endLine": 28,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Polly.Core/Utils/OutcomeUtilities.cs",
+                    "startLine": 27,
+                    "startColumn": 45,
+                    "endLine": 27,
+                    "endColumn": 125
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n4",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "string.IsNullOrWhiteSpace",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "metadata:System.Runtime::string.IsNullOrWhiteSpace(string)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Runtime::string.IsNullOrWhiteSpace(string)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Polly.Core/Utils/ExceptionUtilities.cs",
+                        "startLine": 17,
+                        "startColumn": 14,
+                        "endLine": 17,
+                        "endColumn": 61
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n5",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "System.Runtime.ExceptionServices.ExceptionDispatchInfo.SetCurrentStackTrace",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "metadata:System.Runtime::System.Runtime.ExceptionServices.ExceptionDispatchInfo.SetCurrentStackTrace(global::System.Exception)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Runtime::System.Runtime.ExceptionServices.ExceptionDispatchInfo.SetCurrentStackTrace(global::System.Exception)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Polly.Core/Utils/ExceptionUtilities.cs",
+                        "startLine": 23,
+                        "startColumn": 9,
+                        "endLine": 23,
+                        "endColumn": 95
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n6",
+              "kind": "call",
+              "change": "added",
+              "label": "Outcome.FromException",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Outcome.FromException`1(global::System.Exception)",
+                "signature": "Polly.Outcome.FromException<TResult>(System.Exception) -> Polly.Outcome<TResult>",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Outcome.FromException`1(global::System.Exception)"
+                ],
+                "definition": {
+                  "path": "src/Polly.Core/Outcome.cs",
+                  "startLine": 31,
+                  "startColumn": 5,
+                  "endLine": 36,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Polly.Core/Utils/OutcomeUtilities.cs",
+                    "startLine": 27,
+                    "startColumn": 20,
+                    "endLine": 27,
+                    "endColumn": 126
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n7",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "Guard.NotNull",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+                    "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+                    ],
+                    "definition": {
+                      "path": "src/Polly.Core/Utils/Guard.cs",
+                      "startLine": 9,
+                      "startColumn": 5,
+                      "endLine": 22,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Polly.Core/Outcome.cs",
+                        "startLine": 33,
+                        "startColumn": 9,
+                        "endLine": 33,
+                        "endColumn": 33
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [
+                    {
+                      "id": "n8",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "ArgumentNullException.ThrowIfNull",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "metadata:System.Runtime::System.ArgumentNullException.ThrowIfNull(object,string)",
+                        "signature": null,
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "metadata:System.Runtime::System.ArgumentNullException.ThrowIfNull(object,string)"
+                        ],
+                        "definition": null,
+                        "callSites": [
+                          {
+                            "path": "src/Polly.Core/Utils/Guard.cs",
+                            "startLine": 13,
+                            "startColumn": 9,
+                            "endLine": 13,
+                            "endColumn": 63
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "metadata"
+                      },
+                      "children": [],
+                      "omission": null
+                    }
+                  ],
+                  "omission": null
+                },
+                {
+                  "id": "n9",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "new Outcome<TResult>",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Outcome<TResult>..ctor(global::System.Exception)",
+                    "signature": "Polly.Outcome<TResult>.Outcome(System.Exception) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Outcome<TResult>..ctor(global::System.Exception)"
+                    ],
+                    "definition": {
+                      "path": "src/Polly.Core/Outcome.TResult.cs",
+                      "startLine": 16,
+                      "startColumn": 5,
+                      "endLine": 17,
+                      "endColumn": 101
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Polly.Core/Outcome.cs",
+                        "startLine": 35,
+                        "startColumn": 16,
+                        "endLine": 35,
+                        "endColumn": 30
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [
+                    {
+                      "id": "n10",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "new Outcome<TResult>",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Outcome<TResult>..ctor()",
+                        "signature": null,
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Outcome<TResult>..ctor()"
+                        ],
+                        "definition": null,
+                        "callSites": [
+                          {
+                            "path": "src/Polly.Core/Outcome.TResult.cs",
+                            "startLine": 17,
+                            "startColumn": 9,
+                            "endLine": 17,
+                            "endColumn": 17
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n11",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "Guard.NotNull",
+                      "detail": "depth limit",
+                      "before": null,
+                      "after": {
+                        "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)",
+                        "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Utils.Guard.NotNull`1(T,string)"
+                        ],
+                        "definition": {
+                          "path": "src/Polly.Core/Utils/Guard.cs",
+                          "startLine": 9,
+                          "startColumn": 5,
+                          "endLine": 22,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Polly.Core/Outcome.TResult.cs",
+                            "startLine": 17,
+                            "startColumn": 75,
+                            "endLine": 17,
+                            "endColumn": 99
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": {
+                        "reason": "depth-limit",
+                        "symbolId": null,
+                        "referenceId": null
+                      }
+                    },
+                    {
+                      "id": "n12",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "ExceptionDispatchInfo.Capture",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "metadata:System.Runtime::System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(global::System.Exception)",
+                        "signature": null,
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "metadata:System.Runtime::System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(global::System.Exception)"
+                        ],
+                        "definition": null,
+                        "callSites": [
+                          {
+                            "path": "src/Polly.Core/Outcome.TResult.cs",
+                            "startLine": 17,
+                            "startColumn": 45,
+                            "endLine": 17,
+                            "endColumn": 100
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "metadata"
+                      },
+                      "children": [],
+                      "omission": null
+                    }
+                  ],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

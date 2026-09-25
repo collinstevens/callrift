@@ -1,0 +1,271 @@
+﻿format: text
+exit: 0
+stdout:
+  TaskExecution<T>.InitializeAsync
+  ├─ ? _cancellationTokenSourcePool.Get
+  ├─ ResilienceContext.InitializeFrom (depth limit)
+  ├─ if (type == HedgedTaskType.Secondary)
+- │  ├─ if (!_handler.IsDefaultActionGenerator)
+- │  │  ├─ try
+- │  │  │  ├─ TaskExecution<T>.CreateArguments (depth limit)
+- │  │  │  └─ if (action == null)
+- │  │  │     └─ TaskExecution<T>.ResetAsync (depth limit)
+- │  │  └─ catch (Exception e)
+- │  │     ├─ new Outcome<TResult> (depth limit)
+- │  │     └─ TaskExecution<T>.UpdateOutcomeAsync (depth limit)
++ │  ├─ TaskExecution<T>.TryCreateSecondaryActionAsync (changes below depth limit)
+  │  ├─ new OnHedgingArguments<TResult> (depth limit)
+  │  ├─ new ResilienceEvent (depth limit)
+  │  └─ …
+  └─ else (!(type == HedgedTaskType.Secondary))
+
+  new TelemetryOptions
++ ├─ new TelemetryOptions (depth limit)
+  └─ Guard.NotNull (depth limit)
+
+- ConcurrentDictionaryExtensions.GetOrAdd
+
++ Program.<Main>$.GetAssemblyCoverage
+
++ Program.<Main>$.GetCoverageAssemblyName
+
++ Program.<Main>$.GetCoverageThresholds
++ ├─ ? new XmlPeekSettings
++ ├─ ? XmlPeek
++ ├─ ? string.IsNullOrWhiteSpace
++ ├─ ? new XmlPeekSettings
++ ├─ ? XmlPeek
++ ├─ ? string.IsNullOrWhiteSpace
++ ├─ else (!(string.IsNullOrWhiteSpace(thresholdTypeRaw)))
++ │  ├─ ? thresholdTypeRaw.Split
++ │  ├─ ? thresholdTypeRaw.Split(',').Select
++ │  │  └─ ? type.Trim
++ │  └─ ? thresholdTypeRaw.Split(',').Select((type) => type.Trim()).ToArray
++ ├─ ? thresholdRaw.Split
++ ├─ ? thresholdRaw.Split(',').Select
++ │  ├─ ? value.Trim
++ │  └─ ? double.Parse
++ ├─ ? thresholdRaw.Split(',').Select((value) => double.Parse(value.Trim(), System.Globalization.CultureInfo.InvariantCulture)).ToArray
++ └─ ? types.Select
++    └─ ? Math.Min
+
+  cake.cs::<top-level>
+  ├─ …
+  ├─ ? Directory
+  ├─ ? System.IO.Path.Combine
++ ├─ ? Directory
++ ├─ ? System.IO.Path.Combine
++ ├─ ? Directory
++ ├─ ? System.IO.Path.Combine
+  ├─ ? File
+  ├─ ? MakeAbsolute
+  ├─ …
+  ├─ ? Task("__ValidateAot").Does
+  ├─ ? Task
+  ├─ ? Task("__RunTests").Does
+  │  ├─ ? GetFiles
+  │  └─ foreach (var proj in projects)
++ │     ├─ ? proj.GetFilenameWithoutExtension
++ │     ├─ ? proj.GetFilenameWithoutExtension().ToString
+  │     ├─ ? new DotNetTestSettings
+  │     └─ ? DotNetTest
+  ├─ ? Task
++ ├─ ? Task("__GenerateCoverageReports").IsDependentOn
++ ├─ ? Task("__GenerateCoverageReports").IsDependentOn("__RunTests").Does
++ │  ├─ ? GetFiles
++ │  └─ foreach (var proj in projects)
++ │     ├─ ? proj.GetFilenameWithoutExtension
++ │     ├─ ? proj.GetFilenameWithoutExtension().ToString
++ │     ├─ ? System.IO.Path.Combine
++ │     ├─ ? DirectoryExists
++ │     ├─ ? GetFiles
++ │     ├─ ? coverageFiles.Any
++ │     ├─ ? System.IO.Path.Combine
++ │     ├─ ? coverageFiles.OrderBy
++ │     └─ foreach (var coverageFile in coverageFiles.OrderBy((file) => file.FullPath))
++ │        ├─ ? coverageFile.GetFilenameWithoutExtension
++ │        ├─ ? coverageFile.GetFilenameWithoutExtension().ToString
++ │        ├─ ? Information
++ │        ├─ ? StartProcess
++ │        └─ if (outputMarkdown)
++ │           └─ if (!string.IsNullOrWhiteSpace(stepSummary) && System.IO.File.Exists(markdownSummaryFile))
++ │              └─ Program.<Main>$.AppendAllLinesWithRetry (changes below depth limit)
++ ├─ ? Task
++ ├─ ? Task("__VerifyCoverageThresholds").IsDependentOn
++ ├─ ? Task("__VerifyCoverageThresholds").IsDependentOn("__RunTests").Does
++ │  ├─ ? GetFiles
++ │  ├─ foreach (var proj in projects)
++ │  │  ├─ ? GetCoverageThresholds
++ │  │  ├─ ? proj.GetFilenameWithoutExtension
++ │  │  ├─ ? proj.GetFilenameWithoutExtension().ToString
++ │  │  ├─ ? GetCoverageAssemblyName
++ │  │  ├─ ? System.IO.Path.Combine
++ │  │  ├─ ? DirectoryExists
++ │  │  ├─ ? GetFiles
++ │  │  ├─ ? coverageFiles.OrderBy
++ │  │  └─ foreach (var coverageFile in coverageFiles.OrderBy((file) => file.FullPath))
++ │  │     ├─ ? coverageFile.GetFilenameWithoutExtension
++ │  │     ├─ ? coverageFile.GetFilenameWithoutExtension().ToString
++ │  │     ├─ ? GetAssemblyCoverage
++ │  │     └─ ? Information
++ │  └─ if (violations.Count > 0)
++ │     └─ foreach (var violation in violations)
++ │        └─ ? Error
++ ├─ ? Task
+  ├─ ? Task("__CreateNuGetPackages").Does
+  ├─ ? Task
+  ├─ …
+  ├─ ? Task("Build").IsDependentOn("__CommonBuild").IsDependentOn("__ValidateAot").IsDependentOn
+  ├─ ? Task("Build").IsDependentOn("__CommonBuild").IsDependentOn("__ValidateAot").IsDependentOn("__RunTests").IsDependentOn
++ ├─ ? Task("Build").IsDependentOn("__CommonBuild").IsDependentOn("__ValidateAot").IsDependentOn("__RunTests").IsDependentOn("__GenerateCoverageReports").IsDependentOn
++ ├─ ? Task("Build").IsDependentOn("__CommonBuild").IsDependentOn("__ValidateAot").IsDependentOn("__RunTests").IsDependentOn("__GenerateCoverageReports").IsDependentOn("__VerifyCoverageThresholds").IsDependentOn
+  ├─ ? Task
+  ├─ ? Task("Default").IsDependentOn
+  └─ …
+stderr:
+bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
+bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
+2197 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  TaskExecution<T>.InitializeAsync
+  ├─ ? _cancellationTokenSourcePool.Get
+  ├─ ResilienceContext.InitializeFrom (depth limit)
+  ├─ if (type == HedgedTaskType.Secondary)
+- │  ├─ if (!_handler.IsDefaultActionGenerator)
+- │  │  ├─ try
+- │  │  │  ├─ TaskExecution<T>.CreateArguments (depth limit)
+- │  │  │  └─ if (action == null)
+- │  │  │     └─ TaskExecution<T>.ResetAsync (depth limit)
+- │  │  └─ catch (Exception e)
+- │  │     ├─ new Outcome<TResult> (depth limit)
+- │  │     └─ TaskExecution<T>.UpdateOutcomeAsync (depth limit)
++ │  ├─ TaskExecution<T>.TryCreateSecondaryActionAsync (changes below depth limit)
+  │  ├─ new OnHedgingArguments<TResult> (depth limit)
+  │  ├─ new ResilienceEvent (depth limit)
+  │  └─ …
+  └─ else (!(type == HedgedTaskType.Secondary))
+
+  new TelemetryOptions
++ ├─ new TelemetryOptions (depth limit)
+  └─ Guard.NotNull (depth limit)
+
+- ConcurrentDictionaryExtensions.GetOrAdd
+
++ Program.<Main>$.GetAssemblyCoverage
+
++ Program.<Main>$.GetCoverageAssemblyName
+
++ Program.<Main>$.GetCoverageThresholds
++ ├─ ? new XmlPeekSettings
++ ├─ ? XmlPeek
++ ├─ ? string.IsNullOrWhiteSpace
++ ├─ ? new XmlPeekSettings
++ ├─ ? XmlPeek
++ ├─ ? string.IsNullOrWhiteSpace
++ ├─ else (!(string.IsNullOrWhiteSpace(thresholdTypeRaw)))
++ │  ├─ ? thresholdTypeRaw.Split
++ │  ├─ ? thresholdTypeRaw.Split(',').Select
++ │  │  └─ ? type.Trim
++ │  └─ ? thresholdTypeRaw.Split(',').Select((type) => type.Trim()).ToArray
++ ├─ ? thresholdRaw.Split
++ ├─ ? thresholdRaw.Split(',').Select
++ │  ├─ ? value.Trim
++ │  └─ ? double.Parse
++ ├─ ? thresholdRaw.Split(',').Select((value) => double.Parse(value.Trim(), System.Globalization.CultureInfo.InvariantCulture)).ToArray
++ └─ ? types.Select
++    └─ ? Math.Min
+
+  cake.cs::<top-level>
+  ├─ …
+  ├─ ? Directory
+  ├─ ? System.IO.Path.Combine
++ ├─ ? Directory
++ ├─ ? System.IO.Path.Combine
++ ├─ ? Directory
++ ├─ ? System.IO.Path.Combine
+  ├─ ? File
+  ├─ ? MakeAbsolute
+  ├─ …
+  ├─ ? Task("__ValidateAot").Does
+  ├─ ? Task
+  ├─ ? Task("__RunTests").Does
+  │  ├─ ? GetFiles
+  │  └─ foreach (var proj in projects)
++ │     ├─ ? proj.GetFilenameWithoutExtension
++ │     ├─ ? proj.GetFilenameWithoutExtension().ToString
+  │     ├─ ? new DotNetTestSettings
+  │     └─ ? DotNetTest
+  ├─ ? Task
++ ├─ ? Task("__GenerateCoverageReports").IsDependentOn
++ ├─ ? Task("__GenerateCoverageReports").IsDependentOn("__RunTests").Does
++ │  ├─ ? GetFiles
++ │  └─ foreach (var proj in projects)
++ │     ├─ ? proj.GetFilenameWithoutExtension
++ │     ├─ ? proj.GetFilenameWithoutExtension().ToString
++ │     ├─ ? System.IO.Path.Combine
++ │     ├─ ? DirectoryExists
++ │     ├─ ? GetFiles
++ │     ├─ ? coverageFiles.Any
++ │     ├─ ? System.IO.Path.Combine
++ │     ├─ ? coverageFiles.OrderBy
++ │     └─ foreach (var coverageFile in coverageFiles.OrderBy((file) => file.FullPath))
++ │        ├─ ? coverageFile.GetFilenameWithoutExtension
++ │        ├─ ? coverageFile.GetFilenameWithoutExtension().ToString
++ │        ├─ ? Information
++ │        ├─ ? StartProcess
++ │        └─ if (outputMarkdown)
++ │           └─ if (!string.IsNullOrWhiteSpace(stepSummary) && System.IO.File.Exists(markdownSummaryFile))
++ │              └─ Program.<Main>$.AppendAllLinesWithRetry (changes below depth limit)
++ ├─ ? Task
++ ├─ ? Task("__VerifyCoverageThresholds").IsDependentOn
++ ├─ ? Task("__VerifyCoverageThresholds").IsDependentOn("__RunTests").Does
++ │  ├─ ? GetFiles
++ │  ├─ foreach (var proj in projects)
++ │  │  ├─ ? GetCoverageThresholds
++ │  │  ├─ ? proj.GetFilenameWithoutExtension
++ │  │  ├─ ? proj.GetFilenameWithoutExtension().ToString
++ │  │  ├─ ? GetCoverageAssemblyName
++ │  │  ├─ ? System.IO.Path.Combine
++ │  │  ├─ ? DirectoryExists
++ │  │  ├─ ? GetFiles
++ │  │  ├─ ? coverageFiles.OrderBy
++ │  │  └─ foreach (var coverageFile in coverageFiles.OrderBy((file) => file.FullPath))
++ │  │     ├─ ? coverageFile.GetFilenameWithoutExtension
++ │  │     ├─ ? coverageFile.GetFilenameWithoutExtension().ToString
++ │  │     ├─ ? GetAssemblyCoverage
++ │  │     └─ ? Information
++ │  └─ if (violations.Count > 0)
++ │     └─ foreach (var violation in violations)
++ │        └─ ? Error
++ ├─ ? Task
+  ├─ ? Task("__CreateNuGetPackages").Does
+  ├─ ? Task
+  ├─ …
+  ├─ ? Task("Build").IsDependentOn("__CommonBuild").IsDependentOn("__ValidateAot").IsDependentOn
+  ├─ ? Task("Build").IsDependentOn("__CommonBuild").IsDependentOn("__ValidateAot").IsDependentOn("__RunTests").IsDependentOn
++ ├─ ? Task("Build").IsDependentOn("__CommonBuild").IsDependentOn("__ValidateAot").IsDependentOn("__RunTests").IsDependentOn("__GenerateCoverageReports").IsDependentOn
++ ├─ ? Task("Build").IsDependentOn("__CommonBuild").IsDependentOn("__ValidateAot").IsDependentOn("__RunTests").IsDependentOn("__GenerateCoverageReports").IsDependentOn("__VerifyCoverageThresholds").IsDependentOn
+  ├─ ? Task
+  ├─ ? Task("Default").IsDependentOn
+  └─ …
+```
+stderr:
+bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
+bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
+2197 additional diagnostics; use --diagnostics full.

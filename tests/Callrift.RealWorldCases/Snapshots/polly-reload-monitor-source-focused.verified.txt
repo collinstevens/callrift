@@ -1,0 +1,153 @@
+﻿format: text
+exit: 0
+stdout:
+  AddResiliencePipelineContext<TKey>.EnableReloads
+  ├─ ServiceProvider.GetRequiredService<IOptionsMonitor<TOptions>>
+- ├─ ConfigureBuilderContextExtensions.EnableReloads
+- │  ├─ Guard.NotNull ×2
+- │  │  └─ if (value is null)
+- │  │     └─ new ArgumentNullException
+- │  ├─ new CancellationTokenSource
+- │  ├─ optionsMonitor.OnChange
+- │  │  └─ if (name == changedNamed)
+- │  │     └─ source.Cancel
+- │  ├─ ConfigureBuilderContext<TKey>.AddReloadToken
+- │  │  └─ ReloadTokens.Add
+- │  └─ ConfigureBuilderContext<TKey>.OnPipelineDisposed
+- │     ├─ ? Guard.NotNull
+- │     ├─ DisposeCallbacks.Add
+- │     ├─ if (registration is not null)
+- │     │  └─ .Dispose
+- │     │     ├─ ⇢ AsyncBulkheadPolicy.Dispose (depth limit)
+- │     │     ├─ ⇢ AsyncBulkheadPolicy<TResult>.Dispose (depth limit)
+- │     │     ├─ ⇢ BulkheadPolicy.Dispose (depth limit)
+- │     │     ├─ ⇢ BulkheadPolicy<TResult>.Dispose (depth limit)
+- │     │     ├─ ⇢ CircuitBreakerManualControl.RegistrationDisposable.Dispose (depth limit)
+- │     │     ├─ ⇢ CircuitBreakerResilienceStrategy<T>.Dispose (depth limit)
+- │     │     ├─ ⇢ CircuitStateController<T>.Dispose (depth limit)
+- │     │     ├─ ⇢ ScheduledTaskExecutor.Dispose (depth limit)
+- │     │     ├─ ⇢ RateLimiterResilienceStrategy.Dispose (depth limit)
+- │     │     ├─ ⇢ ResiliencePipelineRegistry<TKey>.Dispose (depth limit)
+- │     │     ├─ ⇢ TimedLock.Dispose (depth limit)
+- │     │     └─ ⇢ ResiliencePipelineRegistry.PipelineRegistryAdapter.Dispose (depth limit)
+- │     └─ source.Dispose
++ └─ AddResiliencePipelineContext<TKey>.EnableReloadsWithMonitor
++    ├─ Guard.NotNull
++    │  └─ if (value is null)
++    │     └─ new ArgumentNullException
++    └─ ConfigureBuilderContextExtensions.EnableReloads
++       ├─ Guard.NotNull ×2
++       │  └─ if (value is null)
++       │     └─ new ArgumentNullException
++       ├─ new CancellationTokenSource
++       ├─ optionsMonitor.OnChange
++       │  └─ if (name == changedNamed)
++       │     └─ source.Cancel
++       ├─ ConfigureBuilderContext<TKey>.AddReloadToken
++       │  └─ ReloadTokens.Add
++       └─ ConfigureBuilderContext<TKey>.OnPipelineDisposed
++          ├─ ? Guard.NotNull
++          ├─ DisposeCallbacks.Add
++          ├─ if (registration is not null)
++          │  └─ .Dispose
++          │     ├─ ⇢ AsyncBulkheadPolicy.Dispose (depth limit)
++          │     ├─ ⇢ AsyncBulkheadPolicy<TResult>.Dispose (depth limit)
++          │     ├─ ⇢ BulkheadPolicy.Dispose (depth limit)
++          │     ├─ ⇢ BulkheadPolicy<TResult>.Dispose (depth limit)
++          │     ├─ ⇢ CircuitBreakerManualControl.RegistrationDisposable.Dispose (depth limit)
++          │     ├─ ⇢ CircuitBreakerResilienceStrategy<T>.Dispose (depth limit)
++          │     ├─ ⇢ CircuitStateController<T>.Dispose (depth limit)
++          │     ├─ ⇢ ScheduledTaskExecutor.Dispose (depth limit)
++          │     ├─ ⇢ RateLimiterResilienceStrategy.Dispose (depth limit)
++          │     ├─ ⇢ ResiliencePipelineRegistry<TKey>.Dispose (depth limit)
++          │     ├─ ⇢ TimedLock.Dispose (depth limit)
++          │     └─ ⇢ ResiliencePipelineRegistry.PipelineRegistryAdapter.Dispose (depth limit)
++          └─ source.Dispose
+stderr:
+bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
+bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
+1997 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  AddResiliencePipelineContext<TKey>.EnableReloads
+  ├─ ServiceProvider.GetRequiredService<IOptionsMonitor<TOptions>>
+- ├─ ConfigureBuilderContextExtensions.EnableReloads
+- │  ├─ Guard.NotNull ×2
+- │  │  └─ if (value is null)
+- │  │     └─ new ArgumentNullException
+- │  ├─ new CancellationTokenSource
+- │  ├─ optionsMonitor.OnChange
+- │  │  └─ if (name == changedNamed)
+- │  │     └─ source.Cancel
+- │  ├─ ConfigureBuilderContext<TKey>.AddReloadToken
+- │  │  └─ ReloadTokens.Add
+- │  └─ ConfigureBuilderContext<TKey>.OnPipelineDisposed
+- │     ├─ ? Guard.NotNull
+- │     ├─ DisposeCallbacks.Add
+- │     ├─ if (registration is not null)
+- │     │  └─ .Dispose
+- │     │     ├─ ⇢ AsyncBulkheadPolicy.Dispose (depth limit)
+- │     │     ├─ ⇢ AsyncBulkheadPolicy<TResult>.Dispose (depth limit)
+- │     │     ├─ ⇢ BulkheadPolicy.Dispose (depth limit)
+- │     │     ├─ ⇢ BulkheadPolicy<TResult>.Dispose (depth limit)
+- │     │     ├─ ⇢ CircuitBreakerManualControl.RegistrationDisposable.Dispose (depth limit)
+- │     │     ├─ ⇢ CircuitBreakerResilienceStrategy<T>.Dispose (depth limit)
+- │     │     ├─ ⇢ CircuitStateController<T>.Dispose (depth limit)
+- │     │     ├─ ⇢ ScheduledTaskExecutor.Dispose (depth limit)
+- │     │     ├─ ⇢ RateLimiterResilienceStrategy.Dispose (depth limit)
+- │     │     ├─ ⇢ ResiliencePipelineRegistry<TKey>.Dispose (depth limit)
+- │     │     ├─ ⇢ TimedLock.Dispose (depth limit)
+- │     │     └─ ⇢ ResiliencePipelineRegistry.PipelineRegistryAdapter.Dispose (depth limit)
+- │     └─ source.Dispose
++ └─ AddResiliencePipelineContext<TKey>.EnableReloadsWithMonitor
++    ├─ Guard.NotNull
++    │  └─ if (value is null)
++    │     └─ new ArgumentNullException
++    └─ ConfigureBuilderContextExtensions.EnableReloads
++       ├─ Guard.NotNull ×2
++       │  └─ if (value is null)
++       │     └─ new ArgumentNullException
++       ├─ new CancellationTokenSource
++       ├─ optionsMonitor.OnChange
++       │  └─ if (name == changedNamed)
++       │     └─ source.Cancel
++       ├─ ConfigureBuilderContext<TKey>.AddReloadToken
++       │  └─ ReloadTokens.Add
++       └─ ConfigureBuilderContext<TKey>.OnPipelineDisposed
++          ├─ ? Guard.NotNull
++          ├─ DisposeCallbacks.Add
++          ├─ if (registration is not null)
++          │  └─ .Dispose
++          │     ├─ ⇢ AsyncBulkheadPolicy.Dispose (depth limit)
++          │     ├─ ⇢ AsyncBulkheadPolicy<TResult>.Dispose (depth limit)
++          │     ├─ ⇢ BulkheadPolicy.Dispose (depth limit)
++          │     ├─ ⇢ BulkheadPolicy<TResult>.Dispose (depth limit)
++          │     ├─ ⇢ CircuitBreakerManualControl.RegistrationDisposable.Dispose (depth limit)
++          │     ├─ ⇢ CircuitBreakerResilienceStrategy<T>.Dispose (depth limit)
++          │     ├─ ⇢ CircuitStateController<T>.Dispose (depth limit)
++          │     ├─ ⇢ ScheduledTaskExecutor.Dispose (depth limit)
++          │     ├─ ⇢ RateLimiterResilienceStrategy.Dispose (depth limit)
++          │     ├─ ⇢ ResiliencePipelineRegistry<TKey>.Dispose (depth limit)
++          │     ├─ ⇢ TimedLock.Dispose (depth limit)
++          │     └─ ⇢ ResiliencePipelineRegistry.PipelineRegistryAdapter.Dispose (depth limit)
++          └─ source.Dispose
+```
+stderr:
+bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
+bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
+1997 additional diagnostics; use --diagnostics full.

@@ -1,0 +1,103 @@
+﻿format: text
+exit: 0
+stdout:
+  AddResiliencePipelineContext<TKey>.EnableReloads
+  ├─ ServiceProvider.GetRequiredService<IOptionsMonitor<TOptions>>
+- ├─ ConfigureBuilderContextExtensions.EnableReloads
+- │  ├─ Guard.NotNull ×2
+- │  │  └─ ArgumentNullException.ThrowIfNull
+- │  ├─ new CancellationTokenSource
+- │  ├─ optionsMonitor.OnChange
+- │  │  └─ if (name == changedNamed)
+- │  │     └─ source.Cancel
+- │  ├─ ConfigureBuilderContext<TKey>.AddReloadToken
+- │  │  └─ ReloadTokens.Add
+- │  └─ ConfigureBuilderContext<TKey>.OnPipelineDisposed
+- │     ├─ Guard.NotNull
+- │     │  └─ ArgumentNullException.ThrowIfNull
+- │     ├─ DisposeCallbacks.Add
+- │     ├─ if (registration is not null)
+- │     │  └─ .Dispose
+- │     │     ├─ ⇢ CircuitBreakerManualControl.RegistrationDisposable.Dispose (depth limit)
+- │     │     ├─ ⇢ CircuitBreakerResilienceStrategy<T>.Dispose (depth limit)
+- │     │     ├─ ⇢ CircuitStateController<T>.Dispose (depth limit)
+- │     │     ├─ ⇢ ScheduledTaskExecutor.Dispose (depth limit)
+- │     │     └─ ⇢ ResiliencePipelineRegistry<TKey>.Dispose (depth limit)
+- │     └─ source.Dispose
++ └─ AddResiliencePipelineContext<TKey>.EnableReloadsWithMonitor
++    ├─ Guard.NotNull
++    │  └─ ArgumentNullException.ThrowIfNull
++    └─ ConfigureBuilderContextExtensions.EnableReloads
++       ├─ Guard.NotNull ×2
++       │  └─ ArgumentNullException.ThrowIfNull
++       ├─ new CancellationTokenSource
++       ├─ optionsMonitor.OnChange
++       │  └─ if (name == changedNamed)
++       │     └─ source.Cancel
++       ├─ ConfigureBuilderContext<TKey>.AddReloadToken
++       │  └─ ReloadTokens.Add
++       └─ ConfigureBuilderContext<TKey>.OnPipelineDisposed
++          ├─ Guard.NotNull (depth limit)
++          ├─ DisposeCallbacks.Add
++          ├─ if (registration is not null)
++          │  └─ .Dispose
++          │     ├─ ⇢ CircuitBreakerManualControl.RegistrationDisposable.Dispose (depth limit)
++          │     ├─ ⇢ CircuitBreakerResilienceStrategy<T>.Dispose (depth limit)
++          │     ├─ ⇢ CircuitStateController<T>.Dispose (depth limit)
++          │     ├─ ⇢ ScheduledTaskExecutor.Dispose (depth limit)
++          │     └─ ⇢ ResiliencePipelineRegistry<TKey>.Dispose (depth limit)
++          └─ source.Dispose
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  AddResiliencePipelineContext<TKey>.EnableReloads
+  ├─ ServiceProvider.GetRequiredService<IOptionsMonitor<TOptions>>
+- ├─ ConfigureBuilderContextExtensions.EnableReloads
+- │  ├─ Guard.NotNull ×2
+- │  │  └─ ArgumentNullException.ThrowIfNull
+- │  ├─ new CancellationTokenSource
+- │  ├─ optionsMonitor.OnChange
+- │  │  └─ if (name == changedNamed)
+- │  │     └─ source.Cancel
+- │  ├─ ConfigureBuilderContext<TKey>.AddReloadToken
+- │  │  └─ ReloadTokens.Add
+- │  └─ ConfigureBuilderContext<TKey>.OnPipelineDisposed
+- │     ├─ Guard.NotNull
+- │     │  └─ ArgumentNullException.ThrowIfNull
+- │     ├─ DisposeCallbacks.Add
+- │     ├─ if (registration is not null)
+- │     │  └─ .Dispose
+- │     │     ├─ ⇢ CircuitBreakerManualControl.RegistrationDisposable.Dispose (depth limit)
+- │     │     ├─ ⇢ CircuitBreakerResilienceStrategy<T>.Dispose (depth limit)
+- │     │     ├─ ⇢ CircuitStateController<T>.Dispose (depth limit)
+- │     │     ├─ ⇢ ScheduledTaskExecutor.Dispose (depth limit)
+- │     │     └─ ⇢ ResiliencePipelineRegistry<TKey>.Dispose (depth limit)
+- │     └─ source.Dispose
++ └─ AddResiliencePipelineContext<TKey>.EnableReloadsWithMonitor
++    ├─ Guard.NotNull
++    │  └─ ArgumentNullException.ThrowIfNull
++    └─ ConfigureBuilderContextExtensions.EnableReloads
++       ├─ Guard.NotNull ×2
++       │  └─ ArgumentNullException.ThrowIfNull
++       ├─ new CancellationTokenSource
++       ├─ optionsMonitor.OnChange
++       │  └─ if (name == changedNamed)
++       │     └─ source.Cancel
++       ├─ ConfigureBuilderContext<TKey>.AddReloadToken
++       │  └─ ReloadTokens.Add
++       └─ ConfigureBuilderContext<TKey>.OnPipelineDisposed
++          ├─ Guard.NotNull (depth limit)
++          ├─ DisposeCallbacks.Add
++          ├─ if (registration is not null)
++          │  └─ .Dispose
++          │     ├─ ⇢ CircuitBreakerManualControl.RegistrationDisposable.Dispose (depth limit)
++          │     ├─ ⇢ CircuitBreakerResilienceStrategy<T>.Dispose (depth limit)
++          │     ├─ ⇢ CircuitStateController<T>.Dispose (depth limit)
++          │     ├─ ⇢ ScheduledTaskExecutor.Dispose (depth limit)
++          │     └─ ⇢ ResiliencePipelineRegistry<TKey>.Dispose (depth limit)
++          └─ source.Dispose
+```
+stderr:

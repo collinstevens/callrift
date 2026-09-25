@@ -1,0 +1,25 @@
+﻿format: text
+exit: 0
+stdout:
+  ScheduledTaskExecutor.ScheduleTask
+  ├─ ObjectDisposedException.ThrowIf
+- ├─ new TaskCompletionSource<object>
++ ├─ new TaskCompletionSource<object>
+  ├─ new ScheduledTaskExecutor.Entry
+  ├─ _tasks.Enqueue
+  └─ …
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  ScheduledTaskExecutor.ScheduleTask
+  ├─ ObjectDisposedException.ThrowIf
+- ├─ new TaskCompletionSource<object>
++ ├─ new TaskCompletionSource<object>
+  ├─ new ScheduledTaskExecutor.Entry
+  ├─ _tasks.Enqueue
+  └─ …
+```
+stderr:

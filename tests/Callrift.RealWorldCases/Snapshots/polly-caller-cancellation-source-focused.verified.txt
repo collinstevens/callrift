@@ -1,0 +1,59 @@
+﻿format: text
+exit: 0
+stdout:
++ OutcomeUtilities.WithCallerCancellationToken
++ └─ if (callerToken.IsCancellationRequested && outcome.Exception is OperationCanceledException oce &&…
++    ├─ new OperationCanceledException
++    ├─ ExceptionUtilities.TrySetStackTrace
++    │  ├─ string.IsNullOrWhiteSpace
++    │  ├─ ? new StackTrace
++    │  └─ ExceptionUtilities.SetStackTrace
++    │     ├─ ? TraceToString.Invoke
++    │     └─ ? StackTraceString.SetValue
++    └─ Outcome.FromException
++       ├─ ? Guard.NotNull
++       └─ new Outcome<TResult>
++          ├─ new Outcome<TResult>
++          ├─ ? Guard.NotNull
++          └─ ? ExceptionDispatchInfo.Capture
+stderr:
+bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
+bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
+2004 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
++ OutcomeUtilities.WithCallerCancellationToken
++ └─ if (callerToken.IsCancellationRequested && outcome.Exception is OperationCanceledException oce &&…
++    ├─ new OperationCanceledException
++    ├─ ExceptionUtilities.TrySetStackTrace
++    │  ├─ string.IsNullOrWhiteSpace
++    │  ├─ ? new StackTrace
++    │  └─ ExceptionUtilities.SetStackTrace
++    │     ├─ ? TraceToString.Invoke
++    │     └─ ? StackTraceString.SetValue
++    └─ Outcome.FromException
++       ├─ ? Guard.NotNull
++       └─ new Outcome<TResult>
++          ├─ new Outcome<TResult>
++          ├─ ? Guard.NotNull
++          └─ ? ExceptionDispatchInfo.Capture
+```
+stderr:
+bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
+bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
+2004 additional diagnostics; use --diagnostics full.

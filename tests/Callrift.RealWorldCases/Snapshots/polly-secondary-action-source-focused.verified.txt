@@ -1,0 +1,93 @@
+﻿format: text
+exit: 0
+stdout:
+  TaskExecution<T>.InitializeAsync
+  ├─ …
+  ├─ ResilienceContext.InitializeFrom
+  ├─ primaryContext.CancellationToken.Register
+  ├─ if (type == HedgedTaskType.Secondary)
+- │  ├─ if (!_handler.IsDefaultActionGenerator)
+- │  │  ├─ try
+- │  │  │  ├─ TaskExecution<T>.CreateArguments (depth limit)
+- │  │  │  ├─ _handler.ActionGenerator
+- │  │  │  └─ if (action == null)
+- │  │  │     ├─ TaskExecution<T>.ResetAsync (depth limit)
+- │  │  │     └─ ResetAsync().ConfigureAwait
+- │  │  └─ catch (Exception e)
+- │  │     ├─ _timeProvider.GetTimestamp
+- │  │     ├─ new Outcome<TResult> (depth limit)
+- │  │     └─ TaskExecution<T>.UpdateOutcomeAsync (depth limit)
++ │  ├─ TaskExecution<T>.TryCreateSecondaryActionAsync
++ │  │  ├─ try
++ │  │  │  ├─ TaskExecution<T>.CreateArguments (depth limit)
++ │  │  │  ├─ _handler.ActionGenerator
++ │  │  │  └─ if (action == null)
++ │  │  │     ├─ TaskExecution<T>.ResetAsync (depth limit)
++ │  │  │     └─ ResetAsync().ConfigureAwait
++ │  │  └─ catch (Exception e)
++ │  │     ├─ _timeProvider.GetTimestamp
++ │  │     ├─ new Outcome<TResult> (depth limit)
++ │  │     └─ TaskExecution<T>.UpdateOutcomeAsync (depth limit)
++ │  ├─ TryCreateSecondaryActionAsync(primaryCallback, primaryContext, state, attemptNumber).ConfigureAwait
+  │  ├─ new OnHedgingArguments<TResult>
+  │  ├─ new ResilienceEvent
+  │  └─ …
+  └─ else (!(type == HedgedTaskType.Secondary))
+stderr:
+bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
+bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
+2197 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  TaskExecution<T>.InitializeAsync
+  ├─ …
+  ├─ ResilienceContext.InitializeFrom
+  ├─ primaryContext.CancellationToken.Register
+  ├─ if (type == HedgedTaskType.Secondary)
+- │  ├─ if (!_handler.IsDefaultActionGenerator)
+- │  │  ├─ try
+- │  │  │  ├─ TaskExecution<T>.CreateArguments (depth limit)
+- │  │  │  ├─ _handler.ActionGenerator
+- │  │  │  └─ if (action == null)
+- │  │  │     ├─ TaskExecution<T>.ResetAsync (depth limit)
+- │  │  │     └─ ResetAsync().ConfigureAwait
+- │  │  └─ catch (Exception e)
+- │  │     ├─ _timeProvider.GetTimestamp
+- │  │     ├─ new Outcome<TResult> (depth limit)
+- │  │     └─ TaskExecution<T>.UpdateOutcomeAsync (depth limit)
++ │  ├─ TaskExecution<T>.TryCreateSecondaryActionAsync
++ │  │  ├─ try
++ │  │  │  ├─ TaskExecution<T>.CreateArguments (depth limit)
++ │  │  │  ├─ _handler.ActionGenerator
++ │  │  │  └─ if (action == null)
++ │  │  │     ├─ TaskExecution<T>.ResetAsync (depth limit)
++ │  │  │     └─ ResetAsync().ConfigureAwait
++ │  │  └─ catch (Exception e)
++ │  │     ├─ _timeProvider.GetTimestamp
++ │  │     ├─ new Outcome<TResult> (depth limit)
++ │  │     └─ TaskExecution<T>.UpdateOutcomeAsync (depth limit)
++ │  ├─ TryCreateSecondaryActionAsync(primaryCallback, primaryContext, state, attemptNumber).ConfigureAwait
+  │  ├─ new OnHedgingArguments<TResult>
+  │  ├─ new ResilienceEvent
+  │  └─ …
+  └─ else (!(type == HedgedTaskType.Secondary))
+```
+stderr:
+bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
+bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
+bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
+bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
+2197 additional diagnostics; use --diagnostics full.
