@@ -22,7 +22,12 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         cancellationToken.ThrowIfCancellationRequested();
         switch (node)
         {
-            case LocalFunctionStatementSyntax or BaseTypeDeclarationSyntax or MethodDeclarationSyntax or AnonymousFunctionExpressionSyntax:
+            case LocalFunctionStatementSyntax or BaseTypeDeclarationSyntax or MethodDeclarationSyntax:
+                return;
+            case AnonymousFunctionExpressionSyntax lambda:
+                var body = new List<CallStep>();
+                Walk(lambda.Body, body);
+                Callback(lambda, body, result);
                 return;
             case InvocationExpressionSyntax invocation:
                 if (invocation.Expression is IdentifierNameSyntax { Identifier.ValueText: "nameof" } && model.GetConstantValue(invocation, cancellationToken).HasValue)
@@ -106,9 +111,23 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 };
                 Branch("if (" + predicate + ")", binary, [binary.Right], result);
                 return;
+            case ExpressionSyntax expression when expression is IdentifierNameSyntax or GenericNameSyntax or MemberAccessExpressionSyntax
+                && model.GetTypeInfo(expression, cancellationToken).ConvertedType?.TypeKind == TypeKind.Delegate
+                && model.GetSymbolInfo(expression, cancellationToken).Symbol is IMethodSymbol method:
+                if (expression is MemberAccessExpressionSyntax methodAccess)
+                    Walk(methodAccess.Expression, result);
+                Callback(expression, [CreateCall(expression, method, [])], result);
+                return;
         }
         foreach (var child in node.ChildNodes())
             Walk(child, result);
+    }
+
+    private void Callback(SyntaxNode node, IReadOnlyList<CallStep> calls, List<CallStep> result)
+    {
+        if (calls.Count > 0)
+            result.Add(new CallStep("branch", "branch:callback", "callback", true, symbols.Location(node), calls)
+            { Relation = "callback" });
     }
 
     private void Emit(SyntaxNode invocation, SeparatedSyntaxList<ArgumentSyntax> arguments, List<CallStep> result)
@@ -190,8 +209,10 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 continue;
             }
             var type = model.GetTypeInfo(receiver, cancellationToken).Type;
-            if (type is { TypeKind: TypeKind.Class or TypeKind.Struct or TypeKind.Array or TypeKind.Delegate }
-                && (constraint is null || model.Compilation.ClassifyCommonConversion(type, constraint).IsImplicit))
+            if (type is { TypeKind: TypeKind.Class or TypeKind.Struct or TypeKind.Array or TypeKind.Delegate or TypeKind.Interface }
+                && (constraint is null
+                    || constraint.TypeKind == TypeKind.Interface && type.TypeKind != TypeKind.Interface && type.SpecialType != SpecialType.System_Object
+                    || model.Compilation.ClassifyCommonConversion(type, constraint).IsImplicit))
                 constraint = type;
             if (model.GetOperation(receiver, cancellationToken) is not IConversionOperation conversion
                 || !(conversion.Conversion.IsReference || conversion.Conversion.IsIdentity)) break;

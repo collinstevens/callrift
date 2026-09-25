@@ -20,14 +20,14 @@ Automatic roots were reviewed across public registration and resolution APIs, re
 
 | View | Roots | Nodes | Diagnostics | Depth omissions | Cycles |
 |---|---:|---:|---:|---:|---:|
-| Source automatic | 132 | 765 | 172 | 576 | 0 |
+| Source automatic | 132 | 732 | 172 | 556 | 0 |
 | Source focused | 1 | 18 | 172 | 6 | 0 |
-| MSBuild automatic | 97 | 363 | 0 | 243 | 0 |
+| MSBuild automatic | 99 | 369 | 0 | 247 | 0 |
 | MSBuild focused | 1 | 18 | 0 | 6 | 0 |
 
 All four views explicitly report truncation. The 172 source diagnostics comprise 25 in benchmarks, 13 in the generator project, and 134 in library sources. They expose unavailable package and generated symbols, including BenchmarkDotNet, Roslyn, generated registration overloads, and resource properties. Unknown resource expression types also prevent binding some formatting and exception-constructor overloads. The restored views have no unresolved diagnostics. Source-mode incompleteness is visible and is not treated as restored-mode parity.
 
-Text and Markdown trees were read and compared; their content agrees after removing the Markdown diff fence. JSON review checked the focused node structure, automatic root identities, dispatch candidates, preserved and removed calls, ordering, diagnostics, omissions, and cycle flags against those trees. Node identifiers are unique within each document and revision identities are the full pinned commits. A separate source-location audit checked 3,536 locations against 231 distinct pinned Git blobs. Another 240 locations were checked against the two generated source files in the external MSBuild workspace. All paths are relative and all ranges are in bounds. Generator inputs are unchanged between the revisions.
+Text and Markdown trees were read and compared; their content agrees after removing the Markdown diff fence. JSON review checked the focused node structure, automatic root identities, dispatch candidates, preserved and removed calls, ordering, diagnostics, omissions, and cycle flags against those trees. Node identifiers are unique within each document and revision identities are the full pinned commits. The initial source-location audit checked 3,536 locations against 231 distinct pinned Git blobs. Another 240 locations were checked against the two generated source files in the external MSBuild workspace. All paths are relative and all ranges are in bounds. Generator inputs are unchanged between the revisions. The subsequent [deferred-callback and interface review](deferred-callbacks.md) accounts for the current root counts and checks the 30 locations in newly exposed roots.
 
 ## Remaining limits and execution evidence
 

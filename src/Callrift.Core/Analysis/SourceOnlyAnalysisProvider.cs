@@ -210,9 +210,9 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
         foreach (var type in types)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            if (type.TypeKind == TypeKind.Interface || type.IsAbstract)
+            if (type.TypeKind == TypeKind.Interface)
                 continue;
-            var receiverTypes = new List<DispatchType>();
+            var receiverTypes = type.AllInterfaces.Select(DispatchType.From).ToList();
             for (var current = type; current is not null; current = current.BaseType) receiverTypes.Add(DispatchType.From(current));
             foreach (var contract in type.AllInterfaces)
                 foreach (var method in contract.GetMembers().OfType<IMethodSymbol>())
@@ -228,6 +228,8 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                         }
                         Add(method, resolved, receiverTypes);
                     }
+            if (type.IsAbstract)
+                continue;
             var overridden = new HashSet<ISymbol>(SymbolEqualityComparer.Default);
             for (var current = type; current is not null; current = current.BaseType)
                 foreach (var method in current.GetMembers().OfType<IMethodSymbol>())

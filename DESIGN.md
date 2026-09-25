@@ -88,6 +88,8 @@ Index block and expression-bodied methods, explicit and primary constructors, lo
 
 Walk receiver calls before invocation arguments, then emit the invocation. Ordinary argument calls precede it; inline lambda bodies and method groups become callback children. Keep callback bodies out of the enclosing member's sibling calls. Index local functions separately and expand them only when called. Cover generic invocations, extensions, `await`, and conditional access.
 
+Returned and assigned anonymous functions and delegate-converted method groups retain their bodies under an explicit callback node. Creating or returning a delegate establishes a possible callback relationship; it does not prove invocation. Calls that evaluate a method group's receiver remain outside that deferred node.
+
 Use `GetSymbolInfo`; normalize `(ReducedFrom ?? method).OriginalDefinition`. Candidate symbols are evidence of incomplete binding, not a successful overload decision: retain candidate identities with an uncertainty marker instead of selecting the first one. Delegate invocation remains external even for a source-declared delegate type. Unresolved calls remain visible as `? receiver.Method`; resolved external leaves are hidden unless `--externals`. External wrappers with visible callback descendants remain visible.
 
 Human labels are concise, such as `Outer.Inner.Run`, `Repo<T>.Load`, `Outer.Local`, and `new Order`. Canonical identities include project/TFM scope when available, namespace, containing type, generic arity, parameter types/ref kinds, and local-function owner. Keep a separate signature representation for return types and other changes that do not alter overload identity. Never use a short display label as a unique graph key.

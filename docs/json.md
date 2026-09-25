@@ -12,6 +12,8 @@ MSBuild mode uses `project:<path>@<framework>::` for included projects and `meta
 
 `dispatch: possible` lists candidate implementation IDs. It does not certify the runtime container chooses a particular implementation. Callback relationships are explicit, but callbacks are not guaranteed to execute. Cycles have an omission with both a canonical symbol ID and the ancestor's traversal ID. A depth omission sets `truncated`; reach also sets it if more paths exist than `--max-paths` permits. A truncated empty path set is not proof of unreachability.
 
+Returned or assigned callback bodies appear beneath a structural node with `relation: callback`. Its child calls describe potential execution after delegate creation. A returned method group's receiver is evaluated before that node. This representation does not track delegate values through later assignments or prove that any consumer invokes them.
+
 Source-only coverage is always `partial`: it uses one compilation, BCL references, fixed language parsing, and synthetic SDK usings. Inspect limitations and diagnostics before relying on an empty diff. `--strict` returns exit 2 for partial coverage or truncation, including source-only runs without binding diagnostics. Normal analysis returns 0; `diff --exit-code` returns 1 when a change is present.
 
 Revision identities contain resolved commit IDs. Index and working-tree identities contain deterministic SHA-256 digests of ordered analysis inputs. A merge-base comparison records the requested range and the resolved base commit. Digests describe captured input, not a guarantee that the working tree remained unchanged after capture.
