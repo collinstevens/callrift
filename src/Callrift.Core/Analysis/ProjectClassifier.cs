@@ -52,7 +52,10 @@ internal sealed class ProjectClassifier(SourceSnapshot snapshot)
             break;
         }
         var testReferences = documents.SelectMany(d => d.Descendants()).Where(e => e.Name.LocalName == "PackageReference"
-            && ((string?)e.Attribute("Include"))?.ToLowerInvariant() is "xunit" or "xunit.v3" or "nunit" or "mstest.testframework" or "microsoft.net.test.sdk").ToArray();
+            && ((string?)e.Attribute("Include"))?.ToLowerInvariant() is "xunit" or "xunit.v3"
+                or "xunit.v3.mtp-v1" or "xunit.v3.mtp-v2" or "xunit.v3.mtp-off"
+                or "xunit.v3.aot" or "xunit.v3.aot.mtp-v2" or "xunit.v3.aot.mtp-off"
+                or "nunit" or "mstest.testframework" or "microsoft.net.test.sdk").ToArray();
         if (testReferences.Any(IsUnconditional)) return new Classification(true, uncertain);
         uncertain |= testReferences.Length > 0;
         var projectType = documents.SelectMany(d => d.Descendants().Where(e => e.Name.LocalName == "ProjectType").Reverse()).FirstOrDefault();
