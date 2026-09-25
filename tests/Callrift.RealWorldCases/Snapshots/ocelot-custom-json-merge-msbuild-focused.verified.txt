@@ -1,0 +1,137 @@
+﻿format: text
+exit: 0
+stdout:
+~ FileConfigurationController.Post (signature changed)
+  ├─ try
+  └─ catch (Exception e)
+-    ├─ e.ToString
++    ├─ ExceptionExtensions.ToShortString
++    │  └─ else (!(ex is null))
++    │     ├─ ex.GetType
++    │     └─ ExceptionExtensions.GetMessages (changes below depth limit)
+     └─ BadRequest
+
+~ ConfigurationBuilderExtensions.GetMergedOcelotJson (signature changed)
+  ├─ …
+  ├─ new DirectoryInfo(folder).EnumerateFiles().Where(fi => reg.IsMatch(fi.Name) && !fi.Name.Equals(environmentFileInfo.Name, StringComparison.OrdinalIgnoreCase) && !fi.FullName.Equals(environmentFileInfo.FullName, StringComparison.OrdinalIgnoreCase)).ToArray
+  ├─ new FileConfiguration
++ ├─ ConfigurationBuilderExtensions.GuardSchema
++ │  └─ new FileGlobalConfiguration
++ │     ├─ new FileGlobalAuthenticationOptions (depth limit)
++ │     ├─ new Dictionary<string, string>
++ │     ├─ new FileGlobalHttpHandlerOptions (depth limit)
++ │     ├─ new FileMetadataOptions (depth limit)
++ │     ├─ new FileSecurityOptions (depth limit)
++ │     ├─ new FileServiceDiscoveryProvider
++ │     └─ new Dictionary<string, string>
++ ├─ JObject.FromObject
+  ├─ Path.Join ×2
+  ├─ new FileInfo ×2
+  ├─ foreach (var file in files)
+  │  ├─ …
+  │  ├─ if (files.Length > 1 && file.Name.Equals(primaryFileInfo.Name, StringComparison.OrdinalIgnoreCase))
+  │  ├─ File.ReadAllText
+- │  ├─ JsonConvert.DeserializeObject<FileConfiguration>
++ │  ├─ JToken.Parse
+  │  ├─ file.Name.Equals
+  │  ├─ if (file.Name.Equals(globalFileInfo.Name, StringComparison.OrdinalIgnoreCase))
+- │  ├─ fileConfiguration.Aggregates.AddRange
+- │  ├─ fileConfiguration.Routes.AddRange
++ │  └─ ConfigurationBuilderExtensions.OcelotMergeConfiguration
++ │     ├─ if (isGlobal)
++ │     │  └─ ConfigurationBuilderExtensions.OcelotJMergeSection (changes below depth limit)
++ │     └─ ConfigurationBuilderExtensions.OcelotJMergeSection ×3 (changes below depth limit)
+- ├─ JsonConvert.SerializeObject
++ └─ jobj.ToString
+
++ ConfigurationBuilderExtensions.OcelotMergeConfiguration
++ ├─ if (isGlobal)
++ │  └─ ConfigurationBuilderExtensions.OcelotJMergeSection
++ │     ├─ ConfigurationBuilderExtensions.OcelotJSection ×2 (changes below depth limit)
++ │     ├─ if (source is JObject)
++ │     │  └─ ConfigurationBuilderExtensions.OcelotJSetSection (changes below depth limit)
++ │     └─ else (!(source is JObject))
++ │        └─ if (source is JArray)
++ │           └─ (destination as JArray).Merge
++ └─ ConfigurationBuilderExtensions.OcelotJMergeSection ×3
++    ├─ ConfigurationBuilderExtensions.OcelotJSection ×2
++    │  └─ if (obj is not null)
++    │     ├─ .Properties
++    │     └─ .Properties().FirstOrDefault
++    │        └─ p.Name.Equals
++    ├─ if (source is JObject)
++    │  └─ ConfigurationBuilderExtensions.OcelotJSetSection (changes below depth limit)
++    └─ else (!(source is JObject))
++       └─ if (source is JArray)
++          └─ (destination as JArray).Merge
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+~ FileConfigurationController.Post (signature changed)
+  ├─ try
+  └─ catch (Exception e)
+-    ├─ e.ToString
++    ├─ ExceptionExtensions.ToShortString
++    │  └─ else (!(ex is null))
++    │     ├─ ex.GetType
++    │     └─ ExceptionExtensions.GetMessages (changes below depth limit)
+     └─ BadRequest
+
+~ ConfigurationBuilderExtensions.GetMergedOcelotJson (signature changed)
+  ├─ …
+  ├─ new DirectoryInfo(folder).EnumerateFiles().Where(fi => reg.IsMatch(fi.Name) && !fi.Name.Equals(environmentFileInfo.Name, StringComparison.OrdinalIgnoreCase) && !fi.FullName.Equals(environmentFileInfo.FullName, StringComparison.OrdinalIgnoreCase)).ToArray
+  ├─ new FileConfiguration
++ ├─ ConfigurationBuilderExtensions.GuardSchema
++ │  └─ new FileGlobalConfiguration
++ │     ├─ new FileGlobalAuthenticationOptions (depth limit)
++ │     ├─ new Dictionary<string, string>
++ │     ├─ new FileGlobalHttpHandlerOptions (depth limit)
++ │     ├─ new FileMetadataOptions (depth limit)
++ │     ├─ new FileSecurityOptions (depth limit)
++ │     ├─ new FileServiceDiscoveryProvider
++ │     └─ new Dictionary<string, string>
++ ├─ JObject.FromObject
+  ├─ Path.Join ×2
+  ├─ new FileInfo ×2
+  ├─ foreach (var file in files)
+  │  ├─ …
+  │  ├─ if (files.Length > 1 && file.Name.Equals(primaryFileInfo.Name, StringComparison.OrdinalIgnoreCase))
+  │  ├─ File.ReadAllText
+- │  ├─ JsonConvert.DeserializeObject<FileConfiguration>
++ │  ├─ JToken.Parse
+  │  ├─ file.Name.Equals
+  │  ├─ if (file.Name.Equals(globalFileInfo.Name, StringComparison.OrdinalIgnoreCase))
+- │  ├─ fileConfiguration.Aggregates.AddRange
+- │  ├─ fileConfiguration.Routes.AddRange
++ │  └─ ConfigurationBuilderExtensions.OcelotMergeConfiguration
++ │     ├─ if (isGlobal)
++ │     │  └─ ConfigurationBuilderExtensions.OcelotJMergeSection (changes below depth limit)
++ │     └─ ConfigurationBuilderExtensions.OcelotJMergeSection ×3 (changes below depth limit)
+- ├─ JsonConvert.SerializeObject
++ └─ jobj.ToString
+
++ ConfigurationBuilderExtensions.OcelotMergeConfiguration
++ ├─ if (isGlobal)
++ │  └─ ConfigurationBuilderExtensions.OcelotJMergeSection
++ │     ├─ ConfigurationBuilderExtensions.OcelotJSection ×2 (changes below depth limit)
++ │     ├─ if (source is JObject)
++ │     │  └─ ConfigurationBuilderExtensions.OcelotJSetSection (changes below depth limit)
++ │     └─ else (!(source is JObject))
++ │        └─ if (source is JArray)
++ │           └─ (destination as JArray).Merge
++ └─ ConfigurationBuilderExtensions.OcelotJMergeSection ×3
++    ├─ ConfigurationBuilderExtensions.OcelotJSection ×2
++    │  └─ if (obj is not null)
++    │     ├─ .Properties
++    │     └─ .Properties().FirstOrDefault
++    │        └─ p.Name.Equals
++    ├─ if (source is JObject)
++    │  └─ ConfigurationBuilderExtensions.OcelotJSetSection (changes below depth limit)
++    └─ else (!(source is JObject))
++       └─ if (source is JArray)
++          └─ (destination as JArray).Merge
+```
+stderr:

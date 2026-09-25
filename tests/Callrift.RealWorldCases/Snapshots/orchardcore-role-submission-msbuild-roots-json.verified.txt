@@ -1,0 +1,1061 @@
+﻿exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "91cc98c5daa4e786b5f1980f2c5242ff18d1776c",
+    "commit": "91cc98c5daa4e786b5f1980f2c5242ff18d1776c",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "0e50949dad6637c7e17214baeaa44df6f6be2dd8",
+    "commit": "0e50949dad6637c7e17214baeaa44df6f6be2dd8",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "msbuild",
+    "status": "partial",
+    "limitations": [
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "callbacks-are-possible-calls",
+      "no-framework-dispatch-plugins"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": true,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "modified",
+      "label": "AdminController.Create",
+      "detail": "signature changed",
+      "before": {
+        "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.Create(global::OrchardCore.Roles.ViewModels.CreateRoleViewModel)",
+        "signature": "OrchardCore.Roles.Controllers.AdminController.Create(OrchardCore.Roles.ViewModels.CreateRoleViewModel) -> System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.IActionResult>",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.Create(global::OrchardCore.Roles.ViewModels.CreateRoleViewModel)"
+        ],
+        "definition": {
+          "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+          "startLine": 108,
+          "startColumn": 5,
+          "endLine": 143,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.Create(global::OrchardCore.Roles.ViewModels.CreateRoleViewModel,string)",
+        "signature": "OrchardCore.Roles.Controllers.AdminController.Create(OrchardCore.Roles.ViewModels.CreateRoleViewModel, string) -> System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.IActionResult>",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.Create(global::OrchardCore.Roles.ViewModels.CreateRoleViewModel,string)"
+        ],
+        "definition": {
+          "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+          "startLine": 118,
+          "startColumn": 5,
+          "endLine": 158,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "AuthorizationServiceExtensions.AuthorizeAsync",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(global::Microsoft.AspNetCore.Authorization.IAuthorizationService,global::System.Security.Claims.ClaimsPrincipal,global::OrchardCore.Security.Permissions.Permission)",
+            "signature": "Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(Microsoft.AspNetCore.Authorization.IAuthorizationService, System.Security.Claims.ClaimsPrincipal, OrchardCore.Security.Permissions.Permission) -> System.Threading.Tasks.Task<bool>",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(global::Microsoft.AspNetCore.Authorization.IAuthorizationService,global::System.Security.Claims.ClaimsPrincipal,global::OrchardCore.Security.Permissions.Permission)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/AuthorizationServiceExtensions.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 12,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                "startLine": 111,
+                "startColumn": 20,
+                "endLine": 111,
+                "endColumn": 92
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(global::Microsoft.AspNetCore.Authorization.IAuthorizationService,global::System.Security.Claims.ClaimsPrincipal,global::OrchardCore.Security.Permissions.Permission)",
+            "signature": "Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(Microsoft.AspNetCore.Authorization.IAuthorizationService, System.Security.Claims.ClaimsPrincipal, OrchardCore.Security.Permissions.Permission) -> System.Threading.Tasks.Task<bool>",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(global::Microsoft.AspNetCore.Authorization.IAuthorizationService,global::System.Security.Claims.ClaimsPrincipal,global::OrchardCore.Security.Permissions.Permission)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/AuthorizationServiceExtensions.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 12,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                "startLine": 121,
+                "startColumn": 20,
+                "endLine": 121,
+                "endColumn": 92
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n2",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (ModelState.IsValid)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                "startLine": 116,
+                "startColumn": 13,
+                "endLine": 116,
+                "endColumn": 78
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                "startLine": 126,
+                "startColumn": 13,
+                "endLine": 126,
+                "endColumn": 78
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n3",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "AdminController.ValidateRoleNameAsync",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.ValidateRoleNameAsync(string)",
+                "signature": "OrchardCore.Roles.Controllers.AdminController.ValidateRoleNameAsync(string) -> System.Threading.Tasks.Task<bool>",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.ValidateRoleNameAsync(string)"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                  "startLine": 363,
+                  "startColumn": 5,
+                  "endLine": 382,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                    "startLine": 116,
+                    "startColumn": 41,
+                    "endLine": 116,
+                    "endColumn": 78
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.ValidateRoleNameAsync(string)",
+                "signature": "OrchardCore.Roles.Controllers.AdminController.ValidateRoleNameAsync(string) -> System.Threading.Tasks.Task<bool>",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.ValidateRoleNameAsync(string)"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                  "startLine": 383,
+                  "startColumn": 5,
+                  "endLine": 402,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                    "startLine": 126,
+                    "startColumn": 41,
+                    "endLine": 126,
+                    "endColumn": 78
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n4",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (ModelState.IsValid && await ValidateRoleNameAsync(model.RoleName))",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                "startLine": 116,
+                "startColumn": 9,
+                "endLine": 139,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                "startLine": 126,
+                "startColumn": 9,
+                "endLine": 154,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n5",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "new Role",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "project:src/OrchardCore/OrchardCore.Roles.Abstractions/OrchardCore.Roles.Abstractions.csproj@net10.0::OrchardCore.Security.Role..ctor()",
+                "signature": "OrchardCore.Security.Role.Role()",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore/OrchardCore.Roles.Abstractions/OrchardCore.Roles.Abstractions.csproj@net10.0::OrchardCore.Security.Role..ctor()"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Roles.Abstractions/Role.cs",
+                  "startLine": 3,
+                  "startColumn": 1,
+                  "endLine": 29,
+                  "endColumn": 2
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                    "startLine": 118,
+                    "startColumn": 24,
+                    "endLine": 122,
+                    "endColumn": 14
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/OrchardCore/OrchardCore.Roles.Abstractions/OrchardCore.Roles.Abstractions.csproj@net10.0::OrchardCore.Security.Role..ctor()",
+                "signature": "OrchardCore.Security.Role.Role()",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore/OrchardCore.Roles.Abstractions/OrchardCore.Roles.Abstractions.csproj@net10.0::OrchardCore.Security.Role..ctor()"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Roles.Abstractions/Role.cs",
+                  "startLine": 3,
+                  "startColumn": 1,
+                  "endLine": 29,
+                  "endColumn": 2
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                    "startLine": 128,
+                    "startColumn": 24,
+                    "endLine": 132,
+                    "endColumn": 14
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            },
+            {
+              "id": "n6",
+              "kind": "branch",
+              "change": "unchanged",
+              "label": "if (result.Succeeded)",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                    "startLine": 126,
+                    "startColumn": 13,
+                    "endLine": 131,
+                    "endColumn": 14
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                    "startLine": 136,
+                    "startColumn": 13,
+                    "endLine": 146,
+                    "endColumn": 14
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n7",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "NotifierExtensions.SuccessAsync",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Notify.NotifierExtensions.SuccessAsync(global::OrchardCore.DisplayManagement.Notify.INotifier,global::Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString)",
+                    "signature": "OrchardCore.DisplayManagement.Notify.NotifierExtensions.SuccessAsync(OrchardCore.DisplayManagement.Notify.INotifier, Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString) -> System.Threading.Tasks.ValueTask",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Notify.NotifierExtensions.SuccessAsync(global::OrchardCore.DisplayManagement.Notify.INotifier,global::Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString)"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.DisplayManagement/Notify/NotifierExtensions.cs",
+                      "startLine": 70,
+                      "startColumn": 5,
+                      "endLine": 71,
+                      "endColumn": 111
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                        "startLine": 128,
+                        "startColumn": 23,
+                        "endLine": 128,
+                        "endColumn": 78
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Notify.NotifierExtensions.SuccessAsync(global::OrchardCore.DisplayManagement.Notify.INotifier,global::Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString)",
+                    "signature": "OrchardCore.DisplayManagement.Notify.NotifierExtensions.SuccessAsync(OrchardCore.DisplayManagement.Notify.INotifier, Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString) -> System.Threading.Tasks.ValueTask",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Notify.NotifierExtensions.SuccessAsync(global::OrchardCore.DisplayManagement.Notify.INotifier,global::Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString)"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.DisplayManagement/Notify/NotifierExtensions.cs",
+                      "startLine": 70,
+                      "startColumn": 5,
+                      "endLine": 71,
+                      "endColumn": 111
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                        "startLine": 138,
+                        "startColumn": 23,
+                        "endLine": 138,
+                        "endColumn": 78
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n8",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "IDocumentStore.CancelAsync",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/OrchardCore/OrchardCore.Data.Abstractions/OrchardCore.Data.Abstractions.csproj@net10.0::OrchardCore.Data.Documents.IDocumentStore.CancelAsync()",
+                "signature": "OrchardCore.Data.Documents.IDocumentStore.CancelAsync() -> System.Threading.Tasks.Task",
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "project:src/OrchardCore/OrchardCore.Data.YesSql/OrchardCore.Data.YesSql.csproj@net10.0::OrchardCore.Data.Documents.DocumentStore.CancelAsync()",
+                  "project:src/OrchardCore/OrchardCore.Data/OrchardCore.Data.csproj@net10.0::OrchardCore.Data.Documents.FileDocumentStore.CancelAsync()"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Data.Abstractions/Documents/IDocumentStore.cs",
+                  "startLine": 30,
+                  "startColumn": 5,
+                  "endLine": 30,
+                  "endColumn": 24
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                    "startLine": 133,
+                    "startColumn": 19,
+                    "endLine": 133,
+                    "endColumn": 47
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/OrchardCore/OrchardCore.Data.Abstractions/OrchardCore.Data.Abstractions.csproj@net10.0::OrchardCore.Data.Documents.IDocumentStore.CancelAsync()",
+                "signature": "OrchardCore.Data.Documents.IDocumentStore.CancelAsync() -> System.Threading.Tasks.Task",
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "project:src/OrchardCore/OrchardCore.Data.YesSql/OrchardCore.Data.YesSql.csproj@net10.0::OrchardCore.Data.Documents.DocumentStore.CancelAsync()",
+                  "project:src/OrchardCore/OrchardCore.Data/OrchardCore.Data.csproj@net10.0::OrchardCore.Data.Documents.FileDocumentStore.CancelAsync()"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Data.Abstractions/Documents/IDocumentStore.cs",
+                  "startLine": 30,
+                  "startColumn": 5,
+                  "endLine": 30,
+                  "endColumn": 24
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                    "startLine": 148,
+                    "startColumn": 19,
+                    "endLine": 148,
+                    "endColumn": 47
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n9",
+                  "kind": "dispatchTarget",
+                  "change": "unchanged",
+                  "label": "⇢ DocumentStore.CancelAsync",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Data.YesSql/OrchardCore.Data.YesSql.csproj@net10.0::OrchardCore.Data.Documents.DocumentStore.CancelAsync()",
+                    "signature": "OrchardCore.Data.Documents.DocumentStore.CancelAsync() -> System.Threading.Tasks.Task",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Data.YesSql/OrchardCore.Data.YesSql.csproj@net10.0::OrchardCore.Data.Documents.DocumentStore.CancelAsync()"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Data.YesSql/Documents/DocumentStore.cs",
+                      "startLine": 82,
+                      "startColumn": 5,
+                      "endLine": 92,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Data.YesSql/OrchardCore.Data.YesSql.csproj@net10.0::OrchardCore.Data.Documents.DocumentStore.CancelAsync()",
+                    "signature": "OrchardCore.Data.Documents.DocumentStore.CancelAsync() -> System.Threading.Tasks.Task",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Data.YesSql/OrchardCore.Data.YesSql.csproj@net10.0::OrchardCore.Data.Documents.DocumentStore.CancelAsync()"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Data.YesSql/Documents/DocumentStore.cs",
+                      "startLine": 82,
+                      "startColumn": 5,
+                      "endLine": 92,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n10",
+                  "kind": "dispatchTarget",
+                  "change": "unchanged",
+                  "label": "⇢ FileDocumentStore.CancelAsync",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Data/OrchardCore.Data.csproj@net10.0::OrchardCore.Data.Documents.FileDocumentStore.CancelAsync()",
+                    "signature": "OrchardCore.Data.Documents.FileDocumentStore.CancelAsync() -> System.Threading.Tasks.Task",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Data/OrchardCore.Data.csproj@net10.0::OrchardCore.Data.Documents.FileDocumentStore.CancelAsync()"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Data/Documents/FileDocumentStore.cs",
+                      "startLine": 74,
+                      "startColumn": 5,
+                      "endLine": 74,
+                      "endColumn": 62
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Data/OrchardCore.Data.csproj@net10.0::OrchardCore.Data.Documents.FileDocumentStore.CancelAsync()",
+                    "signature": "OrchardCore.Data.Documents.FileDocumentStore.CancelAsync() -> System.Threading.Tasks.Task",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Data/OrchardCore.Data.csproj@net10.0::OrchardCore.Data.Documents.FileDocumentStore.CancelAsync()"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Data/Documents/FileDocumentStore.cs",
+                      "startLine": 74,
+                      "startColumn": 5,
+                      "endLine": 74,
+                      "endColumn": 62
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n11",
+      "kind": "member",
+      "change": "modified",
+      "label": "AdminController.EditPost",
+      "detail": "signature changed",
+      "before": {
+        "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.EditPost(string,string)",
+        "signature": "OrchardCore.Roles.Controllers.AdminController.EditPost(string, string) -> System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.IActionResult>",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.EditPost(string,string)"
+        ],
+        "definition": {
+          "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+          "startLine": 167,
+          "startColumn": 5,
+          "endLine": 193,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.EditPost(string,string,string)",
+        "signature": "OrchardCore.Roles.Controllers.AdminController.EditPost(string, string, string) -> System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.IActionResult>",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.EditPost(string,string,string)"
+        ],
+        "definition": {
+          "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+          "startLine": 182,
+          "startColumn": 5,
+          "endLine": 213,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n12",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "AuthorizationServiceExtensions.AuthorizeAsync",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(global::Microsoft.AspNetCore.Authorization.IAuthorizationService,global::System.Security.Claims.ClaimsPrincipal,global::OrchardCore.Security.Permissions.Permission)",
+            "signature": "Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(Microsoft.AspNetCore.Authorization.IAuthorizationService, System.Security.Claims.ClaimsPrincipal, OrchardCore.Security.Permissions.Permission) -> System.Threading.Tasks.Task<bool>",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(global::Microsoft.AspNetCore.Authorization.IAuthorizationService,global::System.Security.Claims.ClaimsPrincipal,global::OrchardCore.Security.Permissions.Permission)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/AuthorizationServiceExtensions.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 12,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                "startLine": 170,
+                "startColumn": 20,
+                "endLine": 170,
+                "endColumn": 92
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(global::Microsoft.AspNetCore.Authorization.IAuthorizationService,global::System.Security.Claims.ClaimsPrincipal,global::OrchardCore.Security.Permissions.Permission)",
+            "signature": "Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(Microsoft.AspNetCore.Authorization.IAuthorizationService, System.Security.Claims.ClaimsPrincipal, OrchardCore.Security.Permissions.Permission) -> System.Threading.Tasks.Task<bool>",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(global::Microsoft.AspNetCore.Authorization.IAuthorizationService,global::System.Security.Claims.ClaimsPrincipal,global::OrchardCore.Security.Permissions.Permission)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/AuthorizationServiceExtensions.cs",
+              "startLine": 9,
+              "startColumn": 5,
+              "endLine": 12,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                "startLine": 185,
+                "startColumn": 20,
+                "endLine": 185,
+                "endColumn": 92
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n13",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "IRoleService.IsAdminRoleAsync → RoleService.IsAdminRoleAsync",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/OrchardCore/OrchardCore.Roles.Abstractions/OrchardCore.Roles.Abstractions.csproj@net10.0::OrchardCore.Security.Services.IRoleService.IsAdminRoleAsync(string)",
+            "signature": "OrchardCore.Security.Services.IRoleService.IsAdminRoleAsync(string) -> System.Threading.Tasks.ValueTask<bool>",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:src/OrchardCore/OrchardCore.Roles.Core/OrchardCore.Roles.Core.csproj@net10.0::OrchardCore.Roles.Services.RoleService.IsAdminRoleAsync(string)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.Roles.Abstractions/IRoleService.cs",
+              "startLine": 13,
+              "startColumn": 5,
+              "endLine": 14,
+              "endColumn": 40
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                "startLine": 182,
+                "startColumn": 20,
+                "endLine": 182,
+                "endColumn": 64
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/OrchardCore/OrchardCore.Roles.Abstractions/OrchardCore.Roles.Abstractions.csproj@net10.0::OrchardCore.Security.Services.IRoleService.IsAdminRoleAsync(string)",
+            "signature": "OrchardCore.Security.Services.IRoleService.IsAdminRoleAsync(string) -> System.Threading.Tasks.ValueTask<bool>",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:src/OrchardCore/OrchardCore.Roles.Core/OrchardCore.Roles.Core.csproj@net10.0::OrchardCore.Roles.Services.RoleService.IsAdminRoleAsync(string)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.Roles.Abstractions/IRoleService.cs",
+              "startLine": 13,
+              "startColumn": 5,
+              "endLine": 14,
+              "endColumn": 40
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                "startLine": 197,
+                "startColumn": 20,
+                "endLine": 197,
+                "endColumn": 64
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n14",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (!await _roleService.IsAdminRoleAsync(role.RoleName))",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                "startLine": 182,
+                "startColumn": 9,
+                "endLine": 186,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                "startLine": 197,
+                "startColumn": 9,
+                "endLine": 201,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n15",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "AdminController.ExtractSelectedPermissions",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.ExtractSelectedPermissions()",
+                "signature": "OrchardCore.Roles.Controllers.AdminController.ExtractSelectedPermissions() -> System.Collections.Generic.IEnumerable<OrchardCore.Security.RoleClaim>",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.ExtractSelectedPermissions()"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                  "startLine": 451,
+                  "startColumn": 5,
+                  "endLine": 454,
+                  "endColumn": 73
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                    "startLine": 185,
+                    "startColumn": 38,
+                    "endLine": 185,
+                    "endColumn": 66
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.ExtractSelectedPermissions()",
+                "signature": "OrchardCore.Roles.Controllers.AdminController.ExtractSelectedPermissions() -> System.Collections.Generic.IEnumerable<OrchardCore.Security.RoleClaim>",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.ExtractSelectedPermissions()"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                  "startLine": 471,
+                  "startColumn": 5,
+                  "endLine": 474,
+                  "endColumn": 73
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                    "startLine": 200,
+                    "startColumn": 38,
+                    "endLine": 200,
+                    "endColumn": 66
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n16",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "NotifierExtensions.SuccessAsync",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Notify.NotifierExtensions.SuccessAsync(global::OrchardCore.DisplayManagement.Notify.INotifier,global::Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString)",
+            "signature": "OrchardCore.DisplayManagement.Notify.NotifierExtensions.SuccessAsync(OrchardCore.DisplayManagement.Notify.INotifier, Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString) -> System.Threading.Tasks.ValueTask",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Notify.NotifierExtensions.SuccessAsync(global::OrchardCore.DisplayManagement.Notify.INotifier,global::Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.DisplayManagement/Notify/NotifierExtensions.cs",
+              "startLine": 70,
+              "startColumn": 5,
+              "endLine": 71,
+              "endColumn": 111
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                "startLine": 190,
+                "startColumn": 15,
+                "endLine": 190,
+                "endColumn": 70
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Notify.NotifierExtensions.SuccessAsync(global::OrchardCore.DisplayManagement.Notify.INotifier,global::Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString)",
+            "signature": "OrchardCore.DisplayManagement.Notify.NotifierExtensions.SuccessAsync(OrchardCore.DisplayManagement.Notify.INotifier, Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString) -> System.Threading.Tasks.ValueTask",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Notify.NotifierExtensions.SuccessAsync(global::OrchardCore.DisplayManagement.Notify.INotifier,global::Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString)"
+            ],
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.DisplayManagement/Notify/NotifierExtensions.cs",
+              "startLine": 70,
+              "startColumn": 5,
+              "endLine": 71,
+              "endColumn": 111
+            },
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                "startLine": 205,
+                "startColumn": 15,
+                "endLine": 205,
+                "endColumn": 70
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

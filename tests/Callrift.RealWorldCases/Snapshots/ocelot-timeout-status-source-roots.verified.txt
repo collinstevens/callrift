@@ -1,0 +1,57 @@
+﻿format: text
+exit: 0
+stdout:
+  HttpRequesterMiddleware.Invoke
+~ ├─ IHttpRequester.GetResponse → MessageInvokerHttpRequester.GetResponse (changes below depth limit)
+  ├─ HttpRequesterMiddleware.CreateLogBasedOnResponse (depth limit)
+  ├─ if (response.IsError)
+  └─ …
+
+  samples/Metadata/Program.cs::<top-level>
+  ├─ …
+  ├─ new OcelotPipelineConfiguration (depth limit)
+  ├─ callback
+  ├─ callback
+~ │  └─ MyMiddlewares.ResponderMiddleware (changes below depth limit)
+  ├─ ? app.UseOcelot
+  └─ ? app.RunAsync
+stderr:
+manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+manual/Actions/Basic.cs:16: unresolved-call: Cannot bind builder.Services.AddOcelot.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Configuration.GetSection.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Logging.AddConfiguration.
+manual/Actions/Basic.cs:30: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+manual/Actions/Basic.cs:32: unresolved-call: Cannot bind builder.Logging.AddConsole.
+1096 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  HttpRequesterMiddleware.Invoke
+~ ├─ IHttpRequester.GetResponse → MessageInvokerHttpRequester.GetResponse (changes below depth limit)
+  ├─ HttpRequesterMiddleware.CreateLogBasedOnResponse (depth limit)
+  ├─ if (response.IsError)
+  └─ …
+
+  samples/Metadata/Program.cs::<top-level>
+  ├─ …
+  ├─ new OcelotPipelineConfiguration (depth limit)
+  ├─ callback
+  ├─ callback
+~ │  └─ MyMiddlewares.ResponderMiddleware (changes below depth limit)
+  ├─ ? app.UseOcelot
+  └─ ? app.RunAsync
+```
+stderr:
+manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+manual/Actions/Basic.cs:16: unresolved-call: Cannot bind builder.Services.AddOcelot.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Configuration.GetSection.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Logging.AddConfiguration.
+manual/Actions/Basic.cs:30: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+manual/Actions/Basic.cs:32: unresolved-call: Cannot bind builder.Logging.AddConsole.
+1096 additional diagnostics; use --diagnostics full.

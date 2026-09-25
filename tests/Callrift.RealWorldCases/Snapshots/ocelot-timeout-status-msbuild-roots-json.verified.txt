@@ -1,0 +1,1390 @@
+﻿exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "65686d488475163cc357b7f5876e3d346e23630e",
+    "commit": "65686d488475163cc357b7f5876e3d346e23630e",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "8646f482fc8c4aead02b6769762b6eeef73e9e6d",
+    "commit": "8646f482fc8c4aead02b6769762b6eeef73e9e6d",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "msbuild",
+    "status": "partial",
+    "limitations": [
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "callbacks-are-possible-calls",
+      "no-framework-dispatch-plugins"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": true,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "HttpRequesterMiddleware.Invoke",
+      "detail": null,
+      "before": {
+        "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.Middleware.HttpRequesterMiddleware.Invoke(global::Microsoft.AspNetCore.Http.HttpContext)",
+        "signature": "Ocelot.Requester.Middleware.HttpRequesterMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext) -> System.Threading.Tasks.Task",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.Middleware.HttpRequesterMiddleware.Invoke(global::Microsoft.AspNetCore.Http.HttpContext)"
+        ],
+        "definition": {
+          "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+          "startLine": 22,
+          "startColumn": 5,
+          "endLine": 38,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.Middleware.HttpRequesterMiddleware.Invoke(global::Microsoft.AspNetCore.Http.HttpContext)",
+        "signature": "Ocelot.Requester.Middleware.HttpRequesterMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext) -> System.Threading.Tasks.Task",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.Middleware.HttpRequesterMiddleware.Invoke(global::Microsoft.AspNetCore.Http.HttpContext)"
+        ],
+        "definition": {
+          "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+          "startLine": 22,
+          "startColumn": 5,
+          "endLine": 38,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "modified",
+          "label": "IHttpRequester.GetResponse → MessageInvokerHttpRequester.GetResponse",
+          "detail": "changes below depth limit",
+          "before": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.IHttpRequester.GetResponse(global::Microsoft.AspNetCore.Http.HttpContext)",
+            "signature": "Ocelot.Requester.IHttpRequester.GetResponse(Microsoft.AspNetCore.Http.HttpContext) -> System.Threading.Tasks.Task<Ocelot.Responses.Response<System.Net.Http.HttpResponseMessage>>",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.MessageInvokerHttpRequester.GetResponse(global::Microsoft.AspNetCore.Http.HttpContext)"
+            ],
+            "definition": {
+              "path": "src/Requester/IHttpRequester.cs",
+              "startLine": 8,
+              "startColumn": 5,
+              "endLine": 8,
+              "endColumn": 78
+            },
+            "callSites": [
+              {
+                "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                "startLine": 24,
+                "startColumn": 30,
+                "endLine": 24,
+                "endColumn": 65
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.IHttpRequester.GetResponse(global::Microsoft.AspNetCore.Http.HttpContext)",
+            "signature": "Ocelot.Requester.IHttpRequester.GetResponse(Microsoft.AspNetCore.Http.HttpContext) -> System.Threading.Tasks.Task<Ocelot.Responses.Response<System.Net.Http.HttpResponseMessage>>",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.MessageInvokerHttpRequester.GetResponse(global::Microsoft.AspNetCore.Http.HttpContext)"
+            ],
+            "definition": {
+              "path": "src/Requester/IHttpRequester.cs",
+              "startLine": 8,
+              "startColumn": 5,
+              "endLine": 8,
+              "endColumn": 78
+            },
+            "callSites": [
+              {
+                "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                "startLine": 24,
+                "startColumn": 30,
+                "endLine": 24,
+                "endColumn": 65
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n2",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "HttpRequesterMiddleware.CreateLogBasedOnResponse",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.Middleware.HttpRequesterMiddleware.CreateLogBasedOnResponse(global::Ocelot.Responses.Response<global::System.Net.Http.HttpResponseMessage>)",
+            "signature": "Ocelot.Requester.Middleware.HttpRequesterMiddleware.CreateLogBasedOnResponse(Ocelot.Responses.Response<System.Net.Http.HttpResponseMessage>) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.Middleware.HttpRequesterMiddleware.CreateLogBasedOnResponse(global::Ocelot.Responses.Response<global::System.Net.Http.HttpResponseMessage>)"
+            ],
+            "definition": {
+              "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+              "startLine": 40,
+              "startColumn": 5,
+              "endLine": 56,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                "startLine": 25,
+                "startColumn": 9,
+                "endLine": 25,
+                "endColumn": 43
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.Middleware.HttpRequesterMiddleware.CreateLogBasedOnResponse(global::Ocelot.Responses.Response<global::System.Net.Http.HttpResponseMessage>)",
+            "signature": "Ocelot.Requester.Middleware.HttpRequesterMiddleware.CreateLogBasedOnResponse(Ocelot.Responses.Response<System.Net.Http.HttpResponseMessage>) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.Middleware.HttpRequesterMiddleware.CreateLogBasedOnResponse(global::Ocelot.Responses.Response<global::System.Net.Http.HttpResponseMessage>)"
+            ],
+            "definition": {
+              "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+              "startLine": 40,
+              "startColumn": 5,
+              "endLine": 56,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                "startLine": 25,
+                "startColumn": 9,
+                "endLine": 25,
+                "endColumn": 43
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n3",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (response.IsError)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                "startLine": 27,
+                "startColumn": 9,
+                "endLine": 33,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                "startLine": 27,
+                "startColumn": 9,
+                "endLine": 33,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n4",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "IOcelotLogger.LogDebug → OcelotLogger.LogDebug",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.IOcelotLogger.LogDebug(string)",
+                "signature": "Ocelot.Logging.IOcelotLogger.LogDebug(string) -> void",
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.OcelotLogger.LogDebug(string)"
+                ],
+                "definition": {
+                  "path": "src/Logging/IOcelotLogger.cs",
+                  "startLine": 14,
+                  "startColumn": 5,
+                  "endLine": 14,
+                  "endColumn": 35
+                },
+                "callSites": [
+                  {
+                    "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                    "startLine": 29,
+                    "startColumn": 13,
+                    "endLine": 29,
+                    "endColumn": 88
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.IOcelotLogger.LogDebug(string)",
+                "signature": "Ocelot.Logging.IOcelotLogger.LogDebug(string) -> void",
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.OcelotLogger.LogDebug(string)"
+                ],
+                "definition": {
+                  "path": "src/Logging/IOcelotLogger.cs",
+                  "startLine": 14,
+                  "startColumn": 5,
+                  "endLine": 14,
+                  "endColumn": 35
+                },
+                "callSites": [
+                  {
+                    "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                    "startLine": 29,
+                    "startColumn": 13,
+                    "endLine": 29,
+                    "endColumn": 88
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            },
+            {
+              "id": "n5",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "HttpItemsExtensions.UpsertErrors",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.HttpItemsExtensions.UpsertErrors(global::System.Collections.Generic.IDictionary<object, object>,global::System.Collections.Generic.List<global::Ocelot.Errors.Error>)",
+                "signature": "Ocelot.Middleware.HttpItemsExtensions.UpsertErrors(System.Collections.Generic.IDictionary<object, object>, System.Collections.Generic.List<Ocelot.Errors.Error>) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.HttpItemsExtensions.UpsertErrors(global::System.Collections.Generic.IDictionary<object, object>,global::System.Collections.Generic.List<global::Ocelot.Errors.Error>)"
+                ],
+                "definition": {
+                  "path": "src/Middleware/HttpItemsExtensions.cs",
+                  "startLine": 35,
+                  "startColumn": 5,
+                  "endLine": 38,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                    "startLine": 31,
+                    "startColumn": 13,
+                    "endLine": 31,
+                    "endColumn": 60
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.HttpItemsExtensions.UpsertErrors(global::System.Collections.Generic.IDictionary<object, object>,global::System.Collections.Generic.List<global::Ocelot.Errors.Error>)",
+                "signature": "Ocelot.Middleware.HttpItemsExtensions.UpsertErrors(System.Collections.Generic.IDictionary<object, object>, System.Collections.Generic.List<Ocelot.Errors.Error>) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.HttpItemsExtensions.UpsertErrors(global::System.Collections.Generic.IDictionary<object, object>,global::System.Collections.Generic.List<global::Ocelot.Errors.Error>)"
+                ],
+                "definition": {
+                  "path": "src/Middleware/HttpItemsExtensions.cs",
+                  "startLine": 35,
+                  "startColumn": 5,
+                  "endLine": 38,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                    "startLine": 31,
+                    "startColumn": 13,
+                    "endLine": 31,
+                    "endColumn": 60
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n6",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "IOcelotLogger.LogDebug → OcelotLogger.LogDebug",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.IOcelotLogger.LogDebug(string)",
+            "signature": "Ocelot.Logging.IOcelotLogger.LogDebug(string) -> void",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.OcelotLogger.LogDebug(string)"
+            ],
+            "definition": {
+              "path": "src/Logging/IOcelotLogger.cs",
+              "startLine": 14,
+              "startColumn": 5,
+              "endLine": 14,
+              "endColumn": 35
+            },
+            "callSites": [
+              {
+                "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                "startLine": 35,
+                "startColumn": 9,
+                "endLine": 35,
+                "endColumn": 60
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.IOcelotLogger.LogDebug(string)",
+            "signature": "Ocelot.Logging.IOcelotLogger.LogDebug(string) -> void",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.OcelotLogger.LogDebug(string)"
+            ],
+            "definition": {
+              "path": "src/Logging/IOcelotLogger.cs",
+              "startLine": 14,
+              "startColumn": 5,
+              "endLine": 14,
+              "endColumn": 35
+            },
+            "callSites": [
+              {
+                "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                "startLine": 35,
+                "startColumn": 9,
+                "endLine": 35,
+                "endColumn": 60
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n7",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "new DownstreamResponse",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.DownstreamResponse..ctor(global::System.Net.Http.HttpResponseMessage)",
+            "signature": "Ocelot.Middleware.DownstreamResponse.DownstreamResponse(System.Net.Http.HttpResponseMessage) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.DownstreamResponse..ctor(global::System.Net.Http.HttpResponseMessage)"
+            ],
+            "definition": {
+              "path": "src/Middleware/DownstreamResponse.cs",
+              "startLine": 18,
+              "startColumn": 5,
+              "endLine": 23,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                "startLine": 36,
+                "startColumn": 52,
+                "endLine": 36,
+                "endColumn": 89
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.DownstreamResponse..ctor(global::System.Net.Http.HttpResponseMessage)",
+            "signature": "Ocelot.Middleware.DownstreamResponse.DownstreamResponse(System.Net.Http.HttpResponseMessage) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.DownstreamResponse..ctor(global::System.Net.Http.HttpResponseMessage)"
+            ],
+            "definition": {
+              "path": "src/Middleware/DownstreamResponse.cs",
+              "startLine": 18,
+              "startColumn": 5,
+              "endLine": 23,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                "startLine": 36,
+                "startColumn": 52,
+                "endLine": 36,
+                "endColumn": 89
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n8",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "HttpItemsExtensions.UpsertDownstreamResponse",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.HttpItemsExtensions.UpsertDownstreamResponse(global::System.Collections.Generic.IDictionary<object, object>,global::Ocelot.Middleware.DownstreamResponse)",
+            "signature": "Ocelot.Middleware.HttpItemsExtensions.UpsertDownstreamResponse(System.Collections.Generic.IDictionary<object, object>, Ocelot.Middleware.DownstreamResponse) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.HttpItemsExtensions.UpsertDownstreamResponse(global::System.Collections.Generic.IDictionary<object, object>,global::Ocelot.Middleware.DownstreamResponse)"
+            ],
+            "definition": {
+              "path": "src/Middleware/HttpItemsExtensions.cs",
+              "startLine": 15,
+              "startColumn": 5,
+              "endLine": 18,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                "startLine": 36,
+                "startColumn": 9,
+                "endLine": 36,
+                "endColumn": 90
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.HttpItemsExtensions.UpsertDownstreamResponse(global::System.Collections.Generic.IDictionary<object, object>,global::Ocelot.Middleware.DownstreamResponse)",
+            "signature": "Ocelot.Middleware.HttpItemsExtensions.UpsertDownstreamResponse(System.Collections.Generic.IDictionary<object, object>, Ocelot.Middleware.DownstreamResponse) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.HttpItemsExtensions.UpsertDownstreamResponse(global::System.Collections.Generic.IDictionary<object, object>,global::Ocelot.Middleware.DownstreamResponse)"
+            ],
+            "definition": {
+              "path": "src/Middleware/HttpItemsExtensions.cs",
+              "startLine": 15,
+              "startColumn": 5,
+              "endLine": 18,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                "startLine": 36,
+                "startColumn": 9,
+                "endLine": 36,
+                "endColumn": 90
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n9",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "ResponderMiddleware.Invoke",
+      "detail": null,
+      "before": {
+        "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Responder.Middleware.ResponderMiddleware.Invoke(global::Microsoft.AspNetCore.Http.HttpContext)",
+        "signature": "Ocelot.Responder.Middleware.ResponderMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext) -> System.Threading.Tasks.Task",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Ocelot.csproj@net10.0::Ocelot.Responder.Middleware.ResponderMiddleware.Invoke(global::Microsoft.AspNetCore.Http.HttpContext)"
+        ],
+        "definition": {
+          "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+          "startLine": 29,
+          "startColumn": 5,
+          "endLine": 52,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Responder.Middleware.ResponderMiddleware.Invoke(global::Microsoft.AspNetCore.Http.HttpContext)",
+        "signature": "Ocelot.Responder.Middleware.ResponderMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext) -> System.Threading.Tasks.Task",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Ocelot.csproj@net10.0::Ocelot.Responder.Middleware.ResponderMiddleware.Invoke(global::Microsoft.AspNetCore.Http.HttpContext)"
+        ],
+        "definition": {
+          "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+          "startLine": 29,
+          "startColumn": 5,
+          "endLine": 52,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n10",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "HttpItemsExtensions.Errors",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.HttpItemsExtensions.Errors(global::System.Collections.Generic.IDictionary<object, object>)",
+            "signature": "Ocelot.Middleware.HttpItemsExtensions.Errors(System.Collections.Generic.IDictionary<object, object>) -> System.Collections.Generic.List<Ocelot.Errors.Error>",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.HttpItemsExtensions.Errors(global::System.Collections.Generic.IDictionary<object, object>)"
+            ],
+            "definition": {
+              "path": "src/Middleware/HttpItemsExtensions.cs",
+              "startLine": 56,
+              "startColumn": 5,
+              "endLine": 60,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                "startLine": 33,
+                "startColumn": 22,
+                "endLine": 33,
+                "endColumn": 44
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.HttpItemsExtensions.Errors(global::System.Collections.Generic.IDictionary<object, object>)",
+            "signature": "Ocelot.Middleware.HttpItemsExtensions.Errors(System.Collections.Generic.IDictionary<object, object>) -> System.Collections.Generic.List<Ocelot.Errors.Error>",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.HttpItemsExtensions.Errors(global::System.Collections.Generic.IDictionary<object, object>)"
+            ],
+            "definition": {
+              "path": "src/Middleware/HttpItemsExtensions.cs",
+              "startLine": 56,
+              "startColumn": 5,
+              "endLine": 60,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                "startLine": 33,
+                "startColumn": 22,
+                "endLine": 33,
+                "endColumn": 44
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n11",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (errors.Count > 0)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                "startLine": 34,
+                "startColumn": 9,
+                "endLine": 39,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                "startLine": 34,
+                "startColumn": 9,
+                "endLine": 39,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n12",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "IOcelotLogger.LogWarning → OcelotLogger.LogWarning",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.IOcelotLogger.LogWarning(global::System.Func<string>)",
+                "signature": "Ocelot.Logging.IOcelotLogger.LogWarning(System.Func<string>) -> void",
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.OcelotLogger.LogWarning(global::System.Func<string>)"
+                ],
+                "definition": {
+                  "path": "src/Logging/IOcelotLogger.cs",
+                  "startLine": 21,
+                  "startColumn": 5,
+                  "endLine": 21,
+                  "endColumn": 50
+                },
+                "callSites": [
+                  {
+                    "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                    "startLine": 36,
+                    "startColumn": 13,
+                    "endLine": 36,
+                    "endColumn": 227
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.IOcelotLogger.LogWarning(global::System.Func<string>)",
+                "signature": "Ocelot.Logging.IOcelotLogger.LogWarning(System.Func<string>) -> void",
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.OcelotLogger.LogWarning(global::System.Func<string>)"
+                ],
+                "definition": {
+                  "path": "src/Logging/IOcelotLogger.cs",
+                  "startLine": 21,
+                  "startColumn": 5,
+                  "endLine": 21,
+                  "endColumn": 50
+                },
+                "callSites": [
+                  {
+                    "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                    "startLine": 36,
+                    "startColumn": 13,
+                    "endLine": 36,
+                    "endColumn": 227
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n13",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "StringExtensions.Plural",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Infrastructure.Extensions.StringExtensions.Plural(int)",
+                    "signature": "Ocelot.Infrastructure.Extensions.StringExtensions.Plural(int) -> string",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Ocelot.csproj@net10.0::Ocelot.Infrastructure.Extensions.StringExtensions.Plural(int)"
+                    ],
+                    "definition": {
+                      "path": "src/Infrastructure/Extensions/StringExtensions.cs",
+                      "startLine": 48,
+                      "startColumn": 5,
+                      "endLine": 48,
+                      "endColumn": 84
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                        "startLine": 36,
+                        "startColumn": 83,
+                        "endLine": 36,
+                        "endColumn": 104
+                      }
+                    ],
+                    "relation": "callback",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Infrastructure.Extensions.StringExtensions.Plural(int)",
+                    "signature": "Ocelot.Infrastructure.Extensions.StringExtensions.Plural(int) -> string",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Ocelot.csproj@net10.0::Ocelot.Infrastructure.Extensions.StringExtensions.Plural(int)"
+                    ],
+                    "definition": {
+                      "path": "src/Infrastructure/Extensions/StringExtensions.cs",
+                      "startLine": 48,
+                      "startColumn": 5,
+                      "endLine": 48,
+                      "endColumn": 84
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                        "startLine": 36,
+                        "startColumn": 83,
+                        "endLine": 36,
+                        "endColumn": 104
+                      }
+                    ],
+                    "relation": "callback",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n14",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "IEnumerableExtensions.ToErrorString",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.IEnumerableExtensions.ToErrorString(global::System.Collections.Generic.IEnumerable<global::Ocelot.Errors.Error>,bool,bool)",
+                    "signature": "Ocelot.Errors.IEnumerableExtensions.ToErrorString(System.Collections.Generic.IEnumerable<Ocelot.Errors.Error>, bool, bool) -> string",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.IEnumerableExtensions.ToErrorString(global::System.Collections.Generic.IEnumerable<global::Ocelot.Errors.Error>,bool,bool)"
+                    ],
+                    "definition": {
+                      "path": "src/Errors/IEnumerableExtensions.cs",
+                      "startLine": 15,
+                      "startColumn": 5,
+                      "endLine": 16,
+                      "endColumn": 103
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                        "startLine": 36,
+                        "startColumn": 109,
+                        "endLine": 36,
+                        "endColumn": 141
+                      }
+                    ],
+                    "relation": "callback",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.IEnumerableExtensions.ToErrorString(global::System.Collections.Generic.IEnumerable<global::Ocelot.Errors.Error>,bool,bool)",
+                    "signature": "Ocelot.Errors.IEnumerableExtensions.ToErrorString(System.Collections.Generic.IEnumerable<Ocelot.Errors.Error>, bool, bool) -> string",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.IEnumerableExtensions.ToErrorString(global::System.Collections.Generic.IEnumerable<global::Ocelot.Errors.Error>,bool,bool)"
+                    ],
+                    "definition": {
+                      "path": "src/Errors/IEnumerableExtensions.cs",
+                      "startLine": 15,
+                      "startColumn": 5,
+                      "endLine": 16,
+                      "endColumn": 103
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                        "startLine": 36,
+                        "startColumn": 109,
+                        "endLine": 36,
+                        "endColumn": 141
+                      }
+                    ],
+                    "relation": "callback",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            },
+            {
+              "id": "n15",
+              "kind": "call",
+              "change": "modified",
+              "label": "ResponderMiddleware.SetErrorResponse",
+              "detail": "changes below depth limit",
+              "before": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Responder.Middleware.ResponderMiddleware.SetErrorResponse(global::Microsoft.AspNetCore.Http.HttpContext,global::System.Collections.Generic.List<global::Ocelot.Errors.Error>)",
+                "signature": "Ocelot.Responder.Middleware.ResponderMiddleware.SetErrorResponse(Microsoft.AspNetCore.Http.HttpContext, System.Collections.Generic.List<Ocelot.Errors.Error>) -> System.Threading.Tasks.Task",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Responder.Middleware.ResponderMiddleware.SetErrorResponse(global::Microsoft.AspNetCore.Http.HttpContext,global::System.Collections.Generic.List<global::Ocelot.Errors.Error>)"
+                ],
+                "definition": {
+                  "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                  "startLine": 54,
+                  "startColumn": 5,
+                  "endLine": 67,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                    "startLine": 37,
+                    "startColumn": 19,
+                    "endLine": 37,
+                    "endColumn": 52
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Responder.Middleware.ResponderMiddleware.SetErrorResponse(global::Microsoft.AspNetCore.Http.HttpContext,global::System.Collections.Generic.List<global::Ocelot.Errors.Error>)",
+                "signature": "Ocelot.Responder.Middleware.ResponderMiddleware.SetErrorResponse(Microsoft.AspNetCore.Http.HttpContext, System.Collections.Generic.List<Ocelot.Errors.Error>) -> System.Threading.Tasks.Task",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Responder.Middleware.ResponderMiddleware.SetErrorResponse(global::Microsoft.AspNetCore.Http.HttpContext,global::System.Collections.Generic.List<global::Ocelot.Errors.Error>)"
+                ],
+                "definition": {
+                  "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                  "startLine": 54,
+                  "startColumn": 5,
+                  "endLine": 67,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                    "startLine": 37,
+                    "startColumn": 19,
+                    "endLine": 37,
+                    "endColumn": 52
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n16",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "HttpItemsExtensions.DownstreamResponse",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.HttpItemsExtensions.DownstreamResponse(global::System.Collections.Generic.IDictionary<object, object>)",
+            "signature": "Ocelot.Middleware.HttpItemsExtensions.DownstreamResponse(System.Collections.Generic.IDictionary<object, object>) -> Ocelot.Middleware.DownstreamResponse",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.HttpItemsExtensions.DownstreamResponse(global::System.Collections.Generic.IDictionary<object, object>)"
+            ],
+            "definition": {
+              "path": "src/Middleware/HttpItemsExtensions.cs",
+              "startLine": 73,
+              "startColumn": 5,
+              "endLine": 74,
+              "endColumn": 61
+            },
+            "callSites": [
+              {
+                "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                "startLine": 43,
+                "startColumn": 30,
+                "endLine": 43,
+                "endColumn": 64
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.HttpItemsExtensions.DownstreamResponse(global::System.Collections.Generic.IDictionary<object, object>)",
+            "signature": "Ocelot.Middleware.HttpItemsExtensions.DownstreamResponse(System.Collections.Generic.IDictionary<object, object>) -> Ocelot.Middleware.DownstreamResponse",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Middleware.HttpItemsExtensions.DownstreamResponse(global::System.Collections.Generic.IDictionary<object, object>)"
+            ],
+            "definition": {
+              "path": "src/Middleware/HttpItemsExtensions.cs",
+              "startLine": 73,
+              "startColumn": 5,
+              "endLine": 74,
+              "endColumn": 61
+            },
+            "callSites": [
+              {
+                "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                "startLine": 43,
+                "startColumn": 30,
+                "endLine": 43,
+                "endColumn": 64
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n17",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (response == null)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                "startLine": 44,
+                "startColumn": 9,
+                "endLine": 48,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                "startLine": 44,
+                "startColumn": 9,
+                "endLine": 48,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n18",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "IOcelotLogger.LogDebug → OcelotLogger.LogDebug",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.IOcelotLogger.LogDebug(global::System.Func<string>)",
+                "signature": "Ocelot.Logging.IOcelotLogger.LogDebug(System.Func<string>) -> void",
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.OcelotLogger.LogDebug(global::System.Func<string>)"
+                ],
+                "definition": {
+                  "path": "src/Logging/IOcelotLogger.cs",
+                  "startLine": 15,
+                  "startColumn": 5,
+                  "endLine": 15,
+                  "endColumn": 48
+                },
+                "callSites": [
+                  {
+                    "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                    "startLine": 46,
+                    "startColumn": 13,
+                    "endLine": 46,
+                    "endColumn": 88
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.IOcelotLogger.LogDebug(global::System.Func<string>)",
+                "signature": "Ocelot.Logging.IOcelotLogger.LogDebug(System.Func<string>) -> void",
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.OcelotLogger.LogDebug(global::System.Func<string>)"
+                ],
+                "definition": {
+                  "path": "src/Logging/IOcelotLogger.cs",
+                  "startLine": 15,
+                  "startColumn": 5,
+                  "endLine": 15,
+                  "endColumn": 48
+                },
+                "callSites": [
+                  {
+                    "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                    "startLine": 46,
+                    "startColumn": 13,
+                    "endLine": 46,
+                    "endColumn": 88
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n19",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "IOcelotLogger.LogDebug → OcelotLogger.LogDebug",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.IOcelotLogger.LogDebug(string)",
+            "signature": "Ocelot.Logging.IOcelotLogger.LogDebug(string) -> void",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.OcelotLogger.LogDebug(string)"
+            ],
+            "definition": {
+              "path": "src/Logging/IOcelotLogger.cs",
+              "startLine": 14,
+              "startColumn": 5,
+              "endLine": 14,
+              "endColumn": 35
+            },
+            "callSites": [
+              {
+                "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                "startLine": 50,
+                "startColumn": 9,
+                "endLine": 50,
+                "endColumn": 91
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.IOcelotLogger.LogDebug(string)",
+            "signature": "Ocelot.Logging.IOcelotLogger.LogDebug(string) -> void",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Logging.OcelotLogger.LogDebug(string)"
+            ],
+            "definition": {
+              "path": "src/Logging/IOcelotLogger.cs",
+              "startLine": 14,
+              "startColumn": 5,
+              "endLine": 14,
+              "endColumn": 35
+            },
+            "callSites": [
+              {
+                "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                "startLine": 50,
+                "startColumn": 9,
+                "endLine": 50,
+                "endColumn": 91
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n20",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "IHttpResponder.SetResponseOnHttpContext → HttpContextResponder.SetResponseOnHttpContext",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Responder.IHttpResponder.SetResponseOnHttpContext(global::Microsoft.AspNetCore.Http.HttpContext,global::Ocelot.Middleware.DownstreamResponse)",
+            "signature": "Ocelot.Responder.IHttpResponder.SetResponseOnHttpContext(Microsoft.AspNetCore.Http.HttpContext, Ocelot.Middleware.DownstreamResponse) -> System.Threading.Tasks.Task",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Responder.HttpContextResponder.SetResponseOnHttpContext(global::Microsoft.AspNetCore.Http.HttpContext,global::Ocelot.Middleware.DownstreamResponse)"
+            ],
+            "definition": {
+              "path": "src/Responder/IHttpResponder.cs",
+              "startLine": 8,
+              "startColumn": 5,
+              "endLine": 8,
+              "endColumn": 85
+            },
+            "callSites": [
+              {
+                "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                "startLine": 51,
+                "startColumn": 15,
+                "endLine": 51,
+                "endColumn": 69
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Responder.IHttpResponder.SetResponseOnHttpContext(global::Microsoft.AspNetCore.Http.HttpContext,global::Ocelot.Middleware.DownstreamResponse)",
+            "signature": "Ocelot.Responder.IHttpResponder.SetResponseOnHttpContext(Microsoft.AspNetCore.Http.HttpContext, Ocelot.Middleware.DownstreamResponse) -> System.Threading.Tasks.Task",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Responder.HttpContextResponder.SetResponseOnHttpContext(global::Microsoft.AspNetCore.Http.HttpContext,global::Ocelot.Middleware.DownstreamResponse)"
+            ],
+            "definition": {
+              "path": "src/Responder/IHttpResponder.cs",
+              "startLine": 8,
+              "startColumn": 5,
+              "endLine": 8,
+              "endColumn": 85
+            },
+            "callSites": [
+              {
+                "path": "src/Responder/Middleware/ResponderMiddleware.cs",
+                "startLine": 51,
+                "startColumn": 15,
+                "endLine": 51,
+                "endColumn": 69
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

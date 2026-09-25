@@ -1,0 +1,39 @@
+﻿format: text
+exit: 0
+stdout:
+  HttpRequesterMiddleware.Invoke
+~ ├─ IHttpRequester.GetResponse → MessageInvokerHttpRequester.GetResponse (changes below depth limit)
+  ├─ HttpRequesterMiddleware.CreateLogBasedOnResponse (depth limit)
+  ├─ if (response.IsError)
+  └─ …
+
+  ResponderMiddleware.Invoke
+  ├─ HttpItemsExtensions.Errors (depth limit)
+  ├─ if (errors.Count > 0)
+  │  ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (depth limit)
+~ │  └─ ResponderMiddleware.SetErrorResponse (changes below depth limit)
+  ├─ HttpItemsExtensions.DownstreamResponse (depth limit)
+  ├─ if (response == null)
+  └─ …
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  HttpRequesterMiddleware.Invoke
+~ ├─ IHttpRequester.GetResponse → MessageInvokerHttpRequester.GetResponse (changes below depth limit)
+  ├─ HttpRequesterMiddleware.CreateLogBasedOnResponse (depth limit)
+  ├─ if (response.IsError)
+  └─ …
+
+  ResponderMiddleware.Invoke
+  ├─ HttpItemsExtensions.Errors (depth limit)
+  ├─ if (errors.Count > 0)
+  │  ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (depth limit)
+~ │  └─ ResponderMiddleware.SetErrorResponse (changes below depth limit)
+  ├─ HttpItemsExtensions.DownstreamResponse (depth limit)
+  ├─ if (response == null)
+  └─ …
+```
+stderr:

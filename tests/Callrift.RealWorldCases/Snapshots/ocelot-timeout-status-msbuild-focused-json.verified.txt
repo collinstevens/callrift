@@ -1,0 +1,2262 @@
+﻿exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "65686d488475163cc357b7f5876e3d346e23630e",
+    "commit": "65686d488475163cc357b7f5876e3d346e23630e",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "8646f482fc8c4aead02b6769762b6eeef73e9e6d",
+    "commit": "8646f482fc8c4aead02b6769762b6eeef73e9e6d",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "msbuild",
+    "status": "partial",
+    "limitations": [
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "callbacks-are-possible-calls",
+      "no-framework-dispatch-plugins"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": true,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "HttpExceptionToErrorMapper.Map",
+      "detail": null,
+      "before": {
+        "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.HttpExceptionToErrorMapper.Map(global::System.Exception)",
+        "signature": "Ocelot.Requester.HttpExceptionToErrorMapper.Map(System.Exception) -> Ocelot.Errors.Error",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.HttpExceptionToErrorMapper.Map(global::System.Exception)"
+        ],
+        "definition": {
+          "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+          "startLine": 18,
+          "startColumn": 5,
+          "endLine": 64,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.HttpExceptionToErrorMapper.Map(global::System.Exception)",
+        "signature": "Ocelot.Requester.HttpExceptionToErrorMapper.Map(System.Exception) -> Ocelot.Errors.Error",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.HttpExceptionToErrorMapper.Map(global::System.Exception)"
+        ],
+        "definition": {
+          "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+          "startLine": 18,
+          "startColumn": 5,
+          "endLine": 64,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "exception.GetType",
+          "detail": null,
+          "before": {
+            "symbolId": "metadata:System.Runtime::System.Exception.GetType()",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Runtime::System.Exception.GetType()"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 20,
+                "startColumn": 20,
+                "endLine": 20,
+                "endColumn": 39
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "after": {
+            "symbolId": "metadata:System.Runtime::System.Exception.GetType()",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Runtime::System.Exception.GetType()"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 20,
+                "startColumn": 20,
+                "endLine": 20,
+                "endColumn": 39
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n2",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (_mappers != null)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 25,
+                "startColumn": 13,
+                "endLine": 25,
+                "endColumn": 75
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 25,
+                "startColumn": 13,
+                "endLine": 25,
+                "endColumn": 75
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n3",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "_mappers.TryGetValue",
+              "detail": null,
+              "before": {
+                "symbolId": "metadata:System.Runtime::System.Collections.Generic.IDictionary<TKey, TValue>.TryGetValue(TKey,out TValue)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::System.Collections.Generic.IDictionary<TKey, TValue>.TryGetValue(TKey,out TValue)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                    "startLine": 25,
+                    "startColumn": 33,
+                    "endLine": 25,
+                    "endColumn": 75
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "metadata:System.Runtime::System.Collections.Generic.IDictionary<TKey, TValue>.TryGetValue(TKey,out TValue)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::System.Collections.Generic.IDictionary<TKey, TValue>.TryGetValue(TKey,out TValue)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                    "startLine": 25,
+                    "startColumn": 33,
+                    "endLine": 25,
+                    "endColumn": 75
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n4",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (_mappers != null && _mappers.TryGetValue(type, out var mapper))",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 25,
+                "startColumn": 9,
+                "endLine": 28,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 25,
+                "startColumn": 9,
+                "endLine": 28,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n5",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "mapper",
+              "detail": null,
+              "before": {
+                "symbolId": "metadata:System.Runtime::System.Func<T, TResult>.Invoke(T)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::System.Func<T, TResult>.Invoke(T)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                    "startLine": 27,
+                    "startColumn": 20,
+                    "endLine": 27,
+                    "endColumn": 37
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "metadata:System.Runtime::System.Func<T, TResult>.Invoke(T)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::System.Func<T, TResult>.Invoke(T)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                    "startLine": 27,
+                    "startColumn": 20,
+                    "endLine": 27,
+                    "endColumn": 37
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n6",
+          "kind": "branch",
+          "change": "removed",
+          "label": "if (type == typeof(TimeoutException))",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 31,
+                "startColumn": 9,
+                "endLine": 34,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": null,
+          "children": [
+            {
+              "id": "n7",
+              "kind": "call",
+              "change": "removed",
+              "label": "new RequestTimedOutError",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.RequestTimedOutError..ctor(global::System.Exception)",
+                "signature": "Ocelot.Errors.RequestTimedOutError.RequestTimedOutError(System.Exception) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.RequestTimedOutError..ctor(global::System.Exception)"
+                ],
+                "definition": {
+                  "path": "src/Errors/RequestTimedOutError.cs",
+                  "startLine": 7,
+                  "startColumn": 5,
+                  "endLine": 10,
+                  "endColumn": 8
+                },
+                "callSites": [
+                  {
+                    "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                    "startLine": 33,
+                    "startColumn": 20,
+                    "endLine": 33,
+                    "endColumn": 55
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": null,
+              "children": [
+                {
+                  "id": "n8",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "new Error",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(string,global::Ocelot.Errors.OcelotErrorCode,int)",
+                    "signature": "Ocelot.Errors.Error.Error(string, Ocelot.Errors.OcelotErrorCode, int) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(string,global::Ocelot.Errors.OcelotErrorCode,int)"
+                    ],
+                    "definition": {
+                      "path": "src/Errors/Error.cs",
+                      "startLine": 5,
+                      "startColumn": 5,
+                      "endLine": 10,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Errors/RequestTimedOutError.cs",
+                        "startLine": 8,
+                        "startColumn": 9,
+                        "endLine": 9,
+                        "endColumn": 91
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n9",
+          "kind": "branch",
+          "change": "added",
+          "label": "if (type == typeof(TimeoutException) && exception.InnerException is null)",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 31,
+                "startColumn": 9,
+                "endLine": 34,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n10",
+              "kind": "call",
+              "change": "added",
+              "label": "new RequestTimedOutError",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.RequestTimedOutError..ctor(global::System.Exception)",
+                "signature": "Ocelot.Errors.RequestTimedOutError.RequestTimedOutError(System.Exception)",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.RequestTimedOutError..ctor(global::System.Exception)"
+                ],
+                "definition": {
+                  "path": "src/Errors/RequestTimedOutError.cs",
+                  "startLine": 10,
+                  "startColumn": 1,
+                  "endLine": 13,
+                  "endColumn": 4
+                },
+                "callSites": [
+                  {
+                    "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                    "startLine": 33,
+                    "startColumn": 20,
+                    "endLine": 33,
+                    "endColumn": 55
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n11",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "new Error",
+                  "detail": "depth limit",
+                  "before": null,
+                  "after": {
+                    "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(string,global::Ocelot.Errors.OcelotErrorCode,int)",
+                    "signature": "Ocelot.Errors.Error.Error(string, Ocelot.Errors.OcelotErrorCode, int) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(string,global::Ocelot.Errors.OcelotErrorCode,int)"
+                    ],
+                    "definition": {
+                      "path": "src/Errors/Error.cs",
+                      "startLine": 5,
+                      "startColumn": 5,
+                      "endLine": 10,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Errors/RequestTimedOutError.cs",
+                        "startLine": 11,
+                        "startColumn": 7,
+                        "endLine": 12,
+                        "endColumn": 83
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n12",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (!(type == typeof(OperationCanceledException)))",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 36,
+                "startColumn": 13,
+                "endLine": 36,
+                "endColumn": 112
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 36,
+                "startColumn": 13,
+                "endLine": 36,
+                "endColumn": 112
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n13",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "type.IsSubclassOf",
+              "detail": null,
+              "before": {
+                "symbolId": "metadata:System.Runtime::System.Type.IsSubclassOf(global::System.Type)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::System.Type.IsSubclassOf(global::System.Type)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                    "startLine": 36,
+                    "startColumn": 59,
+                    "endLine": 36,
+                    "endColumn": 112
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "metadata:System.Runtime::System.Type.IsSubclassOf(global::System.Type)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::System.Type.IsSubclassOf(global::System.Type)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                    "startLine": 36,
+                    "startColumn": 59,
+                    "endLine": 36,
+                    "endColumn": 112
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n14",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (type == typeof(OperationCanceledException) || type.IsSubclassOf(typeof(OperationCanceledExcep…",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 36,
+                "startColumn": 9,
+                "endLine": 39,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 36,
+                "startColumn": 9,
+                "endLine": 39,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n15",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "new RequestCanceledError",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.RequestCanceledError..ctor(string)",
+                "signature": "Ocelot.Requester.RequestCanceledError.RequestCanceledError(string) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.RequestCanceledError..ctor(string)"
+                ],
+                "definition": {
+                  "path": "src/Requester/RequestCanceledError.cs",
+                  "startLine": 15,
+                  "startColumn": 5,
+                  "endLine": 18,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                    "startLine": 38,
+                    "startColumn": 20,
+                    "endLine": 38,
+                    "endColumn": 63
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.RequestCanceledError..ctor(string)",
+                "signature": "Ocelot.Requester.RequestCanceledError.RequestCanceledError(string) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.RequestCanceledError..ctor(string)"
+                ],
+                "definition": {
+                  "path": "src/Requester/RequestCanceledError.cs",
+                  "startLine": 15,
+                  "startColumn": 5,
+                  "endLine": 18,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                    "startLine": 38,
+                    "startColumn": 20,
+                    "endLine": 38,
+                    "endColumn": 63
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n16",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "new Error",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(string,global::Ocelot.Errors.OcelotErrorCode,int)",
+                    "signature": "Ocelot.Errors.Error.Error(string, Ocelot.Errors.OcelotErrorCode, int) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(string,global::Ocelot.Errors.OcelotErrorCode,int)"
+                    ],
+                    "definition": {
+                      "path": "src/Errors/Error.cs",
+                      "startLine": 5,
+                      "startColumn": 5,
+                      "endLine": 10,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Requester/RequestCanceledError.cs",
+                        "startLine": 16,
+                        "startColumn": 9,
+                        "endLine": 16,
+                        "endColumn": 62
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(string,global::Ocelot.Errors.OcelotErrorCode,int)",
+                    "signature": "Ocelot.Errors.Error.Error(string, Ocelot.Errors.OcelotErrorCode, int) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(string,global::Ocelot.Errors.OcelotErrorCode,int)"
+                    ],
+                    "definition": {
+                      "path": "src/Errors/Error.cs",
+                      "startLine": 5,
+                      "startColumn": 5,
+                      "endLine": 10,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Requester/RequestCanceledError.cs",
+                        "startLine": 16,
+                        "startColumn": 9,
+                        "endLine": 16,
+                        "endColumn": 62
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n17",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (exception is HttpRequestException)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 45,
+                "startColumn": 13,
+                "endLine": 45,
+                "endColumn": 131
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 45,
+                "startColumn": 13,
+                "endLine": 45,
+                "endColumn": 131
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n18",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "exception.Message.Contains",
+              "detail": null,
+              "before": {
+                "symbolId": "metadata:System.Runtime::string.Contains(string)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::string.Contains(string)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                    "startLine": 45,
+                    "startColumn": 50,
+                    "endLine": 45,
+                    "endColumn": 131
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "metadata:System.Runtime::string.Contains(string)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::string.Contains(string)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                    "startLine": 45,
+                    "startColumn": 50,
+                    "endLine": 45,
+                    "endColumn": 131
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n19",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (exception is HttpRequestException && exception.Message.Contains(\"Request headers must contain…",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 45,
+                "startColumn": 9,
+                "endLine": 48,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 45,
+                "startColumn": 9,
+                "endLine": 48,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n20",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "new BadRequestError",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.BadRequestError..ctor(global::System.Exception)",
+                "signature": "Ocelot.Requester.BadRequestError.BadRequestError(System.Exception) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.BadRequestError..ctor(global::System.Exception)"
+                ],
+                "definition": {
+                  "path": "src/Requester/BadRequestError.cs",
+                  "startLine": 12,
+                  "startColumn": 5,
+                  "endLine": 14,
+                  "endColumn": 8
+                },
+                "callSites": [
+                  {
+                    "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                    "startLine": 47,
+                    "startColumn": 20,
+                    "endLine": 47,
+                    "endColumn": 50
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.BadRequestError..ctor(global::System.Exception)",
+                "signature": "Ocelot.Requester.BadRequestError.BadRequestError(System.Exception) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.BadRequestError..ctor(global::System.Exception)"
+                ],
+                "definition": {
+                  "path": "src/Requester/BadRequestError.cs",
+                  "startLine": 12,
+                  "startColumn": 5,
+                  "endLine": 14,
+                  "endColumn": 8
+                },
+                "callSites": [
+                  {
+                    "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                    "startLine": 47,
+                    "startColumn": 20,
+                    "endLine": 47,
+                    "endColumn": 50
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n21",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "new Error",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(global::System.Exception,global::Ocelot.Errors.OcelotErrorCode,int)",
+                    "signature": "Ocelot.Errors.Error.Error(System.Exception, Ocelot.Errors.OcelotErrorCode, int) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(global::System.Exception,global::Ocelot.Errors.OcelotErrorCode,int)"
+                    ],
+                    "definition": {
+                      "path": "src/Errors/Error.cs",
+                      "startLine": 12,
+                      "startColumn": 5,
+                      "endLine": 19,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Requester/BadRequestError.cs",
+                        "startLine": 13,
+                        "startColumn": 9,
+                        "endLine": 13,
+                        "endColumn": 92
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(global::System.Exception,global::Ocelot.Errors.OcelotErrorCode,int)",
+                    "signature": "Ocelot.Errors.Error.Error(System.Exception, Ocelot.Errors.OcelotErrorCode, int) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(global::System.Exception,global::Ocelot.Errors.OcelotErrorCode,int)"
+                    ],
+                    "definition": {
+                      "path": "src/Errors/Error.cs",
+                      "startLine": 12,
+                      "startColumn": 5,
+                      "endLine": 19,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Requester/BadRequestError.cs",
+                        "startLine": 13,
+                        "startColumn": 9,
+                        "endLine": 13,
+                        "endColumn": 92
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n22",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (type == typeof(HttpRequestException) || type == typeof(TimeoutException))",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 51,
+                "startColumn": 9,
+                "endLine": 61,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 51,
+                "startColumn": 9,
+                "endLine": 61,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n23",
+              "kind": "branch",
+              "change": "unchanged",
+              "label": "if (exception.InnerException is BadHttpRequestException { StatusCode: StatusCodes.Status413Reques…",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                    "startLine": 55,
+                    "startColumn": 13,
+                    "endLine": 58,
+                    "endColumn": 14
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                    "startLine": 55,
+                    "startColumn": 13,
+                    "endLine": 58,
+                    "endColumn": 14
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n24",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "new PayloadTooLargeError",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Request.Mapper.PayloadTooLargeError..ctor(global::System.Exception)",
+                    "signature": "Ocelot.Request.Mapper.PayloadTooLargeError.PayloadTooLargeError(System.Exception) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Ocelot.csproj@net10.0::Ocelot.Request.Mapper.PayloadTooLargeError..ctor(global::System.Exception)"
+                    ],
+                    "definition": {
+                      "path": "src/Request/Mapper/PayloadTooLargeError.cs",
+                      "startLine": 7,
+                      "startColumn": 5,
+                      "endLine": 9,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                        "startLine": 57,
+                        "startColumn": 24,
+                        "endLine": 57,
+                        "endColumn": 59
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Request.Mapper.PayloadTooLargeError..ctor(global::System.Exception)",
+                    "signature": "Ocelot.Request.Mapper.PayloadTooLargeError.PayloadTooLargeError(System.Exception) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Ocelot.csproj@net10.0::Ocelot.Request.Mapper.PayloadTooLargeError..ctor(global::System.Exception)"
+                    ],
+                    "definition": {
+                      "path": "src/Request/Mapper/PayloadTooLargeError.cs",
+                      "startLine": 7,
+                      "startColumn": 5,
+                      "endLine": 9,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                        "startLine": 57,
+                        "startColumn": 24,
+                        "endLine": 57,
+                        "endColumn": 59
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n25",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "new ConnectionToDownstreamServiceError",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.ConnectionToDownstreamServiceError..ctor(global::System.Exception)",
+                "signature": "Ocelot.Requester.ConnectionToDownstreamServiceError.ConnectionToDownstreamServiceError(System.Exception) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.ConnectionToDownstreamServiceError..ctor(global::System.Exception)"
+                ],
+                "definition": {
+                  "path": "src/Requester/ConnectionToDownstreamServiceError.cs",
+                  "startLine": 7,
+                  "startColumn": 5,
+                  "endLine": 10,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                    "startLine": 60,
+                    "startColumn": 20,
+                    "endLine": 60,
+                    "endColumn": 69
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.ConnectionToDownstreamServiceError..ctor(global::System.Exception)",
+                "signature": "Ocelot.Requester.ConnectionToDownstreamServiceError.ConnectionToDownstreamServiceError(System.Exception) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.ConnectionToDownstreamServiceError..ctor(global::System.Exception)"
+                ],
+                "definition": {
+                  "path": "src/Requester/ConnectionToDownstreamServiceError.cs",
+                  "startLine": 7,
+                  "startColumn": 5,
+                  "endLine": 10,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                    "startLine": 60,
+                    "startColumn": 20,
+                    "endLine": 60,
+                    "endColumn": 69
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n26",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "new Error",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(string,global::Ocelot.Errors.OcelotErrorCode,int)",
+                    "signature": "Ocelot.Errors.Error.Error(string, Ocelot.Errors.OcelotErrorCode, int) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(string,global::Ocelot.Errors.OcelotErrorCode,int)"
+                    ],
+                    "definition": {
+                      "path": "src/Errors/Error.cs",
+                      "startLine": 5,
+                      "startColumn": 5,
+                      "endLine": 10,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Requester/ConnectionToDownstreamServiceError.cs",
+                        "startLine": 8,
+                        "startColumn": 9,
+                        "endLine": 8,
+                        "endColumn": 139
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(string,global::Ocelot.Errors.OcelotErrorCode,int)",
+                    "signature": "Ocelot.Errors.Error.Error(string, Ocelot.Errors.OcelotErrorCode, int) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(string,global::Ocelot.Errors.OcelotErrorCode,int)"
+                    ],
+                    "definition": {
+                      "path": "src/Errors/Error.cs",
+                      "startLine": 5,
+                      "startColumn": 5,
+                      "endLine": 10,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Requester/ConnectionToDownstreamServiceError.cs",
+                        "startLine": 8,
+                        "startColumn": 9,
+                        "endLine": 8,
+                        "endColumn": 139
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n27",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "new UnableToCompleteRequestError",
+          "detail": null,
+          "before": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.UnableToCompleteRequestError..ctor(global::System.Exception)",
+            "signature": "Ocelot.Requester.UnableToCompleteRequestError.UnableToCompleteRequestError(System.Exception) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.UnableToCompleteRequestError..ctor(global::System.Exception)"
+            ],
+            "definition": {
+              "path": "src/Requester/UnableToCompleteRequestError.cs",
+              "startLine": 7,
+              "startColumn": 5,
+              "endLine": 10,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 63,
+                "startColumn": 16,
+                "endLine": 63,
+                "endColumn": 59
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.UnableToCompleteRequestError..ctor(global::System.Exception)",
+            "signature": "Ocelot.Requester.UnableToCompleteRequestError.UnableToCompleteRequestError(System.Exception) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.Requester.UnableToCompleteRequestError..ctor(global::System.Exception)"
+            ],
+            "definition": {
+              "path": "src/Requester/UnableToCompleteRequestError.cs",
+              "startLine": 7,
+              "startColumn": 5,
+              "endLine": 10,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Requester/HttpExceptionToErrorMapper.cs",
+                "startLine": 63,
+                "startColumn": 16,
+                "endLine": 63,
+                "endColumn": 59
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [
+            {
+              "id": "n28",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "new Error",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(string,global::Ocelot.Errors.OcelotErrorCode,int)",
+                "signature": "Ocelot.Errors.Error.Error(string, Ocelot.Errors.OcelotErrorCode, int) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(string,global::Ocelot.Errors.OcelotErrorCode,int)"
+                ],
+                "definition": {
+                  "path": "src/Errors/Error.cs",
+                  "startLine": 5,
+                  "startColumn": 5,
+                  "endLine": 10,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Requester/UnableToCompleteRequestError.cs",
+                    "startLine": 8,
+                    "startColumn": 9,
+                    "endLine": 8,
+                    "endColumn": 120
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(string,global::Ocelot.Errors.OcelotErrorCode,int)",
+                "signature": "Ocelot.Errors.Error.Error(string, Ocelot.Errors.OcelotErrorCode, int) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Errors.Error..ctor(string,global::Ocelot.Errors.OcelotErrorCode,int)"
+                ],
+                "definition": {
+                  "path": "src/Errors/Error.cs",
+                  "startLine": 5,
+                  "startColumn": 5,
+                  "endLine": 10,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Requester/UnableToCompleteRequestError.cs",
+                    "startLine": 8,
+                    "startColumn": 9,
+                    "endLine": 8,
+                    "endColumn": 120
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n29",
+      "kind": "member",
+      "change": "modified",
+      "label": "ErrorsToHttpStatusCodeMapper.Map",
+      "detail": "body changed; visible calls unchanged",
+      "before": {
+        "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Responder.ErrorsToHttpStatusCodeMapper.Map(global::System.Collections.Generic.List<global::Ocelot.Errors.Error>)",
+        "signature": "Ocelot.Responder.ErrorsToHttpStatusCodeMapper.Map(System.Collections.Generic.List<Ocelot.Errors.Error>) -> int",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Ocelot.csproj@net10.0::Ocelot.Responder.ErrorsToHttpStatusCodeMapper.Map(global::System.Collections.Generic.List<global::Ocelot.Errors.Error>)"
+        ],
+        "definition": {
+          "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+          "startLine": 8,
+          "startColumn": 5,
+          "endLine": 71,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Responder.ErrorsToHttpStatusCodeMapper.Map(global::System.Collections.Generic.List<global::Ocelot.Errors.Error>)",
+        "signature": "Ocelot.Responder.ErrorsToHttpStatusCodeMapper.Map(System.Collections.Generic.List<Ocelot.Errors.Error>) -> int",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Ocelot.csproj@net10.0::Ocelot.Responder.ErrorsToHttpStatusCodeMapper.Map(global::System.Collections.Generic.List<global::Ocelot.Errors.Error>)"
+        ],
+        "definition": {
+          "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+          "startLine": 8,
+          "startColumn": 5,
+          "endLine": 72,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n30",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "errors.Any",
+          "detail": null,
+          "before": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 10,
+                "startColumn": 13,
+                "endLine": 10,
+                "endColumn": 76
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "after": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 10,
+                "startColumn": 13,
+                "endLine": 10,
+                "endColumn": 76
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n31",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "errors.Any",
+          "detail": null,
+          "before": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 15,
+                "startColumn": 13,
+                "endLine": 20,
+                "endColumn": 56
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "after": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 15,
+                "startColumn": 13,
+                "endLine": 20,
+                "endColumn": 56
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n32",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "errors.Any",
+          "detail": null,
+          "before": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 25,
+                "startColumn": 13,
+                "endLine": 25,
+                "endColumn": 74
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "after": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 25,
+                "startColumn": 13,
+                "endLine": 25,
+                "endColumn": 74
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n33",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (errors.Any(e => e.Code == OcelotErrorCode.QuotaExceededError))",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 25,
+                "startColumn": 9,
+                "endLine": 28,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 25,
+                "startColumn": 9,
+                "endLine": 28,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n34",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "errors.Single",
+              "detail": null,
+              "before": {
+                "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Single`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Linq::System.Linq.Enumerable.Single`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                    "startLine": 27,
+                    "startColumn": 20,
+                    "endLine": 27,
+                    "endColumn": 84
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Single`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Linq::System.Linq.Enumerable.Single`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                    "startLine": 27,
+                    "startColumn": 20,
+                    "endLine": 27,
+                    "endColumn": 84
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n35",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "errors.Any",
+          "detail": null,
+          "before": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 30,
+                "startColumn": 13,
+                "endLine": 30,
+                "endColumn": 76
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "after": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 30,
+                "startColumn": 13,
+                "endLine": 30,
+                "endColumn": 76
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n36",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "errors.Any",
+          "detail": null,
+          "before": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 35,
+                "startColumn": 13,
+                "endLine": 35,
+                "endColumn": 71
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "after": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 36,
+                "startColumn": 13,
+                "endLine": 36,
+                "endColumn": 71
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n37",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "errors.Any",
+          "detail": null,
+          "before": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 43,
+                "startColumn": 13,
+                "endLine": 43,
+                "endColumn": 88
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "after": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 44,
+                "startColumn": 13,
+                "endLine": 44,
+                "endColumn": 88
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n38",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "errors.Any",
+          "detail": null,
+          "before": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 48,
+                "startColumn": 13,
+                "endLine": 48,
+                "endColumn": 90
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "after": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 49,
+                "startColumn": 13,
+                "endLine": 49,
+                "endColumn": 90
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n39",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "errors.Any",
+          "detail": null,
+          "before": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 53,
+                "startColumn": 13,
+                "endLine": 55,
+                "endColumn": 75
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "after": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 54,
+                "startColumn": 13,
+                "endLine": 56,
+                "endColumn": 75
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n40",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "errors.Any",
+          "detail": null,
+          "before": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 60,
+                "startColumn": 13,
+                "endLine": 60,
+                "endColumn": 76
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "after": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 61,
+                "startColumn": 13,
+                "endLine": 61,
+                "endColumn": 76
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n41",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "errors.Any",
+          "detail": null,
+          "before": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 65,
+                "startColumn": 13,
+                "endLine": 65,
+                "endColumn": 71
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "after": {
+            "symbolId": "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Linq::System.Linq.Enumerable.Any`1(global::System.Collections.Generic.IEnumerable<TSource>,global::System.Func<TSource, bool>)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Responder/ErrorsToHttpStatusCodeMapper.cs",
+                "startLine": 66,
+                "startColumn": 13,
+                "endLine": 66,
+                "endColumn": 71
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "children": [],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

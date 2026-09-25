@@ -1,0 +1,113 @@
+﻿format: text
+exit: 0
+stdout:
++ RouteClaimsRequirementPostConfigureOptions.PostConfigure
++ ├─ ConfigurationExtensions.OcelotRoutes (depth limit)
++ └─ for (i < options.Routes.Count)
++    └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelot
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelotUsingBuilder
+  ├─ ServiceCollectionExtensions.FindConfiguration (depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelotUsingBuilder
+  ├─ ServiceCollectionExtensions.FindConfiguration (depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  AuthenticationSteps.WithJwtBearerAuthentication
+~ └─ AuthenticationSteps.WithJwtBearerAuthentication (changes below depth limit)
+
+  DiscoverySteps.WithDiscovery
+~ └─ ServiceCollectionExtensions.AddOcelot (changes below depth limit)
+
+  WebSocketsSteps.StartHttp2OcelotWithWebSockets
+  ├─ AcceptanceSteps.DownstreamUrl (depth limit)
+  └─ AcceptanceSteps.GivenOcelotHostIsRunning (changes below depth limit)
+     ├─ AcceptanceSteps.WithBasicConfiguration (depth limit)
+~    ├─ AcceptanceSteps.WithAddOcelot (changes below depth limit)
+     ├─ WebSocketsSteps.WithWebSockets (depth limit)
+     └─ WebSocketsSteps.StartHttp2OcelotWithWebSockets.ConfigureWebHost (depth limit)
+
+  WebSocketsSteps.StartOcelotWithWebSockets
+~ └─ WebSocketsSteps.StartOcelotWithWebSockets (changes below depth limit)
+
+  WebSocketsSteps.StartOcelotWithWebSockets
+  ├─ AcceptanceSteps.DownstreamUrl (depth limit)
+  ├─ if (configureServices is null)
+  │  └─ callback
+~ │     └─ AcceptanceSteps.WithAddOcelot (changes below depth limit)
+~ └─ AcceptanceSteps.GivenOcelotHostIsRunning (changes below depth limit)
+     ├─ AcceptanceSteps.WithBasicConfiguration (depth limit)
+     ├─ WebSocketsSteps.StartOcelotWithWebSockets.WithWebSocketsAndConfig (depth limit)
+     └─ …
+stderr:
+manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+manual/Actions/Basic.cs:16: unresolved-call: Cannot bind builder.Services.AddOcelot.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Configuration.GetSection.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Logging.AddConfiguration.
+manual/Actions/Basic.cs:30: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+manual/Actions/Basic.cs:32: unresolved-call: Cannot bind builder.Logging.AddConsole.
+1108 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
++ RouteClaimsRequirementPostConfigureOptions.PostConfigure
++ ├─ ConfigurationExtensions.OcelotRoutes (depth limit)
++ └─ for (i < options.Routes.Count)
++    └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelot
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelotUsingBuilder
+  ├─ ServiceCollectionExtensions.FindConfiguration (depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelotUsingBuilder
+  ├─ ServiceCollectionExtensions.FindConfiguration (depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  AuthenticationSteps.WithJwtBearerAuthentication
+~ └─ AuthenticationSteps.WithJwtBearerAuthentication (changes below depth limit)
+
+  DiscoverySteps.WithDiscovery
+~ └─ ServiceCollectionExtensions.AddOcelot (changes below depth limit)
+
+  WebSocketsSteps.StartHttp2OcelotWithWebSockets
+  ├─ AcceptanceSteps.DownstreamUrl (depth limit)
+  └─ AcceptanceSteps.GivenOcelotHostIsRunning (changes below depth limit)
+     ├─ AcceptanceSteps.WithBasicConfiguration (depth limit)
+~    ├─ AcceptanceSteps.WithAddOcelot (changes below depth limit)
+     ├─ WebSocketsSteps.WithWebSockets (depth limit)
+     └─ WebSocketsSteps.StartHttp2OcelotWithWebSockets.ConfigureWebHost (depth limit)
+
+  WebSocketsSteps.StartOcelotWithWebSockets
+~ └─ WebSocketsSteps.StartOcelotWithWebSockets (changes below depth limit)
+
+  WebSocketsSteps.StartOcelotWithWebSockets
+  ├─ AcceptanceSteps.DownstreamUrl (depth limit)
+  ├─ if (configureServices is null)
+  │  └─ callback
+~ │     └─ AcceptanceSteps.WithAddOcelot (changes below depth limit)
+~ └─ AcceptanceSteps.GivenOcelotHostIsRunning (changes below depth limit)
+     ├─ AcceptanceSteps.WithBasicConfiguration (depth limit)
+     ├─ WebSocketsSteps.StartOcelotWithWebSockets.WithWebSocketsAndConfig (depth limit)
+     └─ …
+```
+stderr:
+manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+manual/Actions/Basic.cs:16: unresolved-call: Cannot bind builder.Services.AddOcelot.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Configuration.GetSection.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Logging.AddConfiguration.
+manual/Actions/Basic.cs:30: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+manual/Actions/Basic.cs:32: unresolved-call: Cannot bind builder.Logging.AddConsole.
+1108 additional diagnostics; use --diagnostics full.

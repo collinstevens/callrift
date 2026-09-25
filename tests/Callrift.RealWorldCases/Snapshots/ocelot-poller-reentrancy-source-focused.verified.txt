@@ -1,0 +1,273 @@
+﻿format: text
+exit: 0
+stdout:
+  FileConfigurationPoller.Dispose
+- ├─ if (_timer is not null)
+- │  └─ .Dispose
++ ├─ Interlocked.Exchange
++ ├─ if (timer is not null)
++ │  └─ .Dispose
+  └─ GC.SuppressFinalize
+
+  FileConfigurationPoller.OnTimer
+- ├─ try
+- │  └─ FileConfigurationPoller.Poll
+- │     ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
+- │     ├─ try
+- │     │  └─ IFileConfigurationRepository.Get → DiskFileConfigurationRepository.Get (depth limit)
+- │     ├─ catch (Exception e)
+- │     │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (depth limit)
+- │     ├─ if (configuration is null)
+- │     │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (depth limit)
+- │     │     └─ _repo.GetType
+- │     ├─ FileConfigurationPoller.ToJson (depth limit)
+- │     ├─ if (asJson != _previousAsJson)
+- │     │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create (depth limit)
+- │     │  ├─ _internalConfigCreator.Create(configuration).GetAwaiter
+- │     │  ├─ _internalConfigCreator.Create(configuration).GetAwaiter().GetResult
+- │     │  └─ if (!config.IsError)
+- │     │     └─ IInternalConfigurationRepository.AddOrReplace → InMemoryInternalConfigurationRepository.AddOrReplace (depth limit)
+- │     └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
++ └─ FileConfigurationPoller.Poll
++    ├─ FileConfigurationPoller.TryEnterPolling
++    │  └─ Interlocked.CompareExchange
++    ├─ try
++    │  ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
++    │  ├─ try
++    │  │  └─ IFileConfigurationRepository.Get → DiskFileConfigurationRepository.Get (depth limit)
++    │  ├─ catch (Exception e)
++    │  │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (depth limit)
++    │  ├─ if (configuration is null)
++    │  │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (depth limit)
++    │  │     └─ _repo.GetType
++    │  ├─ FileConfigurationPoller.ToJson (depth limit)
++    │  ├─ if (asJson != _previousAsJson)
++    │  │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create (depth limit)
++    │  │  ├─ _internalConfigCreator.Create(configuration).GetAwaiter
++    │  │  ├─ _internalConfigCreator.Create(configuration).GetAwaiter().GetResult
++    │  │  └─ if (!config.IsError)
++    │  │     └─ IInternalConfigurationRepository.AddOrReplace → InMemoryInternalConfigurationRepository.AddOrReplace (depth limit)
++    │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
++    └─ finally
++       └─ FileConfigurationPoller.ExitPolling (changes below depth limit)
+
+  FileConfigurationPoller.PollAsync
+- ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation
+- │  └─ OcelotLogger.WriteLog
+- │     └─ OcelotLogger.WriteLog (depth limit)
++ ├─ FileConfigurationPoller.TryEnterPolling ↑ as above
+  ├─ try
+- │  ├─ IFileConfigurationRepository.GetAsync → DiskFileConfigurationRepository.GetAsync
+- │  │  ├─ _semaphore.WaitAsync
+- │  │  ├─ try
+- │  │  │  └─ FileIO.ReadAllTextAsync
+- │  │  ├─ finally
+- │  │  │  └─ _semaphore.Release
+- │  │  └─ ? JsonConvert.DeserializeObject<FileConfiguration>
++ │  ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation
++ │  │  └─ OcelotLogger.WriteLog (depth limit)
++ │  ├─ try
++ │  │  └─ IFileConfigurationRepository.GetAsync → DiskFileConfigurationRepository.GetAsync (depth limit)
++ │  ├─ catch (Exception e)
++ │  │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (depth limit)
++ │  ├─ if (configuration is null)
++ │  │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (depth limit) ↑ as above
++ │  ├─ FileConfigurationPoller.ToJson
++ │  │  └─ ? JsonConvert.SerializeObject
++ │  ├─ if (asJson != _previousAsJson)
++ │  │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create (depth limit)
++ │  │  └─ if (!config.IsError)
++ │  │     └─ IInternalConfigurationRepository.AddOrReplace → InMemoryInternalConfigurationRepository.AddOrReplace (depth limit)
++ │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation ↑ as above
+- ├─ catch (Exception e)
+- │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning
+- │     └─ OcelotLogger.WriteLog (depth limit)
+- ├─ if (configuration is null)
+- │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning
+- │     ├─ OcelotLogger.WriteLog (depth limit)
+- │     └─ _repo.GetType
+- ├─ FileConfigurationPoller.ToJson
+- │  └─ ? JsonConvert.SerializeObject
+- ├─ if (asJson != _previousAsJson)
+- │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create
+- │  │  ├─ IConfigurationValidator.IsValid → FileConfigurationFluentValidator.IsValid (depth limit)
+- │  │  ├─ if (response.Data.IsError)
+- │  │  │  └─ new ErrorResponse<T> (depth limit)
+- │  │  ├─ IRoutesCreator.Create → StaticRoutesCreator.Create (depth limit)
+- │  │  ├─ IAggregatesCreator.Create → AggregatesCreator.Create (depth limit)
+- │  │  ├─ IDynamicsCreator.Create → DynamicRoutesCreator.Create (depth limit)
+- │  │  ├─ routes.Union
+- │  │  ├─ routes.Union(aggregates).Union
+- │  │  ├─ routes.Union(aggregates).Union(dynamicRoute).ToArray
+- │  │  ├─ IConfigurationCreator.Create → ConfigurationCreator.Create (depth limit)
+- │  │  └─ new OkResponse<T> (depth limit)
+- │  └─ if (!config.IsError)
+- │     └─ IInternalConfigurationRepository.AddOrReplace → InMemoryInternalConfigurationRepository.AddOrReplace (depth limit)
+- ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation ↑ as above
++ └─ finally
++    └─ FileConfigurationPoller.ExitPolling
++       └─ Volatile.Write
+
+  FileConfigurationPoller.StartAsync
+  ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation
+  ├─ IFileConfigurationPollerOptions.DelayAsync
+  └─ new
+     └─ FileConfigurationPoller.OnTimer
+-       ├─ try
+-       │  └─ FileConfigurationPoller.Poll (changes below depth limit)
++       └─ FileConfigurationPoller.Poll (changes below depth limit)
+
+  FileConfigurationPoller.StopAsync
++ ├─ Interlocked.Exchange
+  ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation
+- ├─ Task.Run
+- │  └─ _timer.Change
++ └─ timer.Change
+stderr:
+samples/Basic/Program.cs:4: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+samples/Basic/Program.cs:7: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+samples/Basic/Program.cs:7: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+samples/Basic/Program.cs:10: unresolved-call: Cannot bind builder.Services.AddOcelot.
+samples/Basic/Program.cs:14: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+samples/Basic/Program.cs:16: unresolved-call: Cannot bind builder.Logging.AddConsole.
+samples/Basic/Program.cs:20: unresolved-call: Cannot bind builder.Build.
+samples/Basic/Program.cs:21: unresolved-call: Cannot bind app.UseOcelot.
+1053 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  FileConfigurationPoller.Dispose
+- ├─ if (_timer is not null)
+- │  └─ .Dispose
++ ├─ Interlocked.Exchange
++ ├─ if (timer is not null)
++ │  └─ .Dispose
+  └─ GC.SuppressFinalize
+
+  FileConfigurationPoller.OnTimer
+- ├─ try
+- │  └─ FileConfigurationPoller.Poll
+- │     ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
+- │     ├─ try
+- │     │  └─ IFileConfigurationRepository.Get → DiskFileConfigurationRepository.Get (depth limit)
+- │     ├─ catch (Exception e)
+- │     │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (depth limit)
+- │     ├─ if (configuration is null)
+- │     │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (depth limit)
+- │     │     └─ _repo.GetType
+- │     ├─ FileConfigurationPoller.ToJson (depth limit)
+- │     ├─ if (asJson != _previousAsJson)
+- │     │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create (depth limit)
+- │     │  ├─ _internalConfigCreator.Create(configuration).GetAwaiter
+- │     │  ├─ _internalConfigCreator.Create(configuration).GetAwaiter().GetResult
+- │     │  └─ if (!config.IsError)
+- │     │     └─ IInternalConfigurationRepository.AddOrReplace → InMemoryInternalConfigurationRepository.AddOrReplace (depth limit)
+- │     └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
++ └─ FileConfigurationPoller.Poll
++    ├─ FileConfigurationPoller.TryEnterPolling
++    │  └─ Interlocked.CompareExchange
++    ├─ try
++    │  ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
++    │  ├─ try
++    │  │  └─ IFileConfigurationRepository.Get → DiskFileConfigurationRepository.Get (depth limit)
++    │  ├─ catch (Exception e)
++    │  │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (depth limit)
++    │  ├─ if (configuration is null)
++    │  │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (depth limit)
++    │  │     └─ _repo.GetType
++    │  ├─ FileConfigurationPoller.ToJson (depth limit)
++    │  ├─ if (asJson != _previousAsJson)
++    │  │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create (depth limit)
++    │  │  ├─ _internalConfigCreator.Create(configuration).GetAwaiter
++    │  │  ├─ _internalConfigCreator.Create(configuration).GetAwaiter().GetResult
++    │  │  └─ if (!config.IsError)
++    │  │     └─ IInternalConfigurationRepository.AddOrReplace → InMemoryInternalConfigurationRepository.AddOrReplace (depth limit)
++    │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
++    └─ finally
++       └─ FileConfigurationPoller.ExitPolling (changes below depth limit)
+
+  FileConfigurationPoller.PollAsync
+- ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation
+- │  └─ OcelotLogger.WriteLog
+- │     └─ OcelotLogger.WriteLog (depth limit)
++ ├─ FileConfigurationPoller.TryEnterPolling ↑ as above
+  ├─ try
+- │  ├─ IFileConfigurationRepository.GetAsync → DiskFileConfigurationRepository.GetAsync
+- │  │  ├─ _semaphore.WaitAsync
+- │  │  ├─ try
+- │  │  │  └─ FileIO.ReadAllTextAsync
+- │  │  ├─ finally
+- │  │  │  └─ _semaphore.Release
+- │  │  └─ ? JsonConvert.DeserializeObject<FileConfiguration>
++ │  ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation
++ │  │  └─ OcelotLogger.WriteLog (depth limit)
++ │  ├─ try
++ │  │  └─ IFileConfigurationRepository.GetAsync → DiskFileConfigurationRepository.GetAsync (depth limit)
++ │  ├─ catch (Exception e)
++ │  │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (depth limit)
++ │  ├─ if (configuration is null)
++ │  │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (depth limit) ↑ as above
++ │  ├─ FileConfigurationPoller.ToJson
++ │  │  └─ ? JsonConvert.SerializeObject
++ │  ├─ if (asJson != _previousAsJson)
++ │  │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create (depth limit)
++ │  │  └─ if (!config.IsError)
++ │  │     └─ IInternalConfigurationRepository.AddOrReplace → InMemoryInternalConfigurationRepository.AddOrReplace (depth limit)
++ │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation ↑ as above
+- ├─ catch (Exception e)
+- │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning
+- │     └─ OcelotLogger.WriteLog (depth limit)
+- ├─ if (configuration is null)
+- │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning
+- │     ├─ OcelotLogger.WriteLog (depth limit)
+- │     └─ _repo.GetType
+- ├─ FileConfigurationPoller.ToJson
+- │  └─ ? JsonConvert.SerializeObject
+- ├─ if (asJson != _previousAsJson)
+- │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create
+- │  │  ├─ IConfigurationValidator.IsValid → FileConfigurationFluentValidator.IsValid (depth limit)
+- │  │  ├─ if (response.Data.IsError)
+- │  │  │  └─ new ErrorResponse<T> (depth limit)
+- │  │  ├─ IRoutesCreator.Create → StaticRoutesCreator.Create (depth limit)
+- │  │  ├─ IAggregatesCreator.Create → AggregatesCreator.Create (depth limit)
+- │  │  ├─ IDynamicsCreator.Create → DynamicRoutesCreator.Create (depth limit)
+- │  │  ├─ routes.Union
+- │  │  ├─ routes.Union(aggregates).Union
+- │  │  ├─ routes.Union(aggregates).Union(dynamicRoute).ToArray
+- │  │  ├─ IConfigurationCreator.Create → ConfigurationCreator.Create (depth limit)
+- │  │  └─ new OkResponse<T> (depth limit)
+- │  └─ if (!config.IsError)
+- │     └─ IInternalConfigurationRepository.AddOrReplace → InMemoryInternalConfigurationRepository.AddOrReplace (depth limit)
+- ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation ↑ as above
++ └─ finally
++    └─ FileConfigurationPoller.ExitPolling
++       └─ Volatile.Write
+
+  FileConfigurationPoller.StartAsync
+  ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation
+  ├─ IFileConfigurationPollerOptions.DelayAsync
+  └─ new
+     └─ FileConfigurationPoller.OnTimer
+-       ├─ try
+-       │  └─ FileConfigurationPoller.Poll (changes below depth limit)
++       └─ FileConfigurationPoller.Poll (changes below depth limit)
+
+  FileConfigurationPoller.StopAsync
++ ├─ Interlocked.Exchange
+  ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation
+- ├─ Task.Run
+- │  └─ _timer.Change
++ └─ timer.Change
+```
+stderr:
+samples/Basic/Program.cs:4: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+samples/Basic/Program.cs:7: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+samples/Basic/Program.cs:7: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+samples/Basic/Program.cs:10: unresolved-call: Cannot bind builder.Services.AddOcelot.
+samples/Basic/Program.cs:14: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+samples/Basic/Program.cs:16: unresolved-call: Cannot bind builder.Logging.AddConsole.
+samples/Basic/Program.cs:20: unresolved-call: Cannot bind builder.Build.
+samples/Basic/Program.cs:21: unresolved-call: Cannot bind app.UseOcelot.
+1053 additional diagnostics; use --diagnostics full.

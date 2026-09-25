@@ -1,0 +1,57 @@
+﻿format: text
+exit: 0
+stdout:
+~ AdminController.Create (signature changed)
+  ├─ …
+  ├─ if (!await _authorizationService.AuthorizeAsync(User, RolesPermissions.ManageRoles))
+  ├─ if (ModelState.IsValid)
+  ├─ if (ModelState.IsValid && await ValidateRoleNameAsync(model.RoleName))
+  │  ├─ new Role
+  │  ├─ _roleManager.CreateAsync
+  │  ├─ if (result.Succeeded)
+  │  │  ├─ NotifierExtensions.SuccessAsync (depth limit)
++ │  │  ├─ if (submit == SaveAndConfigureSubmitValue)
++ │  │  │  └─ RedirectToAction
+  │  │  └─ RedirectToAction
+  │  ├─ IDocumentStore.CancelAsync
+  │  └─ foreach (var error in result.Errors)
+  └─ View
+
+~ AdminController.EditPost (signature changed)
+  ├─ …
+  ├─ _roleManager.UpdateAsync
+  ├─ NotifierExtensions.SuccessAsync
++ ├─ if (submit == SaveAndContinueSubmitValue)
++ │  └─ RedirectToAction
+  └─ RedirectToAction
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+~ AdminController.Create (signature changed)
+  ├─ …
+  ├─ if (!await _authorizationService.AuthorizeAsync(User, RolesPermissions.ManageRoles))
+  ├─ if (ModelState.IsValid)
+  ├─ if (ModelState.IsValid && await ValidateRoleNameAsync(model.RoleName))
+  │  ├─ new Role
+  │  ├─ _roleManager.CreateAsync
+  │  ├─ if (result.Succeeded)
+  │  │  ├─ NotifierExtensions.SuccessAsync (depth limit)
++ │  │  ├─ if (submit == SaveAndConfigureSubmitValue)
++ │  │  │  └─ RedirectToAction
+  │  │  └─ RedirectToAction
+  │  ├─ IDocumentStore.CancelAsync
+  │  └─ foreach (var error in result.Errors)
+  └─ View
+
+~ AdminController.EditPost (signature changed)
+  ├─ …
+  ├─ _roleManager.UpdateAsync
+  ├─ NotifierExtensions.SuccessAsync
++ ├─ if (submit == SaveAndContinueSubmitValue)
++ │  └─ RedirectToAction
+  └─ RedirectToAction
+```
+stderr:

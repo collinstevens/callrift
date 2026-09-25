@@ -1,0 +1,61 @@
+﻿format: text
+exit: 0
+stdout:
+  ActivityController.Create
+  ├─ …
+  ├─ IDisplayManager<TModel>.BuildEditorAsync → ActivityDisplayManager.BuildEditorAsync (depth limit)
+  ├─ new ActivityEditViewModel
+  ├─ if (!activity.HasEditor)
+~ │  └─ ActivityController.Create (changes below depth limit)
+  └─ ? View
+
+  WorkflowTypeController.Edit
+  ├─ …
+  ├─ IWorkflowTypeStore.SaveAsync → WorkflowTypeStore.SaveAsync (depth limit)
+  ├─ ? _notifier.SuccessAsync
++ ├─ WorkflowTypeExtensions.IsMissingStartActivity (changes below depth limit)
++ ├─ if (workflowType.IsMissingStartActivity())
++ │  └─ ? _notifier.WarningAsync
+  └─ ? RedirectToAction
+stderr:
+src/OrchardCore.AspireHost/ClamAV.cs:13: unresolved-call: Cannot bind : base(name).
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag("latest").WithEnvironment("CLAMAV_NO_FRESHCLAMD", "true").WithEndpoint.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag("latest").WithEnvironment.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource.
+src/OrchardCore.AspireHost/ClamAV.cs:46: unresolved-call: Cannot bind builder.WithVolume.
+16205 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  ActivityController.Create
+  ├─ …
+  ├─ IDisplayManager<TModel>.BuildEditorAsync → ActivityDisplayManager.BuildEditorAsync (depth limit)
+  ├─ new ActivityEditViewModel
+  ├─ if (!activity.HasEditor)
+~ │  └─ ActivityController.Create (changes below depth limit)
+  └─ ? View
+
+  WorkflowTypeController.Edit
+  ├─ …
+  ├─ IWorkflowTypeStore.SaveAsync → WorkflowTypeStore.SaveAsync (depth limit)
+  ├─ ? _notifier.SuccessAsync
++ ├─ WorkflowTypeExtensions.IsMissingStartActivity (changes below depth limit)
++ ├─ if (workflowType.IsMissingStartActivity())
++ │  └─ ? _notifier.WarningAsync
+  └─ ? RedirectToAction
+```
+stderr:
+src/OrchardCore.AspireHost/ClamAV.cs:13: unresolved-call: Cannot bind : base(name).
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag("latest").WithEnvironment("CLAMAV_NO_FRESHCLAMD", "true").WithEndpoint.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag("latest").WithEnvironment.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource.
+src/OrchardCore.AspireHost/ClamAV.cs:46: unresolved-call: Cannot bind builder.WithVolume.
+16205 additional diagnostics; use --diagnostics full.

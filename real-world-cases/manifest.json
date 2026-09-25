@@ -201,20 +201,44 @@
       {
         "id": "source-roots",
         "routine": false,
-        "options": ["--depth", "1"]
+        "options": [
+          "--depth",
+          "1"
+        ]
       },
       {
         "id": "source-focused",
-        "options": ["--entry", "DefaultRegisteredServicesTracker.HoldForAdditionalService", "--depth", "3"]
+        "options": [
+          "--entry",
+          "DefaultRegisteredServicesTracker.HoldForAdditionalService",
+          "--depth",
+          "3"
+        ]
       },
       {
         "id": "msbuild-roots",
         "routine": false,
-        "options": ["--project", "src/Autofac/Autofac.csproj", "--framework", "net10.0", "--depth", "1"]
+        "options": [
+          "--project",
+          "src/Autofac/Autofac.csproj",
+          "--framework",
+          "net10.0",
+          "--depth",
+          "1"
+        ]
       },
       {
         "id": "msbuild-focused",
-        "options": ["--project", "src/Autofac/Autofac.csproj", "--framework", "net10.0", "--entry", "DefaultRegisteredServicesTracker.HoldForAdditionalService", "--depth", "3"]
+        "options": [
+          "--project",
+          "src/Autofac/Autofac.csproj",
+          "--framework",
+          "net10.0",
+          "--entry",
+          "DefaultRegisteredServicesTracker.HoldForAdditionalService",
+          "--depth",
+          "3"
+        ]
       }
     ]
   },
@@ -826,6 +850,559 @@
           "4",
           "--externals"
         ]
+      }
+    ]
+  },
+  {
+    "id": "ocelot-route-claims-keys",
+    "repository": "https://github.com/ThreeMammals/Ocelot.git",
+    "cacheName": "ocelot",
+    "license": "MIT",
+    "licenseFile": "LICENSE.md",
+    "before": "8646f482fc8c4aead02b6769762b6eeef73e9e6d",
+    "after": "d1f22d930430410bfd0233f5e9e4f92980cf7df0",
+    "reason": "#679 Preserve URL-shaped keys in RouteClaimsRequirement authorization option (#2414)",
+    "tags": [
+      "configuration",
+      "guards",
+      "di-registration",
+      "recursion"
+    ],
+    "options": [],
+    "knownIssue": "issues/ocelot-coverage.md",
+    "review": "reviews/ocelot-route-claims-keys.md",
+    "beforeLicenseBlob": "7a0788f9c32c526f1de1cf2e8ba0ae5a260c6c62",
+    "afterLicenseBlob": "7a0788f9c32c526f1de1cf2e8ba0ae5a260c6c62",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "1"
+        ],
+        "routine": false
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--externals",
+          "--depth",
+          "3",
+          "--entry",
+          "RouteClaimsRequirementPostConfigureOptions.PostConfigure",
+          "--entry",
+          "new OcelotBuilder",
+          "--entry",
+          "Features.AddOcelotAuthorization"
+        ],
+        "routine": false
+      },
+      {
+        "id": "msbuild-roots",
+        "options": [
+          "--depth",
+          "1",
+          "--project",
+          "src/Ocelot.csproj",
+          "--framework",
+          "net10.0"
+        ],
+        "routine": false
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--externals",
+          "--depth",
+          "3",
+          "--entry",
+          "RouteClaimsRequirementPostConfigureOptions.PostConfigure",
+          "--entry",
+          "new OcelotBuilder",
+          "--entry",
+          "Features.AddOcelotAuthorization",
+          "--project",
+          "src/Ocelot.csproj",
+          "--framework",
+          "net10.0"
+        ],
+        "routine": false
+      }
+    ]
+  },
+  {
+    "id": "ocelot-timeout-status",
+    "repository": "https://github.com/ThreeMammals/Ocelot.git",
+    "cacheName": "ocelot",
+    "license": "MIT",
+    "licenseFile": "LICENSE.md",
+    "before": "65686d488475163cc357b7f5876e3d346e23630e",
+    "after": "8646f482fc8c4aead02b6769762b6eeef73e9e6d",
+    "reason": "#1687 Return 504 Gateway Timeout for downstream request timeouts according to RFC 9110 (#2420)",
+    "tags": [
+      "guards",
+      "exception-paths",
+      "primary-constructors",
+      "status-mapping"
+    ],
+    "options": [],
+    "knownIssue": "issues/ocelot-coverage.md",
+    "review": "reviews/ocelot-timeout-status.md",
+    "beforeLicenseBlob": "7a0788f9c32c526f1de1cf2e8ba0ae5a260c6c62",
+    "afterLicenseBlob": "7a0788f9c32c526f1de1cf2e8ba0ae5a260c6c62",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "1"
+        ],
+        "routine": false
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--externals",
+          "--depth",
+          "3",
+          "--entry",
+          "HttpExceptionToErrorMapper.Map",
+          "--entry",
+          "ErrorsToHttpStatusCodeMapper.Map"
+        ],
+        "routine": false
+      },
+      {
+        "id": "msbuild-roots",
+        "options": [
+          "--depth",
+          "1",
+          "--project",
+          "src/Ocelot.csproj",
+          "--framework",
+          "net10.0"
+        ],
+        "routine": false
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--externals",
+          "--depth",
+          "3",
+          "--entry",
+          "HttpExceptionToErrorMapper.Map",
+          "--entry",
+          "ErrorsToHttpStatusCodeMapper.Map",
+          "--project",
+          "src/Ocelot.csproj",
+          "--framework",
+          "net10.0"
+        ],
+        "routine": false
+      }
+    ]
+  },
+  {
+    "id": "ocelot-custom-json-merge",
+    "repository": "https://github.com/ThreeMammals/Ocelot.git",
+    "cacheName": "ocelot",
+    "license": "MIT",
+    "licenseFile": "LICENSE.md",
+    "before": "c5ee51014905910587a75ac36ee80434664006df",
+    "after": "7b38a95066e75c4ec2fb434ca91c3584282319c1",
+    "reason": "#651 Merge custom JSON properties across multiple ocelot.X.json configuration files using Newtonsoft's JToken merge functionality (#1183)",
+    "tags": [
+      "overloads",
+      "extension-methods",
+      "dynamic-arguments",
+      "signature-change",
+      "configuration",
+      "feature-change"
+    ],
+    "options": [],
+    "knownIssue": "issues/ocelot-coverage.md",
+    "review": "reviews/ocelot-custom-json-merge.md",
+    "beforeLicenseBlob": "7a0788f9c32c526f1de1cf2e8ba0ae5a260c6c62",
+    "afterLicenseBlob": "7a0788f9c32c526f1de1cf2e8ba0ae5a260c6c62",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "1"
+        ],
+        "routine": false
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--externals",
+          "--depth",
+          "3",
+          "--entry",
+          "ConfigurationBuilderExtensions.GetMergedOcelotJson",
+          "--entry",
+          "ConfigurationBuilderExtensions.OcelotMergeConfiguration",
+          "--entry",
+          "FileConfigurationController.Post"
+        ],
+        "routine": false
+      },
+      {
+        "id": "msbuild-roots",
+        "options": [
+          "--depth",
+          "1",
+          "--project",
+          "src/Ocelot.csproj",
+          "--framework",
+          "net10.0"
+        ],
+        "routine": false
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--externals",
+          "--depth",
+          "3",
+          "--entry",
+          "ConfigurationBuilderExtensions.GetMergedOcelotJson",
+          "--entry",
+          "ConfigurationBuilderExtensions.OcelotMergeConfiguration",
+          "--entry",
+          "FileConfigurationController.Post",
+          "--project",
+          "src/Ocelot.csproj",
+          "--framework",
+          "net10.0"
+        ],
+        "routine": false
+      }
+    ]
+  },
+  {
+    "id": "ocelot-websocket-security",
+    "repository": "https://github.com/ThreeMammals/Ocelot.git",
+    "cacheName": "ocelot",
+    "license": "MIT",
+    "licenseFile": "LICENSE.md",
+    "before": "6062d5a5ab3bc1baa929d0965e5a28e3cbf2d1fd",
+    "after": "f156fd4017ca25025fffdad8ec56c1d657dfb402",
+    "reason": "#2403 Add `SecurityOptions` support to the WebSocket pipeline (#2406)",
+    "tags": [
+      "middleware",
+      "guards",
+      "callbacks",
+      "di-registration",
+      "error-handling"
+    ],
+    "options": [],
+    "knownIssue": "issues/ocelot-coverage.md",
+    "review": "reviews/ocelot-websocket-security.md",
+    "beforeLicenseBlob": "058bbbcec4d6137a36c5cc6a46a599f93bb10c42",
+    "afterLicenseBlob": "058bbbcec4d6137a36c5cc6a46a599f93bb10c42",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "1"
+        ],
+        "routine": false
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--externals",
+          "--depth",
+          "3",
+          "--entry",
+          "SecurityMiddleware.Invoke",
+          "--entry",
+          "IPSecurityPolicy.SecurityAsync",
+          "--entry",
+          "OcelotPipelineExtensions.ConfigureWebSockets"
+        ],
+        "routine": false
+      },
+      {
+        "id": "msbuild-roots",
+        "options": [
+          "--depth",
+          "1",
+          "--project",
+          "src/Ocelot.csproj",
+          "--framework",
+          "net10.0"
+        ],
+        "routine": false
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--externals",
+          "--depth",
+          "3",
+          "--entry",
+          "SecurityMiddleware.Invoke",
+          "--entry",
+          "IPSecurityPolicy.SecurityAsync",
+          "--entry",
+          "OcelotPipelineExtensions.ConfigureWebSockets",
+          "--project",
+          "src/Ocelot.csproj",
+          "--framework",
+          "net10.0"
+        ],
+        "routine": false
+      }
+    ]
+  },
+  {
+    "id": "ocelot-poller-reentrancy",
+    "repository": "https://github.com/ThreeMammals/Ocelot.git",
+    "cacheName": "ocelot",
+    "license": "MIT",
+    "licenseFile": "LICENSE.md",
+    "before": "e4022a7d80d2e05f020fc8c1fb50f5dde72256d4",
+    "after": "c20325bcb6a4d080ed1172d5303811031e532b03",
+    "reason": "Harden `FileConfigurationPoller` against timer reentrancy and callback thread leaks, and stabilize `TimeoutDelegatingHandler` timeout test (#2394)",
+    "tags": [
+      "async",
+      "callbacks",
+      "finally",
+      "guards",
+      "atomics"
+    ],
+    "options": [],
+    "knownIssue": "issues/ocelot-coverage.md",
+    "review": "reviews/ocelot-poller-reentrancy.md",
+    "beforeLicenseBlob": "058bbbcec4d6137a36c5cc6a46a599f93bb10c42",
+    "afterLicenseBlob": "058bbbcec4d6137a36c5cc6a46a599f93bb10c42",
+    "routine": true,
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "1"
+        ],
+        "routine": true
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--externals",
+          "--depth",
+          "3",
+          "--entry",
+          "FileConfigurationPoller.PollAsync",
+          "--entry",
+          "FileConfigurationPoller.OnTimer",
+          "--entry",
+          "FileConfigurationPoller.StartAsync",
+          "--entry",
+          "FileConfigurationPoller.StopAsync",
+          "--entry",
+          "FileConfigurationPoller.Dispose"
+        ],
+        "routine": false
+      },
+      {
+        "id": "msbuild-roots",
+        "options": [
+          "--depth",
+          "1",
+          "--project",
+          "src/Ocelot/Ocelot.csproj",
+          "--framework",
+          "net10.0"
+        ],
+        "routine": true
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--externals",
+          "--depth",
+          "3",
+          "--entry",
+          "FileConfigurationPoller.PollAsync",
+          "--entry",
+          "FileConfigurationPoller.OnTimer",
+          "--entry",
+          "FileConfigurationPoller.StartAsync",
+          "--entry",
+          "FileConfigurationPoller.StopAsync",
+          "--entry",
+          "FileConfigurationPoller.Dispose",
+          "--project",
+          "src/Ocelot/Ocelot.csproj",
+          "--framework",
+          "net10.0"
+        ],
+        "routine": false
+      }
+    ]
+  },
+  {
+    "id": "orchardcore-workflow-startup",
+    "repository": "https://github.com/OrchardCMS/OrchardCore.git",
+    "cacheName": "orchardcore",
+    "license": "BSD-3-Clause",
+    "licenseFile": "LICENSE",
+    "before": "0e50949dad6637c7e17214baeaa44df6f6be2dd8",
+    "after": "ee892e7e9fb30305110504bf553dcf4265e6c02a",
+    "reason": "Make the first event added to a workflow its startup task (#16344) (#19896)",
+    "tags": [
+      "guards",
+      "short-circuit",
+      "cross-project",
+      "callbacks"
+    ],
+    "options": [],
+    "knownIssue": "issues/orchardcore-coverage.md",
+    "review": "reviews/orchardcore-workflow-startup.md",
+    "beforeLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
+    "afterLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "1"
+        ],
+        "routine": false
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--externals",
+          "--depth",
+          "3",
+          "--entry",
+          "source::OrchardCore.Workflows.Controllers.ActivityController.Create(string,long,string)",
+          "--entry",
+          "source::OrchardCore.Workflows.Controllers.WorkflowTypeController.Edit(global::OrchardCore.Workflows.ViewModels.WorkflowTypeUpdateModel)"
+        ],
+        "routine": false
+      },
+      {
+        "id": "msbuild-roots",
+        "options": [
+          "--depth",
+          "1",
+          "--project",
+          "src/OrchardCore.Modules/OrchardCore.Workflows/OrchardCore.Workflows.csproj",
+          "--framework",
+          "net10.0"
+        ],
+        "routine": false
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--externals",
+          "--depth",
+          "3",
+          "--project",
+          "src/OrchardCore.Modules/OrchardCore.Workflows/OrchardCore.Workflows.csproj",
+          "--framework",
+          "net10.0",
+          "--entry",
+          "project:src/OrchardCore.Modules/OrchardCore.Workflows/OrchardCore.Workflows.csproj@net10.0::OrchardCore.Workflows.Controllers.ActivityController.Create(string,long,string)",
+          "--entry",
+          "project:src/OrchardCore.Modules/OrchardCore.Workflows/OrchardCore.Workflows.csproj@net10.0::OrchardCore.Workflows.Controllers.WorkflowTypeController.Edit(global::OrchardCore.Workflows.ViewModels.WorkflowTypeUpdateModel)"
+        ],
+        "routine": false
+      }
+    ]
+  },
+  {
+    "id": "orchardcore-role-submission",
+    "repository": "https://github.com/OrchardCMS/OrchardCore.git",
+    "cacheName": "orchardcore",
+    "license": "BSD-3-Clause",
+    "licenseFile": "LICENSE",
+    "before": "91cc98c5daa4e786b5f1980f2c5242ff18d1776c",
+    "after": "0e50949dad6637c7e17214baeaa44df6f6be2dd8",
+    "reason": "Add \"Save & Configure\" and \"Save and continue\" to the role Create and Edit pages (#11959) (#19895)",
+    "tags": [
+      "signature-change",
+      "guards",
+      "framework-entrypoints"
+    ],
+    "options": [],
+    "knownIssue": "issues/orchardcore-coverage.md",
+    "review": "reviews/orchardcore-role-submission.md",
+    "beforeLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
+    "afterLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
+    "routine": true,
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "1"
+        ],
+        "routine": true
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--externals",
+          "--depth",
+          "3",
+          "--entry",
+          "source::OrchardCore.Roles.Controllers.AdminController.Create(global::OrchardCore.Roles.ViewModels.CreateRoleViewModel)",
+          "--entry",
+          "source::OrchardCore.Roles.Controllers.AdminController.Create(global::OrchardCore.Roles.ViewModels.CreateRoleViewModel,string)",
+          "--entry",
+          "source::OrchardCore.Roles.Controllers.AdminController.EditPost(string,string)",
+          "--entry",
+          "source::OrchardCore.Roles.Controllers.AdminController.EditPost(string,string,string)"
+        ],
+        "routine": false
+      },
+      {
+        "id": "msbuild-roots",
+        "options": [
+          "--depth",
+          "1",
+          "--project",
+          "src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj",
+          "--framework",
+          "net10.0"
+        ],
+        "routine": false
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--externals",
+          "--depth",
+          "3",
+          "--project",
+          "src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj",
+          "--framework",
+          "net10.0",
+          "--entry",
+          "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.Create(global::OrchardCore.Roles.ViewModels.CreateRoleViewModel)",
+          "--entry",
+          "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.Create(global::OrchardCore.Roles.ViewModels.CreateRoleViewModel,string)",
+          "--entry",
+          "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.EditPost(string,string)",
+          "--entry",
+          "project:src/OrchardCore.Modules/OrchardCore.Roles/OrchardCore.Roles.csproj@net10.0::OrchardCore.Roles.Controllers.AdminController.EditPost(string,string,string)"
+        ],
+        "routine": false
       }
     ]
   }

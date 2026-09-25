@@ -1,0 +1,117 @@
+﻿format: text
+exit: 0
+stdout:
++ RouteClaimsRequirementPostConfigureOptions.PostConfigure
++ ├─ ConfigurationExtensions.OcelotRoutes
++ │  └─ configuration.GetSection
++ └─ for (i < options.Routes.Count)
++    ├─ routes.GetSection
++    └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements
++       ├─ new Dictionary<string, string>
++       ├─ section.GetChildren
++       └─ foreach (var child in section.GetChildren())
++          └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements (changes below depth limit)
+
++ Features.AddOcelotAuthorization
++ ├─ builder.AddAuthorization
++ ├─ services.AddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>
++ ├─ services.AddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>().AddSingleton<IScopesAuthorizer, ScopesAuthorizer>
++ ├─ new RouteClaimsRequirementPostConfigureOptions
++ └─ services.AddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>().AddSingleton<IScopesAuthorizer, ScopesAuthorizer>().AddSingleton<IPostConfigureOptions<FileConfiguration>>
+
+  new OcelotBuilder
++ ├─ typeof(FileConfigurationController).GetTypeInfo
++ ├─ callback
++ │  └─ OcelotBuilder.AddDefaultAspNetServices
++ │     ├─ Services.AddMiddlewareAnalysis
++ │     ├─ Services.AddMiddlewareAnalysis().AddWebEncoders
++ │     ├─ builder.AddApplicationPart
++ │     ├─ builder.AddApplicationPart(assembly).AddControllersAsServices
++ │     └─ builder.AddApplicationPart(assembly).AddControllersAsServices().AddNewtonsoftJson
++ ├─ services.AddMvcCore
++ ├─ customBuilder.Invoke
+  ├─ Services.Configure<FileConfiguration>
+  ├─ configurationRoot.GetSection
+  ├─ …
+  ├─ Services.TryAddSingleton<IRemoveOutputHeaders, RemoveOutputHeaders>
+  ├─ Services.TryAddSingleton<IClaimToThingConfigurationParser, ClaimToThingConfigurationParser>
+- ├─ Services.TryAddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>
+- ├─ Services.TryAddSingleton<IScopesAuthorizer, ScopesAuthorizer>
+  ├─ Services.TryAddSingleton<IAddClaimsToRequest, AddClaimsToRequest>
+  ├─ Services.TryAddSingleton<IAddHeadersToRequest, AddHeadersToRequest>
+  ├─ …
+  ├─ Services.TryAddSingleton<ISecurityOptionsCreator, SecurityOptionsCreator>
+  ├─ Services.TryAddSingleton<ISecurityPolicy, IPSecurityPolicy>
++ ├─ Features.AddOcelotAuthorization ↑ as above
+  ├─ Features.AddOcelotCache
+  ├─ Features.AddOcelotConfigurationRepository
+  ├─ …
+  ├─ Features.AddOcelotQualityOfService
+  ├─ Features.AddOcelotRateLimiting
+- ├─ typeof(FileConfigurationController).GetTypeInfo
+- ├─ if (customBuilder is null)
+- │  └─ callback
+- │     └─ OcelotBuilder.AddDefaultAspNetServices (changes below depth limit)
+- ├─ Services.AddMvcCore
+- └─ (customBuilder ?? AddDefaultAspNetServices).Invoke
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
++ RouteClaimsRequirementPostConfigureOptions.PostConfigure
++ ├─ ConfigurationExtensions.OcelotRoutes
++ │  └─ configuration.GetSection
++ └─ for (i < options.Routes.Count)
++    ├─ routes.GetSection
++    └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements
++       ├─ new Dictionary<string, string>
++       ├─ section.GetChildren
++       └─ foreach (var child in section.GetChildren())
++          └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements (changes below depth limit)
+
++ Features.AddOcelotAuthorization
++ ├─ builder.AddAuthorization
++ ├─ services.AddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>
++ ├─ services.AddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>().AddSingleton<IScopesAuthorizer, ScopesAuthorizer>
++ ├─ new RouteClaimsRequirementPostConfigureOptions
++ └─ services.AddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>().AddSingleton<IScopesAuthorizer, ScopesAuthorizer>().AddSingleton<IPostConfigureOptions<FileConfiguration>>
+
+  new OcelotBuilder
++ ├─ typeof(FileConfigurationController).GetTypeInfo
++ ├─ callback
++ │  └─ OcelotBuilder.AddDefaultAspNetServices
++ │     ├─ Services.AddMiddlewareAnalysis
++ │     ├─ Services.AddMiddlewareAnalysis().AddWebEncoders
++ │     ├─ builder.AddApplicationPart
++ │     ├─ builder.AddApplicationPart(assembly).AddControllersAsServices
++ │     └─ builder.AddApplicationPart(assembly).AddControllersAsServices().AddNewtonsoftJson
++ ├─ services.AddMvcCore
++ ├─ customBuilder.Invoke
+  ├─ Services.Configure<FileConfiguration>
+  ├─ configurationRoot.GetSection
+  ├─ …
+  ├─ Services.TryAddSingleton<IRemoveOutputHeaders, RemoveOutputHeaders>
+  ├─ Services.TryAddSingleton<IClaimToThingConfigurationParser, ClaimToThingConfigurationParser>
+- ├─ Services.TryAddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>
+- ├─ Services.TryAddSingleton<IScopesAuthorizer, ScopesAuthorizer>
+  ├─ Services.TryAddSingleton<IAddClaimsToRequest, AddClaimsToRequest>
+  ├─ Services.TryAddSingleton<IAddHeadersToRequest, AddHeadersToRequest>
+  ├─ …
+  ├─ Services.TryAddSingleton<ISecurityOptionsCreator, SecurityOptionsCreator>
+  ├─ Services.TryAddSingleton<ISecurityPolicy, IPSecurityPolicy>
++ ├─ Features.AddOcelotAuthorization ↑ as above
+  ├─ Features.AddOcelotCache
+  ├─ Features.AddOcelotConfigurationRepository
+  ├─ …
+  ├─ Features.AddOcelotQualityOfService
+  ├─ Features.AddOcelotRateLimiting
+- ├─ typeof(FileConfigurationController).GetTypeInfo
+- ├─ if (customBuilder is null)
+- │  └─ callback
+- │     └─ OcelotBuilder.AddDefaultAspNetServices (changes below depth limit)
+- ├─ Services.AddMvcCore
+- └─ (customBuilder ?? AddDefaultAspNetServices).Invoke
+```
+stderr:

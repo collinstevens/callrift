@@ -1,0 +1,49 @@
+﻿format: text
+exit: 0
+stdout:
++ RouteClaimsRequirementPostConfigureOptions.PostConfigure
++ ├─ ConfigurationExtensions.OcelotRoutes (depth limit)
++ └─ for (i < options.Routes.Count)
++    └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelot
+  ├─ ServiceCollectionExtensions.FindConfiguration (depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelot
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelotUsingBuilder
+  ├─ ServiceCollectionExtensions.FindConfiguration (depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelotUsingBuilder
+  ├─ ServiceCollectionExtensions.FindConfiguration (depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
++ RouteClaimsRequirementPostConfigureOptions.PostConfigure
++ ├─ ConfigurationExtensions.OcelotRoutes (depth limit)
++ └─ for (i < options.Routes.Count)
++    └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelot
+  ├─ ServiceCollectionExtensions.FindConfiguration (depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelot
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelotUsingBuilder
+  ├─ ServiceCollectionExtensions.FindConfiguration (depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelotUsingBuilder
+  ├─ ServiceCollectionExtensions.FindConfiguration (depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+```
+stderr:

@@ -1,0 +1,113 @@
+﻿format: text
+exit: 0
+stdout:
+  OcelotPipelineExtensions.ConfigureWebSockets
+  ├─ ? app.UseMiddleware<DownstreamRouteFinderMiddleware>
+  ├─ ? app.UseMiddleware<MultiplexingMiddleware>
++ ├─ ? app.UseMiddleware<SecurityMiddleware>
+  ├─ ? app.UseMiddleware<DownstreamRequestInitialiserMiddleware>
+  ├─ ? app.UseMiddleware<LoadBalancingMiddleware>
+  └─ …
+
+  IPSecurityPolicy.SecurityAsync
+  └─ ? Task.Run
+~    └─ IPSecurityPolicy.Security (changes below depth limit)
+
++ new SecurityError
++ └─ new Error (depth limit)
+
+  new SecurityMiddleware
+  ├─ IOcelotLoggerFactory.CreateLogger → OcelotLoggerFactory.CreateLogger (depth limit)
+  ├─ new OcelotMiddleware (depth limit)
++ └─ ? ArgumentNullException.ThrowIfNull
+
+  SecurityMiddleware.Invoke
+- ├─ ? httpContext.Items.DownstreamRoute
+- ├─ if (_securityPolicies != null)
+- │  └─ foreach (var policy in _securityPolicies)
+- │     ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
+- │     └─ ? httpContext.Items.UpsertErrors
++ ├─ ? context.Items.DownstreamRoute
++ ├─ foreach (var policy in _policies)
++ │  ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
++ │  └─ if (result.IsError)
++ │     ├─ ? context.Items.UpsertErrors
++ │     └─ SecurityMiddleware.HandleWebSocketErrors (changes below depth limit)
+  └─ ? _next.Invoke
+
+  samples/Metadata/Program.cs::<top-level>
+  ├─ …
+  ├─ new OcelotPipelineConfiguration (depth limit)
+  ├─ callback
+  ├─ callback
+~ │  └─ MyMiddlewares.ResponderMiddleware (changes below depth limit)
+  ├─ ? app.UseOcelot
+  └─ ? app.RunAsync
+stderr:
+manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+manual/Actions/Basic.cs:16: unresolved-call: Cannot bind builder.Services.AddOcelot.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Configuration.GetSection.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Logging.AddConfiguration.
+manual/Actions/Basic.cs:30: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+manual/Actions/Basic.cs:32: unresolved-call: Cannot bind builder.Logging.AddConsole.
+1023 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  OcelotPipelineExtensions.ConfigureWebSockets
+  ├─ ? app.UseMiddleware<DownstreamRouteFinderMiddleware>
+  ├─ ? app.UseMiddleware<MultiplexingMiddleware>
++ ├─ ? app.UseMiddleware<SecurityMiddleware>
+  ├─ ? app.UseMiddleware<DownstreamRequestInitialiserMiddleware>
+  ├─ ? app.UseMiddleware<LoadBalancingMiddleware>
+  └─ …
+
+  IPSecurityPolicy.SecurityAsync
+  └─ ? Task.Run
+~    └─ IPSecurityPolicy.Security (changes below depth limit)
+
++ new SecurityError
++ └─ new Error (depth limit)
+
+  new SecurityMiddleware
+  ├─ IOcelotLoggerFactory.CreateLogger → OcelotLoggerFactory.CreateLogger (depth limit)
+  ├─ new OcelotMiddleware (depth limit)
++ └─ ? ArgumentNullException.ThrowIfNull
+
+  SecurityMiddleware.Invoke
+- ├─ ? httpContext.Items.DownstreamRoute
+- ├─ if (_securityPolicies != null)
+- │  └─ foreach (var policy in _securityPolicies)
+- │     ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
+- │     └─ ? httpContext.Items.UpsertErrors
++ ├─ ? context.Items.DownstreamRoute
++ ├─ foreach (var policy in _policies)
++ │  ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
++ │  └─ if (result.IsError)
++ │     ├─ ? context.Items.UpsertErrors
++ │     └─ SecurityMiddleware.HandleWebSocketErrors (changes below depth limit)
+  └─ ? _next.Invoke
+
+  samples/Metadata/Program.cs::<top-level>
+  ├─ …
+  ├─ new OcelotPipelineConfiguration (depth limit)
+  ├─ callback
+  ├─ callback
+~ │  └─ MyMiddlewares.ResponderMiddleware (changes below depth limit)
+  ├─ ? app.UseOcelot
+  └─ ? app.RunAsync
+```
+stderr:
+manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+manual/Actions/Basic.cs:16: unresolved-call: Cannot bind builder.Services.AddOcelot.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Configuration.GetSection.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Logging.AddConfiguration.
+manual/Actions/Basic.cs:30: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+manual/Actions/Basic.cs:32: unresolved-call: Cannot bind builder.Logging.AddConsole.
+1023 additional diagnostics; use --diagnostics full.

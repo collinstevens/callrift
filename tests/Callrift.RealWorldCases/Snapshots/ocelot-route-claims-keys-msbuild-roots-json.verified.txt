@@ -1,0 +1,864 @@
+﻿exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "8646f482fc8c4aead02b6769762b6eeef73e9e6d",
+    "commit": "8646f482fc8c4aead02b6769762b6eeef73e9e6d",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "d1f22d930430410bfd0233f5e9e4f92980cf7df0",
+    "commit": "d1f22d930430410bfd0233f5e9e4f92980cf7df0",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "msbuild",
+    "status": "partial",
+    "limitations": [
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "callbacks-are-possible-calls",
+      "no-framework-dispatch-plugins"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": true,
+  "diagnostics": [],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "added",
+      "label": "RouteClaimsRequirementPostConfigureOptions.PostConfigure",
+      "detail": null,
+      "before": null,
+      "after": {
+        "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Authorization.RouteClaimsRequirementPostConfigureOptions.PostConfigure(string,global::Ocelot.Configuration.File.FileConfiguration)",
+        "signature": "Ocelot.Authorization.RouteClaimsRequirementPostConfigureOptions.PostConfigure(string, Ocelot.Configuration.File.FileConfiguration) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Ocelot.csproj@net10.0::Ocelot.Authorization.RouteClaimsRequirementPostConfigureOptions.PostConfigure(string,global::Ocelot.Configuration.File.FileConfiguration)"
+        ],
+        "definition": {
+          "path": "src/Authorization/RouteClaimsRequirementPostConfigureOptions.cs",
+          "startLine": 17,
+          "startColumn": 5,
+          "endLine": 34,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "added",
+          "label": "ConfigurationExtensions.OcelotRoutes",
+          "detail": "depth limit",
+          "before": null,
+          "after": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ConfigurationExtensions.OcelotRoutes(global::Microsoft.Extensions.Configuration.IConfiguration)",
+            "signature": "Ocelot.DependencyInjection.ConfigurationExtensions.OcelotRoutes(Microsoft.Extensions.Configuration.IConfiguration) -> Microsoft.Extensions.Configuration.IConfigurationSection",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ConfigurationExtensions.OcelotRoutes(global::Microsoft.Extensions.Configuration.IConfiguration)"
+            ],
+            "definition": {
+              "path": "src/DependencyInjection/ConfigurationExtensions.cs",
+              "startLine": 30,
+              "startColumn": 5,
+              "endLine": 31,
+              "endColumn": 71
+            },
+            "callSites": [
+              {
+                "path": "src/Authorization/RouteClaimsRequirementPostConfigureOptions.cs",
+                "startLine": 23,
+                "startColumn": 22,
+                "endLine": 23,
+                "endColumn": 51
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n2",
+          "kind": "branch",
+          "change": "added",
+          "label": "for (i < options.Routes.Count)",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Authorization/RouteClaimsRequirementPostConfigureOptions.cs",
+                "startLine": 24,
+                "startColumn": 9,
+                "endLine": 33,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n3",
+              "kind": "call",
+              "change": "added",
+              "label": "RouteClaimsRequirementPostConfigureOptions.ReadRequirements",
+              "detail": "changes below depth limit",
+              "before": null,
+              "after": {
+                "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.Authorization.RouteClaimsRequirementPostConfigureOptions.ReadRequirements(global::Microsoft.Extensions.Configuration.IConfigurationSection)",
+                "signature": "Ocelot.Authorization.RouteClaimsRequirementPostConfigureOptions.ReadRequirements(Microsoft.Extensions.Configuration.IConfigurationSection) -> System.Collections.Generic.Dictionary<string, string>",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot.csproj@net10.0::Ocelot.Authorization.RouteClaimsRequirementPostConfigureOptions.ReadRequirements(global::Microsoft.Extensions.Configuration.IConfigurationSection)"
+                ],
+                "definition": {
+                  "path": "src/Authorization/RouteClaimsRequirementPostConfigureOptions.cs",
+                  "startLine": 36,
+                  "startColumn": 5,
+                  "endLine": 44,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Authorization/RouteClaimsRequirementPostConfigureOptions.cs",
+                    "startLine": 27,
+                    "startColumn": 32,
+                    "endLine": 27,
+                    "endColumn": 61
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n4",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "ServiceCollectionExtensions.AddOcelot",
+      "detail": null,
+      "before": {
+        "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelot(global::Microsoft.Extensions.DependencyInjection.IServiceCollection)",
+        "signature": "Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelot(Microsoft.Extensions.DependencyInjection.IServiceCollection) -> Ocelot.DependencyInjection.IOcelotBuilder",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelot(global::Microsoft.Extensions.DependencyInjection.IServiceCollection)"
+        ],
+        "definition": {
+          "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+          "startLine": 21,
+          "startColumn": 5,
+          "endLine": 25,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelot(global::Microsoft.Extensions.DependencyInjection.IServiceCollection)",
+        "signature": "Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelot(Microsoft.Extensions.DependencyInjection.IServiceCollection) -> Ocelot.DependencyInjection.IOcelotBuilder",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelot(global::Microsoft.Extensions.DependencyInjection.IServiceCollection)"
+        ],
+        "definition": {
+          "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+          "startLine": 21,
+          "startColumn": 5,
+          "endLine": 25,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n5",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "ServiceCollectionExtensions.FindConfiguration",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.AspNetCore.Hosting.IWebHostEnvironment)",
+            "signature": "Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.AspNetCore.Hosting.IWebHostEnvironment) -> Microsoft.Extensions.Configuration.IConfiguration",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.AspNetCore.Hosting.IWebHostEnvironment)"
+            ],
+            "definition": {
+              "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+              "startLine": 78,
+              "startColumn": 5,
+              "endLine": 89,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+                "startLine": 23,
+                "startColumn": 29,
+                "endLine": 23,
+                "endColumn": 61
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.AspNetCore.Hosting.IWebHostEnvironment)",
+            "signature": "Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.AspNetCore.Hosting.IWebHostEnvironment) -> Microsoft.Extensions.Configuration.IConfiguration",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.AspNetCore.Hosting.IWebHostEnvironment)"
+            ],
+            "definition": {
+              "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+              "startLine": 78,
+              "startColumn": 5,
+              "endLine": 89,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+                "startLine": 23,
+                "startColumn": 29,
+                "endLine": 23,
+                "endColumn": 61
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n6",
+          "kind": "call",
+          "change": "modified",
+          "label": "new OcelotBuilder",
+          "detail": "changes below depth limit",
+          "before": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.OcelotBuilder..ctor(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)",
+            "signature": "Ocelot.DependencyInjection.OcelotBuilder.OcelotBuilder(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration, System.Func<Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, System.Reflection.Assembly, Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.OcelotBuilder..ctor(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)"
+            ],
+            "definition": {
+              "path": "src/DependencyInjection/OcelotBuilder.cs",
+              "startLine": 49,
+              "startColumn": 5,
+              "endLine": 141,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+                "startLine": 24,
+                "startColumn": 16,
+                "endLine": 24,
+                "endColumn": 58
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.OcelotBuilder..ctor(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)",
+            "signature": "Ocelot.DependencyInjection.OcelotBuilder.OcelotBuilder(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration, System.Func<Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, System.Reflection.Assembly, Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.OcelotBuilder..ctor(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)"
+            ],
+            "definition": {
+              "path": "src/DependencyInjection/OcelotBuilder.cs",
+              "startLine": 47,
+              "startColumn": 5,
+              "endLine": 139,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+                "startLine": 24,
+                "startColumn": 16,
+                "endLine": 24,
+                "endColumn": 58
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n7",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "ServiceCollectionExtensions.AddOcelot",
+      "detail": null,
+      "before": {
+        "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelot(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration)",
+        "signature": "Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelot(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration) -> Ocelot.DependencyInjection.IOcelotBuilder",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelot(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration)"
+        ],
+        "definition": {
+          "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+          "startLine": 36,
+          "startColumn": 5,
+          "endLine": 39,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelot(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration)",
+        "signature": "Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelot(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration) -> Ocelot.DependencyInjection.IOcelotBuilder",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelot(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration)"
+        ],
+        "definition": {
+          "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+          "startLine": 36,
+          "startColumn": 5,
+          "endLine": 39,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n8",
+          "kind": "call",
+          "change": "modified",
+          "label": "new OcelotBuilder",
+          "detail": "changes below depth limit",
+          "before": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.OcelotBuilder..ctor(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)",
+            "signature": "Ocelot.DependencyInjection.OcelotBuilder.OcelotBuilder(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration, System.Func<Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, System.Reflection.Assembly, Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.OcelotBuilder..ctor(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)"
+            ],
+            "definition": {
+              "path": "src/DependencyInjection/OcelotBuilder.cs",
+              "startLine": 49,
+              "startColumn": 5,
+              "endLine": 141,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+                "startLine": 38,
+                "startColumn": 16,
+                "endLine": 38,
+                "endColumn": 58
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.OcelotBuilder..ctor(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)",
+            "signature": "Ocelot.DependencyInjection.OcelotBuilder.OcelotBuilder(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration, System.Func<Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, System.Reflection.Assembly, Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.OcelotBuilder..ctor(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)"
+            ],
+            "definition": {
+              "path": "src/DependencyInjection/OcelotBuilder.cs",
+              "startLine": 47,
+              "startColumn": 5,
+              "endLine": 139,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+                "startLine": 38,
+                "startColumn": 16,
+                "endLine": 38,
+                "endColumn": 58
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n9",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "ServiceCollectionExtensions.AddOcelotUsingBuilder",
+      "detail": null,
+      "before": {
+        "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelotUsingBuilder(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)",
+        "signature": "Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelotUsingBuilder(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration, System.Func<Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, System.Reflection.Assembly, Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>) -> Ocelot.DependencyInjection.IOcelotBuilder",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelotUsingBuilder(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)"
+        ],
+        "definition": {
+          "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+          "startLine": 69,
+          "startColumn": 5,
+          "endLine": 73,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelotUsingBuilder(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)",
+        "signature": "Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelotUsingBuilder(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration, System.Func<Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, System.Reflection.Assembly, Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>) -> Ocelot.DependencyInjection.IOcelotBuilder",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelotUsingBuilder(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)"
+        ],
+        "definition": {
+          "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+          "startLine": 69,
+          "startColumn": 5,
+          "endLine": 73,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n10",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "ServiceCollectionExtensions.FindConfiguration",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.AspNetCore.Hosting.IWebHostEnvironment)",
+            "signature": "Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.AspNetCore.Hosting.IWebHostEnvironment) -> Microsoft.Extensions.Configuration.IConfiguration",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.AspNetCore.Hosting.IWebHostEnvironment)"
+            ],
+            "definition": {
+              "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+              "startLine": 78,
+              "startColumn": 5,
+              "endLine": 89,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+                "startLine": 71,
+                "startColumn": 27,
+                "endLine": 71,
+                "endColumn": 59
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.AspNetCore.Hosting.IWebHostEnvironment)",
+            "signature": "Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.AspNetCore.Hosting.IWebHostEnvironment) -> Microsoft.Extensions.Configuration.IConfiguration",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.AspNetCore.Hosting.IWebHostEnvironment)"
+            ],
+            "definition": {
+              "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+              "startLine": 78,
+              "startColumn": 5,
+              "endLine": 89,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+                "startLine": 71,
+                "startColumn": 27,
+                "endLine": 71,
+                "endColumn": 59
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n11",
+          "kind": "call",
+          "change": "modified",
+          "label": "new OcelotBuilder",
+          "detail": "changes below depth limit",
+          "before": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.OcelotBuilder..ctor(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)",
+            "signature": "Ocelot.DependencyInjection.OcelotBuilder.OcelotBuilder(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration, System.Func<Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, System.Reflection.Assembly, Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.OcelotBuilder..ctor(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)"
+            ],
+            "definition": {
+              "path": "src/DependencyInjection/OcelotBuilder.cs",
+              "startLine": 49,
+              "startColumn": 5,
+              "endLine": 141,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+                "startLine": 72,
+                "startColumn": 16,
+                "endLine": 72,
+                "endColumn": 73
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.OcelotBuilder..ctor(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)",
+            "signature": "Ocelot.DependencyInjection.OcelotBuilder.OcelotBuilder(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration, System.Func<Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, System.Reflection.Assembly, Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.OcelotBuilder..ctor(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)"
+            ],
+            "definition": {
+              "path": "src/DependencyInjection/OcelotBuilder.cs",
+              "startLine": 47,
+              "startColumn": 5,
+              "endLine": 139,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+                "startLine": 72,
+                "startColumn": 16,
+                "endLine": 72,
+                "endColumn": 73
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n12",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "ServiceCollectionExtensions.AddOcelotUsingBuilder",
+      "detail": null,
+      "before": {
+        "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelotUsingBuilder(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)",
+        "signature": "Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelotUsingBuilder(Microsoft.Extensions.DependencyInjection.IServiceCollection, System.Func<Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, System.Reflection.Assembly, Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>) -> Ocelot.DependencyInjection.IOcelotBuilder",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelotUsingBuilder(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)"
+        ],
+        "definition": {
+          "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+          "startLine": 52,
+          "startColumn": 5,
+          "endLine": 57,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelotUsingBuilder(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)",
+        "signature": "Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelotUsingBuilder(Microsoft.Extensions.DependencyInjection.IServiceCollection, System.Func<Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, System.Reflection.Assembly, Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>) -> Ocelot.DependencyInjection.IOcelotBuilder",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.AddOcelotUsingBuilder(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)"
+        ],
+        "definition": {
+          "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+          "startLine": 52,
+          "startColumn": 5,
+          "endLine": 57,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n13",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "ServiceCollectionExtensions.FindConfiguration",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.AspNetCore.Hosting.IWebHostEnvironment)",
+            "signature": "Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.AspNetCore.Hosting.IWebHostEnvironment) -> Microsoft.Extensions.Configuration.IConfiguration",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.AspNetCore.Hosting.IWebHostEnvironment)"
+            ],
+            "definition": {
+              "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+              "startLine": 78,
+              "startColumn": 5,
+              "endLine": 89,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+                "startLine": 55,
+                "startColumn": 29,
+                "endLine": 55,
+                "endColumn": 61
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.AspNetCore.Hosting.IWebHostEnvironment)",
+            "signature": "Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.AspNetCore.Hosting.IWebHostEnvironment) -> Microsoft.Extensions.Configuration.IConfiguration",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.AspNetCore.Hosting.IWebHostEnvironment)"
+            ],
+            "definition": {
+              "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+              "startLine": 78,
+              "startColumn": 5,
+              "endLine": 89,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+                "startLine": 55,
+                "startColumn": 29,
+                "endLine": 55,
+                "endColumn": 61
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n14",
+          "kind": "call",
+          "change": "modified",
+          "label": "new OcelotBuilder",
+          "detail": "changes below depth limit",
+          "before": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.OcelotBuilder..ctor(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)",
+            "signature": "Ocelot.DependencyInjection.OcelotBuilder.OcelotBuilder(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration, System.Func<Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, System.Reflection.Assembly, Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.OcelotBuilder..ctor(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)"
+            ],
+            "definition": {
+              "path": "src/DependencyInjection/OcelotBuilder.cs",
+              "startLine": 49,
+              "startColumn": 5,
+              "endLine": 141,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+                "startLine": 56,
+                "startColumn": 16,
+                "endLine": 56,
+                "endColumn": 73
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.OcelotBuilder..ctor(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)",
+            "signature": "Ocelot.DependencyInjection.OcelotBuilder.OcelotBuilder(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration, System.Func<Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, System.Reflection.Assembly, Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot.csproj@net10.0::Ocelot.DependencyInjection.OcelotBuilder..ctor(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,global::Microsoft.Extensions.Configuration.IConfiguration,global::System.Func<global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder, global::System.Reflection.Assembly, global::Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder>)"
+            ],
+            "definition": {
+              "path": "src/DependencyInjection/OcelotBuilder.cs",
+              "startLine": 47,
+              "startColumn": 5,
+              "endLine": 139,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+                "startLine": 56,
+                "startColumn": 16,
+                "endLine": 56,
+                "endColumn": 73
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:

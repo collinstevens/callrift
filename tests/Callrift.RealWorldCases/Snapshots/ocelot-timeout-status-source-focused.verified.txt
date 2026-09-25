@@ -1,0 +1,63 @@
+﻿format: text
+exit: 0
+stdout:
+  HttpExceptionToErrorMapper.Map
+  ├─ …
+  ├─ if (_mappers != null)
+  ├─ if (_mappers != null && _mappers.TryGetValue(type, out var mapper))
+- ├─ if (type == typeof(TimeoutException))
+- │  └─ new RequestTimedOutError
+- │     └─ ? : base($"Timeout making http request, exception: {exception}", OcelotErrorCode.RequestTimedOutError, StatusCodes.Status503ServiceUnavailable)
++ ├─ if (type == typeof(TimeoutException) && exception.InnerException is null)
++ │  └─ new RequestTimedOutError
++ │     └─ ? Error($"Timeout making http request, exception: {exception}", OcelotErrorCode.RequestTimedOutError, StatusCodes.Status504GatewayTimeout)
+  ├─ if (!(type == typeof(OperationCanceledException)))
+  ├─ if (type == typeof(OperationCanceledException) || type.IsSubclassOf(typeof(OperationCanceledExcep…
+  └─ …
+
+~ ErrorsToHttpStatusCodeMapper.Map (body changed; visible calls unchanged)
+  ├─ errors.Any ×2
+  └─ …
+stderr:
+manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+manual/Actions/Basic.cs:16: unresolved-call: Cannot bind builder.Services.AddOcelot.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Configuration.GetSection.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Logging.AddConfiguration.
+manual/Actions/Basic.cs:30: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+manual/Actions/Basic.cs:32: unresolved-call: Cannot bind builder.Logging.AddConsole.
+1096 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  HttpExceptionToErrorMapper.Map
+  ├─ …
+  ├─ if (_mappers != null)
+  ├─ if (_mappers != null && _mappers.TryGetValue(type, out var mapper))
+- ├─ if (type == typeof(TimeoutException))
+- │  └─ new RequestTimedOutError
+- │     └─ ? : base($"Timeout making http request, exception: {exception}", OcelotErrorCode.RequestTimedOutError, StatusCodes.Status503ServiceUnavailable)
++ ├─ if (type == typeof(TimeoutException) && exception.InnerException is null)
++ │  └─ new RequestTimedOutError
++ │     └─ ? Error($"Timeout making http request, exception: {exception}", OcelotErrorCode.RequestTimedOutError, StatusCodes.Status504GatewayTimeout)
+  ├─ if (!(type == typeof(OperationCanceledException)))
+  ├─ if (type == typeof(OperationCanceledException) || type.IsSubclassOf(typeof(OperationCanceledExcep…
+  └─ …
+
+~ ErrorsToHttpStatusCodeMapper.Map (body changed; visible calls unchanged)
+  ├─ errors.Any ×2
+  └─ …
+```
+stderr:
+manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+manual/Actions/Basic.cs:16: unresolved-call: Cannot bind builder.Services.AddOcelot.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Configuration.GetSection.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Logging.AddConfiguration.
+manual/Actions/Basic.cs:30: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+manual/Actions/Basic.cs:32: unresolved-call: Cannot bind builder.Logging.AddConsole.
+1096 additional diagnostics; use --diagnostics full.

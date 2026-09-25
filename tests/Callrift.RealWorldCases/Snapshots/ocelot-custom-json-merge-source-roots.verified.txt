@@ -1,0 +1,487 @@
+﻿format: text
+exit: 0
+stdout:
+~ FileConfigurationController.Get (signature changed)
+  ├─ try
+  ├─ catch (Exception e)
++ │  ├─ ExceptionExtensions.ToShortString (changes below depth limit)
+  │  └─ ? BadRequest
+  ├─ if ((configuration is null))
+  └─ else (!((configuration is null)))
+
+~ FileConfigurationController.Post (signature changed)
+  ├─ try
+  └─ catch (Exception e)
++    ├─ ExceptionExtensions.ToShortString (changes below depth limit)
+     └─ ? BadRequest
+
+  ConfigurationBuilderExtensions.AddOcelot
+~ └─ ConfigurationBuilderExtensions.AddOcelot (changes below depth limit)
+
+  ConfigurationBuilderExtensions.AddOcelot
+~ └─ ConfigurationBuilderExtensions.AddOcelot (changes below depth limit)
+
++ ConfigurationBuilderExtensions.AddOcelot
++ └─ ? SerializeToFile
+
+  ConfigurationBuilderExtensions.AddOcelot
+~ ├─ ConfigurationBuilderExtensions.GetMergedOcelotJson (signature changed)
+  └─ ConfigurationBuilderExtensions.ApplyMergeOcelotJsonOption (depth limit)
+
+  ConfigurationBuilderExtensions.AddOcelot
+- ├─ ? JsonConvert.SerializeObject
+- ├─ ? AddOcelotJsonFile
++ └─ ConfigurationBuilderExtensions.SerializeToFile (changes below depth limit)
+
+- ConfigurationBuilderExtensions.AddOcelotBaseUrl
+- ├─ ? new MemoryConfigurationSource
+- └─ ? builder.Add
+
++ ConfigurationBuilderExtensions.OcelotJAggregate
++ ├─ ConfigurationBuilderExtensions.OcelotJAggregates (changes below depth limit)
++ └─ ? routes.FirstOrDefault
++    ├─ if (r[nameof(FileAggregateRoute.UpstreamPathTemplate)] is not null)
++    │  └─ ? .ToString
++    └─ ? upstreamPathTemplate.Equals
+
++ ConfigurationBuilderExtensions.OcelotJDynamicRoute
++ ├─ ConfigurationBuilderExtensions.OcelotJDynamicRoutes (changes below depth limit)
++ └─ ? routes.FirstOrDefault
++    ├─ StringExtensions.IsEmpty (depth limit)
++    ├─ if (serviceNamespace.IsEmpty())
++    │  ├─ if (r[nameof(FileDynamicRoute.ServiceName)] is not null)
++    │  │  └─ ? .ToString
++    │  └─ ? serviceName.Equals
++    ├─ if (!((serviceNamespace.IsEmpty() && serviceName.Equals(r[nameof(FileDynamicRoute.ServiceName)]?.…
++    │  ├─ StringExtensions.IsNotEmpty (depth limit)
++    │  ├─ if (serviceNamespace.IsNotEmpty())
++    │  │  ├─ if (r[nameof(FileDynamicRoute.ServiceName)] is not null)
++    │  │  │  └─ ? .ToString
++    │  │  └─ ? serviceName.Equals
++    │  └─ if (serviceNamespace.IsNotEmpty() && serviceName.Equals(r[nameof(FileDynamicRoute.ServiceName)]?.…
++    │     ├─ if (r[nameof(FileDynamicRoute.ServiceNamespace)] is not null)
++    │     │  └─ ? .ToString
++    │     └─ ? serviceNamespace.Equals
++    └─ if (!((serviceNamespace.IsEmpty() && serviceName.Equals(r[nameof(FileDynamicRoute.ServiceName)]?.…
++       ├─ if (r[nameof(FileDynamicRoute.Key)] is not null)
++       │  └─ ? .ToString
++       └─ ? key.Equals
+
++ ConfigurationBuilderExtensions.OcelotJProperty
++ ├─ ? MergedConfigJObject.OcelotJSection
++ ├─ if (route is not null)
++ │  └─ ? .SelectToken
++ ├─ if (globalConfiguration is not null)
++ │  └─ ? .SelectToken
++ ├─ if (prop is not null && prop.Type != JTokenType.Null)
++ │  └─ ? prop.ToObject<T>
++ └─ if (glob is not null && glob.Type != JTokenType.Null)
++    └─ ? glob.ToObject<T>
+
++ ConfigurationBuilderExtensions.OcelotJProperty
++ ├─ ConfigurationBuilderExtensions.OcelotJRoute (changes below depth limit)
++ ├─ if (route is not null)
++ │  └─ ? .SelectToken
++ ├─ if (prop is not null && prop.Type != JTokenType.Null)
++ │  └─ ? prop.ToObject<T>
++ └─ else (!(prop is not null && prop.Type != JTokenType.Null))
++    └─ ConfigurationBuilderExtensions.OcelotJGlobalProperty (changes below depth limit)
+
++ ConfigurationBuilderExtensions.OcelotJson
+
++ ConfigurationExtensions.OcelotAggregate
++ └─ ConfigurationExtensions.OcelotAggregates (changes below depth limit)
+
++ ConfigurationExtensions.OcelotDynamicRoute
++ ├─ ConfigurationExtensions.OcelotDynamicRoutes (changes below depth limit)
++ └─ routes.GetChildren().FirstOrDefault
++    ├─ StringExtensions.IsEmpty (depth limit)
++    └─ if (!((serviceNamespace.IsEmpty() && serviceName.Equals(r[nameof(FileDynamicRoute.ServiceName)], …
++       └─ StringExtensions.IsNotEmpty (depth limit)
+
++ ConfigurationExtensions.OcelotGlobalProperty
++ ├─ ConfigurationExtensions.OcelotGlobalSection (changes below depth limit)
++ └─ ? OcelotGlobalSection(configuration, propertyName).Get<T>
+
++ ConfigurationExtensions.OcelotProperty
++ ├─ ConfigurationExtensions.OcelotRoutes (changes below depth limit)
++ ├─ ConfigurationExtensions.OcelotSection (changes below depth limit)
++ └─ if (property is not null)
++    └─ ? property.Get<T>
+
++ ConfigurationExtensions.OcelotRoot
+
++ ConfigurationExtensions.OcelotRoute
++ └─ ConfigurationExtensions.OcelotRoutes (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelot
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelotUsingBuilder
+  ├─ ServiceCollectionExtensions.FindConfiguration (depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelotUsingBuilder
+  ├─ ServiceCollectionExtensions.FindConfiguration (depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+
+~ new Error (body changed; visible calls unchanged)
+
++ new UnknownError
++ └─ ? : base(string.Empty, OcelotErrorCode.UnknownError, StatusCodes.Status500InternalServerError)
+
++ new UnknownError
++ └─ ? : base(exception, OcelotErrorCode.UnknownError, StatusCodes.Status500InternalServerError)
+
+  new UnknownError
+- ├─ new Error (depth limit)
++ └─ ? : base(message, OcelotErrorCode.UnknownError, StatusCodes.Status500InternalServerError)
+
+  AuthenticationSteps.WithJwtBearerAuthentication
+~ └─ AuthenticationSteps.WithJwtBearerAuthentication (changes below depth limit)
+
+  DiscoverySteps.WithDiscovery
+~ └─ ServiceCollectionExtensions.AddOcelot (changes below depth limit)
+
+  WebSocketsSteps.StartHttp2OcelotWithWebSockets
+  ├─ AcceptanceSteps.DownstreamUrl (depth limit)
+  └─ AcceptanceSteps.GivenOcelotHostIsRunning (changes below depth limit)
+     ├─ AcceptanceSteps.WithBasicConfiguration (depth limit)
+~    ├─ AcceptanceSteps.WithAddOcelot (changes below depth limit)
+     ├─ WebSocketsSteps.WithWebSockets (depth limit)
+     └─ WebSocketsSteps.StartHttp2OcelotWithWebSockets.ConfigureWebHost (depth limit)
+
+  WebSocketsSteps.StartOcelotWithWebSockets
+~ └─ WebSocketsSteps.StartOcelotWithWebSockets (changes below depth limit)
+
+  WebSocketsSteps.StartOcelotWithWebSockets
+  ├─ AcceptanceSteps.DownstreamUrl (depth limit)
+  ├─ if (configureServices is null)
+  │  └─ callback
+~ │     └─ AcceptanceSteps.WithAddOcelot (changes below depth limit)
+~ └─ AcceptanceSteps.GivenOcelotHostIsRunning (changes below depth limit)
+     ├─ AcceptanceSteps.WithBasicConfiguration (depth limit)
+     ├─ WebSocketsSteps.StartOcelotWithWebSockets.WithWebSocketsAndConfig (depth limit)
+     └─ …
+
+  samples/Configuration/Program.cs::<top-level>
+  ├─ …
+  ├─ ? builder.Configuration.SetBasePath
+  ├─ ? builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot
++ ├─ ? configuration.OcelotRoot
++ ├─ ? configuration.OcelotRoutes
++ ├─ ? configuration.OcelotGlobalConfiguration
++ ├─ ? configuration.OcelotGlobalSection
++ ├─ ? configuration.OcelotGlobalProperty<string>
++ ├─ Program.<Main>$.GlobalPath (changes below depth limit)
++ ├─ ? configuration.OcelotGlobalSection
++ ├─ ? configuration.OcelotGlobalSection("DefaultCountry").Get<string>
++ ├─ ? configuration.OcelotGlobalProperty<string>
++ ├─ Program.<Main>$.GlobalPath (changes below depth limit)
++ ├─ ? configuration.OcelotGlobalSection
++ ├─ ? configuration.OcelotGlobalSection("DefaultCities").Get<string[]>
++ ├─ ? configuration.OcelotGlobalProperty<string[]>
++ ├─ Program.<Main>$.GlobalPath (changes below depth limit)
++ ├─ ? configuration.OcelotGlobalSection
++ ├─ ? configuration.OcelotGlobalSection("Defaults").Get<DefaultInfo>
++ ├─ ? configuration.OcelotGlobalProperty<DefaultInfo>
++ ├─ ? configuration.OcelotRoute
++ ├─ ? configuration.OcelotProperty<string> ×2
++ ├─ ? configuration.OcelotRoute
++ ├─ ? configuration.OcelotProperty<string>
++ ├─ ? configuration.OcelotJson
++ ├─ ? configuration.OcelotJObject
++ ├─ ? configuration.OcelotJRoutes
++ ├─ ? configuration.OcelotJGlobalConfiguration ×2
++ ├─ ? configuration.OcelotJGlobalConfiguration()[nameof(FileGlobalConfiguration.BaseUrl)].Value<string>
++ ├─ ? configuration.OcelotJGlobalProperty<string> ×2
++ ├─ ? configuration.OcelotJGlobalProperty<string[]>
++ ├─ ? configuration.OcelotJGlobalProperty<DefaultInfo>
++ ├─ ? configuration.OcelotJRoute
++ ├─ ? jWeather["DefaultCity"].Value<string>
++ ├─ ? configuration.OcelotJProperty<string> ×2
++ ├─ ? configuration.OcelotJRoute
++ ├─ ? configuration.OcelotJProperty<string>
+  ├─ ? builder.Services.AddOcelot
+  ├─ ? builder.Environment.IsDevelopment
+  ├─ if (builder.Environment.IsDevelopment())
++ ├─ ? jRoutes.Children
++ ├─ ? jRoutes.Children().Count
++ ├─ TextWriterExtensions.Welcome (changes below depth limit)
++ ├─ TextWriterExtensions.Print (changes below depth limit)
++ ├─ foreach (JToken jRt in jRoutes)
++ │  ├─ ? jRoutes.IndexOf
++ │  └─ TextWriterExtensions.Print (changes below depth limit)
++ ├─ TextWriterExtensions.PageBreak (changes below depth limit)
++ ├─ TextWriterExtensions.Print (changes below depth limit)
++ ├─ for (i < totalRoutes)
++ │  ├─ Helpers.OcelotCustomProperties (changes below depth limit)
++ │  ├─ ? Console.Out.Print
++ │  └─ foreach (JProperty jp in customProps)
++ │     └─ TextWriterExtensions.Print (changes below depth limit)
++ ├─ TextWriterExtensions.PageBreak (changes below depth limit)
++ ├─ TextWriterExtensions.Print (changes below depth limit)
++ ├─ Helpers.OcelotCustomProperties (changes below depth limit)
++ ├─ TextWriterExtensions.Print (changes below depth limit)
++ ├─ foreach (JProperty jp in customGlobal)
++ │  ├─ ? jp.Value.ToString
++ │  └─ TextWriterExtensions.Print (changes below depth limit)
++ ├─ TextWriterExtensions.PageBreak (changes below depth limit)
+  ├─ ? builder.Build
+  ├─ ? app.UseOcelot
+  └─ …
+stderr:
+manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+manual/Actions/Basic.cs:16: unresolved-call: Cannot bind builder.Services.AddOcelot.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Configuration.GetSection.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Logging.AddConfiguration.
+manual/Actions/Basic.cs:30: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+manual/Actions/Basic.cs:32: unresolved-call: Cannot bind builder.Logging.AddConsole.
+1122 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+~ FileConfigurationController.Get (signature changed)
+  ├─ try
+  ├─ catch (Exception e)
++ │  ├─ ExceptionExtensions.ToShortString (changes below depth limit)
+  │  └─ ? BadRequest
+  ├─ if ((configuration is null))
+  └─ else (!((configuration is null)))
+
+~ FileConfigurationController.Post (signature changed)
+  ├─ try
+  └─ catch (Exception e)
++    ├─ ExceptionExtensions.ToShortString (changes below depth limit)
+     └─ ? BadRequest
+
+  ConfigurationBuilderExtensions.AddOcelot
+~ └─ ConfigurationBuilderExtensions.AddOcelot (changes below depth limit)
+
+  ConfigurationBuilderExtensions.AddOcelot
+~ └─ ConfigurationBuilderExtensions.AddOcelot (changes below depth limit)
+
++ ConfigurationBuilderExtensions.AddOcelot
++ └─ ? SerializeToFile
+
+  ConfigurationBuilderExtensions.AddOcelot
+~ ├─ ConfigurationBuilderExtensions.GetMergedOcelotJson (signature changed)
+  └─ ConfigurationBuilderExtensions.ApplyMergeOcelotJsonOption (depth limit)
+
+  ConfigurationBuilderExtensions.AddOcelot
+- ├─ ? JsonConvert.SerializeObject
+- ├─ ? AddOcelotJsonFile
++ └─ ConfigurationBuilderExtensions.SerializeToFile (changes below depth limit)
+
+- ConfigurationBuilderExtensions.AddOcelotBaseUrl
+- ├─ ? new MemoryConfigurationSource
+- └─ ? builder.Add
+
++ ConfigurationBuilderExtensions.OcelotJAggregate
++ ├─ ConfigurationBuilderExtensions.OcelotJAggregates (changes below depth limit)
++ └─ ? routes.FirstOrDefault
++    ├─ if (r[nameof(FileAggregateRoute.UpstreamPathTemplate)] is not null)
++    │  └─ ? .ToString
++    └─ ? upstreamPathTemplate.Equals
+
++ ConfigurationBuilderExtensions.OcelotJDynamicRoute
++ ├─ ConfigurationBuilderExtensions.OcelotJDynamicRoutes (changes below depth limit)
++ └─ ? routes.FirstOrDefault
++    ├─ StringExtensions.IsEmpty (depth limit)
++    ├─ if (serviceNamespace.IsEmpty())
++    │  ├─ if (r[nameof(FileDynamicRoute.ServiceName)] is not null)
++    │  │  └─ ? .ToString
++    │  └─ ? serviceName.Equals
++    ├─ if (!((serviceNamespace.IsEmpty() && serviceName.Equals(r[nameof(FileDynamicRoute.ServiceName)]?.…
++    │  ├─ StringExtensions.IsNotEmpty (depth limit)
++    │  ├─ if (serviceNamespace.IsNotEmpty())
++    │  │  ├─ if (r[nameof(FileDynamicRoute.ServiceName)] is not null)
++    │  │  │  └─ ? .ToString
++    │  │  └─ ? serviceName.Equals
++    │  └─ if (serviceNamespace.IsNotEmpty() && serviceName.Equals(r[nameof(FileDynamicRoute.ServiceName)]?.…
++    │     ├─ if (r[nameof(FileDynamicRoute.ServiceNamespace)] is not null)
++    │     │  └─ ? .ToString
++    │     └─ ? serviceNamespace.Equals
++    └─ if (!((serviceNamespace.IsEmpty() && serviceName.Equals(r[nameof(FileDynamicRoute.ServiceName)]?.…
++       ├─ if (r[nameof(FileDynamicRoute.Key)] is not null)
++       │  └─ ? .ToString
++       └─ ? key.Equals
+
++ ConfigurationBuilderExtensions.OcelotJProperty
++ ├─ ? MergedConfigJObject.OcelotJSection
++ ├─ if (route is not null)
++ │  └─ ? .SelectToken
++ ├─ if (globalConfiguration is not null)
++ │  └─ ? .SelectToken
++ ├─ if (prop is not null && prop.Type != JTokenType.Null)
++ │  └─ ? prop.ToObject<T>
++ └─ if (glob is not null && glob.Type != JTokenType.Null)
++    └─ ? glob.ToObject<T>
+
++ ConfigurationBuilderExtensions.OcelotJProperty
++ ├─ ConfigurationBuilderExtensions.OcelotJRoute (changes below depth limit)
++ ├─ if (route is not null)
++ │  └─ ? .SelectToken
++ ├─ if (prop is not null && prop.Type != JTokenType.Null)
++ │  └─ ? prop.ToObject<T>
++ └─ else (!(prop is not null && prop.Type != JTokenType.Null))
++    └─ ConfigurationBuilderExtensions.OcelotJGlobalProperty (changes below depth limit)
+
++ ConfigurationBuilderExtensions.OcelotJson
+
++ ConfigurationExtensions.OcelotAggregate
++ └─ ConfigurationExtensions.OcelotAggregates (changes below depth limit)
+
++ ConfigurationExtensions.OcelotDynamicRoute
++ ├─ ConfigurationExtensions.OcelotDynamicRoutes (changes below depth limit)
++ └─ routes.GetChildren().FirstOrDefault
++    ├─ StringExtensions.IsEmpty (depth limit)
++    └─ if (!((serviceNamespace.IsEmpty() && serviceName.Equals(r[nameof(FileDynamicRoute.ServiceName)], …
++       └─ StringExtensions.IsNotEmpty (depth limit)
+
++ ConfigurationExtensions.OcelotGlobalProperty
++ ├─ ConfigurationExtensions.OcelotGlobalSection (changes below depth limit)
++ └─ ? OcelotGlobalSection(configuration, propertyName).Get<T>
+
++ ConfigurationExtensions.OcelotProperty
++ ├─ ConfigurationExtensions.OcelotRoutes (changes below depth limit)
++ ├─ ConfigurationExtensions.OcelotSection (changes below depth limit)
++ └─ if (property is not null)
++    └─ ? property.Get<T>
+
++ ConfigurationExtensions.OcelotRoot
+
++ ConfigurationExtensions.OcelotRoute
++ └─ ConfigurationExtensions.OcelotRoutes (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelot
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelotUsingBuilder
+  ├─ ServiceCollectionExtensions.FindConfiguration (depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelotUsingBuilder
+  ├─ ServiceCollectionExtensions.FindConfiguration (depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+
+~ new Error (body changed; visible calls unchanged)
+
++ new UnknownError
++ └─ ? : base(string.Empty, OcelotErrorCode.UnknownError, StatusCodes.Status500InternalServerError)
+
++ new UnknownError
++ └─ ? : base(exception, OcelotErrorCode.UnknownError, StatusCodes.Status500InternalServerError)
+
+  new UnknownError
+- ├─ new Error (depth limit)
++ └─ ? : base(message, OcelotErrorCode.UnknownError, StatusCodes.Status500InternalServerError)
+
+  AuthenticationSteps.WithJwtBearerAuthentication
+~ └─ AuthenticationSteps.WithJwtBearerAuthentication (changes below depth limit)
+
+  DiscoverySteps.WithDiscovery
+~ └─ ServiceCollectionExtensions.AddOcelot (changes below depth limit)
+
+  WebSocketsSteps.StartHttp2OcelotWithWebSockets
+  ├─ AcceptanceSteps.DownstreamUrl (depth limit)
+  └─ AcceptanceSteps.GivenOcelotHostIsRunning (changes below depth limit)
+     ├─ AcceptanceSteps.WithBasicConfiguration (depth limit)
+~    ├─ AcceptanceSteps.WithAddOcelot (changes below depth limit)
+     ├─ WebSocketsSteps.WithWebSockets (depth limit)
+     └─ WebSocketsSteps.StartHttp2OcelotWithWebSockets.ConfigureWebHost (depth limit)
+
+  WebSocketsSteps.StartOcelotWithWebSockets
+~ └─ WebSocketsSteps.StartOcelotWithWebSockets (changes below depth limit)
+
+  WebSocketsSteps.StartOcelotWithWebSockets
+  ├─ AcceptanceSteps.DownstreamUrl (depth limit)
+  ├─ if (configureServices is null)
+  │  └─ callback
+~ │     └─ AcceptanceSteps.WithAddOcelot (changes below depth limit)
+~ └─ AcceptanceSteps.GivenOcelotHostIsRunning (changes below depth limit)
+     ├─ AcceptanceSteps.WithBasicConfiguration (depth limit)
+     ├─ WebSocketsSteps.StartOcelotWithWebSockets.WithWebSocketsAndConfig (depth limit)
+     └─ …
+
+  samples/Configuration/Program.cs::<top-level>
+  ├─ …
+  ├─ ? builder.Configuration.SetBasePath
+  ├─ ? builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot
++ ├─ ? configuration.OcelotRoot
++ ├─ ? configuration.OcelotRoutes
++ ├─ ? configuration.OcelotGlobalConfiguration
++ ├─ ? configuration.OcelotGlobalSection
++ ├─ ? configuration.OcelotGlobalProperty<string>
++ ├─ Program.<Main>$.GlobalPath (changes below depth limit)
++ ├─ ? configuration.OcelotGlobalSection
++ ├─ ? configuration.OcelotGlobalSection("DefaultCountry").Get<string>
++ ├─ ? configuration.OcelotGlobalProperty<string>
++ ├─ Program.<Main>$.GlobalPath (changes below depth limit)
++ ├─ ? configuration.OcelotGlobalSection
++ ├─ ? configuration.OcelotGlobalSection("DefaultCities").Get<string[]>
++ ├─ ? configuration.OcelotGlobalProperty<string[]>
++ ├─ Program.<Main>$.GlobalPath (changes below depth limit)
++ ├─ ? configuration.OcelotGlobalSection
++ ├─ ? configuration.OcelotGlobalSection("Defaults").Get<DefaultInfo>
++ ├─ ? configuration.OcelotGlobalProperty<DefaultInfo>
++ ├─ ? configuration.OcelotRoute
++ ├─ ? configuration.OcelotProperty<string> ×2
++ ├─ ? configuration.OcelotRoute
++ ├─ ? configuration.OcelotProperty<string>
++ ├─ ? configuration.OcelotJson
++ ├─ ? configuration.OcelotJObject
++ ├─ ? configuration.OcelotJRoutes
++ ├─ ? configuration.OcelotJGlobalConfiguration ×2
++ ├─ ? configuration.OcelotJGlobalConfiguration()[nameof(FileGlobalConfiguration.BaseUrl)].Value<string>
++ ├─ ? configuration.OcelotJGlobalProperty<string> ×2
++ ├─ ? configuration.OcelotJGlobalProperty<string[]>
++ ├─ ? configuration.OcelotJGlobalProperty<DefaultInfo>
++ ├─ ? configuration.OcelotJRoute
++ ├─ ? jWeather["DefaultCity"].Value<string>
++ ├─ ? configuration.OcelotJProperty<string> ×2
++ ├─ ? configuration.OcelotJRoute
++ ├─ ? configuration.OcelotJProperty<string>
+  ├─ ? builder.Services.AddOcelot
+  ├─ ? builder.Environment.IsDevelopment
+  ├─ if (builder.Environment.IsDevelopment())
++ ├─ ? jRoutes.Children
++ ├─ ? jRoutes.Children().Count
++ ├─ TextWriterExtensions.Welcome (changes below depth limit)
++ ├─ TextWriterExtensions.Print (changes below depth limit)
++ ├─ foreach (JToken jRt in jRoutes)
++ │  ├─ ? jRoutes.IndexOf
++ │  └─ TextWriterExtensions.Print (changes below depth limit)
++ ├─ TextWriterExtensions.PageBreak (changes below depth limit)
++ ├─ TextWriterExtensions.Print (changes below depth limit)
++ ├─ for (i < totalRoutes)
++ │  ├─ Helpers.OcelotCustomProperties (changes below depth limit)
++ │  ├─ ? Console.Out.Print
++ │  └─ foreach (JProperty jp in customProps)
++ │     └─ TextWriterExtensions.Print (changes below depth limit)
++ ├─ TextWriterExtensions.PageBreak (changes below depth limit)
++ ├─ TextWriterExtensions.Print (changes below depth limit)
++ ├─ Helpers.OcelotCustomProperties (changes below depth limit)
++ ├─ TextWriterExtensions.Print (changes below depth limit)
++ ├─ foreach (JProperty jp in customGlobal)
++ │  ├─ ? jp.Value.ToString
++ │  └─ TextWriterExtensions.Print (changes below depth limit)
++ ├─ TextWriterExtensions.PageBreak (changes below depth limit)
+  ├─ ? builder.Build
+  ├─ ? app.UseOcelot
+  └─ …
+```
+stderr:
+manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+manual/Actions/Basic.cs:16: unresolved-call: Cannot bind builder.Services.AddOcelot.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Configuration.GetSection.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Logging.AddConfiguration.
+manual/Actions/Basic.cs:30: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+manual/Actions/Basic.cs:32: unresolved-call: Cannot bind builder.Logging.AddConsole.
+1122 additional diagnostics; use --diagnostics full.

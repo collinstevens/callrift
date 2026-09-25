@@ -1,0 +1,51 @@
+﻿format: text
+exit: 0
+stdout:
+  ActivityController.Create
+  ├─ …
+  ├─ IDisplayManager<TModel>.BuildEditorAsync → ActivityDisplayManager.BuildEditorAsync (depth limit)
+  ├─ new ActivityEditViewModel
+  └─ if (!activity.HasEditor)
+~    └─ ActivityController.Create (changes below depth limit)
+
+  WorkflowTypeController.Edit
+  ├─ …
+  ├─ IWorkflowTypeStore.SaveAsync → WorkflowTypeStore.SaveAsync (depth limit)
+  ├─ NotifierExtensions.SuccessAsync (depth limit)
++ ├─ WorkflowTypeExtensions.IsMissingStartActivity (changes below depth limit)
++ └─ if (workflowType.IsMissingStartActivity())
++    └─ NotifierExtensions.WarningAsync (depth limit)
+stderr:
+src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/ShapePagerTag.cs:57: unresolved-call: Cannot bind objectValue.ItemClasses.Add.
+src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/ShapePagerTag.cs:64: unresolved-call: Cannot bind objectValue.ItemClasses.Add.
+src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/ShapePagerTag.cs:79: unresolved-call: Cannot bind objectValue.Classes.Add.
+src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/ShapePagerTag.cs:86: unresolved-call: Cannot bind objectValue.Classes.Add.
+src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/ShapePagerTag.cs:100: unresolved-call: Cannot bind objectValue.Attributes.TryAdd.
+src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/ShapePagerTag.cs:114: unresolved-call: Cannot bind objectValue.ItemAttributes.TryAdd.
+
+format: md
+exit: 0
+stdout:
+```diff
+  ActivityController.Create
+  ├─ …
+  ├─ IDisplayManager<TModel>.BuildEditorAsync → ActivityDisplayManager.BuildEditorAsync (depth limit)
+  ├─ new ActivityEditViewModel
+  └─ if (!activity.HasEditor)
+~    └─ ActivityController.Create (changes below depth limit)
+
+  WorkflowTypeController.Edit
+  ├─ …
+  ├─ IWorkflowTypeStore.SaveAsync → WorkflowTypeStore.SaveAsync (depth limit)
+  ├─ NotifierExtensions.SuccessAsync (depth limit)
++ ├─ WorkflowTypeExtensions.IsMissingStartActivity (changes below depth limit)
++ └─ if (workflowType.IsMissingStartActivity())
++    └─ NotifierExtensions.WarningAsync (depth limit)
+```
+stderr:
+src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/ShapePagerTag.cs:57: unresolved-call: Cannot bind objectValue.ItemClasses.Add.
+src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/ShapePagerTag.cs:64: unresolved-call: Cannot bind objectValue.ItemClasses.Add.
+src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/ShapePagerTag.cs:79: unresolved-call: Cannot bind objectValue.Classes.Add.
+src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/ShapePagerTag.cs:86: unresolved-call: Cannot bind objectValue.Classes.Add.
+src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/ShapePagerTag.cs:100: unresolved-call: Cannot bind objectValue.Attributes.TryAdd.
+src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/ShapePagerTag.cs:114: unresolved-call: Cannot bind objectValue.ItemAttributes.TryAdd.

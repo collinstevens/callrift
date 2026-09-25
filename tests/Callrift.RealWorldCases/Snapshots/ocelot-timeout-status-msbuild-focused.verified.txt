@@ -1,0 +1,45 @@
+﻿format: text
+exit: 0
+stdout:
+  HttpExceptionToErrorMapper.Map
+  ├─ …
+  ├─ if (_mappers != null)
+  ├─ if (_mappers != null && _mappers.TryGetValue(type, out var mapper))
+- ├─ if (type == typeof(TimeoutException))
+- │  └─ new RequestTimedOutError
+- │     └─ new Error (depth limit)
++ ├─ if (type == typeof(TimeoutException) && exception.InnerException is null)
++ │  └─ new RequestTimedOutError
++ │     └─ new Error (depth limit)
+  ├─ if (!(type == typeof(OperationCanceledException)))
+  ├─ if (type == typeof(OperationCanceledException) || type.IsSubclassOf(typeof(OperationCanceledExcep…
+  └─ …
+
+~ ErrorsToHttpStatusCodeMapper.Map (body changed; visible calls unchanged)
+  ├─ errors.Any ×2
+  └─ …
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  HttpExceptionToErrorMapper.Map
+  ├─ …
+  ├─ if (_mappers != null)
+  ├─ if (_mappers != null && _mappers.TryGetValue(type, out var mapper))
+- ├─ if (type == typeof(TimeoutException))
+- │  └─ new RequestTimedOutError
+- │     └─ new Error (depth limit)
++ ├─ if (type == typeof(TimeoutException) && exception.InnerException is null)
++ │  └─ new RequestTimedOutError
++ │     └─ new Error (depth limit)
+  ├─ if (!(type == typeof(OperationCanceledException)))
+  ├─ if (type == typeof(OperationCanceledException) || type.IsSubclassOf(typeof(OperationCanceledExcep…
+  └─ …
+
+~ ErrorsToHttpStatusCodeMapper.Map (body changed; visible calls unchanged)
+  ├─ errors.Any ×2
+  └─ …
+```
+stderr:

@@ -1,0 +1,237 @@
+﻿format: text
+exit: 0
+stdout:
+~ FileConfigurationController.Get (signature changed)
+  ├─ try
++ └─ catch (Exception e)
++    └─ ExceptionExtensions.ToShortString (changes below depth limit)
+
+~ FileConfigurationController.Post (signature changed)
+  ├─ try
++ └─ catch (Exception e)
++    └─ ExceptionExtensions.ToShortString (changes below depth limit)
+
+  ConfigurationBuilderExtensions.AddOcelot
+~ └─ ConfigurationBuilderExtensions.AddOcelot (changes below depth limit)
+
++ ConfigurationBuilderExtensions.AddOcelot
++ └─ ConfigurationBuilderExtensions.SerializeToFile (changes below depth limit)
+
+  ConfigurationBuilderExtensions.AddOcelot
+~ ├─ ConfigurationBuilderExtensions.GetMergedOcelotJson (signature changed)
+  └─ ConfigurationBuilderExtensions.ApplyMergeOcelotJsonOption (depth limit)
+
+  ConfigurationBuilderExtensions.AddOcelot
+- ├─ ConfigurationBuilderExtensions.AddOcelotJsonFile (depth limit)
++ └─ ConfigurationBuilderExtensions.SerializeToFile (changes below depth limit)
+
+- ConfigurationBuilderExtensions.AddOcelotBaseUrl
+
++ ConfigurationBuilderExtensions.OcelotJAggregate
++ └─ ConfigurationBuilderExtensions.OcelotJAggregates (changes below depth limit)
+
++ ConfigurationBuilderExtensions.OcelotJDynamicRoute
++ ├─ ConfigurationBuilderExtensions.OcelotJDynamicRoutes (changes below depth limit)
++ └─ routes.FirstOrDefault
++    ├─ StringExtensions.IsEmpty (depth limit)
++    └─ if (!((serviceNamespace.IsEmpty() && serviceName.Equals(r[nameof(FileDynamicRoute.ServiceName)]?.…
++       └─ StringExtensions.IsNotEmpty (depth limit)
+
++ ConfigurationBuilderExtensions.OcelotJProperty
++ ├─ ConfigurationBuilderExtensions.OcelotJRoute (changes below depth limit)
++ └─ else (!(prop is not null && prop.Type != JTokenType.Null))
++    └─ ConfigurationBuilderExtensions.OcelotJGlobalProperty (changes below depth limit)
+
++ ConfigurationBuilderExtensions.OcelotJProperty
++ └─ ConfigurationBuilderExtensions.OcelotJSection (changes below depth limit)
+
++ ConfigurationBuilderExtensions.OcelotJson
+
++ ConfigurationExtensions.OcelotAggregate
++ └─ ConfigurationExtensions.OcelotAggregates (changes below depth limit)
+
++ ConfigurationExtensions.OcelotDynamicRoute
++ ├─ ConfigurationExtensions.OcelotDynamicRoutes (changes below depth limit)
++ └─ routes.GetChildren().FirstOrDefault
++    ├─ StringExtensions.IsEmpty (depth limit)
++    └─ if (!((serviceNamespace.IsEmpty() && serviceName.Equals(r[nameof(FileDynamicRoute.ServiceName)], …
++       └─ StringExtensions.IsNotEmpty (depth limit)
+
++ ConfigurationExtensions.OcelotGlobalProperty
++ └─ ConfigurationExtensions.OcelotGlobalSection (changes below depth limit)
+
++ ConfigurationExtensions.OcelotProperty
++ ├─ ConfigurationExtensions.OcelotRoutes (changes below depth limit)
++ └─ ConfigurationExtensions.OcelotSection (changes below depth limit)
+
++ ConfigurationExtensions.OcelotRoot
+
++ ConfigurationExtensions.OcelotRoute
++ └─ ConfigurationExtensions.OcelotRoutes (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelot
+~ ├─ ServiceCollectionExtensions.FindConfiguration (changes below depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelot
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelotUsingBuilder
+~ ├─ ServiceCollectionExtensions.FindConfiguration (changes below depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelotUsingBuilder
+~ ├─ ServiceCollectionExtensions.FindConfiguration (changes below depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ExceptionHandlerMiddleware.Invoke
+  ├─ try
+  │  ├─ HttpItemsExtensions.IInternalConfiguration (depth limit)
+~ │  ├─ ExceptionHandlerMiddleware.TrySetGlobalRequestId (changes below depth limit)
+  │  └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (depth limit)
+  ├─ catch (OperationCanceledException e) when (context.RequestAborted.IsCancellationRequested)
+  ├─ catch (Exception e)
+  └─ …
+
++ new UnknownError
++ └─ new Error (depth limit)
+
++ new UnknownError
++ └─ new Error (changes below depth limit)
+
+~ new UnknownError (body changed; visible calls unchanged)
+  └─ new Error (depth limit)
+
+  OcelotHttpTracingHandler.SendAsync
+  └─ IOcelotTracer.SendAsync (depth limit)
+~    └─ OcelotHttpTracingHandler.AddTraceId (changes below depth limit)
+
+  RequestIdMiddleware.Invoke
+~ └─ RequestIdMiddleware.SetOcelotRequestId (changes below depth limit)
+
+  HttpRequesterMiddleware.Invoke
+~ ├─ IHttpRequester.GetResponse → MessageInvokerHttpRequester.GetResponse (changes below depth limit)
+  ├─ HttpRequesterMiddleware.CreateLogBasedOnResponse (depth limit)
+  ├─ if (response.IsError)
+  └─ …
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+~ FileConfigurationController.Get (signature changed)
+  ├─ try
++ └─ catch (Exception e)
++    └─ ExceptionExtensions.ToShortString (changes below depth limit)
+
+~ FileConfigurationController.Post (signature changed)
+  ├─ try
++ └─ catch (Exception e)
++    └─ ExceptionExtensions.ToShortString (changes below depth limit)
+
+  ConfigurationBuilderExtensions.AddOcelot
+~ └─ ConfigurationBuilderExtensions.AddOcelot (changes below depth limit)
+
++ ConfigurationBuilderExtensions.AddOcelot
++ └─ ConfigurationBuilderExtensions.SerializeToFile (changes below depth limit)
+
+  ConfigurationBuilderExtensions.AddOcelot
+~ ├─ ConfigurationBuilderExtensions.GetMergedOcelotJson (signature changed)
+  └─ ConfigurationBuilderExtensions.ApplyMergeOcelotJsonOption (depth limit)
+
+  ConfigurationBuilderExtensions.AddOcelot
+- ├─ ConfigurationBuilderExtensions.AddOcelotJsonFile (depth limit)
++ └─ ConfigurationBuilderExtensions.SerializeToFile (changes below depth limit)
+
+- ConfigurationBuilderExtensions.AddOcelotBaseUrl
+
++ ConfigurationBuilderExtensions.OcelotJAggregate
++ └─ ConfigurationBuilderExtensions.OcelotJAggregates (changes below depth limit)
+
++ ConfigurationBuilderExtensions.OcelotJDynamicRoute
++ ├─ ConfigurationBuilderExtensions.OcelotJDynamicRoutes (changes below depth limit)
++ └─ routes.FirstOrDefault
++    ├─ StringExtensions.IsEmpty (depth limit)
++    └─ if (!((serviceNamespace.IsEmpty() && serviceName.Equals(r[nameof(FileDynamicRoute.ServiceName)]?.…
++       └─ StringExtensions.IsNotEmpty (depth limit)
+
++ ConfigurationBuilderExtensions.OcelotJProperty
++ ├─ ConfigurationBuilderExtensions.OcelotJRoute (changes below depth limit)
++ └─ else (!(prop is not null && prop.Type != JTokenType.Null))
++    └─ ConfigurationBuilderExtensions.OcelotJGlobalProperty (changes below depth limit)
+
++ ConfigurationBuilderExtensions.OcelotJProperty
++ └─ ConfigurationBuilderExtensions.OcelotJSection (changes below depth limit)
+
++ ConfigurationBuilderExtensions.OcelotJson
+
++ ConfigurationExtensions.OcelotAggregate
++ └─ ConfigurationExtensions.OcelotAggregates (changes below depth limit)
+
++ ConfigurationExtensions.OcelotDynamicRoute
++ ├─ ConfigurationExtensions.OcelotDynamicRoutes (changes below depth limit)
++ └─ routes.GetChildren().FirstOrDefault
++    ├─ StringExtensions.IsEmpty (depth limit)
++    └─ if (!((serviceNamespace.IsEmpty() && serviceName.Equals(r[nameof(FileDynamicRoute.ServiceName)], …
++       └─ StringExtensions.IsNotEmpty (depth limit)
+
++ ConfigurationExtensions.OcelotGlobalProperty
++ └─ ConfigurationExtensions.OcelotGlobalSection (changes below depth limit)
+
++ ConfigurationExtensions.OcelotProperty
++ ├─ ConfigurationExtensions.OcelotRoutes (changes below depth limit)
++ └─ ConfigurationExtensions.OcelotSection (changes below depth limit)
+
++ ConfigurationExtensions.OcelotRoot
+
++ ConfigurationExtensions.OcelotRoute
++ └─ ConfigurationExtensions.OcelotRoutes (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelot
+~ ├─ ServiceCollectionExtensions.FindConfiguration (changes below depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelot
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelotUsingBuilder
+~ ├─ ServiceCollectionExtensions.FindConfiguration (changes below depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ServiceCollectionExtensions.AddOcelotUsingBuilder
+~ ├─ ServiceCollectionExtensions.FindConfiguration (changes below depth limit)
+~ └─ new OcelotBuilder (changes below depth limit)
+
+  ExceptionHandlerMiddleware.Invoke
+  ├─ try
+  │  ├─ HttpItemsExtensions.IInternalConfiguration (depth limit)
+~ │  ├─ ExceptionHandlerMiddleware.TrySetGlobalRequestId (changes below depth limit)
+  │  └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (depth limit)
+  ├─ catch (OperationCanceledException e) when (context.RequestAborted.IsCancellationRequested)
+  ├─ catch (Exception e)
+  └─ …
+
++ new UnknownError
++ └─ new Error (depth limit)
+
++ new UnknownError
++ └─ new Error (changes below depth limit)
+
+~ new UnknownError (body changed; visible calls unchanged)
+  └─ new Error (depth limit)
+
+  OcelotHttpTracingHandler.SendAsync
+  └─ IOcelotTracer.SendAsync (depth limit)
+~    └─ OcelotHttpTracingHandler.AddTraceId (changes below depth limit)
+
+  RequestIdMiddleware.Invoke
+~ └─ RequestIdMiddleware.SetOcelotRequestId (changes below depth limit)
+
+  HttpRequesterMiddleware.Invoke
+~ ├─ IHttpRequester.GetResponse → MessageInvokerHttpRequester.GetResponse (changes below depth limit)
+  ├─ HttpRequesterMiddleware.CreateLogBasedOnResponse (depth limit)
+  ├─ if (response.IsError)
+  └─ …
+```
+stderr:

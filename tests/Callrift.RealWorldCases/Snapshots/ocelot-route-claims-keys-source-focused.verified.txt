@@ -1,0 +1,135 @@
+﻿format: text
+exit: 0
+stdout:
++ RouteClaimsRequirementPostConfigureOptions.PostConfigure
++ ├─ ConfigurationExtensions.OcelotRoutes
++ │  └─ configuration.GetSection
++ └─ for (i < options.Routes.Count)
++    ├─ routes.GetSection
++    └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements
++       ├─ new Dictionary<string, string>
++       ├─ section.GetChildren
++       └─ foreach (var child in section.GetChildren())
++          └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements (changes below depth limit)
+
++ Features.AddOcelotAuthorization
++ ├─ ? builder.AddAuthorization
++ ├─ services.AddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>
++ ├─ services.AddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>().AddSingleton<IScopesAuthorizer, ScopesAuthorizer>
++ ├─ new RouteClaimsRequirementPostConfigureOptions
++ └─ services.AddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>().AddSingleton<IScopesAuthorizer, ScopesAuthorizer>().AddSingleton<IPostConfigureOptions<FileConfiguration>>
+
+  new OcelotBuilder
++ ├─ typeof(FileConfigurationController).GetTypeInfo
++ ├─ callback
++ │  └─ OcelotBuilder.AddDefaultAspNetServices
++ │     ├─ ? Services.AddMiddlewareAnalysis
++ │     ├─ ? Services.AddMiddlewareAnalysis().AddWebEncoders
++ │     ├─ ? builder.AddApplicationPart
++ │     ├─ ? builder.AddApplicationPart(assembly).AddControllersAsServices
++ │     └─ ? builder.AddApplicationPart(assembly).AddControllersAsServices().AddNewtonsoftJson
++ ├─ ? services.AddMvcCore
++ ├─ ? customBuilder.Invoke
+  ├─ ? Services.Configure<FileConfiguration>
+  ├─ configurationRoot.GetSection
+  ├─ …
+  ├─ Services.TryAddSingleton<IRemoveOutputHeaders, RemoveOutputHeaders>
+  ├─ Services.TryAddSingleton<IClaimToThingConfigurationParser, ClaimToThingConfigurationParser>
+- ├─ Services.TryAddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>
+- ├─ Services.TryAddSingleton<IScopesAuthorizer, ScopesAuthorizer>
+  ├─ Services.TryAddSingleton<IAddClaimsToRequest, AddClaimsToRequest>
+  ├─ Services.TryAddSingleton<IAddHeadersToRequest, AddHeadersToRequest>
+  ├─ …
+  ├─ Services.TryAddSingleton<ISecurityOptionsCreator, SecurityOptionsCreator>
+  ├─ Services.TryAddSingleton<ISecurityPolicy, IPSecurityPolicy>
++ ├─ Features.AddOcelotAuthorization ↑ as above
+  ├─ Features.AddOcelotCache
+  ├─ Features.AddOcelotConfigurationRepository
+  ├─ …
+  ├─ Features.AddOcelotQualityOfService
+  ├─ Features.AddOcelotRateLimiting
+- ├─ typeof(FileConfigurationController).GetTypeInfo
+- ├─ if (customBuilder is null)
+- │  └─ callback
+- │     └─ OcelotBuilder.AddDefaultAspNetServices (changes below depth limit)
+- ├─ ? Services.AddMvcCore
+- └─ ? (customBuilder ?? AddDefaultAspNetServices).Invoke
+stderr:
+manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+manual/Actions/Basic.cs:16: unresolved-call: Cannot bind builder.Services.AddOcelot.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Configuration.GetSection.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Logging.AddConfiguration.
+manual/Actions/Basic.cs:30: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+manual/Actions/Basic.cs:32: unresolved-call: Cannot bind builder.Logging.AddConsole.
+1108 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
++ RouteClaimsRequirementPostConfigureOptions.PostConfigure
++ ├─ ConfigurationExtensions.OcelotRoutes
++ │  └─ configuration.GetSection
++ └─ for (i < options.Routes.Count)
++    ├─ routes.GetSection
++    └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements
++       ├─ new Dictionary<string, string>
++       ├─ section.GetChildren
++       └─ foreach (var child in section.GetChildren())
++          └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements (changes below depth limit)
+
++ Features.AddOcelotAuthorization
++ ├─ ? builder.AddAuthorization
++ ├─ services.AddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>
++ ├─ services.AddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>().AddSingleton<IScopesAuthorizer, ScopesAuthorizer>
++ ├─ new RouteClaimsRequirementPostConfigureOptions
++ └─ services.AddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>().AddSingleton<IScopesAuthorizer, ScopesAuthorizer>().AddSingleton<IPostConfigureOptions<FileConfiguration>>
+
+  new OcelotBuilder
++ ├─ typeof(FileConfigurationController).GetTypeInfo
++ ├─ callback
++ │  └─ OcelotBuilder.AddDefaultAspNetServices
++ │     ├─ ? Services.AddMiddlewareAnalysis
++ │     ├─ ? Services.AddMiddlewareAnalysis().AddWebEncoders
++ │     ├─ ? builder.AddApplicationPart
++ │     ├─ ? builder.AddApplicationPart(assembly).AddControllersAsServices
++ │     └─ ? builder.AddApplicationPart(assembly).AddControllersAsServices().AddNewtonsoftJson
++ ├─ ? services.AddMvcCore
++ ├─ ? customBuilder.Invoke
+  ├─ ? Services.Configure<FileConfiguration>
+  ├─ configurationRoot.GetSection
+  ├─ …
+  ├─ Services.TryAddSingleton<IRemoveOutputHeaders, RemoveOutputHeaders>
+  ├─ Services.TryAddSingleton<IClaimToThingConfigurationParser, ClaimToThingConfigurationParser>
+- ├─ Services.TryAddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>
+- ├─ Services.TryAddSingleton<IScopesAuthorizer, ScopesAuthorizer>
+  ├─ Services.TryAddSingleton<IAddClaimsToRequest, AddClaimsToRequest>
+  ├─ Services.TryAddSingleton<IAddHeadersToRequest, AddHeadersToRequest>
+  ├─ …
+  ├─ Services.TryAddSingleton<ISecurityOptionsCreator, SecurityOptionsCreator>
+  ├─ Services.TryAddSingleton<ISecurityPolicy, IPSecurityPolicy>
++ ├─ Features.AddOcelotAuthorization ↑ as above
+  ├─ Features.AddOcelotCache
+  ├─ Features.AddOcelotConfigurationRepository
+  ├─ …
+  ├─ Features.AddOcelotQualityOfService
+  ├─ Features.AddOcelotRateLimiting
+- ├─ typeof(FileConfigurationController).GetTypeInfo
+- ├─ if (customBuilder is null)
+- │  └─ callback
+- │     └─ OcelotBuilder.AddDefaultAspNetServices (changes below depth limit)
+- ├─ ? Services.AddMvcCore
+- └─ ? (customBuilder ?? AddDefaultAspNetServices).Invoke
+```
+stderr:
+manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+manual/Actions/Basic.cs:16: unresolved-call: Cannot bind builder.Services.AddOcelot.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Configuration.GetSection.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Logging.AddConfiguration.
+manual/Actions/Basic.cs:30: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+manual/Actions/Basic.cs:32: unresolved-call: Cannot bind builder.Logging.AddConsole.
+1108 additional diagnostics; use --diagnostics full.
