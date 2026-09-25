@@ -16,15 +16,18 @@ callrift diff --project src/App/App.csproj --configuration Release --no-restore
 +    dotnet restore
 +    worker process → MSBuildLocator.RegisterDefaults
 +      WorkspaceAnalysis.AnalyzeAsync
++        dotnet msbuild -target:ResolveReferences
 +        MSBuildWorkspace.OpenProjectAsync / OpenSolutionAsync
 +        Project.GetCompilationAsync
          SourceOnlyAnalysisProvider.AnalyzeCompilation
    CallriftService.Compare
 ```
 
-This mode restores packages, evaluates project targets, and runs source generators. Use it on code you trust. It writes snapshot files and restore artifacts to the user-local `Callrift/workspaces` cache, outside the checkout. Set `CALLRIFT_WORKSPACE_CACHE` to choose another directory. Cache entries contain source and assets; remove unused entries when you no longer need them. A per-entry lock serializes analysis. `--no-restore` requires a previously restored entry for the same snapshot, target, framework, and configuration.
+This mode restores packages, builds referenced projects, evaluates project targets, and runs source generators. Use it on code you trust. It writes snapshot files and restore artifacts to the user-local `Callrift/workspaces` cache, outside the checkout. Set `CALLRIFT_WORKSPACE_CACHE` to choose another directory. Cache entries contain source and assets; remove unused entries when you no longer need them. A per-entry lock serializes analysis. `--no-restore` requires a previously restored entry for the same snapshot, target, framework, and configuration. It still prepares project references, including compiled analyzer and generator projects.
 
-The selected SDK must already be installed. Historical `global.json` settings apply inside the snapshot. Missing SDKs, failed restores, and workspace-loading failures return exit 2. Compilation errors become diagnostics; there is no silent source-only fallback. Symlinks and submodules in historical/index snapshots are rejected. Repository-external project imports, Git-dependent build tasks, and generators requiring compiled project outputs can require additional preparation and may fail.
+The selected SDK must already be installed. Historical `global.json` settings apply inside the snapshot. Missing SDKs, failed restores, failed reference builds, and workspace-loading failures return exit 2. Compilation errors in the analyzed project become diagnostics; there is no silent source-only fallback. Workspace warnings remain visible in diagnostics. Symlinks and submodules in historical/index snapshots are rejected. Repository-external project imports and Git-dependent build tasks can require additional preparation and may fail.
+
+Restore covers the project's declared frameworks. `--framework` selects the analyzed root variant; referenced projects retain their own compatible frameworks. MSBuild's resolved reference outputs select between multiple variants of a referenced project. A solution can include single-target projects with different frameworks. Multi-target projects that lack the requested framework must be selected through a compatible project reference or analysis fails explicitly.
 
 Symbols use `project:<relative-project>@<framework>::<member>` identities. Project references connect compilations while duplicate type names in unrelated projects remain separate. Test exclusion uses evaluated `IsTestProject` and test-framework metadata references. Included generators contribute syntax trees and call bodies; generated paths are normalized relative paths.
 

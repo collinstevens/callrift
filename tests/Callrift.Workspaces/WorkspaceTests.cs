@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Callrift.Scenarios;
 using VerifyXunit;
 using Xunit;
@@ -80,6 +81,34 @@ public sealed class WorkspaceTests
         await SnapshotAsync("generator", new Scenario("generator", "SDK regex generator bodies participate in change detection; static fields and property accessors do not link the runner back to Flow.Match.", before, after, []), "--project", "App.csproj");
     }
 
+    [Fact]
+    public async Task ReferencedGeneratorBuildsBeforeAnalysis()
+    {
+        var before = new Dictionary<string, string>
+        {
+            ["App/App.csproj"] = Project.Replace("</Project>", "<ItemGroup><ProjectReference Include=\"../Generator/Generator.csproj\" OutputItemType=\"Analyzer\" ReferenceOutputAssembly=\"false\" /></ItemGroup></Project>", StringComparison.Ordinal),
+            ["App/Flow.cs"] = "partial class Flow { public void Run() => Generated(); partial void Generated(); void Before() {} void After() {} }",
+            ["Generator/Generator.csproj"] = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>netstandard2.0</TargetFramework><LangVersion>latest</LangVersion></PropertyGroup><ItemGroup><PackageReference Include=\"Microsoft.CodeAnalysis.CSharp\" Version=\"4.14.0\" /></ItemGroup><Target Name=\"BuildNotice\" BeforeTargets=\"CoreCompile\" Condition=\"'$(DesignTimeBuild)' != 'true'\"><Warning Text=\"Generator compilation notice\" /></Target></Project>",
+            ["Generator/FlowGenerator.cs"] = "using Microsoft.CodeAnalysis; [Generator] public sealed class FlowGenerator : IIncrementalGenerator { public void Initialize(IncrementalGeneratorInitializationContext context) => context.RegisterPostInitializationOutput(output => output.AddSource(\"Flow.g.cs\", \"partial class Flow { partial void Generated() { Before(); } }\")); }"
+        };
+        var after = new Dictionary<string, string>(before)
+        {
+            ["Generator/FlowGenerator.cs"] = before["Generator/FlowGenerator.cs"].Replace("Before();", "After();", StringComparison.Ordinal)
+        };
+        await using var fixture = await GitFixture.CreateAsync(new Scenario("referenced-generator", "A changed project-reference generator changes the generated call beneath the unedited application entry point.", before, after, []));
+        var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--project", "App/App.csproj", "--framework", "net10.0", "--format", "json"]);
+        Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
+        using var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+        Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
+        var root = Assert.Single(document.RootElement.GetProperty("trees").EnumerateArray());
+        Assert.Equal("project:App/App.csproj@net10.0::Flow.Run()", root.GetProperty("after").GetProperty("symbolId").GetString());
+        var generated = Assert.Single(root.GetProperty("children").EnumerateArray());
+        Assert.Equal("project:App/App.csproj@net10.0::Flow.Generated()", generated.GetProperty("after").GetProperty("symbolId").GetString());
+        Assert.Contains("Flow.Before", output);
+        Assert.Contains("Flow.After", output);
+        Assert.Contains("Flow.g.cs", output);
+    }
+
     private static async Task SnapshotAsync(string name, Scenario scenario, params string[] selection)
     {
         await using var fixture = await GitFixture.CreateAsync(scenario);
@@ -89,6 +118,46 @@ public sealed class WorkspaceTests
                 .. selection, .. format == "text" ? Array.Empty<string>() : ["--no-restore"]]));
         await Verifier.Verify(string.Join("\n", outputs).Replace(fixture.Before, "<before>", StringComparison.Ordinal).Replace(fixture.After, "<after>", StringComparison.Ordinal))
             .UseDirectory("Snapshots").UseFileName(name).DisableDiff();
+    }
+
+    [Theory]
+    [InlineData(false, false)]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    [InlineData(true, true)]
+    public async Task ReferencedProjectsKeepTheirOwnFramework(bool multiTargetLibrary, bool solution)
+    {
+        var before = new Dictionary<string, string>
+        {
+            ["App.slnx"] = "<Solution><Project Path=\"App/App.csproj\" /><Project Path=\"Library/Library.csproj\" /></Solution>",
+            ["App/App.csproj"] = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFrameworks>net10.0;net11.0</TargetFrameworks></PropertyGroup><ItemGroup><ProjectReference Include=\"../Library/Library.csproj\" /></ItemGroup></Project>",
+            ["Library/Library.csproj"] = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>netstandard2.0</TargetFramework></PropertyGroup></Project>",
+            ["App/Flow.cs"] = "class Flow { public void Run(Worker worker) => worker.Run(); }",
+            ["Library/Worker.cs"] = "public class Worker { public void Run() {\n#if NETSTANDARD2_0\nBefore();\n#else\nWrongFramework();\n#endif\n} void Before() {} void After() {} void WrongFramework() {} }"
+        };
+        var libraryFramework = multiTargetLibrary ? "netstandard2.1" : "netstandard2.0";
+        if (multiTargetLibrary)
+        {
+            before["Library/Library.csproj"] = before["Library/Library.csproj"].Replace("<TargetFramework>netstandard2.0</TargetFramework>", "<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>", StringComparison.Ordinal);
+            before["Library/Worker.cs"] = before["Library/Worker.cs"].Replace("NETSTANDARD2_0", "NETSTANDARD2_1", StringComparison.Ordinal);
+        }
+        var after = new Dictionary<string, string>(before)
+        {
+            ["Library/Worker.cs"] = before["Library/Worker.cs"].Replace("Before();", "After();", StringComparison.Ordinal)
+        };
+        await using var fixture = await GitFixture.CreateAsync(new Scenario("mixed-frameworks", "Referenced projects retain their declared framework while the root selects one target.", before, after, []));
+        string[] selection = solution ? ["--solution", "App.slnx"] : ["--project", "App/App.csproj"];
+        var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. selection, "--framework", "net10.0", "--format", "json"]);
+        Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
+        using var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+        Assert.All(document.RootElement.GetProperty("diagnostics").EnumerateArray(), diagnostic => Assert.Equal("workspace-warning", diagnostic.GetProperty("code").GetString()));
+        var root = Assert.Single(document.RootElement.GetProperty("trees").EnumerateArray());
+        Assert.Equal("project:App/App.csproj@net10.0::Flow.Run(global::Worker)", root.GetProperty("after").GetProperty("symbolId").GetString());
+        var worker = Assert.Single(root.GetProperty("children").EnumerateArray());
+        Assert.Equal($"project:Library/Library.csproj@{libraryFramework}::Worker.Run()", worker.GetProperty("after").GetProperty("symbolId").GetString());
+        Assert.Contains("Worker.Before", output);
+        Assert.Contains("Worker.After", output);
+        Assert.DoesNotContain("WrongFramework", output);
     }
 
     [Fact]

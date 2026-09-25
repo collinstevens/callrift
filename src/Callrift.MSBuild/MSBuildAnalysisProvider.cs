@@ -22,7 +22,7 @@ public sealed class MSBuildAnalysisProvider(MSBuildOptions options) : IAnalysisP
         if (!snapshot.Files.Any(f => f.Path == target)) throw new InvalidOperationException($"Workspace target is missing from the snapshot: {target}");
         var identity = target + "\0" + options.Framework + "\0" + options.Configuration + "\0" + string.Join("\0", snapshot.Files.OrderBy(f => f.Path, StringComparer.Ordinal).Select(f => f.Path + "\0" + f.ContentId));
         var digest = Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(identity)));
-        var cache = Environment.GetEnvironmentVariable("CALLRIFT_WORKSPACE_CACHE") ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Callrift", "workspaces");
+        var cache = Path.GetFullPath(Environment.GetEnvironmentVariable("CALLRIFT_WORKSPACE_CACHE") ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Callrift", "workspaces"));
         var directory = Path.Combine(cache, digest);
         Directory.CreateDirectory(directory);
         using var lease = await AcquireAsync(Path.Combine(directory, "analysis.lock"), cancellationToken);
@@ -42,7 +42,6 @@ public sealed class MSBuildAnalysisProvider(MSBuildOptions options) : IAnalysisP
         if (!options.NoRestore)
         {
             var arguments = new List<string> { "restore", targetPath, "--nologo", "-p:Configuration=" + options.Configuration };
-            if (options.Framework is not null) arguments.Add("-p:TargetFramework=" + options.Framework);
             await RunProcessAsync(Path.GetDirectoryName(targetPath)!, arguments, root, cancellationToken);
             await File.WriteAllTextAsync(restored, digest, cancellationToken);
         }
@@ -85,7 +84,7 @@ public sealed class MSBuildAnalysisProvider(MSBuildOptions options) : IAnalysisP
         }
     }
 
-    private static async Task RunProcessAsync(string directory, IReadOnlyList<string> arguments, string root, CancellationToken cancellationToken)
+    internal static async Task RunProcessAsync(string directory, IReadOnlyList<string> arguments, string root, CancellationToken cancellationToken)
     {
         var start = new ProcessStartInfo(Environment.GetEnvironmentVariable("DOTNET_HOST_PATH") ?? "dotnet")
         {
