@@ -64,7 +64,7 @@ public sealed class MSBuildAnalysisProvider(MSBuildOptions options) : IAnalysisP
     }
 
     public static AnalysisCoverage WorkspaceCoverage { get; } = new("msbuild", "partial",
-        ["possible-dispatch", "unfollowed-accessors-operators-events", "virtual-nonabstract-dispatch", "callbacks-are-possible-calls", "no-framework-dispatch-plugins"]);
+        ["possible-dispatch", "unfollowed-accessors-operators-events", "callbacks-are-possible-calls", "no-framework-dispatch-plugins"]);
 
     public static string CleanMessage(string message, string root)
     {

@@ -1,0 +1,7 @@
+# Virtual-dispatch coverage metadata
+
+MSBuild results previously emitted `virtual-nonabstract-dispatch` after possible virtual dispatch had been implemented. This incorrectly described supported analysis as absent. The correction removes that limitation from WorkspaceCoverage; coverage remains partial and schema version remains 1.
+
+The existing eight VirtualDispatchTests passed in both modes on 2026-09-25. Their independently expected paths cover explicit base calls and callbacks, added overrides, generic inherited implementations, sealed receivers, conditional access, and direct construction. The change does not alter those paths. Receiver values and enclosing guards remain an open limitation documented in [receiver-flow.md](../issues/receiver-flow.md).
+
+The snapshot review checked all thirty changed files: twenty-one real-world snapshots and nine workspace snapshots. Each removes exactly one coverage-array line. All remaining bytes, including identities, ordering, locations, call relationships, diagnostics, truncation and rendered output, are unchanged. All 51 real-world checks passed the complete replay on Windows in 16 minutes 29 seconds. All 22 workspace checks passed in 6 minutes 13 seconds. Build, formatting, and package smoke checks passed, including the installed tool, packaged worker, separate library consumer, and dnx. Actual three-OS CI verification of this checkpoint remains pending.
