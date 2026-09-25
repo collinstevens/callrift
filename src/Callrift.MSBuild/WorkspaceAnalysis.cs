@@ -172,11 +172,31 @@ public static class WorkspaceAnalysis
                 diagnostics.Add(new AnalysisDiagnostic(diagnostic.Id, MSBuildAnalysisProvider.CleanMessage(diagnostic.GetMessage(System.Globalization.CultureInfo.InvariantCulture), request.Root), location));
             }
         }
+        var typesByAssembly = new Dictionary<IAssemblySymbol, List<INamedTypeSymbol>>(SymbolEqualityComparer.Default);
+        foreach (var type in types)
+        {
+            if (!typesByAssembly.TryGetValue(type.ContainingAssembly, out var declared)) typesByAssembly[type.ContainingAssembly] = declared = [];
+            declared.Add(type);
+        }
+        foreach (var item in projects)
+            foreach (var reference in item.Compilation.References.OfType<CompilationReference>())
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                if (!typesByAssembly.TryGetValue(reference.Compilation.Assembly, out var declared)
+                    || item.Compilation.GetAssemblyOrModuleSymbol(reference) is not IAssemblySymbol projected
+                    || ReferenceEquals(projected, reference.Compilation.Assembly)) continue;
+                foreach (var type in declared)
+                    if (projected.GetTypeByMetadataName(MetadataName(type)) is { } referenced) types.Add(referenced);
+            }
         var dispatch = SourceOnlyAnalysisProvider.BuildDispatchMap(types.Distinct<INamedTypeSymbol>(SymbolEqualityComparer.Default), members, Scope, cancellationToken);
         return new CallGraph(members, dispatch.Implementations, diagnostics.Distinct().OrderBy(d => d.Location?.Path, StringComparer.Ordinal)
             .ThenBy(d => d.Location?.Line).ThenBy(d => d.Code, StringComparer.Ordinal).ThenBy(d => d.Message, StringComparer.Ordinal).ToArray())
         { Coverage = MSBuildAnalysisProvider.WorkspaceCoverage, DispatchContracts = dispatch.Contracts };
     }
+
+    private static string MetadataName(INamedTypeSymbol type) => type.ContainingType is { } containing
+        ? MetadataName(containing) + "+" + type.MetadataName
+        : (type.ContainingNamespace.IsGlobalNamespace ? "" : type.ContainingNamespace.ToDisplayString() + ".") + type.MetadataName;
 
     private static bool HasTestFramework(Project project)
     {
