@@ -72,19 +72,9 @@ stdout:
 +    │  │  └─ ⇢ TextToken.ToString
 +    │  └─ JsonValueFormatter.WriteQuotedJsonString
      └─ LogEventPropertyValueVisitor<TState, TResult>.Visit
-        ├─ Guard.AgainstNull
-        ├─ if (value is ScalarValue sv)
+        ├─ …
         ├─ if (value is SequenceValue seqv)
-        │  └─ LogEventPropertyValueVisitor<TState, TResult>.VisitSequenceValue → JsonValueFormatter.VisitSequenceValue
-        │     ├─ Guard.AgainstNull
-        │     └─ for (i < sequence.Elements.Count)
-~       │        └─ LogEventPropertyValueVisitor<TState, TResult>.Visit (changes below depth limit)
         ├─ if (value is StructureValue strv)
-        │  └─ LogEventPropertyValueVisitor<TState, TResult>.VisitStructureValue → JsonValueFormatter.VisitStructureValue
-        │     ├─ for (i < structure.Properties.Count)
-        │     │  ├─ JsonValueFormatter.WriteQuotedJsonString (depth limit)
-~       │     │  └─ LogEventPropertyValueVisitor<TState, TResult>.Visit (changes below depth limit)
-        │     └─ if (_typeTagName != null && structure.TypeTag != null)
         ├─ if (value is DictionaryValue dictv)
         │  └─ LogEventPropertyValueVisitor<TState, TResult>.VisitDictionaryValue → JsonValueFormatter.VisitDictionaryValue
         │     └─ foreach (var element in dictionary.Elements)
@@ -101,7 +91,7 @@ stdout:
 +       │        │  │  ├─ ⇢ PropertyToken.ToString (depth limit)
 +       │        │  │  └─ ⇢ TextToken.ToString (depth limit)
 +       │        │  └─ JsonValueFormatter.WriteQuotedJsonString (depth limit)
-~       │        └─ LogEventPropertyValueVisitor<TState, TResult>.Visit (changes below depth limit)
+        │        └─ LogEventPropertyValueVisitor<TState, TResult>.Visit (↺ cycle)
         └─ LogEventPropertyValueVisitor<TState, TResult>.VisitUnsupportedValue
 stderr:
 test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
@@ -181,19 +171,9 @@ stdout:
 +    │  │  └─ ⇢ TextToken.ToString
 +    │  └─ JsonValueFormatter.WriteQuotedJsonString
      └─ LogEventPropertyValueVisitor<TState, TResult>.Visit
-        ├─ Guard.AgainstNull
-        ├─ if (value is ScalarValue sv)
+        ├─ …
         ├─ if (value is SequenceValue seqv)
-        │  └─ LogEventPropertyValueVisitor<TState, TResult>.VisitSequenceValue → JsonValueFormatter.VisitSequenceValue
-        │     ├─ Guard.AgainstNull
-        │     └─ for (i < sequence.Elements.Count)
-~       │        └─ LogEventPropertyValueVisitor<TState, TResult>.Visit (changes below depth limit)
         ├─ if (value is StructureValue strv)
-        │  └─ LogEventPropertyValueVisitor<TState, TResult>.VisitStructureValue → JsonValueFormatter.VisitStructureValue
-        │     ├─ for (i < structure.Properties.Count)
-        │     │  ├─ JsonValueFormatter.WriteQuotedJsonString (depth limit)
-~       │     │  └─ LogEventPropertyValueVisitor<TState, TResult>.Visit (changes below depth limit)
-        │     └─ if (_typeTagName != null && structure.TypeTag != null)
         ├─ if (value is DictionaryValue dictv)
         │  └─ LogEventPropertyValueVisitor<TState, TResult>.VisitDictionaryValue → JsonValueFormatter.VisitDictionaryValue
         │     └─ foreach (var element in dictionary.Elements)
@@ -210,7 +190,7 @@ stdout:
 +       │        │  │  ├─ ⇢ PropertyToken.ToString (depth limit)
 +       │        │  │  └─ ⇢ TextToken.ToString (depth limit)
 +       │        │  └─ JsonValueFormatter.WriteQuotedJsonString (depth limit)
-~       │        └─ LogEventPropertyValueVisitor<TState, TResult>.Visit (changes below depth limit)
+        │        └─ LogEventPropertyValueVisitor<TState, TResult>.Visit (↺ cycle)
         └─ LogEventPropertyValueVisitor<TState, TResult>.VisitUnsupportedValue
 ```
 stderr:

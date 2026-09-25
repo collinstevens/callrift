@@ -7,6 +7,9 @@ public sealed record CallTree(string Key, string Label, string MatchName, string
     public Omission? Omission { get; init; }
     internal string? SemanticKey { get; init; }
     internal string? InvocationKey { get; init; }
+    internal string? DispatchLabel { get; init; }
+    internal bool ExpandedDispatch { get; init; }
+    internal Func<CallTree>? ExpandDispatch { get; init; }
 }
 
 public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, DiffOptions options, CancellationToken cancellationToken)
@@ -19,19 +22,35 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
     public CallTree Expand(string key)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        if (!resolvedGraph.Implementations.TryGetValue(key, out var targets) || targets.Count == 0)
-            return ExpandMember(key, [], 0);
         var member = resolvedGraph.Members[key];
+        if (!resolvedGraph.Implementations.TryGetValue(key, out var targets) || targets.Count == 0)
+        {
+            var direct = ExpandMember(key, [], 0);
+            return direct with
+            {
+                DispatchLabel = member.Label,
+                ExpandDispatch = () => direct with
+                {
+                    Children = member.HasBody ? [ExpandMember(key, [], 1) with { Label = "⇢ " + member.Label, Kind = "dispatchTarget" }] : [],
+                    BodyChanged = changed.Contains(key),
+                    Detail = null,
+                    Omission = null,
+                    ExpandedDispatch = true
+                }
+            };
+        }
         var call = new CallStep("call", key, member.Label, true, member.Location, []);
         var tree = ExpandCalls([call], [], 0).Single();
-        return tree with
+        CallTree AsRoot(CallTree value) => value with
         {
             Kind = "member",
             MatchName = member.MatchName,
             Signature = member.Signature,
-            BodyChanged = tree.BodyChanged || changed.Contains(key),
-            Side = tree.Side! with { Relation = "definition", CallSites = [] }
+            BodyChanged = value.BodyChanged || changed.Contains(key),
+            Side = value.Side! with { Relation = "definition", CallSites = [] },
+            ExpandDispatch = value.ExpandDispatch is { } expand ? () => AsRoot(expand()) : null
         };
+        return AsRoot(tree);
     }
 
     private CallTree ExpandMember(string key, HashSet<string> active, int depth)
@@ -39,7 +58,8 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
         cancellationToken.ThrowIfCancellationRequested();
         var member = resolvedGraph.Members[key];
         var definition = member.DefinitionKey ?? key;
-        var side = new NodeSide(definition, member.Signature, "resolved", "direct", [definition], member.Location, [], "definition");
+        var side = new NodeSide(definition, member.Signature, "resolved", "direct", [definition], member.Location, [], "definition")
+        { ContextTargetKey = key };
         if (member.ContextOmitted)
             return new CallTree(key, member.Label, member.MatchName, member.Signature, [], changed.Contains(key), "generic context limit")
             { Kind = "member", Side = side, Omission = new Omission("generic-context-limit") };
@@ -101,14 +121,48 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
                 Origin = call.Kind == "unresolved" ? "unknown" : call.IsSource ? "source" : "metadata",
                 ContextTargetKey = possibleTargets.Count == 1 ? possibleTargets[0] : null
             };
-            trees.Add(tree with
+            tree = tree with
             {
                 Kind = "call",
                 Side = side,
                 Children = tree.Children.Concat(children).ToArray(),
                 InvocationKey = InvocationContext.Create(resolvedGraph, call.DefinitionKey ?? call.Key, call.GenericArguments).Identity,
                 SemanticKey = (call.SemanticKey ?? call.Key) + (call.SemanticTargets is { Count: > 0 } semanticTargets ? "→" + string.Join(";", semanticTargets) : "")
-            });
+            };
+            if (call.Kind == "call")
+                tree = tree with { DispatchLabel = call.Label, ExpandedDispatch = possibleTargets.Count > 1 };
+            if (possibleTargets.Count == 1 || possibleTargets.Count == 0 && declaration is not null)
+            {
+                var compact = tree;
+                tree = tree with
+                {
+                    ExpandDispatch = () =>
+                    {
+                        var key = possibleTargets.Count == 1 ? possibleTargets[0] : call.Key;
+                        var implementation = ExpandMember(key, active, depth + 1);
+                        var target = implementation with
+                        {
+                            Key = possibleTargets.Count == 1 ? call.SemanticTargets?[0] ?? key : call.SemanticKey ?? key,
+                            Label = "⇢ " + implementation.Label,
+                            Kind = "dispatchTarget"
+                        };
+                        var implementations = possibleTargets.Count == 1 || declaration!.HasBody ? new[] { target } : [];
+                        return compact with
+                        {
+                            Label = call.Label,
+                            MatchName = call.DefinitionKey ?? call.Key,
+                            Signature = call.DefinitionKey ?? call.Key,
+                            Children = implementations.Concat(children).ToArray(),
+                            BodyChanged = false,
+                            Detail = null,
+                            Omission = null,
+                            ExpandDispatch = null,
+                            ExpandedDispatch = true
+                        };
+                    }
+                };
+            }
+            trees.Add(tree);
         }
         return trees;
     }

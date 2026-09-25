@@ -14,7 +14,8 @@ public static class TreeDiffer
             var right = after[j];
             if ((left.SemanticKey ?? left.Key) == (right.SemanticKey ?? right.Key)
                 && (left.Omission?.Reason == "generic-context-limit" || right.Omission?.Reason == "generic-context-limit")) return true;
-            if (left.Key == right.Key && left.Label == right.Label) return true;
+            if ((left.Key == right.Key || left.InvocationKey is not null && left.InvocationKey == right.InvocationKey) && (left.Label == right.Label
+                || left.DispatchLabel is not null && left.DispatchLabel == right.DispatchLabel)) return true;
             return left.Label == right.Label && left.MatchName == right.MatchName
                 && before.Count(n => n.Label == left.Label) == 1 && after.Count(n => n.Label == right.Label) == 1;
         }
@@ -35,6 +36,12 @@ public static class TreeDiffer
             {
                 var left = before[oldIndex++];
                 var right = after[newIndex++];
+                if ((left.Label != right.Label || left.ExpandedDispatch != right.ExpandedDispatch)
+                    && left.DispatchLabel is not null && left.DispatchLabel == right.DispatchLabel)
+                {
+                    left = left.ExpandDispatch?.Invoke() ?? left;
+                    right = right.ExpandDispatch?.Invoke() ?? right;
+                }
                 var sameContext = (left.SemanticKey ?? left.Key) == (right.SemanticKey ?? right.Key);
                 var contextLimited = sameContext && (left.Omission?.Reason == "generic-context-limit" || right.Omission?.Reason == "generic-context-limit");
                 var children = contextLimited ? [] : Compare(left.Children, right.Children, cancellationToken);

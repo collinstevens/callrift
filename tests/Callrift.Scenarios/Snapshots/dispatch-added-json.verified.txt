@@ -82,8 +82,8 @@ stdout:
         {
           "id": "n1",
           "kind": "call",
-          "change": "removed",
-          "label": "IWorker.Save → First.Save",
+          "change": "unchanged",
+          "label": "IWorker.Save",
           "detail": null,
           "before": {
             "symbolId": "source::IWorker.Save()",
@@ -113,17 +113,6 @@ stdout:
             "candidates": [],
             "origin": "source"
           },
-          "after": null,
-          "children": [],
-          "omission": null
-        },
-        {
-          "id": "n2",
-          "kind": "call",
-          "change": "added",
-          "label": "IWorker.Save",
-          "detail": null,
-          "before": null,
           "after": {
             "symbolId": "source::IWorker.Save()",
             "signature": "IWorker.Save() -> void",
@@ -155,12 +144,31 @@ stdout:
           },
           "children": [
             {
-              "id": "n3",
+              "id": "n2",
               "kind": "dispatchTarget",
-              "change": "added",
+              "change": "unchanged",
               "label": "⇢ First.Save",
               "detail": null,
-              "before": null,
+              "before": {
+                "symbolId": "source::First.Save()",
+                "signature": "First.Save() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::First.Save()"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 1,
+                  "startColumn": 60,
+                  "endLine": 1,
+                  "endColumn": 81
+                },
+                "callSites": [],
+                "relation": "definition",
+                "candidates": null,
+                "origin": "source"
+              },
               "after": {
                 "symbolId": "source::First.Save()",
                 "signature": "First.Save() -> void",
@@ -185,7 +193,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n4",
+              "id": "n3",
               "kind": "dispatchTarget",
               "change": "added",
               "label": "⇢ Second.Save",

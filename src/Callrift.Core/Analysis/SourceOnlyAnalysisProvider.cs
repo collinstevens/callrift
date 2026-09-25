@@ -275,7 +275,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
         }
         var implementations = map.Where(p => p.Value.Any(target => target != p.Key))
             .ToDictionary(p => p.Key, p => (IReadOnlyList<string>)p.Value.ToArray(), StringComparer.Ordinal);
-        return new DispatchMap(implementations, contracts.Where(p => implementations.ContainsKey(p.Key))
+        return new DispatchMap(implementations, contracts
             .ToDictionary(p => p.Key, p => (IReadOnlyList<DispatchContract>)p.Value.OrderBy(c => c.Target, StringComparer.Ordinal).ToArray(), StringComparer.Ordinal))
         { TypeDefinitions = DispatchTypeCatalog.Create(declaredTypes.Concat(observedTypes ?? []), cancellationToken, symbols.TypeIdentity) };
     }

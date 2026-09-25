@@ -56,9 +56,10 @@ internal sealed record InvocationContext(string Key, IReadOnlyDictionary<string,
     internal static IEnumerable<InvocationContext> DispatchTargets(CallGraph graph, CallStep call, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        if (call.SuppressDispatch || !graph.Implementations.TryGetValue(call.Key, out var targets)) yield break;
+        if (call.SuppressDispatch) yield break;
         if (call.DispatchType is null || !graph.DispatchContracts.TryGetValue(call.Key, out var contracts))
         {
+            if (!graph.Implementations.TryGetValue(call.Key, out var targets)) yield break;
             foreach (var target in targets)
             {
                 cancellationToken.ThrowIfCancellationRequested();
