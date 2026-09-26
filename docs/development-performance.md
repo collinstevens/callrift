@@ -547,7 +547,23 @@ mise and PowerShell. Five existing workspace file-local and syntax-identity case
 also passed below a symlinked ancestor, exercising both real CLI materialization
 and direct workspace graph reuse: 30.60 seconds for dotnet, 30.92 seconds overall.
 All 350 fast cases passed afterward in 4.01 seconds for the dotnet invocation.
-Hosted macOS validation of this correction remains pending.
+
+[Run 36256895515](https://github.com/collinstevens/callrift/actions/runs/36256895515)
+for `d88af5a` passed all three fast jobs, quality, and representative integration/
+packaging on macOS and Ubuntu. The macOS selection includes the previously failing
+Projects case. Windows exposed a helper regression before fixture creation:
+`ResolveLinkTarget` on the drive root throws `DirectoryNotFoundException` for
+`C:\`. All 12 representative Git/CLI cases and 301 of 305 slow scenarios failed
+there; the four remaining direct stress cases passed. Those failures are not
+semantic regressions or successful broad validation.
+
+The helper now returns filesystem roots before attempting link resolution and
+continues resolving links in their descendants. This preserves drive/share roots
+and the physical-path correction without suppressing filesystem errors. Under the
+nested symlink `TMPDIR`, all 17 existing Git/CLI, partial-clone, file-local and
+syntax-identity cases passed in 31.71 seconds overall; the three Projects,
+Generator and cache/framework cases passed in 26.26 seconds overall. Hosted
+Windows validation and terminal broad results for the correction remain pending.
 
 ## Explicit feedback commands and hook sample
 

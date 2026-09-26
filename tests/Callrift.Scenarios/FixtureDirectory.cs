@@ -7,10 +7,9 @@ internal static class FixtureDirectory
 
     private static string ResolveDirectory(DirectoryInfo directory)
     {
+        if (directory.Parent is not { } parent) return directory.FullName;
         if (directory.ResolveLinkTarget(true) is { } target)
             return ResolveDirectory(new DirectoryInfo(target.FullName));
-        return directory.Parent is { } parent
-            ? Path.Combine(ResolveDirectory(parent), directory.Name)
-            : directory.FullName;
+        return Path.Combine(ResolveDirectory(parent), directory.Name);
     }
 }
