@@ -4,6 +4,8 @@ This work tracks `WORKFLOW_DEVEX_GOAL.md`; it does not resume `GOAL.md`.
 The inventory describes existing assertions, not permission to remove integration
 coverage. The ordinary semantic migration is complete; terminal broad CI results
 remain under review. Unsampled classes have no measured cost rank.
+The sections below retain historical checkpoint observations; the current-results
+table and fixture-repair section describe the latest validated state.
 
 ## Current results
 
@@ -289,8 +291,8 @@ The everyday fast command passed 302 cases in 4.24 seconds including mise,
 PowerShell and changed-code build (4.00 seconds inside dotnet). Discovery is still
 639 cases: 302 Fast, 337 non-Fast, no overlap. No snapshots or production code changed.
 All 28 workspace counterparts passed in 67.72 seconds of dotnet invocation.
-Fast-tier scope is not yet final; remaining semantic candidates and real boundaries
-must be distinguished before assessing the meaningful-coverage target.
+At this checkpoint, fast-tier scope was not yet final; remaining semantic candidates
+and real boundaries still needed separation before assessing the coverage target.
 
 ## Constructor, delegate and file-local identity migration
 
@@ -490,7 +492,7 @@ This separates checkout preparation and hook latency from the routine test budge
 The existing five changed-code and five non-code warm hook samples remain the p95
 sample; this single fresh-checkout result is not a p95 estimate.
 
-## Current supported-platform evidence
+## Supported-platform feedback before fixture repair
 
 [Run 36254402575](https://github.com/collinstevens/callrift/actions/runs/36254402575)
 for `9e7a117` passed all 350 fast cases, representative integration and packaging on
@@ -511,8 +513,9 @@ job times include tool setup, builds, 12 real Git/CLI cases, four workspace case
 and installed-package smoke checks; queue time is excluded. All are below the
 ten-minute feedback target. Broad macOS verification subsequently passed all 305
 slow scenarios but failed one of 26 workspace cases; the other two broad jobs
-remain active. Their terminal results and validation of the fixture repair below
-are remaining completion evidence. Documentation-only evidence checkpoints use
+were subsequently cancelled by the fixture-repair checkpoint. They are not counted
+as passed. The replacement run is described below. Documentation-only evidence
+checkpoints use
 `[skip ci]` to preserve ongoing validation of unchanged source rather than cancel
 it with an identical run.
 
@@ -579,8 +582,8 @@ The command/workflow checkpoint (parent `c94cdb5` plus the changes in this commi
 adds the already-direct cancellation, precancelled Git and ordinary generic-context
 boundary classes to the fast selection. Discovery proves 156 fast rows plus 483
 non-fast rows equals the original 639, with no overlap. The three costly context
-budget rows remain in the slow selection; they are not dropped. Migration of the
-remaining semantic families is still required before claiming the 80% design target.
+budget rows remain in the slow selection; they are not dropped. At this checkpoint,
+the remaining semantic families still needed migration before claiming the 80% target.
 
 `mise run test` and `test:fast` run the tagged fast selection. `test:integration`
 requires a filter and intersects it with non-fast scenario rows. `test:focused`
@@ -623,9 +626,9 @@ Raw timings and output are in ignored `artifacts/devex/hooks.json` and hook logs
 | Unchanged code / non-code staging | 5 | 0.101, 0.102, 0.103, 0.101, 0.101 | 0.103 s |
 
 This is a small warm-checkout observation, not a confidence interval or a cold-hook
-claim. Hooks performed no build, restore or test execution. Final fast-tier scope
-and cross-platform results remain incomplete, so this sample does not authorize
-silently adding tests to hooks.
+claim. Hooks performed no build, restore or test execution. At this checkpoint,
+final fast-tier scope and cross-platform results were incomplete; this sample alone
+did not establish the cost of adding tests to hooks. No test hook was added later.
 
 CI now has independent three-OS fast and representative integration jobs plus a
 formatting/workflow job. The representative job covers real Git hydration, invalid
@@ -637,7 +640,7 @@ matrix. Scheduled/manual all-case workflows and release validation remain intact
 New pushes cancel superseded runs on the same workflow/ref; cancellation remains
 visible and is never counted as success. The first platform timings are recorded below.
 
-## CI evidence and outstanding failure
+## Historical CI evidence and failure diagnosis
 
 The public run page and GitHub connector provide read-only CI access even when
 local `gh run list` is denied. Baseline
@@ -647,17 +650,19 @@ cases also passed on macOS in 56m36s, but its workspace suite failed one of 42 c
 `WorkspaceTests.Projects`. During its first solution restore NuGet reported that
 `A/obj/A.csproj.nuget.g.targets` already existed; subsequent no-restore formats
 correctly reported the missing restored-cache marker. The expected snapshot is
-unchanged. This predates the migrations; its cause is still unproven and must be
-resolved or substantiated by further platform evidence before completion.
+unchanged. This predates the migrations. The physical-path reproduction and fixture
+repair above subsequently established the alias collision and addressed it.
 
 ```sh
 mise run workspaces:focused -- 'FullyQualifiedName~WorkspaceTests.Projects'
 ```
 
-At inspection on 2026-09-26, all three OS jobs in
+All three OS jobs in
 [run 36250101113](https://github.com/collinstevens/callrift/actions/runs/36250101113)
-for `ef0b199` had built successfully and were still running the scenario suite.
-No pending job is counted as passed.
+for `ef0b199` subsequently completed successfully. Each passed 639 scenarios,
+42 workspace cases and 25 routine real-world/process cases: 706 executions.
+The current split preserves that expected total as 350 fast, 305 slow scenarios,
+26 workspaces and 25 routine cases; its terminal counts still need inspection.
 
 At `a23d291`, [run 36251285911](https://github.com/collinstevens/callrift/actions/runs/36251285911)
 passed all 156 then-tagged fast rows independently on each supported OS. SDK was
@@ -829,5 +834,5 @@ cache paths are passed through child environments, not process-wide mutation.
 The complete local TRX confirms the four-class bound and exclusive collection.
 
 No fast hook has been added. Formatting/message gates and asynchronous E2E policy
-remain in force. Current-platform CI for the final relocated selection and terminal
-broad-suite results still need inspection before the workstream is complete.
+remain in force. The final fast and representative selections passed on all three
+platforms. Terminal broad-suite results still need inspection before completion.
