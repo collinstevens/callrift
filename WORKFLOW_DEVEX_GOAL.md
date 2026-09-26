@@ -1,12 +1,14 @@
 # Development workflow and test-performance goal
 
-Status: planned. This document defines a separate development-experience workstream; it does not resume the paused implementation goal in `GOAL.md`.
+Status: in progress. This document defines a separate development-experience workstream; it does not resume the paused implementation goal in `GOAL.md`.
 
 ## Outcome
 
 Make routine development fast enough that people and agents naturally validate their changes. Most behavioral coverage should come from extremely fast tests near the code they exercise. Keep a smaller integration layer and a representative end-to-end layer. Long-running end-to-end tests are acceptable in CI and must not block local commits, pushes, or continued development.
 
 Preserve confidence and meaningful coverage while removing repeated setup, process startup, restores, and analysis. Moving a slow suite to CI alone does not achieve this goal.
+
+Progress, the behavior-to-layer inventory, measured samples and remaining evidence gaps are recorded in [development-performance.md](docs/development-performance.md). Completion criteria below remain unchecked until the full requirements are verified.
 
 ## Starting evidence
 
