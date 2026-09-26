@@ -1158,3 +1158,130 @@ absolute so relative cache configuration still clones into the intended director
 Reviewed expectations and all pinned manifest content remain unchanged. The
 checkpoint's full supported-platform CI and all remaining goal criteria are still
 pending; these local samples do not close the broad-suite performance goal.
+
+### Reuse pinned graphs across views and schedule repositories independently
+
+The existing manifest rows now live in seven repository-specific test classes.
+Each class owns one `RealWorldCaseFixture`; rows within that repository remain
+serial while independent repositories can overlap. Discovery was compared as an
+exact multiset of `(id, viewId)` against the manifest: all 90 manifest rows plus
+`RestoredSerilog` and four process rows remain (95 full, 25 routine). Unknown
+repository names or a change between history and view rows fail discovery until
+the corresponding class is updated. Existing method-name filters still match.
+
+The fixture keeps at most one analyzed before/after pair. Its key includes the
+absolute repository path, both pinned revisions, provider mode, full MSBuild
+options and test inclusion. Rows are ordered so views with identical analysis
+inputs are adjacent. Each view still runs preparation and its remote, revision
+and license checks; each independently compares and renders its own options and
+checks the existing reviewed files. Switching inputs releases the previous pair,
+and class disposal clears the final pair. No production graph cache, manifest,
+reviewed expectation or CLI/process assertion changed.
+
+The same five-row Serilog/Autofac sample above passed in 12.62 s with 50.55 sampled
+CPU seconds and 1.63 GiB peak summed RSS after this change. This is one preliminary
+sample with two available collection slots, the same warm caches and native CPU
+affinity; it is not a matched median for scheduling. The directly observed work
+reduction is four MSBuild workers/restores to two: the two Autofac MSBuild views
+share one pinned pair, as do the two source-only views. All reviewed snapshots
+remained unchanged. Bounded one/two/four-collection routine measurements follow.
+
+The full routine selection then ran once at each limit, sequentially on CPU
+affinity `0-3`, using the same machine, SDK and Debug binaries, existing repository
+and workspace caches, and `dotnet test --no-build`. Each invocation passed all
+25 rows. TRX start/end times confirmed actual overlap; child process profiles
+confirmed 14 analysis workers at every limit. The command supplied
+`-- xUnit.MaxParallelThreads=N xUnit.ParallelAlgorithm=conservative`.
+
+| Collection limit | Complete invocation | Sampled CPU | Peak summed RSS | Actual overlap |
+|---|---:|---:|---:|---:|
+| 1 | 169.52 s | 333.22 s | 6.53 GiB | 1 |
+| 2 | 101.93 s | 276.50 s | 4.81 GiB | 2 |
+| 4 | 108.13 s | 354.36 s | 6.88 GiB | 4 |
+
+Two was the provisional assembly limit after this first sweep. These single
+observations are not an isolated comparison: xUnit's default collection ordering
+varied between runs, as the TRX timelines confirmed. At two, ASP.NET Core started last
+and left about 32 seconds without another active collection. An experimental
+order that started it first alongside Autofac took 117.13 s median over two warm
+runs (113.76–120.50), with 349.07 sampled CPU seconds (341.86–356.27) and
+5.66 GiB peak summed RSS (5.65–5.67). Its cold
+run passed in 131.60 s, with 385.53 CPU seconds and 6.33 GiB RSS; seven clone
+processes totaled 8.63 seconds of observed lifetime. The override was removed:
+shortening the final serial stretch did not improve complete invocation time.
+The final orderer makes the faster observed order explicit: Serilog, Autofac,
+CleanArchitecture, process checks, Orchard Core, Polly, restored Serilog, Ocelot,
+then ASP.NET Core. A second one/two/four sweep uses that identical ordering at
+every limit, with the same prepared external caches. Raw initial profiles and
+TRX files use `cases-concurrency-{1,2,4}`; the rejected early-large-repository
+experiment used `cases-final-*` names; the controlled comparison uses
+`cases-fixed-order-{1,2,4}`.
+
+| Fixed collection order | Complete invocation | Sampled CPU | Peak summed RSS | Actual overlap |
+|---|---:|---:|---:|---:|
+| 1 | 130.72 s | 276.12 s | 4.55 GiB | 1 |
+| 2 | 102.58 s | 278.64 s | 4.73 GiB | 2 |
+| 4 | 106.77 s | 330.17 s | 4.46 GiB | 4 |
+
+All three controlled runs passed the same 25 rows and started 14 analysis workers.
+Two is the final assembly limit: it reduced invocation time by 21.5% against one
+with almost unchanged CPU, while four used 18.5% more CPU than two and took longer.
+Four's modestly lower sampled memory peak did not improve throughput. The final
+two-slot result also agrees with the earlier 101.93 s run that happened to use
+this order, but those two observations used different prepared cache directories.
+On one local worker, the controlled command totals were 2.179, 1.710 and 1.779
+worker-minutes respectively; these are scheduling comparisons after format reuse,
+not a claim that more slots reduced the number of analyses. Build preparation
+took 1.81 s separately. No other local build, test or benchmark overlapped.
+
+### Supported-platform checkpoint before splitting suites
+
+[CI run 36277607859](https://github.com/collinstevens/callrift/actions/runs/36277607859)
+tests `5970818`, containing format reuse, workspace changes and preparation
+coordination, before repository scheduling and cross-view graph reuse. All three
+platforms passed the 305 scenario rows and 26 workspace rows. Ubuntu and macOS
+also passed all 25 routine case/process rows; Windows case verification was still
+pending when these results were recorded. Fast, representative integration and
+quality checks passed on every applicable platform.
+
+| Complete CI test step | Ubuntu 24.04 | Windows | macOS 26 ARM64 |
+|---|---:|---:|---:|
+| Slow scenarios | 26m 21s | 29m 51s | 22m 19s |
+| Workspaces | 4m 17s | 5m 15s | 2m 31s |
+| Routine cases/processes | 5m 15s | Pending | 5m 32s |
+| Complete broad job | 36m 32s | Pending | 31m 09s |
+
+The completed Ubuntu and macOS job logs explicitly report repository-cache
+misses, so these case timings include cold repository preparation. The workspace
+stage improved on all three platforms but misses the two-minute target everywhere.
+Scenarios remain unchanged in scope and far above six minutes, with substantial
+runner variation. Local four-CPU timings do not establish hosted-runner targets.
+No supported-platform completion criterion is checked on this evidence.
+
+### Independent broad CI suites
+
+Broad verification now has one job per suite and OS: the same 305 slow scenarios,
+26 workspace rows and 25 routine real-world/process rows on each of Ubuntu,
+Windows and macOS. The commands and selections are unchanged. Each job restores
+and builds its own test project and dependency closure; only case jobs download
+the repository cache. Existing failure artifacts include the suite in their names
+to prevent collisions. Fast, representative integration and quality jobs remain
+independent.
+
+This changes three broad jobs to nine and repeats setup/build work. It makes
+workspace and case results available without waiting for slow scenarios, but
+does not itself reduce test work or prove any target. Measure the complete broad
+dependency path as the latest required suite completion per OS, report queue
+delay separately, and sum all nine job durations for broad runner-minutes. The
+first supported-platform results and measured extra setup cost remain pending.
+
+### Full local E2E baseline
+
+The first attempted full baseline was stopped during real-world cases because
+the profiling setup placed the external workspace cache below this checkout.
+Those projects inherited Callrift's `Directory.Packages.props` and build settings,
+causing an Ocelot restore failure. That invalid run is retained as ignored
+`e2e-invalid-nested-cache` artifacts and is excluded from performance comparisons.
+Matched full-command measurements must use external cache directories outside
+the checkout; repository and workspace caches start empty for the cold sample,
+while the SDK and global NuGet cache are prepared.
