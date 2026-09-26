@@ -1,0 +1,57 @@
+﻿format: text
+exit: 0
+stdout:
+  DefaultHubDispatcher<THub>.StreamAsync
+  ├─ if (streamCts is null)
+  ├─ DefaultHubDispatcher<THub>.StartActivity
+  ├─ try
+  │  ├─ connection.ActiveRequestCancellationSources.TryAdd
+  │  ├─ if (!connection.ActiveRequestCancellationSources.TryAdd(invocationId, streamCts))
+  │  │  ├─ DefaultHubDispatcherLog.InvocationIdInUse
++ │  │  └─ streamCts.Dispose
+  │  ├─ try
+  │  ├─ catch (Exception ex)
+  │  └─ …
+  ├─ catch (ChannelClosedException ex)
+  ├─ catch (Exception ex)
+  └─ …
+stderr:
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:19: unresolved-call: Cannot bind new RootCommand.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind new Option.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:24: unresolved-call: Cannot bind new Argument<string[]>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind new Option.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot bind new Argument<string>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
+23098 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  DefaultHubDispatcher<THub>.StreamAsync
+  ├─ if (streamCts is null)
+  ├─ DefaultHubDispatcher<THub>.StartActivity
+  ├─ try
+  │  ├─ connection.ActiveRequestCancellationSources.TryAdd
+  │  ├─ if (!connection.ActiveRequestCancellationSources.TryAdd(invocationId, streamCts))
+  │  │  ├─ DefaultHubDispatcherLog.InvocationIdInUse
++ │  │  └─ streamCts.Dispose
+  │  ├─ try
+  │  ├─ catch (Exception ex)
+  │  └─ …
+  ├─ catch (ChannelClosedException ex)
+  ├─ catch (Exception ex)
+  └─ …
+```
+stderr:
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:19: unresolved-call: Cannot bind new RootCommand.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind new Option.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:24: unresolved-call: Cannot bind new Argument<string[]>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind new Option.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot bind new Argument<string>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
+23098 additional diagnostics; use --diagnostics full.

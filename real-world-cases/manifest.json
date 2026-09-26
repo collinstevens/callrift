@@ -1601,5 +1601,50 @@
         ]
       }
     ]
+  },
+  {
+    "id": "aspnetcore-stream-cts-disposal",
+    "repository": "https://github.com/dotnet/aspnetcore.git",
+    "cacheName": "aspnetcore",
+    "before": "4cab91a40393e7d0341cf43cb88930588a0b4876",
+    "after": "3563a8e77e0e09055a7f0f18ef9ab026dcd59ad2",
+    "license": "MIT",
+    "licenseFile": "LICENSE.txt",
+    "beforeLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
+    "afterLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
+    "reason": "Dispose a rejected SignalR streaming invocation cancellation source before its early return while preserving ownership of the existing invocation",
+    "tags": [
+      "branch-guard",
+      "exception-path",
+      "async",
+      "resource-cleanup",
+      "cross-project",
+      "automatic-roots"
+    ],
+    "options": [],
+    "knownIssue": "issues/aspnetcore-source-coverage.md",
+    "review": "reviews/aspnetcore-stream-cts-disposal.md",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--entry",
+          "DefaultHubDispatcher<THub>.StreamAsync",
+          "--depth",
+          "3",
+          "--externals"
+        ]
+      }
+    ]
   }
 ]
