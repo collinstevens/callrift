@@ -7,6 +7,7 @@ using Xunit;
 
 namespace Callrift.Scenarios;
 
+[Collection(nameof(ProcessEnvironmentCollection))]
 public sealed class PartialCloneTests
 {
     [Theory]

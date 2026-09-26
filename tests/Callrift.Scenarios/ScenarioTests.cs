@@ -1,7 +1,7 @@
 using VerifyXunit;
 using Xunit;
 
-[assembly: CollectionBehavior(DisableTestParallelization = true)]
+[assembly: CollectionBehavior(MaxParallelThreads = 4)]
 
 namespace Callrift.Scenarios;
 
