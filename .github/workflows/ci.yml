@@ -93,7 +93,6 @@ jobs:
             project: Callrift.RealWorldCases
     runs-on: ${{ matrix.os }}
     env:
-      CALLRIFT_CASES_CACHE: ${{ github.workspace }}/../callrift-real-world-cases
       CALLRIFT_CASE_SET: routine
       DOTNET_NOLOGO: true
       DOTNET_CLI_TELEMETRY_OPTOUT: true
@@ -108,7 +107,7 @@ jobs:
       - uses: actions/cache@v4
         if: matrix.suite == 'Cases'
         with:
-          path: ${{ github.workspace }}/../callrift-real-world-cases
+          path: ${{ runner.temp }}/callrift-real-world-cases
           key: cases-${{ runner.os }}-${{ hashFiles('real-world-cases/manifest.json') }}
       - run: ./.github/scripts/Initialize-TestGit.ps1
       - run: dotnet restore tests/${{ matrix.project }}/${{ matrix.project }}.csproj --locked-mode
@@ -118,6 +117,8 @@ jobs:
       - if: matrix.suite == 'Workspaces'
         run: ./scripts/Run-Tests.ps1 -Suite Workspaces -NoBuild
       - if: matrix.suite == 'Cases'
+        env:
+          CALLRIFT_CASES_CACHE: ${{ runner.temp }}/callrift-real-world-cases
         run: ./scripts/Run-Tests.ps1 -Suite Cases -NoBuild
       - if: failure()
         uses: actions/upload-artifact@v4

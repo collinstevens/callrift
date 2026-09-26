@@ -1275,6 +1275,22 @@ dependency path as the latest required suite completion per OS, report queue
 delay separately, and sum all nine job durations for broad runner-minutes. The
 first supported-platform results and measured extra setup cost remain pending.
 
+The first split-suite run exposed why repository caches never became warm.
+[Run 36279765268](https://github.com/collinstevens/callrift/actions/runs/36279765268)
+passed cases on Ubuntu and macOS, but their post-job cache save reported that
+relative `.` and `..` path components are not allowed. The old absolute-looking
+`${{ github.workspace }}/../callrift-real-world-cases` retained a literal `..`.
+This was also present in the preceding completed macOS job. A successful test job
+therefore did not prove that repository preparation would be cached next time.
+
+Both the test environment and cache action now use the same path below
+`${{ runner.temp }}`, outside the checkout and without parent components. The
+manifest and OS cache key remain unchanged. A successful archive save and a
+subsequent reported cache hit are required before labeling CI results warm;
+neither has been established at this checkpoint. The first split-suite case
+steps took 3m 57s on Ubuntu and 5m 58s on macOS with cache misses, so they do not
+meet the warm three-minute target or demonstrate completion of the goal.
+
 ### Full local E2E baseline
 
 The first attempted full baseline was stopped during real-world cases because
