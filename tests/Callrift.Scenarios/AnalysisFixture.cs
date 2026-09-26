@@ -42,6 +42,25 @@ public sealed class AnalysisFixture : IAsyncDisposable
         return await RunAsync("diff", revisions, options, []);
     }
 
+    public async Task<IReadOnlyDictionary<string, string>> DiffFormatsAsync(DiffOptions options)
+    {
+        Validate(options);
+        if (workspace is null)
+        {
+            var result = CallriftService.Compare(before!, after!, options);
+            return new Dictionary<string, string>
+            {
+                ["text"] = DiffRenderer.Render(result, options),
+                ["md"] = DiffRenderer.Render(result, options, markdown: true),
+                ["json"] = JsonRenderer.Render(result)
+            };
+        }
+        var outputs = new Dictionary<string, string>();
+        foreach (var format in new[] { "json", "text", "md" })
+            outputs[format] = await RunAsync("diff", [workspace.Before, workspace.After], options, [], format);
+        return outputs;
+    }
+
     public async Task<string> QueryAsync(DiffOptions options, bool before = false, string? target = null, int maxPaths = 100)
     {
         Validate(options);
@@ -52,11 +71,11 @@ public sealed class AnalysisFixture : IAsyncDisposable
         return await RunAsync(target is null ? "tree" : "reach", [before ? workspace.Before : workspace.After], options, query);
     }
 
-    private async Task<string> RunAsync(string command, string[] revisions, DiffOptions options, string[] query)
+    private async Task<string> RunAsync(string command, string[] revisions, DiffOptions options, string[] query, string format = "json")
     {
         var arguments = new List<string> { command };
         arguments.AddRange(revisions);
-        arguments.AddRange(["--project", "App.csproj", "--format", "json", "--depth", options.MaxDepth.ToString(CultureInfo.InvariantCulture),
+        arguments.AddRange(["--project", "App.csproj", "--format", format, "--depth", options.MaxDepth.ToString(CultureInfo.InvariantCulture),
             "--context", options.Context < 0 ? "all" : options.Context.ToString(CultureInfo.InvariantCulture)]);
         foreach (var entry in options.Entries) arguments.AddRange(["--entry", entry]);
         foreach (var file in options.Files) arguments.AddRange(["--file", file]);

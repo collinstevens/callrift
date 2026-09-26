@@ -125,6 +125,25 @@ required constructors, metadata unmanaged constraints, both constraint-edit dire
 a closed text context and a generic constructor. These remain subset measurements,
 not a complete-tier or whole-suite claim.
 
+Fourth migration (parent `35406a1` plus the initialization changes in this commit):
+all 27 static-initialization source rows and 21 constructor-initialization source
+rows now reuse direct graphs across queries. Static renderer assertions share the
+same diff result across JSON, text and Markdown. All 48 workspace rows remain real
+CLI tests, including four static cross-project forms and the constructor project
+reference case. The unchanged assertions retain negative controls for constants,
+type/name inspection, default structs, record-copy initializers and equivalent
+constructors, as well as ordering, cycle, symbol/location and changed-call checks.
+
+The four-row local sample (`explicit-method-repeated` in StaticInitializationTests
+and `implicit-base` in ConstructorInitializationTests, both modes) passed in 18.79
+seconds before and 14.21 seconds after, on the same prepared machine/cache policy.
+The after filter includes the renamed Workspace-prefixed methods. The incremental
+build took 0.89 seconds separately. Seven additional workspace checks passed: all
+four static cross-project forms, the constructor cross-project case, the static
+constant negative control and the default-struct constructor negative control.
+The expanded 134-row fast selection passed in 2.31 seconds including startup and
+discovery, with no build or restore. No full-suite improvement is inferred.
+
 ## CI evidence and outstanding failure
 
 The public run page and GitHub connector provide read-only CI access even when
@@ -208,7 +227,7 @@ with independently defined expectations and per-case mutable state.
 | [ConstructorDiagnosticTests](../tests/Callrift.Scenarios/ConstructorDiagnosticTests.cs) | Ambiguous constructor diagnostics and omitted bodies | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [ConstructorDiscoveryTests](../tests/Callrift.Scenarios/ConstructorDiscoveryTests.cs) | Added/removed default constructors | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [ConstructorEquivalenceTests](../tests/Callrift.Scenarios/ConstructorEquivalenceTests.cs) | Implicit versus explicit constructor equivalence, both directions and root selections | Source cases now share two analyzed graphs; workspace JSON routing and all syntax forms retained. |
-| [ConstructorInitializationTests](../tests/Callrift.Scenarios/ConstructorInitializationTests.cs) | Constructor and initializer call ordering across queries | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
+| [ConstructorInitializationTests](../tests/Callrift.Scenarios/ConstructorInitializationTests.cs) | Constructor and initializer call ordering across queries | Source rows now reuse direct graphs; all workspace rows retain CLI/MSBuild, including real cross-project binding. Static renderers share a diff result. |
 | [DeferredCallbackTests](../tests/Callrift.Scenarios/DeferredCallbackTests.cs) | Deferred callback edges and receiver evaluation order | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [DelegateConstructionTests](../tests/Callrift.Scenarios/DelegateConstructionTests.cs) | Delegate construction, possible callbacks and invalid targets | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [DelegateCopyTests](../tests/Callrift.Scenarios/DelegateCopyTests.cs) | Delegate copies, factory order and incompatible return types | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
@@ -243,7 +262,7 @@ with independently defined expectations and per-case mutable state.
 | [StaticInitializationDeclarationTests](../tests/Callrift.Scenarios/StaticInitializationDeclarationTests.cs) | Unavailable initializer bodies and invalid declarations | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [StaticInitializationDepthTests](../tests/Callrift.Scenarios/StaticInitializationDepthTests.cs) | Completed initialization and later change markers | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [StaticInitializationIdentityTests](../tests/Callrift.Scenarios/StaticInitializationIdentityTests.cs) | Partial initializer ordering and declaring-project identity | Direct within-part order can move; retain separate projects with identical assembly/type names. |
-| [StaticInitializationTests](../tests/Callrift.Scenarios/StaticInitializationTests.cs) | Conditional initialization and declaring-project links | Direct initialization semantics can move; retain actual cross-project binding and metadata visibility. |
+| [StaticInitializationTests](../tests/Callrift.Scenarios/StaticInitializationTests.cs) | Conditional initialization and declaring-project links | Source rows now reuse direct graphs; all workspace rows retain CLI/MSBuild, including real cross-project binding. Static renderers share a diff result. |
 | [SyntaxIdentityTests](../tests/Callrift.Scenarios/SyntaxIdentityTests.cs) | Formatting-insensitive identity versus significant literal whitespace | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [TestAssemblyClassificationTests](../tests/Callrift.Scenarios/TestAssemblyClassificationTests.cs) | Test assembly reference recognition and conditions | Move classification to snapshots; retain an actual evaluated test/application workspace boundary. |
 | [TopLevelConstructorTests](../tests/Callrift.Scenarios/TopLevelConstructorTests.cs) | Partial top-level Program constructor binding | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
@@ -278,7 +297,7 @@ with independently defined expectations and per-case mutable state.
    cache failure/invalidation, isolation and process tests at their real boundaries.
 4. Tag and measure the complete fast selection, including discovery and startup,
    then expose validated fast/integration/E2E commands and independent CI jobs.
-   The current 86 migrated source rows alone do not constitute the fast tier.
+   The current 134 migrated source rows alone do not constitute the fast tier.
 
 `PartialCloneTests` mutates `GIT_TRACE2_EVENT` and `GIT_NO_LAZY_FETCH`; it remains
 in `ProcessEnvironmentCollection` with parallelization disabled. Other fixture

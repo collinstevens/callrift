@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -32,11 +33,19 @@ public sealed class ConstructorInitializationTests
         ("cross-project", "class Derived : Base<int> {}" + entry, true)
     ];
 
-    public static IEnumerable<object[]> Cases => Fixtures.SelectMany(fixture => new[] { new object[] { fixture.Name, false }, new object[] { fixture.Name, true } });
+    public static IEnumerable<object[]> Cases => Fixtures.Select(fixture => new object[] { fixture.Name });
 
     [Theory]
     [MemberData(nameof(Cases))]
-    public async Task FollowsConstructorInitializationAcrossCommands(string name, bool workspace)
+    [Trait("Layer", "Fast")]
+    public Task FollowsConstructorInitializationAcrossCommands(string name) => VerifyInitialization(name, false);
+
+    [Theory]
+    [MemberData(nameof(Cases))]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceFollowsConstructorInitializationAcrossCommands(string name) => VerifyInitialization(name, true);
+
+    private static async Task VerifyInitialization(string name, bool workspace)
     {
         var example = Fixtures.Single(fixture => fixture.Name == name);
         const string project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework><LangVersion>14.0</LangVersion></PropertyGroup></Project>";
@@ -54,12 +63,11 @@ public sealed class ConstructorInitializationTests
             before["Base/Base.cs"] = "public class Base<T> { protected Base(T value = default) { Sink.Before(); } } public static class Sink { public static int Before() => 0; public static int After() => 0; }";
             after["Base/Base.cs"] = before["Base/Base.cs"].Replace("Sink.Before()", "Sink.After()", StringComparison.Ordinal);
         }
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("constructor-initialization", "Constructor calls and initializers retain their source-defined effects.", before, after, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("constructor-initialization", "Constructor calls and initializers retain their source-defined effects.", before, after, []), workspace);
+        var options = new DiffOptions { Entries = ["Entry.Run"], MaxDepth = 14, IncludeExternals = true };
         foreach (var focused in new[] { false, true })
         {
-            string[] selection = focused ? ["--entry", "Entry.Run"] : [];
-            using var document = Parse(await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--format", "json", "--depth", "14", "--externals", .. selection, .. mode]));
+            using var document = Parse(await fixture.DiffAsync(options with { Entries = focused ? ["Entry.Run"] : [] }));
             var roots = document.RootElement.GetProperty("trees").EnumerateArray().Where(node => node.GetProperty("label").GetString() == "Entry.Run").ToArray();
             Assert.Equal(example.ReachesChange, roots.Length != 0);
             if (focused) Assert.Equal(example.ReachesChange, document.RootElement.GetProperty("hasChanges").GetBoolean());
@@ -70,17 +78,16 @@ public sealed class ConstructorInitializationTests
                 Assert.Contains(nodes, node => node.GetProperty("label").GetString() == "Sink.After" && node.GetProperty("change").GetString() == "added");
             }
         }
-        using var tree = Parse(await fixture.RunAsync(["tree", fixture.Before, "--entry", "Entry.Run", "--format", "json", "--depth", "14", "--externals", .. mode]));
+        using var tree = Parse(await fixture.QueryAsync(options, before: true));
         var calls = tree.RootElement.GetProperty("trees").EnumerateArray().SelectMany(Flatten).ToArray();
         Assert.Equal(example.ReachesChange, calls.Any(node => node.GetProperty("label").GetString() == "Sink.Before"));
-        using var reach = Parse(await fixture.RunAsync(["reach", fixture.Before, "--entry", "Entry.Run", "--to", "Sink.Before", "--format", "json", "--depth", "14", "--externals", .. mode]));
+        using var reach = Parse(await fixture.QueryAsync(options, before: true, target: "Sink.Before"));
         Assert.Equal(example.ReachesChange, reach.RootElement.GetProperty("paths").GetArrayLength() != 0);
     }
 
     private static JsonDocument Parse(string output)
     {
-        Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
-        var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+        var document = JsonDocument.Parse(output);
         Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
         return document;
     }

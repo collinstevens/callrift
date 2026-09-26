@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -33,11 +34,19 @@ public sealed class StaticInitializationTests
     ("throwing-initializer", "static class State { static State() { Sink.Before(); throw new System.InvalidOperationException(); } public static void Touch() {} }", "try { State.Touch(); } catch (System.TypeInitializationException) { Sink.Add(\"caught\"); } try { State.Touch(); } catch (System.TypeInitializationException) { Sink.Add(\"caught\"); }", "before,caught,caught", true)
     };
     private const string Sink = " public static class Sink { public static readonly System.Collections.Generic.List<string> Events = new(); public static int Before() { Events.Add(\"before\"); return 1; } public static int After() { Events.Add(\"after\"); return 2; } public static int Argument() { Events.Add(\"argument\"); return 3; } public static void Add(string value) { Events.Add(value); } }";
-    public static IEnumerable<object[]> Cases => Fixtures.SelectMany(fixture => new[] { new object[] { fixture.Name, false }, new object[] { fixture.Name, true } });
+    public static IEnumerable<object[]> Cases => Fixtures.Select(fixture => new object[] { fixture.Name });
 
     [Theory]
     [MemberData(nameof(Cases))]
-    public async Task FollowsConditionalInitialization(string name, bool workspace)
+    [Trait("Layer", "Fast")]
+    public Task FollowsConditionalInitialization(string name) => VerifyConditionalInitialization(name, false);
+
+    [Theory]
+    [MemberData(nameof(Cases))]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceFollowsConditionalInitialization(string name) => VerifyConditionalInitialization(name, true);
+
+    private static async Task VerifyConditionalInitialization(string name, bool workspace)
     {
         var example = Fixtures.Single(fixture => fixture.Name == name);
         var source = example.Source + " public static class Entry { public static void Run() { " + example.Invoke + " } }" + Sink;
@@ -47,9 +56,9 @@ public sealed class StaticInitializationTests
             ["App.csproj"] = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>"
         };
         var after = new Dictionary<string, string>(before) { ["Flow.cs"] = source.Replace("Sink.Before()", "Sink.After()", StringComparison.Ordinal) };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("static-" + name, "Conditional type initialization follows original declarations and closed generic contexts.", before, after, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        using var tree = Parse(await fixture.RunAsync(["tree", fixture.Before, "--entry", "Entry.Run", "--format", "json", "--depth", "30", "--externals", .. mode]));
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("static-" + name, "Conditional type initialization follows original declarations and closed generic contexts.", before, after, []), workspace);
+        var options = new DiffOptions { Entries = ["Entry.Run"], MaxDepth = 30, IncludeExternals = true };
+        using var tree = Parse(await fixture.QueryAsync(options, before: true));
         var calls = Flatten(tree.RootElement.GetProperty("trees")).ToArray();
         var labels = calls.Select(node => node.GetProperty("label").GetString()).ToArray();
         Assert.Equal(example.ReachesInitializer, labels.Contains("Sink.Before"));
@@ -65,29 +74,36 @@ public sealed class StaticInitializationTests
             Assert.Contains("..cctor()", side.GetProperty("symbolId").GetString());
             Assert.NotEqual(JsonValueKind.Null, side.GetProperty("definition").ValueKind);
         }
-        using var diff = Parse(await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--entry", "Entry.Run", "--format", "json", "--depth", "30", "--externals", .. mode]));
+        var outputs = await fixture.DiffFormatsAsync(options);
+        using var diff = Parse(outputs["json"]);
         Assert.Equal(example.ReachesInitializer, diff.RootElement.GetProperty("hasChanges").GetBoolean());
-        using var reach = Parse(await fixture.RunAsync(["reach", fixture.Before, "--entry", "Entry.Run", "--to", "Sink.Before", "--format", "json", "--depth", "30", "--externals", .. mode]));
+        using var reach = Parse(await fixture.QueryAsync(options, before: true, target: "Sink.Before"));
         Assert.Equal(example.ReachesInitializer, reach.RootElement.GetProperty("paths").GetArrayLength() != 0);
         foreach (var format in new[] { "text", "md" })
         {
-            var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--entry", "Entry.Run", "--format", format, "--depth", "30", "--externals", .. mode]);
-            Assert.StartsWith("exit: 0\n", output);
+            var output = outputs[format];
             Assert.Equal(example.ReachesInitializer, output.Contains("Sink.Before", StringComparison.Ordinal));
             Assert.Equal(example.ReachesInitializer, output.Contains("Sink.After", StringComparison.Ordinal));
         }
     }
 
     [Theory]
-    [InlineData("method", false)]
-    [InlineData("method", true)]
-    [InlineData("field", false)]
-    [InlineData("field", true)]
-    [InlineData("generic-field", false)]
-    [InlineData("generic-field", true)]
-    [InlineData("inherited-method", false)]
-    [InlineData("inherited-method", true)]
-    public async Task LinksInitializersAcrossProjects(string kind, bool workspace)
+    [InlineData("method")]
+    [InlineData("field")]
+    [InlineData("generic-field")]
+    [InlineData("inherited-method")]
+    [Trait("Layer", "Fast")]
+    public Task LinksInitializersAcrossSourceFiles(string kind) => VerifyInitializerLinks(kind, false);
+
+    [Theory]
+    [InlineData("method")]
+    [InlineData("field")]
+    [InlineData("generic-field")]
+    [InlineData("inherited-method")]
+    [Trait("Layer", "Integration")]
+    public Task LinksInitializersAcrossProjects(string kind) => VerifyInitializerLinks(kind, true);
+
+    private static async Task VerifyInitializerLinks(string kind, bool workspace)
     {
         var library = kind switch
         {
@@ -111,9 +127,9 @@ public sealed class StaticInitializationTests
             ["Lib/Lib.csproj"] = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>"
         };
         var after = new Dictionary<string, string>(before) { ["Lib/Flow.cs"] = before["Lib/Flow.cs"].Replace("Sink.Before()", "Sink.After()", StringComparison.Ordinal) };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("static-project-" + kind, "Initialization uses the declaring project even when metadata imports hide its private constructor.", before, after, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        using var tree = Parse(await fixture.RunAsync(["tree", fixture.Before, "--entry", "Entry.Run", "--format", "json", "--depth", "30", .. mode]));
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("static-project-" + kind, "Initialization uses the declaring project even when metadata imports hide its private constructor.", before, after, []), workspace);
+        var options = new DiffOptions { Entries = ["Entry.Run"], MaxDepth = 30 };
+        using var tree = Parse(await fixture.QueryAsync(options, before: true));
         var nodes = Flatten(tree.RootElement.GetProperty("trees")).ToArray();
         Assert.Equal(kind == "generic-field" ? 2 : 1, nodes.Count(node => node.GetProperty("label").GetString() == "Sink.Before"));
         foreach (var initializer in nodes.Where(node => node.GetProperty("label").GetString()!.StartsWith("initialization of ", StringComparison.Ordinal)))
@@ -122,16 +138,15 @@ public sealed class StaticInitializationTests
             Assert.Equal("Lib/Flow.cs", side.GetProperty("definition").GetProperty("path").GetString());
             if (workspace) Assert.StartsWith("project:Lib/Lib.csproj@net11.0::", side.GetProperty("symbolId").GetString());
         }
-        using var diff = Parse(await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--entry", "Entry.Run", "--format", "json", "--depth", "30", .. mode]));
+        using var diff = Parse(await fixture.DiffAsync(options));
         Assert.True(diff.RootElement.GetProperty("hasChanges").GetBoolean());
-        using var reach = Parse(await fixture.RunAsync(["reach", fixture.Before, "--entry", "Entry.Run", "--to", "Sink.Before", "--format", "json", "--depth", "30", .. mode]));
+        using var reach = Parse(await fixture.QueryAsync(options, before: true, target: "Sink.Before"));
         Assert.NotEmpty(reach.RootElement.GetProperty("paths").EnumerateArray());
     }
 
     private static JsonDocument Parse(string output)
     {
-        Assert.StartsWith("exit: 0\n", output);
-        var result = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+        var result = JsonDocument.Parse(output);
         Assert.Empty(result.RootElement.GetProperty("diagnostics").EnumerateArray());
         return result;
     }
