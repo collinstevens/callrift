@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -6,11 +7,18 @@ namespace Callrift.Scenarios;
 public sealed class DispatchCycleIdentityTests
 {
     [Theory]
-    [InlineData(false, false)]
-    [InlineData(false, true)]
-    [InlineData(true, false)]
-    [InlineData(true, true)]
-    public async Task PreservesRecursiveImplementationsAndTheirAncestorReferences(bool virtualCall, bool workspace)
+    [InlineData(false)]
+    [InlineData(true)]
+    [Trait("Layer", "Fast")]
+    public Task PreservesRecursiveImplementationsAndTheirAncestorReferences(bool virtualCall) => VerifyPreservesRecursiveImplementationsAndTheirAncestorReferences(virtualCall, false);
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    [Trait("Layer", "Integration")]
+    public Task WorkspacePreservesRecursiveImplementationsAndTheirAncestorReferences(bool virtualCall) => VerifyPreservesRecursiveImplementationsAndTheirAncestorReferences(virtualCall, true);
+
+    private static async Task VerifyPreservesRecursiveImplementationsAndTheirAncestorReferences(bool virtualCall, bool workspace)
     {
         var source = virtualCall
             ? "class Base { public virtual void Run() => Run(); }"
@@ -19,16 +27,13 @@ public sealed class DispatchCycleIdentityTests
             ? " class Derived : Base { public override void Run() {} }"
             : " class Second : IWorker { public void Run() {} }";
         var project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework><LangVersion>14.0</LangVersion></PropertyGroup></Project>";
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("dispatch-cycle", "Adding a target preserves the existing recursive implementation.",
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("dispatch-cycle", "Adding a target preserves the existing recursive implementation.",
             new Dictionary<string, string> { ["Flow.cs"] = source, ["App.csproj"] = project },
-            new Dictionary<string, string> { ["Flow.cs"] = source + added, ["App.csproj"] = project }, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
+            new Dictionary<string, string> { ["Flow.cs"] = source + added, ["App.csproj"] = project }, []), workspace);
         foreach (var reverse in new[] { false, true })
         {
-            var output = await fixture.RunAsync(["diff", reverse ? fixture.After : fixture.Before, reverse ? fixture.Before : fixture.After,
-                "--entry", virtualCall ? "Base.Run" : "First.Run", "--depth", "10", "--externals", "--format", "json", .. mode]);
-            Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
-            using var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+            var output = await fixture.DiffAsync(new DiffOptions { Entries = [virtualCall ? "Base.Run" : "First.Run"], MaxDepth = 10, IncludeExternals = true }, reverse);
+            using var document = JsonDocument.Parse(output);
             Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
             var root = Assert.Single(document.RootElement.GetProperty("trees").EnumerateArray());
             var nodes = Flatten(root).ToArray();

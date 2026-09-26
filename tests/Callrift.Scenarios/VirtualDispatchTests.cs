@@ -1,27 +1,31 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
 
 public sealed class VirtualDispatchTests
 {
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task VirtualOverridesKeepBaseCallsDirect(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task VirtualOverridesKeepBaseCallsDirect() => VerifyVirtualOverridesKeepBaseCallsDirect(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceVirtualOverridesKeepBaseCallsDirect() => VerifyVirtualOverridesKeepBaseCallsDirect(true);
+
+    private static async Task VerifyVirtualOverridesKeepBaseCallsDirect(bool workspace)
     {
         var original = ScenarioCatalog.All.Single(s => s.Name == "virtual-base");
-        await using var fixture = await CreateAsync(original.Before["Program.cs"], original.After["Program.cs"]);
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
+        await using var fixture = await CreateAsync(original.Before["Program.cs"], original.After["Program.cs"], workspace);
         foreach (var command in new[] { "diff", "tree", "reach" })
         {
-            string[] revisions = command == "diff" ? [fixture.Before, fixture.After] : [fixture.After];
-            string[] selection = command == "diff" ? [] : ["--entry", "Flow.Handle"];
-            string[] target = command == "reach" ? ["--to", "Derived.After"] : [];
+            var options = new DiffOptions { Entries = command == "diff" ? [] : ["Flow.Handle"], MaxDepth = 12, Locations = true };
+            var outputs = command == "diff" ? await fixture.DiffFormatsAsync(options)
+                : await fixture.QueryFormatsAsync(options, target: command == "reach" ? "Derived.After" : null);
             foreach (var format in new[] { "text", "md", "json" })
             {
-                var output = await fixture.RunAsync([command, .. revisions, .. selection, .. target, .. mode, "--format", format, "--depth", "12", "--locs"]);
-                Assert.StartsWith("exit: 0\n", output);
+                var output = outputs[format];
                 Assert.Contains("Flow.Handle", output);
                 Assert.Contains("Derived.After", output);
                 Assert.DoesNotContain("cycle", output);
@@ -47,10 +51,15 @@ public sealed class VirtualDispatchTests
         }
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task InterfaceDispatchUsesMostDerivedGenericOverride(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task InterfaceDispatchUsesMostDerivedGenericOverride() => VerifyInterfaceDispatchUsesMostDerivedGenericOverride(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceInterfaceDispatchUsesMostDerivedGenericOverride() => VerifyInterfaceDispatchUsesMostDerivedGenericOverride(true);
+
+    private static async Task VerifyInterfaceDispatchUsesMostDerivedGenericOverride(bool workspace)
     {
         const string source = """
             interface IWorker<T> { void Run(T value); }
@@ -60,10 +69,8 @@ public sealed class VirtualDispatchTests
             class Hidden : Worker<string> { public new void Run(string value) {} }
             class Flow { public void Handle(IWorker<string> worker) => worker.Run("value"); }
             """;
-        await using var fixture = await CreateAsync(source, source.Replace("Before();", "After();", StringComparison.Ordinal), splitProject: true);
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. mode, "--format", "json"]);
-        Assert.StartsWith("exit: 0\n", output);
+        await using var fixture = await CreateAsync(source, source.Replace("Before();", "After();", StringComparison.Ordinal), workspace, splitProject: true);
+        var output = await fixture.DiffAsync();
         using var document = Parse(output);
         Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
         var root = Assert.Single(document.RootElement.GetProperty("trees").EnumerateArray());
@@ -74,10 +81,15 @@ public sealed class VirtualDispatchTests
         Assert.DoesNotContain("Hidden.Run", output);
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task AddedOverrideAffectsUneditedCallerButNotBaseMethodGroup(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task AddedOverrideAffectsUneditedCallerButNotBaseMethodGroup() => VerifyAddedOverrideAffectsUneditedCallerButNotBaseMethodGroup(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceAddedOverrideAffectsUneditedCallerButNotBaseMethodGroup() => VerifyAddedOverrideAffectsUneditedCallerButNotBaseMethodGroup(true);
+
+    private static async Task VerifyAddedOverrideAffectsUneditedCallerButNotBaseMethodGroup(bool workspace)
     {
         const string before = """
             using System;
@@ -86,34 +98,35 @@ public sealed class VirtualDispatchTests
             class Flow { public void Handle(Worker worker) => worker.Run(); }
             """;
         var after = before.Replace("public void Direct()", "public override void Run() { Added(); } void Added() {} public void Direct()", StringComparison.Ordinal);
-        await using var fixture = await CreateAsync(before, after);
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. mode, "--format", "json"]);
-        Assert.StartsWith("exit: 0\n", output);
+        await using var fixture = await CreateAsync(before, after, workspace);
+        var output = await fixture.DiffAsync();
         using var document = Parse(output);
         Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
         var root = Assert.Single(document.RootElement.GetProperty("trees").EnumerateArray());
         Assert.Equal("Flow.Handle", root.GetProperty("label").GetString());
         Assert.Equal(["Derived.Run()", "Worker.Run()"], Targets(root.GetProperty("children")[0]));
-        var direct = await fixture.RunAsync(["tree", fixture.After, "--entry", "Derived.Direct", .. mode, "--format", "json"]);
-        Assert.StartsWith("exit: 0\n", direct);
+        var direct = await fixture.QueryAsync(new DiffOptions { Entries = ["Derived.Direct"] });
         using var directDocument = Parse(direct);
         var callback = directDocument.RootElement.GetProperty("trees")[0].GetProperty("children")[0].GetProperty("children")[0];
         Assert.Equal("callback", callback.GetProperty("after").GetProperty("relation").GetString());
         Assert.Equal("direct", callback.GetProperty("after").GetProperty("dispatch").GetString());
         Assert.Equal(["Worker.Run()"], Targets(callback));
         Assert.DoesNotContain("Derived.Added", direct);
-        var reach = await fixture.RunAsync(["reach", fixture.After, "--entry", "Derived.Direct", "--to", "Derived.Added", .. mode, "--format", "json"]);
-        Assert.StartsWith("exit: 0\n", reach);
+        var reach = await fixture.QueryAsync(new DiffOptions { Entries = ["Derived.Direct"] }, target: "Derived.Added");
         using var reachDocument = Parse(reach);
         Assert.Empty(reachDocument.RootElement.GetProperty("paths").EnumerateArray());
         Assert.False(reachDocument.RootElement.GetProperty("truncated").GetBoolean());
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task ExactReceiversExcludeUnrelatedOverrides(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task ExactReceiversExcludeUnrelatedOverrides() => VerifyExactReceiversExcludeUnrelatedOverrides(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceExactReceiversExcludeUnrelatedOverrides() => VerifyExactReceiversExcludeUnrelatedOverrides(true);
+
+    private static async Task VerifyExactReceiversExcludeUnrelatedOverrides(bool workspace)
     {
         const string source = """
             class Worker { public virtual void Run() {} }
@@ -121,12 +134,10 @@ public sealed class VirtualDispatchTests
             sealed class Inherited : Worker { public void Implicit() => Run(); }
             class Flow { public void Handle(Inherited worker) { worker.Run(); worker?.Run(); new Worker().Run(); } }
             """;
-        await using var fixture = await CreateAsync(source, source + " class Added {} ");
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
+        await using var fixture = await CreateAsync(source, source + " class Added {} ", workspace);
         foreach (var entry in new[] { "Flow.Handle", "Inherited.Implicit" })
         {
-            var output = await fixture.RunAsync(["tree", fixture.After, "--entry", entry, .. mode, "--format", "json"]);
-            Assert.StartsWith("exit: 0\n", output);
+            var output = await fixture.QueryAsync(new DiffOptions { Entries = [entry] });
             using var document = Parse(output);
             Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
             Assert.Contains("Worker.Run", output);
@@ -135,7 +146,7 @@ public sealed class VirtualDispatchTests
         }
     }
 
-    private static Task<GitFixture> CreateAsync(string before, string after, bool splitProject = false)
+    private static Task<AnalysisFixture> CreateAsync(string before, string after, bool workspace, bool splitProject = false)
     {
         const string project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>";
         Dictionary<string, string> Files(string source)
@@ -150,11 +161,11 @@ public sealed class VirtualDispatchTests
                 ["Flow.cs"] = source[boundary..]
             };
         }
-        return GitFixture.CreateAsync(new Scenario("virtual-dispatch", "Virtual overrides preserve possible targets and explicit base calls.",
-            Files(before), Files(after), []));
+        return AnalysisFixture.CreateAsync(new Scenario("virtual-dispatch", "Virtual overrides preserve possible targets and explicit base calls.",
+            Files(before), Files(after), []), workspace);
     }
 
-    private static JsonDocument Parse(string output) => JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+    private static JsonDocument Parse(string output) => JsonDocument.Parse(output);
 
     private static string[] Targets(JsonElement node) => node.GetProperty("after").GetProperty("targetIds").EnumerateArray()
         .Select(value => value.GetString()!.Split("::", StringSplitOptions.None)[1]).ToArray();

@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -6,11 +7,18 @@ namespace Callrift.Scenarios;
 public sealed class InterfaceReceiverTests
 {
     [Theory]
-    [InlineData(false, false)]
-    [InlineData(false, true)]
-    [InlineData(true, false)]
-    [InlineData(true, true)]
-    public async Task ObjectMethodCandidatesMustImplementReceiverInterface(bool workspace, bool castFromObject)
+    [InlineData(false)]
+    [InlineData(true)]
+    [Trait("Layer", "Fast")]
+    public Task ObjectMethodCandidatesMustImplementReceiverInterface(bool castFromObject) => VerifyObjectMethodCandidatesMustImplementReceiverInterface(false, castFromObject);
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceObjectMethodCandidatesMustImplementReceiverInterface(bool castFromObject) => VerifyObjectMethodCandidatesMustImplementReceiverInterface(true, castFromObject);
+
+    private static async Task VerifyObjectMethodCandidatesMustImplementReceiverInterface(bool workspace, bool castFromObject)
     {
         const string source = """
             interface IWorker {}
@@ -20,14 +28,12 @@ public sealed class InterfaceReceiverTests
             """;
         var input = castFromObject ? source.Replace("IWorker worker", "object worker", StringComparison.Ordinal)
             .Replace("worker.ToString()", "((IWorker)worker).ToString()", StringComparison.Ordinal) : source;
-        await using var fixture = await CreateAsync(input);
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
+        await using var fixture = await CreateAsync(input, workspace);
         foreach (var command in new[] { "diff", "tree", "reach" })
         {
-            string[] revisions = command == "diff" ? [fixture.Before, fixture.After] : [fixture.After];
-            string[] entry = command == "diff" ? [] : ["--entry", "Flow.Run"];
-            string[] target = command == "reach" ? ["--to", "Worker.After"] : [];
-            var output = await fixture.RunAsync([command, .. revisions, .. entry, .. target, .. mode, "--format", "json"]);
+            var options = new DiffOptions { Entries = command == "diff" ? [] : ["Flow.Run"] };
+            var output = command == "diff" ? await fixture.DiffAsync(options)
+                : await fixture.QueryAsync(options, target: command == "reach" ? "Worker.After" : null);
             using var document = Parse(output);
             var root = Assert.Single(document.RootElement.GetProperty(command == "reach" ? "paths" : "trees").EnumerateArray());
             Assert.Equal("Flow.Run", root.GetProperty("label").GetString());
@@ -36,29 +42,32 @@ public sealed class InterfaceReceiverTests
             Assert.Contains("Worker.After", output);
             Assert.DoesNotContain("Unrelated", output);
         }
-        var impossible = await fixture.RunAsync(["reach", fixture.After, "--entry", "Flow.Run", "--to", "Unrelated.Wrong", .. mode, "--format", "json"]);
+        var impossible = await fixture.QueryAsync(new DiffOptions { Entries = ["Flow.Run"] }, target: "Unrelated.Wrong");
         using var unreachable = Parse(impossible);
         Assert.Empty(unreachable.RootElement.GetProperty("paths").EnumerateArray());
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task AbstractClassConcreteImplementationRemainsPossible(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task AbstractClassConcreteImplementationRemainsPossible() => VerifyAbstractClassConcreteImplementationRemainsPossible(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceAbstractClassConcreteImplementationRemainsPossible() => VerifyAbstractClassConcreteImplementationRemainsPossible(true);
+
+    private static async Task VerifyAbstractClassConcreteImplementationRemainsPossible(bool workspace)
     {
         const string source = """
             interface IWorker { void Run(); }
             abstract class Worker : IWorker { public void Run() { Before(); } void Before() {} void After() {} }
             class Flow { public void Handle(IWorker worker) => worker.Run(); }
             """;
-        await using var fixture = await CreateAsync(source);
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
+        await using var fixture = await CreateAsync(source, workspace);
         foreach (var command in new[] { "diff", "tree", "reach" })
         {
-            string[] revisions = command == "diff" ? [fixture.Before, fixture.After] : [fixture.After];
-            string[] entry = command == "diff" ? [] : ["--entry", "Flow.Handle"];
-            string[] target = command == "reach" ? ["--to", "Worker.After"] : [];
-            var output = await fixture.RunAsync([command, .. revisions, .. entry, .. target, .. mode, "--format", "json"]);
+            var options = new DiffOptions { Entries = command == "diff" ? [] : ["Flow.Handle"] };
+            var output = command == "diff" ? await fixture.DiffAsync(options)
+                : await fixture.QueryAsync(options, target: command == "reach" ? "Worker.After" : null);
             using var document = Parse(output);
             var root = Assert.Single(document.RootElement.GetProperty(command == "reach" ? "paths" : "trees").EnumerateArray());
             Assert.Equal("Flow.Handle", root.GetProperty("label").GetString());
@@ -67,7 +76,7 @@ public sealed class InterfaceReceiverTests
         }
     }
 
-    private static Task<GitFixture> CreateAsync(string source)
+    private static Task<AnalysisFixture> CreateAsync(string source, bool workspace)
     {
         var before = new Dictionary<string, string>
         {
@@ -75,13 +84,12 @@ public sealed class InterfaceReceiverTests
             ["Flow.cs"] = source
         };
         var after = new Dictionary<string, string>(before) { ["Flow.cs"] = source.Replace("Before();", "After();", StringComparison.Ordinal) };
-        return GitFixture.CreateAsync(new Scenario("interface-receiver", "Interface receivers exclude unrelated implementations and retain callable bodies on abstract classes.", before, after, []));
+        return AnalysisFixture.CreateAsync(new Scenario("interface-receiver", "Interface receivers exclude unrelated implementations and retain callable bodies on abstract classes.", before, after, []), workspace);
     }
 
     private static JsonDocument Parse(string output)
     {
-        Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
-        var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+        var document = JsonDocument.Parse(output);
         Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.False(document.RootElement.GetProperty("truncated").GetBoolean());
         return document;
