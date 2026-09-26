@@ -1,6 +1,6 @@
 # Test-suite performance goal
 
-Status: reopened for a second performance phase; implementation pending. The previous phase established fast everyday feedback, but broad CI still takes 46–49 minutes. This phase makes the remaining suite fast. It does not resume the paused implementation goal in `GOAL.md`.
+Status: second performance phase in progress; local profiling and real-world format reuse underway. The previous phase established fast everyday feedback, but broad CI still takes 46–49 minutes. This phase makes the remaining suite fast. It does not resume the paused implementation goal in `GOAL.md`.
 
 ## Outcome
 

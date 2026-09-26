@@ -870,4 +870,97 @@ The complete local TRX confirms the four-class bound and exclusive collection.
 No fast hook has been added. Formatting/message gates and asynchronous E2E policy
 remain in force. The final fast and representative selections passed on all three
 platforms, and terminal broad-suite logs confirm all 706 expected executions passed
-per OS. All completion criteria in `WORKFLOW_DEVEX_GOAL.md` are satisfied.
+per OS. This completed the first phase; it does not establish completion of the
+reopened broad-suite performance goal in `WORKFLOW_DEVEX_GOAL.md`.
+
+
+## Broad-suite performance phase: in progress
+
+The second phase starts at `75bdd97`, with the supported-platform baseline at
+`90083f5` recorded in `WORKFLOW_DEVEX_GOAL.md`. The earlier completion audit above
+is historical. The ten-minute broad-feedback target and separate all-cases
+cold/warm evidence remain unproven.
+
+### Isolation inventory before changing scheduling
+
+| Mutable state | Ownership and remaining boundary |
+|---|---|
+| Workspace test Git directories and caches | Each `GitFixture` creates unique physical paths and removes only its own directories after child processes finish. Cache and color settings are child-process environment entries. Independent fixtures can overlap. |
+| Scenario workspace roots and restore outputs | Each `WorkspaceFixture` owns fresh before/after roots and deletes them after both worker results are read. No restored input is shared yet; repeated project shapes still restore independently. |
+| Real-world repository caches | Shared by `CacheName`; preparation currently lacks a lock around clone and missing-commit fetch. Pinned revisions and remote/license checks must remain. Cold concurrent preparation must be coordinated before theory rows overlap. |
+| Real-world workspace caches | Production analysis holds a file lease per digest of source/project/reference inputs, target, framework and configuration. That lease protects materialization, restore outputs and worker request/result files. It must remain; it does not protect repository preparation. |
+| Process environment | Workspace and real-world tests do not mutate the parent environment. `PartialCloneTests` does and must retain its exclusive `ProcessEnvironmentCollection`. |
+| Snapshot destinations | Workspace fixture names and real-world case/view names select distinct reviewed files. All renderings of one case must remain under one owner; no snapshot acceptance is part of this refactor. |
+| Child processes | Workspace CLI/analysis helpers enforce deadlines and kill process trees on timeout; real-world analysis retains its ten-minute cancellation token. Sweep process tests retain actual exit, drain, deadline and cancellation checks. |
+
+The current assembly-wide Workspaces/RealWorldCases serialization and sequential
+real-world theory rows are implementation debt, not justified permanent boundaries.
+Before removing them, measure concurrency one/two/four with nested MSBuild/Roslyn
+work and coordinate shared repository preparation. The four-collection Scenarios
+limit is provisional until the new slow-tier resource samples are available.
+
+### Reuse the real-world diff across formats
+
+`PinnedHistory` and `ReviewedView` now run the real Git snapshot and analysis
+pipeline once per case/view, then render the same `DiffResult` independently as
+text, Markdown and JSON. MSBuild views still restore and launch real workers for
+both pinned revisions. View options retain entries, files, depth, external calls,
+project and framework; unsupported options fail instead of being silently ignored.
+The manifest, selection, test rows, reviewed snapshots and production code are
+unchanged. Reuse across different views is still outstanding.
+
+The existing snapshot envelope retains `exit: 0` and stderr formatting for byte
+comparison with reviewed expectations. These envelopes now check renderer and
+diagnostic content, not three separate command invocations. `RestoredSerilog`
+retains actual CLI parser, format routing and exit assertions in all three formats;
+`ScenarioTests.CliCallFlow`, the query/error CLI matrices and packaging retain
+fresh-process command boundaries. This is the explicit coverage mapping for the
+removed duplicate command pipelines; no behavior rows are deleted.
+
+Matched local sample, 2026-09-26: Ubuntu 26.04 x64, Ryzen 9 7945HX (16 cores,
+32 logical CPUs), 44,825 MiB RAM, pinned SDK `11.0.100-rc.1.26425.128`, Debug.
+Before binaries were built from clean `75bdd97`; the after binaries contain the
+format-reuse change in this checkpoint. Build preparation took 2.95 s for the
+baseline solution and 1.79 s for the changed cases project, separately from tests.
+All six invocations used `-NoBuild`, existing repository/workspace/NuGet caches,
+one serial test assembly, and the existing concurrent before/after analysis.
+No other benchmark, test or build ran during these samples. The filter selects
+five rows: Serilog alignment guard and all four Autofac held-pipeline views,
+including both source and both MSBuild views. It is a focused all-view sample,
+not a measurement of either the full routine suite or `test:e2e`.
+
+```powershell
+mise exec -- pwsh -NoProfile -File scripts/Run-Tests.ps1 -Suite Cases -Filter 'DisplayName~serilog-alignment-guard|DisplayName~autofac-held-pipeline' -NoBuild
+```
+
+| Three samples per version | Before median (range) | After median (range) |
+|---|---:|---:|
+| Complete invocation, including mise/PowerShell/dotnet startup | 56.64 s (55.31–59.64) | 22.24 s (22.02–22.86) |
+| Sampled aggregate process CPU | 252.03 s (249.96–255.65) | 106.75 s (102.94–109.10) |
+| Peak summed process-tree RSS | 1.67 GiB (1.64–1.70) | 1.55 GiB (1.54–1.57) |
+| Restore processes per invocation | 12 | 4 |
+| Analysis worker processes per invocation | 12 | 4 |
+| Summed restore process lifetime | 6.47 s (6.43–7.91) | 2.15 s (2.05–2.18) |
+| Summed analysis worker lifetime | 75.20 s (73.40–75.38) | 24.78 s (24.64–25.65) |
+
+All five rows passed in every run, with no reviewed-output changes. Median elapsed
+time fell 60.7% and sampled CPU fell 57.6%, with unchanged scheduling and runner
+count. On this single local worker, aggregate command time equals elapsed time:
+0.944 to 0.371 worker-minutes for the selection. Hosted runner-minutes and broad
+critical-path improvement are not measured by this sample.
+
+The ignored `artifacts/devex/phase2/cases-{before,after}*.json` and corresponding
+logs contain the measurements. A local `/proc` observer sampled descendants every
+50 ms; CPU and lifetimes are estimates that can miss very short-lived or reparented
+children, and summed RSS includes shared pages. Worker lifetime combines startup,
+project loading, compilation, graph analysis and serialization; it does not yet
+separate those stages. Restore timing is warm package/cache work. Cold repository
+preparation, deeper stage attribution, cross-view reuse, bounded concurrency,
+workspace/scenario setup reduction, supported-platform targets and matched full
+all-cases E2E evidence remain outstanding.
+
+A separate focused validation passed three existing rows in 22.26 s complete
+invocation time: CleanArchitecture logging (`--file`), Autofac any-key source
+focused (`--externals`) and `RestoredSerilog` (actual CLI text/Markdown/JSON).
+No tests or snapshots were added. The fast tier and test command definitions are
+unchanged; this checkpoint does not claim a new full-suite or fast-tier measurement.
