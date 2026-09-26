@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -6,13 +7,20 @@ namespace Callrift.Scenarios;
 public sealed class CallCollectionTests
 {
     [Theory]
-    [InlineData("switch-guard", false)]
-    [InlineData("switch-guard", true)]
-    [InlineData("delegate-factory", false)]
-    [InlineData("delegate-factory", true)]
-    [InlineData("converted-callback", false)]
-    [InlineData("converted-callback", true)]
-    public async Task NestedExpressionsRemainReachable(string name, bool workspace)
+    [InlineData("switch-guard")]
+    [InlineData("delegate-factory")]
+    [InlineData("converted-callback")]
+    [Trait("Layer", "Fast")]
+    public Task NestedExpressionsRemainReachable(string name) => VerifyNestedExpressionsRemainReachable(name, false);
+
+    [Theory]
+    [InlineData("switch-guard")]
+    [InlineData("delegate-factory")]
+    [InlineData("converted-callback")]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceNestedExpressionsRemainReachable(string name) => VerifyNestedExpressionsRemainReachable(name, true);
+
+    private static async Task VerifyNestedExpressionsRemainReachable(string name, bool workspace)
     {
         var original = ScenarioCatalog.All.Single(s => s.Name == name);
         const string project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>";
@@ -21,24 +29,21 @@ public sealed class CallCollectionTests
             Before = new Dictionary<string, string>(original.Before) { ["App.csproj"] = project },
             After = new Dictionary<string, string>(original.After) { ["App.csproj"] = project }
         };
-        await using var fixture = await GitFixture.CreateAsync(scenario);
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
+        await using var fixture = await AnalysisFixture.CreateAsync(scenario, workspace);
         foreach (var command in new[] { "diff", "tree", "reach" })
         {
-            string[] revisions = command == "diff" ? [fixture.Before, fixture.After] : [fixture.After];
-            string[] selection = command == "diff" ? [] : ["--entry", "Flow.Run"];
-            string[] target = command == "reach" ? ["--to", "Flow.After"] : [];
+            var options = new DiffOptions { Entries = command == "diff" ? [] : ["Flow.Run"], Locations = true };
+            var outputs = command == "diff" ? await fixture.DiffFormatsAsync(options)
+                : await fixture.QueryFormatsAsync(options, target: command == "reach" ? "Flow.After" : null);
             foreach (var format in new[] { "text", "md", "json" })
             {
-                string[] restore = workspace && (command != "diff" || format != "text") ? ["--no-restore"] : [];
-                var output = await fixture.RunAsync([command, .. revisions, .. selection, .. target, .. mode, .. restore, "--locs", "--format", format]);
-                Assert.StartsWith("exit: 0\n", output);
+                var output = outputs[format];
                 Assert.Contains("Flow.Run", output);
                 Assert.Contains("Flow.After", output);
                 Assert.DoesNotContain("unresolved-call", output);
                 if (command == "diff") Assert.Contains("Flow.Before", output);
                 if (format != "json") continue;
-                using var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+                using var document = JsonDocument.Parse(output);
                 Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
                 var root = Assert.Single(document.RootElement.GetProperty(command == "reach" ? "paths" : "trees").EnumerateArray());
                 Assert.Equal("Flow.Run", root.GetProperty("label").GetString());

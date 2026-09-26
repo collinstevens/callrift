@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -6,11 +7,18 @@ namespace Callrift.Scenarios;
 public sealed class StaticEventOrderTests
 {
     [Theory]
-    [InlineData(false, "+=")]
-    [InlineData(true, "+=")]
-    [InlineData(false, "-=")]
-    [InlineData(true, "-=")]
-    public async Task EventAssignmentEvaluatesHandlerBeforeInitialization(bool workspace, string operation)
+    [InlineData("+=")]
+    [InlineData("-=")]
+    [Trait("Layer", "Fast")]
+    public Task EventAssignmentEvaluatesHandlerBeforeInitialization(string operation) => VerifyEventAssignmentEvaluatesHandlerBeforeInitialization(false, operation);
+
+    [Theory]
+    [InlineData("+=")]
+    [InlineData("-=")]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceEventAssignmentEvaluatesHandlerBeforeInitialization(string operation) => VerifyEventAssignmentEvaluatesHandlerBeforeInitialization(true, operation);
+
+    private static async Task VerifyEventAssignmentEvaluatesHandlerBeforeInitialization(bool workspace, string operation)
     {
         var before = new Dictionary<string, string>
         {
@@ -18,14 +26,13 @@ public sealed class StaticEventOrderTests
             ["Flow.cs"] = "static class Entry { public static void Run() { State.Changed " + operation + " Factory.Create(); } } static class State { static State() { Sink.Before(); } public static event System.Action Changed { add {} remove {} } } static class Factory { public static System.Action Create() { Sink.Argument(); return () => {}; } } static class Sink { public static void Before() {} public static void After() {} public static void Argument() {} }"
         };
         var after = new Dictionary<string, string>(before) { ["Flow.cs"] = before["Flow.cs"].Replace("Sink.Before();", "Sink.After();", StringComparison.Ordinal) };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("static-event-order", "Static event assignments evaluate their handler expression before triggering type initialization.", before, after, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("static-event-order", "Static event assignments evaluate their handler expression before triggering type initialization.", before, after, []), workspace);
+        var options = new DiffOptions { Entries = ["Entry.Run"], MaxDepth = 20 };
+        var trees = await fixture.QueryFormatsAsync(options);
         foreach (var command in new[] { "tree", "diff" })
         {
-            string[] revisions = command == "diff" ? [fixture.Before, fixture.After] : [fixture.After];
-            var output = await fixture.RunAsync([command, .. revisions, "--entry", "Entry.Run", "--depth", "20", "--format", "json", .. mode]);
-            Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
-            using var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+            var output = command == "diff" ? await fixture.DiffAsync(options) : trees["json"];
+            using var document = JsonDocument.Parse(output);
             Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
             var children = document.RootElement.GetProperty("trees")[0].GetProperty("children").EnumerateArray().ToArray();
             Assert.Equal("Factory.Create", children[0].GetProperty("label").GetString());
@@ -35,8 +42,7 @@ public sealed class StaticEventOrderTests
         }
         foreach (var format in new[] { "text", "md" })
         {
-            var output = await fixture.RunAsync(["tree", fixture.After, "--entry", "Entry.Run", "--depth", "20", "--format", format, .. mode]);
-            Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
+            var output = trees[format];
             Assert.True(output.IndexOf("Factory.Create", StringComparison.Ordinal) < output.IndexOf("initialization of State", StringComparison.Ordinal), output);
         }
     }
