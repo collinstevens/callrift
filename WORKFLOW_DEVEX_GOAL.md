@@ -99,11 +99,11 @@ Aim for at least 80% of meaningful behavioral cases to live in the fast layer. U
 ## Completion criteria
 
 - [x] Existing slow tests have a behavior-to-layer inventory, and the expensive cases have an evidence-based migration plan.
-- [ ] Most meaningful behavioral cases run in the fast tier without per-case CLI, Git, restore, or MSBuild orchestration.
-- [ ] The complete fast tier meets the ten-second prepared-checkout target; startup, incremental build, and cold restore costs are reported honestly.
-- [ ] Renderer checks reuse analysis, while representative CLI format routing and determinism remain covered.
-- [ ] Unchanged component fixtures avoid redundant restoration and analysis with tested isolation and invalidation boundaries.
-- [ ] Concurrency is bounded, shared-state tests remain isolated, and before/after comparisons retain the same behavioral coverage.
+- [x] Most meaningful behavioral cases run in the fast tier without per-case CLI, Git, restore, or MSBuild orchestration.
+- [x] The complete fast tier meets the ten-second prepared-checkout target; startup, incremental build, and cold restore costs are reported honestly.
+- [x] Renderer checks reuse analysis, while representative CLI format routing and determinism remain covered.
+- [x] Unchanged component fixtures avoid redundant restoration and analysis with tested isolation and invalidation boundaries.
+- [x] Concurrency is bounded, shared-state tests remain isolated, and before/after comparisons retain the same behavioral coverage.
 - [x] Everyday commands and agent instructions clearly select the fast path; slow suites remain explicit.
 - [x] Any added test hook meets the measured total latency budget and never launches the broad end-to-end suite. No test hook has been added.
 - [ ] Fast CI results arrive independently of long suites; full E2E failures remain visible and actionable without blocking local iteration.

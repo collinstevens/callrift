@@ -309,6 +309,92 @@ on Linux, Windows and macOS, plus quality checks in
 Its broad verification jobs were still running when checked; they are not reported
 as passed.
 
+## Final layer audit
+
+The final audit found two families omitted from the earlier source migrations.
+`GeneratedInitializerIdentityTests` constructed real Roslyn compilations directly,
+including interceptor metadata and graph serialization, despite living in the
+workspace project. Its 16 existing rows move to the scenario project's fast tier;
+actual SDK/project-reference generators remain in the workspace integration suite.
+The six executable xUnit package-name rows only inspect literal source project
+metadata. They now analyze once per test-inclusion setting and reuse each diff
+across three renderers. Neither family loses expectations or gains new test rows.
+
+Framework dispatch retains all four actual mixed-framework CLI cases. Their first
+diff restores both fixed revisions; subsequent tree and reach commands reuse those
+restored inputs with `--no-restore`. Framework/project identities and fresh child
+processes remain asserted. This does not cache across changed project inputs.
+All four framework-dispatch rows passed locally with the unchanged assertions.
+The pinned Serilog MSBuild format matrix likewise restores on its first invocation
+and uses `--no-restore` for the remaining two formats. Its existing reviewed
+snapshot passed locally without edits.
+
+The coverage accounting treats execution permutations separately from behaviors:
+257 workspace scenario rows repeat source semantic expectations, and eight of the
+16 generated-initializer rows repeat the same inputs after graph serialization.
+Those permutations remain executable, but each pair counts once for the design
+signal. All other integration cases count separately, even where they also overlap
+fast semantics. The 26 remaining workspace rows and four sweep-process boundary
+cases are included. Pinned real-world repository/view permutations remain a separate
+E2E scale/corpus dimension; they are not claimed as migrated fast cases.
+
+After those explicit deductions, 342 of 420 behavior rows (81.4%) have fast
+coverage: 350 fast executions minus eight serialization permutations. The denominator
+is 655 scenario executions plus 26 workspace and four process checks, minus 257
+workspace semantic permutations and eight serialization permutations. This is a
+reviewable design signal, not line/branch coverage or a claim that integration
+wiring runs in process. Counting every execution instead gives 350 of 685 (51.1%)
+for these projects; none of the slower rows is removed to improve the ratio.
+
+Remaining slow scenario behavior beyond those 257 workspace counterparts consists
+of four expansion/budget stress rows, ten partial-clone rows, two evaluated project
+classification rows, eleven CLI query/status/merge-base rows, ten real file-local
+revision-materialization rows, eight catalog/index/invalid-selection CLI rows,
+two same-assembly project-identity rows and one workspace array-compatibility row.
+All are deliberate integration or stress coverage. Ordinary semantics have a fast
+path, while costly inputs and actual I/O boundaries remain explicitly selectable.
+
+## Complete local measurement
+
+At compiled revision `527ef15`, all 639 scenarios passed in 575.29 seconds
+(9m35s) including mise/dotnet startup and discovery, with `--no-build`. This run
+preceded relocation of the 16 generated-initializer cases and migration of the six
+executable-classification rows. It covered every scenario migration through that
+checkpoint. Fresh per-case repositories/workspaces and warm global SDK/package
+caches were used, on the local machine documented above; no other local build or
+test suite overlapped. There is no same-machine full pre-migration run, so this
+measurement does not establish a whole-suite speedup against the historical Windows
+or macOS baselines. The earlier matched local samples remain the before/after evidence.
+
+Process-tree sampling every 250 ms observed 18 processes at peak and 2,845.80 MiB
+of aggregate RSS. Summing RSS counts shared pages more than once and is not private
+memory. Observed CPU time was at least 1,836.77 seconds; processes that started and
+exited between samples may be missing, so this is a lower bound. TRX intervals show
+at most four concurrent classes and zero partial-clone overlap with any other class.
+The slowest regular class, ConstraintDispatchTests, ran alone for a 158.00-second
+final tail before the exclusive partial-clone collection. Its summed test duration
+was 197.05 seconds; StaticInitializationTests followed at 164.13 seconds and
+ReceiverContextTests at 134.05 seconds. Class scheduling is the next measured
+optimization candidate. The four-class limit remains the bounded default; this
+run does not justify increasing it for smaller hosted runners. Raw samples and TRX
+stay in ignored artifacts, with no new uploads.
+
+After the final relocation/classification edits, all 350 fast cases passed in
+4.68 seconds through `mise run test:fast`, including PowerShell startup and the
+changed-code build (4.37 seconds inside dotnet). A separate unchanged-code
+`mise run test` invocation passed in 4.21 seconds (3.92 inside dotnet), with no
+other build or test process overlapping. An earlier warm sample overlapping discovery
+was excluded. These are prepared-checkout measurements; initial restore and build
+costs and the existing ten-sample hook experiment are recorded separately above.
+No claim of an empty package cache or a cold-download budget is made. Of the 350
+fast cases, 345 completed within 100 ms; the median was 11.76 ms, p95 35.19 ms and
+maximum 437.08 ms, including cases that pay initial Roslyn setup.
+
+Discovery after relocation is 655 scenario rows: 350 Fast and 305 non-Fast with
+no overlap. The 16 added to the scenario project are the same rows removed from
+the workspace project; the total across those projects remains 681. Existing
+reviewed snapshots are unchanged throughout the workstream.
+
 ## Explicit feedback commands and hook sample
 
 The command/workflow checkpoint (parent `c94cdb5` plus the changes in this commit)
@@ -489,7 +575,7 @@ with independently defined expectations and per-case mutable state.
 |---|---|---|
 | [CallCollectionTests](../tests/Callrift.Scenarios/CallCollectionTests.cs) | Nested expression reachability, guard order and locations | Direct source graphs and reused real workspace graphs now share the existing assertions; renderer variants reuse query/diff results. |
 | [CallbackRenderingTests](../tests/Callrift.Scenarios/CallbackRenderingTests.cs) | Distinct callback bodies and per-call-site locations in renderers | Source cases now share one analysis across renderers; workspace CLI matrix retained. |
-| [CancellationBoundaryTests](../tests/Callrift.Scenarios/CancellationBoundaryTests.cs) | Cancellation after analysis and during traversal | Already direct; measure before adding to the fast tier. Keep budget stress cases separately selectable if needed. |
+| [CancellationBoundaryTests](../tests/Callrift.Scenarios/CancellationBoundaryTests.cs) | Cancellation after analysis and during traversal | Direct cancellation checks are in the fast tier; they preserve cancellation after analysis and during traversal. |
 | [ConstraintDispatchTests](../tests/Callrift.Scenarios/ConstraintDispatchTests.cs) | Constructed implementation constraints and constraint-only edits | Source rows reuse direct graphs; workspace semantic rows reuse real MSBuild graphs. Representative CLI routing and dedicated boundary suites remain. |
 | [ConstructorDiagnosticTests](../tests/Callrift.Scenarios/ConstructorDiagnosticTests.cs) | Ambiguous constructor diagnostics and omitted bodies | Source rows reuse direct graphs and renderer results; workspace rows reuse actual MSBuild graphs with the same semantic and negative-control assertions. |
 | [ConstructorDiscoveryTests](../tests/Callrift.Scenarios/ConstructorDiscoveryTests.cs) | Added/removed default constructors | Source rows reuse direct graphs and renderer results; workspace rows reuse actual MSBuild graphs with the same semantic and negative-control assertions. |
@@ -499,23 +585,24 @@ with independently defined expectations and per-case mutable state.
 | [DelegateConstructionTests](../tests/Callrift.Scenarios/DelegateConstructionTests.cs) | Delegate construction, possible callbacks and invalid targets | Source rows reuse direct graphs and renderer results; workspace rows reuse actual MSBuild graphs with the same semantic and negative-control assertions. |
 | [DelegateCopyTests](../tests/Callrift.Scenarios/DelegateCopyTests.cs) | Delegate copies, factory order and incompatible return types | Source rows reuse direct graphs and renderer results; workspace rows reuse actual MSBuild graphs with the same semantic and negative-control assertions. |
 | [DepthReachTests](../tests/Callrift.Scenarios/DepthReachTests.cs) | Complete versus truncated no-path results | Source rows now reuse direct graphs and results across renderers; workspace rows retain actual MSBuild analysis and the original semantic assertions. |
-| [DepthReachabilityTests](../tests/Callrift.Scenarios/DepthReachabilityTests.cs) | Cycle entry reachability and bounded traversal | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
+| [DepthReachabilityTests](../tests/Callrift.Scenarios/DepthReachabilityTests.cs) | Cycle entry reachability and bounded traversal | Cycle-entry source semantics are Fast and workspace graphs are reused. ConcurrentExpansions remains a separately selectable stress check. |
 | [DepthVisibilityTests](../tests/Callrift.Scenarios/DepthVisibilityTests.cs) | Depth omissions, visible leaves and changed bodies | Source rows now reuse direct graphs and results across renderers; workspace rows retain actual MSBuild analysis and the original semantic assertions. |
 | [DispatchCardinalityTests](../tests/Callrift.Scenarios/DispatchCardinalityTests.cs) | Contract identity across implementation cardinality changes | Source rows now use direct graphs; workspace rows reuse real MSBuild graphs, retaining the existing compatibility, identity and negative-control assertions. |
 | [DispatchCycleIdentityTests](../tests/Callrift.Scenarios/DispatchCycleIdentityTests.cs) | Recursive dispatch and ancestor references | Source rows now use direct graphs; workspace rows reuse real MSBuild graphs, retaining the existing compatibility, identity and negative-control assertions. |
 | [DispatchQueryTests](../tests/Callrift.Scenarios/DispatchQueryTests.cs) | Contract signature/root selection and possible implementations | Source rows now reuse direct graphs and results across renderers; workspace rows retain actual MSBuild analysis and the original semantic assertions. |
 | [FileLocalIdentityTests](../tests/Callrift.Scenarios/FileLocalIdentityTests.cs) | File-local binding and distinct callers | Source rows reuse direct graphs across formats; workspace rows retain actual Git materialization and CLI execution. |
-| [GenericContextBoundaryTests](../tests/Callrift.Scenarios/GenericContextBoundaryTests.cs) | Context recursion, limits, signatures, selection and rendering | Already direct; measure before adding to the fast tier. Keep budget stress cases separately selectable if needed. |
-| [GenericContextBudgetTests](../tests/Callrift.Scenarios/GenericContextBudgetTests.cs) | Context-budget boundaries without invented changes | Already direct; measure before adding to the fast tier. Keep budget stress cases separately selectable if needed. |
+| [GeneratedInitializerIdentityTests](../tests/Callrift.Scenarios/GeneratedInitializerIdentityTests.cs) | Generated initializer identity, source edits and graph serialization | Sixteen direct Roslyn identity and serialization rows now live in Scenarios and are Fast. Actual generator build/input changes and fresh-process determinism remain in WorkspaceTests and InterceptorTests. |
+| [GenericContextBoundaryTests](../tests/Callrift.Scenarios/GenericContextBoundaryTests.cs) | Context recursion, limits, signatures, selection and rendering | The 11 ordinary direct boundary cases are Fast. The separate budget stress class remains explicitly slow. |
+| [GenericContextBudgetTests](../tests/Callrift.Scenarios/GenericContextBudgetTests.cs) | Context-budget boundaries without invented changes | Two direct context-budget stress cases remain slow; their expensive expansion is the behavior under test. |
 | [GenericContextTests](../tests/Callrift.Scenarios/GenericContextTests.cs) | Invocation type arguments and downstream dispatch | Source rows reuse direct graphs; workspace semantic rows reuse real MSBuild graphs. Representative CLI routing and dedicated boundary suites remain. |
 | [GenericDispatchTests](../tests/Callrift.Scenarios/GenericDispatchTests.cs) | Invariant/variant contracts and repeated type parameter unification | Source rows now use direct graphs; workspace rows reuse real MSBuild graphs, retaining the existing compatibility, identity and negative-control assertions. |
-| [GitCancellationTests](../tests/Callrift.Scenarios/GitCancellationTests.cs) | Precancelled Git operations avoid inaccessible repositories | Already direct; measure before adding to the fast tier. Keep budget stress cases separately selectable if needed. |
+| [GitCancellationTests](../tests/Callrift.Scenarios/GitCancellationTests.cs) | Precancelled Git operations avoid inaccessible repositories | Four precancelled Git checks are Fast; actual hydration and process cancellation remain in PartialCloneTests. |
 | [InterfaceReceiverTests](../tests/Callrift.Scenarios/InterfaceReceiverTests.cs) | Interface receiver constraints and abstract class implementations | Source rows now use direct graphs; workspace rows reuse real MSBuild graphs, retaining the existing compatibility, identity and negative-control assertions. |
 | [PartialCloneTests](../tests/Callrift.Scenarios/PartialCloneTests.cs) | Git object hydration, ordering, errors and cancellation | Keep real repositories, fetches and child processes; retain exclusive environment collection. |
 | [ProjectClassificationTests](../tests/Callrift.Scenarios/ProjectClassificationTests.cs) | Literal metadata and conditional test-project classification | Literal metadata and framework-reference classification now run directly, with shared renderer results. Evaluated multi-project test/application classification remains real CLI/MSBuild. |
-| [QueryTests](../tests/Callrift.Scenarios/QueryTests.cs) | Tree/reach selection, depth/path limits, cycles, strict/exit-code behavior, merge base and invalid arguments | Move graph traversal to direct queries; keep CLI status/diagnostics, argument errors, merge base and a three-format matrix. |
+| [QueryTests](../tests/Callrift.Scenarios/QueryTests.cs) | Tree/reach selection, depth/path limits, cycles, strict/exit-code behavior, merge base and invalid arguments | Retain the reviewed CLI command/format matrix, status and strict-mode behavior, argument errors and real merge-base resolution. Direct selection/traversal semantics also appear in DepthReach, DispatchQuery and context boundary classes. |
 | [ReceiverConstraintTests](../tests/Callrift.Scenarios/ReceiverConstraintTests.cs) | Reference casts, conversions, sibling overrides and generic substitutions | Source rows now use direct graphs; workspace rows reuse real MSBuild graphs, retaining the existing compatibility, identity and negative-control assertions. |
-| [ReceiverContextBoundaryTests](../tests/Callrift.Scenarios/ReceiverContextBoundaryTests.cs) | Receiver-state budget preserves unchanged callers | Already direct; measure before adding to the fast tier. Keep budget stress cases separately selectable if needed. |
+| [ReceiverContextBoundaryTests](../tests/Callrift.Scenarios/ReceiverContextBoundaryTests.cs) | Receiver-state budget preserves unchanged callers | The direct receiver-budget stress case remains slow; reducing its input would change the boundary being checked. |
 | [ReceiverContextDelegateTests](../tests/Callrift.Scenarios/ReceiverContextDelegateTests.cs) | Separate delegate receivers and inherited implementations | Direct source graphs and reused real workspace graphs now share the existing assertions; renderer variants reuse query/diff results. |
 | [ReceiverContextFileLocalTests](../tests/Callrift.Scenarios/ReceiverContextFileLocalTests.cs) | Closed file-local contexts, revision materialization and same-basename paths | Physical-path and same-basename source semantics are Fast; both-mode revision materialization and workspace path identity remain real CLI integration. |
 | [ReceiverContextTests](../tests/Callrift.Scenarios/ReceiverContextTests.cs) | Inherited receiver context, cycles and unrelated sibling edits | Source rows reuse direct graphs; workspace semantic rows reuse real MSBuild graphs. Representative CLI routing and dedicated boundary suites remain. |
@@ -526,7 +613,7 @@ with independently defined expectations and per-case mutable state.
 | [StaticCallbackInitializationTests](../tests/Callrift.Scenarios/StaticCallbackInitializationTests.cs) | Independent callback initialization state | Direct source graphs and reused real workspace graphs now share the existing assertions; renderer variants reuse query/diff results. |
 | [StaticCoalesceInitializationTests](../tests/Callrift.Scenarios/StaticCoalesceInitializationTests.cs) | Conditional coalescing initialization and single receiver evaluation | Direct source graphs and reused real workspace graphs now share the existing assertions; renderer variants reuse query/diff results. |
 | [StaticEventOrderTests](../tests/Callrift.Scenarios/StaticEventOrderTests.cs) | Handler evaluation before static initialization | Direct source graphs and reused real workspace graphs now share the existing assertions; renderer variants reuse query/diff results. |
-| [StaticInitializationDeclarationTests](../tests/Callrift.Scenarios/StaticInitializationDeclarationTests.cs) | Unavailable initializer bodies and invalid declarations | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
+| [StaticInitializationDeclarationTests](../tests/Callrift.Scenarios/StaticInitializationDeclarationTests.cs) | Unavailable initializer bodies and invalid declarations | Source diagnostics and unavailable bodies are Fast; workspace CLI checks retain diagnostic stderr routing and reuse restored inputs. |
 | [StaticInitializationDepthTests](../tests/Callrift.Scenarios/StaticInitializationDepthTests.cs) | Completed initialization and later change markers | Direct source graphs and reused real workspace graphs now share the existing assertions; renderer variants reuse query/diff results. |
 | [StaticInitializationIdentityTests](../tests/Callrift.Scenarios/StaticInitializationIdentityTests.cs) | Partial initializer ordering and declaring-project identity | Source partial ordering reuses direct graphs; compile-item ordering and separate projects with identical assembly/type names retain real CLI integration. |
 | [StaticInitializationTests](../tests/Callrift.Scenarios/StaticInitializationTests.cs) | Conditional initialization and declaring-project links | Source rows reuse direct graphs; workspace semantic rows reuse real MSBuild graphs. Representative CLI routing and dedicated boundary suites remain. |
@@ -535,47 +622,34 @@ with independently defined expectations and per-case mutable state.
 | [TopLevelConstructorTests](../tests/Callrift.Scenarios/TopLevelConstructorTests.cs) | Partial top-level Program constructor binding | Source rows reuse direct graphs and renderer results; workspace rows reuse actual MSBuild graphs with the same semantic and negative-control assertions. |
 | [VarianceCompatibilityTests](../tests/Callrift.Scenarios/VarianceCompatibilityTests.cs) | Variant compatibility, inheritance and nested variance | Source rows now reuse direct graphs and results across renderers; workspace rows retain actual MSBuild analysis and the original semantic assertions. |
 | [VirtualDispatchTests](../tests/Callrift.Scenarios/VirtualDispatchTests.cs) | Overrides, direct base calls, exact receivers and method groups | Source rows now use direct graphs; workspace rows reuse real MSBuild graphs, retaining the existing compatibility, identity and negative-control assertions. |
-| [XunitExecutableClassificationTests](../tests/Callrift.Scenarios/XunitExecutableClassificationTests.cs) | Executable test projects versus application executables | Retain evaluated package/project classification integration. |
+| [XunitExecutableClassificationTests](../tests/Callrift.Scenarios/XunitExecutableClassificationTests.cs) | Executable test projects versus application executables | Six literal package-name classification rows now reuse direct source graphs and renderer results for each test-inclusion setting; they never required evaluated project loading. |
 
 | Other suite | Protected behavior | Cheapest faithful layer and required boundary |
 |---|---|---|
 | [WorkspaceTests](../tests/Callrift.Workspaces/WorkspaceTests.cs) | Parity, packages, defines, project references, generators, framework selection and restored-cache failures | Integration for evaluation, restore, generators and references. Analyze once for renderer snapshots; preserve missing-cache and framework error cases. |
-| [FrameworkDispatchTests](../tests/Callrift.Workspaces/FrameworkDispatchTests.cs) | Framework interfaces and referenced implementations | Real multi-project/framework integration. |
-| [GeneratedInitializerIdentityTests](../tests/Callrift.Workspaces/GeneratedInitializerIdentityTests.cs) | Generated initializer identities and source edits | Real generator integration; reuse a result across formats only, never across generator inputs. |
+| [FrameworkDispatchTests](../tests/Callrift.Workspaces/FrameworkDispatchTests.cs) | Framework interfaces and referenced implementations | Real multi-project/framework CLI integration remains; tree and reach reuse the fixed revisions restored by diff. |
 | [InterceptorTests](../tests/Callrift.Workspaces/InterceptorTests.cs) | Interceptor replacement, inserted calls and repeatable generated identities | Real generator integration and fresh-process determinism. |
 | [SweepProcessTests](../tests/Callrift.RealWorldCases/SweepProcessTests.cs) | Abrupt exit, bounded output, deadlines and cancellation of child processes | Bounded process integration; these require real child lifetimes. |
 | [RealWorldCaseTests](../tests/Callrift.RealWorldCases/RealWorldCaseTests.cs) | Every manifest case/view and restored Serilog | Explicit broad E2E, plus bounded routine CI views. Preserve pinned revisions, reviewed snapshots, both modes and platform coverage. |
 | [Package-Smoke.ps1](../scripts/Package-Smoke.ps1) | Installed tool and dnx execution | Packaging integration; cannot be replaced with direct library calls. |
 
-## Migration order and isolation
+## Isolation and remaining completion evidence
 
-1. Constructor equivalence and callback rendering have a comparable local baseline.
-   Move their source rows to direct graphs; share analysis across direction,
-   selection and renderer checks. Preserve all ten workspace rows and CLI assertions.
-   Reuse restored fixture inputs after the first successful command, with the
-   fixture's unique cache and unchanged revisions/project/options. No global cache
-   or production behavior change is needed.
-2. Migrate the scenario catalog and semantic families above with their existing
-   negative controls. Compare each old expectation with the direct result before
-   retiring permutations. Keep query argument/status/diagnostic tests in the CLI
-   layer and retain fresh-process format/determinism coverage.
-3. Separate pure test-project metadata inference from evaluated project behavior.
-   Preserve multi-project, same-assembly, generated, framework, cancellation,
-   cache failure/invalidation, isolation and process tests at their real boundaries.
-4. Tag and measure the complete fast selection, including discovery and startup,
-   then expose validated fast/integration/E2E commands and independent CI jobs.
-   The 328 currently tagged source rows do not yet cover the intended final fast tier.
+Ordinary source semantics, graph/query boundaries, classification and generated
+identity checks now have direct fast coverage. The retained CLI matrices exercise
+argument/status/diagnostic routing and fresh-process results. Component graph reuse
+is fixture-local: source pairs contain exact file contents; MSBuild pairs use unique
+directories, restore each revision once, analyze through the real worker, then delete
+the directories before query assertions. No mutable graph or restoration cache is
+shared across scenarios. Evaluated projects, framework selection, generators,
+restored-cache failures, file-local materialization and process lifetimes remain
+actual integration checks. No production cache or worker lifetime was changed.
 
 `PartialCloneTests` mutates `GIT_TRACE2_EVENT` and `GIT_NO_LAZY_FETCH`; it remains
 in `ProcessEnvironmentCollection` with parallelization disabled. Other fixture
 cache paths are passed through child environments, not process-wide mutation.
-Keep four concurrent classes. The baseline's `/usr/bin/time` maximum RSS measures
-a process high-water mark, not simultaneous process-tree memory. A single process
-sample observed eight dotnet processes; it does not establish peak count. CPU,
-aggregate memory, process-count sampling and the remaining serial tail still need
-measurement before tuning concurrency. Child restore/MSBuild work already overlaps.
+The complete local TRX confirms the four-class bound and exclusive collection.
 
-No fast hook has been added. The current selection and warm formatting hooks have
-measured invocation costs, but final fast-tier scope, supported-platform CI evidence
-and broad migration share remain incomplete. No full-suite speedup is claimed.
-Formatting/message gates and asynchronous E2E policy remain in force.
+No fast hook has been added. Formatting/message gates and asynchronous E2E policy
+remain in force. Current-platform CI for the final relocated selection and terminal
+broad-suite results still need inspection before the workstream is complete.

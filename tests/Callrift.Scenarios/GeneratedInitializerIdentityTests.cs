@@ -5,8 +5,9 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Xunit;
 
-namespace Callrift.Workspaces;
+namespace Callrift.Scenarios;
 
+[Trait("Layer", "Fast")]
 public sealed class GeneratedInitializerIdentityTests
 {
     private static readonly (string Name, bool Explicit, bool Shared, string Change)[] Fixtures =

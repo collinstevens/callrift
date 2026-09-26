@@ -32,7 +32,8 @@ public sealed class FrameworkDispatchTests
             string[] revisions = command == "diff" ? [fixture.Before, fixture.After] : [fixture.After];
             string[] entry = command == "diff" ? [] : ["--entry", "Flow.Run"];
             string[] target = command == "reach" ? ["--to", "Worker.After"] : [];
-            var output = await fixture.RunAsync([command, .. revisions, .. entry, .. target, "--project", "App/App.csproj", "--format", "json"]);
+            string[] restore = command == "diff" ? [] : ["--no-restore"];
+            var output = await fixture.RunAsync([command, .. revisions, .. entry, .. target, "--project", "App/App.csproj", "--format", "json", .. restore]);
             Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
             using var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
             Assert.All(document.RootElement.GetProperty("diagnostics").EnumerateArray(), diagnostic => Assert.Equal("workspace-warning", diagnostic.GetProperty("code").GetString()));

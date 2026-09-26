@@ -10,7 +10,7 @@
 - Do not gate pushes on builds or tests.
 - Run focused tests, builds, and benchmarks locally when relevant to the changed area.
 - Use CI for delayed feedback from the full end-to-end suite. Do not require a full local suite before committing or pushing.
-- Use `mise run test:fast` (also `mise run test`) for routine semantic feedback. Migration is ongoing, so also run affected non-fast coverage.
+- Use `mise run test:fast` (also `mise run test`) for routine semantic feedback. Also run affected integration coverage for Git, CLI, project loading, generators, and process behavior.
 - Use `mise run test:integration`, `test:focused`, `workspaces:focused`, or `cases:focused` with a specific filter; select benchmark filters for the affected area.
 - Use `mise run test:e2e` only for an explicit broad run. Empty or invalid focused selections must fail.
 - Push after appropriate focused validation and continue independent work while CI runs. Do not stall a checkpoint waiting for the full suite.

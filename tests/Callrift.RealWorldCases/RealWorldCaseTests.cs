@@ -19,8 +19,9 @@ public sealed class RealWorldCaseTests
         {
             using var stdout = new StringWriter { NewLine = "\n" };
             using var stderr = new StringWriter { NewLine = "\n" };
+            string[] restore = format == "text" ? [] : ["--no-restore"];
             var code = await CommandRunner.RunAsync(["diff", entry.Before, entry.After, "--format", format,
-                "--project", "src/Serilog/Serilog.csproj", "--framework", "net10.0", .. entry.Options], repository, stdout, stderr, timeout.Token);
+                "--project", "src/Serilog/Serilog.csproj", "--framework", "net10.0", .. entry.Options, .. restore], repository, stdout, stderr, timeout.Token);
             Assert.True(code == 0, stderr.ToString());
             outputs.Add($"format: {format}\nexit: {code}\nstdout:\n{stdout}stderr:\n{stderr}");
         }
