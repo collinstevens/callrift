@@ -35,7 +35,10 @@ public sealed class RecordCopyPresentationTests
             ["App.csproj"] = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>"
         };
         var after = new Dictionary<string, string>(before) { ["Flow.cs"] = source.Replace("Sink.Before();", "Sink.After();", StringComparison.Ordinal) };
-        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("record-copy-presentation", "Record copying has readable labels and original-source locations without changing compiler identities.", before, after, []), workspace);
+        var scenario = new Scenario("record-copy-presentation", "Record copying has readable labels and original-source locations without changing compiler identities.", before, after, []);
+        await using var fixture = workspace
+            ? await AnalysisFixture.CreateWorkspaceCliAsync(scenario)
+            : await AnalysisFixture.CreateAsync(scenario, workspace: false);
         var options = new DiffOptions { Entries = ["Entry.Run"], MaxDepth = 16, IncludeExternals = true };
         var scope = workspace ? "project:App.csproj@net11.0::" : "source::";
         foreach (var command in new[] { "tree", "reach", "diff" })

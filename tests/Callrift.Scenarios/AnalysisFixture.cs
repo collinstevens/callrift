@@ -6,15 +6,15 @@ namespace Callrift.Scenarios;
 
 public sealed class AnalysisFixture : IAsyncDisposable
 {
-    private readonly GitFixture? workspace;
+    private readonly GitFixture? cli;
     private readonly CallGraph? before;
     private readonly CallGraph? after;
     private readonly bool includeTests;
     private readonly HashSet<string> restored = [];
 
-    private AnalysisFixture(GitFixture workspace, bool includeTests)
+    private AnalysisFixture(GitFixture cli, bool includeTests)
     {
-        this.workspace = workspace;
+        this.cli = cli;
         this.includeTests = includeTests;
     }
 
@@ -27,49 +27,53 @@ public sealed class AnalysisFixture : IAsyncDisposable
 
     public static async Task<AnalysisFixture> CreateAsync(Scenario scenario, bool workspace, bool includeTests = false)
     {
-        if (workspace) return new AnalysisFixture(await GitFixture.CreateAsync(scenario), includeTests);
-        var (before, after) = await SourceFixture.AnalyzeAsync(scenario, includeTests);
+        var (before, after) = workspace
+            ? await WorkspaceFixture.AnalyzeAsync(scenario, includeTests)
+            : await SourceFixture.AnalyzeAsync(scenario, includeTests);
         return new AnalysisFixture(before, after, includeTests);
     }
+
+    public static async Task<AnalysisFixture> CreateWorkspaceCliAsync(Scenario scenario, bool includeTests = false) =>
+        new(await GitFixture.CreateAsync(scenario), includeTests);
 
     public async Task<string> DiffAsync(DiffOptions? options = null, bool reverse = false)
     {
         options ??= new DiffOptions { IncludeTests = includeTests };
         Validate(options);
-        if (workspace is null)
+        if (cli is null)
             return JsonRenderer.Render(CallriftService.Compare(reverse ? after! : before!, reverse ? before! : after!, options));
-        string[] revisions = reverse ? [workspace.After, workspace.Before] : [workspace.Before, workspace.After];
+        string[] revisions = reverse ? [cli.After, cli.Before] : [cli.Before, cli.After];
         return await RunAsync("diff", revisions, options, []);
     }
 
     public async Task<IReadOnlyDictionary<string, string>> DiffFormatsAsync(DiffOptions options, bool markdownAlias = false)
     {
         Validate(options);
-        if (workspace is null)
+        if (cli is null)
         {
             var result = CallriftService.Compare(before!, after!, options);
             return RenderFormats(result, options, markdownAlias ? "markdown" : "md");
         }
         var outputs = new Dictionary<string, string>();
         foreach (var format in new[] { "json", "text", markdownAlias ? "markdown" : "md" })
-            outputs[format] = await RunAsync("diff", [workspace.Before, workspace.After], options, [], format);
+            outputs[format] = await RunAsync("diff", [cli.Before, cli.After], options, [], format);
         return outputs;
     }
 
     public async Task<string> QueryAsync(DiffOptions options, bool before = false, string? target = null, int maxPaths = 100)
     {
         Validate(options);
-        if (workspace is null)
+        if (cli is null)
             return JsonRenderer.Render(CallQueries.Query(before ? this.before! : after!, new QueryRequest("unused")
             { Options = options, Target = target, MaxPaths = maxPaths }));
         string[] query = target is null ? [] : ["--to", target, "--max-paths", maxPaths.ToString(CultureInfo.InvariantCulture)];
-        return await RunAsync(target is null ? "tree" : "reach", [before ? workspace.Before : workspace.After], options, query);
+        return await RunAsync(target is null ? "tree" : "reach", [before ? cli.Before : cli.After], options, query);
     }
 
     public async Task<IReadOnlyDictionary<string, string>> QueryFormatsAsync(DiffOptions options, bool before = false, string? target = null, int maxPaths = 100)
     {
         Validate(options);
-        if (workspace is null)
+        if (cli is null)
         {
             var result = CallQueries.Query(before ? this.before! : after!, new QueryRequest("unused")
             { Options = options, Target = target, MaxPaths = maxPaths });
@@ -78,7 +82,7 @@ public sealed class AnalysisFixture : IAsyncDisposable
         var outputs = new Dictionary<string, string>();
         string[] query = target is null ? [] : ["--to", target, "--max-paths", maxPaths.ToString(CultureInfo.InvariantCulture)];
         foreach (var format in new[] { "text", "md", "json" })
-            outputs[format] = await RunAsync(target is null ? "tree" : "reach", [before ? workspace.Before : workspace.After], options, query, format);
+            outputs[format] = await RunAsync(target is null ? "tree" : "reach", [before ? cli.Before : cli.After], options, query, format);
         return outputs;
     }
 
@@ -108,7 +112,7 @@ public sealed class AnalysisFixture : IAsyncDisposable
             arguments.Add("--");
             arguments.AddRange(options.Paths);
         }
-        var output = await workspace!.RunAsync(arguments.ToArray());
+        var output = await cli!.RunAsync(arguments.ToArray());
         Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
         restored.UnionWith(revisions);
         return output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0];
@@ -120,5 +124,5 @@ public sealed class AnalysisFixture : IAsyncDisposable
             throw new ArgumentException("The fixture's analyzed test inclusion must match the query options.", nameof(options));
     }
 
-    public ValueTask DisposeAsync() => workspace?.DisposeAsync() ?? ValueTask.CompletedTask;
+    public ValueTask DisposeAsync() => cli?.DisposeAsync() ?? ValueTask.CompletedTask;
 }

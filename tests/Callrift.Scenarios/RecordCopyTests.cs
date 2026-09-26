@@ -48,7 +48,10 @@ public sealed class RecordCopyTests
             before["Base/Flow.cs"] = "public record Base<T> { public Base() {} protected Base(Base<T> other) { Sink.Before(); } } public static class Sink { public static int Before() => 0; public static int After() => 0; }";
             after["Base/Flow.cs"] = before["Base/Flow.cs"].Replace("Sink.Before()", "Sink.After()", StringComparison.Ordinal);
         }
-        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("record-copy", "Record copy construction preserves changed calls and excludes ordinary field initialization.", before, after, []), workspace);
+        var scenario = new Scenario("record-copy", "Record copy construction preserves changed calls and excludes ordinary field initialization.", before, after, []);
+        await using var fixture = workspace && name == "sealed-copy"
+            ? await AnalysisFixture.CreateWorkspaceCliAsync(scenario)
+            : await AnalysisFixture.CreateAsync(scenario, workspace);
         var options = new DiffOptions { Entries = ["Entry.Run"], MaxDepth = 16, IncludeExternals = true };
         var outputs = await fixture.DiffFormatsAsync(options, markdownAlias: true);
         foreach (var focused in new[] { false, true })
