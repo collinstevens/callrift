@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -45,13 +46,22 @@ public sealed class ConstraintDispatchTests
             ("interface-implemented", "IMarker", "Marked", "interface IMarker {} class Marked : IMarker {}", true)
         };
         foreach (var example in examples)
-            foreach (var workspace in new[] { false, true })
-                yield return [example.Name, workspace, example.Constraint, example.Actual, example.Declarations, example.Expected];
+            yield return [example.Name, example.Constraint, example.Actual, example.Declarations, example.Expected];
     }
 
     [Theory]
     [MemberData(nameof(Cases))]
-    public async Task ConstructedContractsRespectImplementationConstraints(string name, bool workspace, string constraint, string actual, string declarations, bool compatible)
+    [Trait("Layer", "Fast")]
+    public Task ConstructedContractsRespectImplementationConstraints(string name, string constraint, string actual, string declarations, bool compatible) =>
+        VerifyConstraints(name, false, constraint, actual, declarations, compatible);
+
+    [Theory]
+    [MemberData(nameof(Cases))]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceConstructedContractsRespectImplementationConstraints(string name, string constraint, string actual, string declarations, bool compatible) =>
+        VerifyConstraints(name, true, constraint, actual, declarations, compatible);
+
+    private static async Task VerifyConstraints(string name, bool workspace, string constraint, string actual, string declarations, bool compatible)
     {
         var source = $$"""
             {{declarations}}
@@ -63,31 +73,37 @@ public sealed class ConstraintDispatchTests
             """;
         if (actual == "System.Span<int>") source = source.Replace("interface IHandler<T> {", "interface IHandler<T> where T : allows ref struct {", StringComparison.Ordinal);
         const string project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>";
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("dispatch-constraint-" + name, "Only satisfiable generic implementations can follow a closed invariant contract.",
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("dispatch-constraint-" + name, "Only satisfiable generic implementations can follow a closed invariant contract.",
             new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = source },
-            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = source.Replace("Sink.Before();", "Sink.After();", StringComparison.Ordinal) }, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        using var diff = Parse(await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. mode, "--format", "json"]));
+            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = source.Replace("Sink.Before();", "Sink.After();", StringComparison.Ordinal) }, []), workspace);
+        using var diff = JsonDocument.Parse(await fixture.DiffAsync());
         Assert.Empty(diff.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.Equal(compatible ? "Flow.Run" : "Constrained<T>.Run", Assert.Single(diff.RootElement.GetProperty("trees").EnumerateArray()).GetProperty("label").GetString());
-        using var tree = Parse(await fixture.RunAsync(["tree", fixture.After, "--entry", "Flow.Run", .. mode, "--format", "json"]));
+        using var tree = JsonDocument.Parse(await fixture.QueryAsync(new DiffOptions { Entries = ["Flow.Run"] }));
         Assert.Empty(tree.RootElement.GetProperty("diagnostics").EnumerateArray());
         var targets = tree.RootElement.GetProperty("trees")[0].GetProperty("children")[0].GetProperty("after").GetProperty("targetIds")
             .EnumerateArray().Select(value => value.GetString()!).ToArray();
         Assert.Equal(compatible, targets.Any(target => target.Contains("Constrained<T>.Run", StringComparison.Ordinal)));
         Assert.Contains(targets, target => target.Contains("Unconstrained.Run", StringComparison.Ordinal));
-        using var reach = Parse(await fixture.RunAsync(["reach", fixture.After, "--entry", "Flow.Run", "--to", "Sink.After", .. mode, "--format", "json"]));
+        using var reach = JsonDocument.Parse(await fixture.QueryAsync(new DiffOptions { Entries = ["Flow.Run"] }, target: "Sink.After"));
         Assert.Empty(reach.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.Equal(compatible ? 1 : 0, reach.RootElement.GetProperty("paths").GetArrayLength());
         Assert.False(reach.RootElement.GetProperty("truncated").GetBoolean());
     }
 
     [Theory]
-    [InlineData(false, false)]
-    [InlineData(false, true)]
-    [InlineData(true, false)]
-    [InlineData(true, true)]
-    public async Task ConstraintOnlyEditsChangeCallerDispatch(bool workspace, bool remove)
+    [InlineData(false)]
+    [InlineData(true)]
+    [Trait("Layer", "Fast")]
+    public Task ConstraintOnlyEditsChangeCallerDispatch(bool remove) => VerifyConstraintEdits(false, remove);
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceConstraintOnlyEditsChangeCallerDispatch(bool remove) => VerifyConstraintEdits(true, remove);
+
+    private static async Task VerifyConstraintEdits(bool workspace, bool remove)
     {
         const string source = """
             interface IHandler<T> { void Run(T value); }
@@ -98,24 +114,18 @@ public sealed class ConstraintDispatchTests
             """;
         var valueConstraint = source.Replace("where T : class", "where T : struct", StringComparison.Ordinal);
         const string project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>";
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("constraint-only-dispatch", "Changing an implementation constraint changes the possible caller path without editing its body.",
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("constraint-only-dispatch", "Changing an implementation constraint changes the possible caller path without editing its body.",
             new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = remove ? valueConstraint : source },
-            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = remove ? source : valueConstraint }, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        using var diff = Parse(await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. mode, "--format", "json"]));
+            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = remove ? source : valueConstraint }, []), workspace);
+        using var diff = JsonDocument.Parse(await fixture.DiffAsync());
         Assert.Empty(diff.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.Equal("Flow.Run", Assert.Single(diff.RootElement.GetProperty("trees").EnumerateArray()).GetProperty("label").GetString());
         foreach (var before in new[] { true, false })
         {
-            using var reach = Parse(await fixture.RunAsync(["reach", before ? fixture.Before : fixture.After, "--entry", "Flow.Run", "--to", "Sink.Unchanged", .. mode, "--format", "json"]));
+            using var reach = JsonDocument.Parse(await fixture.QueryAsync(new DiffOptions { Entries = ["Flow.Run"] }, before: before, target: "Sink.Unchanged"));
             Assert.Empty(reach.RootElement.GetProperty("diagnostics").EnumerateArray());
             Assert.Equal(before == remove ? 1 : 0, reach.RootElement.GetProperty("paths").GetArrayLength());
         }
     }
 
-    private static JsonDocument Parse(string output)
-    {
-        Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
-        return JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
-    }
 }

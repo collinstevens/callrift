@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -86,23 +87,32 @@ public sealed class GenericContextTests
                 """, "Entry.Number", ["Sink.Long"])
         };
         foreach (var item in cases)
-            foreach (var workspace in new[] { false, true })
-                yield return [item.Name, item.Source, item.Entry, item.Sinks, workspace];
+            yield return [item.Name, item.Source, item.Entry, item.Sinks];
     }
 
     [Theory]
     [MemberData(nameof(Cases))]
-    public async Task CallsRetainGenericInvocationArguments(string name, string source, string entry, string[] sinks, bool workspace)
+    [Trait("Layer", "Fast")]
+    public Task CallsRetainGenericInvocationArguments(string name, string source, string entry, string[] sinks) =>
+        VerifyInvocationArguments(name, source, entry, sinks, false);
+
+    [Theory]
+    [MemberData(nameof(Cases))]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceCallsRetainGenericInvocationArguments(string name, string source, string entry, string[] sinks) =>
+        VerifyInvocationArguments(name, source, entry, sinks, true);
+
+    private static async Task VerifyInvocationArguments(string name, string source, string entry, string[] sinks, bool workspace)
     {
         var before = source.Replace("public static void Text() {}", "public static void Text() {} public static void After() {}", StringComparison.Ordinal);
         var after = before.Replace("=> Sink.Text();", "=> Sink.After();", StringComparison.Ordinal);
         const string project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>";
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("generic-context-" + name, "Generic invocation arguments constrain possible downstream dispatch.",
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("generic-context-" + name, "Generic invocation arguments constrain possible downstream dispatch.",
             new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = before },
-            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = after }, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        var output = await fixture.RunAsync(["tree", fixture.Before, "--entry", entry, "--depth", "16", .. mode, "--format", "json"]);
-        using var tree = Parse(output);
+            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = after }, []), workspace);
+        var options = new DiffOptions { Entries = [entry], MaxDepth = 16 };
+        var output = await fixture.QueryAsync(options, before: true);
+        using var tree = JsonDocument.Parse(output);
         Assert.Empty(tree.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.DoesNotContain("\\u001e", output, StringComparison.OrdinalIgnoreCase);
         var reached = Flatten(tree.RootElement.GetProperty("trees")).Select(n => n.GetProperty("label").GetString()!)
@@ -110,15 +120,15 @@ public sealed class GenericContextTests
         Assert.Equal(sinks, reached);
         foreach (var sink in sinks)
         {
-            using var reach = Parse(await fixture.RunAsync(["reach", fixture.Before, "--entry", entry, "--to", sink, "--depth", "16", .. mode, "--format", "json"]));
+            using var reach = JsonDocument.Parse(await fixture.QueryAsync(options, before: true, target: sink));
             Assert.Empty(reach.RootElement.GetProperty("diagnostics").EnumerateArray());
             Assert.Single(reach.RootElement.GetProperty("paths").EnumerateArray());
         }
         var excluded = sinks.Contains("Sink.Text", StringComparer.Ordinal) ? "Sink.Number" : "Sink.Text";
-        using var absent = Parse(await fixture.RunAsync(["reach", fixture.Before, "--entry", entry, "--to", excluded, "--depth", "16", .. mode, "--format", "json"]));
+        using var absent = JsonDocument.Parse(await fixture.QueryAsync(options, before: true, target: excluded));
         Assert.Empty(absent.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.Empty(absent.RootElement.GetProperty("paths").EnumerateArray());
-        using var diff = Parse(await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. mode, "--format", "json"]));
+        using var diff = JsonDocument.Parse(await fixture.DiffAsync());
         Assert.Empty(diff.RootElement.GetProperty("diagnostics").EnumerateArray());
         var expected = name switch
         {
@@ -138,9 +148,4 @@ public sealed class GenericContextTests
         }
     }
 
-    private static JsonDocument Parse(string output)
-    {
-        Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
-        return JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
-    }
 }

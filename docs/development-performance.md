@@ -93,6 +93,103 @@ Many existing direct and semantic cases are still outside that selection. This i
 progress toward the complete fast tier, not evidence that its final budget or the
 80% behavioral coverage target has been met.
 
+Third migration (parent `ef0b199` plus the generic dispatch changes in this commit):
+34 constraint cases, two constraint-edit directions and 14 generic invocation
+cases now use direct graphs in their source rows. All 50 workspace rows remain
+real CLI/MSBuild checks. Source and workspace rows share the unchanged semantic
+assertions, including incompatible targets, absent paths, diagnostics, truncation
+and closed-context identities. The typed fixture takes library options; it does
+not parse or emulate command-line input. Workspace execution still uses the real
+CLI and asserts its exit status.
+
+The fixture keeps only its own immutable source pair and analyzed test-inclusion
+setting. Reusing it with different test-inclusion options fails explicitly. No
+source/project/framework/configuration/reference/generator cache is shared between
+cases. Workspace restore tracking contains only the fixed revision IDs in that
+fixture's isolated cache, after successful commands. A later diff can still restore
+a previously queried revision when the other revision has not yet been restored;
+that remaining duplication is not counted as eliminated.
+
+Comparable four-row filter, before and after (same machine, SDK and conditions as
+above; warm global packages, fresh per-case repositories and workspace caches):
+
+```text
+(FullyQualifiedName~ConstraintDispatchTests&DisplayName~class-value)|(FullyQualifiedName~GenericContextTests&DisplayName~generic-interface-method)
+```
+
+All four rows passed: 15.32 seconds before, 12.32 seconds after. Changed-code build
+was 1.94 seconds separately. The full currently tagged fast selection passed 86
+cases in 2.01 seconds including runner startup/discovery (961 ms test duration).
+Twelve additional workspace rows passed, covering ref-like allow/disallow constraints,
+required constructors, metadata unmanaged constraints, both constraint-edit directions,
+a closed text context and a generic constructor. These remain subset measurements,
+not a complete-tier or whole-suite claim.
+
+## CI evidence and outstanding failure
+
+The public run page and GitHub connector provide read-only CI access even when
+local `gh run list` is denied. Baseline
+[run 36244723276](https://github.com/collinstevens/callrift/actions/runs/36244723276),
+revision `56e12bf`, completed successfully on Ubuntu and Windows. All 639 scenario
+cases also passed on macOS in 56m36s, but its workspace suite failed one of 42 cases:
+`WorkspaceTests.Projects`. During its first solution restore NuGet reported that
+`A/obj/A.csproj.nuget.g.targets` already existed; subsequent no-restore formats
+correctly reported the missing restored-cache marker. The expected snapshot is
+unchanged. This predates the migrations; its cause is still unproven and must be
+resolved or substantiated by further platform evidence before completion.
+
+```sh
+mise run workspaces:focused -- 'FullyQualifiedName~WorkspaceTests.Projects'
+```
+
+At inspection on 2026-09-26, all three OS jobs in
+[run 36250101113](https://github.com/collinstevens/callrift/actions/runs/36250101113)
+for `ef0b199` had built successfully and were still running the scenario suite.
+No pending job is counted as passed.
+
+## Recovered full baseline cost ranking
+
+The existing macOS diagnostic artifact from run `36244723276` contains the full
+639-case scenario TRX. It is retained locally under ignored `artifacts/devex/`;
+no new artifact uploads were added. Runner image `macos-26-arm64`, macOS 26.6.2,
+image version `20260907.0351.1`, SDK `11.0.100-rc.1.26425.128`, revision `56e12bf`.
+This hosted machine is not comparable to the local Ryzen machine. Restore and build
+preceded the measured test command; fixture caches were unique and global package
+cache temperatures varied as the run progressed. Case-duration sums include
+concurrent work and are cost-ranking evidence, not elapsed suite duration.
+
+| Class | Rows | Sum of case seconds | Slowest row seconds |
+|---|---:|---:|---:|
+| StaticInitializationTests | 54 | 1467.92 | 65.96 |
+| ConstructorInitializationTests | 42 | 1270.66 | 71.44 |
+| GenericContextTests | 28 | 878.94 | 61.00 |
+| RecordCopyTests | 24 | 873.76 | 89.20 |
+| ReceiverContextTests | 46 | 835.22 | 49.63 |
+| ConstraintDispatchTests | 72 | 801.07 | 53.70 |
+| DepthVisibilityTests | 20 | 490.28 | 52.84 |
+| DispatchQueryTests | 10 | 482.16 | 102.74 |
+| StaticInitializationDeclarationTests | 14 | 421.34 | 69.56 |
+| RecordCopyValidationTests | 20 | 384.82 | 48.90 |
+| VarianceCompatibilityTests | 23 | 378.75 | 46.54 |
+| CallCollectionTests | 6 | 359.11 | 120.52 |
+
+TRX timestamps show a peak of four overlapping tests. None of the ten
+`PartialCloneTests` overlapped another class. `ConstraintDispatchTests` formed a
+403.95-second single-class tail after `RecordCopyTests` finished; the exclusive
+partial-clone collection then finished the run in about 2.58 seconds. Keep the
+current concurrency limit; eliminate orchestration in the ranked classes before
+considering additional workers. CPU, aggregate RSS and process-count peaks are not
+available in this TRX and must not be inferred from overlap alone.
+
+Already-direct budget tests also require care: two `GenericContextBudgetTests`
+rows totaled 38.18 seconds (31.19-second slowest row), and the single
+`ReceiverContextBoundaryTests` row took 12.44 seconds on this runner. They exercise
+large state-space limits and must stay covered with an explicit stress selection
+unless their implementation/fixture cost can be reduced faithfully. Ordinary
+`GenericContextBoundaryTests` totaled 0.94 seconds for eleven rows, cancellation
+boundaries 0.006 seconds for seven, and precancelled Git boundaries 0.011 seconds
+for four. Those are strong candidates to include in the routine fast tier.
+
 ## Existing behavior to cheapest faithful layer
 
 Each linked class and its data rows inherit the migration rule in its row. Test
@@ -107,7 +204,7 @@ with independently defined expectations and per-case mutable state.
 | [CallCollectionTests](../tests/Callrift.Scenarios/CallCollectionTests.cs) | Nested expression reachability, guard order and locations | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [CallbackRenderingTests](../tests/Callrift.Scenarios/CallbackRenderingTests.cs) | Distinct callback bodies and per-call-site locations in renderers | Source cases now share one analysis across renderers; workspace CLI matrix retained. |
 | [CancellationBoundaryTests](../tests/Callrift.Scenarios/CancellationBoundaryTests.cs) | Cancellation after analysis and during traversal | Already direct; measure before adding to the fast tier. Keep budget stress cases separately selectable if needed. |
-| [ConstraintDispatchTests](../tests/Callrift.Scenarios/ConstraintDispatchTests.cs) | Constructed implementation constraints and constraint-only edits | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
+| [ConstraintDispatchTests](../tests/Callrift.Scenarios/ConstraintDispatchTests.cs) | Constructed implementation constraints and constraint-only edits | Source rows now reuse direct graphs across diff/tree/reach; all workspace rows retain real CLI/MSBuild with per-fixture restored inputs. |
 | [ConstructorDiagnosticTests](../tests/Callrift.Scenarios/ConstructorDiagnosticTests.cs) | Ambiguous constructor diagnostics and omitted bodies | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [ConstructorDiscoveryTests](../tests/Callrift.Scenarios/ConstructorDiscoveryTests.cs) | Added/removed default constructors | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [ConstructorEquivalenceTests](../tests/Callrift.Scenarios/ConstructorEquivalenceTests.cs) | Implicit versus explicit constructor equivalence, both directions and root selections | Source cases now share two analyzed graphs; workspace JSON routing and all syntax forms retained. |
@@ -124,7 +221,7 @@ with independently defined expectations and per-case mutable state.
 | [FileLocalIdentityTests](../tests/Callrift.Scenarios/FileLocalIdentityTests.cs) | File-local binding and distinct callers | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [GenericContextBoundaryTests](../tests/Callrift.Scenarios/GenericContextBoundaryTests.cs) | Context recursion, limits, signatures, selection and rendering | Already direct; measure before adding to the fast tier. Keep budget stress cases separately selectable if needed. |
 | [GenericContextBudgetTests](../tests/Callrift.Scenarios/GenericContextBudgetTests.cs) | Context-budget boundaries without invented changes | Already direct; measure before adding to the fast tier. Keep budget stress cases separately selectable if needed. |
-| [GenericContextTests](../tests/Callrift.Scenarios/GenericContextTests.cs) | Invocation type arguments and downstream dispatch | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
+| [GenericContextTests](../tests/Callrift.Scenarios/GenericContextTests.cs) | Invocation type arguments and downstream dispatch | Source rows now reuse direct graphs across diff/tree/reach; all workspace rows retain real CLI/MSBuild with per-fixture restored inputs. |
 | [GenericDispatchTests](../tests/Callrift.Scenarios/GenericDispatchTests.cs) | Invariant/variant contracts and repeated type parameter unification | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [GitCancellationTests](../tests/Callrift.Scenarios/GitCancellationTests.cs) | Precancelled Git operations avoid inaccessible repositories | Already direct; measure before adding to the fast tier. Keep budget stress cases separately selectable if needed. |
 | [InterfaceReceiverTests](../tests/Callrift.Scenarios/InterfaceReceiverTests.cs) | Interface receiver constraints and abstract class implementations | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
@@ -181,7 +278,7 @@ with independently defined expectations and per-case mutable state.
    cache failure/invalidation, isolation and process tests at their real boundaries.
 4. Tag and measure the complete fast selection, including discovery and startup,
    then expose validated fast/integration/E2E commands and independent CI jobs.
-   The current 36 migrated source rows alone do not constitute the fast tier.
+   The current 86 migrated source rows alone do not constitute the fast tier.
 
 `PartialCloneTests` mutates `GIT_TRACE2_EVENT` and `GIT_NO_LAZY_FETCH`; it remains
 in `ProcessEnvironmentCollection` with parallelization disabled. Other fixture
