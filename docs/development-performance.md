@@ -2,8 +2,8 @@
 
 This work tracks `WORKFLOW_DEVEX_GOAL.md`; it does not resume `GOAL.md`.
 The inventory describes existing assertions, not permission to remove integration
-coverage. The ordinary semantic migration is complete; terminal broad CI results
-remain under review. Unsampled classes have no measured cost rank.
+coverage. The workstream is complete: final fast, representative and broad CI
+passed on all three supported operating systems. Unsampled classes have no measured cost rank.
 The sections below retain historical checkpoint observations; the current-results
 table and fixture-repair section describe the latest validated state.
 
@@ -14,8 +14,8 @@ table and fixture-repair section describe the latest validated state.
 | Latest prepared fast command, `9e7a117` | 350 passed in 4.58 s including changed-code build, mise and PowerShell |
 | Matched complete scenario runs | The same 655 names passed in 460.06 s with default ordering and 448.36 s with prioritized ordering |
 | Fresh checkout, warm SDK/package caches | Explicit restore 1.07 s; installed commit hooks 3.79 s; first fast command and build 4.76 s |
-| Supported-platform feedback, `90083f5` | All three fast and representative integration/packaging jobs passed, plus quality; broad verification remains running after the fixture-path repairs |
-| Preservation | 681 scenario/workspace executions retained; reviewed snapshots and production code unchanged from `56e12bf` |
+| Supported-platform feedback, `90083f5` | Fast, representative integration/packaging, quality and all three broad verification jobs passed |
+| Preservation | 706 executions per OS passed: 350 fast, 305 slow scenarios, 26 workspaces and 25 routine cases; reviewed snapshots and production code unchanged from `56e12bf` |
 
 The matched scenario comparison is one observation, not a full E2E speedup claim.
 Detailed cache conditions, resource measurements and coverage accounting follow.
@@ -573,8 +573,42 @@ representative integration/packaging jobs, and quality. In particular, Windows
 passed the 12 real Git/CLI cases that previously failed at fixture creation and
 all four workspace cases; macOS also passed Projects again. Fast dotnet invocations
 took 9.41 seconds on Ubuntu, 7.36 on Windows and 7.05 on macOS after separate
-restore/build steps. These figures exclude PowerShell/mise startup. The three
-broad verification jobs remain running and are not reported as passed.
+restore/build steps. These figures exclude PowerShell/mise startup. All three
+broad verification jobs subsequently completed successfully.
+
+## Final CI and completion evidence
+
+Final [run 36257230296](https://github.com/collinstevens/callrift/actions/runs/36257230296)
+for source `90083f5` completed successfully. Every OS passed 350 fast cases, 305 slow
+scenarios, 26 workspace cases and 25 routine real-world/process cases, with no
+failures or skips. This preserves the earlier 706-execution total while separating
+routine semantic feedback from actual Git, CLI, restore, generator and corpus
+boundaries. Representative integration/packaging and quality also passed.
+
+| Hosted platform | Slow scenarios, dotnet seconds | Workspaces, dotnet seconds | Routine cases, dotnet seconds | Whole broad job, seconds |
+|---|---:|---:|---:|---:|
+| Ubuntu | 1613.21 | 528.55 | 722.93 | 2912.83 |
+| Windows | 1358.82 | 545.57 | 942.85 | 2941.81 |
+| macOS | 1343.73 | 531.37 | 842.03 | 2773.51 |
+
+Broad tests used the pinned SDK and Debug builds, with restore/build preceding
+`-NoBuild`. Whole-job spans use first/last log timestamps and include setup;
+queue time is excluded. The logs retain their working-tree-modified marker.
+These hosted observations are not matched local speedup measurements. All fast
+and representative results arrived independently before the broad jobs finished;
+representative job spans were 162.92 seconds on Ubuntu, 229.01 on Windows and
+116.05 on macOS. Broad suites remain absent from local commit and push gates.
+
+The completion audit checked the behavior inventory and preserved expectations,
+fixture-local graph/renderer reuse, real integration boundaries, matched 655-name
+local measurements, four-class/exclusive-collection timing evidence, fast command
+and hook budgets, invalid-selection failures, contributor/agent commands and CI
+failure diagnostics. Production code, reviewed snapshots, the pinned case manifest
+and release workflow are unchanged from `56e12bf`. Scheduled/manual all-case and
+history-sweep coverage remains available; this run verifies the routine corpus,
+not a new execution of every scheduled or release workflow. No test hook, new test
+case or external artifact destination was added. The implementation goal remains
+paused.
 
 ## Explicit feedback commands and hook sample
 
@@ -661,8 +695,8 @@ All three OS jobs in
 [run 36250101113](https://github.com/collinstevens/callrift/actions/runs/36250101113)
 for `ef0b199` subsequently completed successfully. Each passed 639 scenarios,
 42 workspace cases and 25 routine real-world/process cases: 706 executions.
-The current split preserves that expected total as 350 fast, 305 slow scenarios,
-26 workspaces and 25 routine cases; its terminal counts still need inspection.
+The final split preserves that total as 350 fast, 305 slow scenarios, 26 workspaces
+and 25 routine cases, confirmed by the terminal logs above.
 
 At `a23d291`, [run 36251285911](https://github.com/collinstevens/callrift/actions/runs/36251285911)
 passed all 156 then-tagged fast rows independently on each supported OS. SDK was
@@ -816,7 +850,7 @@ with independently defined expectations and per-case mutable state.
 | [RealWorldCaseTests](../tests/Callrift.RealWorldCases/RealWorldCaseTests.cs) | Every manifest case/view and restored Serilog | Explicit broad E2E, plus bounded routine CI views. Preserve pinned revisions, reviewed snapshots, both modes and platform coverage. |
 | [Package-Smoke.ps1](../scripts/Package-Smoke.ps1) | Installed tool and dnx execution | Packaging integration; cannot be replaced with direct library calls. |
 
-## Isolation and remaining completion evidence
+## Isolation and completion audit
 
 Ordinary source semantics, graph/query boundaries, classification and generated
 identity checks now have direct fast coverage. The retained CLI matrices exercise
@@ -835,4 +869,5 @@ The complete local TRX confirms the four-class bound and exclusive collection.
 
 No fast hook has been added. Formatting/message gates and asynchronous E2E policy
 remain in force. The final fast and representative selections passed on all three
-platforms. Terminal broad-suite results still need inspection before completion.
+platforms, and terminal broad-suite logs confirm all 706 expected executions passed
+per OS. All completion criteria in `WORKFLOW_DEVEX_GOAL.md` are satisfied.

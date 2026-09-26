@@ -1,6 +1,6 @@
 # Development workflow and test-performance goal
 
-Status: in progress. This document defines a separate development-experience workstream; it does not resume the paused implementation goal in `GOAL.md`.
+Status: complete. Final source validation passed on all three supported operating systems in [CI run 36257230296](https://github.com/collinstevens/callrift/actions/runs/36257230296). This separate development-experience workstream does not resume the paused implementation goal in `GOAL.md`.
 
 ## Outcome
 
@@ -8,7 +8,7 @@ Make routine development fast enough that people and agents naturally validate t
 
 Preserve confidence and meaningful coverage while removing repeated setup, process startup, restores, and analysis. Moving a slow suite to CI alone does not achieve this goal.
 
-Progress, the behavior-to-layer inventory, measured samples and remaining evidence gaps are recorded in [development-performance.md](docs/development-performance.md). Completion criteria below require current evidence for their full scope.
+The behavior-to-layer inventory, measured samples, final CI results and completion evidence are recorded in [development-performance.md](docs/development-performance.md).
 
 ## Starting evidence
 
@@ -106,5 +106,5 @@ Aim for at least 80% of meaningful behavioral cases to live in the fast layer. U
 - [x] Concurrency is bounded, shared-state tests remain isolated, and before/after comparisons retain the same behavioral coverage.
 - [x] Everyday commands and agent instructions clearly select the fast path; slow suites remain explicit.
 - [x] Any added test hook meets the measured total latency budget and never launches the broad end-to-end suite. No test hook has been added.
-- [ ] Fast CI results arrive independently of long suites; full E2E failures remain visible and actionable without blocking local iteration.
+- [x] Fast CI results arrive independently of long suites; full E2E failures remain visible and actionable without blocking local iteration.
 - [x] Representative before/after measurements and supported-platform CI evidence substantiate improvements. No subset result is presented as a full-suite speedup.
