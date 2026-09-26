@@ -201,6 +201,32 @@ project-link forms plus the retained sealed-copy CLI alias check. The fast tier
 still passed all 203 rows (3.51 seconds of dotnet invocation). These bounded checks
 do not establish full-suite or cross-OS throughput.
 
+## Depth, dispatch selection and variance migration
+
+Parent `83cfc0e`, same local machine/SDK/cache policy: 36 source rows in
+DepthVisibility, DepthReach, DepthReachability, DispatchQuery,
+StaticInitializationDeclaration and VarianceCompatibility now run directly.
+Thirty workspace semantic rows reuse real MSBuild graphs, retaining depth omission,
+absent-path, cycle, dispatch cardinality, signature identity and variance controls,
+including the assembly named `array`. The separate concurrent-expansion stress
+case remains outside Fast. All 639 rows remain discoverable: 239 Fast, 400 non-Fast,
+with no overlap and no snapshot changes.
+
+Seven static-declaration workspace rows retain real CLI execution because their
+text/Markdown assertions include diagnostic codes emitted on stderr. Direct source
+rows assert these same diagnostic codes in JSON and share a query result across
+renderers; they do not manufacture stderr. The CLI rows restore their unchanged
+snapshot once, then pass `--no-restore` for later commands.
+
+A matched four-row sample (depth `source-child` plus selected-contract signature,
+source and workspace in each) passed before and after. Complete no-build invocation
+fell from 20.26 to 6.77 seconds with fresh fixture inputs and warm global package
+caches. The updated everyday fast command passed 239 rows in 3.80 seconds including
+mise, PowerShell and incremental build (3.57 seconds inside dotnet). These are
+bounded measurements; the final fast-layer scope is still incomplete. All 37
+workspace rows in these six classes passed in 87.50 seconds of dotnet invocation,
+including the retained diagnostic stderr matrix.
+
 ## Explicit feedback commands and hook sample
 
 The command/workflow checkpoint (parent `c94cdb5` plus the changes in this commit)
@@ -316,6 +342,15 @@ workspace/package checks, macOS fast and broad verification were still pending a
 inspection. This is evidence that the installer collision did not recur in that
 run, not a claim that every Windows check finished.
 
+At `83cfc0e`, [run 36252111787](https://github.com/collinstevens/callrift/actions/runs/36252111787)
+passed all three fast jobs, formatting/workflow checks and all three representative
+integration jobs. The latter completed in approximately 2m32s on Ubuntu, 4m13s on
+Windows and 3m05s on macOS, measured from first/last job-log timestamps and excluding
+queue time. Each ran 12 Git/CLI cases, four workspace cases and package installation
+smoke checks. The three broad end-to-end jobs were still running; these fast results
+do not imply a passing full suite. The Windows SDK setup fix now has passing
+representative integration and packaging evidence.
+
 ## Recovered full baseline cost ranking
 
 The existing macOS diagnostic artifact from run `36244723276` contains the full
@@ -381,12 +416,12 @@ with independently defined expectations and per-case mutable state.
 | [DeferredCallbackTests](../tests/Callrift.Scenarios/DeferredCallbackTests.cs) | Deferred callback edges and receiver evaluation order | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [DelegateConstructionTests](../tests/Callrift.Scenarios/DelegateConstructionTests.cs) | Delegate construction, possible callbacks and invalid targets | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [DelegateCopyTests](../tests/Callrift.Scenarios/DelegateCopyTests.cs) | Delegate copies, factory order and incompatible return types | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
-| [DepthReachTests](../tests/Callrift.Scenarios/DepthReachTests.cs) | Complete versus truncated no-path results | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
+| [DepthReachTests](../tests/Callrift.Scenarios/DepthReachTests.cs) | Complete versus truncated no-path results | Source rows now reuse direct graphs and results across renderers; workspace rows retain actual MSBuild analysis and the original semantic assertions. |
 | [DepthReachabilityTests](../tests/Callrift.Scenarios/DepthReachabilityTests.cs) | Cycle entry reachability and bounded traversal | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
-| [DepthVisibilityTests](../tests/Callrift.Scenarios/DepthVisibilityTests.cs) | Depth omissions, visible leaves and changed bodies | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
+| [DepthVisibilityTests](../tests/Callrift.Scenarios/DepthVisibilityTests.cs) | Depth omissions, visible leaves and changed bodies | Source rows now reuse direct graphs and results across renderers; workspace rows retain actual MSBuild analysis and the original semantic assertions. |
 | [DispatchCardinalityTests](../tests/Callrift.Scenarios/DispatchCardinalityTests.cs) | Contract identity across implementation cardinality changes | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [DispatchCycleIdentityTests](../tests/Callrift.Scenarios/DispatchCycleIdentityTests.cs) | Recursive dispatch and ancestor references | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
-| [DispatchQueryTests](../tests/Callrift.Scenarios/DispatchQueryTests.cs) | Contract signature/root selection and possible implementations | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
+| [DispatchQueryTests](../tests/Callrift.Scenarios/DispatchQueryTests.cs) | Contract signature/root selection and possible implementations | Source rows now reuse direct graphs and results across renderers; workspace rows retain actual MSBuild analysis and the original semantic assertions. |
 | [FileLocalIdentityTests](../tests/Callrift.Scenarios/FileLocalIdentityTests.cs) | File-local binding and distinct callers | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [GenericContextBoundaryTests](../tests/Callrift.Scenarios/GenericContextBoundaryTests.cs) | Context recursion, limits, signatures, selection and rendering | Already direct; measure before adding to the fast tier. Keep budget stress cases separately selectable if needed. |
 | [GenericContextBudgetTests](../tests/Callrift.Scenarios/GenericContextBudgetTests.cs) | Context-budget boundaries without invented changes | Already direct; measure before adding to the fast tier. Keep budget stress cases separately selectable if needed. |
@@ -416,7 +451,7 @@ with independently defined expectations and per-case mutable state.
 | [SyntaxIdentityTests](../tests/Callrift.Scenarios/SyntaxIdentityTests.cs) | Formatting-insensitive identity versus significant literal whitespace | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [TestAssemblyClassificationTests](../tests/Callrift.Scenarios/TestAssemblyClassificationTests.cs) | Test assembly reference recognition and conditions | Move classification to snapshots; retain an actual evaluated test/application workspace boundary. |
 | [TopLevelConstructorTests](../tests/Callrift.Scenarios/TopLevelConstructorTests.cs) | Partial top-level Program constructor binding | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
-| [VarianceCompatibilityTests](../tests/Callrift.Scenarios/VarianceCompatibilityTests.cs) | Variant compatibility, inheritance and nested variance | Move compatibility matrices to real minimal compilations; retain separate assembly identity checks. |
+| [VarianceCompatibilityTests](../tests/Callrift.Scenarios/VarianceCompatibilityTests.cs) | Variant compatibility, inheritance and nested variance | Source rows now reuse direct graphs and results across renderers; workspace rows retain actual MSBuild analysis and the original semantic assertions. |
 | [VirtualDispatchTests](../tests/Callrift.Scenarios/VirtualDispatchTests.cs) | Overrides, direct base calls, exact receivers and method groups | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [XunitExecutableClassificationTests](../tests/Callrift.Scenarios/XunitExecutableClassificationTests.cs) | Executable test projects versus application executables | Retain evaluated package/project classification integration. |
 
@@ -447,7 +482,7 @@ with independently defined expectations and per-case mutable state.
    cache failure/invalidation, isolation and process tests at their real boundaries.
 4. Tag and measure the complete fast selection, including discovery and startup,
    then expose validated fast/integration/E2E commands and independent CI jobs.
-   The 203 currently tagged source rows do not yet cover the intended final fast tier.
+   The 239 currently tagged source rows do not yet cover the intended final fast tier.
 
 `PartialCloneTests` mutates `GIT_TRACE2_EVENT` and `GIT_NO_LAZY_FETCH`; it remains
 in `ProcessEnvironmentCollection` with parallelization disabled. Other fixture

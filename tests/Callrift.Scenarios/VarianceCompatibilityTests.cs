@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -6,27 +7,34 @@ namespace Callrift.Scenarios;
 public sealed class VarianceCompatibilityTests
 {
     [Theory]
-    [InlineData(false, "covariant")]
-    [InlineData(true, "covariant")]
-    [InlineData(false, "contravariant")]
-    [InlineData(true, "contravariant")]
-    [InlineData(false, "boxing")]
-    [InlineData(true, "boxing")]
-    [InlineData(false, "array")]
-    [InlineData(true, "array")]
-    [InlineData(false, "array-rank")]
-    [InlineData(true, "array-rank")]
-    [InlineData(false, "generic-base")]
-    [InlineData(true, "generic-base")]
-    [InlineData(false, "user-defined")]
-    [InlineData(true, "user-defined")]
-    [InlineData(false, "array-elements")]
-    [InlineData(true, "array-elements")]
-    [InlineData(false, "dynamic")]
-    [InlineData(true, "dynamic")]
-    [InlineData(false, "native-integer")]
-    [InlineData(true, "native-integer")]
-    public async Task IncompatibleVariantArgumentsDoNotCreatePaths(bool workspace, string kind)
+    [InlineData("covariant")]
+    [InlineData("contravariant")]
+    [InlineData("boxing")]
+    [InlineData("array")]
+    [InlineData("array-rank")]
+    [InlineData("generic-base")]
+    [InlineData("user-defined")]
+    [InlineData("array-elements")]
+    [InlineData("dynamic")]
+    [InlineData("native-integer")]
+    [Trait("Layer", "Fast")]
+    public Task IncompatibleVariantArgumentsDoNotCreatePaths(string kind) => VerifyIncompatibleVariantArgumentsDoNotCreatePaths(false, kind);
+
+    [Theory]
+    [InlineData("covariant")]
+    [InlineData("contravariant")]
+    [InlineData("boxing")]
+    [InlineData("array")]
+    [InlineData("array-rank")]
+    [InlineData("generic-base")]
+    [InlineData("user-defined")]
+    [InlineData("array-elements")]
+    [InlineData("dynamic")]
+    [InlineData("native-integer")]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceIncompatibleVariantArgumentsDoNotCreatePaths(string kind) => VerifyIncompatibleVariantArgumentsDoNotCreatePaths(true, kind);
+
+    private static async Task VerifyIncompatibleVariantArgumentsDoNotCreatePaths(bool workspace, string kind)
     {
         var source = kind switch
         {
@@ -98,27 +106,33 @@ public sealed class VarianceCompatibilityTests
             _ => throw new ArgumentOutOfRangeException(nameof(kind))
         };
         source += "\nstatic class Sink { public static void Before() {} public static void After() {} }";
-        await using var fixture = await CreateAsync(source, source.Replace("Sink.Before();", "Sink.After();", StringComparison.Ordinal));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        using var diff = Parse(await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. mode, "--format", "json"]));
+        await using var fixture = await CreateAsync(source, source.Replace("Sink.Before();", "Sink.After();", StringComparison.Ordinal), workspace);
+        using var diff = Parse(await fixture.DiffAsync());
         Assert.Empty(diff.RootElement.GetProperty("diagnostics").EnumerateArray());
         var changed = Assert.Single(diff.RootElement.GetProperty("trees").EnumerateArray());
         Assert.Equal(kind == "contravariant" ? "Wrong.Consume" : "Wrong.Produce", changed.GetProperty("label").GetString());
-        var tree = await fixture.RunAsync(["tree", fixture.After, "--entry", "Flow.Run", .. mode, "--format", "json"]);
+        var tree = await fixture.QueryAsync(new DiffOptions { Entries = ["Flow.Run"] });
         using var document = Parse(tree);
         Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.DoesNotContain("Wrong", tree);
         Assert.Contains("Wanted", tree);
-        using var reach = Parse(await fixture.RunAsync(["reach", fixture.After, "--entry", "Flow.Run", "--to", "Sink.After", .. mode, "--format", "json"]));
+        using var reach = Parse(await fixture.QueryAsync(new DiffOptions { Entries = ["Flow.Run"] }, target: "Sink.After"));
         Assert.Empty(reach.RootElement.GetProperty("paths").EnumerateArray());
         Assert.False(reach.RootElement.GetProperty("truncated").GetBoolean());
     }
 
     [Theory]
-    [InlineData(false, "App")]
-    [InlineData(true, "App")]
-    [InlineData(true, "array")]
-    public async Task InheritanceAndNestedVarianceRemainReachable(bool workspace, string assemblyName)
+    [InlineData("App")]
+    [Trait("Layer", "Fast")]
+    public Task InheritanceAndNestedVarianceRemainReachable(string assemblyName) => VerifyInheritanceAndNestedVarianceRemainReachable(false, assemblyName);
+
+    [Theory]
+    [InlineData("App")]
+    [InlineData("array")]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceInheritanceAndNestedVarianceRemainReachable(string assemblyName) => VerifyInheritanceAndNestedVarianceRemainReachable(true, assemblyName);
+
+    private static async Task VerifyInheritanceAndNestedVarianceRemainReachable(bool workspace, string assemblyName)
     {
         const string source = """
             using System.Collections.Generic;
@@ -138,9 +152,8 @@ public sealed class VarianceCompatibilityTests
             }
             static class Sink { public static void Before() {} public static void After() {} }
             """;
-        await using var fixture = await CreateAsync(source, source.Replace("Sink.Before();", "Sink.After();", StringComparison.Ordinal), assemblyName);
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. mode, "--format", "json"]);
+        await using var fixture = await CreateAsync(source, source.Replace("Sink.Before();", "Sink.After();", StringComparison.Ordinal), workspace, assemblyName);
+        var output = await fixture.DiffAsync();
         using var document = Parse(output);
         Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.Equal("Flow.Run", Assert.Single(document.RootElement.GetProperty("trees").EnumerateArray()).GetProperty("label").GetString());
@@ -155,17 +168,16 @@ public sealed class VarianceCompatibilityTests
         Assert.EndsWith("::NestedProducer.Produce()", Assert.Single(producers[1].GetProperty("after").GetProperty("targetIds").EnumerateArray()).GetString());
     }
 
-    private static Task<GitFixture> CreateAsync(string before, string after, string assemblyName = "App")
+    private static Task<AnalysisFixture> CreateAsync(string before, string after, bool workspace, string assemblyName = "App")
     {
         var project = $"<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework><AssemblyName>{assemblyName}</AssemblyName></PropertyGroup></Project>";
-        return GitFixture.CreateAsync(new Scenario("variance-compatibility", "Variant arguments require reference conversions in the declared direction.",
+        return AnalysisFixture.CreateAsync(new Scenario("variance-compatibility", "Variant arguments require reference conversions in the declared direction.",
             new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = before },
-            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = after }, []));
+            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = after }, []), workspace);
     }
 
     private static JsonDocument Parse(string output)
     {
-        Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
-        return JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+        return JsonDocument.Parse(output);
     }
 }

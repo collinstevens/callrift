@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -18,22 +19,30 @@ public sealed class DepthVisibilityTests
         ("dispatch-leaves", "interface ILeaf { void Work(); } class First : ILeaf { public void Work() {} } class Second : ILeaf { public void Work() {} } static class Entry { public static void Run(ILeaf value) => value.Work(); }", false, false, 2)
     ];
 
-    public static IEnumerable<object[]> Cases => Fixtures.SelectMany(fixture => new[] { new object[] { fixture.Name, false }, new object[] { fixture.Name, true } });
+    public static IEnumerable<object[]> Cases => Fixtures.Select(fixture => new object[] { fixture.Name });
 
     [Theory]
     [MemberData(nameof(Cases))]
-    public async Task ReportsOnlyOmittedVisibleCallsAsTruncated(string name, bool workspace)
+    [Trait("Layer", "Fast")]
+    public Task ReportsOnlyOmittedVisibleCallsAsTruncated(string name) => VerifyReportsOnlyOmittedVisibleCallsAsTruncated(name, false);
+
+    [Theory]
+    [MemberData(nameof(Cases))]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceReportsOnlyOmittedVisibleCallsAsTruncated(string name) => VerifyReportsOnlyOmittedVisibleCallsAsTruncated(name, true);
+
+    private static async Task VerifyReportsOnlyOmittedVisibleCallsAsTruncated(string name, bool workspace)
     {
         var example = Fixtures.Single(fixture => fixture.Name == name);
         var before = Files(example.Source);
         var after = Files(example.Source + " class Unrelated {} ");
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("depth-visibility", "A leaf at the depth boundary is complete when it has no visible calls.", before, after, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("depth-visibility", "A leaf at the depth boundary is complete when it has no visible calls.", before, after, []), workspace);
         foreach (var externals in new[] { false, true })
         {
-            string[] visibility = externals ? ["--externals"] : [];
+            var options = new DiffOptions { Entries = ["Entry.Run"], MaxDepth = example.Depth, IncludeExternals = externals };
+            var outputs = await fixture.QueryFormatsAsync(options, before: true);
             var expected = externals ? example.WithExternals : example.WithoutExternals;
-            using var tree = Parse(await fixture.RunAsync(["tree", fixture.Before, "--entry", "Entry.Run", "--depth", example.Depth.ToString(), "--format", "json", .. visibility, .. mode]));
+            using var tree = Parse(outputs["json"]);
             Assert.Equal(expected, tree.RootElement.GetProperty("truncated").GetBoolean());
             var nodes = tree.RootElement.GetProperty("trees").EnumerateArray().SelectMany(Flatten).ToArray();
             Assert.Equal(expected, nodes.Any(node => node.GetProperty("omission").ValueKind == JsonValueKind.Object && node.GetProperty("omission").GetProperty("reason").GetString() == "depth-limit"));
@@ -43,22 +52,25 @@ public sealed class DepthVisibilityTests
                 Assert.Empty(tree.RootElement.GetProperty("diagnostics").EnumerateArray());
             foreach (var format in new[] { "text", "md" })
             {
-                var output = await fixture.RunAsync(["tree", fixture.Before, "--entry", "Entry.Run", "--depth", example.Depth.ToString(), "--format", format, .. visibility, .. mode]);
-                Assert.StartsWith("exit: 0\n", output);
+                var output = outputs[format];
                 Assert.Equal(expected, output.Contains("depth limit", StringComparison.Ordinal));
             }
         }
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task PreservesLeafBodyChangesAtTheDepthBoundary(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task PreservesLeafBodyChangesAtTheDepthBoundary() => VerifyPreservesLeafBodyChangesAtTheDepthBoundary(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspacePreservesLeafBodyChangesAtTheDepthBoundary() => VerifyPreservesLeafBodyChangesAtTheDepthBoundary(true);
+
+    private static async Task VerifyPreservesLeafBodyChangesAtTheDepthBoundary(bool workspace)
     {
         const string source = "static class Entry { public static int Run() => Leaf(); static int Leaf() => 1; }";
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("depth-body-change", "A changed leaf body remains visible without reporting omitted calls.", Files(source), Files(source.Replace("=> 1", "=> 2", StringComparison.Ordinal)), []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        using var diff = Parse(await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--entry", "Entry.Run", "--depth", "1", "--format", "json", .. mode]));
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("depth-body-change", "A changed leaf body remains visible without reporting omitted calls.", Files(source), Files(source.Replace("=> 1", "=> 2", StringComparison.Ordinal)), []), workspace);
+        using var diff = Parse(await fixture.DiffAsync(new DiffOptions { Entries = ["Entry.Run"], MaxDepth = 1 }));
         Assert.True(diff.RootElement.GetProperty("hasChanges").GetBoolean());
         Assert.False(diff.RootElement.GetProperty("truncated").GetBoolean());
         var leaf = Assert.Single(diff.RootElement.GetProperty("trees").EnumerateArray().SelectMany(Flatten), node => node.GetProperty("label").GetString() == "Entry.Leaf");
@@ -75,8 +87,7 @@ public sealed class DepthVisibilityTests
 
     private static JsonDocument Parse(string output)
     {
-        Assert.StartsWith("exit: 0\n", output);
-        return JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+        return JsonDocument.Parse(output);
     }
 
     private static IEnumerable<JsonElement> Flatten(JsonElement node) => new[] { node }.Concat(node.GetProperty("children").EnumerateArray().SelectMany(Flatten));
