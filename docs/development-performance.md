@@ -395,6 +395,31 @@ no overlap. The 16 added to the scenario project are the same rows removed from
 the workspace project; the total across those projects remains 681. Existing
 reviewed snapshots are unchanged throughout the workstream.
 
+## Schedule expensive collections first
+
+The complete local run showed ConstraintDispatchTests starting 376.41 seconds
+after the first scenario and finishing at 573.48 seconds. It ran alone for the
+last 158.00 seconds before the exclusive partial-clone collection. The collection
+orderer now prioritizes the twelve classes with more than 50 seconds of summed
+time in that run, in descending measured order. The remaining collections use a
+stable ordinal name order. Priority is only a scheduling hint: every supplied
+collection is returned, the four-class execution limit is unchanged, and xUnit
+still owns the exclusive collection's nonparallel execution.
+
+The orderer's collection names follow the pinned xUnit 2.9.3
+[collection-per-class factory](https://github.com/xunit/xunit/blob/v2-2.9.3/src/xunit.execution/Sdk/Frameworks/CollectionPerClassTestCollectionFactory.cs).
+Unknown/new collections remain included. Refresh the measured priority list if
+future timing evidence changes which classes dominate; it is not a test filter
+or a permanent claim about class cost.
+
+All 350 fast cases passed with the orderer in 4.58 seconds including the changed-code
+build and full mise/PowerShell invocation (4.29 seconds inside dotnet). TRX confirms
+that the four largest classes were the first four scheduled. Four representative
+workspace rows plus all ten partial-clone rows passed in 8.38 seconds of dotnet
+invocation; their TRX also confirms at most four concurrent classes and no
+partial-clone overlap. A full after measurement
+is still required before claiming a wall-time improvement from scheduling.
+
 ## Explicit feedback commands and hook sample
 
 The command/workflow checkpoint (parent `c94cdb5` plus the changes in this commit)
