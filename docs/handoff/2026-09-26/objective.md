@@ -2,6 +2,7 @@
 
 Status: paused at the user's request. This is the portable objective; recreate a locally excluded `GOAL.md` when resuming. Completion requirements remain unchanged.
 
+Iteration policy: commit hooks enforce formatting, EditorConfig, and conventional messages. Pushes have no build/test gate. Run focused local tests, builds, and benchmarks for the changed area; use CI for delayed full-suite feedback. Full release validation is a completion requirement, not a prerequisite for each checkpoint. Follow `AGENTS.md` and `CONTRIBUTING.md`; historical archived full-suite push rules are superseded.
 
 Finish callrift's implementation and validate it against complex real-world C# changes. Continue through correctness, independently reviewed snapshots, performance, packaging, and actual CI. Do not substitute documentation of unfinished work for completion.
 

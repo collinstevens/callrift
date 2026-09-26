@@ -5,12 +5,25 @@ Install [mise](https://mise.jdx.dev/), then run:
 ```sh
 mise install
 mise run hooks:install
-mise run build
-mise run test
 mise run check
 ```
 
-hk enforces EditorConfig and .NET formatting before commits, conventional commit messages, and build/scenario checks before pushes. Fix formatting with `mise run format`. Project tools are pinned in `mise.toml`; `global.json` selects the same .NET SDK.
+hk checks EditorConfig and .NET formatting before commits and validates conventional commit messages. Pushes do not run builds or tests. Rerun `mise run hooks:install` after pulling hook changes to remove stale local registrations. Fix formatting with `mise run format`. Project tools are pinned in `mise.toml`; `global.json` selects the same .NET SDK.
+
+Run focused tests, builds, and benchmarks locally when they are relevant to the change. For example, validate a dispatch change with `mise run test:focused -- 'FullyQualifiedName~ConstraintDispatchTests'`. Use `mise run build` for changes that need a solution build and select benchmark filters for the affected performance area. Documentation-only changes need formatting checks. Use `mise run check:changed` for unstaged changes; commit hooks check staged files automatically. CI runs the full end-to-end scenario suite after a push and provides delayed feedback; do not wait for a full local suite before committing or pushing.
+
+The focused test tasks require a filter and build their test project as needed. For additional dotnet test options, invoke `mise exec -c 'dotnet test <project> --filter <filter> ...'` directly. Use the full-suite tasks only when explicitly needed for diagnosis or a requested complete run.
+
+| Changed area | Local command |
+|---|---|
+| Scenarios and semantic behavior | `mise run test:focused -- 'FullyQualifiedName~ConstraintDispatchTests'` |
+| Workspaces, packages, and generators | `mise run workspaces:focused -- 'FullyQualifiedName~InterceptorTests'` |
+| A pinned real-world case | `mise run cases:focused -- 'DisplayName~aspnetcore-stream-cts-disposal'` |
+| Compilation or project wiring | `mise run build` |
+| A performance area | `mise run benchmark -- --filter '*FloorBenchmarks.ReadBlobs*' --job short` |
+| Unstaged formatting | `mise run check:changed` |
+
+Do not repeatedly run the same passing checks without a relevant new change or unresolved failure. Push signed checkpoints after appropriate focused validation and continue useful work while CI runs. Report pending or failed CI accurately; a quick local loop does not establish full-suite success.
 
 The implementation targets .NET 11 with SDK `11.0.100-rc.1.26425.128`. mise also installs SDKs 10.0.303 and 10.0.401 for historical projects used by real-world investigations. Workspace fixtures exercise older target frameworks and mixed-framework project references from the .NET 11 tool.
 

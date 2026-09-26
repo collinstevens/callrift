@@ -9,8 +9,12 @@ actionlint = "1.7.12"
 "github:editorconfig-checker/editorconfig-checker" = "4.0.2"
 
 [tasks.check]
-description = "Check EditorConfig and .NET formatting"
+description = "Check all EditorConfig and .NET formatting (CI or explicit full check)"
 run = "hk check --all"
+
+[tasks."check:changed"]
+description = "Check formatting for unstaged and untracked changes"
+run = "hk check --unstaged"
 
 [tasks."hooks:install"]
 description = "Install repository Git hooks through mise"
@@ -21,15 +25,15 @@ description = "Build callrift and its verification tools"
 run = "dotnet build callrift.slnx"
 
 [tasks.test]
-description = "Run Git scenario snapshots"
+description = "Run the full scenario suite (CI or explicit full run)"
 run = "dotnet test tests/Callrift.Scenarios/Callrift.Scenarios.csproj"
 
 [tasks.cases]
-description = "Run the pinned real-history snapshots"
+description = "Run all pinned real-history snapshots (explicit full run)"
 run = "dotnet test tests/Callrift.RealWorldCases/Callrift.RealWorldCases.csproj"
 
 [tasks.workspaces]
-description = "Run restored-project and generator snapshots"
+description = "Run the full workspace suite (CI or explicit full run)"
 run = "dotnet test tests/Callrift.Workspaces/Callrift.Workspaces.csproj"
 
 [tasks."cases:candidates"]
@@ -55,3 +59,21 @@ run = "dotnet run -c Release --project tools/Callrift.RealWorldCases -- sweep"
 [tasks.workflows]
 description = "Validate GitHub Actions workflows"
 run = "actionlint"
+
+[tasks."test:focused"]
+description = "Run selected scenario tests; requires a VSTest filter"
+usage = 'arg "<filter>" help="VSTest filter for the affected tests"'
+shell = "pwsh -NoProfile -Command"
+run = 'dotnet test tests/Callrift.Scenarios/Callrift.Scenarios.csproj --filter $env:usage_filter; exit $LASTEXITCODE'
+
+[tasks."cases:focused"]
+description = "Run selected real-world case tests; requires a VSTest filter"
+usage = 'arg "<filter>" help="VSTest filter for the affected tests"'
+shell = "pwsh -NoProfile -Command"
+run = 'dotnet test tests/Callrift.RealWorldCases/Callrift.RealWorldCases.csproj --filter $env:usage_filter; exit $LASTEXITCODE'
+
+[tasks."workspaces:focused"]
+description = "Run selected workspace tests; requires a VSTest filter"
+usage = 'arg "<filter>" help="VSTest filter for the affected tests"'
+shell = "pwsh -NoProfile -Command"
+run = 'dotnet test tests/Callrift.Workspaces/Callrift.Workspaces.csproj --filter $env:usage_filter; exit $LASTEXITCODE'

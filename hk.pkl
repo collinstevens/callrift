@@ -26,15 +26,4 @@ hooks {
       }
     }
   }
-  ["pre-push"] {
-    steps {
-      ["build"] {
-        check = "mise run build"
-      }
-      ["scenarios"] {
-        depends = "build"
-        check = "mise run test"
-      }
-    }
-  }
 }

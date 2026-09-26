@@ -73,4 +73,6 @@ Console.WriteLine(JsonRenderer.Render(result));
 
 The suite includes 32 feature scenarios, command/revision checks, pinned real-history changes, and workspace/package/generator checks. Snapshots are reviewed against their source changes. The [constructor and depth review](real-world-cases/reviews/constructor-initialization.md) records the latest corpus-wide changes and remaining initialization limits. BenchmarkDotNet baselines cover source stages and commands plus restored workspace operations on a small Serilog workload. Large-repository performance and finer workspace-stage floors are still unmeasured; the prototype's reported 30 seconds is not a callrift measurement.
 
+Local commits check formatting and EditorConfig. Pushes have no build or test gate. Use focused local validation for the changed area; CI provides full end-to-end feedback. See [the contribution workflow](CONTRIBUTING.md) for focused commands.
+
 See [JSON semantics](docs/json.md), [benchmarks](benchmarks/README.md), [release procedure](docs/releasing.md), [DESIGN.md](DESIGN.md), and [CONTRIBUTING.md](CONTRIBUTING.md).
