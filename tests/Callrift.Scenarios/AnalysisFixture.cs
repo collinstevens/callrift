@@ -42,21 +42,16 @@ public sealed class AnalysisFixture : IAsyncDisposable
         return await RunAsync("diff", revisions, options, []);
     }
 
-    public async Task<IReadOnlyDictionary<string, string>> DiffFormatsAsync(DiffOptions options)
+    public async Task<IReadOnlyDictionary<string, string>> DiffFormatsAsync(DiffOptions options, bool markdownAlias = false)
     {
         Validate(options);
         if (workspace is null)
         {
             var result = CallriftService.Compare(before!, after!, options);
-            return new Dictionary<string, string>
-            {
-                ["text"] = DiffRenderer.Render(result, options),
-                ["md"] = DiffRenderer.Render(result, options, markdown: true),
-                ["json"] = JsonRenderer.Render(result)
-            };
+            return RenderFormats(result, options, markdownAlias ? "markdown" : "md");
         }
         var outputs = new Dictionary<string, string>();
-        foreach (var format in new[] { "json", "text", "md" })
+        foreach (var format in new[] { "json", "text", markdownAlias ? "markdown" : "md" })
             outputs[format] = await RunAsync("diff", [workspace.Before, workspace.After], options, [], format);
         return outputs;
     }
@@ -70,6 +65,30 @@ public sealed class AnalysisFixture : IAsyncDisposable
         string[] query = target is null ? [] : ["--to", target, "--max-paths", maxPaths.ToString(CultureInfo.InvariantCulture)];
         return await RunAsync(target is null ? "tree" : "reach", [before ? workspace.Before : workspace.After], options, query);
     }
+
+    public async Task<IReadOnlyDictionary<string, string>> QueryFormatsAsync(DiffOptions options, bool before = false, string? target = null, int maxPaths = 100)
+    {
+        Validate(options);
+        if (workspace is null)
+        {
+            var result = CallQueries.Query(before ? this.before! : after!, new QueryRequest("unused")
+            { Options = options, Target = target, MaxPaths = maxPaths });
+            return RenderFormats(result, options, "md");
+        }
+        var outputs = new Dictionary<string, string>();
+        string[] query = target is null ? [] : ["--to", target, "--max-paths", maxPaths.ToString(CultureInfo.InvariantCulture)];
+        foreach (var format in new[] { "text", "md", "json" })
+            outputs[format] = await RunAsync(target is null ? "tree" : "reach", [before ? workspace.Before : workspace.After], options, query, format);
+        return outputs;
+    }
+
+    private static IReadOnlyDictionary<string, string> RenderFormats(DiffResult result, DiffOptions options, string markdownFormat) =>
+        new Dictionary<string, string>
+        {
+            ["text"] = DiffRenderer.Render(result, options),
+            [markdownFormat] = DiffRenderer.Render(result, options, markdown: true),
+            ["json"] = JsonRenderer.Render(result)
+        };
 
     private async Task<string> RunAsync(string command, string[] revisions, DiffOptions options, string[] query, string format = "json")
     {

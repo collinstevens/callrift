@@ -1,14 +1,20 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
 
 public sealed class RecordCopyPresentationTests
 {
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task CloneLabelsPreserveIdentitiesLocationsAndCopyOrder(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task CloneLabelsPreserveIdentitiesLocationsAndCopyOrder() => VerifyPresentation(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceCloneLabelsPreserveIdentitiesLocationsAndCopyOrder() => VerifyPresentation(true);
+
+    private static async Task VerifyPresentation(bool workspace)
     {
         const string source = """
             sealed record State
@@ -29,24 +35,23 @@ public sealed class RecordCopyPresentationTests
             ["App.csproj"] = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>"
         };
         var after = new Dictionary<string, string>(before) { ["Flow.cs"] = source.Replace("Sink.Before();", "Sink.After();", StringComparison.Ordinal) };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("record-copy-presentation", "Record copying has readable labels and original-source locations without changing compiler identities.", before, after, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("record-copy-presentation", "Record copying has readable labels and original-source locations without changing compiler identities.", before, after, []), workspace);
+        var options = new DiffOptions { Entries = ["Entry.Run"], MaxDepth = 16, IncludeExternals = true };
         var scope = workspace ? "project:App.csproj@net11.0::" : "source::";
         foreach (var command in new[] { "tree", "reach", "diff" })
         {
-            string[] revisions = command == "diff" ? [fixture.Before, fixture.After] : [fixture.Before];
-            string[] target = command == "reach" ? ["--to", "Sink.Before"] : [];
+            var outputs = command == "diff" ? await fixture.DiffFormatsAsync(options)
+                : await fixture.QueryFormatsAsync(options, before: true, target: command == "reach" ? "Sink.Before" : null);
             foreach (var format in new[] { "text", "md", "json" })
             {
-                var output = await fixture.RunAsync([command, .. revisions, "--entry", "Entry.Run", .. target, "--depth", "16", "--externals", "--format", format, .. mode]);
-                Assert.StartsWith("exit: 0\n", output);
+                var output = outputs[format];
                 Assert.Contains("clone State", output);
                 if (format != "json")
                 {
                     Assert.DoesNotContain("<Clone>$", output);
                     continue;
                 }
-                using var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+                using var document = JsonDocument.Parse(output);
                 Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
                 var root = Assert.Single(document.RootElement.GetProperty(command == "reach" ? "paths" : "trees").EnumerateArray());
                 var nodes = Flatten(root).ToArray();

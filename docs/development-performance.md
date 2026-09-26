@@ -144,6 +144,33 @@ constant negative control and the default-struct constructor negative control.
 The expanded 134-row fast selection passed in 2.31 seconds including startup and
 discovery, with no build or restore. No full-suite improvement is inferred.
 
+## Record-copy and receiver migration
+
+Parent `a23d291`, same local machine, SDK and cache policy: 47 existing source
+rows now reuse direct graphs across tree, reach, focused/unfocused diff and format
+assertions. Their 45 workspace counterparts retain real CLI/MSBuild execution,
+including the `markdown` alias, invalid-declaration controls, cross-project record
+copies, exact identities/locations, receiver conversions, cycles and sibling edits.
+The two ambiguous-copy rows were source-only before migration. No snapshots changed.
+
+The matched four-row filter below passed before and after. Complete no-build
+invocation fell from 21.84 to 15.71 seconds. Each invocation used fresh fixture
+repositories/caches and warm global SDK/package caches. This sample is not a full
+suite speedup.
+
+```sh
+mise run test:focused '(FullyQualifiedName~RecordCopyTests&DisplayName~sealed-copy)|(FullyQualifiedName~ReceiverContextTests&DisplayName~field-boundary)'
+```
+
+The everyday `mise run test:fast` passed 203 rows in 3.92 seconds including mise,
+PowerShell, discovery and the changed-code incremental build (3.69 seconds inside
+dotnet). Discovery is still 639 total: 203 fast plus 436 non-fast, with no overlap.
+Eight focused workspace rows also passed in 38.25 seconds of dotnet invocation,
+covering both cross-project record forms, presentation, private malformed copies,
+receiver conversion, cycle references and unaffected siblings.
+The final broad semantic migration is incomplete; 203 rows are not claimed to meet
+the goal's 80% meaningful-behavior target.
+
 ## Explicit feedback commands and hook sample
 
 The command/workflow checkpoint (parent `c94cdb5` plus the changes in this commit)
@@ -206,7 +233,7 @@ a timeout is failure, not evidence of meeting the target. Broad non-fast scenari
 workspaces and routine real-world cases still run sequentially in a separate OS
 matrix. Scheduled/manual all-case workflows and release validation remain intact.
 New pushes cancel superseded runs on the same workflow/ref; cancellation remains
-visible and is never counted as success. Actual new-platform CI timings are pending.
+visible and is never counted as success. The first platform timings are recorded below.
 
 ## CI evidence and outstanding failure
 
@@ -229,6 +256,27 @@ At inspection on 2026-09-26, all three OS jobs in
 [run 36250101113](https://github.com/collinstevens/callrift/actions/runs/36250101113)
 for `ef0b199` had built successfully and were still running the scenario suite.
 No pending job is counted as passed.
+
+At `a23d291`, [run 36251285911](https://github.com/collinstevens/callrift/actions/runs/36251285911)
+passed all 156 then-tagged fast rows independently on each supported OS. SDK was
+`11.0.100-rc.1.26425.128`; restore/build preceded `-Suite Fast -NoBuild`.
+
+| Hosted image | Image version | Complete dotnet test invocation | Separate build |
+|---|---|---:|---:|
+| Ubuntu 24.04 | 20260920.314.1 | 6.96 s | 9.11 s |
+| Windows 2025 VS2026 | 20260922.246.2 | 7.70 s | 9.96 s |
+| macOS 26 arm64 | 20260907.0351.1 | 3.90 s | 5.42 s |
+
+These exclude PowerShell startup and tool installation and are not local-hook or
+cold-restore measurements. The representative integration job passed its 12 Git/CLI
+scenarios, four workspace cases and package smoke check on Ubuntu and macOS, in
+roughly 2m44s and 3m27s of job logs respectively. `WorkspaceTests.Projects` passed
+on macOS this time; one pass does not establish the cause of the earlier failure.
+Windows integration failed before tests because concurrent SDK installers both
+wrote `mise/dotnet-root/dnx.cmd`. Commit `6bffa4b` sets `MISE_JOBS=1` for Windows
+setup steps in CI and scheduled Windows jobs. Workflow lint passed locally; the
+Windows installation fix awaits CI. Broad verification was still running at this
+inspection. Superseded jobs may be cancelled by the next checkpoint.
 
 ## Recovered full baseline cost ranking
 
@@ -315,10 +363,10 @@ with independently defined expectations and per-case mutable state.
 | [ReceiverContextBoundaryTests](../tests/Callrift.Scenarios/ReceiverContextBoundaryTests.cs) | Receiver-state budget preserves unchanged callers | Already direct; measure before adding to the fast tier. Keep budget stress cases separately selectable if needed. |
 | [ReceiverContextDelegateTests](../tests/Callrift.Scenarios/ReceiverContextDelegateTests.cs) | Separate delegate receivers and inherited implementations | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [ReceiverContextFileLocalTests](../tests/Callrift.Scenarios/ReceiverContextFileLocalTests.cs) | Closed file-local contexts, revision materialization and same-basename paths | Direct semantics can move; retain actual revision materialization and path/assembly identity integration. |
-| [ReceiverContextTests](../tests/Callrift.Scenarios/ReceiverContextTests.cs) | Inherited receiver context, cycles and unrelated sibling edits | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
-| [RecordCopyPresentationTests](../tests/Callrift.Scenarios/RecordCopyPresentationTests.cs) | Clone labels, symbol identities, locations and copy order | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
-| [RecordCopyTests](../tests/Callrift.Scenarios/RecordCopyTests.cs) | Record copy construction, expansion and ambiguous declarations | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
-| [RecordCopyValidationTests](../tests/Callrift.Scenarios/RecordCopyValidationTests.cs) | Invalid record diagnostics and unavailable bodies | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
+| [ReceiverContextTests](../tests/Callrift.Scenarios/ReceiverContextTests.cs) | Inherited receiver context, cycles and unrelated sibling edits | Source rows now reuse direct graphs and renderer results; workspace rows retain real CLI/MSBuild with the same assertions. |
+| [RecordCopyPresentationTests](../tests/Callrift.Scenarios/RecordCopyPresentationTests.cs) | Clone labels, symbol identities, locations and copy order | Source rows now reuse direct graphs and renderer results; workspace rows retain real CLI/MSBuild with the same assertions. |
+| [RecordCopyTests](../tests/Callrift.Scenarios/RecordCopyTests.cs) | Record copy construction, expansion and ambiguous declarations | Source rows now reuse direct graphs and renderer results; workspace rows retain real CLI/MSBuild with the same assertions. |
+| [RecordCopyValidationTests](../tests/Callrift.Scenarios/RecordCopyValidationTests.cs) | Invalid record diagnostics and unavailable bodies | Source rows now reuse direct graphs and renderer results; workspace rows retain real CLI/MSBuild with the same assertions. |
 | [ScenarioTests](../tests/Callrift.Scenarios/ScenarioTests.cs) | Reviewed semantic and renderer snapshots; index/working tree and invalid selection | 26 catalog rows now use shared in-memory analysis; six retain CLI format routing. Selection errors and index/working-tree snapshots stay integration. |
 | [StaticCallbackInitializationTests](../tests/Callrift.Scenarios/StaticCallbackInitializationTests.cs) | Independent callback initialization state | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [StaticCoalesceInitializationTests](../tests/Callrift.Scenarios/StaticCoalesceInitializationTests.cs) | Conditional coalescing initialization and single receiver evaluation | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
@@ -361,7 +409,7 @@ with independently defined expectations and per-case mutable state.
    cache failure/invalidation, isolation and process tests at their real boundaries.
 4. Tag and measure the complete fast selection, including discovery and startup,
    then expose validated fast/integration/E2E commands and independent CI jobs.
-   The 156 currently tagged source rows do not yet cover the intended final fast tier.
+   The 203 currently tagged source rows do not yet cover the intended final fast tier.
 
 `PartialCloneTests` mutates `GIT_TRACE2_EVENT` and `GIT_NO_LAZY_FETCH`; it remains
 in `ProcessEnvironmentCollection` with parallelization disabled. Other fixture
