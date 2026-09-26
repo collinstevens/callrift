@@ -43,8 +43,14 @@ public sealed class DispatchCardinalityTests
             using var result = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
             Assert.Empty(result.RootElement.GetProperty("diagnostics").EnumerateArray());
             var roots = result.RootElement.GetProperty("trees").EnumerateArray().ToArray();
-            Assert.Single(roots);
-            var nodes = Flatten(roots).ToArray();
+            var root = Assert.Single(roots, node => node.GetProperty("label").GetString() == (name.EndsWith("root", StringComparison.Ordinal) ? change.Contract : "Entry.Run"));
+            foreach (var other in roots.Where(node => node.GetProperty("id").GetString() != root.GetProperty("id").GetString()))
+            {
+                Assert.Contains(other.GetProperty("change").GetString(), new[] { "added", "removed" });
+                var side = other.GetProperty("after").ValueKind == JsonValueKind.Object ? other.GetProperty("after") : other.GetProperty("before");
+                Assert.EndsWith("..ctor()", side.GetProperty("symbolId").GetString());
+            }
+            var nodes = Flatten([root]).ToArray();
             var contract = Assert.Single(nodes, node => node.GetProperty("label").GetString() == change.Contract);
             Assert.Equal("unchanged", contract.GetProperty("change").GetString());
             Assert.Equal(contract.GetProperty("before").GetProperty("symbolId").GetString(), contract.GetProperty("after").GetProperty("symbolId").GetString());
@@ -69,7 +75,7 @@ public sealed class DispatchCardinalityTests
             if (name == "cycle")
             {
                 var cycle = Assert.Single(nodes, node => node.GetProperty("omission") is { ValueKind: JsonValueKind.Object } omission && omission.GetProperty("reason").GetString() == "cycle");
-                Assert.Equal(roots[0].GetProperty("id").GetString(), cycle.GetProperty("omission").GetProperty("referenceId").GetString());
+                Assert.Equal(root.GetProperty("id").GetString(), cycle.GetProperty("omission").GetProperty("referenceId").GetString());
             }
         }
     }

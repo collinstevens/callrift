@@ -42,8 +42,8 @@ stdout:
      │  │     ├─ new FactoryGenerator (depth limit)
      │  │     ├─ RegistrationBuilder.ForDelegate (depth limit)
 ~    │  │     │  └─ FactoryGenerator.GenerateFactory (changes below depth limit)
-     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
-     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned (depth limit)
+     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
+     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned
      │  │     └─ …
      │  ├─ ⇢ AnyKeyRegistrationSource.RegistrationsFor
      │  ├─ ⇢ LazyWithMetadataRegistrationSource.RegistrationsFor
@@ -51,7 +51,7 @@ stdout:
      └─ foreach (var provided in next.RegistrationsFor(service, _registrationAccessor))
         ├─ DefaultRegisteredServicesTracker.PopulateAdditionalServicesForProvidedRegistration
         │  └─ foreach (var additionalService in provided.Services)
-        │     ├─ DefaultRegisteredServicesTracker.GetServiceInfo (depth limit)
+        │     ├─ DefaultRegisteredServicesTracker.GetServiceInfo
         │     ├─ DefaultRegisteredServicesTracker.UseEphemeralAdditionalInfoIfNeeded (depth limit)
 -       │     ├─ DefaultRegisteredServicesTracker.InitializeOrSkipSource (changes below depth limit)
 +       │     └─ DefaultRegisteredServicesTracker.HoldOrApplyForAdditionalService (changes below depth limit)
@@ -108,8 +108,8 @@ stdout:
      │  │     ├─ new FactoryGenerator (depth limit)
      │  │     ├─ RegistrationBuilder.ForDelegate (depth limit)
 ~    │  │     │  └─ FactoryGenerator.GenerateFactory (changes below depth limit)
-     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
-     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned (depth limit)
+     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
+     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned
      │  │     └─ …
      │  ├─ ⇢ AnyKeyRegistrationSource.RegistrationsFor
      │  ├─ ⇢ LazyWithMetadataRegistrationSource.RegistrationsFor
@@ -117,7 +117,7 @@ stdout:
      └─ foreach (var provided in next.RegistrationsFor(service, _registrationAccessor))
         ├─ DefaultRegisteredServicesTracker.PopulateAdditionalServicesForProvidedRegistration
         │  └─ foreach (var additionalService in provided.Services)
-        │     ├─ DefaultRegisteredServicesTracker.GetServiceInfo (depth limit)
+        │     ├─ DefaultRegisteredServicesTracker.GetServiceInfo
         │     ├─ DefaultRegisteredServicesTracker.UseEphemeralAdditionalInfoIfNeeded (depth limit)
 -       │     ├─ DefaultRegisteredServicesTracker.InitializeOrSkipSource (changes below depth limit)
 +       │     └─ DefaultRegisteredServicesTracker.HoldOrApplyForAdditionalService (changes below depth limit)

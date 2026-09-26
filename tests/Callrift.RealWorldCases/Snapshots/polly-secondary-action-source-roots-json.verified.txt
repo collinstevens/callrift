@@ -34,6 +34,28 @@ stdout:
   "diagnostics": [
     {
       "code": "unresolved-call",
+      "message": "Cannot bind implicit base constructor for new Cache.MemoryCacheProvider.",
+      "location": {
+        "path": "bench/Polly.Benchmarks/Cache.cs",
+        "startLine": 48,
+        "startColumn": 5,
+        "endLine": 90,
+        "endColumn": 6
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind implicit base constructor for new PollyConfig.",
+      "location": {
+        "path": "bench/Polly.Benchmarks/PollyConfig.cs",
+        "startLine": 5,
+        "startColumn": 5,
+        "endLine": 9,
+        "endColumn": 6
+      }
+    },
+    {
+      "code": "unresolved-call",
       "message": "Cannot bind AddDiagnoser.",
       "location": {
         "path": "bench/Polly.Benchmarks/PollyConfig.cs",
@@ -25005,7 +25027,7 @@ stdout:
               "kind": "call",
               "change": "unchanged",
               "label": "new OnHedgingArguments<TResult>",
-              "detail": "depth limit",
+              "detail": null,
               "before": {
                 "symbolId": "source::Polly.Hedging.OnHedgingArguments<TResult>..ctor(global::Polly.ResilienceContext,global::Polly.ResilienceContext,int)",
                 "signature": "Polly.Hedging.OnHedgingArguments<TResult>.OnHedgingArguments(Polly.ResilienceContext, Polly.ResilienceContext, int) -> void",
@@ -25063,18 +25085,14 @@ stdout:
                 "origin": "source"
               },
               "children": [],
-              "omission": {
-                "reason": "depth-limit",
-                "symbolId": null,
-                "referenceId": null
-              }
+              "omission": null
             },
             {
               "id": "n14",
               "kind": "call",
               "change": "unchanged",
               "label": "new ResilienceEvent",
-              "detail": "depth limit",
+              "detail": null,
               "before": {
                 "symbolId": "source::Polly.Telemetry.ResilienceEvent..ctor(global::Polly.Telemetry.ResilienceEventSeverity,string)",
                 "signature": "Polly.Telemetry.ResilienceEvent.ResilienceEvent(Polly.Telemetry.ResilienceEventSeverity, string) -> void",
@@ -25132,11 +25150,7 @@ stdout:
                 "origin": "source"
               },
               "children": [],
-              "omission": {
-                "reason": "depth-limit",
-                "symbolId": null,
-                "referenceId": null
-              }
+              "omission": null
             },
             {
               "id": "n15",
@@ -25453,7 +25467,7 @@ stdout:
           "kind": "call",
           "change": "added",
           "label": "new TelemetryOptions",
-          "detail": "depth limit",
+          "detail": null,
           "before": null,
           "after": {
             "symbolId": "source::Polly.Telemetry.TelemetryOptions..ctor()",
@@ -25484,18 +25498,14 @@ stdout:
             "origin": "source"
           },
           "children": [],
-          "omission": {
-            "reason": "depth-limit",
-            "symbolId": null,
-            "referenceId": null
-          }
+          "omission": null
         },
         {
           "id": "n21",
           "kind": "call",
           "change": "unchanged",
           "label": "Guard.NotNull",
-          "detail": "depth limit",
+          "detail": null,
           "before": {
             "symbolId": "source::Polly.Utils.Guard.NotNull`1(T,string)",
             "signature": "Polly.Utils.Guard.NotNull<T>(T, string) -> T",
@@ -25553,11 +25563,7 @@ stdout:
             "origin": "source"
           },
           "children": [],
-          "omission": {
-            "reason": "depth-limit",
-            "symbolId": null,
-            "referenceId": null
-          }
+          "omission": null
         }
       ],
       "omission": null
@@ -30254,7 +30260,7 @@ stdout:
                               "kind": "call",
                               "change": "added",
                               "label": "Program.<Main>$.AppendAllLinesWithRetry",
-                              "detail": "changes below depth limit",
+                              "detail": null,
                               "before": null,
                               "after": {
                                 "symbolId": "source::Program.<Main>$(string[])/AppendAllLinesWithRetry`0(string,global::System.Collections.Generic.IEnumerable<string>)",
@@ -30285,11 +30291,7 @@ stdout:
                                 "origin": "source"
                               },
                               "children": [],
-                              "omission": {
-                                "reason": "depth-limit",
-                                "symbolId": null,
-                                "referenceId": null
-                              }
+                              "omission": null
                             }
                           ],
                           "omission": null
@@ -34323,12 +34325,12 @@ stdout:
   "paths": []
 }
 stderr:
+bench/Polly.Benchmarks/Cache.cs:48: unresolved-call: Cannot bind implicit base constructor for new Cache.MemoryCacheProvider.
+bench/Polly.Benchmarks/PollyConfig.cs:5: unresolved-call: Cannot bind implicit base constructor for new PollyConfig.
 bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
 bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
-2212 additional diagnostics; use --diagnostics full.
+2214 additional diagnostics; use --diagnostics full.

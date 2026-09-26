@@ -154,6 +154,17 @@ stdout:
     },
     {
       "code": "unresolved-call",
+      "message": "Cannot bind implicit base constructor for new BenchmarkConfig.",
+      "location": {
+        "path": "bench/Autofac.Benchmarks/BenchmarkConfig.cs",
+        "startLine": 14,
+        "startColumn": 5,
+        "endLine": 23,
+        "endColumn": 6
+      }
+    },
+    {
+      "code": "unresolved-call",
       "message": "Cannot bind Add.",
       "location": {
         "path": "bench/Autofac.Benchmarks/BenchmarkConfig.cs",
@@ -304,6 +315,17 @@ stdout:
         "startColumn": 9,
         "endLine": 43,
         "endColumn": 48
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind implicit base constructor for new DelegateRegisterGenerator.",
+      "location": {
+        "path": "codegen/Autofac.CodeGen/DelegateRegisterGenerator.cs",
+        "startLine": 14,
+        "startColumn": 1,
+        "endLine": 334,
+        "endColumn": 2
       }
     },
     {
@@ -2895,13 +2917,19 @@ stdout:
                       "detail": null,
                       "before": {
                         "symbolId": "source::Autofac.Core.Registration.DefaultRegisteredServicesTracker.DeferredImplementationMap..ctor()",
-                        "signature": null,
+                        "signature": "Autofac.Core.Registration.DefaultRegisteredServicesTracker.DeferredImplementationMap.DeferredImplementationMap() -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
                           "source::Autofac.Core.Registration.DefaultRegisteredServicesTracker.DeferredImplementationMap..ctor()"
                         ],
-                        "definition": null,
+                        "definition": {
+                          "path": "src/Autofac/Core/Registration/DefaultRegisteredServicesTracker.cs",
+                          "startLine": 733,
+                          "startColumn": 5,
+                          "endLine": 736,
+                          "endColumn": 6
+                        },
                         "callSites": [
                           {
                             "path": "src/Autofac/Core/Registration/DefaultRegisteredServicesTracker.cs",
@@ -2917,13 +2945,19 @@ stdout:
                       },
                       "after": {
                         "symbolId": "source::Autofac.Core.Registration.DefaultRegisteredServicesTracker.DeferredImplementationMap..ctor()",
-                        "signature": null,
+                        "signature": "Autofac.Core.Registration.DefaultRegisteredServicesTracker.DeferredImplementationMap.DeferredImplementationMap() -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
                           "source::Autofac.Core.Registration.DefaultRegisteredServicesTracker.DeferredImplementationMap..ctor()"
                         ],
-                        "definition": null,
+                        "definition": {
+                          "path": "src/Autofac/Core/Registration/DefaultRegisteredServicesTracker.cs",
+                          "startLine": 728,
+                          "startColumn": 5,
+                          "endLine": 731,
+                          "endColumn": 6
+                        },
                         "callSites": [
                           {
                             "path": "src/Autofac/Core/Registration/DefaultRegisteredServicesTracker.cs",
@@ -2964,4 +2998,4 @@ bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind Ben
 bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
-166 additional diagnostics; use --diagnostics full.
+168 additional diagnostics; use --diagnostics full.

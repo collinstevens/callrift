@@ -2,13 +2,13 @@
 exit: 0
 stdout:
   ResiliencePipelineRegistry<TKey>.GetOrAddPipeline
-  ├─ Guard.NotNull (depth limit)
-  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed (depth limit)
+  ├─ Guard.NotNull
+  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
 ~ └─ ResiliencePipelineRegistry<TKey>.GetOrAddPipeline (changes below depth limit)
 
   ResiliencePipelineRegistry<TKey>.GetOrAddPipeline
-  ├─ Guard.NotNull (depth limit)
-  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed (depth limit)
+  ├─ Guard.NotNull
+  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
 ~ └─ ResiliencePipelineRegistry<TKey>.GetOrAddPipeline (changes below depth limit)
 
   ResiliencePipelineBuilder.Build
@@ -20,24 +20,24 @@ stdout:
   └─ new ResiliencePipeline<T> (depth limit)
 
   PollyServiceCollectionExtensions.AddResiliencePipeline
-  ├─ Guard.NotNull ×2 (depth limit)
+  ├─ Guard.NotNull ×2
 ~ └─ PollyServiceCollectionExtensions.AddResiliencePipeline (changes below depth limit)
 
   PollyServiceCollectionExtensions.AddResiliencePipeline
-  ├─ Guard.NotNull ×2 (depth limit)
+  ├─ Guard.NotNull ×2
 ~ └─ PollyServiceCollectionExtensions.AddResiliencePipeline (changes below depth limit)
 
   PollyServiceCollectionExtensions.AddResiliencePipelineRegistry
-  ├─ Guard.NotNull ×2 (depth limit)
+  ├─ Guard.NotNull ×2
 ~ └─ PollyServiceCollectionExtensions.AddResiliencePipelineRegistry (changes below depth limit)
 
 + new TelemetrySource
-+ └─ TelemetrySource.GetVersion (changes below depth limit)
++ └─ TelemetrySource.GetVersion
 
   TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry
   ├─ …
-  ├─ Guard.NotNull (depth limit)
-  ├─ new TelemetryOptions (depth limit)
+  ├─ Guard.NotNull
+  ├─ new TelemetryOptions
 ~ └─ TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry (changes below depth limit)
 stderr:
 src/Polly.Core/CircuitBreaker/CircuitBreakerResilienceStrategy.cs:30: generic-context-limit: Generic invocation expansion for CircuitBreakerResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
@@ -55,13 +55,13 @@ exit: 0
 stdout:
 ```diff
   ResiliencePipelineRegistry<TKey>.GetOrAddPipeline
-  ├─ Guard.NotNull (depth limit)
-  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed (depth limit)
+  ├─ Guard.NotNull
+  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
 ~ └─ ResiliencePipelineRegistry<TKey>.GetOrAddPipeline (changes below depth limit)
 
   ResiliencePipelineRegistry<TKey>.GetOrAddPipeline
-  ├─ Guard.NotNull (depth limit)
-  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed (depth limit)
+  ├─ Guard.NotNull
+  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
 ~ └─ ResiliencePipelineRegistry<TKey>.GetOrAddPipeline (changes below depth limit)
 
   ResiliencePipelineBuilder.Build
@@ -73,24 +73,24 @@ stdout:
   └─ new ResiliencePipeline<T> (depth limit)
 
   PollyServiceCollectionExtensions.AddResiliencePipeline
-  ├─ Guard.NotNull ×2 (depth limit)
+  ├─ Guard.NotNull ×2
 ~ └─ PollyServiceCollectionExtensions.AddResiliencePipeline (changes below depth limit)
 
   PollyServiceCollectionExtensions.AddResiliencePipeline
-  ├─ Guard.NotNull ×2 (depth limit)
+  ├─ Guard.NotNull ×2
 ~ └─ PollyServiceCollectionExtensions.AddResiliencePipeline (changes below depth limit)
 
   PollyServiceCollectionExtensions.AddResiliencePipelineRegistry
-  ├─ Guard.NotNull ×2 (depth limit)
+  ├─ Guard.NotNull ×2
 ~ └─ PollyServiceCollectionExtensions.AddResiliencePipelineRegistry (changes below depth limit)
 
 + new TelemetrySource
-+ └─ TelemetrySource.GetVersion (changes below depth limit)
++ └─ TelemetrySource.GetVersion
 
   TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry
   ├─ …
-  ├─ Guard.NotNull (depth limit)
-  ├─ new TelemetryOptions (depth limit)
+  ├─ Guard.NotNull
+  ├─ new TelemetryOptions
 ~ └─ TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry (changes below depth limit)
 ```
 stderr:

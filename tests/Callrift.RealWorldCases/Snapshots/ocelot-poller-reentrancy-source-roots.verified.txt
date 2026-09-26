@@ -3,7 +3,7 @@ exit: 0
 stdout:
   FileConfigurationPoller.PollAsync
 - ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
-+ ├─ FileConfigurationPoller.TryEnterPolling (changes below depth limit)
++ ├─ FileConfigurationPoller.TryEnterPolling
   ├─ try
 - │  ├─ IFileConfigurationRepository.GetAsync → DiskFileConfigurationRepository.GetAsync (depth limit)
 + │  ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
@@ -30,7 +30,7 @@ stdout:
 - │     └─ IInternalConfigurationRepository.AddOrReplace → InMemoryInternalConfigurationRepository.AddOrReplace (depth limit)
 - ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
 + └─ finally
-+    └─ FileConfigurationPoller.ExitPolling (changes below depth limit)
++    └─ FileConfigurationPoller.ExitPolling
 
   FileConfigurationPoller.StartAsync
   ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
@@ -43,9 +43,9 @@ stdout:
 
   WatchKube.Dispose
   └─ _subscription.Dispose
-     ├─ ⇢ OcelotConfigurationChangeToken.CallbackWrapper.Dispose (depth limit)
-     ├─ ⇢ DiskFileConfigurationRepository.Dispose (depth limit)
-~    ├─ ⇢ FileConfigurationPoller.Dispose (changes below depth limit)
+     ├─ ⇢ OcelotConfigurationChangeToken.CallbackWrapper.Dispose
+     ├─ ⇢ DiskFileConfigurationRepository.Dispose
+~    ├─ ⇢ FileConfigurationPoller.Dispose (body changed; visible calls unchanged)
      ├─ ⇢ OcelotLogger.Dispose (depth limit)
      ├─ ⇢ OcelotLoggerFactory.Dispose (depth limit)
      ├─ …
@@ -63,7 +63,7 @@ samples/Basic/Program.cs:14: unresolved-call: Cannot bind builder.Environment.Is
 samples/Basic/Program.cs:16: unresolved-call: Cannot bind builder.Logging.AddConsole.
 samples/Basic/Program.cs:20: unresolved-call: Cannot bind builder.Build.
 samples/Basic/Program.cs:21: unresolved-call: Cannot bind app.UseOcelot.
-1053 additional diagnostics; use --diagnostics full.
+1072 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -71,7 +71,7 @@ stdout:
 ```diff
   FileConfigurationPoller.PollAsync
 - ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
-+ ├─ FileConfigurationPoller.TryEnterPolling (changes below depth limit)
++ ├─ FileConfigurationPoller.TryEnterPolling
   ├─ try
 - │  ├─ IFileConfigurationRepository.GetAsync → DiskFileConfigurationRepository.GetAsync (depth limit)
 + │  ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
@@ -98,7 +98,7 @@ stdout:
 - │     └─ IInternalConfigurationRepository.AddOrReplace → InMemoryInternalConfigurationRepository.AddOrReplace (depth limit)
 - ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
 + └─ finally
-+    └─ FileConfigurationPoller.ExitPolling (changes below depth limit)
++    └─ FileConfigurationPoller.ExitPolling
 
   FileConfigurationPoller.StartAsync
   ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
@@ -111,9 +111,9 @@ stdout:
 
   WatchKube.Dispose
   └─ _subscription.Dispose
-     ├─ ⇢ OcelotConfigurationChangeToken.CallbackWrapper.Dispose (depth limit)
-     ├─ ⇢ DiskFileConfigurationRepository.Dispose (depth limit)
-~    ├─ ⇢ FileConfigurationPoller.Dispose (changes below depth limit)
+     ├─ ⇢ OcelotConfigurationChangeToken.CallbackWrapper.Dispose
+     ├─ ⇢ DiskFileConfigurationRepository.Dispose
+~    ├─ ⇢ FileConfigurationPoller.Dispose (body changed; visible calls unchanged)
      ├─ ⇢ OcelotLogger.Dispose (depth limit)
      ├─ ⇢ OcelotLoggerFactory.Dispose (depth limit)
      ├─ …
@@ -132,4 +132,4 @@ samples/Basic/Program.cs:14: unresolved-call: Cannot bind builder.Environment.Is
 samples/Basic/Program.cs:16: unresolved-call: Cannot bind builder.Logging.AddConsole.
 samples/Basic/Program.cs:20: unresolved-call: Cannot bind builder.Build.
 samples/Basic/Program.cs:21: unresolved-call: Cannot bind app.UseOcelot.
-1053 additional diagnostics; use --diagnostics full.
+1072 additional diagnostics; use --diagnostics full.

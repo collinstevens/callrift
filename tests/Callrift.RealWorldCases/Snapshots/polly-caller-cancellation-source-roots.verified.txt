@@ -10,7 +10,7 @@ stdout:
 ~    ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
 ~    ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
 ~    ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
-     ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore (depth limit)
+     ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore
 ~    ├─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
      └─ Outcome.FromResultAsValueTask (depth limit)
 
@@ -45,11 +45,11 @@ stdout:
   ├─ ? new ConcurrencyLimiterOptions
   ├─ RateLimiterResiliencePipelineBuilderExtensions.AddConcurrencyLimiter (depth limit)
 ~ ├─ TimeoutResiliencePipelineBuilderExtensions.AddTimeout (changes below depth limit)
-  ├─ new RetryStrategyOptions
+  ├─ new RetryStrategyOptions (depth limit)
   ├─ callback
   ├─ RetryResiliencePipelineBuilderExtensions.AddRetry (depth limit)
 ~ ├─ TimeoutResiliencePipelineBuilderExtensions.AddTimeout (changes below depth limit)
-  ├─ new CircuitBreakerStrategyOptions
+  ├─ new CircuitBreakerStrategyOptions (depth limit)
   ├─ callback
   └─ …
 
@@ -102,7 +102,7 @@ stdout:
   └─ ResiliencePipeline<T>.ExecuteAsync (depth limit)
 
   samples/Intro/Program.cs::<top-level>
-  ├─ new ResiliencePipelineBuilder
+  ├─ new ResiliencePipelineBuilder (depth limit)
 ~ ├─ TimeoutResiliencePipelineBuilderExtensions.AddTimeout (changes below depth limit)
   ├─ ResiliencePipelineBuilder.Build (depth limit)
   ├─ ResiliencePipeline.Execute (depth limit)
@@ -113,15 +113,15 @@ stdout:
   ├─ ResiliencePipelineBuilder.Build (depth limit)
   └─ try
 stderr:
+bench/Polly.Benchmarks/Cache.cs:48: unresolved-call: Cannot bind implicit base constructor for new Cache.MemoryCacheProvider.
+bench/Polly.Benchmarks/PollyConfig.cs:5: unresolved-call: Cannot bind implicit base constructor for new PollyConfig.
 bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
 bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
-2020 additional diagnostics; use --diagnostics full.
+2022 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -136,7 +136,7 @@ stdout:
 ~    ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
 ~    ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
 ~    ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
-     ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore (depth limit)
+     ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore
 ~    ├─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
      └─ Outcome.FromResultAsValueTask (depth limit)
 
@@ -171,11 +171,11 @@ stdout:
   ├─ ? new ConcurrencyLimiterOptions
   ├─ RateLimiterResiliencePipelineBuilderExtensions.AddConcurrencyLimiter (depth limit)
 ~ ├─ TimeoutResiliencePipelineBuilderExtensions.AddTimeout (changes below depth limit)
-  ├─ new RetryStrategyOptions
+  ├─ new RetryStrategyOptions (depth limit)
   ├─ callback
   ├─ RetryResiliencePipelineBuilderExtensions.AddRetry (depth limit)
 ~ ├─ TimeoutResiliencePipelineBuilderExtensions.AddTimeout (changes below depth limit)
-  ├─ new CircuitBreakerStrategyOptions
+  ├─ new CircuitBreakerStrategyOptions (depth limit)
   ├─ callback
   └─ …
 
@@ -228,7 +228,7 @@ stdout:
   └─ ResiliencePipeline<T>.ExecuteAsync (depth limit)
 
   samples/Intro/Program.cs::<top-level>
-  ├─ new ResiliencePipelineBuilder
+  ├─ new ResiliencePipelineBuilder (depth limit)
 ~ ├─ TimeoutResiliencePipelineBuilderExtensions.AddTimeout (changes below depth limit)
   ├─ ResiliencePipelineBuilder.Build (depth limit)
   ├─ ResiliencePipeline.Execute (depth limit)
@@ -240,12 +240,12 @@ stdout:
   └─ try
 ```
 stderr:
+bench/Polly.Benchmarks/Cache.cs:48: unresolved-call: Cannot bind implicit base constructor for new Cache.MemoryCacheProvider.
+bench/Polly.Benchmarks/PollyConfig.cs:5: unresolved-call: Cannot bind implicit base constructor for new PollyConfig.
 bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
 bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
-2020 additional diagnostics; use --diagnostics full.
+2022 additional diagnostics; use --diagnostics full.

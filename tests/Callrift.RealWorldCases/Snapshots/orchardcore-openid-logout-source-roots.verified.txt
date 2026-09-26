@@ -109,7 +109,7 @@ stdout:
 
   NodeController.List
   ├─ …
-  ├─ IAdminMenuService.GetAdminMenuById → AdminMenuService.GetAdminMenuById (depth limit)
+  ├─ IAdminMenuService.GetAdminMenuById → AdminMenuService.GetAdminMenuById
   ├─ if (adminMenu == null)
 ~ ├─ NodeController.BuildDisplayViewModel (changes below depth limit)
   └─ ? View
@@ -145,12 +145,12 @@ stdout:
   ├─ if (_setupOptions is not null)
   ├─ if (_setupOptions is not null && _shellSettings.IsUninitialized())
   │  ├─ DistributedLockExtensions.TryAcquireAutoSetupLockAsync (depth limit)
-  │  ├─ ShellSettingsExtensions.IsUninitialized (depth limit)
+  │  ├─ ShellSettingsExtensions.IsUninitialized
   │  └─ if (_shellSettings.IsUninitialized())
   │     ├─ IShellSettingsManager.LoadSettingsAsync
   │     ├─ if (settings != null)
-  │     │  ├─ ShellSettingsExtensions.AsDisposable (depth limit)
-  │     │  ├─ ShellSettingsExtensions.IsUninitialized (depth limit)
+  │     │  ├─ ShellSettingsExtensions.AsDisposable
+  │     │  ├─ ShellSettingsExtensions.IsUninitialized
   │     │  └─ if (!settings.IsUninitialized())
 ~ │     │     ├─ IShellHost.ReloadShellContextAsync → ShellHost.ReloadShellContextAsync (changes below depth limit)
   │     │     └─ ? httpContext.Response.WriteAsync
@@ -188,7 +188,7 @@ stdout:
   ├─ new Pager (depth limit)
 ~ ├─ ShapeFactoryExtensions.PagerAsync (changes below depth limit)
   ├─ new BackgroundTaskIndexViewModel
-  ├─ Pager.GetStartIndex (depth limit)
+  ├─ Pager.GetStartIndex
   └─ …
 
   FluidShapeRenderBenchmark.ShapeRenderStatic
@@ -218,8 +218,8 @@ stdout:
      ├─ ? scope.ServiceProvider.GetRequiredService<IEnumerable<IShapeTableProvider>>
      ├─ ? scope.ServiceProvider.GetRequiredService<ITypeFeatureProvider>
      └─ foreach (var bindingStrategy in bindingStrategies)
-        ├─ ITypeFeatureProvider.GetFeatureForDependency → TypeFeatureProvider.GetFeatureForDependency (depth limit)
-        ├─ new ShapeTableBuilder (depth limit)
+        ├─ ITypeFeatureProvider.GetFeatureForDependency → TypeFeatureProvider.GetFeatureForDependency
+        ├─ new ShapeTableBuilder
         ├─ IShapeTableProvider.DiscoverAsync
         │  ├─ …
         │  ├─ ⇢ MediaShapes.DiscoverAsync (depth limit)
@@ -287,7 +287,7 @@ stdout:
 
   PreviewController.Display
   ├─ …
-  ├─ IContentManagerSession.Store → DefaultContentManagerSession.Store (depth limit)
+  ├─ IContentManagerSession.Store → DefaultContentManagerSession.Store
   ├─ if (!string.IsNullOrEmpty(draft.PreviewUrl))
 ~ ├─ IContentItemDisplayManager.BuildDisplayAsync → ContentItemDisplayManager.BuildDisplayAsync (changes below depth limit)
   └─ ? View
@@ -890,7 +890,7 @@ stdout:
   ├─ ? new NamedExpressionList
   ├─ ? nameExpression.EvaluateAsync
   ├─ …
-  ├─ IShapeExtensions.IsNullOrEmpty (depth limit)
+  ├─ IShapeExtensions.IsNullOrEmpty
   ├─ if (zone.IsNullOrEmpty())
 ~ ├─ IDisplayHelper.ShapeExecuteAsync → DisplayHelper.ShapeExecuteAsync (changes below depth limit)
   └─ ? htmlContent.WriteTo
@@ -1058,7 +1058,7 @@ stdout:
   │  ├─ ? PositionWrapper.TryWrap
   │  ├─ foreach (var zone in ThemeLayout.Properties.ToArray())
   │  │  └─ if (zone.Value is IShape shape)
-  │  │     ├─ IShapeExtensions.IsNullOrEmpty (depth limit)
+  │  │     ├─ IShapeExtensions.IsNullOrEmpty
 ~ │  │     ├─ RazorPage<TModel>.DisplayAsync (changes below depth limit)
   │  │     └─ ? PositionWrapper.TryWrap
 ~ │  ├─ RazorPage<TModel>.DisplayAsync (changes below depth limit)
@@ -1173,34 +1173,34 @@ stdout:
   ├─ while (!stoppingToken.IsCancellationRequested)
   │  ├─ try
   │  │  ├─ …
-  │  │  ├─ IShellHost.TryGetShellContext → ShellHost.TryGetShellContext (depth limit)
-  │  │  ├─ ShellSettingsExtensions.IsUninitialized (depth limit)
+  │  │  ├─ IShellHost.TryGetShellContext → ShellHost.TryGetShellContext
+  │  │  ├─ ShellSettingsExtensions.IsUninitialized
   │  │  ├─ if (defaultTenantSyncingSeconds++ > DefaultTenantSyncingPeriod)
   │  │  │  ├─ …
-  │  │  │  ├─ ShellSettingsExtensions.AsDisposable (depth limit)
-  │  │  │  ├─ ShellSettingsExtensions.IsRunning (depth limit)
+  │  │  │  ├─ ShellSettingsExtensions.AsDisposable
+  │  │  │  ├─ ShellSettingsExtensions.IsRunning
   │  │  │  └─ if (loadedDefaultSettings.IsRunning())
 ~ │  │  │     └─ IShellHost.ReloadShellContextAsync → ShellHost.ReloadShellContextAsync (changes below depth limit)
-  │  │  ├─ ShellSettingsExtensions.IsRunning (depth limit)
+  │  │  ├─ ShellSettingsExtensions.IsRunning
 ~ │  │  ├─ DistributedShellHostedService.GetOrCreateDistributedContextAsync (changes below depth limit)
   │  │  ├─ catch (Exception ex) when (!ex.IsFatal())
   │  │  ├─ catch (Exception ex) when (!ex.IsFatal())
-  │  │  ├─ IShellHost.GetAllSettings → ShellHost.GetAllSettings (depth limit)
+  │  │  ├─ IShellHost.GetAllSettings → ShellHost.GetAllSettings
   │  │  ├─ if (shellCountChangedId is not null && _shellCountChangedId != shellCountChangedId)
   │  │  └─ foreach (var settings in loadedSettings)
   │  │     ├─ DistributedShellHostedService.TryWaitAfterBusyTime (depth limit)
   │  │     ├─ try
-  │  │     │  ├─ DistributedShellHostedService.ReleaseIdKey (depth limit)
+  │  │     │  ├─ DistributedShellHostedService.ReleaseIdKey
   │  │     │  ├─ if (releaseId is not null && !tenantsToCreate.Contains(settings.Name))
   │  │     │  │  ├─ _identifiers.GetOrAdd
   │  │     │  │  └─ if (identifier.ReleaseId != releaseId)
 ~ │  │     │  │     └─ IShellHost.ReleaseShellContextAsync → ShellHost.ReleaseShellContextAsync (changes below depth limit)
-  │  │     │  ├─ DistributedShellHostedService.ReloadIdKey (depth limit)
+  │  │     │  ├─ DistributedShellHostedService.ReloadIdKey
   │  │     │  ├─ if (reloadId is not null)
   │  │     │  │  ├─ _identifiers.GetOrAdd
   │  │     │  │  └─ if (identifier.ReloadId != reloadId)
 ~ │  │     │  │     └─ IShellHost.ReloadShellContextAsync → ShellHost.ReloadShellContextAsync (changes below depth limit)
-  │  │     │  ├─ ShellSettingsExtensions.IsDefaultShell (depth limit)
+  │  │     │  ├─ ShellSettingsExtensions.IsDefaultShell
   │  │     │  └─ if (!settings.IsDefaultShell() && tenantsToRemove.Contains(settings.Name))
   │  │     │     ├─ ShellSettingsExtensions.IsRemovable (depth limit)
   │  │     │     └─ if (settings.IsRemovable())
@@ -1238,12 +1238,12 @@ stdout:
 ~ └─ IShellFeaturesManager.UpdateFeaturesAsync → ShellFeaturesManager.UpdateFeaturesAsync (changes below depth limit)
 
   ShellHostExtensions.ReleaseAllShellContextsAsync
-  ├─ IShellHost.GetAllSettings → ShellHost.GetAllSettings (depth limit)
+  ├─ IShellHost.GetAllSettings → ShellHost.GetAllSettings
   └─ foreach (var settings in shellHost.GetAllSettings())
 ~    └─ IShellHost.ReleaseShellContextAsync → ShellHost.ReleaseShellContextAsync (changes below depth limit)
 
   ShellHostExtensions.ReloadAllShellContextsAsync
-  ├─ IShellHost.GetAllSettings → ShellHost.GetAllSettings (depth limit)
+  ├─ IShellHost.GetAllSettings → ShellHost.GetAllSettings
   └─ foreach (var settings in shellHost.GetAllSettings())
 ~    └─ IShellHost.ReloadShellContextAsync → ShellHost.ReloadShellContextAsync (changes below depth limit)
 
@@ -1321,7 +1321,7 @@ stdout:
 
   AdminController.Create
   ├─ …
-  ├─ new IndexProfileKey (depth limit)
+  ├─ new IndexProfileKey
   ├─ if (!_indexingOptions.Sources.TryGetValue(new IndexProfileKey(providerName, type), out var service))
 ~ ├─ IIndexProfileManager.NewAsync → DefaultIndexProfileManager.NewAsync (changes below depth limit)
   ├─ if (indexProfile == null)
@@ -1331,7 +1331,7 @@ stdout:
 
   AdminController.CreatePost
   ├─ …
-  ├─ new IndexProfileKey (depth limit)
+  ├─ new IndexProfileKey
   ├─ if (!_indexingOptions.Sources.TryGetValue(new IndexProfileKey(providerName, type), out var service))
 ~ ├─ IIndexProfileManager.NewAsync → DefaultIndexProfileManager.NewAsync (changes below depth limit)
   ├─ if (indexProfile == null)
@@ -1453,7 +1453,7 @@ stdout:
   ├─ if (layer == null)
 ~ ├─ IDisplayManager<TModel>.BuildDisplayAsync → DisplayManager<TModel>.BuildDisplayAsync (changes below depth limit)
   ├─ foreach (var factory in _conditionFactories)
-  │  ├─ IConditionFactory.Create → ConditionFactory<TCondition>.Create (depth limit)
+  │  ├─ IConditionFactory.Create → ConditionFactory<TCondition>.Create
 ~ │  ├─ IDisplayManager<TModel>.BuildDisplayAsync → DisplayManager<TModel>.BuildDisplayAsync (changes below depth limit)
   │  └─ ? Url.ActionLink
   ├─ new LayerEditViewModel
@@ -1477,11 +1477,11 @@ stdout:
   ├─ ContentItemExtensions.TryGet (depth limit)
   ├─ …
   ├─ ? _session.SaveAsync
-  ├─ ContentExtensions.IsPublished (depth limit)
+  ├─ ContentExtensions.IsPublished
   ├─ if (contentItem.IsPublished() == false)
 ~ │  ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   │  └─ if (publishedContentItem != null)
-  ├─ new LayerState
+  ├─ new LayerState (depth limit)
   ├─ IDocumentManager<TDocument>.UpdateAsync → DocumentManager<TDocument>.UpdateAsync (depth limit)
   └─ …
 
@@ -1517,7 +1517,7 @@ stdout:
   └─ ? View
 
   LayerFilter.OnResultExecutionAsync
-  ├─ ResultExecutingContextExtensions.IsViewOrPageResult (depth limit)
+  ├─ ResultExecutingContextExtensions.IsViewOrPageResult
   ├─ if (context.IsViewOrPageResult())
   ├─ if (context.IsViewOrPageResult() && !AdminAttribute.IsApplied(context.HttpContext))
   │  ├─ …
@@ -1569,11 +1569,11 @@ stdout:
 
   ViewMediaFolderAuthorizationHandler.HandleRequirementAsync
   ├─ …
-  ├─ ViewMediaFolderAuthorizationHandler.IsAuthorizedFolder (depth limit)
+  ├─ ViewMediaFolderAuthorizationHandler.IsAuthorizedFolder
   ├─ if (!(IsAuthorizedFolder(_mediaFieldsFolder, path)))
   ├─ if (IsAuthorizedFolder(_mediaFieldsFolder, path) || IsDescendantOfAuthorizedFolder(_mediaFieldsFo…
 ~ │  └─ ViewMediaFolderAuthorizationHandler.AuthorizeAttachedMediaFieldsFolderAsync (changes below depth limit)
-  ├─ ViewMediaFolderAuthorizationHandler.IsAuthorizedFolder (depth limit)
+  ├─ ViewMediaFolderAuthorizationHandler.IsAuthorizedFolder
   ├─ if (!(IsAuthorizedFolder(_usersFolder, path)))
   └─ …
 
@@ -1623,7 +1623,7 @@ stdout:
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ …
   ├─ if (menuItem == null)
-  ├─ JNode.ToObject (depth limit)
+  ├─ JNode.ToObject
 ~ ├─ IContentItemDisplayManager.BuildEditorAsync → ContentItemDisplayManager.BuildEditorAsync (changes below depth limit)
   └─ ? View
 
@@ -1642,7 +1642,7 @@ stdout:
   ├─ ContentItemExtensions.Merge (depth limit)
 ~ ├─ IContentItemDisplayManager.UpdateEditorAsync → ContentItemDisplayManager.UpdateEditorAsync (changes below depth limit)
   ├─ if (!ModelState.IsValid)
-  ├─ new JsonMergeSettings (depth limit)
+  ├─ new JsonMergeSettings
   ├─ JObject.Merge (depth limit)
 ~ ├─ IContentManager.SaveDraftAsync → DefaultContentManager.SaveDraftAsync (changes below depth limit)
   └─ ? RedirectToAction
@@ -1668,7 +1668,7 @@ stdout:
 
   MiniProfilerFilter.OnResultExecutionAsync
   ├─ …
-  ├─ ResultExecutingContextExtensions.IsViewOrPageResult (depth limit)
+  ├─ ResultExecutingContextExtensions.IsViewOrPageResult
   ├─ if (context.IsViewOrPageResult())
   ├─ if (context.IsViewOrPageResult() && ((viewMiniProfilerOnFrontEnd && !AdminAttribute.IsApplied(con…
 ~ │  ├─ ILayoutAccessor.GetLayoutAsync → LayoutAccessor.GetLayoutAsync (changes below depth limit)
@@ -1689,7 +1689,7 @@ stdout:
 ~    │  ├─ ModularBackgroundService.UpdateAsync (changes below depth limit)
 ~    │  └─ ModularBackgroundService.RunAsync (changes below depth limit)
      ├─ catch (Exception ex) when (!ex.IsFatal())
-     └─ ModularBackgroundService.WaitAsync (depth limit)
+     └─ ModularBackgroundService.WaitAsync
 
   ModularTenantContainerMiddleware.Invoke
 ~ ├─ IShellHost.InitializeAsync → ShellHost.InitializeAsync (changes below depth limit)
@@ -1713,7 +1713,7 @@ stdout:
 
   PagerShapes.PagerSlim
   ├─ …
-  ├─ PagerShapes.SetCustomUrlParams (depth limit)
+  ├─ PagerShapes.SetCustomUrlParams
   ├─ IShapeExtensions.TryGetProperty (depth limit)
   ├─ if (shape.TryGetProperty("Before", out string before))
   │  ├─ …
@@ -1766,7 +1766,7 @@ stdout:
 ~ │  ├─ PagerShapes.RenderPageSizeSelectorAsync (changes below depth limit)
   │  └─ ? WrapWithPageSizeSelector
   ├─ PagerShapes.GetRouteData (depth limit)
-  ├─ PagerShapes.SetCustomUrlParams (depth limit)
+  ├─ PagerShapes.SetCustomUrlParams
   ├─ …
   ├─ ? new RouteValueDictionary
   ├─ Arguments.From (depth limit)
@@ -1929,9 +1929,9 @@ stdout:
   ScopeController.Index
   ├─ …
   ├─ ? _scopeManager.CountAsync
-  ├─ new OpenIdScopeIndexViewModel (depth limit)
+  ├─ new OpenIdScopeIndexViewModel
 ~ ├─ ShapeFactoryExtensions.PagerAsync (changes below depth limit)
-  ├─ Pager.GetStartIndex (depth limit)
+  ├─ Pager.GetStartIndex
   ├─ ? _scopeManager.ListAsync
   └─ …
 
@@ -2029,7 +2029,7 @@ stdout:
   AdminController.CreatePost
   ├─ …
   ├─ IRateLimitPolicyStore.CreateAsync → RateLimitPolicyStore.CreateAsync (depth limit)
-  ├─ AdminController.ShouldReloadPolicy (depth limit)
+  ├─ AdminController.ShouldReloadPolicy
   ├─ if (ShouldReloadPolicy(wasEnabled: false, isEnabled: policy.IsEnabled))
 ~ │  └─ IShellReleaseManager.RequestRelease → DefaultShellReleaseManager.RequestRelease (changes below depth limit)
   ├─ ? _notifier.SuccessAsync
@@ -2075,7 +2075,7 @@ stdout:
   AdminController.Index
   ├─ …
   ├─ if (!string.IsNullOrWhiteSpace(searchText))
-  ├─ new RateLimitsIndexViewModel (depth limit)
+  ├─ new RateLimitsIndexViewModel
   ├─ pagedPolicies.Select
 ~ │  └─ AdminController.BuildPolicyEntryAsync (changes below depth limit)
   ├─ AdminController.BuildBuiltInRouteLimits (depth limit)
@@ -2115,14 +2115,14 @@ stdout:
   LimiterController.Create
   ├─ …
   ├─ new RateLimiterEditorViewModel
-  ├─ LimiterController.GetLimiterDocumentationUrl (depth limit)
+  ├─ LimiterController.GetLimiterDocumentationUrl
 ~ ├─ IDisplayManager<TModel>.BuildEditorAsync → DisplayManager<TModel>.BuildEditorAsync (changes below depth limit)
   └─ ? View
 
   LimiterController.CreatePost
   ├─ …
   ├─ new RateLimiterEditorViewModel
-  ├─ LimiterController.GetLimiterDocumentationUrl (depth limit)
+  ├─ LimiterController.GetLimiterDocumentationUrl
 ~ ├─ IDisplayManager<TModel>.UpdateEditorAsync → DisplayManager<TModel>.UpdateEditorAsync (changes below depth limit)
   ├─ if (!ModelState.IsValid)
   ├─ IRateLimitPolicyStore.UpdateAsync → RateLimitPolicyStore.UpdateAsync (depth limit)
@@ -2131,14 +2131,14 @@ stdout:
   LimiterController.Edit
   ├─ …
   ├─ new RateLimiterEditorViewModel
-  ├─ LimiterController.GetLimiterDocumentationUrl (depth limit)
+  ├─ LimiterController.GetLimiterDocumentationUrl
 ~ ├─ IDisplayManager<TModel>.BuildEditorAsync → DisplayManager<TModel>.BuildEditorAsync (changes below depth limit)
   └─ ? View
 
   LimiterController.EditPost
   ├─ …
   ├─ new RateLimiterEditorViewModel
-  ├─ LimiterController.GetLimiterDocumentationUrl (depth limit)
+  ├─ LimiterController.GetLimiterDocumentationUrl
 ~ ├─ IDisplayManager<TModel>.UpdateEditorAsync → DisplayManager<TModel>.UpdateEditorAsync (changes below depth limit)
   ├─ if (!ModelState.IsValid)
   ├─ IRateLimitPolicyStore.UpdateAsync → RateLimitPolicyStore.UpdateAsync (depth limit)
@@ -2176,16 +2176,16 @@ stdout:
   └─ …
 
   RolesMigrations.Create
-  ├─ ShellSettingsExtensions.IsInitializing (depth limit)
+  ├─ ShellSettingsExtensions.IsInitializing
   └─ if (!_shellSettings.IsInitializing())
 ~    └─ RolesMigrations.MigrateSystemRoles (changes below depth limit)
 
   AzureAISearchIndexSettingsMigrations.UpdateFrom1
-  ├─ ShellSettingsExtensions.IsInitializing (depth limit)
+  ├─ ShellSettingsExtensions.IsInitializing
   └─ ? ShellScope.AddDeferredTask
      ├─ …
      ├─ ISiteService.LoadSiteSettingsAsync → SiteService.LoadSiteSettingsAsync (depth limit)
-     ├─ AzureAISearchIndexSettingsMigrations.GetDefaultSearchFields (depth limit)
+     ├─ AzureAISearchIndexSettingsMigrations.GetDefaultSearchFields
      └─ foreach (var indexObject in indexesObject)
 ~       ├─ IIndexProfileManager.NewAsync → DefaultIndexProfileManager.NewAsync (changes below depth limit)
         ├─ IIndexNameProvider.GetFullIndexName
@@ -2197,11 +2197,11 @@ stdout:
         └─ if (indexName == defaultSearchIndexName && defaultSearchProvider == "Azure AI Search")
 
   IndexingMigrations.Create
-  ├─ ShellSettingsExtensions.IsInitializing (depth limit)
+  ├─ ShellSettingsExtensions.IsInitializing
   └─ ? ShellScope.AddDeferredTask
      ├─ …
      ├─ ISiteService.LoadSiteSettingsAsync → SiteService.LoadSiteSettingsAsync (depth limit)
-     ├─ IndexingMigrations.GetDefaultSearchFields (depth limit)
+     ├─ IndexingMigrations.GetDefaultSearchFields
      ├─ foreach (var indexObject in indexesObject)
      │  ├─ IIndexNameProvider.GetFullIndexName
 ~    │  ├─ IIndexProfileManager.NewAsync → DefaultIndexProfileManager.NewAsync (changes below depth limit)
@@ -2220,7 +2220,7 @@ stdout:
 ~    └─ IndexingMigrations.UpdateLegacyAnalyzerNameAsync (changes below depth limit)
 
   IndexingMigrations.Create
-  ├─ ShellSettingsExtensions.IsInitializing (depth limit)
+  ├─ ShellSettingsExtensions.IsInitializing
   └─ ? ShellScope.AddDeferredTask
      ├─ …
      ├─ ? JsonNode.Parse
@@ -2272,7 +2272,7 @@ stdout:
   ├─ ISetupService.GetSetupRecipesAsync → SetupService.GetSetupRecipesAsync (depth limit)
 ~ ├─ SetupController.ShouldProceedWithTokenAsync (changes below depth limit)
   ├─ if (!await ShouldProceedWithTokenAsync(token))
-  ├─ new SetupViewModel (depth limit)
+  ├─ new SetupViewModel
   └─ …
 
   SetupController.IndexPOST
@@ -2280,7 +2280,7 @@ stdout:
   ├─ if (!await ShouldProceedWithTokenAsync(model.Secret))
   ├─ ISetupService.GetSetupRecipesAsync → SetupService.GetSetupRecipesAsync (depth limit)
   ├─ …
-  ├─ SetupController.GetPresetDatabaseProvider (depth limit)
+  ├─ SetupController.GetPresetDatabaseProvider
   ├─ SetupController.HasPresetDatabaseConfiguration (depth limit)
   ├─ try
 ~ │  └─ ISetupService.SetupAsync → SetupService.SetupAsync (changes below depth limit)
@@ -2419,7 +2419,7 @@ stdout:
   ├─ ContentItemExtensions.Alter (depth limit)
 ~ ├─ IContentItemDisplayManager.UpdateEditorAsync → ContentItemDisplayManager.UpdateEditorAsync (changes below depth limit)
   ├─ if (!ModelState.IsValid)
-  ├─ new JsonMergeSettings (depth limit)
+  ├─ new JsonMergeSettings
   └─ …
 
   TagController.CreatePost
@@ -2470,8 +2470,8 @@ stdout:
   ├─ if (ModelState.IsValid)
   │  ├─ try
   │  │  ├─ …
-  │  │  ├─ ShellSettingsExtensions.AsUninitialized (depth limit)
-  │  │  ├─ ShellSettingsExtensions.AsDisposable (depth limit)
+  │  │  ├─ ShellSettingsExtensions.AsUninitialized
+  │  │  ├─ ShellSettingsExtensions.AsDisposable
 ~ │  │  ├─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   │  │  ├─ if (action == CreateAndSetupValue)
   │  │  └─ ? RedirectToAction
@@ -2483,7 +2483,7 @@ stdout:
   AdminController.Disable
   ├─ …
   ├─ if (!shellSettings.IsRunning())
-  ├─ ShellSettingsExtensions.AsDisabled (depth limit)
+  ├─ ShellSettingsExtensions.AsDisabled
 ~ ├─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   └─ ? RedirectToAction
 
@@ -2493,41 +2493,41 @@ stdout:
   ├─ if (ModelState.IsValid)
   ├─ if (ModelState.IsValid)
   │  ├─ try
-  │  │  ├─ ShellSettingsExtensions.IsUninitialized (depth limit)
+  │  │  ├─ ShellSettingsExtensions.IsUninitialized
 ~ │  │  ├─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   │  │  └─ ? RedirectToAction
   │  └─ catch (Exception ex) when (!ex.IsFatal())
-  ├─ ShellSettingsExtensions.IsUninitialized (depth limit)
+  ├─ ShellSettingsExtensions.IsUninitialized
   ├─ if (shellSettings.IsUninitialized())
   └─ …
 
   AdminController.Enable
   ├─ …
   ├─ if (!shellSettings.IsDisabled())
-  ├─ ShellSettingsExtensions.AsRunning (depth limit)
+  ├─ ShellSettingsExtensions.AsRunning
 ~ ├─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   └─ ? RedirectToAction
 
   AdminController.Index
   ├─ …
   ├─ if (model.BulkAction.ToString() == nameof(TenantsBulkAction.Remove) && !_tenantsOptions.TenantRem…
-  ├─ IShellHost.GetAllSettings → ShellHost.GetAllSettings (depth limit)
+  ├─ IShellHost.GetAllSettings → ShellHost.GetAllSettings
   ├─ foreach (var tenantName in model.TenantNames ?? [])
-  │  ├─ IShellHost.TryGetSettings → ShellHost.TryGetSettings (depth limit)
+  │  ├─ IShellHost.TryGetSettings → ShellHost.TryGetSettings
   │  ├─ case "Disable":
-  │  │  ├─ ShellSettingsExtensions.IsDefaultShell (depth limit)
+  │  │  ├─ ShellSettingsExtensions.IsDefaultShell
   │  │  ├─ if (shellSettings.IsDefaultShell())
   │  │  └─ else (!(shellSettings.IsDefaultShell()))
-  │  │     ├─ ShellSettingsExtensions.IsRunning (depth limit)
+  │  │     ├─ ShellSettingsExtensions.IsRunning
   │  │     ├─ if (!shellSettings.IsRunning())
   │  │     └─ else (!(!shellSettings.IsRunning()))
-  │  │        ├─ ShellSettingsExtensions.AsDisabled (depth limit)
+  │  │        ├─ ShellSettingsExtensions.AsDisabled
 ~ │  │        └─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   │  └─ case "Enable":
-  │     ├─ ShellSettingsExtensions.IsDisabled (depth limit)
+  │     ├─ ShellSettingsExtensions.IsDisabled
   │     ├─ if (!shellSettings.IsDisabled())
   │     └─ else (!(!shellSettings.IsDisabled()))
-  │        ├─ ShellSettingsExtensions.AsRunning (depth limit)
+  │        ├─ ShellSettingsExtensions.AsRunning
 ~ │        └─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   └─ ? RedirectToAction
 
@@ -2573,8 +2573,8 @@ stdout:
   │  ├─ if (!model.IsNewTenant)
   │  ├─ try
   │  │  ├─ …
-  │  │  ├─ ShellSettingsExtensions.AsUninitialized (depth limit)
-  │  │  ├─ ShellSettingsExtensions.AsDisposable (depth limit)
+  │  │  ├─ ShellSettingsExtensions.AsUninitialized
+  │  │  ├─ ShellSettingsExtensions.AsDisposable
 ~ │  │  ├─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   │  │  ├─ ShellHostExtensions.GetSettings (depth limit)
   │  │  ├─ TenantApiController.CreateSetupToken (depth limit)
@@ -2585,17 +2585,17 @@ stdout:
   TenantApiController.Disable
   ├─ …
   ├─ if (!shellSettings.IsRunning())
-  ├─ ShellSettingsExtensions.AsDisabled (depth limit)
+  ├─ ShellSettingsExtensions.AsDisabled
 ~ ├─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   └─ ? Ok
 
   TenantApiController.Edit
   ├─ …
-  ├─ IShellHost.TryGetSettings → ShellHost.TryGetSettings (depth limit)
+  ├─ IShellHost.TryGetSettings → ShellHost.TryGetSettings
   ├─ if (!_shellHost.TryGetSettings(model.Name, out var shellSettings))
   ├─ if (ModelState.IsValid)
   │  ├─ try
-  │  │  ├─ ShellSettingsExtensions.IsUninitialized (depth limit)
+  │  │  ├─ ShellSettingsExtensions.IsUninitialized
 ~ │  │  ├─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   │  │  └─ ? Ok
   │  └─ catch (Exception ex) when (!ex.IsFatal())
@@ -2604,7 +2604,7 @@ stdout:
   TenantApiController.Enable
   ├─ …
   ├─ if (!shellSettings.IsDisabled())
-  ├─ ShellSettingsExtensions.AsRunning (depth limit)
+  ├─ ShellSettingsExtensions.AsRunning
 ~ ├─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   └─ ? Ok
 
@@ -2619,7 +2619,7 @@ stdout:
   TenantApiController.Setup
   ├─ …
   ├─ else (!(string.IsNullOrEmpty(recipeName)))
-  ├─ new SetupContext (depth limit)
+  ├─ new SetupContext
 ~ ├─ ISetupService.SetupAsync → SetupService.SetupAsync (changes below depth limit)
   ├─ if (setupContext.Errors.Count > 0)
   └─ ? Ok
@@ -2701,7 +2701,7 @@ stdout:
   ├─ new RewriteRuleViewModel
 ~ ├─ IDisplayManager<TModel>.UpdateEditorAsync → DisplayManager<TModel>.UpdateEditorAsync (changes below depth limit)
   ├─ if (ModelState.IsValid)
-  ├─ IShellReleaseManager.SuspendReleaseRequest → DefaultShellReleaseManager.SuspendReleaseRequest (depth limit)
+  ├─ IShellReleaseManager.SuspendReleaseRequest → DefaultShellReleaseManager.SuspendReleaseRequest
   └─ …
 
   AdminController.Delete
@@ -2725,7 +2725,7 @@ stdout:
   ├─ new RewriteRuleViewModel
 ~ ├─ IDisplayManager<TModel>.UpdateEditorAsync → DisplayManager<TModel>.UpdateEditorAsync (changes below depth limit)
   ├─ if (ModelState.IsValid)
-  ├─ IShellReleaseManager.SuspendReleaseRequest → DefaultShellReleaseManager.SuspendReleaseRequest (depth limit)
+  ├─ IShellReleaseManager.SuspendReleaseRequest → DefaultShellReleaseManager.SuspendReleaseRequest
   └─ …
 
   AdminController.Index
@@ -2741,7 +2741,7 @@ stdout:
   AccountController.Login
   ├─ …
   ├─ SiteServiceExtensions.GetSettingsAsync (depth limit)
-  ├─ new LoginForm
+  ├─ new LoginForm (depth limit)
 ~ ├─ IDisplayManager<TModel>.BuildEditorAsync → DisplayManager<TModel>.BuildEditorAsync (changes below depth limit)
   ├─ AccountBaseController.CopyTempDataErrorsToModelState (depth limit)
   └─ ? View
@@ -2749,7 +2749,7 @@ stdout:
   AccountController.LoginPOST
   ├─ …
   ├─ if (loginSettings.DisableLocalLogin)
-  ├─ new LoginForm
+  ├─ new LoginForm (depth limit)
 ~ ├─ IDisplayManager<TModel>.UpdateEditorAsync → DisplayManager<TModel>.UpdateEditorAsync (changes below depth limit)
   ├─ ? _loginFormEvents.InvokeAsync
   ├─ if (ModelState.IsValid)
@@ -2829,7 +2829,7 @@ stdout:
   └─ ? View
 
   RegistrationController.RegisterPOST
-  ├─ new RegisterUserForm
+  ├─ new RegisterUserForm (depth limit)
 ~ ├─ IDisplayManager<TModel>.UpdateEditorAsync → DisplayManager<TModel>.UpdateEditorAsync (changes below depth limit)
   ├─ if (ModelState.IsValid)
   └─ ? View
@@ -2843,7 +2843,7 @@ stdout:
   ResetPasswordController.ForgotPasswordPOST
   ├─ …
   ├─ if (!site.TryGet<ResetPasswordSettings>(out var settings) || !settings.AllowResetPassword)
-  ├─ new ForgotPasswordForm
+  ├─ new ForgotPasswordForm (depth limit)
 ~ ├─ IDisplayManager<TModel>.UpdateEditorAsync → DisplayManager<TModel>.UpdateEditorAsync (changes below depth limit)
   ├─ ? _passwordRecoveryFormEvents.InvokeAsync
   ├─ if (ModelState.IsValid)
@@ -2852,14 +2852,14 @@ stdout:
   ResetPasswordController.ResetPassword
   ├─ …
   ├─ if (string.IsNullOrWhiteSpace(code))
-  ├─ new ResetPasswordForm
+  ├─ new ResetPasswordForm (depth limit)
 ~ ├─ IDisplayManager<TModel>.BuildEditorAsync → DisplayManager<TModel>.BuildEditorAsync (changes below depth limit)
   └─ ? View
 
   ResetPasswordController.ResetPasswordPOST
   ├─ …
   ├─ if (!(await _siteService.GetSettingsAsync<ResetPasswordSettings>()).AllowResetPassword)
-  ├─ new ResetPasswordForm
+  ├─ new ResetPasswordForm (depth limit)
 ~ ├─ IDisplayManager<TModel>.UpdateEditorAsync → DisplayManager<TModel>.UpdateEditorAsync (changes below depth limit)
   ├─ ? _passwordRecoveryFormEvents.InvokeAsync
   ├─ if (ModelState.IsValid)
@@ -2891,7 +2891,7 @@ stdout:
 
   AdminController.BuildEditor
   ├─ …
-  ├─ new WidgetMetadata
+  ├─ new WidgetMetadata (depth limit)
   ├─ ContentItemExtensions.Weld (depth limit)
 ~ ├─ ShapeFactoryExtensions.CreateAsync (changes below depth limit)
   ├─ new BuildEditorViewModel
@@ -2899,7 +2899,7 @@ stdout:
 
   ActivityController.Create
   ├─ …
-  ├─ new ActivityRecord
+  ├─ new ActivityRecord (depth limit)
   ├─ IActivityIdGenerator.GenerateUniqueId → ActivityIdGenerator.GenerateUniqueId (depth limit)
 ~ ├─ IDisplayManager<TModel>.BuildEditorAsync → ActivityDisplayManager.BuildEditorAsync (changes below depth limit)
   ├─ new ActivityEditViewModel
@@ -3015,7 +3015,7 @@ src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.Ad
 src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage.
 src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource.
 src/OrchardCore.AspireHost/ClamAV.cs:46: unresolved-call: Cannot bind builder.WithVolume.
-16273 additional diagnostics; use --diagnostics full.
+16676 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -3129,7 +3129,7 @@ stdout:
 
   NodeController.List
   ├─ …
-  ├─ IAdminMenuService.GetAdminMenuById → AdminMenuService.GetAdminMenuById (depth limit)
+  ├─ IAdminMenuService.GetAdminMenuById → AdminMenuService.GetAdminMenuById
   ├─ if (adminMenu == null)
 ~ ├─ NodeController.BuildDisplayViewModel (changes below depth limit)
   └─ ? View
@@ -3165,12 +3165,12 @@ stdout:
   ├─ if (_setupOptions is not null)
   ├─ if (_setupOptions is not null && _shellSettings.IsUninitialized())
   │  ├─ DistributedLockExtensions.TryAcquireAutoSetupLockAsync (depth limit)
-  │  ├─ ShellSettingsExtensions.IsUninitialized (depth limit)
+  │  ├─ ShellSettingsExtensions.IsUninitialized
   │  └─ if (_shellSettings.IsUninitialized())
   │     ├─ IShellSettingsManager.LoadSettingsAsync
   │     ├─ if (settings != null)
-  │     │  ├─ ShellSettingsExtensions.AsDisposable (depth limit)
-  │     │  ├─ ShellSettingsExtensions.IsUninitialized (depth limit)
+  │     │  ├─ ShellSettingsExtensions.AsDisposable
+  │     │  ├─ ShellSettingsExtensions.IsUninitialized
   │     │  └─ if (!settings.IsUninitialized())
 ~ │     │     ├─ IShellHost.ReloadShellContextAsync → ShellHost.ReloadShellContextAsync (changes below depth limit)
   │     │     └─ ? httpContext.Response.WriteAsync
@@ -3208,7 +3208,7 @@ stdout:
   ├─ new Pager (depth limit)
 ~ ├─ ShapeFactoryExtensions.PagerAsync (changes below depth limit)
   ├─ new BackgroundTaskIndexViewModel
-  ├─ Pager.GetStartIndex (depth limit)
+  ├─ Pager.GetStartIndex
   └─ …
 
   FluidShapeRenderBenchmark.ShapeRenderStatic
@@ -3238,8 +3238,8 @@ stdout:
      ├─ ? scope.ServiceProvider.GetRequiredService<IEnumerable<IShapeTableProvider>>
      ├─ ? scope.ServiceProvider.GetRequiredService<ITypeFeatureProvider>
      └─ foreach (var bindingStrategy in bindingStrategies)
-        ├─ ITypeFeatureProvider.GetFeatureForDependency → TypeFeatureProvider.GetFeatureForDependency (depth limit)
-        ├─ new ShapeTableBuilder (depth limit)
+        ├─ ITypeFeatureProvider.GetFeatureForDependency → TypeFeatureProvider.GetFeatureForDependency
+        ├─ new ShapeTableBuilder
         ├─ IShapeTableProvider.DiscoverAsync
         │  ├─ …
         │  ├─ ⇢ MediaShapes.DiscoverAsync (depth limit)
@@ -3307,7 +3307,7 @@ stdout:
 
   PreviewController.Display
   ├─ …
-  ├─ IContentManagerSession.Store → DefaultContentManagerSession.Store (depth limit)
+  ├─ IContentManagerSession.Store → DefaultContentManagerSession.Store
   ├─ if (!string.IsNullOrEmpty(draft.PreviewUrl))
 ~ ├─ IContentItemDisplayManager.BuildDisplayAsync → ContentItemDisplayManager.BuildDisplayAsync (changes below depth limit)
   └─ ? View
@@ -3910,7 +3910,7 @@ stdout:
   ├─ ? new NamedExpressionList
   ├─ ? nameExpression.EvaluateAsync
   ├─ …
-  ├─ IShapeExtensions.IsNullOrEmpty (depth limit)
+  ├─ IShapeExtensions.IsNullOrEmpty
   ├─ if (zone.IsNullOrEmpty())
 ~ ├─ IDisplayHelper.ShapeExecuteAsync → DisplayHelper.ShapeExecuteAsync (changes below depth limit)
   └─ ? htmlContent.WriteTo
@@ -4078,7 +4078,7 @@ stdout:
   │  ├─ ? PositionWrapper.TryWrap
   │  ├─ foreach (var zone in ThemeLayout.Properties.ToArray())
   │  │  └─ if (zone.Value is IShape shape)
-  │  │     ├─ IShapeExtensions.IsNullOrEmpty (depth limit)
+  │  │     ├─ IShapeExtensions.IsNullOrEmpty
 ~ │  │     ├─ RazorPage<TModel>.DisplayAsync (changes below depth limit)
   │  │     └─ ? PositionWrapper.TryWrap
 ~ │  ├─ RazorPage<TModel>.DisplayAsync (changes below depth limit)
@@ -4193,34 +4193,34 @@ stdout:
   ├─ while (!stoppingToken.IsCancellationRequested)
   │  ├─ try
   │  │  ├─ …
-  │  │  ├─ IShellHost.TryGetShellContext → ShellHost.TryGetShellContext (depth limit)
-  │  │  ├─ ShellSettingsExtensions.IsUninitialized (depth limit)
+  │  │  ├─ IShellHost.TryGetShellContext → ShellHost.TryGetShellContext
+  │  │  ├─ ShellSettingsExtensions.IsUninitialized
   │  │  ├─ if (defaultTenantSyncingSeconds++ > DefaultTenantSyncingPeriod)
   │  │  │  ├─ …
-  │  │  │  ├─ ShellSettingsExtensions.AsDisposable (depth limit)
-  │  │  │  ├─ ShellSettingsExtensions.IsRunning (depth limit)
+  │  │  │  ├─ ShellSettingsExtensions.AsDisposable
+  │  │  │  ├─ ShellSettingsExtensions.IsRunning
   │  │  │  └─ if (loadedDefaultSettings.IsRunning())
 ~ │  │  │     └─ IShellHost.ReloadShellContextAsync → ShellHost.ReloadShellContextAsync (changes below depth limit)
-  │  │  ├─ ShellSettingsExtensions.IsRunning (depth limit)
+  │  │  ├─ ShellSettingsExtensions.IsRunning
 ~ │  │  ├─ DistributedShellHostedService.GetOrCreateDistributedContextAsync (changes below depth limit)
   │  │  ├─ catch (Exception ex) when (!ex.IsFatal())
   │  │  ├─ catch (Exception ex) when (!ex.IsFatal())
-  │  │  ├─ IShellHost.GetAllSettings → ShellHost.GetAllSettings (depth limit)
+  │  │  ├─ IShellHost.GetAllSettings → ShellHost.GetAllSettings
   │  │  ├─ if (shellCountChangedId is not null && _shellCountChangedId != shellCountChangedId)
   │  │  └─ foreach (var settings in loadedSettings)
   │  │     ├─ DistributedShellHostedService.TryWaitAfterBusyTime (depth limit)
   │  │     ├─ try
-  │  │     │  ├─ DistributedShellHostedService.ReleaseIdKey (depth limit)
+  │  │     │  ├─ DistributedShellHostedService.ReleaseIdKey
   │  │     │  ├─ if (releaseId is not null && !tenantsToCreate.Contains(settings.Name))
   │  │     │  │  ├─ _identifiers.GetOrAdd
   │  │     │  │  └─ if (identifier.ReleaseId != releaseId)
 ~ │  │     │  │     └─ IShellHost.ReleaseShellContextAsync → ShellHost.ReleaseShellContextAsync (changes below depth limit)
-  │  │     │  ├─ DistributedShellHostedService.ReloadIdKey (depth limit)
+  │  │     │  ├─ DistributedShellHostedService.ReloadIdKey
   │  │     │  ├─ if (reloadId is not null)
   │  │     │  │  ├─ _identifiers.GetOrAdd
   │  │     │  │  └─ if (identifier.ReloadId != reloadId)
 ~ │  │     │  │     └─ IShellHost.ReloadShellContextAsync → ShellHost.ReloadShellContextAsync (changes below depth limit)
-  │  │     │  ├─ ShellSettingsExtensions.IsDefaultShell (depth limit)
+  │  │     │  ├─ ShellSettingsExtensions.IsDefaultShell
   │  │     │  └─ if (!settings.IsDefaultShell() && tenantsToRemove.Contains(settings.Name))
   │  │     │     ├─ ShellSettingsExtensions.IsRemovable (depth limit)
   │  │     │     └─ if (settings.IsRemovable())
@@ -4258,12 +4258,12 @@ stdout:
 ~ └─ IShellFeaturesManager.UpdateFeaturesAsync → ShellFeaturesManager.UpdateFeaturesAsync (changes below depth limit)
 
   ShellHostExtensions.ReleaseAllShellContextsAsync
-  ├─ IShellHost.GetAllSettings → ShellHost.GetAllSettings (depth limit)
+  ├─ IShellHost.GetAllSettings → ShellHost.GetAllSettings
   └─ foreach (var settings in shellHost.GetAllSettings())
 ~    └─ IShellHost.ReleaseShellContextAsync → ShellHost.ReleaseShellContextAsync (changes below depth limit)
 
   ShellHostExtensions.ReloadAllShellContextsAsync
-  ├─ IShellHost.GetAllSettings → ShellHost.GetAllSettings (depth limit)
+  ├─ IShellHost.GetAllSettings → ShellHost.GetAllSettings
   └─ foreach (var settings in shellHost.GetAllSettings())
 ~    └─ IShellHost.ReloadShellContextAsync → ShellHost.ReloadShellContextAsync (changes below depth limit)
 
@@ -4341,7 +4341,7 @@ stdout:
 
   AdminController.Create
   ├─ …
-  ├─ new IndexProfileKey (depth limit)
+  ├─ new IndexProfileKey
   ├─ if (!_indexingOptions.Sources.TryGetValue(new IndexProfileKey(providerName, type), out var service))
 ~ ├─ IIndexProfileManager.NewAsync → DefaultIndexProfileManager.NewAsync (changes below depth limit)
   ├─ if (indexProfile == null)
@@ -4351,7 +4351,7 @@ stdout:
 
   AdminController.CreatePost
   ├─ …
-  ├─ new IndexProfileKey (depth limit)
+  ├─ new IndexProfileKey
   ├─ if (!_indexingOptions.Sources.TryGetValue(new IndexProfileKey(providerName, type), out var service))
 ~ ├─ IIndexProfileManager.NewAsync → DefaultIndexProfileManager.NewAsync (changes below depth limit)
   ├─ if (indexProfile == null)
@@ -4473,7 +4473,7 @@ stdout:
   ├─ if (layer == null)
 ~ ├─ IDisplayManager<TModel>.BuildDisplayAsync → DisplayManager<TModel>.BuildDisplayAsync (changes below depth limit)
   ├─ foreach (var factory in _conditionFactories)
-  │  ├─ IConditionFactory.Create → ConditionFactory<TCondition>.Create (depth limit)
+  │  ├─ IConditionFactory.Create → ConditionFactory<TCondition>.Create
 ~ │  ├─ IDisplayManager<TModel>.BuildDisplayAsync → DisplayManager<TModel>.BuildDisplayAsync (changes below depth limit)
   │  └─ ? Url.ActionLink
   ├─ new LayerEditViewModel
@@ -4497,11 +4497,11 @@ stdout:
   ├─ ContentItemExtensions.TryGet (depth limit)
   ├─ …
   ├─ ? _session.SaveAsync
-  ├─ ContentExtensions.IsPublished (depth limit)
+  ├─ ContentExtensions.IsPublished
   ├─ if (contentItem.IsPublished() == false)
 ~ │  ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   │  └─ if (publishedContentItem != null)
-  ├─ new LayerState
+  ├─ new LayerState (depth limit)
   ├─ IDocumentManager<TDocument>.UpdateAsync → DocumentManager<TDocument>.UpdateAsync (depth limit)
   └─ …
 
@@ -4537,7 +4537,7 @@ stdout:
   └─ ? View
 
   LayerFilter.OnResultExecutionAsync
-  ├─ ResultExecutingContextExtensions.IsViewOrPageResult (depth limit)
+  ├─ ResultExecutingContextExtensions.IsViewOrPageResult
   ├─ if (context.IsViewOrPageResult())
   ├─ if (context.IsViewOrPageResult() && !AdminAttribute.IsApplied(context.HttpContext))
   │  ├─ …
@@ -4589,11 +4589,11 @@ stdout:
 
   ViewMediaFolderAuthorizationHandler.HandleRequirementAsync
   ├─ …
-  ├─ ViewMediaFolderAuthorizationHandler.IsAuthorizedFolder (depth limit)
+  ├─ ViewMediaFolderAuthorizationHandler.IsAuthorizedFolder
   ├─ if (!(IsAuthorizedFolder(_mediaFieldsFolder, path)))
   ├─ if (IsAuthorizedFolder(_mediaFieldsFolder, path) || IsDescendantOfAuthorizedFolder(_mediaFieldsFo…
 ~ │  └─ ViewMediaFolderAuthorizationHandler.AuthorizeAttachedMediaFieldsFolderAsync (changes below depth limit)
-  ├─ ViewMediaFolderAuthorizationHandler.IsAuthorizedFolder (depth limit)
+  ├─ ViewMediaFolderAuthorizationHandler.IsAuthorizedFolder
   ├─ if (!(IsAuthorizedFolder(_usersFolder, path)))
   └─ …
 
@@ -4643,7 +4643,7 @@ stdout:
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ …
   ├─ if (menuItem == null)
-  ├─ JNode.ToObject (depth limit)
+  ├─ JNode.ToObject
 ~ ├─ IContentItemDisplayManager.BuildEditorAsync → ContentItemDisplayManager.BuildEditorAsync (changes below depth limit)
   └─ ? View
 
@@ -4662,7 +4662,7 @@ stdout:
   ├─ ContentItemExtensions.Merge (depth limit)
 ~ ├─ IContentItemDisplayManager.UpdateEditorAsync → ContentItemDisplayManager.UpdateEditorAsync (changes below depth limit)
   ├─ if (!ModelState.IsValid)
-  ├─ new JsonMergeSettings (depth limit)
+  ├─ new JsonMergeSettings
   ├─ JObject.Merge (depth limit)
 ~ ├─ IContentManager.SaveDraftAsync → DefaultContentManager.SaveDraftAsync (changes below depth limit)
   └─ ? RedirectToAction
@@ -4688,7 +4688,7 @@ stdout:
 
   MiniProfilerFilter.OnResultExecutionAsync
   ├─ …
-  ├─ ResultExecutingContextExtensions.IsViewOrPageResult (depth limit)
+  ├─ ResultExecutingContextExtensions.IsViewOrPageResult
   ├─ if (context.IsViewOrPageResult())
   ├─ if (context.IsViewOrPageResult() && ((viewMiniProfilerOnFrontEnd && !AdminAttribute.IsApplied(con…
 ~ │  ├─ ILayoutAccessor.GetLayoutAsync → LayoutAccessor.GetLayoutAsync (changes below depth limit)
@@ -4709,7 +4709,7 @@ stdout:
 ~    │  ├─ ModularBackgroundService.UpdateAsync (changes below depth limit)
 ~    │  └─ ModularBackgroundService.RunAsync (changes below depth limit)
      ├─ catch (Exception ex) when (!ex.IsFatal())
-     └─ ModularBackgroundService.WaitAsync (depth limit)
+     └─ ModularBackgroundService.WaitAsync
 
   ModularTenantContainerMiddleware.Invoke
 ~ ├─ IShellHost.InitializeAsync → ShellHost.InitializeAsync (changes below depth limit)
@@ -4733,7 +4733,7 @@ stdout:
 
   PagerShapes.PagerSlim
   ├─ …
-  ├─ PagerShapes.SetCustomUrlParams (depth limit)
+  ├─ PagerShapes.SetCustomUrlParams
   ├─ IShapeExtensions.TryGetProperty (depth limit)
   ├─ if (shape.TryGetProperty("Before", out string before))
   │  ├─ …
@@ -4786,7 +4786,7 @@ stdout:
 ~ │  ├─ PagerShapes.RenderPageSizeSelectorAsync (changes below depth limit)
   │  └─ ? WrapWithPageSizeSelector
   ├─ PagerShapes.GetRouteData (depth limit)
-  ├─ PagerShapes.SetCustomUrlParams (depth limit)
+  ├─ PagerShapes.SetCustomUrlParams
   ├─ …
   ├─ ? new RouteValueDictionary
   ├─ Arguments.From (depth limit)
@@ -4949,9 +4949,9 @@ stdout:
   ScopeController.Index
   ├─ …
   ├─ ? _scopeManager.CountAsync
-  ├─ new OpenIdScopeIndexViewModel (depth limit)
+  ├─ new OpenIdScopeIndexViewModel
 ~ ├─ ShapeFactoryExtensions.PagerAsync (changes below depth limit)
-  ├─ Pager.GetStartIndex (depth limit)
+  ├─ Pager.GetStartIndex
   ├─ ? _scopeManager.ListAsync
   └─ …
 
@@ -5049,7 +5049,7 @@ stdout:
   AdminController.CreatePost
   ├─ …
   ├─ IRateLimitPolicyStore.CreateAsync → RateLimitPolicyStore.CreateAsync (depth limit)
-  ├─ AdminController.ShouldReloadPolicy (depth limit)
+  ├─ AdminController.ShouldReloadPolicy
   ├─ if (ShouldReloadPolicy(wasEnabled: false, isEnabled: policy.IsEnabled))
 ~ │  └─ IShellReleaseManager.RequestRelease → DefaultShellReleaseManager.RequestRelease (changes below depth limit)
   ├─ ? _notifier.SuccessAsync
@@ -5095,7 +5095,7 @@ stdout:
   AdminController.Index
   ├─ …
   ├─ if (!string.IsNullOrWhiteSpace(searchText))
-  ├─ new RateLimitsIndexViewModel (depth limit)
+  ├─ new RateLimitsIndexViewModel
   ├─ pagedPolicies.Select
 ~ │  └─ AdminController.BuildPolicyEntryAsync (changes below depth limit)
   ├─ AdminController.BuildBuiltInRouteLimits (depth limit)
@@ -5135,14 +5135,14 @@ stdout:
   LimiterController.Create
   ├─ …
   ├─ new RateLimiterEditorViewModel
-  ├─ LimiterController.GetLimiterDocumentationUrl (depth limit)
+  ├─ LimiterController.GetLimiterDocumentationUrl
 ~ ├─ IDisplayManager<TModel>.BuildEditorAsync → DisplayManager<TModel>.BuildEditorAsync (changes below depth limit)
   └─ ? View
 
   LimiterController.CreatePost
   ├─ …
   ├─ new RateLimiterEditorViewModel
-  ├─ LimiterController.GetLimiterDocumentationUrl (depth limit)
+  ├─ LimiterController.GetLimiterDocumentationUrl
 ~ ├─ IDisplayManager<TModel>.UpdateEditorAsync → DisplayManager<TModel>.UpdateEditorAsync (changes below depth limit)
   ├─ if (!ModelState.IsValid)
   ├─ IRateLimitPolicyStore.UpdateAsync → RateLimitPolicyStore.UpdateAsync (depth limit)
@@ -5151,14 +5151,14 @@ stdout:
   LimiterController.Edit
   ├─ …
   ├─ new RateLimiterEditorViewModel
-  ├─ LimiterController.GetLimiterDocumentationUrl (depth limit)
+  ├─ LimiterController.GetLimiterDocumentationUrl
 ~ ├─ IDisplayManager<TModel>.BuildEditorAsync → DisplayManager<TModel>.BuildEditorAsync (changes below depth limit)
   └─ ? View
 
   LimiterController.EditPost
   ├─ …
   ├─ new RateLimiterEditorViewModel
-  ├─ LimiterController.GetLimiterDocumentationUrl (depth limit)
+  ├─ LimiterController.GetLimiterDocumentationUrl
 ~ ├─ IDisplayManager<TModel>.UpdateEditorAsync → DisplayManager<TModel>.UpdateEditorAsync (changes below depth limit)
   ├─ if (!ModelState.IsValid)
   ├─ IRateLimitPolicyStore.UpdateAsync → RateLimitPolicyStore.UpdateAsync (depth limit)
@@ -5196,16 +5196,16 @@ stdout:
   └─ …
 
   RolesMigrations.Create
-  ├─ ShellSettingsExtensions.IsInitializing (depth limit)
+  ├─ ShellSettingsExtensions.IsInitializing
   └─ if (!_shellSettings.IsInitializing())
 ~    └─ RolesMigrations.MigrateSystemRoles (changes below depth limit)
 
   AzureAISearchIndexSettingsMigrations.UpdateFrom1
-  ├─ ShellSettingsExtensions.IsInitializing (depth limit)
+  ├─ ShellSettingsExtensions.IsInitializing
   └─ ? ShellScope.AddDeferredTask
      ├─ …
      ├─ ISiteService.LoadSiteSettingsAsync → SiteService.LoadSiteSettingsAsync (depth limit)
-     ├─ AzureAISearchIndexSettingsMigrations.GetDefaultSearchFields (depth limit)
+     ├─ AzureAISearchIndexSettingsMigrations.GetDefaultSearchFields
      └─ foreach (var indexObject in indexesObject)
 ~       ├─ IIndexProfileManager.NewAsync → DefaultIndexProfileManager.NewAsync (changes below depth limit)
         ├─ IIndexNameProvider.GetFullIndexName
@@ -5217,11 +5217,11 @@ stdout:
         └─ if (indexName == defaultSearchIndexName && defaultSearchProvider == "Azure AI Search")
 
   IndexingMigrations.Create
-  ├─ ShellSettingsExtensions.IsInitializing (depth limit)
+  ├─ ShellSettingsExtensions.IsInitializing
   └─ ? ShellScope.AddDeferredTask
      ├─ …
      ├─ ISiteService.LoadSiteSettingsAsync → SiteService.LoadSiteSettingsAsync (depth limit)
-     ├─ IndexingMigrations.GetDefaultSearchFields (depth limit)
+     ├─ IndexingMigrations.GetDefaultSearchFields
      ├─ foreach (var indexObject in indexesObject)
      │  ├─ IIndexNameProvider.GetFullIndexName
 ~    │  ├─ IIndexProfileManager.NewAsync → DefaultIndexProfileManager.NewAsync (changes below depth limit)
@@ -5240,7 +5240,7 @@ stdout:
 ~    └─ IndexingMigrations.UpdateLegacyAnalyzerNameAsync (changes below depth limit)
 
   IndexingMigrations.Create
-  ├─ ShellSettingsExtensions.IsInitializing (depth limit)
+  ├─ ShellSettingsExtensions.IsInitializing
   └─ ? ShellScope.AddDeferredTask
      ├─ …
      ├─ ? JsonNode.Parse
@@ -5292,7 +5292,7 @@ stdout:
   ├─ ISetupService.GetSetupRecipesAsync → SetupService.GetSetupRecipesAsync (depth limit)
 ~ ├─ SetupController.ShouldProceedWithTokenAsync (changes below depth limit)
   ├─ if (!await ShouldProceedWithTokenAsync(token))
-  ├─ new SetupViewModel (depth limit)
+  ├─ new SetupViewModel
   └─ …
 
   SetupController.IndexPOST
@@ -5300,7 +5300,7 @@ stdout:
   ├─ if (!await ShouldProceedWithTokenAsync(model.Secret))
   ├─ ISetupService.GetSetupRecipesAsync → SetupService.GetSetupRecipesAsync (depth limit)
   ├─ …
-  ├─ SetupController.GetPresetDatabaseProvider (depth limit)
+  ├─ SetupController.GetPresetDatabaseProvider
   ├─ SetupController.HasPresetDatabaseConfiguration (depth limit)
   ├─ try
 ~ │  └─ ISetupService.SetupAsync → SetupService.SetupAsync (changes below depth limit)
@@ -5439,7 +5439,7 @@ stdout:
   ├─ ContentItemExtensions.Alter (depth limit)
 ~ ├─ IContentItemDisplayManager.UpdateEditorAsync → ContentItemDisplayManager.UpdateEditorAsync (changes below depth limit)
   ├─ if (!ModelState.IsValid)
-  ├─ new JsonMergeSettings (depth limit)
+  ├─ new JsonMergeSettings
   └─ …
 
   TagController.CreatePost
@@ -5490,8 +5490,8 @@ stdout:
   ├─ if (ModelState.IsValid)
   │  ├─ try
   │  │  ├─ …
-  │  │  ├─ ShellSettingsExtensions.AsUninitialized (depth limit)
-  │  │  ├─ ShellSettingsExtensions.AsDisposable (depth limit)
+  │  │  ├─ ShellSettingsExtensions.AsUninitialized
+  │  │  ├─ ShellSettingsExtensions.AsDisposable
 ~ │  │  ├─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   │  │  ├─ if (action == CreateAndSetupValue)
   │  │  └─ ? RedirectToAction
@@ -5503,7 +5503,7 @@ stdout:
   AdminController.Disable
   ├─ …
   ├─ if (!shellSettings.IsRunning())
-  ├─ ShellSettingsExtensions.AsDisabled (depth limit)
+  ├─ ShellSettingsExtensions.AsDisabled
 ~ ├─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   └─ ? RedirectToAction
 
@@ -5513,41 +5513,41 @@ stdout:
   ├─ if (ModelState.IsValid)
   ├─ if (ModelState.IsValid)
   │  ├─ try
-  │  │  ├─ ShellSettingsExtensions.IsUninitialized (depth limit)
+  │  │  ├─ ShellSettingsExtensions.IsUninitialized
 ~ │  │  ├─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   │  │  └─ ? RedirectToAction
   │  └─ catch (Exception ex) when (!ex.IsFatal())
-  ├─ ShellSettingsExtensions.IsUninitialized (depth limit)
+  ├─ ShellSettingsExtensions.IsUninitialized
   ├─ if (shellSettings.IsUninitialized())
   └─ …
 
   AdminController.Enable
   ├─ …
   ├─ if (!shellSettings.IsDisabled())
-  ├─ ShellSettingsExtensions.AsRunning (depth limit)
+  ├─ ShellSettingsExtensions.AsRunning
 ~ ├─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   └─ ? RedirectToAction
 
   AdminController.Index
   ├─ …
   ├─ if (model.BulkAction.ToString() == nameof(TenantsBulkAction.Remove) && !_tenantsOptions.TenantRem…
-  ├─ IShellHost.GetAllSettings → ShellHost.GetAllSettings (depth limit)
+  ├─ IShellHost.GetAllSettings → ShellHost.GetAllSettings
   ├─ foreach (var tenantName in model.TenantNames ?? [])
-  │  ├─ IShellHost.TryGetSettings → ShellHost.TryGetSettings (depth limit)
+  │  ├─ IShellHost.TryGetSettings → ShellHost.TryGetSettings
   │  ├─ case "Disable":
-  │  │  ├─ ShellSettingsExtensions.IsDefaultShell (depth limit)
+  │  │  ├─ ShellSettingsExtensions.IsDefaultShell
   │  │  ├─ if (shellSettings.IsDefaultShell())
   │  │  └─ else (!(shellSettings.IsDefaultShell()))
-  │  │     ├─ ShellSettingsExtensions.IsRunning (depth limit)
+  │  │     ├─ ShellSettingsExtensions.IsRunning
   │  │     ├─ if (!shellSettings.IsRunning())
   │  │     └─ else (!(!shellSettings.IsRunning()))
-  │  │        ├─ ShellSettingsExtensions.AsDisabled (depth limit)
+  │  │        ├─ ShellSettingsExtensions.AsDisabled
 ~ │  │        └─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   │  └─ case "Enable":
-  │     ├─ ShellSettingsExtensions.IsDisabled (depth limit)
+  │     ├─ ShellSettingsExtensions.IsDisabled
   │     ├─ if (!shellSettings.IsDisabled())
   │     └─ else (!(!shellSettings.IsDisabled()))
-  │        ├─ ShellSettingsExtensions.AsRunning (depth limit)
+  │        ├─ ShellSettingsExtensions.AsRunning
 ~ │        └─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   └─ ? RedirectToAction
 
@@ -5593,8 +5593,8 @@ stdout:
   │  ├─ if (!model.IsNewTenant)
   │  ├─ try
   │  │  ├─ …
-  │  │  ├─ ShellSettingsExtensions.AsUninitialized (depth limit)
-  │  │  ├─ ShellSettingsExtensions.AsDisposable (depth limit)
+  │  │  ├─ ShellSettingsExtensions.AsUninitialized
+  │  │  ├─ ShellSettingsExtensions.AsDisposable
 ~ │  │  ├─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   │  │  ├─ ShellHostExtensions.GetSettings (depth limit)
   │  │  ├─ TenantApiController.CreateSetupToken (depth limit)
@@ -5605,17 +5605,17 @@ stdout:
   TenantApiController.Disable
   ├─ …
   ├─ if (!shellSettings.IsRunning())
-  ├─ ShellSettingsExtensions.AsDisabled (depth limit)
+  ├─ ShellSettingsExtensions.AsDisabled
 ~ ├─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   └─ ? Ok
 
   TenantApiController.Edit
   ├─ …
-  ├─ IShellHost.TryGetSettings → ShellHost.TryGetSettings (depth limit)
+  ├─ IShellHost.TryGetSettings → ShellHost.TryGetSettings
   ├─ if (!_shellHost.TryGetSettings(model.Name, out var shellSettings))
   ├─ if (ModelState.IsValid)
   │  ├─ try
-  │  │  ├─ ShellSettingsExtensions.IsUninitialized (depth limit)
+  │  │  ├─ ShellSettingsExtensions.IsUninitialized
 ~ │  │  ├─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   │  │  └─ ? Ok
   │  └─ catch (Exception ex) when (!ex.IsFatal())
@@ -5624,7 +5624,7 @@ stdout:
   TenantApiController.Enable
   ├─ …
   ├─ if (!shellSettings.IsDisabled())
-  ├─ ShellSettingsExtensions.AsRunning (depth limit)
+  ├─ ShellSettingsExtensions.AsRunning
 ~ ├─ IShellHost.UpdateShellSettingsAsync → ShellHost.UpdateShellSettingsAsync (changes below depth limit)
   └─ ? Ok
 
@@ -5639,7 +5639,7 @@ stdout:
   TenantApiController.Setup
   ├─ …
   ├─ else (!(string.IsNullOrEmpty(recipeName)))
-  ├─ new SetupContext (depth limit)
+  ├─ new SetupContext
 ~ ├─ ISetupService.SetupAsync → SetupService.SetupAsync (changes below depth limit)
   ├─ if (setupContext.Errors.Count > 0)
   └─ ? Ok
@@ -5721,7 +5721,7 @@ stdout:
   ├─ new RewriteRuleViewModel
 ~ ├─ IDisplayManager<TModel>.UpdateEditorAsync → DisplayManager<TModel>.UpdateEditorAsync (changes below depth limit)
   ├─ if (ModelState.IsValid)
-  ├─ IShellReleaseManager.SuspendReleaseRequest → DefaultShellReleaseManager.SuspendReleaseRequest (depth limit)
+  ├─ IShellReleaseManager.SuspendReleaseRequest → DefaultShellReleaseManager.SuspendReleaseRequest
   └─ …
 
   AdminController.Delete
@@ -5745,7 +5745,7 @@ stdout:
   ├─ new RewriteRuleViewModel
 ~ ├─ IDisplayManager<TModel>.UpdateEditorAsync → DisplayManager<TModel>.UpdateEditorAsync (changes below depth limit)
   ├─ if (ModelState.IsValid)
-  ├─ IShellReleaseManager.SuspendReleaseRequest → DefaultShellReleaseManager.SuspendReleaseRequest (depth limit)
+  ├─ IShellReleaseManager.SuspendReleaseRequest → DefaultShellReleaseManager.SuspendReleaseRequest
   └─ …
 
   AdminController.Index
@@ -5761,7 +5761,7 @@ stdout:
   AccountController.Login
   ├─ …
   ├─ SiteServiceExtensions.GetSettingsAsync (depth limit)
-  ├─ new LoginForm
+  ├─ new LoginForm (depth limit)
 ~ ├─ IDisplayManager<TModel>.BuildEditorAsync → DisplayManager<TModel>.BuildEditorAsync (changes below depth limit)
   ├─ AccountBaseController.CopyTempDataErrorsToModelState (depth limit)
   └─ ? View
@@ -5769,7 +5769,7 @@ stdout:
   AccountController.LoginPOST
   ├─ …
   ├─ if (loginSettings.DisableLocalLogin)
-  ├─ new LoginForm
+  ├─ new LoginForm (depth limit)
 ~ ├─ IDisplayManager<TModel>.UpdateEditorAsync → DisplayManager<TModel>.UpdateEditorAsync (changes below depth limit)
   ├─ ? _loginFormEvents.InvokeAsync
   ├─ if (ModelState.IsValid)
@@ -5849,7 +5849,7 @@ stdout:
   └─ ? View
 
   RegistrationController.RegisterPOST
-  ├─ new RegisterUserForm
+  ├─ new RegisterUserForm (depth limit)
 ~ ├─ IDisplayManager<TModel>.UpdateEditorAsync → DisplayManager<TModel>.UpdateEditorAsync (changes below depth limit)
   ├─ if (ModelState.IsValid)
   └─ ? View
@@ -5863,7 +5863,7 @@ stdout:
   ResetPasswordController.ForgotPasswordPOST
   ├─ …
   ├─ if (!site.TryGet<ResetPasswordSettings>(out var settings) || !settings.AllowResetPassword)
-  ├─ new ForgotPasswordForm
+  ├─ new ForgotPasswordForm (depth limit)
 ~ ├─ IDisplayManager<TModel>.UpdateEditorAsync → DisplayManager<TModel>.UpdateEditorAsync (changes below depth limit)
   ├─ ? _passwordRecoveryFormEvents.InvokeAsync
   ├─ if (ModelState.IsValid)
@@ -5872,14 +5872,14 @@ stdout:
   ResetPasswordController.ResetPassword
   ├─ …
   ├─ if (string.IsNullOrWhiteSpace(code))
-  ├─ new ResetPasswordForm
+  ├─ new ResetPasswordForm (depth limit)
 ~ ├─ IDisplayManager<TModel>.BuildEditorAsync → DisplayManager<TModel>.BuildEditorAsync (changes below depth limit)
   └─ ? View
 
   ResetPasswordController.ResetPasswordPOST
   ├─ …
   ├─ if (!(await _siteService.GetSettingsAsync<ResetPasswordSettings>()).AllowResetPassword)
-  ├─ new ResetPasswordForm
+  ├─ new ResetPasswordForm (depth limit)
 ~ ├─ IDisplayManager<TModel>.UpdateEditorAsync → DisplayManager<TModel>.UpdateEditorAsync (changes below depth limit)
   ├─ ? _passwordRecoveryFormEvents.InvokeAsync
   ├─ if (ModelState.IsValid)
@@ -5911,7 +5911,7 @@ stdout:
 
   AdminController.BuildEditor
   ├─ …
-  ├─ new WidgetMetadata
+  ├─ new WidgetMetadata (depth limit)
   ├─ ContentItemExtensions.Weld (depth limit)
 ~ ├─ ShapeFactoryExtensions.CreateAsync (changes below depth limit)
   ├─ new BuildEditorViewModel
@@ -5919,7 +5919,7 @@ stdout:
 
   ActivityController.Create
   ├─ …
-  ├─ new ActivityRecord
+  ├─ new ActivityRecord (depth limit)
   ├─ IActivityIdGenerator.GenerateUniqueId → ActivityIdGenerator.GenerateUniqueId (depth limit)
 ~ ├─ IDisplayManager<TModel>.BuildEditorAsync → ActivityDisplayManager.BuildEditorAsync (changes below depth limit)
   ├─ new ActivityEditViewModel
@@ -6036,4 +6036,4 @@ src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.Ad
 src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage.
 src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource.
 src/OrchardCore.AspireHost/ClamAV.cs:46: unresolved-call: Cannot bind builder.WithVolume.
-16273 additional diagnostics; use --diagnostics full.
+16676 additional diagnostics; use --diagnostics full.

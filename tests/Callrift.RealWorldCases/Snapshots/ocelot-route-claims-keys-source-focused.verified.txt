@@ -17,9 +17,11 @@ stdout:
 + ├─ services.AddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>
 + ├─ services.AddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>().AddSingleton<IScopesAuthorizer, ScopesAuthorizer>
 + ├─ new RouteClaimsRequirementPostConfigureOptions
++ │  └─ new Object
 + └─ services.AddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>().AddSingleton<IScopesAuthorizer, ScopesAuthorizer>().AddSingleton<IPostConfigureOptions<FileConfiguration>>
 
   new OcelotBuilder
+  ├─ new Object
 + ├─ typeof(FileConfigurationController).GetTypeInfo
 + ├─ callback
 + │  └─ OcelotBuilder.AddDefaultAspNetServices
@@ -63,7 +65,7 @@ manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Configuration.G
 manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Logging.AddConfiguration.
 manual/Actions/Basic.cs:30: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
 manual/Actions/Basic.cs:32: unresolved-call: Cannot bind builder.Logging.AddConsole.
-1108 additional diagnostics; use --diagnostics full.
+1127 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -85,9 +87,11 @@ stdout:
 + ├─ services.AddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>
 + ├─ services.AddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>().AddSingleton<IScopesAuthorizer, ScopesAuthorizer>
 + ├─ new RouteClaimsRequirementPostConfigureOptions
++ │  └─ new Object
 + └─ services.AddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>().AddSingleton<IScopesAuthorizer, ScopesAuthorizer>().AddSingleton<IPostConfigureOptions<FileConfiguration>>
 
   new OcelotBuilder
+  ├─ new Object
 + ├─ typeof(FileConfigurationController).GetTypeInfo
 + ├─ callback
 + │  └─ OcelotBuilder.AddDefaultAspNetServices
@@ -132,4 +136,4 @@ manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Configuration.G
 manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Logging.AddConfiguration.
 manual/Actions/Basic.cs:30: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
 manual/Actions/Basic.cs:32: unresolved-call: Cannot bind builder.Logging.AddConsole.
-1108 additional diagnostics; use --diagnostics full.
+1127 additional diagnostics; use --diagnostics full.

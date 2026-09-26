@@ -357,7 +357,7 @@ stdout:
           "detail": null,
           "before": {
             "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.CircuitBreaker.ScheduledTaskExecutor.Entry..ctor(global::System.Func<global::System.Threading.Tasks.Task>,global::System.Threading.Tasks.TaskCompletionSource<object>)",
-            "signature": "Polly.CircuitBreaker.ScheduledTaskExecutor.Entry.Entry(System.Func<System.Threading.Tasks.Task>, System.Threading.Tasks.TaskCompletionSource<object>)",
+            "signature": "Polly.CircuitBreaker.ScheduledTaskExecutor.Entry.Entry(System.Func<System.Threading.Tasks.Task>, System.Threading.Tasks.TaskCompletionSource<object>) -> void",
             "binding": "resolved",
             "dispatch": "direct",
             "targetIds": [
@@ -385,7 +385,7 @@ stdout:
           },
           "after": {
             "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.CircuitBreaker.ScheduledTaskExecutor.Entry..ctor(global::System.Func<global::System.Threading.Tasks.Task>,global::System.Threading.Tasks.TaskCompletionSource<object>)",
-            "signature": "Polly.CircuitBreaker.ScheduledTaskExecutor.Entry.Entry(System.Func<System.Threading.Tasks.Task>, System.Threading.Tasks.TaskCompletionSource<object>)",
+            "signature": "Polly.CircuitBreaker.ScheduledTaskExecutor.Entry.Entry(System.Func<System.Threading.Tasks.Task>, System.Threading.Tasks.TaskCompletionSource<object>) -> void",
             "binding": "resolved",
             "dispatch": "direct",
             "targetIds": [
@@ -411,11 +411,65 @@ stdout:
             "candidates": [],
             "origin": "source"
           },
-          "children": [],
+          "children": [
+            {
+              "id": "n5",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "new Object",
+              "detail": null,
+              "before": {
+                "symbolId": "metadata:System.Runtime::object..ctor()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::object..ctor()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Polly.Core/CircuitBreaker/Controller/ScheduledTaskExecutor.cs",
+                    "startLine": 80,
+                    "startColumn": 5,
+                    "endLine": 80,
+                    "endColumn": 102
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "metadata:System.Runtime::object..ctor()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::object..ctor()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Polly.Core/CircuitBreaker/Controller/ScheduledTaskExecutor.cs",
+                    "startLine": 80,
+                    "startColumn": 5,
+                    "endLine": 80,
+                    "endColumn": 102
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
           "omission": null
         },
         {
-          "id": "n5",
+          "id": "n6",
           "kind": "call",
           "change": "unchanged",
           "label": "_tasks.Enqueue",
@@ -468,7 +522,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n6",
+          "id": "n7",
           "kind": "call",
           "change": "unchanged",
           "label": "_semaphore.Release",

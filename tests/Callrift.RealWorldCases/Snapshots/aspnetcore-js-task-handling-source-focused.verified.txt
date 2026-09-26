@@ -16,7 +16,7 @@ stdout:
 - │  │  │  └─ if (taskType.IsGenericType)
 - │  │  │     └─ taskType.GetGenericArguments
 - │  │  ├─ if (resultType == null)
-- │  │  │  └─ new TaskGenericsUtil.VoidTaskResultGetter
+- │  │  │  └─ new TaskGenericsUtil.VoidTaskResultGetter (depth limit)
 - │  │  └─ else (!(resultType == null))
 - │  │     ├─ typeof(TaskResultGetter<>).MakeGenericType
 - │  │     └─ Activator.CreateInstance
@@ -46,14 +46,14 @@ stdout:
 + │     └─ ⇢ WebAssemblyJSRuntime.EndInvokeDotNet
 + │        ├─ else (!(dispatchResult.Success))
 + │        │  └─ dispatchResult.Exception!.ToString
-+ │        └─ InternalCalls.EndInvokeDotNetFromJS (depth limit)
++ │        └─ InternalCalls.EndInvokeDotNetFromJS
 + ├─ else (!(isNonGenericTask))
 + │  └─ TaskGenericsUtil.GetTaskResult
 + │     ├─ task.GetType
 + │     ├─ _cachedResultGetters.GetOrAdd
 + │     │  ├─ TaskGenericsUtil.GetTaskResultType (depth limit)
 + │     │  ├─ if (resultType == null)
-+ │     │  │  └─ new TaskGenericsUtil.VoidTaskResultGetter
++ │     │  │  └─ new TaskGenericsUtil.VoidTaskResultGetter (depth limit)
 + │     │  └─ else (!(resultType == null))
 + │     │     ├─ if (RuntimeFeature.IsDynamicCodeSupported)
 + │     │     │  ├─ typeof(TaskResultGetter<>).MakeGenericType
@@ -63,7 +63,7 @@ stdout:
 + │     │        └─ new TaskGenericsUtil.ReflectionTaskResultGetter (changes below depth limit)
 + │     └─ TaskGenericsUtil.ITaskResultGetter.GetResult
 + │        ├─ ⇢ TaskGenericsUtil.ReflectionTaskResultGetter.GetResult (changes below depth limit)
-+ │        ├─ ⇢ TaskGenericsUtil.TaskResultGetter<T>.GetResult (depth limit)
++ │        ├─ ⇢ TaskGenericsUtil.TaskResultGetter<T>.GetResult
 + │        └─ ⇢ TaskGenericsUtil.VoidTaskResultGetter.GetResult (depth limit)
   ├─ JsonSerializer.Serialize
   ├─ new DotNetInvocationResult
@@ -109,7 +109,7 @@ eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot 
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
-22595 additional diagnostics; use --diagnostics full.
+22793 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -130,7 +130,7 @@ stdout:
 - │  │  │  └─ if (taskType.IsGenericType)
 - │  │  │     └─ taskType.GetGenericArguments
 - │  │  ├─ if (resultType == null)
-- │  │  │  └─ new TaskGenericsUtil.VoidTaskResultGetter
+- │  │  │  └─ new TaskGenericsUtil.VoidTaskResultGetter (depth limit)
 - │  │  └─ else (!(resultType == null))
 - │  │     ├─ typeof(TaskResultGetter<>).MakeGenericType
 - │  │     └─ Activator.CreateInstance
@@ -160,14 +160,14 @@ stdout:
 + │     └─ ⇢ WebAssemblyJSRuntime.EndInvokeDotNet
 + │        ├─ else (!(dispatchResult.Success))
 + │        │  └─ dispatchResult.Exception!.ToString
-+ │        └─ InternalCalls.EndInvokeDotNetFromJS (depth limit)
++ │        └─ InternalCalls.EndInvokeDotNetFromJS
 + ├─ else (!(isNonGenericTask))
 + │  └─ TaskGenericsUtil.GetTaskResult
 + │     ├─ task.GetType
 + │     ├─ _cachedResultGetters.GetOrAdd
 + │     │  ├─ TaskGenericsUtil.GetTaskResultType (depth limit)
 + │     │  ├─ if (resultType == null)
-+ │     │  │  └─ new TaskGenericsUtil.VoidTaskResultGetter
++ │     │  │  └─ new TaskGenericsUtil.VoidTaskResultGetter (depth limit)
 + │     │  └─ else (!(resultType == null))
 + │     │     ├─ if (RuntimeFeature.IsDynamicCodeSupported)
 + │     │     │  ├─ typeof(TaskResultGetter<>).MakeGenericType
@@ -177,7 +177,7 @@ stdout:
 + │     │        └─ new TaskGenericsUtil.ReflectionTaskResultGetter (changes below depth limit)
 + │     └─ TaskGenericsUtil.ITaskResultGetter.GetResult
 + │        ├─ ⇢ TaskGenericsUtil.ReflectionTaskResultGetter.GetResult (changes below depth limit)
-+ │        ├─ ⇢ TaskGenericsUtil.TaskResultGetter<T>.GetResult (depth limit)
++ │        ├─ ⇢ TaskGenericsUtil.TaskResultGetter<T>.GetResult
 + │        └─ ⇢ TaskGenericsUtil.VoidTaskResultGetter.GetResult (depth limit)
   ├─ JsonSerializer.Serialize
   ├─ new DotNetInvocationResult
@@ -224,4 +224,4 @@ eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot 
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
-22595 additional diagnostics; use --diagnostics full.
+22793 additional diagnostics; use --diagnostics full.

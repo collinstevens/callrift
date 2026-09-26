@@ -10,7 +10,7 @@ stdout:
 ~    ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
 ~    ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
 ~    ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
-     ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore (depth limit)
+     ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore
 ~    ├─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
      └─ Outcome.FromResultAsValueTask (depth limit)
 
@@ -42,7 +42,7 @@ stdout:
 
   Helper.CreateNonGenericStrategyPipeline
   ├─ …
-  ├─ new CircuitBreakerStrategyOptions
+  ├─ new CircuitBreakerStrategyOptions (depth limit)
   ├─ callback
 ~ ├─ CircuitBreakerResiliencePipelineBuilderExtensions.AddCircuitBreaker (changes below depth limit)
   ├─ if (telemetry)
@@ -66,15 +66,15 @@ stdout:
      │  └─ Outcome.FromResultAsValueTask (depth limit)
      └─ ResilienceContextPool.Return → ResilienceContextPool.SharedPool.Return (depth limit)
 stderr:
+bench/Polly.Benchmarks/Cache.cs:48: unresolved-call: Cannot bind implicit base constructor for new Cache.MemoryCacheProvider.
+bench/Polly.Benchmarks/PollyConfig.cs:5: unresolved-call: Cannot bind implicit base constructor for new PollyConfig.
 bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
 bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
-2015 additional diagnostics; use --diagnostics full.
+2017 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -89,7 +89,7 @@ stdout:
 ~    ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
 ~    ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
 ~    ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
-     ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore (depth limit)
+     ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore
 ~    ├─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
      └─ Outcome.FromResultAsValueTask (depth limit)
 
@@ -121,7 +121,7 @@ stdout:
 
   Helper.CreateNonGenericStrategyPipeline
   ├─ …
-  ├─ new CircuitBreakerStrategyOptions
+  ├─ new CircuitBreakerStrategyOptions (depth limit)
   ├─ callback
 ~ ├─ CircuitBreakerResiliencePipelineBuilderExtensions.AddCircuitBreaker (changes below depth limit)
   ├─ if (telemetry)
@@ -146,12 +146,12 @@ stdout:
      └─ ResilienceContextPool.Return → ResilienceContextPool.SharedPool.Return (depth limit)
 ```
 stderr:
+bench/Polly.Benchmarks/Cache.cs:48: unresolved-call: Cannot bind implicit base constructor for new Cache.MemoryCacheProvider.
+bench/Polly.Benchmarks/PollyConfig.cs:5: unresolved-call: Cannot bind implicit base constructor for new PollyConfig.
 bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
 bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
-2015 additional diagnostics; use --diagnostics full.
+2017 additional diagnostics; use --diagnostics full.

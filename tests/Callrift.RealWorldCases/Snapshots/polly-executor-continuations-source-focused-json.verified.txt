@@ -34,6 +34,28 @@ stdout:
   "diagnostics": [
     {
       "code": "unresolved-call",
+      "message": "Cannot bind implicit base constructor for new Cache.MemoryCacheProvider.",
+      "location": {
+        "path": "bench/Polly.Benchmarks/Cache.cs",
+        "startLine": 48,
+        "startColumn": 5,
+        "endLine": 90,
+        "endColumn": 6
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind implicit base constructor for new PollyConfig.",
+      "location": {
+        "path": "bench/Polly.Benchmarks/PollyConfig.cs",
+        "startLine": 5,
+        "startColumn": 5,
+        "endLine": 9,
+        "endColumn": 6
+      }
+    },
+    {
+      "code": "unresolved-call",
       "message": "Cannot bind AddDiagnoser.",
       "location": {
         "path": "bench/Polly.Benchmarks/PollyConfig.cs",
@@ -22509,7 +22531,7 @@ stdout:
           "detail": null,
           "before": {
             "symbolId": "source::Polly.CircuitBreaker.ScheduledTaskExecutor.Entry..ctor(global::System.Func<global::System.Threading.Tasks.Task>,global::System.Threading.Tasks.TaskCompletionSource<object>)",
-            "signature": "Polly.CircuitBreaker.ScheduledTaskExecutor.Entry.Entry(System.Func<System.Threading.Tasks.Task>, System.Threading.Tasks.TaskCompletionSource<object>)",
+            "signature": "Polly.CircuitBreaker.ScheduledTaskExecutor.Entry.Entry(System.Func<System.Threading.Tasks.Task>, System.Threading.Tasks.TaskCompletionSource<object>) -> void",
             "binding": "resolved",
             "dispatch": "direct",
             "targetIds": [
@@ -22537,7 +22559,7 @@ stdout:
           },
           "after": {
             "symbolId": "source::Polly.CircuitBreaker.ScheduledTaskExecutor.Entry..ctor(global::System.Func<global::System.Threading.Tasks.Task>,global::System.Threading.Tasks.TaskCompletionSource<object>)",
-            "signature": "Polly.CircuitBreaker.ScheduledTaskExecutor.Entry.Entry(System.Func<System.Threading.Tasks.Task>, System.Threading.Tasks.TaskCompletionSource<object>)",
+            "signature": "Polly.CircuitBreaker.ScheduledTaskExecutor.Entry.Entry(System.Func<System.Threading.Tasks.Task>, System.Threading.Tasks.TaskCompletionSource<object>) -> void",
             "binding": "resolved",
             "dispatch": "direct",
             "targetIds": [
@@ -22563,11 +22585,65 @@ stdout:
             "candidates": [],
             "origin": "source"
           },
-          "children": [],
+          "children": [
+            {
+              "id": "n6",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "new Object",
+              "detail": null,
+              "before": {
+                "symbolId": "source::object..ctor()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::object..ctor()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Polly.Core/CircuitBreaker/Controller/ScheduledTaskExecutor.cs",
+                    "startLine": 80,
+                    "startColumn": 5,
+                    "endLine": 80,
+                    "endColumn": 102
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "source::object..ctor()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::object..ctor()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Polly.Core/CircuitBreaker/Controller/ScheduledTaskExecutor.cs",
+                    "startLine": 80,
+                    "startColumn": 5,
+                    "endLine": 80,
+                    "endColumn": 102
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
           "omission": null
         },
         {
-          "id": "n6",
+          "id": "n7",
           "kind": "call",
           "change": "unchanged",
           "label": "? _tasks.Enqueue",
@@ -22616,7 +22692,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n7",
+          "id": "n8",
           "kind": "call",
           "change": "unchanged",
           "label": "_semaphore.Release",
@@ -22675,12 +22751,12 @@ stdout:
   "paths": []
 }
 stderr:
+bench/Polly.Benchmarks/Cache.cs:48: unresolved-call: Cannot bind implicit base constructor for new Cache.MemoryCacheProvider.
+bench/Polly.Benchmarks/PollyConfig.cs:5: unresolved-call: Cannot bind implicit base constructor for new PollyConfig.
 bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
 bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
-2015 additional diagnostics; use --diagnostics full.
+2017 additional diagnostics; use --diagnostics full.

@@ -86,7 +86,7 @@ Use separate workspace worker processes per side so different historical SDK req
 
 **Collection and trustworthy identities**
 
-Index block and expression-bodied methods, explicit and primary constructors, local functions, partial declarations, and per-file top-level entrypoints. Recognize source record implicit constructors as source leaves. Attach constructor initializers and executable instance initializers to their owning constructor flow without double counting chained constructors.
+Index block and expression-bodied methods, explicit, primary, and implicit constructors, local functions, partial declarations, and per-file top-level entrypoints. Bind implicit base-constructor calls using compiler symbols. Attach executable instance field, property, and event initializers before the base call and constructor body without double counting chained constructors. Record copy constructors and implicit default struct constructors do not rerun instance initializers. Keep duplicate-body and extern constructors omitted.
 
 Walk receiver calls before invocation arguments, then emit the invocation. Ordinary argument calls precede it; inline lambda bodies and method groups become callback children. Keep callback bodies out of the enclosing member's sibling calls. Index local functions separately and expand them only when called. Cover generic invocations, extensions, `await`, and conditional access.
 

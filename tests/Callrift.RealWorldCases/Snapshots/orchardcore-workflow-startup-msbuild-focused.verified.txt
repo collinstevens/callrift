@@ -9,8 +9,8 @@ stdout:
   │  └─ ActivityController.Create
   │     ├─ …
   │     ├─ if (!ModelState.IsValid)
-  │     ├─ new ActivityRecord
-+ │     ├─ ActivityExtensions.IsEvent (depth limit)
+  │     ├─ new ActivityRecord (depth limit)
++ │     ├─ ActivityExtensions.IsEvent
 + │     ├─ if (activity.IsEvent())
 + │     │  └─ WorkflowTypeExtensions.HasStartActivity (changes below depth limit)
   │     ├─ workflowType.Activities.Add
@@ -50,8 +50,8 @@ stdout:
   │  └─ ActivityController.Create
   │     ├─ …
   │     ├─ if (!ModelState.IsValid)
-  │     ├─ new ActivityRecord
-+ │     ├─ ActivityExtensions.IsEvent (depth limit)
+  │     ├─ new ActivityRecord (depth limit)
++ │     ├─ ActivityExtensions.IsEvent
 + │     ├─ if (activity.IsEvent())
 + │     │  └─ WorkflowTypeExtensions.HasStartActivity (changes below depth limit)
   │     ├─ workflowType.Activities.Add

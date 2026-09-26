@@ -2,44 +2,44 @@
 exit: 0
 stdout:
   ResiliencePipeline.Execute
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
   ├─ ResiliencePipeline.GetSyncContext (depth limit)
   ├─ try
 ~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
   └─ finally
 
   ResiliencePipeline.Execute
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
 ~ └─ ResiliencePipeline.Execute (changes below depth limit)
 
   ResiliencePipeline.Execute
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
   ├─ ResiliencePipeline.GetSyncContext (depth limit)
   ├─ try
 ~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
   └─ finally
 
   ResiliencePipeline.Execute
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
   ├─ ResiliencePipeline.GetSyncContext (depth limit)
   ├─ try
 ~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
   └─ finally
 
   ResiliencePipeline.Execute
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
   ├─ ResiliencePipeline.GetSyncContext (depth limit)
   ├─ try
 ~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
   └─ finally
 
   ResiliencePipeline.Execute
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
 ~ └─ ResiliencePipeline.Execute (changes below depth limit)
 
   ResiliencePipeline.ExecuteAsync
   ├─ …
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
   ├─ ResiliencePipeline.InitializeAsyncContext (depth limit)
   ├─ PipelineComponent.ExecuteCore
   │  ├─ ⇢ BridgeComponent.ExecuteCore (depth limit)
@@ -49,33 +49,33 @@ stdout:
 ~ │  ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
 ~ │  ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
 ~ │  ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
-  │  ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore (depth limit)
+  │  ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore
 ~ │  ├─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
   │  └─ catch (Exception e)
-  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  └─ Outcome<TResult>.GetResultOrRethrow
 
   ResiliencePipeline.ExecuteAsync
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
   ├─ ResiliencePipeline.GetAsyncContext (depth limit)
   ├─ try
   │  ├─ PipelineComponent.ExecuteCore ↑ as above
-  │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  │  └─ Outcome<TResult>.GetResultOrRethrow
   └─ finally
 
   ResiliencePipeline.ExecuteAsync
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
   ├─ ResiliencePipeline.GetAsyncContext (depth limit)
   ├─ try
   │  ├─ PipelineComponent.ExecuteCore ↑ as above
-  │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  │  └─ Outcome<TResult>.GetResultOrRethrow
   └─ finally
 
   ResiliencePipeline.ExecuteAsync
   ├─ …
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
   ├─ ResiliencePipeline.InitializeAsyncContext (depth limit)
   ├─ PipelineComponent.ExecuteCore ↑ as above
-  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  └─ Outcome<TResult>.GetResultOrRethrow
 
   ResiliencePipeline<T>.Execute
 ~ └─ ResiliencePipeline.Execute (changes below depth limit)
@@ -111,8 +111,8 @@ stdout:
 ~ └─ ResiliencePipeline.ExecuteOutcomeAsync (changes below depth limit)
 
   new TelemetryOptions
-+ ├─ new TelemetryOptions (depth limit)
-  └─ Guard.NotNull (depth limit)
++ ├─ new TelemetryOptions
+  └─ Guard.NotNull
 stderr:
 src/Polly.Core/CircuitBreaker/CircuitBreakerResilienceStrategy.cs:30: generic-context-limit: Generic invocation expansion for CircuitBreakerResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
 src/Polly.Core/Fallback/FallbackResilienceStrategy.cs:20: generic-context-limit: Generic invocation expansion for FallbackResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
@@ -129,44 +129,44 @@ exit: 0
 stdout:
 ```diff
   ResiliencePipeline.Execute
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
   ├─ ResiliencePipeline.GetSyncContext (depth limit)
   ├─ try
 ~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
   └─ finally
 
   ResiliencePipeline.Execute
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
 ~ └─ ResiliencePipeline.Execute (changes below depth limit)
 
   ResiliencePipeline.Execute
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
   ├─ ResiliencePipeline.GetSyncContext (depth limit)
   ├─ try
 ~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
   └─ finally
 
   ResiliencePipeline.Execute
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
   ├─ ResiliencePipeline.GetSyncContext (depth limit)
   ├─ try
 ~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
   └─ finally
 
   ResiliencePipeline.Execute
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
   ├─ ResiliencePipeline.GetSyncContext (depth limit)
   ├─ try
 ~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
   └─ finally
 
   ResiliencePipeline.Execute
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
 ~ └─ ResiliencePipeline.Execute (changes below depth limit)
 
   ResiliencePipeline.ExecuteAsync
   ├─ …
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
   ├─ ResiliencePipeline.InitializeAsyncContext (depth limit)
   ├─ PipelineComponent.ExecuteCore
   │  ├─ ⇢ BridgeComponent.ExecuteCore (depth limit)
@@ -176,33 +176,33 @@ stdout:
 ~ │  ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
 ~ │  ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
 ~ │  ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
-  │  ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore (depth limit)
+  │  ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore
 ~ │  ├─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
   │  └─ catch (Exception e)
-  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  └─ Outcome<TResult>.GetResultOrRethrow
 
   ResiliencePipeline.ExecuteAsync
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
   ├─ ResiliencePipeline.GetAsyncContext (depth limit)
   ├─ try
   │  ├─ PipelineComponent.ExecuteCore ↑ as above
-  │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  │  └─ Outcome<TResult>.GetResultOrRethrow
   └─ finally
 
   ResiliencePipeline.ExecuteAsync
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
   ├─ ResiliencePipeline.GetAsyncContext (depth limit)
   ├─ try
   │  ├─ PipelineComponent.ExecuteCore ↑ as above
-  │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  │  └─ Outcome<TResult>.GetResultOrRethrow
   └─ finally
 
   ResiliencePipeline.ExecuteAsync
   ├─ …
-  ├─ Guard.NotNull (depth limit)
+  ├─ Guard.NotNull
   ├─ ResiliencePipeline.InitializeAsyncContext (depth limit)
   ├─ PipelineComponent.ExecuteCore ↑ as above
-  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  └─ Outcome<TResult>.GetResultOrRethrow
 
   ResiliencePipeline<T>.Execute
 ~ └─ ResiliencePipeline.Execute (changes below depth limit)
@@ -238,8 +238,8 @@ stdout:
 ~ └─ ResiliencePipeline.ExecuteOutcomeAsync (changes below depth limit)
 
   new TelemetryOptions
-+ ├─ new TelemetryOptions (depth limit)
-  └─ Guard.NotNull (depth limit)
++ ├─ new TelemetryOptions
+  └─ Guard.NotNull
 ```
 stderr:
 src/Polly.Core/CircuitBreaker/CircuitBreakerResilienceStrategy.cs:30: generic-context-limit: Generic invocation expansion for CircuitBreakerResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.

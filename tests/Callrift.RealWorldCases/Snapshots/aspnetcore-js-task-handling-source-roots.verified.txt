@@ -6,12 +6,12 @@ stdout:
 ~ └─ CircuitHost.BeginInvokeDotNetFromJS (changes below depth limit)
 
   DefaultWebAssemblyJSRuntime.BeginInvokeDotNet
-  ├─ new DotNetInvocationInfo (depth limit)
-  └─ WebAssemblyCallQueue.Schedule (depth limit)
+  ├─ new DotNetInvocationInfo
+  └─ WebAssemblyCallQueue.Schedule
 ~    └─ DotNetDispatcher.BeginInvokeDotNet (changes below depth limit)
 
   DefaultWebAssemblyJSRuntime.InvokeDotNet
-  ├─ new DotNetInvocationInfo (depth limit)
+  ├─ new DotNetInvocationInfo
 ~ └─ DotNetDispatcher.Invoke (changes below depth limit)
 
   new PhotinoWebViewManager
@@ -19,6 +19,8 @@ stdout:
   └─ callback
      └─ ? Task.Factory.StartNew
 ~       └─ WebViewManager.MessageReceived (changes below depth limit)
+
++ new AsyncInteropResult
 
 + new AsyncInteropResult
 stderr:
@@ -30,7 +32,7 @@ eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot 
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
-22595 additional diagnostics; use --diagnostics full.
+22793 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -41,12 +43,12 @@ stdout:
 ~ └─ CircuitHost.BeginInvokeDotNetFromJS (changes below depth limit)
 
   DefaultWebAssemblyJSRuntime.BeginInvokeDotNet
-  ├─ new DotNetInvocationInfo (depth limit)
-  └─ WebAssemblyCallQueue.Schedule (depth limit)
+  ├─ new DotNetInvocationInfo
+  └─ WebAssemblyCallQueue.Schedule
 ~    └─ DotNetDispatcher.BeginInvokeDotNet (changes below depth limit)
 
   DefaultWebAssemblyJSRuntime.InvokeDotNet
-  ├─ new DotNetInvocationInfo (depth limit)
+  ├─ new DotNetInvocationInfo
 ~ └─ DotNetDispatcher.Invoke (changes below depth limit)
 
   new PhotinoWebViewManager
@@ -54,6 +56,8 @@ stdout:
   └─ callback
      └─ ? Task.Factory.StartNew
 ~       └─ WebViewManager.MessageReceived (changes below depth limit)
+
++ new AsyncInteropResult
 
 + new AsyncInteropResult
 ```
@@ -66,4 +70,4 @@ eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot 
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
-22595 additional diagnostics; use --diagnostics full.
+22793 additional diagnostics; use --diagnostics full.

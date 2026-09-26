@@ -7,16 +7,16 @@ stdout:
 - │  │  ├─ if (AutofacMetrics.MetricsEnabled)
 - │  │  │  └─ ResolvePipelineBuilder.BuildPipeline.BuildMetricsMiddlewareChain
 - │  │  │     ├─ stage.ToString
-- │  │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.ToString (depth limit)
-- │  │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.ToString (depth limit)
-- │  │  │     │  ├─ ⇢ CoreEventMiddleware.ToString (depth limit)
-- │  │  │     │  ├─ ⇢ DelegateMiddleware.ToString (depth limit)
-- │  │  │     │  ├─ ⇢ DisposalTrackingMiddleware.ToString (depth limit)
-- │  │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.ToString (depth limit)
-- │  │  │     │  ├─ ⇢ ScopeSelectionMiddleware.ToString (depth limit)
-- │  │  │     │  ├─ ⇢ SharingMiddleware.ToString (depth limit)
-- │  │  │     │  ├─ ⇢ StartableMiddleware.ToString (depth limit)
-- │  │  │     │  └─ ⇢ DecoratorMiddleware.ToString (depth limit)
+- │  │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.ToString
+- │  │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.ToString
+- │  │  │     │  ├─ ⇢ CoreEventMiddleware.ToString
+- │  │  │     │  ├─ ⇢ DelegateMiddleware.ToString
+- │  │  │     │  ├─ ⇢ DisposalTrackingMiddleware.ToString
+- │  │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.ToString
+- │  │  │     │  ├─ ⇢ ScopeSelectionMiddleware.ToString
+- │  │  │     │  ├─ ⇢ SharingMiddleware.ToString
+- │  │  │     │  ├─ ⇢ StartableMiddleware.ToString
+- │  │  │     │  └─ ⇢ DecoratorMiddleware.ToString
 - │  │  │     └─ callback
 - │  │  │        └─ ResolvePipelineBuilder.BuildPipeline.ExecuteWithDiagnostics (changes below depth limit)
 - │  │  │           ├─ ValueStopwatch.StartNew (depth limit)
@@ -24,8 +24,8 @@ stdout:
 - │  │  │           │  └─ IResolveMiddleware.Execute
 - │  │  │           │     ├─ ⇢ ActivatorErrorHandlingMiddleware.Execute (depth limit)
 - │  │  │           │     ├─ ⇢ CircularDependencyDetectorMiddleware.Execute (depth limit)
-- │  │  │           │     ├─ ⇢ CoreEventMiddleware.Execute (depth limit)
-- │  │  │           │     ├─ ⇢ DelegateMiddleware.Execute (depth limit)
+- │  │  │           │     ├─ ⇢ CoreEventMiddleware.Execute
+- │  │  │           │     ├─ ⇢ DelegateMiddleware.Execute
 - │  │  │           │     ├─ ⇢ DisposalTrackingMiddleware.Execute (depth limit)
 - │  │  │           │     ├─ ⇢ RegistrationPipelineInvokeMiddleware.Execute (depth limit)
 - │  │  │           │     ├─ ⇢ ScopeSelectionMiddleware.Execute (depth limit)
@@ -34,7 +34,7 @@ stdout:
 - │  │  │           │     └─ ⇢ DecoratorMiddleware.Execute (depth limit)
 - │  │  │           └─ finally
 - │  │  │              ├─ ValueStopwatch.GetElapsedTime (depth limit)
-- │  │  │              └─ AutofacMetrics.RecordMiddlewareExecution (depth limit)
+- │  │  │              └─ AutofacMetrics.RecordMiddlewareExecution
 - │  │  └─ else (!(AutofacMetrics.MetricsEnabled))
 - │  │     └─ ResolvePipelineBuilder.BuildPipeline.BuildStandardMiddlewareChain
 - │  │        └─ callback
@@ -43,16 +43,16 @@ stdout:
 + │  ├─ if (AutofacMetrics.MetricsEnabled)
 + │  │  └─ ResolvePipelineBuilder.BuildMetricsMiddlewareChain
 + │  │     ├─ stage.ToString
-+ │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.ToString (depth limit)
-+ │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.ToString (depth limit)
-+ │  │     │  ├─ ⇢ CoreEventMiddleware.ToString (depth limit)
-+ │  │     │  ├─ ⇢ DelegateMiddleware.ToString (depth limit)
-+ │  │     │  ├─ ⇢ DisposalTrackingMiddleware.ToString (depth limit)
-+ │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.ToString (depth limit)
-+ │  │     │  ├─ ⇢ ScopeSelectionMiddleware.ToString (depth limit)
-+ │  │     │  ├─ ⇢ SharingMiddleware.ToString (depth limit)
-+ │  │     │  ├─ ⇢ StartableMiddleware.ToString (depth limit)
-+ │  │     │  └─ ⇢ DecoratorMiddleware.ToString (depth limit)
++ │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.ToString
++ │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.ToString
++ │  │     │  ├─ ⇢ CoreEventMiddleware.ToString
++ │  │     │  ├─ ⇢ DelegateMiddleware.ToString
++ │  │     │  ├─ ⇢ DisposalTrackingMiddleware.ToString
++ │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.ToString
++ │  │     │  ├─ ⇢ ScopeSelectionMiddleware.ToString
++ │  │     │  ├─ ⇢ SharingMiddleware.ToString
++ │  │     │  ├─ ⇢ StartableMiddleware.ToString
++ │  │     │  └─ ⇢ DecoratorMiddleware.ToString
 + │  │     └─ callback
 + │  │        ├─ if (!context.DiagnosticSource.IsEnabled())
 + │  │        │  ├─ ValueStopwatch.StartNew (depth limit)
@@ -60,8 +60,8 @@ stdout:
 + │  │        │  │  └─ IResolveMiddleware.Execute
 + │  │        │  │     ├─ ⇢ ActivatorErrorHandlingMiddleware.Execute (depth limit)
 + │  │        │  │     ├─ ⇢ CircularDependencyDetectorMiddleware.Execute (depth limit)
-+ │  │        │  │     ├─ ⇢ CoreEventMiddleware.Execute (depth limit)
-+ │  │        │  │     ├─ ⇢ DelegateMiddleware.Execute (depth limit)
++ │  │        │  │     ├─ ⇢ CoreEventMiddleware.Execute
++ │  │        │  │     ├─ ⇢ DelegateMiddleware.Execute
 + │  │        │  │     ├─ ⇢ DisposalTrackingMiddleware.Execute (depth limit)
 + │  │        │  │     ├─ ⇢ RegistrationPipelineInvokeMiddleware.Execute (depth limit)
 + │  │        │  │     ├─ ⇢ ScopeSelectionMiddleware.Execute (depth limit)
@@ -70,7 +70,7 @@ stdout:
 + │  │        │  │     └─ ⇢ DecoratorMiddleware.Execute (depth limit)
 + │  │        │  └─ finally
 + │  │        │     ├─ ValueStopwatch.GetElapsedTime (depth limit)
-+ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution (depth limit)
++ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution
 + │  │        ├─ DiagnosticSourceExtensions.MiddlewareStart (depth limit)
 + │  │        ├─ try
 + │  │        │  ├─ ValueStopwatch.StartNew (depth limit)
@@ -78,7 +78,7 @@ stdout:
 + │  │        │  │  └─ IResolveMiddleware.Execute ↑ as above
 + │  │        │  └─ finally
 + │  │        │     ├─ ValueStopwatch.GetElapsedTime (depth limit)
-+ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution (depth limit)
++ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution
 + │  │        └─ finally
 + │  │           ├─ if (succeeded)
 + │  │           │  └─ DiagnosticSourceExtensions.MiddlewareSuccess (depth limit)
@@ -110,16 +110,16 @@ stdout:
 - │  │  ├─ if (AutofacMetrics.MetricsEnabled)
 - │  │  │  └─ ResolvePipelineBuilder.BuildPipeline.BuildMetricsMiddlewareChain
 - │  │  │     ├─ stage.ToString
-- │  │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.ToString (depth limit)
-- │  │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.ToString (depth limit)
-- │  │  │     │  ├─ ⇢ CoreEventMiddleware.ToString (depth limit)
-- │  │  │     │  ├─ ⇢ DelegateMiddleware.ToString (depth limit)
-- │  │  │     │  ├─ ⇢ DisposalTrackingMiddleware.ToString (depth limit)
-- │  │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.ToString (depth limit)
-- │  │  │     │  ├─ ⇢ ScopeSelectionMiddleware.ToString (depth limit)
-- │  │  │     │  ├─ ⇢ SharingMiddleware.ToString (depth limit)
-- │  │  │     │  ├─ ⇢ StartableMiddleware.ToString (depth limit)
-- │  │  │     │  └─ ⇢ DecoratorMiddleware.ToString (depth limit)
+- │  │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.ToString
+- │  │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.ToString
+- │  │  │     │  ├─ ⇢ CoreEventMiddleware.ToString
+- │  │  │     │  ├─ ⇢ DelegateMiddleware.ToString
+- │  │  │     │  ├─ ⇢ DisposalTrackingMiddleware.ToString
+- │  │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.ToString
+- │  │  │     │  ├─ ⇢ ScopeSelectionMiddleware.ToString
+- │  │  │     │  ├─ ⇢ SharingMiddleware.ToString
+- │  │  │     │  ├─ ⇢ StartableMiddleware.ToString
+- │  │  │     │  └─ ⇢ DecoratorMiddleware.ToString
 - │  │  │     └─ callback
 - │  │  │        └─ ResolvePipelineBuilder.BuildPipeline.ExecuteWithDiagnostics (changes below depth limit)
 - │  │  │           ├─ ValueStopwatch.StartNew (depth limit)
@@ -127,8 +127,8 @@ stdout:
 - │  │  │           │  └─ IResolveMiddleware.Execute
 - │  │  │           │     ├─ ⇢ ActivatorErrorHandlingMiddleware.Execute (depth limit)
 - │  │  │           │     ├─ ⇢ CircularDependencyDetectorMiddleware.Execute (depth limit)
-- │  │  │           │     ├─ ⇢ CoreEventMiddleware.Execute (depth limit)
-- │  │  │           │     ├─ ⇢ DelegateMiddleware.Execute (depth limit)
+- │  │  │           │     ├─ ⇢ CoreEventMiddleware.Execute
+- │  │  │           │     ├─ ⇢ DelegateMiddleware.Execute
 - │  │  │           │     ├─ ⇢ DisposalTrackingMiddleware.Execute (depth limit)
 - │  │  │           │     ├─ ⇢ RegistrationPipelineInvokeMiddleware.Execute (depth limit)
 - │  │  │           │     ├─ ⇢ ScopeSelectionMiddleware.Execute (depth limit)
@@ -137,7 +137,7 @@ stdout:
 - │  │  │           │     └─ ⇢ DecoratorMiddleware.Execute (depth limit)
 - │  │  │           └─ finally
 - │  │  │              ├─ ValueStopwatch.GetElapsedTime (depth limit)
-- │  │  │              └─ AutofacMetrics.RecordMiddlewareExecution (depth limit)
+- │  │  │              └─ AutofacMetrics.RecordMiddlewareExecution
 - │  │  └─ else (!(AutofacMetrics.MetricsEnabled))
 - │  │     └─ ResolvePipelineBuilder.BuildPipeline.BuildStandardMiddlewareChain
 - │  │        └─ callback
@@ -146,16 +146,16 @@ stdout:
 + │  ├─ if (AutofacMetrics.MetricsEnabled)
 + │  │  └─ ResolvePipelineBuilder.BuildMetricsMiddlewareChain
 + │  │     ├─ stage.ToString
-+ │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.ToString (depth limit)
-+ │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.ToString (depth limit)
-+ │  │     │  ├─ ⇢ CoreEventMiddleware.ToString (depth limit)
-+ │  │     │  ├─ ⇢ DelegateMiddleware.ToString (depth limit)
-+ │  │     │  ├─ ⇢ DisposalTrackingMiddleware.ToString (depth limit)
-+ │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.ToString (depth limit)
-+ │  │     │  ├─ ⇢ ScopeSelectionMiddleware.ToString (depth limit)
-+ │  │     │  ├─ ⇢ SharingMiddleware.ToString (depth limit)
-+ │  │     │  ├─ ⇢ StartableMiddleware.ToString (depth limit)
-+ │  │     │  └─ ⇢ DecoratorMiddleware.ToString (depth limit)
++ │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.ToString
++ │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.ToString
++ │  │     │  ├─ ⇢ CoreEventMiddleware.ToString
++ │  │     │  ├─ ⇢ DelegateMiddleware.ToString
++ │  │     │  ├─ ⇢ DisposalTrackingMiddleware.ToString
++ │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.ToString
++ │  │     │  ├─ ⇢ ScopeSelectionMiddleware.ToString
++ │  │     │  ├─ ⇢ SharingMiddleware.ToString
++ │  │     │  ├─ ⇢ StartableMiddleware.ToString
++ │  │     │  └─ ⇢ DecoratorMiddleware.ToString
 + │  │     └─ callback
 + │  │        ├─ if (!context.DiagnosticSource.IsEnabled())
 + │  │        │  ├─ ValueStopwatch.StartNew (depth limit)
@@ -163,8 +163,8 @@ stdout:
 + │  │        │  │  └─ IResolveMiddleware.Execute
 + │  │        │  │     ├─ ⇢ ActivatorErrorHandlingMiddleware.Execute (depth limit)
 + │  │        │  │     ├─ ⇢ CircularDependencyDetectorMiddleware.Execute (depth limit)
-+ │  │        │  │     ├─ ⇢ CoreEventMiddleware.Execute (depth limit)
-+ │  │        │  │     ├─ ⇢ DelegateMiddleware.Execute (depth limit)
++ │  │        │  │     ├─ ⇢ CoreEventMiddleware.Execute
++ │  │        │  │     ├─ ⇢ DelegateMiddleware.Execute
 + │  │        │  │     ├─ ⇢ DisposalTrackingMiddleware.Execute (depth limit)
 + │  │        │  │     ├─ ⇢ RegistrationPipelineInvokeMiddleware.Execute (depth limit)
 + │  │        │  │     ├─ ⇢ ScopeSelectionMiddleware.Execute (depth limit)
@@ -173,7 +173,7 @@ stdout:
 + │  │        │  │     └─ ⇢ DecoratorMiddleware.Execute (depth limit)
 + │  │        │  └─ finally
 + │  │        │     ├─ ValueStopwatch.GetElapsedTime (depth limit)
-+ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution (depth limit)
++ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution
 + │  │        ├─ DiagnosticSourceExtensions.MiddlewareStart (depth limit)
 + │  │        ├─ try
 + │  │        │  ├─ ValueStopwatch.StartNew (depth limit)
@@ -181,7 +181,7 @@ stdout:
 + │  │        │  │  └─ IResolveMiddleware.Execute ↑ as above
 + │  │        │  └─ finally
 + │  │        │     ├─ ValueStopwatch.GetElapsedTime (depth limit)
-+ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution (depth limit)
++ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution
 + │  │        └─ finally
 + │  │           ├─ if (succeeded)
 + │  │           │  └─ DiagnosticSourceExtensions.MiddlewareSuccess (depth limit)

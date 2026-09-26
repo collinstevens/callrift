@@ -602,7 +602,7 @@ stdout:
                   "kind": "call",
                   "change": "unchanged",
                   "label": "AuthorizationServiceExtensions.AuthorizeAsync.Awaited",
-                  "detail": "depth limit",
+                  "detail": null,
                   "before": {
                     "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(global::Microsoft.AspNetCore.Authorization.IAuthorizationService,global::System.Security.Claims.ClaimsPrincipal,global::OrchardCore.Security.Permissions.Permission,object)/Awaited`0(global::System.Threading.Tasks.Task<global::Microsoft.AspNetCore.Authorization.AuthorizationResult>)",
                     "signature": "Awaited(System.Threading.Tasks.Task<Microsoft.AspNetCore.Authorization.AuthorizationResult>) -> System.Threading.Tasks.Task<bool>",
@@ -660,11 +660,7 @@ stdout:
                     "origin": "source"
                   },
                   "children": [],
-                  "omission": {
-                    "reason": "depth-limit",
-                    "symbolId": null,
-                    "referenceId": null
-                  }
+                  "omission": null
                 }
               ],
               "omission": null
@@ -1313,13 +1309,19 @@ stdout:
           "detail": null,
           "before": {
             "symbolId": "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.Models.ActivityRecord..ctor()",
-            "signature": null,
+            "signature": "OrchardCore.Workflows.Models.ActivityRecord.ActivityRecord() -> void",
             "binding": "resolved",
             "dispatch": "direct",
             "targetIds": [
               "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.Models.ActivityRecord..ctor()"
             ],
-            "definition": null,
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.Workflows.Abstractions/Models/ActivityRecord.cs",
+              "startLine": 5,
+              "startColumn": 1,
+              "endLine": 28,
+              "endColumn": 2
+            },
             "callSites": [
               {
                 "path": "src/OrchardCore.Modules/OrchardCore.Workflows/Controllers/ActivityController.cs",
@@ -1335,13 +1337,19 @@ stdout:
           },
           "after": {
             "symbolId": "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.Models.ActivityRecord..ctor()",
-            "signature": null,
+            "signature": "OrchardCore.Workflows.Models.ActivityRecord.ActivityRecord() -> void",
             "binding": "resolved",
             "dispatch": "direct",
             "targetIds": [
               "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.Models.ActivityRecord..ctor()"
             ],
-            "definition": null,
+            "definition": {
+              "path": "src/OrchardCore/OrchardCore.Workflows.Abstractions/Models/ActivityRecord.cs",
+              "startLine": 5,
+              "startColumn": 1,
+              "endLine": 28,
+              "endColumn": 2
+            },
             "callSites": [
               {
                 "path": "src/OrchardCore.Modules/OrchardCore.Workflows/Controllers/ActivityController.cs",
@@ -1355,11 +1363,131 @@ stdout:
             "candidates": [],
             "origin": "source"
           },
-          "children": [],
+          "children": [
+            {
+              "id": "n22",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "new Entity",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Entities.Entity..ctor()",
+                "signature": "OrchardCore.Entities.Entity.Entity() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Entities.Entity..ctor()"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Entities/Entity.cs",
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 8,
+                  "endColumn": 2
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore/OrchardCore.Workflows.Abstractions/Models/ActivityRecord.cs",
+                    "startLine": 5,
+                    "startColumn": 1,
+                    "endLine": 28,
+                    "endColumn": 2
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Entities.Entity..ctor()",
+                "signature": "OrchardCore.Entities.Entity.Entity() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Entities.Entity..ctor()"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Entities/Entity.cs",
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 8,
+                  "endColumn": 2
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore/OrchardCore.Workflows.Abstractions/Models/ActivityRecord.cs",
+                    "startLine": 5,
+                    "startColumn": 1,
+                    "endLine": 28,
+                    "endColumn": 2
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n23",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "new Object",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "metadata:System.Runtime::object..ctor()",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Runtime::object..ctor()"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Entities/Entity.cs",
+                        "startLine": 5,
+                        "startColumn": 1,
+                        "endLine": 8,
+                        "endColumn": 2
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "after": {
+                    "symbolId": "metadata:System.Runtime::object..ctor()",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Runtime::object..ctor()"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Entities/Entity.cs",
+                        "startLine": 5,
+                        "startColumn": 1,
+                        "endLine": 8,
+                        "endColumn": 2
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
           "omission": null
         },
         {
-          "id": "n22",
+          "id": "n24",
           "kind": "call",
           "change": "unchanged",
           "label": "IActivityIdGenerator.GenerateUniqueId → ActivityIdGenerator.GenerateUniqueId",
@@ -1422,7 +1550,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n23",
+              "id": "n25",
               "kind": "call",
               "change": "unchanged",
               "label": "IIdGenerator.GenerateUniqueId",
@@ -1490,7 +1618,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n24",
+          "id": "n26",
           "kind": "call",
           "change": "unchanged",
           "label": "IDisplayManager<TModel>.BuildEditorAsync → ActivityDisplayManager.BuildEditorAsync",
@@ -1553,7 +1681,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n25",
+              "id": "n27",
               "kind": "call",
               "change": "unchanged",
               "label": "DisplayManager<TModel>.BuildEditorAsync",
@@ -1616,7 +1744,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n26",
+                  "id": "n28",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "model.GetType",
@@ -1669,7 +1797,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n27",
+                  "id": "n29",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "BaseDisplayManager.CreateContentShapeAsync",
@@ -1738,7 +1866,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n28",
+                  "id": "n30",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "DisplayManagerAlternatesFactory.GetEditorAlternates",
@@ -1807,7 +1935,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n29",
+                  "id": "n31",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "AlternatesCollection.AddRange",
@@ -1876,7 +2004,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n30",
+                  "id": "n32",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "ILayoutAccessor.GetLayoutAsync → LayoutAccessor.GetLayoutAsync",
@@ -1945,7 +2073,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n31",
+                  "id": "n33",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new ModelStateWrapperUpdater",
@@ -2014,7 +2142,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n32",
+                  "id": "n34",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new BuildEditorContext",
@@ -2083,7 +2211,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n33",
+                  "id": "n35",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "BaseDisplayManager.BindPlacementAsync",
@@ -2152,7 +2280,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n34",
+                  "id": "n36",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "InvokeExtensions.InvokeAsync",
@@ -2215,7 +2343,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n35",
+                      "id": "n37",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "IDisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.BuildEditorAsync",
@@ -2279,112 +2407,6 @@ stdout:
                         "origin": "source"
                       },
                       "children": [
-                        {
-                          "id": "n36",
-                          "kind": "dispatchTarget",
-                          "change": "unchanged",
-                          "label": "⇢ DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync",
-                          "detail": "depth limit",
-                          "before": {
-                            "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)",
-                            "signature": "OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.BuildEditorAsync(TModel, TEditorContext) -> System.Threading.Tasks.Task<OrchardCore.DisplayManagement.Views.IDisplayResult>",
-                            "binding": "resolved",
-                            "dispatch": "direct",
-                            "targetIds": [
-                              "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)"
-                            ],
-                            "definition": {
-                              "path": "src/OrchardCore/OrchardCore.DisplayManagement/Handlers/DisplayDriver.cs",
-                              "startLine": 125,
-                              "startColumn": 5,
-                              "endLine": 137,
-                              "endColumn": 6
-                            },
-                            "callSites": [],
-                            "relation": "definition",
-                            "candidates": null,
-                            "origin": "source"
-                          },
-                          "after": {
-                            "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)",
-                            "signature": "OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.BuildEditorAsync(TModel, TEditorContext) -> System.Threading.Tasks.Task<OrchardCore.DisplayManagement.Views.IDisplayResult>",
-                            "binding": "resolved",
-                            "dispatch": "direct",
-                            "targetIds": [
-                              "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)"
-                            ],
-                            "definition": {
-                              "path": "src/OrchardCore/OrchardCore.DisplayManagement/Handlers/DisplayDriver.cs",
-                              "startLine": 125,
-                              "startColumn": 5,
-                              "endLine": 137,
-                              "endColumn": 6
-                            },
-                            "callSites": [],
-                            "relation": "definition",
-                            "candidates": null,
-                            "origin": "source"
-                          },
-                          "children": [],
-                          "omission": {
-                            "reason": "depth-limit",
-                            "symbolId": null,
-                            "referenceId": null
-                          }
-                        },
-                        {
-                          "id": "n37",
-                          "kind": "dispatchTarget",
-                          "change": "unchanged",
-                          "label": "⇢ DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync",
-                          "detail": "depth limit",
-                          "before": {
-                            "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)",
-                            "signature": "OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.BuildEditorAsync(TModel, TEditorContext) -> System.Threading.Tasks.Task<OrchardCore.DisplayManagement.Views.IDisplayResult>",
-                            "binding": "resolved",
-                            "dispatch": "direct",
-                            "targetIds": [
-                              "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)"
-                            ],
-                            "definition": {
-                              "path": "src/OrchardCore/OrchardCore.DisplayManagement/Handlers/DisplayDriver.cs",
-                              "startLine": 125,
-                              "startColumn": 5,
-                              "endLine": 137,
-                              "endColumn": 6
-                            },
-                            "callSites": [],
-                            "relation": "definition",
-                            "candidates": null,
-                            "origin": "source"
-                          },
-                          "after": {
-                            "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)",
-                            "signature": "OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.BuildEditorAsync(TModel, TEditorContext) -> System.Threading.Tasks.Task<OrchardCore.DisplayManagement.Views.IDisplayResult>",
-                            "binding": "resolved",
-                            "dispatch": "direct",
-                            "targetIds": [
-                              "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)"
-                            ],
-                            "definition": {
-                              "path": "src/OrchardCore/OrchardCore.DisplayManagement/Handlers/DisplayDriver.cs",
-                              "startLine": 125,
-                              "startColumn": 5,
-                              "endLine": 137,
-                              "endColumn": 6
-                            },
-                            "callSites": [],
-                            "relation": "definition",
-                            "candidates": null,
-                            "origin": "source"
-                          },
-                          "children": [],
-                          "omission": {
-                            "reason": "depth-limit",
-                            "symbolId": null,
-                            "referenceId": null
-                          }
-                        },
                         {
                           "id": "n38",
                           "kind": "dispatchTarget",
@@ -3714,21 +3736,21 @@ stdout:
                           "id": "n63",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
-                          "label": "⇢ DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync",
+                          "label": "⇢ DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync",
                           "detail": "depth limit",
                           "before": {
-                            "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)",
-                            "signature": "OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.BuildEditorAsync(TModel, TEditorContext) -> System.Threading.Tasks.Task<OrchardCore.DisplayManagement.Views.IDisplayResult>",
+                            "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)",
+                            "signature": "OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.BuildEditorAsync(TModel, TEditorContext) -> System.Threading.Tasks.Task<OrchardCore.DisplayManagement.Views.IDisplayResult>",
                             "binding": "resolved",
                             "dispatch": "direct",
                             "targetIds": [
-                              "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)"
+                              "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)"
                             ],
                             "definition": {
                               "path": "src/OrchardCore/OrchardCore.DisplayManagement/Handlers/DisplayDriver.cs",
-                              "startLine": 33,
+                              "startLine": 125,
                               "startColumn": 5,
-                              "endLine": 43,
+                              "endLine": 137,
                               "endColumn": 6
                             },
                             "callSites": [],
@@ -3737,18 +3759,18 @@ stdout:
                             "origin": "source"
                           },
                           "after": {
-                            "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)",
-                            "signature": "OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.BuildEditorAsync(TModel, TEditorContext) -> System.Threading.Tasks.Task<OrchardCore.DisplayManagement.Views.IDisplayResult>",
+                            "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)",
+                            "signature": "OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.BuildEditorAsync(TModel, TEditorContext) -> System.Threading.Tasks.Task<OrchardCore.DisplayManagement.Views.IDisplayResult>",
                             "binding": "resolved",
                             "dispatch": "direct",
                             "targetIds": [
-                              "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)"
+                              "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)"
                             ],
                             "definition": {
                               "path": "src/OrchardCore/OrchardCore.DisplayManagement/Handlers/DisplayDriver.cs",
-                              "startLine": 33,
+                              "startLine": 125,
                               "startColumn": 5,
-                              "endLine": 43,
+                              "endLine": 137,
                               "endColumn": 6
                             },
                             "callSites": [],
@@ -3767,21 +3789,21 @@ stdout:
                           "id": "n64",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
-                          "label": "⇢ DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync",
+                          "label": "⇢ DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync",
                           "detail": "depth limit",
                           "before": {
-                            "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)",
-                            "signature": "OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.BuildEditorAsync(TModel, TEditorContext) -> System.Threading.Tasks.Task<OrchardCore.DisplayManagement.Views.IDisplayResult>",
+                            "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)",
+                            "signature": "OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.BuildEditorAsync(TModel, TEditorContext) -> System.Threading.Tasks.Task<OrchardCore.DisplayManagement.Views.IDisplayResult>",
                             "binding": "resolved",
                             "dispatch": "direct",
                             "targetIds": [
-                              "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)"
+                              "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)"
                             ],
                             "definition": {
                               "path": "src/OrchardCore/OrchardCore.DisplayManagement/Handlers/DisplayDriver.cs",
-                              "startLine": 33,
+                              "startLine": 125,
                               "startColumn": 5,
-                              "endLine": 43,
+                              "endLine": 137,
                               "endColumn": 6
                             },
                             "callSites": [],
@@ -3790,18 +3812,18 @@ stdout:
                             "origin": "source"
                           },
                           "after": {
-                            "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)",
-                            "signature": "OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.BuildEditorAsync(TModel, TEditorContext) -> System.Threading.Tasks.Task<OrchardCore.DisplayManagement.Views.IDisplayResult>",
+                            "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)",
+                            "signature": "OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.BuildEditorAsync(TModel, TEditorContext) -> System.Threading.Tasks.Task<OrchardCore.DisplayManagement.Views.IDisplayResult>",
                             "binding": "resolved",
                             "dispatch": "direct",
                             "targetIds": [
-                              "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)"
+                              "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TConcrete, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)"
                             ],
                             "definition": {
                               "path": "src/OrchardCore/OrchardCore.DisplayManagement/Handlers/DisplayDriver.cs",
-                              "startLine": 33,
+                              "startLine": 125,
                               "startColumn": 5,
-                              "endLine": 43,
+                              "endLine": 137,
                               "endColumn": 6
                             },
                             "callSites": [],
@@ -4080,12 +4102,118 @@ stdout:
                             "symbolId": null,
                             "referenceId": null
                           }
+                        },
+                        {
+                          "id": "n70",
+                          "kind": "dispatchTarget",
+                          "change": "unchanged",
+                          "label": "⇢ DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync",
+                          "detail": "depth limit",
+                          "before": {
+                            "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)",
+                            "signature": "OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.BuildEditorAsync(TModel, TEditorContext) -> System.Threading.Tasks.Task<OrchardCore.DisplayManagement.Views.IDisplayResult>",
+                            "binding": "resolved",
+                            "dispatch": "direct",
+                            "targetIds": [
+                              "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)"
+                            ],
+                            "definition": {
+                              "path": "src/OrchardCore/OrchardCore.DisplayManagement/Handlers/DisplayDriver.cs",
+                              "startLine": 33,
+                              "startColumn": 5,
+                              "endLine": 43,
+                              "endColumn": 6
+                            },
+                            "callSites": [],
+                            "relation": "definition",
+                            "candidates": null,
+                            "origin": "source"
+                          },
+                          "after": {
+                            "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)",
+                            "signature": "OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.BuildEditorAsync(TModel, TEditorContext) -> System.Threading.Tasks.Task<OrchardCore.DisplayManagement.Views.IDisplayResult>",
+                            "binding": "resolved",
+                            "dispatch": "direct",
+                            "targetIds": [
+                              "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)"
+                            ],
+                            "definition": {
+                              "path": "src/OrchardCore/OrchardCore.DisplayManagement/Handlers/DisplayDriver.cs",
+                              "startLine": 33,
+                              "startColumn": 5,
+                              "endLine": 43,
+                              "endColumn": 6
+                            },
+                            "callSites": [],
+                            "relation": "definition",
+                            "candidates": null,
+                            "origin": "source"
+                          },
+                          "children": [],
+                          "omission": {
+                            "reason": "depth-limit",
+                            "symbolId": null,
+                            "referenceId": null
+                          }
+                        },
+                        {
+                          "id": "n71",
+                          "kind": "dispatchTarget",
+                          "change": "unchanged",
+                          "label": "⇢ DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync",
+                          "detail": "depth limit",
+                          "before": {
+                            "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)",
+                            "signature": "OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.BuildEditorAsync(TModel, TEditorContext) -> System.Threading.Tasks.Task<OrchardCore.DisplayManagement.Views.IDisplayResult>",
+                            "binding": "resolved",
+                            "dispatch": "direct",
+                            "targetIds": [
+                              "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)"
+                            ],
+                            "definition": {
+                              "path": "src/OrchardCore/OrchardCore.DisplayManagement/Handlers/DisplayDriver.cs",
+                              "startLine": 33,
+                              "startColumn": 5,
+                              "endLine": 43,
+                              "endColumn": 6
+                            },
+                            "callSites": [],
+                            "relation": "definition",
+                            "candidates": null,
+                            "origin": "source"
+                          },
+                          "after": {
+                            "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)",
+                            "signature": "OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.BuildEditorAsync(TModel, TEditorContext) -> System.Threading.Tasks.Task<OrchardCore.DisplayManagement.Views.IDisplayResult>",
+                            "binding": "resolved",
+                            "dispatch": "direct",
+                            "targetIds": [
+                              "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Handlers.DisplayDriver<TModel, TDisplayContext, TEditorContext, TUpdateContext>.OrchardCore.DisplayManagement.Handlers.IDisplayDriver<TModel,TDisplayContext,TEditorContext,TUpdateContext>.BuildEditorAsync(TModel,TEditorContext)"
+                            ],
+                            "definition": {
+                              "path": "src/OrchardCore/OrchardCore.DisplayManagement/Handlers/DisplayDriver.cs",
+                              "startLine": 33,
+                              "startColumn": 5,
+                              "endLine": 43,
+                              "endColumn": 6
+                            },
+                            "callSites": [],
+                            "relation": "definition",
+                            "candidates": null,
+                            "origin": "source"
+                          },
+                          "children": [],
+                          "omission": {
+                            "reason": "depth-limit",
+                            "symbolId": null,
+                            "referenceId": null
+                          }
                         }
                       ],
                       "omission": null
                     },
                     {
-                      "id": "n70",
+                      "id": "n72",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "if (result != null)",
@@ -4132,7 +4260,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n71",
+                          "id": "n73",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "IDisplayResult.ApplyAsync",
@@ -4197,7 +4325,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n72",
+                              "id": "n74",
                               "kind": "dispatchTarget",
                               "change": "unchanged",
                               "label": "⇢ CombinedResult.ApplyAsync",
@@ -4250,113 +4378,113 @@ stdout:
                               }
                             },
                             {
-                              "id": "n73",
-                              "kind": "dispatchTarget",
-                              "change": "unchanged",
-                              "label": "⇢ ShapeResult.ApplyAsync",
-                              "detail": "depth limit",
-                              "before": {
-                                "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(global::OrchardCore.DisplayManagement.Handlers.BuildEditorContext)",
-                                "signature": "OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(OrchardCore.DisplayManagement.Handlers.BuildEditorContext) -> System.Threading.Tasks.Task",
-                                "binding": "resolved",
-                                "dispatch": "direct",
-                                "targetIds": [
-                                  "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(global::OrchardCore.DisplayManagement.Handlers.BuildEditorContext)"
-                                ],
-                                "definition": {
-                                  "path": "src/OrchardCore/OrchardCore.DisplayManagement/Views/ShapeResult.cs",
-                                  "startLine": 97,
-                                  "startColumn": 5,
-                                  "endLine": 100,
-                                  "endColumn": 6
-                                },
-                                "callSites": [],
-                                "relation": "definition",
-                                "candidates": null,
-                                "origin": "source"
-                              },
-                              "after": {
-                                "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(global::OrchardCore.DisplayManagement.Handlers.BuildEditorContext)",
-                                "signature": "OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(OrchardCore.DisplayManagement.Handlers.BuildEditorContext) -> System.Threading.Tasks.Task",
-                                "binding": "resolved",
-                                "dispatch": "direct",
-                                "targetIds": [
-                                  "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(global::OrchardCore.DisplayManagement.Handlers.BuildEditorContext)"
-                                ],
-                                "definition": {
-                                  "path": "src/OrchardCore/OrchardCore.DisplayManagement/Views/ShapeResult.cs",
-                                  "startLine": 97,
-                                  "startColumn": 5,
-                                  "endLine": 100,
-                                  "endColumn": 6
-                                },
-                                "callSites": [],
-                                "relation": "definition",
-                                "candidates": null,
-                                "origin": "source"
-                              },
-                              "children": [],
-                              "omission": {
-                                "reason": "depth-limit",
-                                "symbolId": null,
-                                "referenceId": null
-                              }
-                            },
-                            {
-                              "id": "n74",
-                              "kind": "dispatchTarget",
-                              "change": "unchanged",
-                              "label": "⇢ ShapeResult.ApplyAsync",
-                              "detail": "depth limit",
-                              "before": {
-                                "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(global::OrchardCore.DisplayManagement.Handlers.BuildEditorContext)",
-                                "signature": "OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(OrchardCore.DisplayManagement.Handlers.BuildEditorContext) -> System.Threading.Tasks.Task",
-                                "binding": "resolved",
-                                "dispatch": "direct",
-                                "targetIds": [
-                                  "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(global::OrchardCore.DisplayManagement.Handlers.BuildEditorContext)"
-                                ],
-                                "definition": {
-                                  "path": "src/OrchardCore/OrchardCore.DisplayManagement/Views/ShapeResult.cs",
-                                  "startLine": 97,
-                                  "startColumn": 5,
-                                  "endLine": 100,
-                                  "endColumn": 6
-                                },
-                                "callSites": [],
-                                "relation": "definition",
-                                "candidates": null,
-                                "origin": "source"
-                              },
-                              "after": {
-                                "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(global::OrchardCore.DisplayManagement.Handlers.BuildEditorContext)",
-                                "signature": "OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(OrchardCore.DisplayManagement.Handlers.BuildEditorContext) -> System.Threading.Tasks.Task",
-                                "binding": "resolved",
-                                "dispatch": "direct",
-                                "targetIds": [
-                                  "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(global::OrchardCore.DisplayManagement.Handlers.BuildEditorContext)"
-                                ],
-                                "definition": {
-                                  "path": "src/OrchardCore/OrchardCore.DisplayManagement/Views/ShapeResult.cs",
-                                  "startLine": 97,
-                                  "startColumn": 5,
-                                  "endLine": 100,
-                                  "endColumn": 6
-                                },
-                                "callSites": [],
-                                "relation": "definition",
-                                "candidates": null,
-                                "origin": "source"
-                              },
-                              "children": [],
-                              "omission": {
-                                "reason": "depth-limit",
-                                "symbolId": null,
-                                "referenceId": null
-                              }
-                            },
-                            {
                               "id": "n75",
+                              "kind": "dispatchTarget",
+                              "change": "unchanged",
+                              "label": "⇢ ShapeResult.ApplyAsync",
+                              "detail": "depth limit",
+                              "before": {
+                                "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(global::OrchardCore.DisplayManagement.Handlers.BuildEditorContext)",
+                                "signature": "OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(OrchardCore.DisplayManagement.Handlers.BuildEditorContext) -> System.Threading.Tasks.Task",
+                                "binding": "resolved",
+                                "dispatch": "direct",
+                                "targetIds": [
+                                  "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(global::OrchardCore.DisplayManagement.Handlers.BuildEditorContext)"
+                                ],
+                                "definition": {
+                                  "path": "src/OrchardCore/OrchardCore.DisplayManagement/Views/ShapeResult.cs",
+                                  "startLine": 97,
+                                  "startColumn": 5,
+                                  "endLine": 100,
+                                  "endColumn": 6
+                                },
+                                "callSites": [],
+                                "relation": "definition",
+                                "candidates": null,
+                                "origin": "source"
+                              },
+                              "after": {
+                                "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(global::OrchardCore.DisplayManagement.Handlers.BuildEditorContext)",
+                                "signature": "OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(OrchardCore.DisplayManagement.Handlers.BuildEditorContext) -> System.Threading.Tasks.Task",
+                                "binding": "resolved",
+                                "dispatch": "direct",
+                                "targetIds": [
+                                  "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(global::OrchardCore.DisplayManagement.Handlers.BuildEditorContext)"
+                                ],
+                                "definition": {
+                                  "path": "src/OrchardCore/OrchardCore.DisplayManagement/Views/ShapeResult.cs",
+                                  "startLine": 97,
+                                  "startColumn": 5,
+                                  "endLine": 100,
+                                  "endColumn": 6
+                                },
+                                "callSites": [],
+                                "relation": "definition",
+                                "candidates": null,
+                                "origin": "source"
+                              },
+                              "children": [],
+                              "omission": {
+                                "reason": "depth-limit",
+                                "symbolId": null,
+                                "referenceId": null
+                              }
+                            },
+                            {
+                              "id": "n76",
+                              "kind": "dispatchTarget",
+                              "change": "unchanged",
+                              "label": "⇢ ShapeResult.ApplyAsync",
+                              "detail": "depth limit",
+                              "before": {
+                                "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(global::OrchardCore.DisplayManagement.Handlers.BuildEditorContext)",
+                                "signature": "OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(OrchardCore.DisplayManagement.Handlers.BuildEditorContext) -> System.Threading.Tasks.Task",
+                                "binding": "resolved",
+                                "dispatch": "direct",
+                                "targetIds": [
+                                  "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(global::OrchardCore.DisplayManagement.Handlers.BuildEditorContext)"
+                                ],
+                                "definition": {
+                                  "path": "src/OrchardCore/OrchardCore.DisplayManagement/Views/ShapeResult.cs",
+                                  "startLine": 97,
+                                  "startColumn": 5,
+                                  "endLine": 100,
+                                  "endColumn": 6
+                                },
+                                "callSites": [],
+                                "relation": "definition",
+                                "candidates": null,
+                                "origin": "source"
+                              },
+                              "after": {
+                                "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(global::OrchardCore.DisplayManagement.Handlers.BuildEditorContext)",
+                                "signature": "OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(OrchardCore.DisplayManagement.Handlers.BuildEditorContext) -> System.Threading.Tasks.Task",
+                                "binding": "resolved",
+                                "dispatch": "direct",
+                                "targetIds": [
+                                  "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Views.ShapeResult.ApplyAsync(global::OrchardCore.DisplayManagement.Handlers.BuildEditorContext)"
+                                ],
+                                "definition": {
+                                  "path": "src/OrchardCore/OrchardCore.DisplayManagement/Views/ShapeResult.cs",
+                                  "startLine": 97,
+                                  "startColumn": 5,
+                                  "endLine": 100,
+                                  "endColumn": 6
+                                },
+                                "callSites": [],
+                                "relation": "definition",
+                                "candidates": null,
+                                "origin": "source"
+                              },
+                              "children": [],
+                              "omission": {
+                                "reason": "depth-limit",
+                                "symbolId": null,
+                                "referenceId": null
+                              }
+                            },
+                            {
+                              "id": "n77",
                               "kind": "dispatchTarget",
                               "change": "unchanged",
                               "label": "⇢ ShapeResult.ApplyAsync",
@@ -4428,20 +4556,26 @@ stdout:
           "omission": null
         },
         {
-          "id": "n76",
+          "id": "n78",
           "kind": "call",
           "change": "unchanged",
           "label": "new ActivityEditViewModel",
           "detail": null,
           "before": {
             "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Workflows/OrchardCore.Workflows.csproj@net10.0::OrchardCore.Workflows.ViewModels.ActivityEditViewModel..ctor()",
-            "signature": null,
+            "signature": "OrchardCore.Workflows.ViewModels.ActivityEditViewModel.ActivityEditViewModel() -> void",
             "binding": "resolved",
             "dispatch": "direct",
             "targetIds": [
               "project:src/OrchardCore.Modules/OrchardCore.Workflows/OrchardCore.Workflows.csproj@net10.0::OrchardCore.Workflows.ViewModels.ActivityEditViewModel..ctor()"
             ],
-            "definition": null,
+            "definition": {
+              "path": "src/OrchardCore.Modules/OrchardCore.Workflows/ViewModels/ActivityEditViewModel.cs",
+              "startLine": 5,
+              "startColumn": 1,
+              "endLine": 12,
+              "endColumn": 2
+            },
             "callSites": [
               {
                 "path": "src/OrchardCore.Modules/OrchardCore.Workflows/Controllers/ActivityController.cs",
@@ -4457,13 +4591,19 @@ stdout:
           },
           "after": {
             "symbolId": "project:src/OrchardCore.Modules/OrchardCore.Workflows/OrchardCore.Workflows.csproj@net10.0::OrchardCore.Workflows.ViewModels.ActivityEditViewModel..ctor()",
-            "signature": null,
+            "signature": "OrchardCore.Workflows.ViewModels.ActivityEditViewModel.ActivityEditViewModel() -> void",
             "binding": "resolved",
             "dispatch": "direct",
             "targetIds": [
               "project:src/OrchardCore.Modules/OrchardCore.Workflows/OrchardCore.Workflows.csproj@net10.0::OrchardCore.Workflows.ViewModels.ActivityEditViewModel..ctor()"
             ],
-            "definition": null,
+            "definition": {
+              "path": "src/OrchardCore.Modules/OrchardCore.Workflows/ViewModels/ActivityEditViewModel.cs",
+              "startLine": 5,
+              "startColumn": 1,
+              "endLine": 12,
+              "endColumn": 2
+            },
             "callSites": [
               {
                 "path": "src/OrchardCore.Modules/OrchardCore.Workflows/Controllers/ActivityController.cs",
@@ -4477,11 +4617,65 @@ stdout:
             "candidates": [],
             "origin": "source"
           },
-          "children": [],
+          "children": [
+            {
+              "id": "n79",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "new Object",
+              "detail": null,
+              "before": {
+                "symbolId": "metadata:System.Runtime::object..ctor()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::object..ctor()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Workflows/ViewModels/ActivityEditViewModel.cs",
+                    "startLine": 5,
+                    "startColumn": 1,
+                    "endLine": 12,
+                    "endColumn": 2
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "metadata:System.Runtime::object..ctor()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::object..ctor()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Workflows/ViewModels/ActivityEditViewModel.cs",
+                    "startLine": 5,
+                    "startColumn": 1,
+                    "endLine": 12,
+                    "endColumn": 2
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
           "omission": null
         },
         {
-          "id": "n77",
+          "id": "n80",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (!activity.HasEditor)",
@@ -4528,7 +4722,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n78",
+              "id": "n81",
               "kind": "call",
               "change": "unchanged",
               "label": "ActivityController.Create",
@@ -4591,7 +4785,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n79",
+                  "id": "n82",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "AuthorizationServiceExtensions.AuthorizeAsync",
@@ -4660,7 +4854,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n80",
+                  "id": "n83",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (!await _authorizationService.AuthorizeAsync(User, WorkflowsPermissions.ManageWorkflows))",
@@ -4707,7 +4901,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n81",
+                      "id": "n84",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "Forbid",
@@ -4763,7 +4957,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n82",
+                  "id": "n85",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "_session.GetAsync<WorkflowType>",
@@ -4816,7 +5010,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n83",
+                  "id": "n86",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "IActivityLibrary.InstantiateActivity → ActivityLibrary.InstantiateActivity",
@@ -4885,7 +5079,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n84",
+                  "id": "n87",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "IDisplayManager<TModel>.UpdateEditorAsync → ActivityDisplayManager.UpdateEditorAsync",
@@ -4954,7 +5148,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n85",
+                  "id": "n88",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (!ModelState.IsValid)",
@@ -5001,7 +5195,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n86",
+                      "id": "n89",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "View",
@@ -5057,20 +5251,26 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n87",
+                  "id": "n90",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new ActivityRecord",
-                  "detail": null,
+                  "detail": "depth limit",
                   "before": {
                     "symbolId": "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.Models.ActivityRecord..ctor()",
-                    "signature": null,
+                    "signature": "OrchardCore.Workflows.Models.ActivityRecord.ActivityRecord() -> void",
                     "binding": "resolved",
                     "dispatch": "direct",
                     "targetIds": [
                       "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.Models.ActivityRecord..ctor()"
                     ],
-                    "definition": null,
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Workflows.Abstractions/Models/ActivityRecord.cs",
+                      "startLine": 5,
+                      "startColumn": 1,
+                      "endLine": 28,
+                      "endColumn": 2
+                    },
                     "callSites": [
                       {
                         "path": "src/OrchardCore.Modules/OrchardCore.Workflows/Controllers/ActivityController.cs",
@@ -5086,13 +5286,19 @@ stdout:
                   },
                   "after": {
                     "symbolId": "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.Models.ActivityRecord..ctor()",
-                    "signature": null,
+                    "signature": "OrchardCore.Workflows.Models.ActivityRecord.ActivityRecord() -> void",
                     "binding": "resolved",
                     "dispatch": "direct",
                     "targetIds": [
                       "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.Models.ActivityRecord..ctor()"
                     ],
-                    "definition": null,
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Workflows.Abstractions/Models/ActivityRecord.cs",
+                      "startLine": 5,
+                      "startColumn": 1,
+                      "endLine": 28,
+                      "endColumn": 2
+                    },
                     "callSites": [
                       {
                         "path": "src/OrchardCore.Modules/OrchardCore.Workflows/Controllers/ActivityController.cs",
@@ -5107,14 +5313,18 @@ stdout:
                     "origin": "source"
                   },
                   "children": [],
-                  "omission": null
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
                 },
                 {
-                  "id": "n88",
+                  "id": "n91",
                   "kind": "call",
                   "change": "added",
                   "label": "ActivityExtensions.IsEvent",
-                  "detail": "depth limit",
+                  "detail": null,
                   "before": null,
                   "after": {
                     "symbolId": "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.Helpers.ActivityExtensions.IsEvent(global::OrchardCore.Workflows.Activities.IActivity)",
@@ -5145,14 +5355,10 @@ stdout:
                     "origin": "source"
                   },
                   "children": [],
-                  "omission": {
-                    "reason": "depth-limit",
-                    "symbolId": null,
-                    "referenceId": null
-                  }
+                  "omission": null
                 },
                 {
-                  "id": "n89",
+                  "id": "n92",
                   "kind": "branch",
                   "change": "added",
                   "label": "if (activity.IsEvent())",
@@ -5180,7 +5386,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n90",
+                      "id": "n93",
                       "kind": "call",
                       "change": "added",
                       "label": "WorkflowTypeExtensions.HasStartActivity",
@@ -5225,7 +5431,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n91",
+                  "id": "n94",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "workflowType.Activities.Add",
@@ -5278,7 +5484,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n92",
+                  "id": "n95",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "_session.SaveAsync",
@@ -5331,7 +5537,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n93",
+                  "id": "n96",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "NotifierExtensions.SuccessAsync",
@@ -5400,7 +5606,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n94",
+                  "id": "n97",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "Url.IsLocalUrl",
@@ -5453,7 +5659,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n95",
+                  "id": "n98",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (Url.IsLocalUrl(model.ReturnUrl))",
@@ -5500,7 +5706,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n96",
+                      "id": "n99",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "ControllerBaseExtensions.Redirect",
@@ -5572,7 +5778,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n97",
+                  "id": "n100",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "else (!(Url.IsLocalUrl(model.ReturnUrl)))",
@@ -5619,7 +5825,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n98",
+                      "id": "n101",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "RedirectToAction",
@@ -5681,7 +5887,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n99",
+          "id": "n102",
           "kind": "call",
           "change": "unchanged",
           "label": "View",
@@ -5737,7 +5943,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n100",
+      "id": "n103",
       "kind": "member",
       "change": "unchanged",
       "label": "WorkflowTypeController.Edit",
@@ -5784,7 +5990,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n101",
+          "id": "n104",
           "kind": "call",
           "change": "unchanged",
           "label": "AuthorizationServiceExtensions.AuthorizeAsync",
@@ -5847,7 +6053,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n102",
+              "id": "n105",
               "kind": "call",
               "change": "unchanged",
               "label": "AuthorizationServiceExtensions.AuthorizeAsync",
@@ -5910,7 +6116,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n103",
+                  "id": "n106",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (user == null)",
@@ -5957,7 +6163,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n104",
+                      "id": "n107",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "Task.FromResult",
@@ -6013,7 +6219,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n105",
+                  "id": "n108",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new PermissionRequirement",
@@ -6082,7 +6288,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n106",
+                  "id": "n109",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "service.AuthorizeAsync",
@@ -6135,7 +6341,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n107",
+                  "id": "n110",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (task.IsCompletedSuccessfully)",
@@ -6182,7 +6388,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n108",
+                      "id": "n111",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "Task.FromResult",
@@ -6238,11 +6444,11 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n109",
+                  "id": "n112",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "AuthorizationServiceExtensions.AuthorizeAsync.Awaited",
-                  "detail": "depth limit",
+                  "detail": null,
                   "before": {
                     "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeAsync(global::Microsoft.AspNetCore.Authorization.IAuthorizationService,global::System.Security.Claims.ClaimsPrincipal,global::OrchardCore.Security.Permissions.Permission,object)/Awaited`0(global::System.Threading.Tasks.Task<global::Microsoft.AspNetCore.Authorization.AuthorizationResult>)",
                     "signature": "Awaited(System.Threading.Tasks.Task<Microsoft.AspNetCore.Authorization.AuthorizationResult>) -> System.Threading.Tasks.Task<bool>",
@@ -6300,11 +6506,7 @@ stdout:
                     "origin": "source"
                   },
                   "children": [],
-                  "omission": {
-                    "reason": "depth-limit",
-                    "symbolId": null,
-                    "referenceId": null
-                  }
+                  "omission": null
                 }
               ],
               "omission": null
@@ -6313,7 +6515,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n110",
+          "id": "n113",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (!await _authorizationService.AuthorizeAsync(User, WorkflowsPermissions.ManageWorkflows))",
@@ -6360,7 +6562,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n111",
+              "id": "n114",
               "kind": "call",
               "change": "unchanged",
               "label": "Forbid",
@@ -6416,7 +6618,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n112",
+          "id": "n115",
           "kind": "call",
           "change": "unchanged",
           "label": "IWorkflowTypeStore.GetAsync → WorkflowTypeStore.GetAsync",
@@ -6479,7 +6681,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n113",
+              "id": "n116",
               "kind": "call",
               "change": "unchanged",
               "label": "_session.GetAsync<WorkflowType>",
@@ -6535,7 +6737,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n114",
+          "id": "n117",
           "kind": "call",
           "change": "unchanged",
           "label": "JObject.Parse",
@@ -6598,7 +6800,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n115",
+              "id": "n118",
               "kind": "call",
               "change": "unchanged",
               "label": "JNode.Parse",
@@ -6661,7 +6863,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n116",
+                  "id": "n119",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "JNode.Parse",
@@ -6733,7 +6935,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n117",
+              "id": "n120",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (JNode.Parse(json) is not null)",
@@ -6780,7 +6982,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n118",
+                  "id": "n121",
                   "kind": "call",
                   "change": "unchanged",
                   "label": ".AsObject",
@@ -6839,7 +7041,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n119",
+          "id": "n122",
           "kind": "call",
           "change": "unchanged",
           "label": "workflowType.Activities.ToDictionary",
@@ -6892,7 +7094,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n120",
+          "id": "n123",
           "kind": "call",
           "change": "unchanged",
           "label": "JArray.FromObject",
@@ -6955,7 +7157,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n121",
+              "id": "n124",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (obj is JsonElement jsonElement)",
@@ -7002,7 +7204,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n122",
+                  "id": "n125",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "JsonArray.Create",
@@ -7058,7 +7260,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n123",
+              "id": "n126",
               "kind": "call",
               "change": "unchanged",
               "label": "JsonSerializer.SerializeToElement",
@@ -7111,7 +7313,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n124",
+              "id": "n127",
               "kind": "call",
               "change": "unchanged",
               "label": "JsonArray.Create",
@@ -7167,7 +7369,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n125",
+          "id": "n128",
           "kind": "call",
           "change": "unchanged",
           "label": "JArray.FromObject(activities).ToDictionary",
@@ -7218,7 +7420,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n126",
+              "id": "n129",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (x[\"id\"] is not null)",
@@ -7265,7 +7467,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n127",
+                  "id": "n130",
                   "kind": "call",
                   "change": "unchanged",
                   "label": ".ToString",
@@ -7324,7 +7526,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n128",
+          "id": "n131",
           "kind": "call",
           "change": "unchanged",
           "label": "postedActivities.ContainsKey",
@@ -7377,7 +7579,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n129",
+          "id": "n132",
           "kind": "call",
           "change": "unchanged",
           "label": "removedActivityIdsQuery.ToList",
@@ -7430,7 +7632,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n130",
+          "id": "n133",
           "kind": "branch",
           "change": "unchanged",
           "label": "foreach (var activityId in removedActivityIds)",
@@ -7477,7 +7679,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n131",
+              "id": "n134",
               "kind": "call",
               "change": "unchanged",
               "label": "workflowType.Activities.Remove",
@@ -7530,7 +7732,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n132",
+              "id": "n135",
               "kind": "call",
               "change": "unchanged",
               "label": "currentActivities.Remove",
@@ -7586,7 +7788,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n133",
+          "id": "n136",
           "kind": "branch",
           "change": "unchanged",
           "label": "foreach (var activityState in activities)",
@@ -7633,7 +7835,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n134",
+              "id": "n137",
               "kind": "call",
               "change": "unchanged",
               "label": "activityState[\"id\"].ToString",
@@ -7686,7 +7888,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n135",
+              "id": "n138",
               "kind": "call",
               "change": "unchanged",
               "label": "activityState[\"x\"].ToString",
@@ -7739,7 +7941,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n136",
+              "id": "n139",
               "kind": "call",
               "change": "unchanged",
               "label": "Convert.ToDecimal",
@@ -7792,7 +7994,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n137",
+              "id": "n140",
               "kind": "call",
               "change": "unchanged",
               "label": "Math.Round",
@@ -7845,7 +8047,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n138",
+              "id": "n141",
               "kind": "call",
               "change": "unchanged",
               "label": "activityState[\"y\"].ToString",
@@ -7898,7 +8100,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n139",
+              "id": "n142",
               "kind": "call",
               "change": "unchanged",
               "label": "Convert.ToDecimal",
@@ -7951,7 +8153,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n140",
+              "id": "n143",
               "kind": "call",
               "change": "unchanged",
               "label": "Math.Round",
@@ -8004,7 +8206,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n141",
+              "id": "n144",
               "kind": "call",
               "change": "unchanged",
               "label": "activityState[\"isStart\"].ToString",
@@ -8057,7 +8259,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n142",
+              "id": "n145",
               "kind": "call",
               "change": "unchanged",
               "label": "Convert.ToBoolean",
@@ -8113,7 +8315,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n143",
+          "id": "n146",
           "kind": "call",
           "change": "unchanged",
           "label": "workflowType.Transitions.Clear",
@@ -8166,7 +8368,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n144",
+          "id": "n147",
           "kind": "branch",
           "change": "unchanged",
           "label": "foreach (var transitionState in transitions)",
@@ -8213,20 +8415,26 @@ stdout:
           },
           "children": [
             {
-              "id": "n145",
+              "id": "n148",
               "kind": "call",
               "change": "unchanged",
               "label": "new Transition",
               "detail": null,
               "before": {
                 "symbolId": "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.Models.Transition..ctor()",
-                "signature": null,
+                "signature": "OrchardCore.Workflows.Models.Transition.Transition() -> void",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
                   "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.Models.Transition..ctor()"
                 ],
-                "definition": null,
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Workflows.Abstractions/Models/Transition.cs",
+                  "startLine": 6,
+                  "startColumn": 1,
+                  "endLine": 24,
+                  "endColumn": 2
+                },
                 "callSites": [
                   {
                     "path": "src/OrchardCore.Modules/OrchardCore.Workflows/Controllers/WorkflowTypeController.cs",
@@ -8242,13 +8450,19 @@ stdout:
               },
               "after": {
                 "symbolId": "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.Models.Transition..ctor()",
-                "signature": null,
+                "signature": "OrchardCore.Workflows.Models.Transition.Transition() -> void",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
                   "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.Models.Transition..ctor()"
                 ],
-                "definition": null,
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Workflows.Abstractions/Models/Transition.cs",
+                  "startLine": 6,
+                  "startColumn": 1,
+                  "endLine": 24,
+                  "endColumn": 2
+                },
                 "callSites": [
                   {
                     "path": "src/OrchardCore.Modules/OrchardCore.Workflows/Controllers/WorkflowTypeController.cs",
@@ -8262,11 +8476,65 @@ stdout:
                 "candidates": [],
                 "origin": "source"
               },
-              "children": [],
+              "children": [
+                {
+                  "id": "n149",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "new Object",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "metadata:System.Runtime::object..ctor()",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Runtime::object..ctor()"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Workflows.Abstractions/Models/Transition.cs",
+                        "startLine": 6,
+                        "startColumn": 1,
+                        "endLine": 24,
+                        "endColumn": 2
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "after": {
+                    "symbolId": "metadata:System.Runtime::object..ctor()",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Runtime::object..ctor()"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Workflows.Abstractions/Models/Transition.cs",
+                        "startLine": 6,
+                        "startColumn": 1,
+                        "endLine": 24,
+                        "endColumn": 2
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
               "omission": null
             },
             {
-              "id": "n146",
+              "id": "n150",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (transitionState[\"sourceActivityId\"] is not null)",
@@ -8313,7 +8581,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n147",
+                  "id": "n151",
                   "kind": "call",
                   "change": "unchanged",
                   "label": ".ToString",
@@ -8369,7 +8637,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n148",
+              "id": "n152",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (transitionState[\"destinationActivityId\"] is not null)",
@@ -8416,7 +8684,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n149",
+                  "id": "n153",
                   "kind": "call",
                   "change": "unchanged",
                   "label": ".ToString",
@@ -8472,7 +8740,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n150",
+              "id": "n154",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (transitionState[\"sourceOutcomeName\"] is not null)",
@@ -8519,7 +8787,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n151",
+                  "id": "n155",
                   "kind": "call",
                   "change": "unchanged",
                   "label": ".ToString",
@@ -8575,7 +8843,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n152",
+              "id": "n156",
               "kind": "call",
               "change": "unchanged",
               "label": "workflowType.Transitions.Add",
@@ -8631,7 +8899,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n153",
+          "id": "n157",
           "kind": "call",
           "change": "unchanged",
           "label": "IWorkflowTypeStore.SaveAsync → WorkflowTypeStore.SaveAsync",
@@ -8694,7 +8962,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n154",
+              "id": "n158",
               "kind": "call",
               "change": "unchanged",
               "label": "_session.SaveAsync",
@@ -8747,7 +9015,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n155",
+              "id": "n159",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (isNew)",
@@ -8794,7 +9062,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n156",
+                  "id": "n160",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new WorkflowTypeCreatedContext",
@@ -8863,7 +9131,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n157",
+                  "id": "n161",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "InvokeExtensions.InvokeAsync",
@@ -8926,7 +9194,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n158",
+                      "id": "n162",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "IWorkflowTypeEventHandler.CreatedAsync",
@@ -8991,7 +9259,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n159",
+                          "id": "n163",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ WorkflowTypeRoutesHandler.CreatedAsync",
@@ -9044,11 +9312,11 @@ stdout:
                           }
                         },
                         {
-                          "id": "n160",
+                          "id": "n164",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ WorkflowTypeHandlerBase.CreatedAsync",
-                          "detail": "depth limit",
+                          "detail": null,
                           "before": {
                             "symbolId": "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.Services.WorkflowTypeHandlerBase.CreatedAsync(global::OrchardCore.Workflows.Models.WorkflowTypeCreatedContext)",
                             "signature": "OrchardCore.Workflows.Services.WorkflowTypeHandlerBase.CreatedAsync(OrchardCore.Workflows.Models.WorkflowTypeCreatedContext) -> System.Threading.Tasks.Task",
@@ -9090,11 +9358,7 @@ stdout:
                             "origin": "source"
                           },
                           "children": [],
-                          "omission": {
-                            "reason": "depth-limit",
-                            "symbolId": null,
-                            "referenceId": null
-                          }
+                          "omission": null
                         }
                       ],
                       "omission": null
@@ -9110,7 +9374,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n161",
+              "id": "n165",
               "kind": "branch",
               "change": "unchanged",
               "label": "else (!(isNew))",
@@ -9157,7 +9421,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n162",
+                  "id": "n166",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new WorkflowTypeUpdatedContext",
@@ -9226,7 +9490,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n163",
+                  "id": "n167",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "InvokeExtensions.InvokeAsync",
@@ -9289,7 +9553,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n164",
+                      "id": "n168",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "IWorkflowTypeEventHandler.UpdatedAsync",
@@ -9354,7 +9618,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n165",
+                          "id": "n169",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ WorkflowTypeRoutesHandler.UpdatedAsync",
@@ -9407,11 +9671,11 @@ stdout:
                           }
                         },
                         {
-                          "id": "n166",
+                          "id": "n170",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ WorkflowTypeHandlerBase.UpdatedAsync",
-                          "detail": "depth limit",
+                          "detail": null,
                           "before": {
                             "symbolId": "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.Services.WorkflowTypeHandlerBase.UpdatedAsync(global::OrchardCore.Workflows.Models.WorkflowTypeUpdatedContext)",
                             "signature": "OrchardCore.Workflows.Services.WorkflowTypeHandlerBase.UpdatedAsync(OrchardCore.Workflows.Models.WorkflowTypeUpdatedContext) -> System.Threading.Tasks.Task",
@@ -9453,11 +9717,7 @@ stdout:
                             "origin": "source"
                           },
                           "children": [],
-                          "omission": {
-                            "reason": "depth-limit",
-                            "symbolId": null,
-                            "referenceId": null
-                          }
+                          "omission": null
                         }
                       ],
                       "omission": null
@@ -9476,7 +9736,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n167",
+          "id": "n171",
           "kind": "call",
           "change": "unchanged",
           "label": "NotifierExtensions.SuccessAsync",
@@ -9539,20 +9799,26 @@ stdout:
           },
           "children": [
             {
-              "id": "n168",
+              "id": "n172",
               "kind": "call",
               "change": "unchanged",
               "label": "new NotifyContext",
               "detail": null,
               "before": {
                 "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Notify.NotifyContext..ctor()",
-                "signature": null,
+                "signature": "OrchardCore.DisplayManagement.Notify.NotifyContext.NotifyContext() -> void",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
                   "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Notify.NotifyContext..ctor()"
                 ],
-                "definition": null,
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.DisplayManagement/Notify/NotifyContext.cs",
+                  "startLine": 3,
+                  "startColumn": 1,
+                  "endLine": 9,
+                  "endColumn": 2
+                },
                 "callSites": [
                   {
                     "path": "src/OrchardCore/OrchardCore.DisplayManagement/Notify/NotifierExtensions.cs",
@@ -9568,13 +9834,19 @@ stdout:
               },
               "after": {
                 "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Notify.NotifyContext..ctor()",
-                "signature": null,
+                "signature": "OrchardCore.DisplayManagement.Notify.NotifyContext.NotifyContext() -> void",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
                   "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Notify.NotifyContext..ctor()"
                 ],
-                "definition": null,
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.DisplayManagement/Notify/NotifyContext.cs",
+                  "startLine": 3,
+                  "startColumn": 1,
+                  "endLine": 9,
+                  "endColumn": 2
+                },
                 "callSites": [
                   {
                     "path": "src/OrchardCore/OrchardCore.DisplayManagement/Notify/NotifierExtensions.cs",
@@ -9588,11 +9860,65 @@ stdout:
                 "candidates": [],
                 "origin": "source"
               },
-              "children": [],
+              "children": [
+                {
+                  "id": "n173",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "new Object",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "metadata:System.Runtime::object..ctor()",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Runtime::object..ctor()"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.DisplayManagement/Notify/NotifyContext.cs",
+                        "startLine": 3,
+                        "startColumn": 1,
+                        "endLine": 9,
+                        "endColumn": 2
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "after": {
+                    "symbolId": "metadata:System.Runtime::object..ctor()",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Runtime::object..ctor()"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.DisplayManagement/Notify/NotifyContext.cs",
+                        "startLine": 3,
+                        "startColumn": 1,
+                        "endLine": 9,
+                        "endColumn": 2
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
               "omission": null
             },
             {
-              "id": "n169",
+              "id": "n174",
               "kind": "call",
               "change": "unchanged",
               "label": "INotifier.AddAsync → Notifier.AddAsync",
@@ -9655,7 +9981,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n170",
+                  "id": "n175",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "_logger.IsEnabled",
@@ -9708,7 +10034,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n171",
+                  "id": "n176",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (_logger.IsEnabled(LogLevel.Information))",
@@ -9755,7 +10081,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n172",
+                      "id": "n177",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "_logger.LogInformation",
@@ -9811,20 +10137,26 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n173",
+                  "id": "n178",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new NotifyEntry",
-                  "detail": null,
+                  "detail": "depth limit",
                   "before": {
                     "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Notify.NotifyEntry..ctor()",
-                    "signature": null,
+                    "signature": "OrchardCore.DisplayManagement.Notify.NotifyEntry.NotifyEntry() -> void",
                     "binding": "resolved",
                     "dispatch": "direct",
                     "targetIds": [
                       "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Notify.NotifyEntry..ctor()"
                     ],
-                    "definition": null,
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.DisplayManagement/Notify/NotifyEntry.cs",
+                      "startLine": 16,
+                      "startColumn": 1,
+                      "endLine": 57,
+                      "endColumn": 2
+                    },
                     "callSites": [
                       {
                         "path": "src/OrchardCore/OrchardCore.DisplayManagement/Notify/Notifier.cs",
@@ -9840,13 +10172,19 @@ stdout:
                   },
                   "after": {
                     "symbolId": "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Notify.NotifyEntry..ctor()",
-                    "signature": null,
+                    "signature": "OrchardCore.DisplayManagement.Notify.NotifyEntry.NotifyEntry() -> void",
                     "binding": "resolved",
                     "dispatch": "direct",
                     "targetIds": [
                       "project:src/OrchardCore/OrchardCore.DisplayManagement/OrchardCore.DisplayManagement.csproj@net10.0::OrchardCore.DisplayManagement.Notify.NotifyEntry..ctor()"
                     ],
-                    "definition": null,
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.DisplayManagement/Notify/NotifyEntry.cs",
+                      "startLine": 16,
+                      "startColumn": 1,
+                      "endLine": 57,
+                      "endColumn": 2
+                    },
                     "callSites": [
                       {
                         "path": "src/OrchardCore/OrchardCore.DisplayManagement/Notify/Notifier.cs",
@@ -9861,10 +10199,14 @@ stdout:
                     "origin": "source"
                   },
                   "children": [],
-                  "omission": null
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
                 },
                 {
-                  "id": "n174",
+                  "id": "n179",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "_entries.Add",
@@ -9923,7 +10265,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n175",
+          "id": "n180",
           "kind": "call",
           "change": "added",
           "label": "WorkflowTypeExtensions.IsMissingStartActivity",
@@ -9959,7 +10301,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n176",
+              "id": "n181",
               "kind": "call",
               "change": "added",
               "label": "ArgumentNullException.ThrowIfNull",
@@ -9991,7 +10333,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n177",
+              "id": "n182",
               "kind": "branch",
               "change": "added",
               "label": "if (workflowType.Activities.Count > 0)",
@@ -10019,7 +10361,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n178",
+                  "id": "n183",
                   "kind": "call",
                   "change": "added",
                   "label": "WorkflowTypeExtensions.HasStartActivity",
@@ -10067,7 +10409,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n179",
+          "id": "n184",
           "kind": "branch",
           "change": "added",
           "label": "if (workflowType.IsMissingStartActivity())",
@@ -10095,7 +10437,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n180",
+              "id": "n185",
               "kind": "call",
               "change": "added",
               "label": "NotifierExtensions.WarningAsync",
@@ -10131,7 +10473,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n181",
+                  "id": "n186",
                   "kind": "call",
                   "change": "added",
                   "label": "INotifier.AddAsync → Notifier.AddAsync",
@@ -10179,7 +10521,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n182",
+          "id": "n187",
           "kind": "call",
           "change": "unchanged",
           "label": "RedirectToAction",

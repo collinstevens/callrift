@@ -14,11 +14,11 @@ stdout:
 ~    └─ IPSecurityPolicy.Security (changes below depth limit)
 
 + new SecurityError
-+ └─ new Error (depth limit)
++ └─ new Error
 
   new SecurityMiddleware
   ├─ IOcelotLoggerFactory.CreateLogger → OcelotLoggerFactory.CreateLogger (depth limit)
-  ├─ new OcelotMiddleware (depth limit)
+  ├─ new OcelotMiddleware
 + └─ ? ArgumentNullException.ThrowIfNull
 
   SecurityMiddleware.Invoke
@@ -32,12 +32,12 @@ stdout:
 + │  ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
 + │  └─ if (result.IsError)
 + │     ├─ ? context.Items.UpsertErrors
-+ │     └─ SecurityMiddleware.HandleWebSocketErrors (changes below depth limit)
++ │     └─ SecurityMiddleware.HandleWebSocketErrors
   └─ ? _next.Invoke
 
   samples/Metadata/Program.cs::<top-level>
   ├─ …
-  ├─ new OcelotPipelineConfiguration (depth limit)
+  ├─ new OcelotPipelineConfiguration
   ├─ callback
   ├─ callback
 ~ │  └─ MyMiddlewares.ResponderMiddleware (changes below depth limit)
@@ -52,7 +52,7 @@ manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Configuration.G
 manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Logging.AddConfiguration.
 manual/Actions/Basic.cs:30: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
 manual/Actions/Basic.cs:32: unresolved-call: Cannot bind builder.Logging.AddConsole.
-1023 additional diagnostics; use --diagnostics full.
+1042 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -71,11 +71,11 @@ stdout:
 ~    └─ IPSecurityPolicy.Security (changes below depth limit)
 
 + new SecurityError
-+ └─ new Error (depth limit)
++ └─ new Error
 
   new SecurityMiddleware
   ├─ IOcelotLoggerFactory.CreateLogger → OcelotLoggerFactory.CreateLogger (depth limit)
-  ├─ new OcelotMiddleware (depth limit)
+  ├─ new OcelotMiddleware
 + └─ ? ArgumentNullException.ThrowIfNull
 
   SecurityMiddleware.Invoke
@@ -89,12 +89,12 @@ stdout:
 + │  ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
 + │  └─ if (result.IsError)
 + │     ├─ ? context.Items.UpsertErrors
-+ │     └─ SecurityMiddleware.HandleWebSocketErrors (changes below depth limit)
++ │     └─ SecurityMiddleware.HandleWebSocketErrors
   └─ ? _next.Invoke
 
   samples/Metadata/Program.cs::<top-level>
   ├─ …
-  ├─ new OcelotPipelineConfiguration (depth limit)
+  ├─ new OcelotPipelineConfiguration
   ├─ callback
   ├─ callback
 ~ │  └─ MyMiddlewares.ResponderMiddleware (changes below depth limit)
@@ -110,4 +110,4 @@ manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Configuration.G
 manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Logging.AddConfiguration.
 manual/Actions/Basic.cs:30: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
 manual/Actions/Basic.cs:32: unresolved-call: Cannot bind builder.Logging.AddConsole.
-1023 additional diagnostics; use --diagnostics full.
+1042 additional diagnostics; use --diagnostics full.

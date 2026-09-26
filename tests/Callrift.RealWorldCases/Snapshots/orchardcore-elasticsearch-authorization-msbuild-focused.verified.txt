@@ -10,7 +10,7 @@ stdout:
 + │     ├─ service.AuthorizeAsync
 + │     ├─ if (task.IsCompletedSuccessfully)
 + │     │  └─ Task.FromResult
-+ │     └─ AuthorizationServiceExtensions.AuthorizeAsync.Awaited (depth limit)
++ │     └─ AuthorizationServiceExtensions.AuthorizeAsync.Awaited
 + ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
 + │  └─ Forbid
   ├─ IIndexProfileStore.FindByIdAsync → DefaultIndexProfileStore.FindByIdAsync
@@ -39,7 +39,7 @@ stdout:
 + │     ├─ service.AuthorizeAsync
 + │     ├─ if (task.IsCompletedSuccessfully)
 + │     │  └─ Task.FromResult
-+ │     └─ AuthorizationServiceExtensions.AuthorizeAsync.Awaited (depth limit)
++ │     └─ AuthorizationServiceExtensions.AuthorizeAsync.Awaited
 + ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
 + │  └─ Forbid
   ├─ IIndexProfileStore.FindByIdAsync → DefaultIndexProfileStore.FindByIdAsync

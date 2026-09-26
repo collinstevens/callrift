@@ -2,11 +2,11 @@
 exit: 0
 stdout:
   OcelotMiddlewareExtensions.UseOcelot
-  ├─ new OcelotPipelineConfiguration (depth limit)
+  ├─ new OcelotPipelineConfiguration
 ~ └─ OcelotMiddlewareExtensions.UseOcelot (changes below depth limit)
 
   OcelotMiddlewareExtensions.UseOcelot
-  ├─ new OcelotPipelineConfiguration (depth limit)
+  ├─ new OcelotPipelineConfiguration
 ~ └─ OcelotMiddlewareExtensions.UseOcelot (changes below depth limit)
 
   ResponderMiddleware.Invoke
@@ -23,11 +23,11 @@ stdout:
 ~    └─ IPSecurityPolicy.Security (changes below depth limit)
 
 + new SecurityError
-+ └─ new Error (depth limit)
++ └─ new Error
 
 ~ new SecurityMiddleware (body changed; visible calls unchanged)
   ├─ IOcelotLoggerFactory.CreateLogger → OcelotLoggerFactory.CreateLogger (depth limit)
-  └─ new OcelotMiddleware (depth limit)
+  └─ new OcelotMiddleware
 
   SecurityMiddleware.Invoke
   ├─ HttpItemsExtensions.DownstreamRoute (depth limit)
@@ -39,7 +39,7 @@ stdout:
 +    ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
 +    └─ if (result.IsError)
 +       ├─ HttpItemsExtensions.UpsertErrors (depth limit)
-+       └─ SecurityMiddleware.HandleWebSocketErrors (changes below depth limit)
++       └─ SecurityMiddleware.HandleWebSocketErrors
 stderr:
 
 format: md
@@ -47,11 +47,11 @@ exit: 0
 stdout:
 ```diff
   OcelotMiddlewareExtensions.UseOcelot
-  ├─ new OcelotPipelineConfiguration (depth limit)
+  ├─ new OcelotPipelineConfiguration
 ~ └─ OcelotMiddlewareExtensions.UseOcelot (changes below depth limit)
 
   OcelotMiddlewareExtensions.UseOcelot
-  ├─ new OcelotPipelineConfiguration (depth limit)
+  ├─ new OcelotPipelineConfiguration
 ~ └─ OcelotMiddlewareExtensions.UseOcelot (changes below depth limit)
 
   ResponderMiddleware.Invoke
@@ -68,11 +68,11 @@ stdout:
 ~    └─ IPSecurityPolicy.Security (changes below depth limit)
 
 + new SecurityError
-+ └─ new Error (depth limit)
++ └─ new Error
 
 ~ new SecurityMiddleware (body changed; visible calls unchanged)
   ├─ IOcelotLoggerFactory.CreateLogger → OcelotLoggerFactory.CreateLogger (depth limit)
-  └─ new OcelotMiddleware (depth limit)
+  └─ new OcelotMiddleware
 
   SecurityMiddleware.Invoke
   ├─ HttpItemsExtensions.DownstreamRoute (depth limit)
@@ -84,6 +84,6 @@ stdout:
 +    ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
 +    └─ if (result.IsError)
 +       ├─ HttpItemsExtensions.UpsertErrors (depth limit)
-+       └─ SecurityMiddleware.HandleWebSocketErrors (changes below depth limit)
++       └─ SecurityMiddleware.HandleWebSocketErrors
 ```
 stderr:

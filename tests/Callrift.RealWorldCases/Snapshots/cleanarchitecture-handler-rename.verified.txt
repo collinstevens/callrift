@@ -2,18 +2,22 @@
 exit: 0
 stdout:
 - new TodoItemCompletedEventHandler
+- └─ ? base()
 
 - TodoItemCompletedEventHandler.Handle
 
 - new TodoItemCreatedEventHandler
+- └─ ? base()
 
 - TodoItemCreatedEventHandler.Handle
 
 + new LogTodoItemCompleted
++ └─ ? base()
 
 + LogTodoItemCompleted.Handle
 
 + new LogTodoItemCreated
++ └─ ? base()
 
 + LogTodoItemCreated.Handle
 stderr:
@@ -25,25 +29,29 @@ src/AppHost/Program.cs:23: unresolved-call: Cannot bind builder.AddProject<Proje
 src/AppHost/Program.cs:23: unresolved-call: Cannot bind builder.AddProject<Projects.Web>.
 src/AppHost/Program.cs:28: unresolved-call: Cannot bind builder.Build().Run.
 src/AppHost/Program.cs:28: unresolved-call: Cannot bind builder.Build.
-290 additional diagnostics; use --diagnostics full.
+344 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
 stdout:
 ```diff
 - new TodoItemCompletedEventHandler
+- └─ ? base()
 
 - TodoItemCompletedEventHandler.Handle
 
 - new TodoItemCreatedEventHandler
+- └─ ? base()
 
 - TodoItemCreatedEventHandler.Handle
 
 + new LogTodoItemCompleted
++ └─ ? base()
 
 + LogTodoItemCompleted.Handle
 
 + new LogTodoItemCreated
++ └─ ? base()
 
 + LogTodoItemCreated.Handle
 ```
@@ -56,4 +64,4 @@ src/AppHost/Program.cs:23: unresolved-call: Cannot bind builder.AddProject<Proje
 src/AppHost/Program.cs:23: unresolved-call: Cannot bind builder.AddProject<Projects.Web>.
 src/AppHost/Program.cs:28: unresolved-call: Cannot bind builder.Build().Run.
 src/AppHost/Program.cs:28: unresolved-call: Cannot bind builder.Build.
-290 additional diagnostics; use --diagnostics full.
+344 additional diagnostics; use --diagnostics full.

@@ -42,8 +42,8 @@ stdout:
      │  │     ├─ new FactoryGenerator (depth limit)
      │  │     ├─ RegistrationBuilder.ForDelegate (depth limit)
 ~    │  │     │  └─ FactoryGenerator.GenerateFactory (changes below depth limit)
-     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
-     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned (depth limit)
+     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
+     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned
      │  │     └─ …
      │  ├─ ⇢ AnyKeyRegistrationSource.RegistrationsFor
      │  ├─ ⇢ LazyWithMetadataRegistrationSource.RegistrationsFor
@@ -51,7 +51,7 @@ stdout:
      └─ foreach (var provided in next.RegistrationsFor(service, _registrationAccessor))
         ├─ DefaultRegisteredServicesTracker.PopulateAdditionalServicesForProvidedRegistration
         │  └─ foreach (var additionalService in provided.Services)
-        │     ├─ DefaultRegisteredServicesTracker.GetServiceInfo (depth limit)
+        │     ├─ DefaultRegisteredServicesTracker.GetServiceInfo
         │     ├─ DefaultRegisteredServicesTracker.UseEphemeralAdditionalInfoIfNeeded (depth limit)
 -       │     ├─ DefaultRegisteredServicesTracker.InitializeOrSkipSource (changes below depth limit)
 +       │     └─ DefaultRegisteredServicesTracker.HoldOrApplyForAdditionalService (changes below depth limit)
@@ -70,7 +70,7 @@ bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind Ben
 bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
-170 additional diagnostics; use --diagnostics full.
+172 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -117,8 +117,8 @@ stdout:
      │  │     ├─ new FactoryGenerator (depth limit)
      │  │     ├─ RegistrationBuilder.ForDelegate (depth limit)
 ~    │  │     │  └─ FactoryGenerator.GenerateFactory (changes below depth limit)
-     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
-     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned (depth limit)
+     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
+     │  │     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned
      │  │     └─ …
      │  ├─ ⇢ AnyKeyRegistrationSource.RegistrationsFor
      │  ├─ ⇢ LazyWithMetadataRegistrationSource.RegistrationsFor
@@ -126,7 +126,7 @@ stdout:
      └─ foreach (var provided in next.RegistrationsFor(service, _registrationAccessor))
         ├─ DefaultRegisteredServicesTracker.PopulateAdditionalServicesForProvidedRegistration
         │  └─ foreach (var additionalService in provided.Services)
-        │     ├─ DefaultRegisteredServicesTracker.GetServiceInfo (depth limit)
+        │     ├─ DefaultRegisteredServicesTracker.GetServiceInfo
         │     ├─ DefaultRegisteredServicesTracker.UseEphemeralAdditionalInfoIfNeeded (depth limit)
 -       │     ├─ DefaultRegisteredServicesTracker.InitializeOrSkipSource (changes below depth limit)
 +       │     └─ DefaultRegisteredServicesTracker.HoldOrApplyForAdditionalService (changes below depth limit)
@@ -146,4 +146,4 @@ bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind Ben
 bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
-170 additional diagnostics; use --diagnostics full.
+172 additional diagnostics; use --diagnostics full.

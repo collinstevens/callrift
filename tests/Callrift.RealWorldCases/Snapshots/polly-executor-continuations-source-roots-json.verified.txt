@@ -34,6 +34,28 @@ stdout:
   "diagnostics": [
     {
       "code": "unresolved-call",
+      "message": "Cannot bind implicit base constructor for new Cache.MemoryCacheProvider.",
+      "location": {
+        "path": "bench/Polly.Benchmarks/Cache.cs",
+        "startLine": 48,
+        "startColumn": 5,
+        "endLine": 90,
+        "endColumn": 6
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind implicit base constructor for new PollyConfig.",
+      "location": {
+        "path": "bench/Polly.Benchmarks/PollyConfig.cs",
+        "startLine": 5,
+        "startColumn": 5,
+        "endLine": 9,
+        "endColumn": 6
+      }
+    },
+    {
+      "code": "unresolved-call",
       "message": "Cannot bind AddDiagnoser.",
       "location": {
         "path": "bench/Polly.Benchmarks/PollyConfig.cs",
@@ -22789,7 +22811,7 @@ stdout:
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ PipelineComponent.NullComponent.ExecuteCore",
-              "detail": "depth limit",
+              "detail": null,
               "before": {
                 "symbolId": "source::Polly.Utils.Pipeline.PipelineComponent.NullComponent.ExecuteCore`2(global::System.Func<global::Polly.ResilienceContext, TState, global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<TResult>>>,global::Polly.ResilienceContext,TState)",
                 "signature": "Polly.Utils.Pipeline.PipelineComponent.NullComponent.ExecuteCore<TResult, TState>(System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<TResult>>>, Polly.ResilienceContext, TState) -> System.Threading.Tasks.ValueTask<Polly.Outcome<TResult>>",
@@ -22831,11 +22853,7 @@ stdout:
                 "origin": "source"
               },
               "children": [],
-              "omission": {
-                "reason": "depth-limit",
-                "symbolId": null,
-                "referenceId": null
-              }
+              "omission": null
             },
             {
               "id": "n10",
@@ -24514,16 +24532,22 @@ stdout:
           "kind": "call",
           "change": "unchanged",
           "label": "new ResiliencePipelineBuilder",
-          "detail": null,
+          "detail": "depth limit",
           "before": {
             "symbolId": "source::Polly.ResiliencePipelineBuilder..ctor()",
-            "signature": null,
+            "signature": "Polly.ResiliencePipelineBuilder.ResiliencePipelineBuilder() -> void",
             "binding": "resolved",
             "dispatch": "direct",
             "targetIds": [
               "source::Polly.ResiliencePipelineBuilder..ctor()"
             ],
-            "definition": null,
+            "definition": {
+              "path": "src/Polly.Core/ResiliencePipelineBuilder.cs",
+              "startLine": 13,
+              "startColumn": 1,
+              "endLine": 21,
+              "endColumn": 2
+            },
             "callSites": [
               {
                 "path": "bench/Polly.Core.Benchmarks/Utils/Helper.MultipleStrategies.cs",
@@ -24539,13 +24563,19 @@ stdout:
           },
           "after": {
             "symbolId": "source::Polly.ResiliencePipelineBuilder..ctor()",
-            "signature": null,
+            "signature": "Polly.ResiliencePipelineBuilder.ResiliencePipelineBuilder() -> void",
             "binding": "resolved",
             "dispatch": "direct",
             "targetIds": [
               "source::Polly.ResiliencePipelineBuilder..ctor()"
             ],
-            "definition": null,
+            "definition": {
+              "path": "src/Polly.Core/ResiliencePipelineBuilder.cs",
+              "startLine": 13,
+              "startColumn": 1,
+              "endLine": 21,
+              "endColumn": 2
+            },
             "callSites": [
               {
                 "path": "bench/Polly.Core.Benchmarks/Utils/Helper.MultipleStrategies.cs",
@@ -24560,7 +24590,11 @@ stdout:
             "origin": "source"
           },
           "children": [],
-          "omission": null
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
         },
         {
           "id": "n37",
@@ -24754,16 +24788,22 @@ stdout:
           "kind": "call",
           "change": "unchanged",
           "label": "new RetryStrategyOptions",
-          "detail": null,
+          "detail": "depth limit",
           "before": {
             "symbolId": "source::Polly.Retry.RetryStrategyOptions..ctor()",
-            "signature": null,
+            "signature": "Polly.Retry.RetryStrategyOptions.RetryStrategyOptions() -> void",
             "binding": "resolved",
             "dispatch": "direct",
             "targetIds": [
               "source::Polly.Retry.RetryStrategyOptions..ctor()"
             ],
-            "definition": null,
+            "definition": {
+              "path": "src/Polly.Core/Retry/RetryStrategyOptions.cs",
+              "startLine": 4,
+              "startColumn": 1,
+              "endLine": 6,
+              "endColumn": 2
+            },
             "callSites": [
               {
                 "path": "bench/Polly.Core.Benchmarks/Utils/Helper.MultipleStrategies.cs",
@@ -24779,13 +24819,19 @@ stdout:
           },
           "after": {
             "symbolId": "source::Polly.Retry.RetryStrategyOptions..ctor()",
-            "signature": null,
+            "signature": "Polly.Retry.RetryStrategyOptions.RetryStrategyOptions() -> void",
             "binding": "resolved",
             "dispatch": "direct",
             "targetIds": [
               "source::Polly.Retry.RetryStrategyOptions..ctor()"
             ],
-            "definition": null,
+            "definition": {
+              "path": "src/Polly.Core/Retry/RetryStrategyOptions.cs",
+              "startLine": 4,
+              "startColumn": 1,
+              "endLine": 6,
+              "endColumn": 2
+            },
             "callSites": [
               {
                 "path": "bench/Polly.Core.Benchmarks/Utils/Helper.MultipleStrategies.cs",
@@ -24800,7 +24846,11 @@ stdout:
             "origin": "source"
           },
           "children": [],
-          "omission": null
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
         },
         {
           "id": "n41",
@@ -24901,7 +24951,7 @@ stdout:
                   "kind": "call",
                   "change": "unchanged",
                   "label": "PredicateResult.True",
-                  "detail": "depth limit",
+                  "detail": null,
                   "before": {
                     "symbolId": "source::Polly.PredicateResult.True()",
                     "signature": "Polly.PredicateResult.True() -> System.Threading.Tasks.ValueTask<bool>",
@@ -24959,11 +25009,7 @@ stdout:
                     "origin": "source"
                   },
                   "children": [],
-                  "omission": {
-                    "reason": "depth-limit",
-                    "symbolId": null,
-                    "referenceId": null
-                  }
+                  "omission": null
                 }
               ],
               "omission": null
@@ -25020,7 +25066,7 @@ stdout:
                   "kind": "call",
                   "change": "unchanged",
                   "label": "PredicateResult.True",
-                  "detail": "depth limit",
+                  "detail": null,
                   "before": {
                     "symbolId": "source::Polly.PredicateResult.True()",
                     "signature": "Polly.PredicateResult.True() -> System.Threading.Tasks.ValueTask<bool>",
@@ -25078,11 +25124,7 @@ stdout:
                     "origin": "source"
                   },
                   "children": [],
-                  "omission": {
-                    "reason": "depth-limit",
-                    "symbolId": null,
-                    "referenceId": null
-                  }
+                  "omission": null
                 }
               ],
               "omission": null
@@ -25139,7 +25181,7 @@ stdout:
                   "kind": "call",
                   "change": "unchanged",
                   "label": "PredicateResult.False",
-                  "detail": "depth limit",
+                  "detail": null,
                   "before": {
                     "symbolId": "source::Polly.PredicateResult.False()",
                     "signature": "Polly.PredicateResult.False() -> System.Threading.Tasks.ValueTask<bool>",
@@ -25197,11 +25239,7 @@ stdout:
                     "origin": "source"
                   },
                   "children": [],
-                  "omission": {
-                    "reason": "depth-limit",
-                    "symbolId": null,
-                    "referenceId": null
-                  }
+                  "omission": null
                 }
               ],
               "omission": null
@@ -25352,16 +25390,22 @@ stdout:
           "kind": "call",
           "change": "unchanged",
           "label": "new CircuitBreakerStrategyOptions",
-          "detail": null,
+          "detail": "depth limit",
           "before": {
             "symbolId": "source::Polly.CircuitBreaker.CircuitBreakerStrategyOptions..ctor()",
-            "signature": null,
+            "signature": "Polly.CircuitBreaker.CircuitBreakerStrategyOptions.CircuitBreakerStrategyOptions() -> void",
             "binding": "resolved",
             "dispatch": "direct",
             "targetIds": [
               "source::Polly.CircuitBreaker.CircuitBreakerStrategyOptions..ctor()"
             ],
-            "definition": null,
+            "definition": {
+              "path": "src/Polly.Core/CircuitBreaker/CircuitBreakerStrategyOptions.cs",
+              "startLine": 4,
+              "startColumn": 1,
+              "endLine": 6,
+              "endColumn": 2
+            },
             "callSites": [
               {
                 "path": "bench/Polly.Core.Benchmarks/Utils/Helper.MultipleStrategies.cs",
@@ -25377,13 +25421,19 @@ stdout:
           },
           "after": {
             "symbolId": "source::Polly.CircuitBreaker.CircuitBreakerStrategyOptions..ctor()",
-            "signature": null,
+            "signature": "Polly.CircuitBreaker.CircuitBreakerStrategyOptions.CircuitBreakerStrategyOptions() -> void",
             "binding": "resolved",
             "dispatch": "direct",
             "targetIds": [
               "source::Polly.CircuitBreaker.CircuitBreakerStrategyOptions..ctor()"
             ],
-            "definition": null,
+            "definition": {
+              "path": "src/Polly.Core/CircuitBreaker/CircuitBreakerStrategyOptions.cs",
+              "startLine": 4,
+              "startColumn": 1,
+              "endLine": 6,
+              "endColumn": 2
+            },
             "callSites": [
               {
                 "path": "bench/Polly.Core.Benchmarks/Utils/Helper.MultipleStrategies.cs",
@@ -25398,7 +25448,11 @@ stdout:
             "origin": "source"
           },
           "children": [],
-          "omission": null
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
         },
         {
           "id": "n51",
@@ -25499,7 +25553,7 @@ stdout:
                   "kind": "call",
                   "change": "unchanged",
                   "label": "PredicateResult.True",
-                  "detail": "depth limit",
+                  "detail": null,
                   "before": {
                     "symbolId": "source::Polly.PredicateResult.True()",
                     "signature": "Polly.PredicateResult.True() -> System.Threading.Tasks.ValueTask<bool>",
@@ -25557,11 +25611,7 @@ stdout:
                     "origin": "source"
                   },
                   "children": [],
-                  "omission": {
-                    "reason": "depth-limit",
-                    "symbolId": null,
-                    "referenceId": null
-                  }
+                  "omission": null
                 }
               ],
               "omission": null
@@ -25618,7 +25668,7 @@ stdout:
                   "kind": "call",
                   "change": "unchanged",
                   "label": "PredicateResult.True",
-                  "detail": "depth limit",
+                  "detail": null,
                   "before": {
                     "symbolId": "source::Polly.PredicateResult.True()",
                     "signature": "Polly.PredicateResult.True() -> System.Threading.Tasks.ValueTask<bool>",
@@ -25676,11 +25726,7 @@ stdout:
                     "origin": "source"
                   },
                   "children": [],
-                  "omission": {
-                    "reason": "depth-limit",
-                    "symbolId": null,
-                    "referenceId": null
-                  }
+                  "omission": null
                 }
               ],
               "omission": null
@@ -25737,7 +25783,7 @@ stdout:
                   "kind": "call",
                   "change": "unchanged",
                   "label": "PredicateResult.False",
-                  "detail": "depth limit",
+                  "detail": null,
                   "before": {
                     "symbolId": "source::Polly.PredicateResult.False()",
                     "signature": "Polly.PredicateResult.False() -> System.Threading.Tasks.ValueTask<bool>",
@@ -25795,11 +25841,7 @@ stdout:
                     "origin": "source"
                   },
                   "children": [],
-                  "omission": {
-                    "reason": "depth-limit",
-                    "symbolId": null,
-                    "referenceId": null
-                  }
+                  "omission": null
                 }
               ],
               "omission": null
@@ -27293,7 +27335,7 @@ stdout:
                           "kind": "call",
                           "change": "unchanged",
                           "label": "PredicateResult.True",
-                          "detail": "depth limit",
+                          "detail": null,
                           "before": {
                             "symbolId": "source::Polly.PredicateResult.True()",
                             "signature": "Polly.PredicateResult.True() -> System.Threading.Tasks.ValueTask<bool>",
@@ -27351,11 +27393,7 @@ stdout:
                             "origin": "source"
                           },
                           "children": [],
-                          "omission": {
-                            "reason": "depth-limit",
-                            "symbolId": null,
-                            "referenceId": null
-                          }
+                          "omission": null
                         }
                       ],
                       "omission": null
@@ -27412,7 +27450,7 @@ stdout:
                           "kind": "call",
                           "change": "unchanged",
                           "label": "PredicateResult.True",
-                          "detail": "depth limit",
+                          "detail": null,
                           "before": {
                             "symbolId": "source::Polly.PredicateResult.True()",
                             "signature": "Polly.PredicateResult.True() -> System.Threading.Tasks.ValueTask<bool>",
@@ -27470,11 +27508,7 @@ stdout:
                             "origin": "source"
                           },
                           "children": [],
-                          "omission": {
-                            "reason": "depth-limit",
-                            "symbolId": null,
-                            "referenceId": null
-                          }
+                          "omission": null
                         }
                       ],
                       "omission": null
@@ -27531,7 +27565,7 @@ stdout:
                           "kind": "call",
                           "change": "unchanged",
                           "label": "PredicateResult.False",
-                          "detail": "depth limit",
+                          "detail": null,
                           "before": {
                             "symbolId": "source::Polly.PredicateResult.False()",
                             "signature": "Polly.PredicateResult.False() -> System.Threading.Tasks.ValueTask<bool>",
@@ -27589,11 +27623,7 @@ stdout:
                             "origin": "source"
                           },
                           "children": [],
-                          "omission": {
-                            "reason": "depth-limit",
-                            "symbolId": null,
-                            "referenceId": null
-                          }
+                          "omission": null
                         }
                       ],
                       "omission": null
@@ -27907,7 +27937,7 @@ stdout:
                           "kind": "call",
                           "change": "unchanged",
                           "label": "PredicateResult.True",
-                          "detail": "depth limit",
+                          "detail": null,
                           "before": {
                             "symbolId": "source::Polly.PredicateResult.True()",
                             "signature": "Polly.PredicateResult.True() -> System.Threading.Tasks.ValueTask<bool>",
@@ -27965,11 +27995,7 @@ stdout:
                             "origin": "source"
                           },
                           "children": [],
-                          "omission": {
-                            "reason": "depth-limit",
-                            "symbolId": null,
-                            "referenceId": null
-                          }
+                          "omission": null
                         }
                       ],
                       "omission": null
@@ -28026,7 +28052,7 @@ stdout:
                           "kind": "call",
                           "change": "unchanged",
                           "label": "PredicateResult.True",
-                          "detail": "depth limit",
+                          "detail": null,
                           "before": {
                             "symbolId": "source::Polly.PredicateResult.True()",
                             "signature": "Polly.PredicateResult.True() -> System.Threading.Tasks.ValueTask<bool>",
@@ -28084,11 +28110,7 @@ stdout:
                             "origin": "source"
                           },
                           "children": [],
-                          "omission": {
-                            "reason": "depth-limit",
-                            "symbolId": null,
-                            "referenceId": null
-                          }
+                          "omission": null
                         }
                       ],
                       "omission": null
@@ -28145,7 +28167,7 @@ stdout:
                           "kind": "call",
                           "change": "unchanged",
                           "label": "PredicateResult.False",
-                          "detail": "depth limit",
+                          "detail": null,
                           "before": {
                             "symbolId": "source::Polly.PredicateResult.False()",
                             "signature": "Polly.PredicateResult.False() -> System.Threading.Tasks.ValueTask<bool>",
@@ -28203,11 +28225,7 @@ stdout:
                             "origin": "source"
                           },
                           "children": [],
-                          "omission": {
-                            "reason": "depth-limit",
-                            "symbolId": null,
-                            "referenceId": null
-                          }
+                          "omission": null
                         }
                       ],
                       "omission": null
@@ -29492,12 +29510,12 @@ stdout:
   "paths": []
 }
 stderr:
+bench/Polly.Benchmarks/Cache.cs:48: unresolved-call: Cannot bind implicit base constructor for new Cache.MemoryCacheProvider.
+bench/Polly.Benchmarks/PollyConfig.cs:5: unresolved-call: Cannot bind implicit base constructor for new PollyConfig.
 bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
 bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
-2015 additional diagnostics; use --diagnostics full.
+2017 additional diagnostics; use --diagnostics full.

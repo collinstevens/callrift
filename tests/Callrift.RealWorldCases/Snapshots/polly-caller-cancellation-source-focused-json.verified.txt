@@ -34,6 +34,28 @@ stdout:
   "diagnostics": [
     {
       "code": "unresolved-call",
+      "message": "Cannot bind implicit base constructor for new Cache.MemoryCacheProvider.",
+      "location": {
+        "path": "bench/Polly.Benchmarks/Cache.cs",
+        "startLine": 48,
+        "startColumn": 5,
+        "endLine": 90,
+        "endColumn": 6
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind implicit base constructor for new PollyConfig.",
+      "location": {
+        "path": "bench/Polly.Benchmarks/PollyConfig.cs",
+        "startLine": 5,
+        "startColumn": 5,
+        "endLine": 9,
+        "endColumn": 6
+      }
+    },
+    {
+      "code": "unresolved-call",
       "message": "Cannot bind AddDiagnoser.",
       "location": {
         "path": "bench/Polly.Benchmarks/PollyConfig.cs",
@@ -22741,13 +22763,19 @@ stdout:
                       "before": null,
                       "after": {
                         "symbolId": "source::Polly.Outcome<TResult>..ctor()",
-                        "signature": null,
+                        "signature": "Polly.Outcome<TResult>.Outcome() -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
                           "source::Polly.Outcome<TResult>..ctor()"
                         ],
-                        "definition": null,
+                        "definition": {
+                          "path": "src/Polly.Core/Outcome.TResult.cs",
+                          "startLine": 14,
+                          "startColumn": 1,
+                          "endLine": 93,
+                          "endColumn": 2
+                        },
                         "callSites": [
                           {
                             "path": "src/Polly.Core/Outcome.TResult.cs",
@@ -22842,12 +22870,12 @@ stdout:
   "paths": []
 }
 stderr:
+bench/Polly.Benchmarks/Cache.cs:48: unresolved-call: Cannot bind implicit base constructor for new Cache.MemoryCacheProvider.
+bench/Polly.Benchmarks/PollyConfig.cs:5: unresolved-call: Cannot bind implicit base constructor for new PollyConfig.
 bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
 bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
-2020 additional diagnostics; use --diagnostics full.
+2022 additional diagnostics; use --diagnostics full.

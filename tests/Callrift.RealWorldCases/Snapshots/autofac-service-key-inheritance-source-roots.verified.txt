@@ -17,17 +17,17 @@ stdout:
 ~ ├─ RegistrationExtensions.RegisterType ×3 (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerMatchingLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerMatchingLifetimeScope (depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
   new ConcurrencyBenchmark
 ~ ├─ new ContainerBuilder (changes below depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance
 ~ ├─ RegistrationExtensions.RegisterType ×6 (changes below depth limit)
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
@@ -40,13 +40,13 @@ stdout:
   new ConcurrencyNestedScopeBenchmark
 ~ ├─ new ContainerBuilder (changes below depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerMatchingLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerMatchingLifetimeScope (depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerMatchingLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerMatchingLifetimeScope (depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
   ConcurrencyNestedScopeBenchmark.MultipleResolvesOnMultipleTasks
@@ -58,12 +58,16 @@ stdout:
            ├─ ILifetimeScope.BeginLifetimeScope
 ~          └─ ResolutionExtensions.Resolve ×2 (changes below depth limit)
 
++ new ContainerBuildBenchmark
+
 + ContainerBuildBenchmark.Build
 + ├─ new ContainerBuilder (changes below depth limit)
 + ├─ for (i < RegistrationCount)
 + │  ├─ RegistrationExtensions.RegisterType (changes below depth limit)
 + │  └─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
 + └─ ContainerBuilder.Build (changes below depth limit)
+
++ new ContainerBuildBenchmark.Component
 
 + new ContainerBuildInheritedMembersBenchmark
 
@@ -74,8 +78,17 @@ stdout:
 + │  └─ RegistrationExtensions.RegisterType (changes below depth limit)
 + └─ ContainerBuilder.Build (changes below depth limit)
 
++ new ContainerBuildInheritedMembersBenchmark.Derived<T>
++ └─ new ContainerBuildInheritedMembersBenchmark.WideBase
+
++ new ContainerBuildInheritedMembersBenchmark.One
+
 + ContainerBuildInheritedMembersBenchmark.Setup
-+ └─ ContainerBuildInheritedMembersBenchmark.DistinctDerivedTypes (changes below depth limit)
++ └─ ContainerBuildInheritedMembersBenchmark.DistinctDerivedTypes
+
++ new ContainerBuildInheritedMembersBenchmark.Wrap<TA, TB>
+
++ new ContainerBuildInheritedMembersBenchmark.Zero
 
   DecoratorBenchmarkBase<TCommandHandler>.ResolveEnumerableT
   ├─ ILifetimeScope.BeginLifetimeScope → Container.BeginLifetimeScope (depth limit)
@@ -149,19 +162,19 @@ stdout:
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
 ~ ├─ RegistrationExtensions.RegisterDecorator (changes below depth limit)
-  │  └─ new CommandHandlerDecoratorOne (depth limit)
+  │  └─ new CommandHandlerDecoratorOne
 ~ ├─ RegistrationExtensions.RegisterDecorator (changes below depth limit)
-  │  └─ new CommandHandlerDecoratorTwo (depth limit)
+  │  └─ new CommandHandlerDecoratorTwo
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
   KeylessNestedSharedInstanceBenchmark.Setup
 ~ ├─ new ContainerBuilder (changes below depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ ├─ RegistrationExtensions.RegisterDecorator ×2 (changes below depth limit)
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
@@ -169,10 +182,10 @@ stdout:
 ~ ├─ new ContainerBuilder (changes below depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ ├─ RegistrationExtensions.RegisterDecorator (changes below depth limit) ↑ as above
 ~ ├─ RegistrationExtensions.RegisterDecorator (changes below depth limit) ↑ as above
 ~ └─ ContainerBuilder.Build (changes below depth limit)
@@ -199,10 +212,10 @@ stdout:
 ~ ├─ new ContainerBuilder (changes below depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ ├─ RegistrationExtensions.RegisterDecorator (changes below depth limit)
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
@@ -210,10 +223,10 @@ stdout:
 ~ ├─ new ContainerBuilder (changes below depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ ├─ RegistrationExtensions.RegisterDecorator (changes below depth limit) ↑ as above
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
@@ -283,7 +296,7 @@ stdout:
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ RegistrationExtensions.Register (changes below depth limit)
 ~ │  ├─ ResolutionExtensions.Resolve (changes below depth limit)
-  │  └─ new LambdaResolveBenchmark.MyComponent (depth limit)
+  │  └─ new LambdaResolveBenchmark.MyComponent
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
   ├─ ? builder.Register
   ├─ …
@@ -292,7 +305,7 @@ stdout:
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ RegistrationExtensions.UsingConstructor (depth limit)
   ├─ TypedParameter.From (depth limit)
-  ├─ RegistrationExtensions.WithParameter (depth limit)
+  ├─ RegistrationExtensions.WithParameter
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
@@ -385,7 +398,7 @@ stdout:
   RootContainerResolveBenchmark.Setup
 ~ ├─ new ContainerBuilder (changes below depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
 ~ ├─ RegistrationExtensions.Register (changes below depth limit)
   │  └─ new RootContainerResolveBenchmark.NonSharedDelegate
@@ -408,16 +421,16 @@ stdout:
 
   ContainerBuilder.RegisterBuildCallback
   ├─ if (_buildCallbacks == null)
-  │  ├─ new BuildCallbackService (depth limit)
+  │  ├─ new BuildCallbackService
 ~ │  └─ RegistrationExtensions.RegisterInstance (changes below depth limit)
-  └─ BuildCallbackService.AddCallback (depth limit)
+  └─ BuildCallbackService.AddCallback
 
   Container.GetService
 ~ └─ ((IServiceProvider)_rootLifetimeScope).GetService → LifetimeScope.GetService (changes below depth limit)
 
   ImplicitRegistrationSource.CreateRegistration
   ├─ RegistrationBuilder.ForDelegate (depth limit)
-  │  ├─ new ResolveRequest (depth limit)
+  │  ├─ new ResolveRequest
   │  └─ ImplicitRegistrationSource.ResolveInstance
 ~ │     ├─ ⇢ LazyRegistrationSource.ResolveInstance (changes below depth limit)
   │     ├─ ⇢ MetaRegistrationSource.ResolveInstance (depth limit)
@@ -434,12 +447,12 @@ stdout:
 ~ └─ ResolvedParameter.ForKeyed (changes below depth limit)
 
   BaseGenericResolveDelegateInvoker.ResolveWithParametersOrRegistration
-  ├─ BaseGenericResolveDelegateInvoker.GetDelegateParameters (depth limit)
+  ├─ BaseGenericResolveDelegateInvoker.GetDelegateParameters
   ├─ foreach (var parameter in parameters)
   │  └─ Parameter.CanSupplyValue
 ~ │     ├─ ⇢ AutowiringParameter.CanSupplyValue (changes below depth limit)
-  │     ├─ ⇢ DefaultValueParameter.CanSupplyValue (depth limit)
-  │     ├─ ⇢ ConstantParameter.CanSupplyValue (depth limit)
+  │     ├─ ⇢ DefaultValueParameter.CanSupplyValue
+  │     ├─ ⇢ ConstantParameter.CanSupplyValue
   │     └─ …
 ~ └─ ResolutionExtensions.Resolve (changes below depth limit)
 
@@ -482,10 +495,10 @@ stdout:
   ├─ MetadataViewProvider.GetMetadataViewProvider (depth limit)
   ├─ RegistrationBuilder.ForDelegate (depth limit)
 ~ │  ├─ ResolutionExtensions.Resolve (changes below depth limit)
-  │  ├─ new ResolveRequest (depth limit)
+  │  ├─ new ResolveRequest
   │  └─ new Func<T>
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ RegistrationExtensions.Targeting (depth limit)
+  ├─ RegistrationExtensions.Targeting
   └─ …
 
   ModuleRegistrationExtensions.IfNotRegistered
@@ -520,7 +533,7 @@ stdout:
 ~    └─ IComponentRegistryBuilder.IsRegistered → ComponentRegistryBuilder.IsRegistered (changes below depth limit)
 
   RegistrationExtensions.PropertiesAutowired
-  ├─ new DelegatePropertySelector (depth limit)
+  ├─ new DelegatePropertySelector
 ~ └─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired (changes below depth limit)
 
   RegistrationExtensions.RegisterComponent
@@ -542,7 +555,7 @@ stdout:
 
   RegistrationExtensions.RegisterDecorator
   ├─ …
-  ├─ new DecoratorMiddleware (depth limit)
+  ├─ new DecoratorMiddleware
   ├─ ServiceMiddlewareRegistrationExtensions.RegisterServiceMiddleware (depth limit)
   └─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
 
@@ -664,7 +677,7 @@ stdout:
 ~ ├─ new ContainerBuilder (changes below depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance
 ~ ├─ RegistrationExtensions.RegisterType ×2 (changes below depth limit)
 ~ ├─ RegistrationExtensions.PropertiesAutowired (changes below depth limit)
 ~ ├─ RegistrationExtensions.RegisterType ×2 (changes below depth limit)
@@ -674,41 +687,41 @@ stdout:
   ├─ RegistrationExtensions.AsSelf (depth limit)
   ├─ RegistrationExtensions.Register (changes below depth limit)
 ~ │  ├─ ResolutionExtensions.Resolve (changes below depth limit)
-  │  └─ new LambdaService (depth limit)
+  │  └─ new LambdaService
   ├─ RegistrationExtensions.AsSelf (depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ RegistrationExtensions.AsSelf (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerDependency → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerDependency (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerDependency → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerDependency
 ~ ├─ ModuleRegistrationExtensions.RegisterModule (changes below depth limit)
   ├─ Program.RegisterOpenGeneric (depth limit)
 ~ ├─ ContainerBuilder.Build (changes below depth limit)
-  ├─ Program.Check (depth limit)
+  ├─ Program.Check
 ~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
-  ├─ Program.Check (depth limit)
+  ├─ Program.Check
 ~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
-  ├─ Program.Check ×2 (depth limit)
+  ├─ Program.Check ×2
 ~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
-  ├─ Program.Check (depth limit)
+  ├─ Program.Check
   │  ├─ new TypedParameter (depth limit)
 ~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
-  ├─ Program.Check (depth limit)
+  ├─ Program.Check
 ~ │  └─ ResolutionExtensions.ResolveKeyed (changes below depth limit)
-  ├─ Program.Check ×3 (depth limit)
+  ├─ Program.Check ×3
 ~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
-  ├─ Program.Check (depth limit)
+  ├─ Program.Check
 ~ │  └─ ResolutionExtensions.Resolve ×2 (changes below depth limit)
-  ├─ Program.Check (depth limit)
+  ├─ Program.Check
   │  ├─ ILifetimeScope.BeginLifetimeScope → Container.BeginLifetimeScope (depth limit)
 ~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
-  ├─ Program.Check (depth limit)
+  ├─ Program.Check
   │  ├─ ILifetimeScope.BeginLifetimeScope → Container.BeginLifetimeScope (changes below depth limit)
 ~ │  │  ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   │  │  └─ RegistrationExtensions.AsSelf (depth limit)
 ~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
-  ├─ Program.Check (depth limit) ↑ as above
-  ├─ Program.Check ×6 (depth limit)
+  ├─ Program.Check ↑ as above
+  ├─ Program.Check ×6
 ~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
-  └─ Program.CheckThrows (depth limit)
+  └─ Program.CheckThrows
 ~    └─ ResolutionExtensions.Resolve (changes below depth limit)
 
   test/Autofac.Test.AotWarnings/Program.cs::<top-level>
@@ -727,7 +740,7 @@ bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind Ben
 bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
-170 additional diagnostics; use --diagnostics full.
+172 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -749,17 +762,17 @@ stdout:
 ~ ├─ RegistrationExtensions.RegisterType ×3 (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerMatchingLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerMatchingLifetimeScope (depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
   new ConcurrencyBenchmark
 ~ ├─ new ContainerBuilder (changes below depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance
 ~ ├─ RegistrationExtensions.RegisterType ×6 (changes below depth limit)
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
@@ -772,13 +785,13 @@ stdout:
   new ConcurrencyNestedScopeBenchmark
 ~ ├─ new ContainerBuilder (changes below depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerMatchingLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerMatchingLifetimeScope (depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerMatchingLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerMatchingLifetimeScope (depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
   ConcurrencyNestedScopeBenchmark.MultipleResolvesOnMultipleTasks
@@ -790,12 +803,16 @@ stdout:
            ├─ ILifetimeScope.BeginLifetimeScope
 ~          └─ ResolutionExtensions.Resolve ×2 (changes below depth limit)
 
++ new ContainerBuildBenchmark
+
 + ContainerBuildBenchmark.Build
 + ├─ new ContainerBuilder (changes below depth limit)
 + ├─ for (i < RegistrationCount)
 + │  ├─ RegistrationExtensions.RegisterType (changes below depth limit)
 + │  └─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
 + └─ ContainerBuilder.Build (changes below depth limit)
+
++ new ContainerBuildBenchmark.Component
 
 + new ContainerBuildInheritedMembersBenchmark
 
@@ -806,8 +823,17 @@ stdout:
 + │  └─ RegistrationExtensions.RegisterType (changes below depth limit)
 + └─ ContainerBuilder.Build (changes below depth limit)
 
++ new ContainerBuildInheritedMembersBenchmark.Derived<T>
++ └─ new ContainerBuildInheritedMembersBenchmark.WideBase
+
++ new ContainerBuildInheritedMembersBenchmark.One
+
 + ContainerBuildInheritedMembersBenchmark.Setup
-+ └─ ContainerBuildInheritedMembersBenchmark.DistinctDerivedTypes (changes below depth limit)
++ └─ ContainerBuildInheritedMembersBenchmark.DistinctDerivedTypes
+
++ new ContainerBuildInheritedMembersBenchmark.Wrap<TA, TB>
+
++ new ContainerBuildInheritedMembersBenchmark.Zero
 
   DecoratorBenchmarkBase<TCommandHandler>.ResolveEnumerableT
   ├─ ILifetimeScope.BeginLifetimeScope → Container.BeginLifetimeScope (depth limit)
@@ -881,19 +907,19 @@ stdout:
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
 ~ ├─ RegistrationExtensions.RegisterDecorator (changes below depth limit)
-  │  └─ new CommandHandlerDecoratorOne (depth limit)
+  │  └─ new CommandHandlerDecoratorOne
 ~ ├─ RegistrationExtensions.RegisterDecorator (changes below depth limit)
-  │  └─ new CommandHandlerDecoratorTwo (depth limit)
+  │  └─ new CommandHandlerDecoratorTwo
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
   KeylessNestedSharedInstanceBenchmark.Setup
 ~ ├─ new ContainerBuilder (changes below depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ ├─ RegistrationExtensions.RegisterDecorator ×2 (changes below depth limit)
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
@@ -901,10 +927,10 @@ stdout:
 ~ ├─ new ContainerBuilder (changes below depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ ├─ RegistrationExtensions.RegisterDecorator (changes below depth limit) ↑ as above
 ~ ├─ RegistrationExtensions.RegisterDecorator (changes below depth limit) ↑ as above
 ~ └─ ContainerBuilder.Build (changes below depth limit)
@@ -931,10 +957,10 @@ stdout:
 ~ ├─ new ContainerBuilder (changes below depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ ├─ RegistrationExtensions.RegisterDecorator (changes below depth limit)
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
@@ -942,10 +968,10 @@ stdout:
 ~ ├─ new ContainerBuilder (changes below depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope
 ~ ├─ RegistrationExtensions.RegisterDecorator (changes below depth limit) ↑ as above
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
@@ -1015,7 +1041,7 @@ stdout:
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ RegistrationExtensions.Register (changes below depth limit)
 ~ │  ├─ ResolutionExtensions.Resolve (changes below depth limit)
-  │  └─ new LambdaResolveBenchmark.MyComponent (depth limit)
+  │  └─ new LambdaResolveBenchmark.MyComponent
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
   ├─ ? builder.Register
   ├─ …
@@ -1024,7 +1050,7 @@ stdout:
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ RegistrationExtensions.UsingConstructor (depth limit)
   ├─ TypedParameter.From (depth limit)
-  ├─ RegistrationExtensions.WithParameter (depth limit)
+  ├─ RegistrationExtensions.WithParameter
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
@@ -1117,7 +1143,7 @@ stdout:
   RootContainerResolveBenchmark.Setup
 ~ ├─ new ContainerBuilder (changes below depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
 ~ ├─ RegistrationExtensions.Register (changes below depth limit)
   │  └─ new RootContainerResolveBenchmark.NonSharedDelegate
@@ -1140,16 +1166,16 @@ stdout:
 
   ContainerBuilder.RegisterBuildCallback
   ├─ if (_buildCallbacks == null)
-  │  ├─ new BuildCallbackService (depth limit)
+  │  ├─ new BuildCallbackService
 ~ │  └─ RegistrationExtensions.RegisterInstance (changes below depth limit)
-  └─ BuildCallbackService.AddCallback (depth limit)
+  └─ BuildCallbackService.AddCallback
 
   Container.GetService
 ~ └─ ((IServiceProvider)_rootLifetimeScope).GetService → LifetimeScope.GetService (changes below depth limit)
 
   ImplicitRegistrationSource.CreateRegistration
   ├─ RegistrationBuilder.ForDelegate (depth limit)
-  │  ├─ new ResolveRequest (depth limit)
+  │  ├─ new ResolveRequest
   │  └─ ImplicitRegistrationSource.ResolveInstance
 ~ │     ├─ ⇢ LazyRegistrationSource.ResolveInstance (changes below depth limit)
   │     ├─ ⇢ MetaRegistrationSource.ResolveInstance (depth limit)
@@ -1166,12 +1192,12 @@ stdout:
 ~ └─ ResolvedParameter.ForKeyed (changes below depth limit)
 
   BaseGenericResolveDelegateInvoker.ResolveWithParametersOrRegistration
-  ├─ BaseGenericResolveDelegateInvoker.GetDelegateParameters (depth limit)
+  ├─ BaseGenericResolveDelegateInvoker.GetDelegateParameters
   ├─ foreach (var parameter in parameters)
   │  └─ Parameter.CanSupplyValue
 ~ │     ├─ ⇢ AutowiringParameter.CanSupplyValue (changes below depth limit)
-  │     ├─ ⇢ DefaultValueParameter.CanSupplyValue (depth limit)
-  │     ├─ ⇢ ConstantParameter.CanSupplyValue (depth limit)
+  │     ├─ ⇢ DefaultValueParameter.CanSupplyValue
+  │     ├─ ⇢ ConstantParameter.CanSupplyValue
   │     └─ …
 ~ └─ ResolutionExtensions.Resolve (changes below depth limit)
 
@@ -1214,10 +1240,10 @@ stdout:
   ├─ MetadataViewProvider.GetMetadataViewProvider (depth limit)
   ├─ RegistrationBuilder.ForDelegate (depth limit)
 ~ │  ├─ ResolutionExtensions.Resolve (changes below depth limit)
-  │  ├─ new ResolveRequest (depth limit)
+  │  ├─ new ResolveRequest
   │  └─ new Func<T>
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ RegistrationExtensions.Targeting (depth limit)
+  ├─ RegistrationExtensions.Targeting
   └─ …
 
   ModuleRegistrationExtensions.IfNotRegistered
@@ -1252,7 +1278,7 @@ stdout:
 ~    └─ IComponentRegistryBuilder.IsRegistered → ComponentRegistryBuilder.IsRegistered (changes below depth limit)
 
   RegistrationExtensions.PropertiesAutowired
-  ├─ new DelegatePropertySelector (depth limit)
+  ├─ new DelegatePropertySelector
 ~ └─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired (changes below depth limit)
 
   RegistrationExtensions.RegisterComponent
@@ -1274,7 +1300,7 @@ stdout:
 
   RegistrationExtensions.RegisterDecorator
   ├─ …
-  ├─ new DecoratorMiddleware (depth limit)
+  ├─ new DecoratorMiddleware
   ├─ ServiceMiddlewareRegistrationExtensions.RegisterServiceMiddleware (depth limit)
   └─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
 
@@ -1396,7 +1422,7 @@ stdout:
 ~ ├─ new ContainerBuilder (changes below depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance
 ~ ├─ RegistrationExtensions.RegisterType ×2 (changes below depth limit)
 ~ ├─ RegistrationExtensions.PropertiesAutowired (changes below depth limit)
 ~ ├─ RegistrationExtensions.RegisterType ×2 (changes below depth limit)
@@ -1406,41 +1432,41 @@ stdout:
   ├─ RegistrationExtensions.AsSelf (depth limit)
   ├─ RegistrationExtensions.Register (changes below depth limit)
 ~ │  ├─ ResolutionExtensions.Resolve (changes below depth limit)
-  │  └─ new LambdaService (depth limit)
+  │  └─ new LambdaService
   ├─ RegistrationExtensions.AsSelf (depth limit)
 ~ ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   ├─ RegistrationExtensions.AsSelf (depth limit)
-  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerDependency → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerDependency (depth limit)
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerDependency → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerDependency
 ~ ├─ ModuleRegistrationExtensions.RegisterModule (changes below depth limit)
   ├─ Program.RegisterOpenGeneric (depth limit)
 ~ ├─ ContainerBuilder.Build (changes below depth limit)
-  ├─ Program.Check (depth limit)
+  ├─ Program.Check
 ~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
-  ├─ Program.Check (depth limit)
+  ├─ Program.Check
 ~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
-  ├─ Program.Check ×2 (depth limit)
+  ├─ Program.Check ×2
 ~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
-  ├─ Program.Check (depth limit)
+  ├─ Program.Check
   │  ├─ new TypedParameter (depth limit)
 ~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
-  ├─ Program.Check (depth limit)
+  ├─ Program.Check
 ~ │  └─ ResolutionExtensions.ResolveKeyed (changes below depth limit)
-  ├─ Program.Check ×3 (depth limit)
+  ├─ Program.Check ×3
 ~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
-  ├─ Program.Check (depth limit)
+  ├─ Program.Check
 ~ │  └─ ResolutionExtensions.Resolve ×2 (changes below depth limit)
-  ├─ Program.Check (depth limit)
+  ├─ Program.Check
   │  ├─ ILifetimeScope.BeginLifetimeScope → Container.BeginLifetimeScope (depth limit)
 ~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
-  ├─ Program.Check (depth limit)
+  ├─ Program.Check
   │  ├─ ILifetimeScope.BeginLifetimeScope → Container.BeginLifetimeScope (changes below depth limit)
 ~ │  │  ├─ RegistrationExtensions.RegisterType (changes below depth limit)
   │  │  └─ RegistrationExtensions.AsSelf (depth limit)
 ~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
-  ├─ Program.Check (depth limit) ↑ as above
-  ├─ Program.Check ×6 (depth limit)
+  ├─ Program.Check ↑ as above
+  ├─ Program.Check ×6
 ~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
-  └─ Program.CheckThrows (depth limit)
+  └─ Program.CheckThrows
 ~    └─ ResolutionExtensions.Resolve (changes below depth limit)
 
   test/Autofac.Test.AotWarnings/Program.cs::<top-level>
@@ -1460,4 +1486,4 @@ bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind Ben
 bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
-170 additional diagnostics; use --diagnostics full.
+172 additional diagnostics; use --diagnostics full.

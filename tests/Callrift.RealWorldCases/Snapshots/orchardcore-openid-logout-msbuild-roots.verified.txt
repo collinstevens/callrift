@@ -7,8 +7,8 @@ stdout:
   ├─ OpenIdExtensions.ToListAsync (depth limit)
   ├─ case ConsentTypes.Implicit: case ConsentTypes.External when authorizations.Count > 0: case Consen…
 ~ │  ├─ AccessController.PopulateIdentityClaims (changes below depth limit)
-  │  ├─ AccessController.GetResourcesAsync (depth limit)
-  │  ├─ OpenIdExtensions.GetUserIdentifier (depth limit)
+  │  ├─ AccessController.GetResourcesAsync
+  │  ├─ OpenIdExtensions.GetUserIdentifier
   │  └─ …
   └─ default:
 
@@ -18,8 +18,8 @@ stdout:
   ├─ OpenIdExtensions.ToListAsync (depth limit)
   └─ default:
 ~    ├─ AccessController.PopulateIdentityClaims (changes below depth limit)
-     ├─ AccessController.GetResourcesAsync (depth limit)
-     ├─ OpenIdExtensions.GetUserIdentifier (depth limit)
+     ├─ AccessController.GetResourcesAsync
+     ├─ OpenIdExtensions.GetUserIdentifier
      └─ …
 
   AccessController.Logout
@@ -27,14 +27,14 @@ stdout:
   ├─ IOpenIdServerService.GetSettingsAsync → OpenIdServerService.GetSettingsAsync (depth limit)
   └─ if (!settings.RequireEndSessionConfirmation && !string.IsNullOrEmpty(request.IdTokenHint))
 -    ├─ if (hintResult is { Succeeded: true, Principal: not null })
--    │  └─ OpenIdExtensions.GetUserIdentifier (changes below depth limit)
-+    ├─ OpenIdExtensions.FindUserIdentifier (changes below depth limit)
+-    │  └─ OpenIdExtensions.GetUserIdentifier
++    ├─ OpenIdExtensions.FindUserIdentifier
 +    └─ if (!string.IsNullOrEmpty(hintSubject) && !string.IsNullOrEmpty(userIdentifier) && CryptographicO…
-+       └─ AccessController.SignOutAndRedirectAsync (changes below depth limit)
++       └─ AccessController.SignOutAndRedirectAsync
 
   AccessController.LogoutAccept
   ├─ if (response is not null)
-+ └─ AccessController.SignOutAndRedirectAsync (changes below depth limit)
++ └─ AccessController.SignOutAndRedirectAsync
 
   AccessController.Token
   ├─ if (request.IsPasswordGrantType())
@@ -46,7 +46,7 @@ stdout:
   UserInfoController.Me
 ~ ├─ OpenIdExtensions.GetUserIdentifier (changes below depth limit)
   ├─ if (principal.HasScope(Scopes.Roles))
-  ├─ new UserInfoClaimsContext (depth limit)
+  ├─ new UserInfoClaimsContext
   └─ …
 
   DeploymentSourceBase<TStep>.ProcessDeploymentStepAsync
@@ -75,8 +75,8 @@ stdout:
   ├─ OpenIdExtensions.ToListAsync (depth limit)
   ├─ case ConsentTypes.Implicit: case ConsentTypes.External when authorizations.Count > 0: case Consen…
 ~ │  ├─ AccessController.PopulateIdentityClaims (changes below depth limit)
-  │  ├─ AccessController.GetResourcesAsync (depth limit)
-  │  ├─ OpenIdExtensions.GetUserIdentifier (depth limit)
+  │  ├─ AccessController.GetResourcesAsync
+  │  ├─ OpenIdExtensions.GetUserIdentifier
   │  └─ …
   └─ default:
 
@@ -86,8 +86,8 @@ stdout:
   ├─ OpenIdExtensions.ToListAsync (depth limit)
   └─ default:
 ~    ├─ AccessController.PopulateIdentityClaims (changes below depth limit)
-     ├─ AccessController.GetResourcesAsync (depth limit)
-     ├─ OpenIdExtensions.GetUserIdentifier (depth limit)
+     ├─ AccessController.GetResourcesAsync
+     ├─ OpenIdExtensions.GetUserIdentifier
      └─ …
 
   AccessController.Logout
@@ -95,14 +95,14 @@ stdout:
   ├─ IOpenIdServerService.GetSettingsAsync → OpenIdServerService.GetSettingsAsync (depth limit)
   └─ if (!settings.RequireEndSessionConfirmation && !string.IsNullOrEmpty(request.IdTokenHint))
 -    ├─ if (hintResult is { Succeeded: true, Principal: not null })
--    │  └─ OpenIdExtensions.GetUserIdentifier (changes below depth limit)
-+    ├─ OpenIdExtensions.FindUserIdentifier (changes below depth limit)
+-    │  └─ OpenIdExtensions.GetUserIdentifier
++    ├─ OpenIdExtensions.FindUserIdentifier
 +    └─ if (!string.IsNullOrEmpty(hintSubject) && !string.IsNullOrEmpty(userIdentifier) && CryptographicO…
-+       └─ AccessController.SignOutAndRedirectAsync (changes below depth limit)
++       └─ AccessController.SignOutAndRedirectAsync
 
   AccessController.LogoutAccept
   ├─ if (response is not null)
-+ └─ AccessController.SignOutAndRedirectAsync (changes below depth limit)
++ └─ AccessController.SignOutAndRedirectAsync
 
   AccessController.Token
   ├─ if (request.IsPasswordGrantType())
@@ -114,7 +114,7 @@ stdout:
   UserInfoController.Me
 ~ ├─ OpenIdExtensions.GetUserIdentifier (changes below depth limit)
   ├─ if (principal.HasScope(Scopes.Roles))
-  ├─ new UserInfoClaimsContext (depth limit)
+  ├─ new UserInfoClaimsContext
   └─ …
 
   DeploymentSourceBase<TStep>.ProcessDeploymentStepAsync

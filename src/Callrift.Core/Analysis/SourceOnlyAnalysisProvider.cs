@@ -152,31 +152,54 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
     private static void AddInitializers(IEnumerable<INamedTypeSymbol> types, CSharpCompilation compilation, Dictionary<string, Member> members, SymbolNames symbols,
         ConcurrentBag<AnalysisDiagnostic> diagnostics, ConcurrentBag<ITypeSymbol> dispatchTypes, CancellationToken cancellationToken)
     {
+        var implicitBases = ConstructorBindings.Create(compilation, types, cancellationToken);
         foreach (var type in types)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var declarations = type.DeclaringSyntaxReferences.Select(r => r.GetSyntax(cancellationToken)).OfType<TypeDeclarationSyntax>()
                 .OrderBy(d => d.SyntaxTree.FilePath, StringComparer.Ordinal).ThenBy(d => d.SpanStart).ToArray();
             var initializers = declarations.SelectMany(d => d.Members).SelectMany(m => m switch
             {
                 FieldDeclarationSyntax field when !field.Modifiers.Any(SyntaxKind.StaticKeyword) && !field.Modifiers.Any(SyntaxKind.ConstKeyword) => field.Declaration.Variables.Select(v => v.Initializer?.Value).OfType<ExpressionSyntax>(),
+                EventFieldDeclarationSyntax field when !field.Modifiers.Any(SyntaxKind.StaticKeyword) => field.Declaration.Variables.Select(v => v.Initializer?.Value).OfType<ExpressionSyntax>(),
                 PropertyDeclarationSyntax { Initializer: { } initializer } property when !property.Modifiers.Any(SyntaxKind.StaticKeyword) => [initializer.Value],
                 _ => Enumerable.Empty<ExpressionSyntax>()
             }).ToArray();
             foreach (var constructor in type.InstanceConstructors)
             {
-                var syntax = constructor.DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax(cancellationToken);
+                cancellationToken.ThrowIfCancellationRequested();
+                var implementation = constructor.PartialImplementationPart ?? constructor;
+                if (implementation.IsExtern) continue;
+                var syntax = implementation.DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax(cancellationToken);
                 if (syntax is ConstructorDeclarationSyntax { Initializer.ThisOrBaseKeyword.RawKind: (int)SyntaxKind.ThisKeyword }) continue;
                 var key = symbols.Key(constructor);
                 members.TryGetValue(key, out var existing);
-                if (initializers.Length == 0 && syntax is not TypeDeclarationSyntax) continue;
-                var calls = initializers.SelectMany(e => new CallCollector(compilation.GetSemanticModel(e.SyntaxTree), symbols, diagnostics, dispatchTypes, cancellationToken).Collect(e)).ToList();
-                var bodyParts = initializers.Select(e => (StatementSyntax)SyntaxFactory.ExpressionStatement(e)).ToList();
+                if (existing is { HasBody: false }) continue;
+                var locationNode = syntax ?? declarations.First();
+                var selectedInitializers = ConstructorBindings.IsCopy(constructor) || type.TypeKind == TypeKind.Struct && constructor.IsImplicitlyDeclared ? [] : initializers;
+                var calls = selectedInitializers.SelectMany(e => new CallCollector(compilation.GetSemanticModel(e.SyntaxTree), symbols, diagnostics, dispatchTypes, cancellationToken).Collect(e)).ToList();
+                var bodyParts = selectedInitializers.Select(e => (StatementSyntax)SyntaxFactory.ExpressionStatement(e)).ToList();
+                var explicitBase = syntax is ConstructorDeclarationSyntax { Initializer: not null };
                 if (syntax is TypeDeclarationSyntax { BaseList: { } bases })
                     foreach (var primaryBase in bases.Types.OfType<PrimaryConstructorBaseTypeSyntax>())
                     {
+                        explicitBase = true;
                         calls.AddRange(new CallCollector(compilation.GetSemanticModel(primaryBase.SyntaxTree), symbols, diagnostics, dispatchTypes, cancellationToken).Collect(primaryBase));
-                        foreach (var argument in primaryBase.ArgumentList.Arguments) bodyParts.Add(SyntaxFactory.ExpressionStatement(argument.Expression));
+                        bodyParts.Add(SyntaxFactory.ExpressionStatement(SyntaxFactory.InvocationExpression(SyntaxFactory.IdentifierName("base"), primaryBase.ArgumentList)));
                     }
+                if (!explicitBase && type.TypeKind == TypeKind.Class && type.BaseType is not null)
+                {
+                    var model = compilation.GetSemanticModel(locationNode.SyntaxTree);
+                    var target = implicitBases.GetValueOrDefault(constructor) ?? (syntax is null ? null : ConstructorBindings.Initializer(model, syntax, cancellationToken));
+                    if (target is not null)
+                        calls.Add(new CallCollector(model, symbols, diagnostics, dispatchTypes, cancellationToken).ImplicitConstructor(locationNode, target));
+                    else
+                    {
+                        diagnostics.Add(new AnalysisDiagnostic("unresolved-call", $"Cannot bind implicit base constructor for {symbols.Label(constructor)}.", symbols.Location(locationNode)));
+                        calls.Add(new CallStep("unresolved", "?base:" + key, "? base()", false, symbols.Location(locationNode), []));
+                    }
+                    bodyParts.Add(SyntaxFactory.ExpressionStatement(SyntaxFactory.InvocationExpression(SyntaxFactory.IdentifierName("base"), SyntaxFactory.ArgumentList())));
+                }
                 if (existing is not null)
                 {
                     calls.AddRange(existing.Calls);
@@ -186,8 +209,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                 }
                 else
                 {
-                    var locationNode = syntax ?? declarations.First();
-                    members[key] = new Member(key, symbols.Label(constructor), symbols.MatchName(constructor), constructor.ToDisplayString(), symbols.Location(locationNode), true, calls)
+                    members[key] = new Member(key, symbols.Label(constructor), symbols.MatchName(constructor), symbols.Signature(constructor), symbols.Location(locationNode), true, calls)
                     {
                         Body = SyntaxFactory.Block(bodyParts),
                         InstanceType = constructor.IsStatic ? null : DispatchType.From(constructor.ContainingType),

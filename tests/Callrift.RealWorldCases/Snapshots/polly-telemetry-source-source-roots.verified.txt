@@ -8,7 +8,7 @@ stdout:
 ~ └─ ResiliencePipelineBuilder<TResult>.Build (changes below depth limit)
 
   TelemetryBenchmark.Prepare
-  ├─ new ResiliencePipelineBuilder
+  ├─ new ResiliencePipelineBuilder (depth limit)
 ~ ├─ TelemetryBenchmark.Build (changes below depth limit)
   └─ if (Telemetry)
 
@@ -49,21 +49,21 @@ stdout:
         └─ TimeoutResiliencePipelineBuilderExtensions.AddTimeout (depth limit)
 
   PollyServiceCollectionExtensions.AddResiliencePipeline
-  ├─ Guard.NotNull ×2 (depth limit)
+  ├─ Guard.NotNull ×2
 ~ └─ PollyServiceCollectionExtensions.AddResiliencePipeline (changes below depth limit)
 
   PollyServiceCollectionExtensions.AddResiliencePipelineRegistry
-  ├─ Guard.NotNull ×2 (depth limit)
+  ├─ Guard.NotNull ×2
 ~ └─ PollyServiceCollectionExtensions.AddResiliencePipelineRegistry (changes below depth limit)
 
   ResiliencePipelineRegistry<TKey>.GetOrAddPipeline
   ├─ ? Guard.NotNull
-  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed (depth limit)
+  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
 ~ └─ ResiliencePipelineRegistry<TKey>.GetOrAddPipeline (changes below depth limit)
 
   ResiliencePipelineRegistry<TKey>.GetOrAddPipeline
   ├─ ? Guard.NotNull
-  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed (depth limit)
+  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
 ~ └─ ResiliencePipelineRegistry<TKey>.GetOrAddPipeline (changes below depth limit)
 
 + new TelemetrySource
@@ -95,7 +95,7 @@ stdout:
   └─ ResiliencePipeline<T>.ExecuteAsync (depth limit)
 
   samples/Intro/Program.cs::<top-level>
-  ├─ new ResiliencePipelineBuilder
+  ├─ new ResiliencePipelineBuilder (depth limit)
   ├─ TimeoutResiliencePipelineBuilderExtensions.AddTimeout (depth limit)
 ~ ├─ ResiliencePipelineBuilder.Build (changes below depth limit)
   ├─ ResiliencePipeline.Execute (depth limit)
@@ -108,17 +108,17 @@ stdout:
 
   samples/Retries/Program.cs::<top-level>
   ├─ …
-  ├─ new RetryStrategyOptions
+  ├─ new RetryStrategyOptions (depth limit)
   ├─ RetryResiliencePipelineBuilderExtensions.AddRetry (depth limit)
 ~ ├─ ResiliencePipelineBuilder.Build (changes below depth limit)
   ├─ ResiliencePipeline.Execute (depth limit)
-  ├─ new ResiliencePipelineBuilder
+  ├─ new ResiliencePipelineBuilder (depth limit)
   ├─ …
   ├─ PredicateBuilder<TResult>.Handle (depth limit)
   ├─ RetryResiliencePipelineBuilderExtensions.AddRetry (depth limit)
 ~ ├─ ResiliencePipelineBuilder.Build (changes below depth limit)
   ├─ ResiliencePipeline.Execute (depth limit)
-  ├─ new ResiliencePipelineBuilder
+  ├─ new ResiliencePipelineBuilder (depth limit)
   ├─ …
   ├─ callback
   ├─ RetryResiliencePipelineBuilderExtensions.AddRetry (depth limit)
@@ -131,15 +131,15 @@ stdout:
 ~ ├─ ResiliencePipelineBuilder<TResult>.Build (changes below depth limit)
   └─ ResiliencePipeline<T>.Execute (depth limit)
 stderr:
+bench/Polly.Benchmarks/Cache.cs:48: unresolved-call: Cannot bind implicit base constructor for new Cache.MemoryCacheProvider.
+bench/Polly.Benchmarks/PollyConfig.cs:5: unresolved-call: Cannot bind implicit base constructor for new PollyConfig.
 bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
 bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
-2020 additional diagnostics; use --diagnostics full.
+2022 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -152,7 +152,7 @@ stdout:
 ~ └─ ResiliencePipelineBuilder<TResult>.Build (changes below depth limit)
 
   TelemetryBenchmark.Prepare
-  ├─ new ResiliencePipelineBuilder
+  ├─ new ResiliencePipelineBuilder (depth limit)
 ~ ├─ TelemetryBenchmark.Build (changes below depth limit)
   └─ if (Telemetry)
 
@@ -193,21 +193,21 @@ stdout:
         └─ TimeoutResiliencePipelineBuilderExtensions.AddTimeout (depth limit)
 
   PollyServiceCollectionExtensions.AddResiliencePipeline
-  ├─ Guard.NotNull ×2 (depth limit)
+  ├─ Guard.NotNull ×2
 ~ └─ PollyServiceCollectionExtensions.AddResiliencePipeline (changes below depth limit)
 
   PollyServiceCollectionExtensions.AddResiliencePipelineRegistry
-  ├─ Guard.NotNull ×2 (depth limit)
+  ├─ Guard.NotNull ×2
 ~ └─ PollyServiceCollectionExtensions.AddResiliencePipelineRegistry (changes below depth limit)
 
   ResiliencePipelineRegistry<TKey>.GetOrAddPipeline
   ├─ ? Guard.NotNull
-  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed (depth limit)
+  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
 ~ └─ ResiliencePipelineRegistry<TKey>.GetOrAddPipeline (changes below depth limit)
 
   ResiliencePipelineRegistry<TKey>.GetOrAddPipeline
   ├─ ? Guard.NotNull
-  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed (depth limit)
+  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
 ~ └─ ResiliencePipelineRegistry<TKey>.GetOrAddPipeline (changes below depth limit)
 
 + new TelemetrySource
@@ -239,7 +239,7 @@ stdout:
   └─ ResiliencePipeline<T>.ExecuteAsync (depth limit)
 
   samples/Intro/Program.cs::<top-level>
-  ├─ new ResiliencePipelineBuilder
+  ├─ new ResiliencePipelineBuilder (depth limit)
   ├─ TimeoutResiliencePipelineBuilderExtensions.AddTimeout (depth limit)
 ~ ├─ ResiliencePipelineBuilder.Build (changes below depth limit)
   ├─ ResiliencePipeline.Execute (depth limit)
@@ -252,17 +252,17 @@ stdout:
 
   samples/Retries/Program.cs::<top-level>
   ├─ …
-  ├─ new RetryStrategyOptions
+  ├─ new RetryStrategyOptions (depth limit)
   ├─ RetryResiliencePipelineBuilderExtensions.AddRetry (depth limit)
 ~ ├─ ResiliencePipelineBuilder.Build (changes below depth limit)
   ├─ ResiliencePipeline.Execute (depth limit)
-  ├─ new ResiliencePipelineBuilder
+  ├─ new ResiliencePipelineBuilder (depth limit)
   ├─ …
   ├─ PredicateBuilder<TResult>.Handle (depth limit)
   ├─ RetryResiliencePipelineBuilderExtensions.AddRetry (depth limit)
 ~ ├─ ResiliencePipelineBuilder.Build (changes below depth limit)
   ├─ ResiliencePipeline.Execute (depth limit)
-  ├─ new ResiliencePipelineBuilder
+  ├─ new ResiliencePipelineBuilder (depth limit)
   ├─ …
   ├─ callback
   ├─ RetryResiliencePipelineBuilderExtensions.AddRetry (depth limit)
@@ -276,12 +276,12 @@ stdout:
   └─ ResiliencePipeline<T>.Execute (depth limit)
 ```
 stderr:
+bench/Polly.Benchmarks/Cache.cs:48: unresolved-call: Cannot bind implicit base constructor for new Cache.MemoryCacheProvider.
+bench/Polly.Benchmarks/PollyConfig.cs:5: unresolved-call: Cannot bind implicit base constructor for new PollyConfig.
 bench/Polly.Benchmarks/PollyConfig.cs:7: unresolved-call: Cannot bind AddDiagnoser.
 bench/Polly.Benchmarks/PollyConfig.cs:8: unresolved-call: Cannot bind AddJob.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind Assembly.GetCallingAssembly.
 bench/Polly.Benchmarks/Program.cs:1: unresolved-call: Cannot bind BenchmarkRunner.Run.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:11: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
 bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:12: unresolved-call: Cannot bind Helper.CreateCircuitBreaker.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:16: unresolved-call: Cannot bind _circuitBreakerV7!.ExecuteAsync.
-bench/Polly.Core.Benchmarks/CircuitBreakerBenchmark.cs:19: unresolved-call: Cannot bind _circuitBreakerV8!.ExecuteAsync.
-2020 additional diagnostics; use --diagnostics full.
+2022 additional diagnostics; use --diagnostics full.

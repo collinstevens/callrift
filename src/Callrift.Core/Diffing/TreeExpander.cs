@@ -66,7 +66,7 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
         if (active.Contains(key))
             return new CallTree(key, member.Label, member.MatchName, member.Signature, [], false, "↺ cycle")
             { Kind = "member", Side = side, Omission = new Omission("cycle", definition) { ReferenceKey = key } };
-        if (depth >= options.MaxDepth)
+        if (depth >= options.MaxDepth && HasVisibleCalls(member.Calls))
             return new CallTree(key, member.Label, member.MatchName, member.Signature, [], ReachesChange(key), ReachesChange(key) ? "changes below depth limit" : "depth limit")
             { Kind = "member", Side = side, Omission = new Omission("depth-limit") };
         var path = new HashSet<string>(active, StringComparer.Ordinal) { key };
@@ -165,6 +165,19 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
             trees.Add(tree);
         }
         return trees;
+    }
+
+    private bool HasVisibleCalls(IEnumerable<CallStep> calls)
+    {
+        foreach (var call in calls)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (call.Kind != "branch" && (call.IsSource || call.Kind == "unresolved" || options.IncludeExternals
+                || resolvedGraph.Members.ContainsKey(call.Key) || resolvedGraph.Targets(call, cancellationToken).Count > 0))
+                return true;
+            if (HasVisibleCalls(call.Children)) return true;
+        }
+        return false;
     }
 
     private bool ReachesChange(string key)
