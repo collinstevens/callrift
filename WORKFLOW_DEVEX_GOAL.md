@@ -8,7 +8,7 @@ Make routine development fast enough that people and agents naturally validate t
 
 Preserve confidence and meaningful coverage while removing repeated setup, process startup, restores, and analysis. Moving a slow suite to CI alone does not achieve this goal.
 
-Progress, the behavior-to-layer inventory, measured samples and remaining evidence gaps are recorded in [development-performance.md](docs/development-performance.md). Completion criteria below remain unchecked until the full requirements are verified.
+Progress, the behavior-to-layer inventory, measured samples and remaining evidence gaps are recorded in [development-performance.md](docs/development-performance.md). Completion criteria below require current evidence for their full scope.
 
 ## Starting evidence
 
@@ -98,7 +98,7 @@ Aim for at least 80% of meaningful behavioral cases to live in the fast layer. U
 
 ## Completion criteria
 
-- [ ] Existing slow tests have a behavior-to-layer inventory, and the expensive cases have an evidence-based migration plan.
+- [x] Existing slow tests have a behavior-to-layer inventory, and the expensive cases have an evidence-based migration plan.
 - [ ] Most meaningful behavioral cases run in the fast tier without per-case CLI, Git, restore, or MSBuild orchestration.
 - [ ] The complete fast tier meets the ten-second prepared-checkout target; startup, incremental build, and cold restore costs are reported honestly.
 - [ ] Renderer checks reuse analysis, while representative CLI format routing and determinism remain covered.

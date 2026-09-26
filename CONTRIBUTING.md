@@ -4,18 +4,20 @@ Install [mise](https://mise.jdx.dev/), then run:
 
 ```sh
 mise install
+mise exec -- dotnet restore callrift.slnx --locked-mode
 mise run hooks:install
 mise run check
 ```
 
-hk checks EditorConfig and .NET formatting before commits and validates conventional commit messages. Pushes do not run builds or tests. Rerun `mise run hooks:install` after pulling hook changes to remove stale local registrations. Fix formatting with `mise run format`. Project tools are pinned in `mise.toml`; `global.json` selects the same .NET SDK.
+hk checks EditorConfig and .NET formatting before commits and validates conventional commit messages. Formatting hooks use `--no-restore`; restore explicitly after dependency changes or when preparing a new checkout. Pushes do not run builds or tests. Rerun `mise run hooks:install` after pulling hook changes to remove stale local registrations. Fix formatting with `mise run format`. Project tools are pinned in `mise.toml`; `global.json` selects the same .NET SDK.
 
-Run focused tests, builds, and benchmarks locally when they are relevant to the change. For example, validate a dispatch change with `mise run test:focused -- 'FullyQualifiedName~ConstraintDispatchTests'`. Use `mise run build` for changes that need a solution build and select benchmark filters for the affected performance area. Documentation-only changes need formatting checks. Use `mise run check:changed` for unstaged changes; commit hooks check staged files automatically. CI runs the full end-to-end scenario suite after a push and provides delayed feedback; do not wait for a full local suite before committing or pushing.
+Run `mise run test` (or `mise run test:fast`) for routine semantic feedback. The fast-tier migration is ongoing: it currently covers 156 in-process cases, so also select affected coverage that has not moved yet. Run focused tests, builds, and benchmarks locally when they are relevant to the change. For example, validate a dispatch change with `mise run test:focused -- 'FullyQualifiedName~ConstraintDispatchTests'`. Use `mise run build` for changes that need a solution build and select benchmark filters for the affected performance area. Documentation-only changes need formatting checks. Use `mise run check:changed` for unstaged changes; commit hooks check staged files automatically. CI runs fast tests, a bounded integration/packaging selection and formatting in independent jobs, with the remaining end-to-end coverage providing delayed feedback; do not wait for a full local suite before committing or pushing.
 
-The focused test tasks require a filter and build their test project as needed. For additional dotnet test options, invoke `mise exec -c 'dotnet test <project> --filter <filter> ...'` directly. Use the full-suite tasks only when explicitly needed for diagnosis or a requested complete run.
+The focused test tasks require a filter and build their test project as needed. Empty, invalid or unmatched selections fail. `test:integration` restricts the supplied filter to non-fast scenario rows; `test:focused` can select either layer. `test:e2e` explicitly runs all non-fast scenarios, workspaces and pinned cases. `test:fast` and `test:e2e` together retain the full suite. No tests have been added to hooks. For additional dotnet test options, invoke `mise exec -c 'dotnet test <project> --filter <filter> ...'` directly. Use the full-suite tasks only when explicitly needed for diagnosis or a requested complete run.
 
 | Changed area | Local command |
 |---|---|
+| Routine semantic feedback | `mise run test:fast` |
 | Scenarios and semantic behavior | `mise run test:focused -- 'FullyQualifiedName~ConstraintDispatchTests'` |
 | Workspaces, packages, and generators | `mise run workspaces:focused -- 'FullyQualifiedName~InterceptorTests'` |
 | A pinned real-world case | `mise run cases:focused -- 'DisplayName~aspnetcore-stream-cts-disposal'` |
@@ -35,7 +37,7 @@ Run real-history snapshots with `mise run cases`. They clone the manifest's repo
 
 Run `mise run benchmark -- --filter '*FloorBenchmarks*' --job short` for the initial floor suite. Performance claims require comparable before/after results and allocation measurements. Keep timing data outside snapshots.
 
-Run `mise run workspaces` for restored project and generator checks, `mise run pack` for installation checks, and `mise run sweep` for a crash sweep over recent upstream history. MSBuild checks restore packages and execute project targets and generators. The published repository runs CI on Ubuntu, Windows, and macOS. Routine CI runs the scenario, workspace, and real-world suites sequentially so their compilations and restores do not compete across suites. Within the scenario suite, up to four test classes run concurrently. Partial-clone tests mutate process-wide Git environment variables and run in an exclusive collection. Put any future process-wide environment mutations in that collection or eliminate the shared state.
+Run `mise run workspaces` for restored project and generator checks, `mise run pack` for installation checks, and `mise run sweep` for a crash sweep over recent upstream history. MSBuild checks restore packages and execute project targets and generators. The published repository runs CI on Ubuntu, Windows, and macOS. CI runs fast tests independently on all three operating systems. Slow CI runs the remaining scenario, workspace, and real-world suites sequentially within each OS job so their compilations and restores do not compete across suites. Superseded runs on the same branch are cancelled and remain reported as cancelled. Test summaries include the revision, failing cases, reproduction command and complete dotnet invocation time; the wrapper adds PowerShell/mise startup time to the local command. Within the scenario suite, up to four test classes run concurrently. Partial-clone tests mutate process-wide Git environment variables and run in an exclusive collection. Put any future process-wide environment mutations in that collection or eliminate the shared state.
 
 `mise run cases` runs every pinned case and view locally. Set `CALLRIFT_CASE_SET=routine` to use the bounded CI selection. The manifest can exclude a whole case or an individual view from that selection with `routine: false`. Scheduled and manual reviewed-case workflows run the complete set on all three operating systems. New multi-view cases require a review document and immutable license blob identities for both revisions. Each view has a ten-minute analysis timeout.
 

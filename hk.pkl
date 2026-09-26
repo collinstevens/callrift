@@ -5,7 +5,20 @@ min_hk_version = "2.1.0"
 
 steps {
   ["editorconfig"] = Builtins.editorconfig_checker
-  ["dotnet-format"] = Builtins.dotnet_format
+  ["dotnet-format"] = (Builtins.dotnet_format) {
+    check = new CommandSpec {
+      command = new Command {
+        argv = List("dotnet", "format", "--no-restore", "--verify-no-changes", "--include", "{{files}}")
+      }
+      effect = "write"
+    }
+    fix = new CommandSpec {
+      command = new Command {
+        argv = List("dotnet", "format", "--no-restore", "--include", "{{files}}")
+      }
+      effect = "write"
+    }
+  }
 }
 
 hooks {

@@ -5,6 +5,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   title:
     if: github.event_name == 'pull_request'
@@ -20,6 +23,57 @@ jobs:
           [IO.File]::WriteAllText($message, $env:PR_TITLE)
           hk util check-conventional-commit $message
           if ($LASTEXITCODE -ne 0) { throw 'Use a conventional commit title for the squash merge.' }
+  fast:
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v3
+      - run: dotnet restore tests/Callrift.Scenarios/Callrift.Scenarios.csproj --locked-mode
+      - run: dotnet build tests/Callrift.Scenarios/Callrift.Scenarios.csproj --no-restore
+      - run: ./scripts/Run-Tests.ps1 -Suite Fast -NoBuild
+  integration:
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v3
+      - run: ./.github/scripts/Initialize-TestGit.ps1
+      - run: dotnet restore tests/Callrift.Scenarios/Callrift.Scenarios.csproj --locked-mode
+      - run: dotnet restore tests/Callrift.Workspaces/Callrift.Workspaces.csproj --locked-mode
+      - run: dotnet build tests/Callrift.Scenarios/Callrift.Scenarios.csproj --no-restore
+      - run: dotnet build tests/Callrift.Workspaces/Callrift.Workspaces.csproj --no-restore
+      - run: ./scripts/Run-Tests.ps1 -Suite Integration -Filter "FullyQualifiedName~QueryTests.InvalidQueries|FullyQualifiedName~ScenarioTests.WorkingTreeAndIndex|FullyQualifiedName~PartialCloneTests" -NoBuild
+      - run: ./scripts/Run-Tests.ps1 -Suite Workspaces -Filter "FullyQualifiedName~WorkspaceTests.Projects|FullyQualifiedName~WorkspaceTests.RequiresRestoredCacheAndExplicitFramework|FullyQualifiedName~WorkspaceTests.Generator|(FullyQualifiedName~WorkspaceTests.Parity&DisplayName~guard)" -NoBuild
+      - run: ./scripts/Package-Smoke.ps1
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v3
+      - run: dotnet restore callrift.slnx --locked-mode
+      - run: mise run check
+      - run: mise run workflows
   verify:
     strategy:
       fail-fast: false
@@ -44,12 +98,9 @@ jobs:
       - run: ./.github/scripts/Initialize-TestGit.ps1
       - run: dotnet restore callrift.slnx --locked-mode
       - run: dotnet build callrift.slnx --no-restore
-      - run: dotnet test tests/Callrift.Scenarios/Callrift.Scenarios.csproj --no-build --logger trx
-      - run: dotnet test tests/Callrift.Workspaces/Callrift.Workspaces.csproj --no-build --logger trx
-      - run: dotnet test tests/Callrift.RealWorldCases/Callrift.RealWorldCases.csproj --no-build --logger trx
-      - run: mise run check
-      - run: mise run workflows
-      - run: ./scripts/Package-Smoke.ps1
+      - run: ./scripts/Run-Tests.ps1 -Suite Scenarios -Filter "Layer!=Fast" -NoBuild
+      - run: ./scripts/Run-Tests.ps1 -Suite Workspaces -NoBuild
+      - run: ./scripts/Run-Tests.ps1 -Suite Cases -NoBuild
       - if: failure()
         uses: actions/upload-artifact@v4
         with:

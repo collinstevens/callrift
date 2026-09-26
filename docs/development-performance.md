@@ -144,6 +144,70 @@ constant negative control and the default-struct constructor negative control.
 The expanded 134-row fast selection passed in 2.31 seconds including startup and
 discovery, with no build or restore. No full-suite improvement is inferred.
 
+## Explicit feedback commands and hook sample
+
+The command/workflow checkpoint (parent `c94cdb5` plus the changes in this commit)
+adds the already-direct cancellation, precancelled Git and ordinary generic-context
+boundary classes to the fast selection. Discovery proves 156 fast rows plus 483
+non-fast rows equals the original 639, with no overlap. The three costly context
+budget rows remain in the slow selection; they are not dropped. Migration of the
+remaining semantic families is still required before claiming the 80% design target.
+
+`mise run test` and `test:fast` run the tagged fast selection. `test:integration`
+requires a filter and intersects it with non-fast scenario rows. `test:focused`
+retains filters spanning either layer, and the workspace/case focused commands
+retain their project-specific filters. `test:e2e` runs the non-fast scenarios and
+full workspace and real-world projects explicitly. All paths use a TRX-checked
+wrapper that fails if nothing executes, if the filter is invalid, if results are
+missing, or if tests fail. Results and reproduction commands include the revision;
+CI uses its existing console and step-summary channels. No new uploads were added.
+
+On the same prepared local machine, the actual `mise run test:fast` command passed
+156 cases in 4.22 seconds including mise, PowerShell, runner startup, incremental
+build and restore checks. The wrapper reported 3.80 seconds for its dotnet invocation.
+This changed-code measurement includes the newly tagged classes. The ordinary
+`mise run test` alias then passed the same 156 rows in 3.87 seconds with unchanged
+C# inputs (3.58 seconds inside dotnet), including the wrapper's explicit dirty-worktree
+label. The initial
+checkout restore measurement remains separately recorded above; neither measurement
+claims an empty global package cache. A real focused integration command passed its
+selected workspace callback-location case. The four-case representative workspace
+selection also passed locally in 33.36 seconds inside dotnet, including Projects;
+that Linux pass does not resolve the earlier macOS restore failure. Blank, missing, malformed and unmatched
+filters all returned nonzero; the focused mise task also rejected an unmatched
+selection that raw VSTest would otherwise report as successful.
+
+Formatting hooks now pass `--no-restore` explicitly. Fresh checkouts and dependency
+changes require an explicit restore, documented in CONTRIBUTING and AGENTS. The
+mise defaults, hook configuration and both instruction documents were updated
+together. No test hook was added.
+
+A bounded sample invoked the installed `.git/hooks/pre-commit` and `commit-msg`
+scripts consecutively, including their mise launch and conventional-message check.
+Five samples staged this checkpoint's source edits; five staged its non-code edits
+with the same source changes left unstaged. The hooks used their real stash policy.
+Raw timings and output are in ignored `artifacts/devex/hooks.json` and hook logs.
+
+| Prepared hook inputs | Samples | Total seconds per invocation pair | Nearest-rank p95 |
+|---|---:|---|---:|
+| Changed code | 5 | 3.530, 3.295, 3.325, 3.112, 3.311 | 3.530 s |
+| Unchanged code / non-code staging | 5 | 0.101, 0.102, 0.103, 0.101, 0.101 | 0.103 s |
+
+This is a small warm-checkout observation, not a confidence interval or a cold-hook
+claim. Hooks performed no build, restore or test execution. Final fast-tier scope
+and cross-platform results remain incomplete, so this sample does not authorize
+silently adding tests to hooks.
+
+CI now has independent three-OS fast and representative integration jobs plus a
+formatting/workflow job. The representative job covers real Git hydration, invalid
+CLI input, index/working tree, workspace parity, project references, a generator,
+restored-cache/framework errors and installed packaging. It has a ten-minute timeout;
+a timeout is failure, not evidence of meeting the target. Broad non-fast scenarios,
+workspaces and routine real-world cases still run sequentially in a separate OS
+matrix. Scheduled/manual all-case workflows and release validation remain intact.
+New pushes cancel superseded runs on the same workflow/ref; cancellation remains
+visible and is never counted as success. Actual new-platform CI timings are pending.
+
 ## CI evidence and outstanding failure
 
 The public run page and GitHub connector provide read-only CI access even when
@@ -297,7 +361,7 @@ with independently defined expectations and per-case mutable state.
    cache failure/invalidation, isolation and process tests at their real boundaries.
 4. Tag and measure the complete fast selection, including discovery and startup,
    then expose validated fast/integration/E2E commands and independent CI jobs.
-   The current 134 migrated source rows alone do not constitute the fast tier.
+   The 156 currently tagged source rows do not yet cover the intended final fast tier.
 
 `PartialCloneTests` mutates `GIT_TRACE2_EVENT` and `GIT_NO_LAZY_FETCH`; it remains
 in `ProcessEnvironmentCollection` with parallelization disabled. Other fixture
@@ -308,7 +372,7 @@ sample observed eight dotnet processes; it does not establish peak count. CPU,
 aggregate memory, process-count sampling and the remaining serial tail still need
 measurement before tuning concurrency. Child restore/MSBuild work already overlaps.
 
-No fast hook has been added. Full-tier latency, changed/unchanged hook p95,
-supported-platform CI evidence, broad migration share and a full before/after
-comparison remain unproven. Existing formatting/message gates and asynchronous
-E2E policy remain in force.
+No fast hook has been added. The current selection and warm formatting hooks have
+measured invocation costs, but final fast-tier scope, supported-platform CI evidence
+and broad migration share remain incomplete. No full-suite speedup is claimed.
+Formatting/message gates and asynchronous E2E policy remain in force.
