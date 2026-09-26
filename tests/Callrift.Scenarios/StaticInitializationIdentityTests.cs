@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -6,11 +7,18 @@ namespace Callrift.Scenarios;
 public sealed class StaticInitializationIdentityTests
 {
     [Theory]
-    [InlineData(false, false)]
-    [InlineData(false, true)]
-    [InlineData(true, false)]
-    [InlineData(true, true)]
-    public async Task PartialDeclarationsPreserveWithinPartOrder(bool workspace, bool reverse)
+    [InlineData(false)]
+    [InlineData(true)]
+    [Trait("Layer", "Fast")]
+    public Task PartialDeclarationsPreserveWithinPartOrder(bool reverse) => VerifyPartialDeclarationOrder(false, reverse);
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    [Trait("Layer", "Integration")]
+    public Task WorkspacePartialDeclarationsPreserveWithinPartOrder(bool reverse) => VerifyPartialDeclarationOrder(true, reverse);
+
+    private static async Task VerifyPartialDeclarationOrder(bool workspace, bool reverse)
     {
         var before = new Dictionary<string, string>
         {
@@ -20,9 +28,27 @@ public sealed class StaticInitializationIdentityTests
             ["App.csproj"] = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework><EnableDefaultCompileItems>false</EnableDefaultCompileItems></PropertyGroup><ItemGroup><Compile Include=\"" + (reverse ? "B.cs;A.cs;Common.cs" : "A.cs;B.cs;Common.cs") + "\"/></ItemGroup></Project>"
         };
         var after = new Dictionary<string, string>(before) { ["A.cs"] = before["A.cs"].Replace("Sink.First()", "Sink.Second()", StringComparison.Ordinal) };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("static-partial-order", "Partial declaration order is unspecified while each declaration retains its source order.", before, after, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        using var tree = Parse(await fixture.RunAsync(["tree", fixture.Before, "--entry", "Entry.Run", "--depth", "20", "--format", "json", .. mode]));
+        var scenario = new Scenario("static-partial-order", "Partial declaration order is unspecified while each declaration retains its source order.", before, after, []);
+        IReadOnlyDictionary<string, string> outputs;
+        if (workspace)
+        {
+            await using var fixture = await GitFixture.CreateAsync(scenario);
+            var rendered = new Dictionary<string, string>();
+            foreach (var format in new[] { "json", "text", "md" })
+            {
+                string[] restore = format == "json" ? [] : ["--no-restore"];
+                var output = await fixture.RunAsync(["tree", fixture.Before, "--entry", "Entry.Run", "--depth", "20", "--format", format, "--project", "App.csproj", .. restore]);
+                Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
+                rendered[format] = output;
+            }
+            outputs = rendered;
+        }
+        else
+        {
+            await using var fixture = await AnalysisFixture.CreateAsync(scenario, workspace: false);
+            outputs = await fixture.QueryFormatsAsync(new DiffOptions { Entries = ["Entry.Run"], MaxDepth = 20 }, before: true);
+        }
+        using var tree = workspace ? Parse(outputs["json"]) : JsonDocument.Parse(outputs["json"]);
         var nodes = Flatten(tree.RootElement.GetProperty("trees")).ToArray();
         var initializer = Assert.Single(nodes, node => node.GetProperty("label").GetString() == "initialization of State");
         var children = initializer.GetProperty("children").EnumerateArray().ToArray();
@@ -40,16 +66,16 @@ public sealed class StaticInitializationIdentityTests
         Assert.Equal("static-initializer-order", diagnostic.GetProperty("code").GetString());
         foreach (var format in new[] { "text", "md" })
         {
-            var output = await fixture.RunAsync(["tree", fixture.Before, "--entry", "Entry.Run", "--depth", "20", "--format", format, .. mode]);
-            Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
+            var output = outputs[format];
             Assert.Contains("order between parts unspecified", output);
-            Assert.Contains("static-initializer-order", output);
+            if (workspace) Assert.Contains("static-initializer-order", output);
         }
     }
 
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
+    [Trait("Layer", "Integration")]
     public async Task SameAssemblyNamesRetainDeclaringProject(bool leftInitializer)
     {
         const string project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework><AssemblyName>Shared</AssemblyName></PropertyGroup></Project>";
@@ -76,7 +102,7 @@ public sealed class StaticInitializationIdentityTests
             Assert.Equal("project:Left/Left.csproj@net11.0::State..cctor()", initializer.GetProperty("after").GetProperty("symbolId").GetString());
             Assert.Equal("Left/Flow.cs", initializer.GetProperty("after").GetProperty("definition").GetProperty("path").GetString());
         }
-        using var reach = Parse(await fixture.RunAsync(["reach", fixture.Before, "--entry", "Consumer.Run", "--to", "RightSink.Before", "--solution", "App.slnx", "--depth", "20", "--format", "json"]));
+        using var reach = Parse(await fixture.RunAsync(["reach", fixture.Before, "--entry", "Consumer.Run", "--to", "RightSink.Before", "--solution", "App.slnx", "--no-restore", "--depth", "20", "--format", "json"]));
         Assert.Empty(reach.RootElement.GetProperty("paths").EnumerateArray());
     }
 

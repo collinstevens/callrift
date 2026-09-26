@@ -1,3 +1,4 @@
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -5,11 +6,18 @@ namespace Callrift.Scenarios;
 public sealed class FileLocalIdentityTests
 {
     [Theory]
-    [InlineData(false, false)]
-    [InlineData(true, false)]
-    [InlineData(false, true)]
-    [InlineData(true, true)]
-    public async Task FileLocalTypesKeepTheirOwnCallers(bool workspace, bool interfaceDispatch)
+    [InlineData(false)]
+    [InlineData(true)]
+    [Trait("Layer", "Fast")]
+    public Task FileLocalTypesKeepTheirOwnCallers(bool interfaceDispatch) => VerifyFileLocalCallers(false, interfaceDispatch);
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceFileLocalTypesKeepTheirOwnCallers(bool interfaceDispatch) => VerifyFileLocalCallers(true, interfaceDispatch);
+
+    private static async Task VerifyFileLocalCallers(bool workspace, bool interfaceDispatch)
     {
         var before = new Dictionary<string, string>
         {
@@ -27,19 +35,20 @@ public sealed class FileLocalIdentityTests
         {
             ["First.cs"] = before["First.cs"].Replace("=> Before();", "=> After();", StringComparison.Ordinal)
         };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("file-local-identity", "Identically named file-local types bind to their own files and retain distinct callers.", before, after, []));
-        string[] selection = workspace ? ["--project", "App.csproj"] : [];
+        var scenario = new Scenario("file-local-identity", "Identically named file-local types bind to their own files and retain distinct callers.", before, after, []);
+        await using var fixture = workspace ? await AnalysisFixture.CreateWorkspaceCliAsync(scenario)
+            : await AnalysisFixture.CreateAsync(scenario, workspace: false);
+        var diffs = await fixture.DiffFormatsAsync(new DiffOptions());
+        var trees = await fixture.QueryFormatsAsync(new DiffOptions { Entries = ["Second.Entry"] });
         foreach (var format in new[] { "text", "md", "json" })
         {
-            var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. selection, "--format", format]);
-            Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
+            var output = diffs[format];
             Assert.Contains("First.Entry", output);
             Assert.Contains("Worker.Before", output);
             Assert.Contains("Worker.After", output);
             Assert.DoesNotContain("Second.Entry", output);
             Assert.DoesNotContain("duplicate-member", output);
-            var other = await fixture.RunAsync(["tree", fixture.After, "--entry", "Second.Entry", .. selection, "--format", format]);
-            Assert.True(other.StartsWith("exit: 0\n", StringComparison.Ordinal), other);
+            var other = trees[format];
             Assert.Contains("Worker.Unrelated", other);
             Assert.DoesNotContain("Worker.After", other);
         }

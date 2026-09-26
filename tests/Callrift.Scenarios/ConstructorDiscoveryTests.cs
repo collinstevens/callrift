@@ -1,23 +1,27 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
 
 public sealed class ConstructorDiscoveryTests
 {
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task AddedAndRemovedTypesExposeTheirDefaultConstructors(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task AddedAndRemovedTypesExposeTheirDefaultConstructors() => VerifyAddedAndRemovedTypesExposeTheirDefaultConstructors(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceAddedAndRemovedTypesExposeTheirDefaultConstructors() => VerifyAddedAndRemovedTypesExposeTheirDefaultConstructors(true);
+
+    private static async Task VerifyAddedAndRemovedTypesExposeTheirDefaultConstructors(bool workspace)
     {
         const string project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>";
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("constructor-discovery", "Adding or removing a type adds or removes its available default constructor.",
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("constructor-discovery", "Adding or removing a type adds or removes its available default constructor.",
             new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = "public class Removed { }" },
-            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = "public class Added { }" }, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--externals", "--format", "json", .. mode]);
-        Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
-        using var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = "public class Added { }" }, []), workspace);
+        var output = await fixture.DiffAsync(new DiffOptions { IncludeExternals = true });
+        using var document = JsonDocument.Parse(output);
         Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.True(document.RootElement.GetProperty("hasChanges").GetBoolean());
         var roots = document.RootElement.GetProperty("trees").EnumerateArray().ToArray();
