@@ -12,7 +12,7 @@ remain under review. Unsampled classes have no measured cost rank.
 | Latest prepared fast command, `9e7a117` | 350 passed in 4.58 s including changed-code build, mise and PowerShell |
 | Matched complete scenario runs | The same 655 names passed in 460.06 s with default ordering and 448.36 s with prioritized ordering |
 | Fresh checkout, warm SDK/package caches | Explicit restore 1.07 s; installed commit hooks 3.79 s; first fast command and build 4.76 s |
-| Supported-platform feedback, `9e7a117` | Fast, representative integration/packaging and quality passed; broad macOS verification exposed the recurring restore-path failure diagnosed below |
+| Supported-platform feedback, `90083f5` | All three fast and representative integration/packaging jobs passed, plus quality; broad verification remains running after the fixture-path repairs |
 | Preservation | 681 scenario/workspace executions retained; reviewed snapshots and production code unchanged from `56e12bf` |
 
 The matched scenario comparison is one observation, not a full E2E speedup claim.
@@ -562,8 +562,16 @@ continues resolving links in their descendants. This preserves drive/share roots
 and the physical-path correction without suppressing filesystem errors. Under the
 nested symlink `TMPDIR`, all 17 existing Git/CLI, partial-clone, file-local and
 syntax-identity cases passed in 31.71 seconds overall; the three Projects,
-Generator and cache/framework cases passed in 26.26 seconds overall. Hosted
-Windows validation and terminal broad results for the correction remain pending.
+Generator and cache/framework cases passed in 26.26 seconds overall.
+
+[Run 36257230296](https://github.com/collinstevens/callrift/actions/runs/36257230296)
+for `90083f5` passed all 350 fast cases on each supported OS, all three
+representative integration/packaging jobs, and quality. In particular, Windows
+passed the 12 real Git/CLI cases that previously failed at fixture creation and
+all four workspace cases; macOS also passed Projects again. Fast dotnet invocations
+took 9.41 seconds on Ubuntu, 7.36 on Windows and 7.05 on macOS after separate
+restore/build steps. These figures exclude PowerShell/mise startup. The three
+broad verification jobs remain running and are not reported as passed.
 
 ## Explicit feedback commands and hook sample
 
