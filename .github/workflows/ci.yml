@@ -39,6 +39,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: jdx/mise-action@v3
+        env:
+          MISE_JOBS: ${{ runner.os == 'Windows' && '1' || '4' }}
       - run: dotnet restore tests/Callrift.Scenarios/Callrift.Scenarios.csproj --locked-mode
       - run: dotnet build tests/Callrift.Scenarios/Callrift.Scenarios.csproj --no-restore
       - run: ./scripts/Run-Tests.ps1 -Suite Fast -NoBuild
@@ -58,6 +60,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: jdx/mise-action@v3
+        env:
+          MISE_JOBS: ${{ runner.os == 'Windows' && '1' || '4' }}
       - run: ./.github/scripts/Initialize-TestGit.ps1
       - run: dotnet restore tests/Callrift.Scenarios/Callrift.Scenarios.csproj --locked-mode
       - run: dotnet restore tests/Callrift.Workspaces/Callrift.Workspaces.csproj --locked-mode
@@ -91,6 +95,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: jdx/mise-action@v3
+        env:
+          MISE_JOBS: ${{ runner.os == 'Windows' && '1' || '4' }}
       - uses: actions/cache@v4
         with:
           path: ${{ github.workspace }}/../callrift-real-world-cases
