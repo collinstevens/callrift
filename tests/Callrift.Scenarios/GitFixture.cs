@@ -7,8 +7,8 @@ namespace Callrift.Scenarios;
 
 public sealed class GitFixture : IAsyncDisposable
 {
-    public string Directory { get; } = Path.Combine(Path.GetTempPath(), "callrift-fixture-" + Guid.NewGuid().ToString("N"));
-    public string WorkspaceCache { get; } = Path.Combine(Path.GetTempPath(), "callrift-workspace-fixture-" + Guid.NewGuid().ToString("N"));
+    public string Directory { get; } = FixtureDirectory.CreatePath("callrift-fixture-");
+    public string WorkspaceCache { get; } = FixtureDirectory.CreatePath("callrift-workspace-fixture-");
     public string Before { get; private set; } = "";
     public string After { get; private set; } = "";
 

@@ -12,7 +12,7 @@ remain under review. Unsampled classes have no measured cost rank.
 | Latest prepared fast command, `9e7a117` | 350 passed in 4.58 s including changed-code build, mise and PowerShell |
 | Matched complete scenario runs | The same 655 names passed in 460.06 s with default ordering and 448.36 s with prioritized ordering |
 | Fresh checkout, warm SDK/package caches | Explicit restore 1.07 s; installed commit hooks 3.79 s; first fast command and build 4.76 s |
-| Supported-platform feedback, `9e7a117` | Fast, representative integration/packaging and quality passed; broad verification remains running |
+| Supported-platform feedback, `9e7a117` | Fast, representative integration/packaging and quality passed; broad macOS verification exposed the recurring restore-path failure diagnosed below |
 | Preservation | 681 scenario/workspace executions retained; reviewed snapshots and production code unchanged from `56e12bf` |
 
 The matched scenario comparison is one observation, not a full E2E speedup claim.
@@ -509,10 +509,45 @@ Hosted first-invocation timings differ from the prepared local development budge
 the table does not claim a sub-ten-second total on every CI host. Representative
 job times include tool setup, builds, 12 real Git/CLI cases, four workspace cases
 and installed-package smoke checks; queue time is excluded. All are below the
-ten-minute feedback target. The three broad verification jobs remain active and
-are not reported as passed. Their terminal results are the remaining completion
-evidence. Documentation-only evidence checkpoints use `[skip ci]` to preserve the
-ongoing validation of unchanged source rather than cancel it with an identical run.
+ten-minute feedback target. Broad macOS verification subsequently passed all 305
+slow scenarios but failed one of 26 workspace cases; the other two broad jobs
+remain active. Their terminal results and validation of the fixture repair below
+are remaining completion evidence. Documentation-only evidence checkpoints use
+`[skip ci]` to preserve ongoing validation of unchanged source rather than cancel
+it with an identical run.
+
+## Resolve physical fixture directories
+
+The macOS `WorkspaceTests.Projects` failure in `9e7a117` repeats the baseline
+failure: NuGet reports an existing generated `A.csproj.nuget.g.props` file during
+solution restore. The failed path begins with `/private` while the fixture root
+uses its temporary-directory alias. The other 25 workspace cases passed; real-world
+cases were skipped after the workspace failure.
+
+A temporary Linux reproduction used the same three-project solution shape and SDK,
+with one project referenced both by the solution and another project. Restoring
+through a symlinked root failed in two of three fresh-obj attempts with the same
+generated-file collision. The successful alias attempt's restore graph included
+both alias and physical paths for project A. All three physical-root controls
+passed and contained only the three distinct physical project paths. This exposes
+duplicate restore identities for one physical project, rather than a snapshot or
+semantic-analysis discrepancy. Diagnostic logs remain in ignored `artifacts/devex`.
+
+Fixture paths now resolve links in the temporary directory and its ancestors before
+allocating unique repository, workspace-cache and analyzed-workspace directories.
+The helper is shared by the scenario and workspace assemblies, uses no child
+processes, and preserves per-fixture isolation. Production path handling and
+reviewed expectations are unchanged; explicitly symlinked production cache paths
+are outside this harness correction.
+
+On the local Ubuntu machine, the existing Projects, Generator and restored-cache/
+framework cases passed with `TMPDIR` pointing below a symlinked ancestor: three
+cases, 28.24 seconds including dotnet startup/build/restore, 28.55 seconds including
+mise and PowerShell. Five existing workspace file-local and syntax-identity cases
+also passed below a symlinked ancestor, exercising both real CLI materialization
+and direct workspace graph reuse: 30.60 seconds for dotnet, 30.92 seconds overall.
+All 350 fast cases passed afterward in 4.01 seconds for the dotnet invocation.
+Hosted macOS validation of this correction remains pending.
 
 ## Explicit feedback commands and hook sample
 

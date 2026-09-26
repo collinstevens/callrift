@@ -10,7 +10,7 @@ public static class WorkspaceFixture
 {
     public static async Task<(CallGraph Before, CallGraph After)> AnalyzeAsync(Scenario scenario, bool includeTests = false)
     {
-        var directory = Path.Combine(Path.GetTempPath(), "callrift-analysis-fixture-" + Guid.NewGuid().ToString("N"));
+        var directory = FixtureDirectory.CreatePath("callrift-analysis-fixture-");
         try
         {
             var before = await AnalyzeAsync(Path.Combine(directory, "before"), scenario.Before, includeTests);
