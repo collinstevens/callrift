@@ -227,6 +227,23 @@ bounded measurements; the final fast-layer scope is still incomplete. All 37
 workspace rows in these six classes passed in 87.50 seconds of dotnet invocation,
 including the retained diagnostic stderr matrix.
 
+## Project classification migration
+
+Parent `c7362f8`: five literal/conditional metadata rows, nine assembly-reference
+rows and two source shared-settings rows now analyze real source snapshots directly.
+Assembly-reference cases analyze inclusion and exclusion separately, then reuse each
+result across all three renderers. Their existing application/test, condition,
+explicit-override and inference controls are unchanged. The two evaluated solution
+rows retain the real four-project .NET 10 CLI/MSBuild fixture with shared targets,
+package references and both test-inclusion modes. They restore once before their
+first format, then use the existing isolated cache without restoring again.
+
+The everyday fast command passed 255 rows in 4.19 seconds including mise, PowerShell
+and changed-code incremental build (3.94 seconds inside dotnet). Discovery remains
+639: 255 Fast plus 384 non-Fast, no overlap. No snapshot or production code changed.
+Both retained solution rows passed in 31.11 seconds of dotnet invocation.
+No full-suite speedup or completed coverage-percentage claim follows from this count.
+
 ## Explicit feedback commands and hook sample
 
 The command/workflow checkpoint (parent `c94cdb5` plus the changes in this commit)
@@ -430,7 +447,7 @@ with independently defined expectations and per-case mutable state.
 | [GitCancellationTests](../tests/Callrift.Scenarios/GitCancellationTests.cs) | Precancelled Git operations avoid inaccessible repositories | Already direct; measure before adding to the fast tier. Keep budget stress cases separately selectable if needed. |
 | [InterfaceReceiverTests](../tests/Callrift.Scenarios/InterfaceReceiverTests.cs) | Interface receiver constraints and abstract class implementations | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [PartialCloneTests](../tests/Callrift.Scenarios/PartialCloneTests.cs) | Git object hydration, ordering, errors and cancellation | Keep real repositories, fetches and child processes; retain exclusive environment collection. |
-| [ProjectClassificationTests](../tests/Callrift.Scenarios/ProjectClassificationTests.cs) | Literal metadata and conditional test-project classification | Keep metadata inference in memory; retain MSBuild classification and shared Directory.Build.props wiring. |
+| [ProjectClassificationTests](../tests/Callrift.Scenarios/ProjectClassificationTests.cs) | Literal metadata and conditional test-project classification | Literal metadata and framework-reference classification now run directly, with shared renderer results. Evaluated multi-project test/application classification remains real CLI/MSBuild. |
 | [QueryTests](../tests/Callrift.Scenarios/QueryTests.cs) | Tree/reach selection, depth/path limits, cycles, strict/exit-code behavior, merge base and invalid arguments | Move graph traversal to direct queries; keep CLI status/diagnostics, argument errors, merge base and a three-format matrix. |
 | [ReceiverConstraintTests](../tests/Callrift.Scenarios/ReceiverConstraintTests.cs) | Reference casts, conversions, sibling overrides and generic substitutions | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [ReceiverContextBoundaryTests](../tests/Callrift.Scenarios/ReceiverContextBoundaryTests.cs) | Receiver-state budget preserves unchanged callers | Already direct; measure before adding to the fast tier. Keep budget stress cases separately selectable if needed. |
@@ -449,7 +466,7 @@ with independently defined expectations and per-case mutable state.
 | [StaticInitializationIdentityTests](../tests/Callrift.Scenarios/StaticInitializationIdentityTests.cs) | Partial initializer ordering and declaring-project identity | Direct within-part order can move; retain separate projects with identical assembly/type names. |
 | [StaticInitializationTests](../tests/Callrift.Scenarios/StaticInitializationTests.cs) | Conditional initialization and declaring-project links | Source rows reuse direct graphs; workspace semantic rows reuse real MSBuild graphs. Representative CLI routing and dedicated boundary suites remain. |
 | [SyntaxIdentityTests](../tests/Callrift.Scenarios/SyntaxIdentityTests.cs) | Formatting-insensitive identity versus significant literal whitespace | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
-| [TestAssemblyClassificationTests](../tests/Callrift.Scenarios/TestAssemblyClassificationTests.cs) | Test assembly reference recognition and conditions | Move classification to snapshots; retain an actual evaluated test/application workspace boundary. |
+| [TestAssemblyClassificationTests](../tests/Callrift.Scenarios/TestAssemblyClassificationTests.cs) | Test assembly reference recognition and conditions | Literal metadata and framework-reference classification now run directly, with shared renderer results. Evaluated multi-project test/application classification remains real CLI/MSBuild. |
 | [TopLevelConstructorTests](../tests/Callrift.Scenarios/TopLevelConstructorTests.cs) | Partial top-level Program constructor binding | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [VarianceCompatibilityTests](../tests/Callrift.Scenarios/VarianceCompatibilityTests.cs) | Variant compatibility, inheritance and nested variance | Source rows now reuse direct graphs and results across renderers; workspace rows retain actual MSBuild analysis and the original semantic assertions. |
 | [VirtualDispatchTests](../tests/Callrift.Scenarios/VirtualDispatchTests.cs) | Overrides, direct base calls, exact receivers and method groups | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
@@ -482,7 +499,7 @@ with independently defined expectations and per-case mutable state.
    cache failure/invalidation, isolation and process tests at their real boundaries.
 4. Tag and measure the complete fast selection, including discovery and startup,
    then expose validated fast/integration/E2E commands and independent CI jobs.
-   The 239 currently tagged source rows do not yet cover the intended final fast tier.
+   The 255 currently tagged source rows do not yet cover the intended final fast tier.
 
 `PartialCloneTests` mutates `GIT_TRACE2_EVENT` and `GIT_NO_LAZY_FETCH`; it remains
 in `ProcessEnvironmentCollection` with parallelization disabled. Other fixture

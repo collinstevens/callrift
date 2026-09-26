@@ -1,7 +1,9 @@
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
 
+[Trait("Layer", "Fast")]
 public sealed class TestAssemblyClassificationTests
 {
     [Theory]
@@ -29,19 +31,21 @@ public sealed class TestAssemblyClassificationTests
         {
             ["src/Worker.cs"] = before["src/Worker.cs"].Replace("Before();", "After();", StringComparison.Ordinal)
         };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("test-assembly-reference",
-            "Direct test-framework references identify test executables while explicit applications remain visible.", before, after, []));
+        var scenario = new Scenario("test-assembly-reference",
+            "Direct test-framework references identify test executables while explicit applications remain visible.", before, after, []);
+        await using var fixture = await AnalysisFixture.CreateAsync(scenario, workspace: false);
+        await using var includedFixture = await AnalysisFixture.CreateAsync(scenario, workspace: false, includeTests: true);
+        var outputs = await fixture.DiffFormatsAsync(new DiffOptions());
+        var includedOutputs = await includedFixture.DiffFormatsAsync(new DiffOptions { IncludeTests = true });
         foreach (var format in new[] { "text", "md", "json" })
         {
-            var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--format", format]);
-            Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
+            var output = outputs[format];
             Assert.Contains("Sample.Main", output);
             Assert.Contains("Worker.After", output);
             if (included) Assert.Contains("Checks.Main", output);
             else Assert.DoesNotContain("Checks.Main", output);
             if (format == "json" && condition.Length > 0) Assert.Contains("test-project-inferred", output);
-            var withTests = await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--tests", "--format", format]);
-            Assert.True(withTests.StartsWith("exit: 0\n", StringComparison.Ordinal), withTests);
+            var withTests = includedOutputs[format];
             Assert.Contains("Checks.Main", withTests);
             Assert.Contains("Sample.Main", withTests);
         }

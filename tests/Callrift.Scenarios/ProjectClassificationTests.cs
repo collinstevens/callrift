@@ -1,3 +1,4 @@
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -10,6 +11,7 @@ public sealed class ProjectClassificationTests
     [InlineData("<OutputType>Library</OutputType>", "<OutputType>Exe</OutputType>", "tests/Host", false, true)]
     [InlineData("<ProjectType>Test</ProjectType><OutputType>Exe</OutputType>", "", "tests/Host", false, true)]
     [InlineData("<OutputType>Exe</OutputType>", "<IsTestProject Condition=\"'$(OptionalTests)' == 'true'\">true</IsTestProject>", "tests/Host", true, true)]
+    [Trait("Layer", "Fast")]
     public async Task LiteralOverridesAndConditionalMetadataStayDistinct(string metadata, string defaults, string directory, bool included, bool inferred)
     {
         var before = new Dictionary<string, string>
@@ -23,9 +25,8 @@ public sealed class ProjectClassificationTests
         {
             ["src/Worker.cs"] = before["src/Worker.cs"].Replace("Before();", "After();", StringComparison.Ordinal)
         };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("test-metadata", "Literal project overrides win and conditional test metadata is reported as inferred.", before, after, []));
-        var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--format", "json"]);
-        Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("test-metadata", "Literal project overrides win and conditional test metadata is reported as inferred.", before, after, []), workspace: false);
+        var output = await fixture.DiffAsync();
         Assert.Contains("Worker.Before", output);
         Assert.Contains("Worker.After", output);
         if (included) Assert.Contains("Host.Entry", output);
@@ -35,11 +36,18 @@ public sealed class ProjectClassificationTests
     }
 
     [Theory]
-    [InlineData(false, false)]
-    [InlineData(false, true)]
-    [InlineData(true, false)]
-    [InlineData(true, true)]
-    public async Task SharedTestSettingsExcludeChecksAndKeepApplications(bool workspace, bool includeTests)
+    [InlineData(false)]
+    [InlineData(true)]
+    [Trait("Layer", "Fast")]
+    public Task SharedTestSettingsExcludeChecksAndKeepApplications(bool includeTests) => VerifySharedTestSettings(false, includeTests);
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceSharedTestSettingsExcludeChecksAndKeepApplications(bool includeTests) => VerifySharedTestSettings(true, includeTests);
+
+    private static async Task VerifySharedTestSettings(bool workspace, bool includeTests)
     {
         const string library = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net10.0</TargetFramework></PropertyGroup></Project>";
         const string reference = "<ItemGroup><ProjectReference Include=\"../../src/Core/Core.csproj\" /></ItemGroup>";
@@ -61,13 +69,30 @@ public sealed class ProjectClassificationTests
         {
             ["src/Core/Worker.cs"] = before["src/Core/Worker.cs"].Replace("Before();", "After();", StringComparison.Ordinal)
         };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("shared-test-settings", "Test checks are excluded while application callers under test directories and Latest remain visible.", before, after, []));
-        string[] mode = workspace ? ["--solution", "App.slnx"] : [];
-        string[] tests = includeTests ? ["--tests"] : [];
+        var scenario = new Scenario("shared-test-settings", "Test checks are excluded while application callers under test directories and Latest remain visible.", before, after, []);
+        IReadOnlyDictionary<string, string> outputs;
+        if (workspace)
+        {
+            await using var fixture = await GitFixture.CreateAsync(scenario);
+            var rendered = new Dictionary<string, string>();
+            string[] tests = includeTests ? ["--tests"] : [];
+            foreach (var format in new[] { "text", "md", "json" })
+            {
+                string[] restore = format == "text" ? [] : ["--no-restore"];
+                var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--solution", "App.slnx", .. tests, .. restore, "--format", format]);
+                Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
+                rendered[format] = output;
+            }
+            outputs = rendered;
+        }
+        else
+        {
+            await using var fixture = await AnalysisFixture.CreateAsync(scenario, workspace: false, includeTests: includeTests);
+            outputs = await fixture.DiffFormatsAsync(new DiffOptions { IncludeTests = includeTests });
+        }
         foreach (var format in new[] { "text", "md", "json" })
         {
-            var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. mode, .. tests, "--format", format]);
-            Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
+            var output = outputs[format];
             Assert.Contains("Sample.Main", output);
             Assert.Contains("Latest.Run", output);
             Assert.Contains("Worker.Before", output);
