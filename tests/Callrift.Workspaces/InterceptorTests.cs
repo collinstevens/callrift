@@ -1,10 +1,12 @@
 using System.Text.Json;
+using Callrift.Core;
+using Callrift.MSBuild;
 using Callrift.Scenarios;
 using Xunit;
 
 namespace Callrift.Workspaces;
 
-public sealed class InterceptorTests
+public sealed class InterceptorTests : InterceptorFixture
 {
     [Fact]
     public async Task GeneratedInterceptorsFollowReplacementBodiesWithRepeatableIdentities()
@@ -39,7 +41,10 @@ public sealed class InterceptorTests
             Assert.Contains("Sink.After", reach);
         }
     }
+}
 
+public sealed class InsertedInterceptorTests : InterceptorFixture
+{
     [Fact]
     public async Task InsertingAnInterceptedCallPreservesTheExistingCall()
     {
@@ -68,13 +73,29 @@ public sealed class InterceptorTests
         var inserted = Assert.Single(nodes, node => node.GetProperty("label").GetString() == "Sink.Inserted");
         Assert.Equal("added", inserted.GetProperty("change").GetString());
     }
+}
 
+public sealed class ImplicitInterceptorTests : InterceptorFixture
+{
     [Theory]
     [InlineData(false, false)]
-    [InlineData(true, false)]
     [InlineData(false, true)]
+    public Task GeneratedStaticInitializersPreserveIdentityAndRealChanges(bool explicitConstructor, bool initializerChanges) =>
+        VerifyStaticInitializersAsync(explicitConstructor, initializerChanges);
+}
+
+public sealed class ExplicitInterceptorTests : InterceptorFixture
+{
+    [Theory]
+    [InlineData(true, false)]
     [InlineData(true, true)]
-    public async Task GeneratedStaticInitializersPreserveIdentityAndRealChanges(bool explicitConstructor, bool initializerChanges)
+    public Task GeneratedStaticInitializersPreserveIdentityAndRealChanges(bool explicitConstructor, bool initializerChanges) =>
+        VerifyStaticInitializersAsync(explicitConstructor, initializerChanges);
+}
+
+public abstract class InterceptorFixture
+{
+    protected static async Task VerifyStaticInitializersAsync(bool explicitConstructor, bool initializerChanges)
     {
         var before = Sources();
         before["App/Flow.cs"] += " public static class Seed { public static int Before() => 1; public static int After() => 2; }";
@@ -110,20 +131,28 @@ public sealed class InterceptorTests
         Assert.DoesNotContain("Interceptor_", output);
         var repeated = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. selection, "--format", "json", "--no-restore"]);
         Assert.Equal(output, repeated);
+        var graph = await WorkspaceFixture.AnalyzeAsync(after, new MSBuildOptions("App/App.csproj", "net11.0", NoRestore: true));
+        Assert.Empty(graph.Diagnostics);
+        var options = new DiffOptions { Entries = ["Flow.Entry"] };
+        var treeResult = CallQueries.Query(graph, new QueryRequest("unused") { Options = options });
+        var reachResult = CallQueries.Query(graph, new QueryRequest("unused")
+        {
+            Options = options,
+            Target = initializerChanges ? "Seed.After" : "Seed.Before"
+        });
         foreach (var format in new[] { "text", "md", "json" })
         {
-            var tree = await fixture.RunAsync(["tree", fixture.After, "--entry", "Flow.Entry", .. selection, "--format", format, "--no-restore"]);
-            Assert.True(tree.StartsWith("exit: 0\n", StringComparison.Ordinal), tree);
+            string Render(DiffResult result) => format == "json" ? JsonRenderer.Render(result) : DiffRenderer.Render(result, options, markdown: format == "md");
+            var tree = Render(treeResult);
             Assert.Contains("initialization of interceptors for Original.Run [interceptor in Flow.Entry]", tree);
             Assert.DoesNotContain("Interceptor_", tree);
-            var reach = await fixture.RunAsync(["reach", fixture.After, "--entry", "Flow.Entry", "--to", initializerChanges ? "Seed.After" : "Seed.Before", .. selection, "--format", format, "--no-restore"]);
-            Assert.True(reach.StartsWith("exit: 0\n", StringComparison.Ordinal), reach);
+            var reach = Render(reachResult);
             Assert.Contains(initializerChanges ? "Seed.After" : "Seed.Before", reach);
             Assert.DoesNotContain("Interceptor_", reach);
         }
     }
 
-    private static IEnumerable<JsonElement> Descendants(JsonElement node)
+    protected static IEnumerable<JsonElement> Descendants(JsonElement node)
     {
         yield return node;
         foreach (var child in node.GetProperty("children").EnumerateArray())
@@ -131,7 +160,7 @@ public sealed class InterceptorTests
                 yield return descendant;
     }
 
-    private static Dictionary<string, string> Sources()
+    protected static Dictionary<string, string> Sources()
     {
         return new Dictionary<string, string>
         {

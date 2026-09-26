@@ -1,15 +1,18 @@
 using System.Text.Json;
+using Callrift.Core;
+using Callrift.MSBuild;
 using Callrift.Scenarios;
 using VerifyXunit;
 using Xunit;
+using static Callrift.Workspaces.WorkspaceTests;
 
-[assembly: CollectionBehavior(DisableTestParallelization = true)]
+[assembly: CollectionBehavior(MaxParallelThreads = 4)]
 
 namespace Callrift.Workspaces;
 
 public sealed class WorkspaceTests
 {
-    private const string Project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup></Project>";
+    internal const string Project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup></Project>";
 
     [Theory]
     [InlineData("orders")]
@@ -25,9 +28,44 @@ public sealed class WorkspaceTests
             Before = new Dictionary<string, string>(original.Before) { ["App.csproj"] = Project },
             After = new Dictionary<string, string>(original.After) { ["App.csproj"] = Project }
         };
-        await SnapshotAsync(name, scenario, "--project", "App.csproj");
+        if (name == "guard") await SnapshotCliAsync(name, scenario);
+        else await SnapshotAsync(name, scenario);
     }
 
+    internal static async Task SnapshotAsync(string name, Scenario scenario, string target = "App.csproj")
+    {
+        var (before, after) = await WorkspaceFixture.AnalyzeAsync(scenario, options: new MSBuildOptions(target, NoRestore: true));
+        var options = new DiffOptions();
+        var result = CallriftService.Compare(before, after, options) with
+        {
+            From = new SnapshotIdentity("revision", "<before>", "<before>"),
+            To = new SnapshotIdentity("revision", "<after>", "<after>")
+        };
+        Assert.Empty(result.Diagnostics);
+        var outputs = new[]
+        {
+            scenario.Description,
+            "format: text\nexit: 0\nstdout:\n" + DiffRenderer.Render(result, options) + "stderr:\n",
+            "format: md\nexit: 0\nstdout:\n" + DiffRenderer.Render(result, options, markdown: true) + "stderr:\n",
+            "format: json\nexit: 0\nstdout:\n" + JsonRenderer.Render(result) + "stderr:\n"
+        };
+        await Verifier.Verify(string.Join("\n", outputs)).UseDirectory("Snapshots").UseFileName(name).DisableDiff();
+    }
+
+    private static async Task SnapshotCliAsync(string name, Scenario scenario)
+    {
+        await using var fixture = await GitFixture.CreateAsync(scenario);
+        var outputs = new List<string> { scenario.Description };
+        foreach (var format in new[] { "text", "md", "json" })
+            outputs.Add("format: " + format + "\n" + await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--format", format,
+                "--project", "App.csproj", .. format == "text" ? Array.Empty<string>() : ["--no-restore"]]));
+        await Verifier.Verify(string.Join("\n", outputs).Replace(fixture.Before, "<before>", StringComparison.Ordinal).Replace(fixture.After, "<after>", StringComparison.Ordinal))
+            .UseDirectory("Snapshots").UseFileName(name).DisableDiff();
+    }
+}
+
+public sealed class PackageWorkspaceTests
+{
     [Fact]
     public async Task PackageBinding()
     {
@@ -37,9 +75,12 @@ public sealed class WorkspaceTests
             ["Flow.cs"] = "using Microsoft.Extensions.DependencyInjection; interface IWorker { void Run(); } class Worker : IWorker { public void Run() { Before(); } void Before() {} void After() {} } class Flow { public void Start() { var services = new ServiceCollection().AddSingleton<IWorker, Worker>().BuildServiceProvider(); var worker = services.GetRequiredService<IWorker>(); worker.Run(); } }"
         };
         var after = new Dictionary<string, string>(before) { ["Flow.cs"] = before["Flow.cs"].Replace("Before();", "After();", StringComparison.Ordinal) };
-        await SnapshotAsync("package-binding", new Scenario("package", "Package generic return types bind the inferred receiver to the source interface.", before, after, []), "--project", "App.csproj");
+        await SnapshotAsync("package-binding", new Scenario("package", "Package generic return types bind the inferred receiver to the source interface.", before, after, []));
     }
+}
 
+public sealed class DefineWorkspaceTests
+{
     [Fact]
     public async Task Defines()
     {
@@ -49,9 +90,12 @@ public sealed class WorkspaceTests
             ["Flow.cs"] = "class Flow { public void Run() {\n#if FEATURE\nBefore();\n#else\nHidden();\n#endif\n} void Before() {} void After() {} void Hidden() {} }"
         };
         var after = new Dictionary<string, string>(before) { ["Flow.cs"] = before["Flow.cs"].Replace("Before();", "After();", StringComparison.Ordinal) };
-        await SnapshotAsync("defines", new Scenario("defines", "The actual project define includes the changed call and excludes the alternative.", before, after, []), "--project", "App.csproj");
+        await SnapshotAsync("defines", new Scenario("defines", "The actual project define includes the changed call and excludes the alternative.", before, after, []));
     }
+}
 
+public sealed class ProjectWorkspaceTests
+{
     [Fact]
     public async Task Projects()
     {
@@ -66,9 +110,12 @@ public sealed class WorkspaceTests
             ["App/Flow.cs"] = "class Flow { public void Start(Shared.Worker worker) => worker.Run(); }"
         };
         var after = new Dictionary<string, string>(before) { ["A/Worker.cs"] = before["A/Worker.cs"].Replace("Before();", "After();", StringComparison.Ordinal) };
-        await SnapshotAsync("projects", new Scenario("projects", "Identical type names in separate projects stay distinct and project-reference calls expand.", before, after, []), "--solution", "App.slnx");
+        await SnapshotAsync("projects", new Scenario("projects", "Identical type names in separate projects stay distinct and project-reference calls expand.", before, after, []), "App.slnx");
     }
+}
 
+public sealed class GeneratorWorkspaceTests
+{
     [Fact]
     public async Task Generator()
     {
@@ -78,9 +125,12 @@ public sealed class WorkspaceTests
             ["Flow.cs"] = "using System.Text.RegularExpressions; partial class Flow { public bool Match(string value) => Pattern().IsMatch(value); [GeneratedRegex(\"before\")] private static partial Regex Pattern(); }"
         };
         var after = new Dictionary<string, string>(before) { ["Flow.cs"] = before["Flow.cs"].Replace("\"before\"", "\"after\"", StringComparison.Ordinal) };
-        await SnapshotAsync("generator", new Scenario("generator", "SDK regex generator bodies participate in change detection; static initialization links Flow.Match to the regex constructor, while metadata dispatch leaves the generated runner as a separate root.", before, after, []), "--project", "App.csproj");
+        await SnapshotAsync("generator", new Scenario("generator", "SDK regex generator bodies participate in change detection; static initialization links Flow.Match to the regex constructor, while metadata dispatch leaves the generated runner as a separate root.", before, after, []));
     }
+}
 
+public sealed class ReferencedGeneratorWorkspaceTests
+{
     [Fact]
     public async Task ReferencedGeneratorBuildsBeforeAnalysis()
     {
@@ -108,18 +158,10 @@ public sealed class WorkspaceTests
         Assert.Contains("Flow.After", output);
         Assert.Contains("Flow.g.cs", output);
     }
+}
 
-    private static async Task SnapshotAsync(string name, Scenario scenario, params string[] selection)
-    {
-        await using var fixture = await GitFixture.CreateAsync(scenario);
-        var outputs = new List<string> { scenario.Description };
-        foreach (var format in new[] { "text", "md", "json" })
-            outputs.Add("format: " + format + "\n" + await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--format", format,
-                .. selection, .. format == "text" ? Array.Empty<string>() : ["--no-restore"]]));
-        await Verifier.Verify(string.Join("\n", outputs).Replace(fixture.Before, "<before>", StringComparison.Ordinal).Replace(fixture.After, "<after>", StringComparison.Ordinal))
-            .UseDirectory("Snapshots").UseFileName(name).DisableDiff();
-    }
-
+public sealed class FrameworkWorkspaceTests
+{
     [Theory]
     [InlineData(false, false)]
     [InlineData(false, true)]
@@ -159,7 +201,10 @@ public sealed class WorkspaceTests
         Assert.Contains("Worker.After", output);
         Assert.DoesNotContain("WrongFramework", output);
     }
+}
 
+public sealed class EmptyFrameworkWorkspaceTests
+{
     [Fact]
     public async Task EmptyFrameworkListEntriesDoNotCreateProjects()
     {
@@ -178,7 +223,10 @@ public sealed class WorkspaceTests
         Assert.Single(document.RootElement.GetProperty("trees").EnumerateArray());
         Assert.Contains("if (ready)", output);
     }
+}
 
+public sealed class CacheWorkspaceTests
+{
     [Fact]
     public async Task RequiresRestoredCacheAndExplicitFramework()
     {

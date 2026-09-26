@@ -8,13 +8,14 @@ namespace Callrift.Scenarios;
 
 public static class WorkspaceFixture
 {
-    public static async Task<(CallGraph Before, CallGraph After)> AnalyzeAsync(Scenario scenario, bool includeTests = false)
+    public static async Task<(CallGraph Before, CallGraph After)> AnalyzeAsync(Scenario scenario, bool includeTests = false, MSBuildOptions? options = null)
     {
+        options ??= new MSBuildOptions("App.csproj", NoRestore: true);
         var directory = FixtureDirectory.CreatePath("callrift-analysis-fixture-");
         try
         {
-            var before = await AnalyzeAsync(Path.Combine(directory, "before"), scenario.Before, includeTests);
-            var after = await AnalyzeAsync(Path.Combine(directory, "after"), scenario.After, includeTests);
+            var before = await AnalyzeAsync(Path.Combine(directory, "before"), scenario.Before, includeTests, options);
+            var after = await AnalyzeAsync(Path.Combine(directory, "after"), scenario.After, includeTests, options);
             return (before, after);
         }
         finally
@@ -23,7 +24,20 @@ public static class WorkspaceFixture
         }
     }
 
-    private static async Task<CallGraph> AnalyzeAsync(string root, IReadOnlyDictionary<string, string> files, bool includeTests)
+    public static async Task<CallGraph> AnalyzeAsync(IReadOnlyDictionary<string, string> files, MSBuildOptions options, bool includeTests = false)
+    {
+        var directory = FixtureDirectory.CreatePath("callrift-analysis-fixture-");
+        try
+        {
+            return await AnalyzeAsync(Path.Combine(directory, "snapshot"), files, includeTests, options);
+        }
+        finally
+        {
+            if (Directory.Exists(directory)) Directory.Delete(directory, true);
+        }
+    }
+
+    private static async Task<CallGraph> AnalyzeAsync(string root, IReadOnlyDictionary<string, string> files, bool includeTests, MSBuildOptions options)
     {
         foreach (var file in files)
         {
@@ -33,7 +47,6 @@ public static class WorkspaceFixture
             Directory.CreateDirectory(Path.GetDirectoryName(path)!);
             await File.WriteAllTextAsync(path, file.Value.Replace("\r\n", "\n", StringComparison.Ordinal), new UTF8Encoding(false));
         }
-        var options = new MSBuildOptions("App.csproj", NoRestore: true);
         await RunAsync(root, ["restore", options.Target, "--nologo", "-p:Configuration=" + options.Configuration]);
         var requestPath = root + ".request.json";
         var resultPath = root + ".graph.json";

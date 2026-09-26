@@ -28,8 +28,25 @@ public static class RealWorldCaseStore
         if (entry.CacheName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0 || entry.CacheName.Contains('/') || entry.CacheName.Contains('\\') || entry.CacheName is "." or "..")
             throw new InvalidOperationException("Invalid case cache name.");
         var path = Path.Combine(cache, entry.CacheName);
+        using var lease = await AcquirePreparationAsync(path + ".prepare.lock", cancellationToken);
         if (!Directory.Exists(path))
-            await GitRepository.RunAsync(cache, ["clone", "--filter=blob:none", "--no-checkout", entry.Repository, entry.CacheName], cancellationToken);
+        {
+            var staging = Path.GetFullPath(path + ".clone-" + Guid.NewGuid().ToString("N"));
+            try
+            {
+                await GitRepository.RunAsync(cache, ["clone", "--filter=blob:none", "--no-checkout", entry.Repository, staging], cancellationToken);
+                Directory.Move(staging, path);
+            }
+            finally
+            {
+                if (Directory.Exists(staging))
+                {
+                    foreach (var file in Directory.EnumerateFiles(staging, "*", SearchOption.AllDirectories))
+                        File.SetAttributes(file, FileAttributes.Normal);
+                    Directory.Delete(staging, true);
+                }
+            }
+        }
         var remote = (await GitRepository.RunAsync(path, ["remote", "get-url", "origin"], cancellationToken)).Trim();
         if (!string.Equals(remote.TrimEnd('/'), entry.Repository.TrimEnd('/'), StringComparison.Ordinal))
             throw new InvalidOperationException($"Case cache remote does not match {entry.Repository}.");
@@ -47,5 +64,16 @@ public static class RealWorldCaseStore
             }
         }
         return path;
+    }
+
+    private static async Task<FileStream> AcquirePreparationAsync(string path, CancellationToken cancellationToken)
+    {
+        var attempts = 0;
+        while (true)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            try { return new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None); }
+            catch (IOException) when (++attempts < 6000) { await Task.Delay(100, cancellationToken); }
+        }
     }
 }

@@ -964,3 +964,197 @@ invocation time: CleanArchitecture logging (`--file`), Autofac any-key source
 focused (`--externals`) and `RestoredSerilog` (actual CLI text/Markdown/JSON).
 No tests or snapshots were added. The fast tier and test command definitions are
 unchanged; this checkpoint does not claim a new full-suite or fast-tier measurement.
+
+### Workspace format reuse and bounded scheduling
+
+Eight of the nine workspace snapshot rows now analyze the revision pair once,
+then render text, Markdown and JSON against their unchanged reviewed snapshots.
+The direct fixture now accepts the workspace target, preserving actual solution
+loading, project identity/references, package binding, defines and SDK generators.
+`Parity("guard")` still executes all three CLI formats. Referenced-generator,
+framework-selection, missing-cache, interceptor and fresh-process assertions remain
+real CLI integrations. The literal success envelopes and revision placeholders in
+the eight renderer rows now describe renderer expectations; CLI status/identity
+routing remains covered by the retained command tests.
+
+Before changing scheduling, the same four-row filter used in the prior local
+profile ran three times before and three times after format reuse. Before: binaries
+from `077f2ab`. After: this checkpoint's renderer changes with assembly serialization
+still enabled. The prepared Debug build took 2.52 s separately. Machine, SDK and
+50 ms observer are as above; all 32 logical CPUs were available. Fixture repositories
+and workspaces were fresh per row; global SDK/NuGet packages were warm. No concurrent
+local build or suite ran. Selected rows: guard parity, Projects, PackageBinding,
+and Generator. The guard row intentionally retains its original three CLI calls.
+
+```powershell
+mise exec -- pwsh -NoProfile -File scripts/Run-Tests.ps1 -Suite Workspaces -Filter 'FullyQualifiedName~WorkspaceTests.Projects|FullyQualifiedName~WorkspaceTests.Generator|FullyQualifiedName~WorkspaceTests.PackageBinding|(FullyQualifiedName~WorkspaceTests.Parity&DisplayName~guard)' -NoBuild
+```
+
+| Three samples per version | Before median (range) | After median (range) |
+|---|---:|---:|
+| Complete invocation | 39.66 s (38.71–39.94) | 30.03 s (30.01–30.75) |
+| Sampled aggregate process CPU | 87.08 s (85.05–87.14) | 43.91 s (43.75–44.70) |
+| Peak summed process-tree RSS | 1.43 GiB (1.42–1.43) | 1.17 GiB (1.16–1.17) |
+| Analysis worker processes | 24 | 12 |
+
+Every row passed, with no accepted snapshot changes. This reduces work before
+adding concurrency: sampled CPU fell 49.6%, while invocation time fell 24.3%.
+The reused direct fixture currently processes the two revisions sequentially;
+that limits elapsed improvement relative to the original CLI, which overlaps
+its before/after workers. Raw observations are in ignored
+`artifacts/devex/phase2/workspace-{before,after}*.json` and corresponding logs.
+
+For the first scheduling experiment, package, define, solution, SDK generator, referenced
+generator, framework selection, empty framework and cache-error methods now live
+in separate classes in `WorkspaceTests.cs`. Their method names and InlineData are
+unchanged, and every new class name ends in `WorkspaceTests`, retaining the
+existing `FullyQualifiedName~WorkspaceTests.Method` filters. Parity still has five
+rows; framework selection has four. The separate FrameworkDispatch and Interceptor
+classes were unchanged in that experiment. There remain exactly 26 existing workspace rows, with no
+new test or snapshot files. Each independent collection owns unique fixture paths;
+no parent process environment or mutable graph is shared.
+
+Concurrency experiments use the [xUnit VSTest settings](https://xunit.net/docs/config-runsettings)
+`xUnit.MaxParallelThreads=1`, `2`, and `4`, with the conservative scheduler. The
+entire test process tree is restricted to CPU affinity `0-3` on this local host,
+so nested MSBuild/Roslyn work shares four CPU cores. This is a controlled local
+resource experiment, not a substitute for hosted Ubuntu/Windows/macOS evidence.
+
+
+The first full-suite scheduling experiment passed all 26 rows at each limit:
+
+| Concurrent collections | Invocation | Sampled CPU | Peak summed RSS | Observed overlapping tests | Sum of case durations |
+|---|---:|---:|---:|---:|---:|
+| 1 | 237.01 s | 333.79 s | 1.47 GiB | 1 | 236.02 s |
+| 2 | 132.82 s | 346.81 s | 1.75 GiB | 2 | 252.43 s |
+| 4 | 163.58 s | 360.08 s | 2.62 GiB | 4 | 327.75 s |
+
+These are single samples at each limit, not medians. All used 103 analysis
+workers. Concurrency two reduced latency; four increased contention and the
+serial tail. Neither reduced work by itself. At concurrency two, the six-row
+interceptor collection occupied 122.72 s of the 132.82 s invocation. TRX timestamps
+prove actual case overlap; process samples include nested workers. The raw
+`workspaces-concurrency-{1,2,4}.{json,trx,log}` files are ignored local artifacts.
+
+The next change divides the existing interceptor rows into four collections:
+replacement-body determinism (one row), inserted-call preservation (one), implicit
+static initialization (the original two `explicitConstructor=false` rows), and
+explicit static initialization (the original two `explicitConstructor=true` rows).
+Method names and both Boolean data arguments remain, including unchanged and
+changed generator inputs. The four initialization rows still compare two actual
+CLI diff processes for identical output. Their tree/reach format-only assertions
+now reuse one separately restored, generated and serialized after graph; all
+existing content/identity assertions remain. The replacement-body row still runs
+the full CLI tree/reach format matrix, including success status assertions. This
+removes 20 redundant analysis workers per full suite without weakening the
+fresh-process determinism boundary. The single-snapshot fixture owns and cleans
+its own root, request and result files under the same timeout/child cleanup policy.
+
+### Coordinate shared real-world repository preparation
+
+`RealWorldCaseStore.PrepareAsync` now holds a file lease per cache name across
+clone, remote validation, missing-commit fetch and pinned license validation.
+Different repositories can prepare independently. Lease waits respect caller
+cancellation and have a bounded retry count. Lock files remain on disk to avoid
+unlink/recreate races between waiting processes. A cold clone is created in a
+unique sibling staging directory and moved into place only after success; failed
+staging directories are cleaned without deleting any published cache directory.
+This is preparation coordination, not a lock around analysis or renderer assertions.
+The real-world assembly remains serial until case scheduling and resource limits
+are validated.
+
+A temporary probe, removed before committing, ran four separate preparation
+processes against one initially absent Serilog cache using the manifest's GitHub
+remote and pinned commits. Cold preparation completed in 1.18 s and warm preparation
+in 0.41 s on the machine above. These are one-off preparation observations, not
+full case timings or an empty SDK/NuGet-cache claim. A four-caller missing-commit
+fetch probe also passed. Cancellation behind a held lease, a subsequent successful
+acquisition, remote mismatch and license mismatch were checked; no clone staging
+directories remained. Logs are in ignored `preparation-{cold,warm}.log`. This does
+not yet prove cross-platform or whole-suite concurrent cold preparation.
+
+With the interceptor graph reuse and collection split, the same complete suite
+passed at both candidate bounds (one sample each, same four-core affinity and
+warm global packages/fresh fixture roots):
+
+| Concurrent collections | Invocation | Sampled CPU | Peak summed RSS | Observed overlapping tests | Analysis workers |
+|---|---:|---:|---:|---:|---:|
+| 2 | 113.50 s | 291.82 s | 1.87 GiB | 2 | 83 |
+| 4 | 93.67 s | 315.60 s | 3.22 GiB | 4 | 83 |
+
+Four is the chosen workspace bound: it improves latency after reducing the
+long collection, with a measured memory tradeoff. Compared with the earlier
+four-collection experiment, worker launches fell 19.4%, sampled CPU fell 12.4%
+and invocation time fell 42.7%. Increasing the bound alone was counterproductive
+before the interceptor refactor. These measurements do not establish hosted
+memory peaks or platform targets.
+
+`WorkspaceCollectionOrderer` schedules the measured longest collections first:
+framework dispatch, parity, replacement-body determinism, explicit/implicit
+initializers and mixed-framework selection. It does not filter tests or alter
+assertions. Its purpose is to fill free slots with shorter independent cases as
+long collections finish. The remaining theory rows within a family are still
+sequential; hosted measurements must determine whether these tails need further
+splitting. The environment-mutating scenario collection remains exclusive and
+unchanged.
+
+The final checked-in workspace bound and ordering passed two consecutive full
+26-row runs with no runner overrides. Four-core affinity was retained; every run
+used fresh fixture roots and warm global packages. Complete invocation median was
+87.89 s (87.26–88.52), sampled CPU 319.71 s (318.98–320.43), and peak summed RSS
+2.86 GiB (2.78–2.95). Both TRX files show at most four overlapping tests; process samples record 83
+analysis worker launches in each run. Local command occupancy is 1.46 worker-minutes per
+invocation, on one worker. These are the final local stability samples, recorded
+as `workspaces-final-{1,2}`. No hosted runner or extra CI job was added by this
+checkpoint; hosted time and memory remain unverified.
+
+### Attribute remaining scenario worker costs
+
+Two existing record-copy integration rows (`inherited-copy` and
+`direct-cross-project`) were profiled on four-core affinity with fresh roots and
+warm global SDK/packages. The prepared Debug command passed in 13.71 s, using four
+restores (observed lifetimes 0.42–0.51 s) and four fresh analysis workers. Temporary
+stopwatch instrumentation separated reference preparation, workspace creation,
+project opening, framework selection, compilation, member/diagnostic collection,
+dispatch construction and serialization. It was removed afterward; production
+worker sources are unchanged.
+
+A second temporary probe repeated the complete `WorkspaceAnalysis.AnalyzeAsync`
+call three times per worker on the identical request, creating/discarding its
+workspace each time. Both existing rows still passed. The 24.13 s invocation does
+three times the analysis work and is not an improved test-command measurement.
+The following medians compare the first call in each of four workers with the
+subsequent eight calls in those same workers:
+
+| Stage | First call | Repeated call |
+|---|---:|---:|
+| Reference preparation/evaluation | 0.693 s | 0.607 s |
+| Create workspace/MEF host | 0.125 s | 0.032 s |
+| Open project/solution | 0.554 s | 0.436 s |
+| Select frameworks/evaluate projects | 0.151 s | 0.153 s |
+| Get compilations | 0.418 s | 0.070 s |
+| Collect members and diagnostics | 0.332 s | 0.017 s |
+| Build dispatch map | 0.001 s | <0.001 s |
+
+Whole analysis ranged 2.07–3.05 s on first calls and 1.11–1.55 s on repeated
+calls; medians of individual stages need not sum to the median total. Request
+parsing, MSBuild registration and graph serialization each took roughly 15–25 ms
+in the first probe. These instrumented observations include measurement overhead
+and a mixed single-/multi-project sample. They show that warm compilation/member
+collection can help, but worker persistence alone still repeats substantial
+project evaluation and loading. Restoration and safe reuse of evaluated inputs
+remain targets; no persistent worker or production analysis cache was introduced.
+Raw stage files are ignored under `worker-stages` and `worker-warm-stages`.
+
+After restoring and rebuilding the uninstrumented sources, `mise run test:fast`
+passed all 350 rows in 4.31 s including mise/PowerShell/dotnet startup and the
+up-to-date build. The prepared development budget remains below ten seconds.
+No fast/focused/E2E command or commit/push gate was changed.
+
+
+The existing Serilog alignment snapshot also passed from an initially absent
+relative `CALLRIFT_CASES_CACHE` directory in 4.67 s. Staging destinations are
+absolute so relative cache configuration still clones into the intended directory.
+Reviewed expectations and all pinned manifest content remain unchanged. The
+checkpoint's full supported-platform CI and all remaining goal criteria are still
+pending; these local samples do not close the broad-suite performance goal.
