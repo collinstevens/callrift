@@ -68,6 +68,31 @@ subsequent immutable framework references are reused by the existing provider.
 Workspace cases explicitly pass `--no-restore` only after the first command succeeds
 for both fixed snapshots. Analysis workers still rerun for those CLI checks.
 
+Second migration (parent `ba478c0` plus the catalog changes in this commit), same
+machine/SDK/cache policy: all 32 catalog cases passed before and after, using the
+same 64 reviewed snapshot files without edits. Complete invocation fell from
+52.62 seconds to 11.31 seconds. The changed-code build was 2.77 seconds separately.
+The baseline filter was `FullyQualifiedName~ScenarioTests.CallFlow`; the after
+filter adds `|FullyQualifiedName~ScenarioTests.CliCallFlow` because the original
+rows are partitioned into two methods, with no dropped or duplicated catalog rows.
+
+Twenty-six catalog cases now analyze each source pair once and render the same
+result three ways. Six cases (`orders`, `guard`, `top-level`, `depth`,
+`tests-included`, `tests-excluded`) still exercise Git and fresh CLI processes for
+all three formats, including diagnostics, default/explicit options, depth and test
+inclusion. Working-tree/index, invalid selection and all QueryTests remain real
+CLI tests. The in-memory snapshot harness retains the historical output envelope
+and fixed revision placeholders so no expected snapshot bytes change; that envelope
+does not test process exit or Git revision resolution. Those boundaries remain
+covered by the CLI rows. New catalog options fail explicitly in the direct path
+until their semantics are mapped, rather than silently using defaults.
+
+The expanded `Layer=Fast` selection passed 36 migrated cases in 1.82 seconds of
+complete invocation time (772 ms test duration), without a build or restore.
+Many existing direct and semantic cases are still outside that selection. This is
+progress toward the complete fast tier, not evidence that its final budget or the
+80% behavioral coverage target has been met.
+
 ## Existing behavior to cheapest faithful layer
 
 Each linked class and its data rows inherit the migration rule in its row. Test
@@ -114,7 +139,7 @@ with independently defined expectations and per-case mutable state.
 | [RecordCopyPresentationTests](../tests/Callrift.Scenarios/RecordCopyPresentationTests.cs) | Clone labels, symbol identities, locations and copy order | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [RecordCopyTests](../tests/Callrift.Scenarios/RecordCopyTests.cs) | Record copy construction, expansion and ambiguous declarations | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [RecordCopyValidationTests](../tests/Callrift.Scenarios/RecordCopyValidationTests.cs) | Invalid record diagnostics and unavailable bodies | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
-| [ScenarioTests](../tests/Callrift.Scenarios/ScenarioTests.cs) | Reviewed semantic and renderer snapshots; index/working tree and invalid selection | Move catalog semantics/rendering to shared in-memory analysis; retain explicit CLI format routing, selection errors and index/working-tree snapshots. |
+| [ScenarioTests](../tests/Callrift.Scenarios/ScenarioTests.cs) | Reviewed semantic and renderer snapshots; index/working tree and invalid selection | 26 catalog rows now use shared in-memory analysis; six retain CLI format routing. Selection errors and index/working-tree snapshots stay integration. |
 | [StaticCallbackInitializationTests](../tests/Callrift.Scenarios/StaticCallbackInitializationTests.cs) | Independent callback initialization state | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [StaticCoalesceInitializationTests](../tests/Callrift.Scenarios/StaticCoalesceInitializationTests.cs) | Conditional coalescing initialization and single receiver evaluation | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
 | [StaticEventOrderTests](../tests/Callrift.Scenarios/StaticEventOrderTests.cs) | Handler evaluation before static initialization | Move semantic rows and negative controls to direct calls. Keep representative source/MSBuild CLI wiring; any project-specific row stays integration. |
@@ -156,7 +181,7 @@ with independently defined expectations and per-case mutable state.
    cache failure/invalidation, isolation and process tests at their real boundaries.
 4. Tag and measure the complete fast selection, including discovery and startup,
    then expose validated fast/integration/E2E commands and independent CI jobs.
-   The current ten migrated source rows alone do not constitute the fast tier.
+   The current 36 migrated source rows alone do not constitute the fast tier.
 
 `PartialCloneTests` mutates `GIT_TRACE2_EVENT` and `GIT_NO_LAZY_FETCH`; it remains
 in `ProcessEnvironmentCollection` with parallelization disabled. Other fixture
