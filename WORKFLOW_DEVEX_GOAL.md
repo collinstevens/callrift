@@ -107,4 +107,4 @@ Aim for at least 80% of meaningful behavioral cases to live in the fast layer. U
 - [x] Everyday commands and agent instructions clearly select the fast path; slow suites remain explicit.
 - [x] Any added test hook meets the measured total latency budget and never launches the broad end-to-end suite. No test hook has been added.
 - [ ] Fast CI results arrive independently of long suites; full E2E failures remain visible and actionable without blocking local iteration.
-- [ ] Representative before/after measurements and supported-platform CI evidence substantiate improvements. No subset result is presented as a full-suite speedup.
+- [x] Representative before/after measurements and supported-platform CI evidence substantiate improvements. No subset result is presented as a full-suite speedup.

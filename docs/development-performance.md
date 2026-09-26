@@ -2,7 +2,21 @@
 
 This work tracks `WORKFLOW_DEVEX_GOAL.md`; it does not resume `GOAL.md`.
 The inventory describes existing assertions, not permission to remove integration
-coverage. Migration is incremental. Unsampled classes have no measured cost rank.
+coverage. The ordinary semantic migration is complete; terminal broad CI results
+remain under review. Unsampled classes have no measured cost rank.
+
+## Current results
+
+| Evidence | Result |
+|---|---|
+| Latest prepared fast command, `9e7a117` | 350 passed in 4.58 s including changed-code build, mise and PowerShell |
+| Matched complete scenario runs | The same 655 names passed in 460.06 s with default ordering and 448.36 s with prioritized ordering |
+| Fresh checkout, warm SDK/package caches | Explicit restore 1.07 s; installed commit hooks 3.79 s; first fast command and build 4.76 s |
+| Supported-platform feedback, `9e7a117` | Fast, representative integration/packaging and quality passed; broad verification remains running |
+| Preservation | 681 scenario/workspace executions retained; reviewed snapshots and production code unchanged from `56e12bf` |
+
+The matched scenario comparison is one observation, not a full E2E speedup claim.
+Detailed cache conditions, resource measurements and coverage accounting follow.
 
 ## Evidence and measurement conditions
 
@@ -417,8 +431,88 @@ build and full mise/PowerShell invocation (4.29 seconds inside dotnet). TRX conf
 that the four largest classes were the first four scheduled. Four representative
 workspace rows plus all ten partial-clone rows passed in 8.38 seconds of dotnet
 invocation; their TRX also confirms at most four concurrent classes and no
-partial-clone overlap. A full after measurement
-is still required before claiming a wall-time improvement from scheduling.
+partial-clone overlap. The matched full comparison below now supplies the
+scheduling measurement.
+
+## Matched scheduling measurement and fresh-checkout costs
+
+Both complete scenario runs executed exactly the same 655 test names and passed
+all of them. `2be5272` uses xUnit's default ordering; `9e7a117` adds only the
+collection orderer and its documentation. Both used `--no-build`, the documented
+local machine/SDK, warm global SDK/package caches and fresh per-case repositories
+and workspaces. No other local build or test suite overlapped either measurement.
+The prioritized run executed first; the default-order run followed in a temporary
+detached checkout, with its build measured separately. The temporary checkout
+created no commits and was removed after preserving its local TRX and profiling data.
+
+The explicit full-scenario diagnostic command was:
+
+```sh
+mise exec -- dotnet test tests/Callrift.Scenarios/Callrift.Scenarios.csproj --no-build --logger trx
+```
+
+| Full scenario measurement | Default, `2be5272` | Prioritized, `9e7a117` |
+|---|---:|---:|
+| Cases passed | 655 | 655 |
+| Complete invocation | 460.06 s | 448.36 s |
+| Final regular-class serial tail | 12.22 s | 4.23 s |
+| Maximum concurrent classes | 4 | 4 |
+| Partial-clone overlap with other classes | 0 | 0 |
+| Observed peak process count | 18 | 18 |
+| Sampled aggregate peak RSS | 2,802.64 MiB | 3,160.69 MiB |
+| Observed CPU time, lower bound | 1,839.38 s | 1,843.32 s |
+
+Prioritization reduced invocation time by 11.70 seconds (2.5%) in this comparison,
+with higher peak aggregate RSS. The 250 ms sampling and shared-page limitations
+above apply. The earlier 639-case run's 158-second tail did not recur in the newer
+default-order sample; its 575.29-second duration must not be used to attribute a
+larger gain solely to scheduling. The retained policy starts the measured expensive
+classes first while keeping the same bounded concurrency. These two runs do not
+establish a confidence interval or a complete E2E-suite speedup.
+
+Before the default-order run, the temporary checkout also measured first use at
+`9e7a117`. A staged private-field rename exercised the actual installed formatting
+hook and was discarded afterward. The test assembly did not exist before the first
+fast command. Global SDK/package caches were warm; SDK downloads, empty-package-cache
+downloads and OS cache eviction were outside this measurement.
+
+| Fresh-checkout phase | Complete invocation |
+|---|---:|
+| Explicit locked solution restore | 1.07 s |
+| Installed pre-commit hook | 3.76 s |
+| Installed conventional-message hook | 0.02 s |
+| Both hooks together | 3.79 s |
+| First `mise run test:fast`, including first build | 4.76 s; all 350 passed |
+
+The hooks ran no restore, build or tests. The first fast invocation reported
+4.50 seconds inside dotnet; its 4.76-second total includes mise and PowerShell.
+This separates checkout preparation and hook latency from the routine test budget.
+The existing five changed-code and five non-code warm hook samples remain the p95
+sample; this single fresh-checkout result is not a p95 estimate.
+
+## Current supported-platform evidence
+
+[Run 36254402575](https://github.com/collinstevens/callrift/actions/runs/36254402575)
+for `9e7a117` passed all 350 fast cases, representative integration and packaging on
+Ubuntu 24.04, Windows 2025 VS2026 and macOS 26 arm64, plus quality checks. Restore
+and build preceded the fast command. Approximate script time runs from the Actions
+step start through the wrapper's result summary and includes PowerShell startup.
+The job logs retain their reported working-tree-modified marker after setup.
+
+| Hosted image | Fast dotnet invocation | Complete fast script | Separate build | Representative integration job |
+|---|---:|---:|---:|---:|
+| Ubuntu 24.04 | 9.45 s | 11.37 s | 9.42 s | 2m35s |
+| Windows 2025 VS2026 | 10.49 s | 13.04 s | 9.54 s | 3m54s |
+| macOS 26 arm64 | 8.57 s | 12.19 s | 8.19 s | 2m38s |
+
+Hosted first-invocation timings differ from the prepared local development budget;
+the table does not claim a sub-ten-second total on every CI host. Representative
+job times include tool setup, builds, 12 real Git/CLI cases, four workspace cases
+and installed-package smoke checks; queue time is excluded. All are below the
+ten-minute feedback target. The three broad verification jobs remain active and
+are not reported as passed. Their terminal results are the remaining completion
+evidence. Documentation-only evidence checkpoints use `[skip ci]` to preserve the
+ongoing validation of unchanged source rather than cancel it with an identical run.
 
 ## Explicit feedback commands and hook sample
 
