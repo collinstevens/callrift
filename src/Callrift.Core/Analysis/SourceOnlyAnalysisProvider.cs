@@ -133,6 +133,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
         }
         var distinctTypes = types.Distinct<INamedTypeSymbol>(SymbolEqualityComparer.Default).ToArray();
         AddInitializers(distinctTypes, compilation, indexed, symbols, diagnostics, dispatchTypes, cancellationToken);
+        AddRecordClones(distinctTypes, compilation, indexed, symbols, diagnostics, dispatchTypes, cancellationToken);
         var dispatch = BuildDispatchMap(distinctTypes, indexed, symbols, cancellationToken, dispatchTypes);
         if (includeBodyFingerprints)
             foreach (var key in indexed.Keys.ToArray())
@@ -147,6 +148,46 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
         return new CallGraph(indexed, dispatch.Implementations, diagnostics.Distinct().OrderBy(d => d.Location?.Path, StringComparer.Ordinal)
             .ThenBy(d => d.Location?.Line).ThenBy(d => d.Code, StringComparer.Ordinal).ThenBy(d => d.Message, StringComparer.Ordinal).ToArray())
         { DispatchContracts = dispatch.Contracts, TypeDefinitions = dispatch.TypeDefinitions };
+    }
+
+    private static void AddRecordClones(IEnumerable<INamedTypeSymbol> types, CSharpCompilation compilation, Dictionary<string, Member> members, SymbolNames symbols,
+        ConcurrentBag<AnalysisDiagnostic> diagnostics, ConcurrentBag<ITypeSymbol> dispatchTypes, CancellationToken cancellationToken)
+    {
+        foreach (var type in types.Where(type => type is { IsRecord: true, TypeKind: TypeKind.Class }))
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var clone = type.GetMembers("<Clone>$").OfType<IMethodSymbol>().SingleOrDefault(method => method.IsImplicitlyDeclared);
+            if (clone is null) continue;
+            var copies = type.InstanceConstructors.Where(ConstructorBindings.IsCopy).ToArray();
+            var declarations = type.DeclaringSyntaxReferences.Select(reference => reference.GetSyntax(cancellationToken))
+                .OrderBy(node => node.SyntaxTree.FilePath, StringComparer.Ordinal).ThenBy(node => node.SpanStart).ToArray();
+            var declaration = declarations[0];
+            var validDeclarations = declarations.Length == 1 || declarations.All(node => node is RecordDeclarationSyntax record && record.Modifiers.Any(SyntaxKind.PartialKeyword));
+            var validCopyAccessibility = copies.Length == 1 && (type.IsSealed || copies[0].DeclaredAccessibility is Accessibility.Public or Accessibility.Protected);
+            var hasBody = !clone.IsAbstract && validDeclarations && validCopyAccessibility;
+            if (!clone.IsAbstract && copies.Length != 1)
+                diagnostics.Add(new AnalysisDiagnostic("unresolved-record-copy", $"Cannot bind a unique copy constructor for {symbols.Label(clone)}; expansion omitted.", symbols.Location(declaration)));
+            if (!validDeclarations)
+                diagnostics.Add(new AnalysisDiagnostic("unresolved-record-copy", $"Multiple declarations for {symbols.Label(clone)} must all be partial records; expansion omitted.", symbols.Location(declaration)));
+            if (copies.Length == 1 && !validCopyAccessibility)
+                diagnostics.Add(new AnalysisDiagnostic("unresolved-record-copy", $"Copy constructor for {symbols.Label(clone)} must be public or protected because the record is not sealed; expansion omitted.", symbols.Location(declaration)));
+            if (!validDeclarations || !validCopyAccessibility)
+                foreach (var copy in copies)
+                    if (members.TryGetValue(symbols.Key(copy), out var member))
+                        members[symbols.Key(copy)] = member with { HasBody = false, Calls = [], Body = null };
+            CallStep[] calls = hasBody
+                ? [new CallCollector(compilation.GetSemanticModel(declaration.SyntaxTree), symbols, diagnostics, dispatchTypes, cancellationToken)
+                    .ImplicitConstructor(declaration, copies[0]) with { UsesContainingInstance = false, InvocationReceiverExact = true }]
+                : [];
+            var key = symbols.Key(clone);
+            members[key] = new Member(key, symbols.Label(clone), symbols.MatchName(clone), symbols.Signature(clone), symbols.Location(declaration), hasBody, calls)
+            {
+                Body = hasBody ? SyntaxFactory.Block() : null,
+                InstanceType = DispatchType.From(type),
+                GenericParameters = GenericBindings.FromMethod(clone).Keys.Order(StringComparer.Ordinal).ToArray(),
+                MethodParameters = []
+            };
+        }
     }
 
     private static void AddInitializers(IEnumerable<INamedTypeSymbol> types, CSharpCompilation compilation, Dictionary<string, Member> members, SymbolNames symbols,

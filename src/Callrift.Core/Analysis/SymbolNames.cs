@@ -40,6 +40,7 @@ internal sealed class SymbolNames(Func<IMethodSymbol, string>? scope = null, Fun
         if (method.MethodKind == MethodKind.LocalFunction && method.ContainingSymbol is IMethodSymbol owner)
             return Label(owner) + "." + method.Name;
         var type = method.ContainingType.ToDisplayString(TypeFormat);
+        if (method is { Name: "<Clone>$", ContainingType.IsRecord: true }) return "clone " + type;
         return method.MethodKind is MethodKind.Constructor or MethodKind.StaticConstructor ? "new " + type : type + "." + method.Name;
     }
 

@@ -46,6 +46,12 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             case PrimaryConstructorBaseTypeSyntax primaryBase:
                 Emit(primaryBase, primaryBase.ArgumentList.Arguments, result);
                 return;
+            case WithExpressionSyntax copy:
+                Walk(copy.Expression, result);
+                if (model.GetOperation(copy, cancellationToken) is IWithOperation { CloneMethod: { } clone })
+                    result.Add(CreateCall(copy, clone, []));
+                Walk(copy.Initializer, result);
+                return;
             case IfStatementSyntax conditional:
                 Walk(conditional.Condition, result);
                 Branch("if (" + SymbolNames.Compact(conditional.Condition) + ")", conditional, [conditional.Statement], result);
@@ -189,13 +195,14 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         {
             MemberAccessExpressionSyntax access => access.Expression,
             MemberBindingExpressionSyntax => expression.Ancestors().OfType<ConditionalAccessExpressionSyntax>().FirstOrDefault()?.Expression,
+            WithExpressionSyntax copy => copy.Expression,
             _ => null
         };
         var exactReceiver = receiver is BaseExpressionSyntax or BaseObjectCreationExpressionSyntax
             || receiver is not null && model.GetTypeInfo(receiver, cancellationToken).Type is INamedTypeSymbol { IsSealed: true }
             || receiver is null && model.GetEnclosingSymbol(node.SpanStart, cancellationToken)?.ContainingType is { IsSealed: true };
         var dispatches = !exactReceiver && (method.ContainingType.TypeKind == TypeKind.Interface || method.IsAbstract || method.IsVirtual || method.IsOverride);
-        return new CallStep("call", symbols.Key(normalized), source || node is ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax
+        return new CallStep("call", symbols.Key(normalized), source || node is ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax or WithExpressionSyntax
             ? symbols.Label(normalized) : SymbolNames.SyntaxLabel(node), source, symbols.Location(node), children)
         {
             SuppressDispatch = exactReceiver,
