@@ -9,6 +9,7 @@ internal static class ContextGraph
     {
         cancellationToken.ThrowIfCancellationRequested();
         if (graph.Contextual) return graph;
+        graph = TypeInitialization.Bind(graph, cancellationToken);
         graph = graph with { ReceiverSensitiveMembers = ReceiverSensitiveMembers(graph, cancellationToken) };
         if (graph.Implementations.Count == 0 && graph.ReceiverSensitiveMembers.Count == 0 && !graph.Members.Values.Any(member => member.GenericParameters.Count != 0)) return graph with { Contextual = true };
         var frames = new Dictionary<string, InvocationContext>(StringComparer.Ordinal);

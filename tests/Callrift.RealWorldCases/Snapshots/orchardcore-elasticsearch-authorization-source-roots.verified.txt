@@ -2,6 +2,8 @@
 exit: 0
 stdout:
   AdminController.IndexInfo
++ ├─ possible initialization of ElasticsearchPermissions
++ │  └─ initialization of ElasticsearchPermissions (depth limit)
 + ├─ ? _authorizationService.AuthorizeAsync
 + ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
 + │  └─ ? Forbid
@@ -10,6 +12,8 @@ stdout:
   └─ …
 
   AdminController.QueryIndex
++ ├─ possible initialization of ElasticsearchPermissions
++ │  └─ initialization of ElasticsearchPermissions (depth limit)
 + ├─ ? _authorizationService.AuthorizeAsync
 + ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
 + │  └─ ? Forbid
@@ -25,13 +29,15 @@ src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.Ad
 src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage.
 src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource.
 src/OrchardCore.AspireHost/ClamAV.cs:46: unresolved-call: Cannot bind builder.WithVolume.
-16590 additional diagnostics; use --diagnostics full.
+16717 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
 stdout:
 ```diff
   AdminController.IndexInfo
++ ├─ possible initialization of ElasticsearchPermissions
++ │  └─ initialization of ElasticsearchPermissions (depth limit)
 + ├─ ? _authorizationService.AuthorizeAsync
 + ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
 + │  └─ ? Forbid
@@ -40,6 +46,8 @@ stdout:
   └─ …
 
   AdminController.QueryIndex
++ ├─ possible initialization of ElasticsearchPermissions
++ │  └─ initialization of ElasticsearchPermissions (depth limit)
 + ├─ ? _authorizationService.AuthorizeAsync
 + ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
 + │  └─ ? Forbid
@@ -56,4 +64,4 @@ src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.Ad
 src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage.
 src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource.
 src/OrchardCore.AspireHost/ClamAV.cs:46: unresolved-call: Cannot bind builder.WithVolume.
-16590 additional diagnostics; use --diagnostics full.
+16717 additional diagnostics; use --diagnostics full.

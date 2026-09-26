@@ -27,6 +27,12 @@ public sealed record CallStep(
     IReadOnlyList<CallStep> Children)
 {
     public string Relation { get; init; } = "call";
+    public int? CallbackGroup { get; init; }
+    public DispatchType? InitializationTriggerType { get; init; }
+    public string? InitializationScope { get; init; }
+    public bool InitializationTriggerIsField { get; init; }
+    public bool IsInitialization { get; init; }
+    public bool IsInitializationPart { get; init; }
     public bool SuppressDispatch { get; init; }
     public DispatchType? DispatchType { get; init; }
     public DispatchType? ReceiverType { get; init; }
@@ -68,6 +74,10 @@ public sealed record Member(
 {
     internal SyntaxNode? Body { get; init; }
     public string? BodyFingerprint { get; init; }
+    public DispatchType? TypeInitializerType { get; init; }
+    public bool BeforeFieldInit { get; init; }
+    public DispatchType? InitializationTriggerType { get; init; }
+    public string? InitializationScope { get; init; }
     public IReadOnlyList<string> GenericParameters { get; init; } = [];
     public IReadOnlyList<string> MethodParameters { get; init; } = [];
     public DispatchType? InstanceType { get; init; }

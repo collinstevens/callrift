@@ -6,7 +6,7 @@ namespace Callrift.Core;
 
 internal sealed class SymbolNames(Func<IMethodSymbol, string>? scope = null, Func<string, string>? path = null,
     IReadOnlyDictionary<IMethodSymbol, InterceptorIdentity>? interceptors = null, Func<IMethodSymbol, string, string>? declaringPath = null,
-    Func<INamedTypeSymbol, string, string>? typeDeclaringPath = null)
+    Func<INamedTypeSymbol, string, string>? typeDeclaringPath = null, Func<INamedTypeSymbol, string>? typeScope = null)
 {
     private static readonly SymbolDisplayFormat TypeFormat = new(
         typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypes,
@@ -41,7 +41,8 @@ internal sealed class SymbolNames(Func<IMethodSymbol, string>? scope = null, Fun
             return Label(owner) + "." + method.Name;
         var type = method.ContainingType.ToDisplayString(TypeFormat);
         if (method is { Name: "<Clone>$", ContainingType.IsRecord: true }) return "clone " + type;
-        return method.MethodKind is MethodKind.Constructor or MethodKind.StaticConstructor ? "new " + type : type + "." + method.Name;
+        return method.MethodKind == MethodKind.StaticConstructor ? "initialization of " + type
+            : method.MethodKind == MethodKind.Constructor ? "new " + type : type + "." + method.Name;
     }
 
     public string Signature(IMethodSymbol method) =>
@@ -50,6 +51,17 @@ internal sealed class SymbolNames(Func<IMethodSymbol, string>? scope = null, Fun
             : method.ToDisplayString(SymbolDisplayFormat.CSharpErrorMessageFormat)) + " -> " + method.ReturnType.ToDisplayString();
 
     public string Path(string value) => (path?.Invoke(value) ?? value).Replace('\\', '/');
+
+    public string? InitializationScope(INamedTypeSymbol type)
+    {
+        var method = type.StaticConstructors.FirstOrDefault() ?? type.GetMembers().OfType<IMethodSymbol>().FirstOrDefault();
+        var identity = typeScope?.Invoke(type) ?? (scope is null ? "source" : method is null ? null : scope(method));
+        if (identity is null) return null;
+        for (var current = type; current is not null; current = current.ContainingType)
+            if (current.IsFileLocal && current.DeclaringSyntaxReferences.FirstOrDefault() is { } declaration)
+                return identity + "/file:" + (typeDeclaringPath?.Invoke(current, declaration.SyntaxTree.FilePath) ?? Path(declaration.SyntaxTree.FilePath));
+        return identity;
+    }
 
     public string? TypeIdentity(INamedTypeSymbol type)
     {

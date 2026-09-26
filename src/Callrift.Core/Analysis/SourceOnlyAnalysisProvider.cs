@@ -48,10 +48,15 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
     public static CallGraph AnalyzeCompilation(CSharpCompilation compilation, IEnumerable<SyntaxTree>? syntaxTrees = null,
         Func<IMethodSymbol, string>? scope = null, Func<string, string>? logicalPath = null, bool includeBodyFingerprints = false,
         CancellationToken cancellationToken = default)
+        => AnalyzeCompilation(compilation, syntaxTrees, scope, logicalPath, includeBodyFingerprints, cancellationToken, null);
+
+    public static CallGraph AnalyzeCompilation(CSharpCompilation compilation, IEnumerable<SyntaxTree>? syntaxTrees,
+        Func<IMethodSymbol, string>? scope, Func<string, string>? logicalPath, bool includeBodyFingerprints,
+        CancellationToken cancellationToken, Func<INamedTypeSymbol, string>? typeScope)
     {
         var trees = (syntaxTrees ?? compilation.SyntaxTrees).ToArray();
-        var symbols = new SymbolNames(scope, logicalPath);
-        symbols = new SymbolNames(scope, logicalPath, InterceptorSymbols.Index(compilation, trees, symbols, scope, cancellationToken));
+        var symbols = new SymbolNames(scope, logicalPath, typeScope: typeScope);
+        symbols = new SymbolNames(scope, logicalPath, InterceptorSymbols.Index(compilation, trees, symbols, scope, cancellationToken), typeScope: typeScope);
         var members = new ConcurrentBag<Member>();
         var types = new ConcurrentBag<INamedTypeSymbol>();
         var diagnostics = new ConcurrentBag<AnalysisDiagnostic>();
@@ -103,6 +108,8 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                     symbols.Location(node), body is not null, calls)
                 {
                     Body = comparisonBody,
+                    InitializationTriggerType = TypeInitialization.Triggers(symbol) ? DispatchType.From(symbol.ContainingType) : null,
+                    InitializationScope = TypeInitialization.Triggers(symbol) ? symbols.InitializationScope(symbol.ContainingType) : null,
                     InstanceType = GenericBindings.HasContainingInstance(symbol) ? DispatchType.From(symbol.ContainingType) : null,
                     GenericParameters = GenericBindings.FromMethod(symbol).Keys.Order(StringComparer.Ordinal).ToArray(),
                     MethodParameters = symbol.TypeParameters.Select(p => DispatchType.From(p).Name).ToArray()
@@ -134,6 +141,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
         var distinctTypes = types.Distinct<INamedTypeSymbol>(SymbolEqualityComparer.Default).ToArray();
         AddInitializers(distinctTypes, compilation, indexed, symbols, diagnostics, dispatchTypes, cancellationToken);
         AddRecordClones(distinctTypes, compilation, indexed, symbols, diagnostics, dispatchTypes, cancellationToken);
+        AddStaticInitializers(distinctTypes, compilation, indexed, symbols, diagnostics, dispatchTypes, cancellationToken);
         var dispatch = BuildDispatchMap(distinctTypes, indexed, symbols, cancellationToken, dispatchTypes);
         if (includeBodyFingerprints)
             foreach (var key in indexed.Keys.ToArray())
@@ -148,6 +156,79 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
         return new CallGraph(indexed, dispatch.Implementations, diagnostics.Distinct().OrderBy(d => d.Location?.Path, StringComparer.Ordinal)
             .ThenBy(d => d.Location?.Line).ThenBy(d => d.Code, StringComparer.Ordinal).ThenBy(d => d.Message, StringComparer.Ordinal).ToArray())
         { DispatchContracts = dispatch.Contracts, TypeDefinitions = dispatch.TypeDefinitions };
+    }
+
+    private static void AddStaticInitializers(IEnumerable<INamedTypeSymbol> types, CSharpCompilation compilation, Dictionary<string, Member> members, SymbolNames symbols,
+        ConcurrentBag<AnalysisDiagnostic> diagnostics, ConcurrentBag<ITypeSymbol> dispatchTypes, CancellationToken cancellationToken)
+    {
+        foreach (var type in types)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var declarations = type.DeclaringSyntaxReferences.Select(reference => reference.GetSyntax(cancellationToken)).OfType<TypeDeclarationSyntax>()
+                .OrderBy(node => node.SyntaxTree.FilePath, StringComparer.Ordinal).ThenBy(node => node.SpanStart).ToArray();
+            if (declarations.Length == 0) continue;
+            var validDeclarations = declarations.Length == 1 || declarations.All(declaration => declaration.Modifiers.Any(SyntaxKind.PartialKeyword) && declaration.Kind() == declarations[0].Kind());
+            if (!validDeclarations && type.StaticConstructors.Length != 0)
+                diagnostics.Add(new AnalysisDiagnostic("unresolved-static-initializer", $"Multiple declarations for {symbols.Label(type.StaticConstructors[0])} must all be compatible partial types; expansion omitted.", symbols.Location(declarations[0])));
+            var initializers = declarations.SelectMany(declaration => declaration.Members).SelectMany(member => member switch
+            {
+                FieldDeclarationSyntax field when field.Modifiers.Any(SyntaxKind.StaticKeyword) && !field.Modifiers.Any(SyntaxKind.ConstKeyword) => field.Declaration.Variables.Select(variable => variable.Initializer?.Value).OfType<ExpressionSyntax>(),
+                EventFieldDeclarationSyntax field when field.Modifiers.Any(SyntaxKind.StaticKeyword) => field.Declaration.Variables.Select(variable => variable.Initializer?.Value).OfType<ExpressionSyntax>(),
+                PropertyDeclarationSyntax { Initializer: { } initializer } property when property.Modifiers.Any(SyntaxKind.StaticKeyword) => [initializer.Value],
+                _ => Enumerable.Empty<ExpressionSyntax>()
+            }).ToArray();
+            foreach (var constructor in type.StaticConstructors)
+            {
+                var key = symbols.Key(constructor);
+                members.TryGetValue(key, out var existing);
+                var syntax = constructor.DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax(cancellationToken) ?? declarations[0];
+                if (constructor.IsExtern || existing is { HasBody: false } || !validDeclarations)
+                {
+                    if (constructor.IsExtern)
+                        diagnostics.Add(new AnalysisDiagnostic("unavailable-static-initializer", $"Body for {symbols.Label(constructor)} is external; expansion omitted.", symbols.Location(syntax)));
+                    var member = existing ?? new Member(key, symbols.Label(constructor), symbols.MatchName(constructor), symbols.Signature(constructor), symbols.Location(syntax), false, []);
+                    members[key] = member with
+                    {
+                        HasBody = false,
+                        Calls = [],
+                        Body = null,
+                        TypeInitializerType = DispatchType.From(type),
+                        BeforeFieldInit = constructor.IsImplicitlyDeclared,
+                        GenericParameters = GenericBindings.FromMethod(constructor).Keys.Order(StringComparer.Ordinal).ToArray()
+                    };
+                    continue;
+                }
+                var groups = initializers.GroupBy(initializer => initializer.Ancestors().OfType<TypeDeclarationSyntax>().First()).ToArray();
+                var calls = new List<CallStep>();
+                if (groups.Length > 1)
+                    diagnostics.Add(new AnalysisDiagnostic("static-initializer-order", $"Order between partial declarations is unspecified for {symbols.Label(constructor)}; calls are grouped by declaration.", symbols.Location(declarations[0])));
+                foreach (var group in groups)
+                {
+                    var partCalls = group.SelectMany(initializer => new CallCollector(compilation.GetSemanticModel(initializer.SyntaxTree), symbols, diagnostics, dispatchTypes, cancellationToken).Collect(initializer)).ToArray();
+                    if (groups.Length == 1) calls.AddRange(partCalls);
+                    else
+                    {
+                        var part = group.Key;
+                        var path = symbols.Path(part.SyntaxTree.FilePath);
+                        var ordinal = Array.IndexOf(declarations.Where(declaration => declaration.SyntaxTree == part.SyntaxTree).ToArray(), part);
+                        calls.Add(new CallStep("branch", "branch:initializer-part:" + path + ":" + ordinal,
+                            "initializers in " + path + " (order between parts unspecified)", true, symbols.Location(part), partCalls)
+                        { IsInitializationPart = true });
+                    }
+                }
+                var body = initializers.Select(initializer => (StatementSyntax)SyntaxFactory.ExpressionStatement(initializer)).ToList();
+                if (existing?.Body is BlockSyntax block) body.AddRange(block.Statements);
+                else if (existing?.Body is ArrowExpressionClauseSyntax arrow) body.Add(SyntaxFactory.ExpressionStatement(arrow.Expression));
+                calls.AddRange(existing?.Calls ?? []);
+                members[key] = new Member(key, symbols.Label(constructor), symbols.MatchName(constructor), symbols.Signature(constructor), symbols.Location(syntax), true, calls)
+                {
+                    Body = SyntaxFactory.Block(body),
+                    TypeInitializerType = DispatchType.From(type),
+                    BeforeFieldInit = constructor.IsImplicitlyDeclared,
+                    GenericParameters = GenericBindings.FromMethod(constructor).Keys.Order(StringComparer.Ordinal).ToArray()
+                };
+            }
+        }
     }
 
     private static void AddRecordClones(IEnumerable<INamedTypeSymbol> types, CSharpCompilation compilation, Dictionary<string, Member> members, SymbolNames symbols,
@@ -253,6 +334,8 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                     members[key] = new Member(key, symbols.Label(constructor), symbols.MatchName(constructor), symbols.Signature(constructor), symbols.Location(locationNode), true, calls)
                     {
                         Body = SyntaxFactory.Block(bodyParts),
+                        InitializationTriggerType = TypeInitialization.Triggers(constructor) ? DispatchType.From(constructor.ContainingType) : null,
+                        InitializationScope = TypeInitialization.Triggers(constructor) ? symbols.InitializationScope(constructor.ContainingType) : null,
                         InstanceType = constructor.IsStatic ? null : DispatchType.From(constructor.ContainingType),
                         GenericParameters = GenericBindings.FromMethod(constructor).Keys.Order(StringComparer.Ordinal).ToArray()
                     };

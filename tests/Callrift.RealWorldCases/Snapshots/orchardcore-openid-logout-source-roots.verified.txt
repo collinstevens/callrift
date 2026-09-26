@@ -2,13 +2,15 @@
 exit: 0
 stdout:
   AliasPartRazorHelperExtensions.GetContentItemByAliasAsync
-  ├─ AliasPartRazorHelperExtensions.GetContentItemIdByAliasAsync (depth limit)
-  ├─ ? orchardHelper.HttpContext.RequestServices.GetService<IContentManager>
+  ├─ …
+  ├─ if (latest)
+  ├─ else (!(latest))
 ~ └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
 
   AutoroutePartRazorHelperExtensions.GetContentItemBySlugAsync
-  ├─ AutoroutePartRazorHelperExtensions.GetContentItemIdBySlugAsync (depth limit)
-  ├─ ? orchardHelper.HttpContext.RequestServices.GetService<IContentManager>
+  ├─ …
+  ├─ if (latest)
+  ├─ else (!(latest))
 ~ └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
 
   ContentOrchardRazorHelperExtensions.DisplayAsync
@@ -50,8 +52,9 @@ stdout:
   └─ ? View
 
   DashboardController.Update
-  ├─ ? _authorizationService.AuthorizeAsync
+  ├─ …
   ├─ if (!await _authorizationService.AuthorizeAsync(User, Permissions.ManageAdminDashboard))
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (latestItems == null)
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
@@ -192,6 +195,7 @@ stdout:
   └─ …
 
   FluidShapeRenderBenchmark.ShapeRenderStatic
+  ├─ possible initialization of FluidShapeRenderBenchmark
   ├─ ? input.ToObjectValue
   ├─ if (input.ToObjectValue()is IShape shape)
 ~ │  ├─ IDisplayHelper.ShapeExecuteAsync → DisplayHelper.ShapeExecuteAsync (changes below depth limit)
@@ -201,6 +205,7 @@ stdout:
   └─ ? ValueTask.FromResult<FluidValue>
 
   FluidShapeRenderBenchmark.ShapeRenderWithAmbientValues
+  ├─ possible initialization of FluidShapeRenderBenchmark
   ├─ ? input.ToObjectValue
   ├─ if (input.ToObjectValue()is IShape shape)
   │  ├─ ? context.AmbientValues.TryGetValue
@@ -249,9 +254,10 @@ stdout:
   └─ ? new ObjectResult
 
   AdminController.Localize
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
-  ├─ ? _authorizationService.AuthorizeAsync
+  ├─ possible initialization of ContentLocalizationPermissions
   ├─ …
   ├─ IContentLocalizationManager.GetContentItemAsync → DefaultContentLocalizationManager.GetContentItemAsync (depth limit)
   ├─ if (alreadyLocalizedContent != null)
@@ -277,8 +283,8 @@ stdout:
   ├─ DefaultContentManager.ValidateAsync (depth limit)
   ├─ if (!validationResult.Succeeded)
   ├─ …
-  ├─ ? _session.Query<ContentItem, ContentItemIndex>().Where(index => index.ContentItemId == contentItem.ContentItemId && index.Latest).FirstOrDefaultAsync
   ├─ if (latestVersion != null)
+  ├─ possible initialization of VersionOptions
 ~ ├─ DefaultContentManager.CreateAsync (changes below depth limit)
   └─ InvokeExtensions.InvokeAsync (depth limit)
 
@@ -392,8 +398,10 @@ stdout:
   └─ …
 
   AdminController.Clone
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ AdminController.IsAuthorizedAsync (depth limit)
   ├─ if (!await IsAuthorizedAsync(CommonPermissions.CloneContent, contentItem))
   ├─ try
@@ -424,8 +432,10 @@ stdout:
      └─ ? _notifier.SuccessAsync
 
   AdminController.Delete
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ AdminController.IsAuthorizedAsync (depth limit)
   ├─ if (!await IsAuthorizedAsync(CommonPermissions.DeleteContent, contentItem))
 ~ ├─ IContentManager.RemoveAsync → DefaultContentManager.RemoveAsync (changes below depth limit)
@@ -434,8 +444,10 @@ stdout:
   └─ …
 
   AdminController.DiscardDraft
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null || contentItem.Published)
+  ├─ possible initialization of CommonPermissions
   ├─ AdminController.IsAuthorizedAsync (depth limit)
   ├─ if (!await IsAuthorizedAsync(CommonPermissions.DeleteContent, contentItem))
 ~ ├─ IContentManager.DiscardDraftAsync → DefaultContentManager.DiscardDraftAsync (changes below depth limit)
@@ -444,16 +456,20 @@ stdout:
   └─ …
 
   AdminController.Display
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ AdminController.IsAuthorizedAsync (depth limit)
   ├─ if (!await IsAuthorizedAsync(CommonPermissions.ViewContent, contentItem))
 ~ ├─ IContentItemDisplayManager.BuildDisplayAsync → ContentItemDisplayManager.BuildDisplayAsync (changes below depth limit)
   └─ ? View
 
   AdminController.Edit
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ AdminController.IsAuthorizedAsync (depth limit)
   ├─ if (!await IsAuthorizedAsync(CommonPermissions.EditContent, contentItem))
 ~ ├─ IContentItemDisplayManager.BuildEditorAsync → ContentItemDisplayManager.BuildEditorAsync (changes below depth limit)
@@ -489,8 +505,10 @@ stdout:
   └─ …
 
   AdminController.Publish
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ AdminController.IsAuthorizedAsync (depth limit)
   ├─ if (!await IsAuthorizedAsync(CommonPermissions.PublishContent, contentItem))
 ~ ├─ IContentManager.PublishAsync → DefaultContentManager.PublishAsync (changes below depth limit)
@@ -499,7 +517,9 @@ stdout:
   └─ …
 
   AdminController.Remove
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
+  ├─ possible initialization of CommonPermissions
   ├─ AdminController.IsAuthorizedAsync (depth limit)
   ├─ if (!await IsAuthorizedAsync(CommonPermissions.DeleteContent, contentItem))
   ├─ if (contentItem != null)
@@ -511,8 +531,10 @@ stdout:
   └─ …
 
   AdminController.Unpublish
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ AdminController.IsAuthorizedAsync (depth limit)
   ├─ if (!await IsAuthorizedAsync(CommonPermissions.PublishContent, contentItem))
 ~ ├─ IContentManager.UnpublishAsync → DefaultContentManager.UnpublishAsync (changes below depth limit)
@@ -523,6 +545,7 @@ stdout:
   ItemController.Display
 ~ ├─ ContentManagerExtensions.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, CommonPermissions.ViewContent, contentItem))
 ~ ├─ IContentItemDisplayManager.BuildDisplayAsync → ContentItemDisplayManager.BuildDisplayAsync (changes below depth limit)
@@ -530,8 +553,10 @@ stdout:
 
   ItemController.Preview
   ├─ if (contentItemId == null)
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentIt…
 ~ ├─ IContentItemDisplayManager.BuildDisplayAsync → ContentItemDisplayManager.BuildDisplayAsync (changes below depth limit)
@@ -543,23 +568,25 @@ stdout:
   ├─ if (deploymentPlan == null)
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
-  ├─ ? _authorizationService.AuthorizeAsync
+  ├─ possible initialization of CommonPermissions
   └─ …
 
   DownloadController.Display
-  ├─ ? _authorizationService.AuthorizeAsync
-  ├─ if (!await _authorizationService.AuthorizeAsync(User, DeploymentPermissions.Export))
+  ├─ …
+  ├─ if (latest == false)
+  ├─ else (!(latest == false))
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
-  ├─ ? _authorizationService.AuthorizeAsync
+  ├─ possible initialization of CommonPermissions
   └─ …
 
   DownloadController.Download
-  ├─ ? _authorizationService.AuthorizeAsync
-  ├─ if (!await _authorizationService.AuthorizeAsync(User, DeploymentPermissions.Export))
+  ├─ …
+  ├─ if (latest == false)
+  ├─ else (!(latest == false))
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
-  ├─ ? _authorizationService.AuthorizeAsync
+  ├─ possible initialization of CommonPermissions
   └─ …
 
   ExportContentToDeploymentTargetMigrations.CreateAsync
@@ -569,8 +596,8 @@ stdout:
 
   CreateEndpoint.HandleAsync
   ├─ …
-  ├─ if (!await authorizationService.AuthorizeAsync(httpContext.User, CommonPermissions.AccessContentA…
   ├─ if (model is null)
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
   │  ├─ …
@@ -582,7 +609,7 @@ stdout:
   │  └─ if (!modelState.IsValid)
   ├─ else (!(contentItem == null))
   │  ├─ …
-  │  ├─ if (!await authorizationService.AuthorizeAsync(httpContext.User, CommonPermissions.EditContent, c…
+  │  ├─ possible initialization of CreateEndpoint
   │  ├─ ContentItemExtensions.Merge (depth limit)
 ~ │  ├─ IContentManager.UpdateAsync → DefaultContentManager.UpdateAsync (changes below depth limit)
   │  ├─ IContentManager.ValidateAsync → DefaultContentManager.ValidateAsync (depth limit)
@@ -595,6 +622,7 @@ stdout:
   └─ ? Results.Json
 
   DeleteEndpoint.HandleAsync
+  ├─ …
   ├─ ? authorizationService.AuthorizeAsync
   ├─ if (!await authorizationService.AuthorizeAsync(httpContext.User, CommonPermissions.AccessContentA…
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
@@ -605,6 +633,7 @@ stdout:
   └─ ? Results.Json
 
   GetEndpoint.HandleAsync
+  ├─ …
   ├─ ? authorizationService.AuthorizeAsync
   ├─ if (!await authorizationService.AuthorizeAsync(httpContext.User, CommonPermissions.AccessContentA…
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
@@ -613,6 +642,7 @@ stdout:
   └─ …
 
   ContentItemTag.WriteToAsync
+  ├─ possible initialization of ContentItemTag
 ~ └─ ShapeTag.WriteToAsync (changes below depth limit)
 
   new ContentMethodsProvider
@@ -646,22 +676,25 @@ stdout:
   └─ ? View
 
   ContentApiController.AddContent
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, Permissions.DemoAPIAccess))
 ~ ├─ IContentManager.CreateAsync → DefaultContentManager.CreateAsync (changes below depth limit)
   └─ ? new ObjectResult
 
   ContentApiController.GetAuthorizedById
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, Permissions.DemoAPIAccess))
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
+  ├─ possible initialization of CommonPermissions
   ├─ ? _authorizationService.AuthorizeAsync
-  ├─ if (!await _authorizationService.AuthorizeAsync(User, CommonPermissions.ViewContent, contentItem))
   └─ …
 
   ContentController.Display
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(_httpContextAccessor.HttpContext.User, CommonPerm…
 ~ ├─ IContentItemDisplayManager.BuildDisplayAsync → ContentItemDisplayManager.BuildDisplayAsync (changes below depth limit)
@@ -670,6 +703,7 @@ stdout:
   ContentController.Edit
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(_httpContextAccessor.HttpContext.User, CommonPerm…
 ~ ├─ IContentItemDisplayManager.BuildEditorAsync → ContentItemDisplayManager.BuildEditorAsync (changes below depth limit)
@@ -678,6 +712,7 @@ stdout:
   ContentController.EditPost
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(_httpContextAccessor.HttpContext.User, CommonPerm…
 ~ ├─ IContentItemDisplayManager.UpdateEditorAsync → ContentItemDisplayManager.UpdateEditorAsync (changes below depth limit)
@@ -1069,6 +1104,7 @@ stdout:
   ├─ ? new HtmlContentBuilder
   ├─ if (groupings.Count > 1)
 ~ │  ├─ ShapeFactoryExtensions.CreateAsync (changes below depth limit)
+  │  ├─ possible initialization of FlatPositionComparer
   │  ├─ foreach (var orderedGrouping in orderedGroupings)
 ~ │  │  ├─ ShapeFactoryExtensions.CreateAsync (changes below depth limit)
   │  │  ├─ foreach (var item in orderedGrouping)
@@ -1087,6 +1123,7 @@ stdout:
   │  │  └─ foreach (var item in beforeRow)
 ~ │  │     ├─ IDisplayHelper.ShapeExecuteAsync → DisplayHelper.ShapeExecuteAsync (changes below depth limit)
   │  │     └─ ? htmlContentBuilder.AppendHtml
+  │  ├─ possible initialization of FlatPositionComparer
 ~ │  ├─ ShapeFactoryExtensions.CreateAsync (changes below depth limit)
   │  ├─ foreach (var columnItem in sortedColumnItems)
 ~ │  │  ├─ ShapeFactoryExtensions.CreateAsync (changes below depth limit)
@@ -1111,6 +1148,7 @@ stdout:
 ~ │     ├─ IDisplayHelper.ShapeExecuteAsync → DisplayHelper.ShapeExecuteAsync (changes below depth limit)
   │     └─ ? htmlContentBuilder.AppendHtml
   ├─ if (groupings.Count > 1)
+  │  ├─ possible initialization of FlatPositionComparer
 ~ │  ├─ ShapeFactoryExtensions.CreateAsync (changes below depth limit)
   │  ├─ foreach (var orderedGrouping in orderedGroupings)
 ~ │  │  ├─ ShapeFactoryExtensions.CreateAsync (changes below depth limit)
@@ -1170,6 +1208,7 @@ stdout:
 ~    └─ DistributedShellHostedService.RemovingAsync (changes below depth limit)
 
   DistributedShellHostedService.ExecuteAsync
+  ├─ possible initialization of DistributedShellHostedService
   ├─ while (!stoppingToken.IsCancellationRequested)
   │  ├─ try
   │  │  ├─ …
@@ -1252,6 +1291,7 @@ stdout:
 ~ └─ IRecipeMigrator.ExecuteAsync → RecipeMigrator.ExecuteAsync (changes below depth limit)
 
   AdminController.Disable
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, FeaturesPermissions.ManageFeatures))
   ├─ AdminController.ExecuteAsync (changes below depth limit)
@@ -1264,6 +1304,7 @@ stdout:
   └─ …
 
   AdminController.Enable
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, FeaturesPermissions.ManageFeatures))
   ├─ AdminController.ExecuteAsync (changes below depth limit)
@@ -1381,6 +1422,7 @@ stdout:
   └─ …
 
   AdminController.IndexPost
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, IndexingPermissions.ManageIndexes))
   ├─ if (itemIds?.Any() == true)
@@ -1470,8 +1512,9 @@ stdout:
   └─ ? View
 
   AdminController.UpdatePosition
-  ├─ ? _authorizationService.AuthorizeAsync
+  ├─ …
   ├─ if (!await _authorizationService.AuthorizeAsync(User, Permissions.ManageLayers))
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
   ├─ ContentItemExtensions.TryGet (depth limit)
@@ -1589,8 +1632,10 @@ stdout:
   ├─ IContentDefinitionManager.GetTypeDefinitionAsync → ContentDefinitionManager.GetTypeDefinitionAsync (depth limit)
   ├─ ContentTypeExtensions.IsDraftable (depth limit)
   ├─ if (!contentTypeDefinition.IsDraftable())
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ else (!(!contentTypeDefinition.IsDraftable()))
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (menu == null)
   ├─ IContentManager.NewAsync → DefaultContentManager.NewAsync (depth limit)
@@ -1606,8 +1651,10 @@ stdout:
   ├─ IContentDefinitionManager.GetTypeDefinitionAsync → ContentDefinitionManager.GetTypeDefinitionAsync (depth limit)
   ├─ ContentTypeExtensions.IsDraftable (depth limit)
   ├─ if (contentTypeDefinition.IsDraftable())
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ else (!(contentTypeDefinition.IsDraftable()))
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (menu == null)
   ├─ AdminController.FindMenuItem (depth limit)
@@ -1618,12 +1665,13 @@ stdout:
   └─ ? RedirectToAction
 
   AdminController.Edit
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (menu == null)
-  ├─ ? _authorizationService.AuthorizeAsync
+  ├─ possible initialization of Permissions
   ├─ …
   ├─ if (menuItem == null)
-  ├─ JNode.ToObject
+  ├─ JNode.ToObject (depth limit)
 ~ ├─ IContentItemDisplayManager.BuildEditorAsync → ContentItemDisplayManager.BuildEditorAsync (changes below depth limit)
   └─ ? View
 
@@ -1632,8 +1680,10 @@ stdout:
   ├─ IContentDefinitionManager.GetTypeDefinitionAsync → ContentDefinitionManager.GetTypeDefinitionAsync (depth limit)
   ├─ ContentTypeExtensions.IsDraftable (depth limit)
   ├─ if (!contentTypeDefinition.IsDraftable())
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ else (!(!contentTypeDefinition.IsDraftable()))
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (menu == null)
   ├─ AdminController.FindMenuItem (depth limit)
@@ -1653,9 +1703,11 @@ stdout:
   ├─ ContentItemExtensions.TryGet (depth limit)
   └─ if (contentItem.TryGet<ContentMenuItemPart>(out var menuItemPart))
      └─ if (menuItemPart.CheckContentPermissions)
+        ├─ possible initialization of VersionOptions
 ~       ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
         ├─ IContentManager.LoadAsync → DefaultContentManager.LoadAsync (depth limit)
-        └─ AuthorizationServiceExtensions.AuthorizeAsync (depth limit)
+        ├─ possible initialization of CommonPermissions
+        └─ …
 
   Migrations.CreateAsync
 ~ └─ IRecipeMigrator.ExecuteAsync → RecipeMigrator.ExecuteAsync (changes below depth limit)
@@ -1856,6 +1908,7 @@ stdout:
 
   OpenIdValidationConfiguration.Configure
 ~ ├─ OpenIdValidationConfiguration.GetValidationSettingsAsync (changes below depth limit)
+  ├─ possible initialization of OpenIdValidationConfiguration.AttachProblemDetailsResponseBody
   ├─ ? options.Handlers.Add
   ├─ if (settings.Authority != null)
 ~ ├─ OpenIdValidationConfiguration.CreateTenantScope (changes below depth limit)
@@ -2153,6 +2206,7 @@ stdout:
 ~ └─ BaseShapeTagHelper.ProcessAsync (changes below depth limit)
 
   AdminController.Execute
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, RecipePermissions.ManageRecipes))
 ~ ├─ IShellFeaturesManager.GetAvailableFeaturesAsync → ShellFeaturesManager.GetAvailableFeaturesAsync (changes below depth limit)
@@ -2168,6 +2222,7 @@ stdout:
   └─ …
 
   AdminController.Index
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, RecipePermissions.ManageRecipes))
 ~ ├─ IShellFeaturesManager.GetAvailableFeaturesAsync → ShellFeaturesManager.GetAvailableFeaturesAsync (changes below depth limit)
@@ -2369,8 +2424,10 @@ stdout:
   ├─ IContentDefinitionManager.GetTypeDefinitionAsync → ContentDefinitionManager.GetTypeDefinitionAsync (depth limit)
   ├─ ContentTypeExtensions.IsDraftable (depth limit)
   ├─ if (!contentTypeDefinition.IsDraftable())
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ else (!(!contentTypeDefinition.IsDraftable()))
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (taxonomy == null)
   ├─ IContentManager.NewAsync → DefaultContentManager.NewAsync (depth limit)
@@ -2386,8 +2443,10 @@ stdout:
   ├─ IContentDefinitionManager.GetTypeDefinitionAsync → ContentDefinitionManager.GetTypeDefinitionAsync (depth limit)
   ├─ ContentTypeExtensions.IsDraftable (depth limit)
   ├─ if (!contentTypeDefinition.IsDraftable())
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ else (!(!contentTypeDefinition.IsDraftable()))
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (taxonomy == null)
   ├─ ContentItemExtensions.TryGet (depth limit)
@@ -2395,9 +2454,10 @@ stdout:
 
   AdminController.Edit
   ├─ if (string.IsNullOrWhiteSpace(taxonomyContentItemId) || string.IsNullOrWhiteSpace(taxonomyItemId))
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (taxonomy == null)
-  ├─ ? _authorizationService.AuthorizeAsync
+  ├─ possible initialization of Permissions
   ├─ …
   ├─ ContentExtensions.Weld (depth limit)
   ├─ ContentItemExtensions.Alter (depth limit)
@@ -2409,8 +2469,10 @@ stdout:
   ├─ IContentDefinitionManager.GetTypeDefinitionAsync → ContentDefinitionManager.GetTypeDefinitionAsync (depth limit)
   ├─ ContentTypeExtensions.IsDraftable (depth limit)
   ├─ if (!contentTypeDefinition.IsDraftable())
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ else (!(!contentTypeDefinition.IsDraftable()))
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (taxonomy == null)
   ├─ ContentItemExtensions.TryGet (depth limit)
@@ -2424,7 +2486,7 @@ stdout:
 
   TagController.CreatePost
   ├─ …
-  ├─ IContentDefinitionManager.GetTypeDefinitionAsync → ContentDefinitionManager.GetTypeDefinitionAsync (depth limit)
+  ├─ possible initialization of VersionOptions
   ├─ ContentTypeExtensions.IsDraftable (depth limit)
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (taxonomy == null)
@@ -2453,8 +2515,8 @@ stdout:
 
   PreviewController.Render
   ├─ …
-  ├─ else (!(string.IsNullOrEmpty(handle) || handle == _homeUrl))
   ├─ if (string.IsNullOrEmpty(contentItemId))
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem is null)
 ~ ├─ IContentItemDisplayManager.BuildDisplayAsync → ContentItemDisplayManager.BuildDisplayAsync (changes below depth limit)
@@ -2625,6 +2687,7 @@ stdout:
   └─ ? Ok
 
   AdminController.Disable
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, Permissions.ApplyTheme))
 ~ ├─ IShellFeaturesManager.GetAvailableFeaturesAsync → ShellFeaturesManager.GetAvailableFeaturesAsync (changes below depth limit)
@@ -2635,6 +2698,7 @@ stdout:
   └─ ? RedirectToAction
 
   AdminController.Enable
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, Permissions.ApplyTheme))
 ~ ├─ IShellFeaturesManager.GetAvailableFeaturesAsync → ShellFeaturesManager.GetAvailableFeaturesAsync (changes below depth limit)
@@ -2654,6 +2718,7 @@ stdout:
   └─ …
 
   AdminController.SetCurrentTheme
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, Permissions.ApplyTheme))
   ├─ else (!(string.IsNullOrEmpty(id)))
@@ -2994,7 +3059,7 @@ stdout:
   HomeController.ServiceEndpoint
 ~ ├─ HomeController.DispatchAsync (changes below depth limit)
   ├─ if (methodResponse == null)
-  ├─ MemoryStreamFactory.GetStream (depth limit)
+  ├─ possible initialization of MemoryStreamFactory
   └─ …
 
   TaxonomyOrchardHelperExtensions.GetInheritedTermsAsync
@@ -3015,20 +3080,22 @@ src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.Ad
 src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage.
 src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource.
 src/OrchardCore.AspireHost/ClamAV.cs:46: unresolved-call: Cannot bind builder.WithVolume.
-16676 additional diagnostics; use --diagnostics full.
+16803 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
 stdout:
 ```diff
   AliasPartRazorHelperExtensions.GetContentItemByAliasAsync
-  ├─ AliasPartRazorHelperExtensions.GetContentItemIdByAliasAsync (depth limit)
-  ├─ ? orchardHelper.HttpContext.RequestServices.GetService<IContentManager>
+  ├─ …
+  ├─ if (latest)
+  ├─ else (!(latest))
 ~ └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
 
   AutoroutePartRazorHelperExtensions.GetContentItemBySlugAsync
-  ├─ AutoroutePartRazorHelperExtensions.GetContentItemIdBySlugAsync (depth limit)
-  ├─ ? orchardHelper.HttpContext.RequestServices.GetService<IContentManager>
+  ├─ …
+  ├─ if (latest)
+  ├─ else (!(latest))
 ~ └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
 
   ContentOrchardRazorHelperExtensions.DisplayAsync
@@ -3070,8 +3137,9 @@ stdout:
   └─ ? View
 
   DashboardController.Update
-  ├─ ? _authorizationService.AuthorizeAsync
+  ├─ …
   ├─ if (!await _authorizationService.AuthorizeAsync(User, Permissions.ManageAdminDashboard))
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (latestItems == null)
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
@@ -3212,6 +3280,7 @@ stdout:
   └─ …
 
   FluidShapeRenderBenchmark.ShapeRenderStatic
+  ├─ possible initialization of FluidShapeRenderBenchmark
   ├─ ? input.ToObjectValue
   ├─ if (input.ToObjectValue()is IShape shape)
 ~ │  ├─ IDisplayHelper.ShapeExecuteAsync → DisplayHelper.ShapeExecuteAsync (changes below depth limit)
@@ -3221,6 +3290,7 @@ stdout:
   └─ ? ValueTask.FromResult<FluidValue>
 
   FluidShapeRenderBenchmark.ShapeRenderWithAmbientValues
+  ├─ possible initialization of FluidShapeRenderBenchmark
   ├─ ? input.ToObjectValue
   ├─ if (input.ToObjectValue()is IShape shape)
   │  ├─ ? context.AmbientValues.TryGetValue
@@ -3269,9 +3339,10 @@ stdout:
   └─ ? new ObjectResult
 
   AdminController.Localize
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
-  ├─ ? _authorizationService.AuthorizeAsync
+  ├─ possible initialization of ContentLocalizationPermissions
   ├─ …
   ├─ IContentLocalizationManager.GetContentItemAsync → DefaultContentLocalizationManager.GetContentItemAsync (depth limit)
   ├─ if (alreadyLocalizedContent != null)
@@ -3297,8 +3368,8 @@ stdout:
   ├─ DefaultContentManager.ValidateAsync (depth limit)
   ├─ if (!validationResult.Succeeded)
   ├─ …
-  ├─ ? _session.Query<ContentItem, ContentItemIndex>().Where(index => index.ContentItemId == contentItem.ContentItemId && index.Latest).FirstOrDefaultAsync
   ├─ if (latestVersion != null)
+  ├─ possible initialization of VersionOptions
 ~ ├─ DefaultContentManager.CreateAsync (changes below depth limit)
   └─ InvokeExtensions.InvokeAsync (depth limit)
 
@@ -3412,8 +3483,10 @@ stdout:
   └─ …
 
   AdminController.Clone
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ AdminController.IsAuthorizedAsync (depth limit)
   ├─ if (!await IsAuthorizedAsync(CommonPermissions.CloneContent, contentItem))
   ├─ try
@@ -3444,8 +3517,10 @@ stdout:
      └─ ? _notifier.SuccessAsync
 
   AdminController.Delete
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ AdminController.IsAuthorizedAsync (depth limit)
   ├─ if (!await IsAuthorizedAsync(CommonPermissions.DeleteContent, contentItem))
 ~ ├─ IContentManager.RemoveAsync → DefaultContentManager.RemoveAsync (changes below depth limit)
@@ -3454,8 +3529,10 @@ stdout:
   └─ …
 
   AdminController.DiscardDraft
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null || contentItem.Published)
+  ├─ possible initialization of CommonPermissions
   ├─ AdminController.IsAuthorizedAsync (depth limit)
   ├─ if (!await IsAuthorizedAsync(CommonPermissions.DeleteContent, contentItem))
 ~ ├─ IContentManager.DiscardDraftAsync → DefaultContentManager.DiscardDraftAsync (changes below depth limit)
@@ -3464,16 +3541,20 @@ stdout:
   └─ …
 
   AdminController.Display
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ AdminController.IsAuthorizedAsync (depth limit)
   ├─ if (!await IsAuthorizedAsync(CommonPermissions.ViewContent, contentItem))
 ~ ├─ IContentItemDisplayManager.BuildDisplayAsync → ContentItemDisplayManager.BuildDisplayAsync (changes below depth limit)
   └─ ? View
 
   AdminController.Edit
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ AdminController.IsAuthorizedAsync (depth limit)
   ├─ if (!await IsAuthorizedAsync(CommonPermissions.EditContent, contentItem))
 ~ ├─ IContentItemDisplayManager.BuildEditorAsync → ContentItemDisplayManager.BuildEditorAsync (changes below depth limit)
@@ -3509,8 +3590,10 @@ stdout:
   └─ …
 
   AdminController.Publish
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ AdminController.IsAuthorizedAsync (depth limit)
   ├─ if (!await IsAuthorizedAsync(CommonPermissions.PublishContent, contentItem))
 ~ ├─ IContentManager.PublishAsync → DefaultContentManager.PublishAsync (changes below depth limit)
@@ -3519,7 +3602,9 @@ stdout:
   └─ …
 
   AdminController.Remove
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
+  ├─ possible initialization of CommonPermissions
   ├─ AdminController.IsAuthorizedAsync (depth limit)
   ├─ if (!await IsAuthorizedAsync(CommonPermissions.DeleteContent, contentItem))
   ├─ if (contentItem != null)
@@ -3531,8 +3616,10 @@ stdout:
   └─ …
 
   AdminController.Unpublish
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ AdminController.IsAuthorizedAsync (depth limit)
   ├─ if (!await IsAuthorizedAsync(CommonPermissions.PublishContent, contentItem))
 ~ ├─ IContentManager.UnpublishAsync → DefaultContentManager.UnpublishAsync (changes below depth limit)
@@ -3543,6 +3630,7 @@ stdout:
   ItemController.Display
 ~ ├─ ContentManagerExtensions.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, CommonPermissions.ViewContent, contentItem))
 ~ ├─ IContentItemDisplayManager.BuildDisplayAsync → ContentItemDisplayManager.BuildDisplayAsync (changes below depth limit)
@@ -3550,8 +3638,10 @@ stdout:
 
   ItemController.Preview
   ├─ if (contentItemId == null)
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentIt…
 ~ ├─ IContentItemDisplayManager.BuildDisplayAsync → ContentItemDisplayManager.BuildDisplayAsync (changes below depth limit)
@@ -3563,23 +3653,25 @@ stdout:
   ├─ if (deploymentPlan == null)
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
-  ├─ ? _authorizationService.AuthorizeAsync
+  ├─ possible initialization of CommonPermissions
   └─ …
 
   DownloadController.Display
-  ├─ ? _authorizationService.AuthorizeAsync
-  ├─ if (!await _authorizationService.AuthorizeAsync(User, DeploymentPermissions.Export))
+  ├─ …
+  ├─ if (latest == false)
+  ├─ else (!(latest == false))
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
-  ├─ ? _authorizationService.AuthorizeAsync
+  ├─ possible initialization of CommonPermissions
   └─ …
 
   DownloadController.Download
-  ├─ ? _authorizationService.AuthorizeAsync
-  ├─ if (!await _authorizationService.AuthorizeAsync(User, DeploymentPermissions.Export))
+  ├─ …
+  ├─ if (latest == false)
+  ├─ else (!(latest == false))
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
-  ├─ ? _authorizationService.AuthorizeAsync
+  ├─ possible initialization of CommonPermissions
   └─ …
 
   ExportContentToDeploymentTargetMigrations.CreateAsync
@@ -3589,8 +3681,8 @@ stdout:
 
   CreateEndpoint.HandleAsync
   ├─ …
-  ├─ if (!await authorizationService.AuthorizeAsync(httpContext.User, CommonPermissions.AccessContentA…
   ├─ if (model is null)
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
   │  ├─ …
@@ -3602,7 +3694,7 @@ stdout:
   │  └─ if (!modelState.IsValid)
   ├─ else (!(contentItem == null))
   │  ├─ …
-  │  ├─ if (!await authorizationService.AuthorizeAsync(httpContext.User, CommonPermissions.EditContent, c…
+  │  ├─ possible initialization of CreateEndpoint
   │  ├─ ContentItemExtensions.Merge (depth limit)
 ~ │  ├─ IContentManager.UpdateAsync → DefaultContentManager.UpdateAsync (changes below depth limit)
   │  ├─ IContentManager.ValidateAsync → DefaultContentManager.ValidateAsync (depth limit)
@@ -3615,6 +3707,7 @@ stdout:
   └─ ? Results.Json
 
   DeleteEndpoint.HandleAsync
+  ├─ …
   ├─ ? authorizationService.AuthorizeAsync
   ├─ if (!await authorizationService.AuthorizeAsync(httpContext.User, CommonPermissions.AccessContentA…
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
@@ -3625,6 +3718,7 @@ stdout:
   └─ ? Results.Json
 
   GetEndpoint.HandleAsync
+  ├─ …
   ├─ ? authorizationService.AuthorizeAsync
   ├─ if (!await authorizationService.AuthorizeAsync(httpContext.User, CommonPermissions.AccessContentA…
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
@@ -3633,6 +3727,7 @@ stdout:
   └─ …
 
   ContentItemTag.WriteToAsync
+  ├─ possible initialization of ContentItemTag
 ~ └─ ShapeTag.WriteToAsync (changes below depth limit)
 
   new ContentMethodsProvider
@@ -3666,22 +3761,25 @@ stdout:
   └─ ? View
 
   ContentApiController.AddContent
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, Permissions.DemoAPIAccess))
 ~ ├─ IContentManager.CreateAsync → DefaultContentManager.CreateAsync (changes below depth limit)
   └─ ? new ObjectResult
 
   ContentApiController.GetAuthorizedById
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, Permissions.DemoAPIAccess))
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
+  ├─ possible initialization of CommonPermissions
   ├─ ? _authorizationService.AuthorizeAsync
-  ├─ if (!await _authorizationService.AuthorizeAsync(User, CommonPermissions.ViewContent, contentItem))
   └─ …
 
   ContentController.Display
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(_httpContextAccessor.HttpContext.User, CommonPerm…
 ~ ├─ IContentItemDisplayManager.BuildDisplayAsync → ContentItemDisplayManager.BuildDisplayAsync (changes below depth limit)
@@ -3690,6 +3788,7 @@ stdout:
   ContentController.Edit
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(_httpContextAccessor.HttpContext.User, CommonPerm…
 ~ ├─ IContentItemDisplayManager.BuildEditorAsync → ContentItemDisplayManager.BuildEditorAsync (changes below depth limit)
@@ -3698,6 +3797,7 @@ stdout:
   ContentController.EditPost
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
+  ├─ possible initialization of CommonPermissions
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(_httpContextAccessor.HttpContext.User, CommonPerm…
 ~ ├─ IContentItemDisplayManager.UpdateEditorAsync → ContentItemDisplayManager.UpdateEditorAsync (changes below depth limit)
@@ -4089,6 +4189,7 @@ stdout:
   ├─ ? new HtmlContentBuilder
   ├─ if (groupings.Count > 1)
 ~ │  ├─ ShapeFactoryExtensions.CreateAsync (changes below depth limit)
+  │  ├─ possible initialization of FlatPositionComparer
   │  ├─ foreach (var orderedGrouping in orderedGroupings)
 ~ │  │  ├─ ShapeFactoryExtensions.CreateAsync (changes below depth limit)
   │  │  ├─ foreach (var item in orderedGrouping)
@@ -4107,6 +4208,7 @@ stdout:
   │  │  └─ foreach (var item in beforeRow)
 ~ │  │     ├─ IDisplayHelper.ShapeExecuteAsync → DisplayHelper.ShapeExecuteAsync (changes below depth limit)
   │  │     └─ ? htmlContentBuilder.AppendHtml
+  │  ├─ possible initialization of FlatPositionComparer
 ~ │  ├─ ShapeFactoryExtensions.CreateAsync (changes below depth limit)
   │  ├─ foreach (var columnItem in sortedColumnItems)
 ~ │  │  ├─ ShapeFactoryExtensions.CreateAsync (changes below depth limit)
@@ -4131,6 +4233,7 @@ stdout:
 ~ │     ├─ IDisplayHelper.ShapeExecuteAsync → DisplayHelper.ShapeExecuteAsync (changes below depth limit)
   │     └─ ? htmlContentBuilder.AppendHtml
   ├─ if (groupings.Count > 1)
+  │  ├─ possible initialization of FlatPositionComparer
 ~ │  ├─ ShapeFactoryExtensions.CreateAsync (changes below depth limit)
   │  ├─ foreach (var orderedGrouping in orderedGroupings)
 ~ │  │  ├─ ShapeFactoryExtensions.CreateAsync (changes below depth limit)
@@ -4190,6 +4293,7 @@ stdout:
 ~    └─ DistributedShellHostedService.RemovingAsync (changes below depth limit)
 
   DistributedShellHostedService.ExecuteAsync
+  ├─ possible initialization of DistributedShellHostedService
   ├─ while (!stoppingToken.IsCancellationRequested)
   │  ├─ try
   │  │  ├─ …
@@ -4272,6 +4376,7 @@ stdout:
 ~ └─ IRecipeMigrator.ExecuteAsync → RecipeMigrator.ExecuteAsync (changes below depth limit)
 
   AdminController.Disable
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, FeaturesPermissions.ManageFeatures))
   ├─ AdminController.ExecuteAsync (changes below depth limit)
@@ -4284,6 +4389,7 @@ stdout:
   └─ …
 
   AdminController.Enable
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, FeaturesPermissions.ManageFeatures))
   ├─ AdminController.ExecuteAsync (changes below depth limit)
@@ -4401,6 +4507,7 @@ stdout:
   └─ …
 
   AdminController.IndexPost
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, IndexingPermissions.ManageIndexes))
   ├─ if (itemIds?.Any() == true)
@@ -4490,8 +4597,9 @@ stdout:
   └─ ? View
 
   AdminController.UpdatePosition
-  ├─ ? _authorizationService.AuthorizeAsync
+  ├─ …
   ├─ if (!await _authorizationService.AuthorizeAsync(User, Permissions.ManageLayers))
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem == null)
   ├─ ContentItemExtensions.TryGet (depth limit)
@@ -4609,8 +4717,10 @@ stdout:
   ├─ IContentDefinitionManager.GetTypeDefinitionAsync → ContentDefinitionManager.GetTypeDefinitionAsync (depth limit)
   ├─ ContentTypeExtensions.IsDraftable (depth limit)
   ├─ if (!contentTypeDefinition.IsDraftable())
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ else (!(!contentTypeDefinition.IsDraftable()))
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (menu == null)
   ├─ IContentManager.NewAsync → DefaultContentManager.NewAsync (depth limit)
@@ -4626,8 +4736,10 @@ stdout:
   ├─ IContentDefinitionManager.GetTypeDefinitionAsync → ContentDefinitionManager.GetTypeDefinitionAsync (depth limit)
   ├─ ContentTypeExtensions.IsDraftable (depth limit)
   ├─ if (contentTypeDefinition.IsDraftable())
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ else (!(contentTypeDefinition.IsDraftable()))
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (menu == null)
   ├─ AdminController.FindMenuItem (depth limit)
@@ -4638,12 +4750,13 @@ stdout:
   └─ ? RedirectToAction
 
   AdminController.Edit
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (menu == null)
-  ├─ ? _authorizationService.AuthorizeAsync
+  ├─ possible initialization of Permissions
   ├─ …
   ├─ if (menuItem == null)
-  ├─ JNode.ToObject
+  ├─ JNode.ToObject (depth limit)
 ~ ├─ IContentItemDisplayManager.BuildEditorAsync → ContentItemDisplayManager.BuildEditorAsync (changes below depth limit)
   └─ ? View
 
@@ -4652,8 +4765,10 @@ stdout:
   ├─ IContentDefinitionManager.GetTypeDefinitionAsync → ContentDefinitionManager.GetTypeDefinitionAsync (depth limit)
   ├─ ContentTypeExtensions.IsDraftable (depth limit)
   ├─ if (!contentTypeDefinition.IsDraftable())
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ else (!(!contentTypeDefinition.IsDraftable()))
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (menu == null)
   ├─ AdminController.FindMenuItem (depth limit)
@@ -4673,9 +4788,11 @@ stdout:
   ├─ ContentItemExtensions.TryGet (depth limit)
   └─ if (contentItem.TryGet<ContentMenuItemPart>(out var menuItemPart))
      └─ if (menuItemPart.CheckContentPermissions)
+        ├─ possible initialization of VersionOptions
 ~       ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
         ├─ IContentManager.LoadAsync → DefaultContentManager.LoadAsync (depth limit)
-        └─ AuthorizationServiceExtensions.AuthorizeAsync (depth limit)
+        ├─ possible initialization of CommonPermissions
+        └─ …
 
   Migrations.CreateAsync
 ~ └─ IRecipeMigrator.ExecuteAsync → RecipeMigrator.ExecuteAsync (changes below depth limit)
@@ -4876,6 +4993,7 @@ stdout:
 
   OpenIdValidationConfiguration.Configure
 ~ ├─ OpenIdValidationConfiguration.GetValidationSettingsAsync (changes below depth limit)
+  ├─ possible initialization of OpenIdValidationConfiguration.AttachProblemDetailsResponseBody
   ├─ ? options.Handlers.Add
   ├─ if (settings.Authority != null)
 ~ ├─ OpenIdValidationConfiguration.CreateTenantScope (changes below depth limit)
@@ -5173,6 +5291,7 @@ stdout:
 ~ └─ BaseShapeTagHelper.ProcessAsync (changes below depth limit)
 
   AdminController.Execute
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, RecipePermissions.ManageRecipes))
 ~ ├─ IShellFeaturesManager.GetAvailableFeaturesAsync → ShellFeaturesManager.GetAvailableFeaturesAsync (changes below depth limit)
@@ -5188,6 +5307,7 @@ stdout:
   └─ …
 
   AdminController.Index
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, RecipePermissions.ManageRecipes))
 ~ ├─ IShellFeaturesManager.GetAvailableFeaturesAsync → ShellFeaturesManager.GetAvailableFeaturesAsync (changes below depth limit)
@@ -5389,8 +5509,10 @@ stdout:
   ├─ IContentDefinitionManager.GetTypeDefinitionAsync → ContentDefinitionManager.GetTypeDefinitionAsync (depth limit)
   ├─ ContentTypeExtensions.IsDraftable (depth limit)
   ├─ if (!contentTypeDefinition.IsDraftable())
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ else (!(!contentTypeDefinition.IsDraftable()))
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (taxonomy == null)
   ├─ IContentManager.NewAsync → DefaultContentManager.NewAsync (depth limit)
@@ -5406,8 +5528,10 @@ stdout:
   ├─ IContentDefinitionManager.GetTypeDefinitionAsync → ContentDefinitionManager.GetTypeDefinitionAsync (depth limit)
   ├─ ContentTypeExtensions.IsDraftable (depth limit)
   ├─ if (!contentTypeDefinition.IsDraftable())
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ else (!(!contentTypeDefinition.IsDraftable()))
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (taxonomy == null)
   ├─ ContentItemExtensions.TryGet (depth limit)
@@ -5415,9 +5539,10 @@ stdout:
 
   AdminController.Edit
   ├─ if (string.IsNullOrWhiteSpace(taxonomyContentItemId) || string.IsNullOrWhiteSpace(taxonomyItemId))
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (taxonomy == null)
-  ├─ ? _authorizationService.AuthorizeAsync
+  ├─ possible initialization of Permissions
   ├─ …
   ├─ ContentExtensions.Weld (depth limit)
   ├─ ContentItemExtensions.Alter (depth limit)
@@ -5429,8 +5554,10 @@ stdout:
   ├─ IContentDefinitionManager.GetTypeDefinitionAsync → ContentDefinitionManager.GetTypeDefinitionAsync (depth limit)
   ├─ ContentTypeExtensions.IsDraftable (depth limit)
   ├─ if (!contentTypeDefinition.IsDraftable())
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ else (!(!contentTypeDefinition.IsDraftable()))
+  │  ├─ possible initialization of VersionOptions
 ~ │  └─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (taxonomy == null)
   ├─ ContentItemExtensions.TryGet (depth limit)
@@ -5444,7 +5571,7 @@ stdout:
 
   TagController.CreatePost
   ├─ …
-  ├─ IContentDefinitionManager.GetTypeDefinitionAsync → ContentDefinitionManager.GetTypeDefinitionAsync (depth limit)
+  ├─ possible initialization of VersionOptions
   ├─ ContentTypeExtensions.IsDraftable (depth limit)
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (taxonomy == null)
@@ -5473,8 +5600,8 @@ stdout:
 
   PreviewController.Render
   ├─ …
-  ├─ else (!(string.IsNullOrEmpty(handle) || handle == _homeUrl))
   ├─ if (string.IsNullOrEmpty(contentItemId))
+  ├─ possible initialization of VersionOptions
 ~ ├─ IContentManager.GetAsync → DefaultContentManager.GetAsync (changes below depth limit)
   ├─ if (contentItem is null)
 ~ ├─ IContentItemDisplayManager.BuildDisplayAsync → ContentItemDisplayManager.BuildDisplayAsync (changes below depth limit)
@@ -5645,6 +5772,7 @@ stdout:
   └─ ? Ok
 
   AdminController.Disable
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, Permissions.ApplyTheme))
 ~ ├─ IShellFeaturesManager.GetAvailableFeaturesAsync → ShellFeaturesManager.GetAvailableFeaturesAsync (changes below depth limit)
@@ -5655,6 +5783,7 @@ stdout:
   └─ ? RedirectToAction
 
   AdminController.Enable
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, Permissions.ApplyTheme))
 ~ ├─ IShellFeaturesManager.GetAvailableFeaturesAsync → ShellFeaturesManager.GetAvailableFeaturesAsync (changes below depth limit)
@@ -5674,6 +5803,7 @@ stdout:
   └─ …
 
   AdminController.SetCurrentTheme
+  ├─ …
   ├─ ? _authorizationService.AuthorizeAsync
   ├─ if (!await _authorizationService.AuthorizeAsync(User, Permissions.ApplyTheme))
   ├─ else (!(string.IsNullOrEmpty(id)))
@@ -6014,7 +6144,7 @@ stdout:
   HomeController.ServiceEndpoint
 ~ ├─ HomeController.DispatchAsync (changes below depth limit)
   ├─ if (methodResponse == null)
-  ├─ MemoryStreamFactory.GetStream (depth limit)
+  ├─ possible initialization of MemoryStreamFactory
   └─ …
 
   TaxonomyOrchardHelperExtensions.GetInheritedTermsAsync
@@ -6036,4 +6166,4 @@ src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.Ad
 src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage.
 src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource.
 src/OrchardCore.AspireHost/ClamAV.cs:46: unresolved-call: Cannot bind builder.WithVolume.
-16676 additional diagnostics; use --diagnostics full.
+16803 additional diagnostics; use --diagnostics full.

@@ -4,6 +4,10 @@ stdout:
 ~ DotNetDispatcher.EndInvokeDotNetAfterTask (signature changed)
   ├─ if (task.Exception != null)
 - ├─ TaskGenericsUtil.GetTaskResult
+- │  ├─ possible initialization of TaskGenericsUtil
+- │  │  └─ initialization of TaskGenericsUtil
+- │  │     ├─ new ConcurrentDictionary<Type, ITaskResultGetter>
+- │  │     └─ new ConcurrentDictionary<Type, ITcsResultSetter>
 - │  ├─ task.GetType
 - │  ├─ _cachedResultGetters.GetOrAdd
 - │  │  ├─ TaskGenericsUtil.GetTaskResultType
@@ -49,6 +53,8 @@ stdout:
 + │        └─ InternalCalls.EndInvokeDotNetFromJS
 + ├─ else (!(isNonGenericTask))
 + │  └─ TaskGenericsUtil.GetTaskResult
++ │     ├─ possible initialization of TaskGenericsUtil
++ │     │  └─ initialization of TaskGenericsUtil (depth limit)
 + │     ├─ task.GetType
 + │     ├─ _cachedResultGetters.GetOrAdd
 + │     │  ├─ TaskGenericsUtil.GetTaskResultType (depth limit)
@@ -70,6 +76,7 @@ stdout:
   └─ …
 
   DotNetDispatcher.GetTaskByType
+  ├─ possible initialization of DotNetDispatcher
   ├─ _cachedConvertToTaskByType.GetOrAdd
 - │  ├─ taskConverterMethodInfo.MakeGenericMethod
 - │  ├─ taskConverterMethodInfo.MakeGenericMethod(t).CreateDelegate<Func<object, Task>>
@@ -82,6 +89,7 @@ stdout:
   └─ converterDelegate.Invoke
 
   TaskGenericsUtil.GetTaskResult
+  ├─ possible initialization of TaskGenericsUtil
   ├─ task.GetType
   ├─ _cachedResultGetters.GetOrAdd
   │  ├─ TaskGenericsUtil.GetTaskResultType
@@ -109,7 +117,7 @@ eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot 
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
-22795 additional diagnostics; use --diagnostics full.
+22967 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -118,6 +126,10 @@ stdout:
 ~ DotNetDispatcher.EndInvokeDotNetAfterTask (signature changed)
   ├─ if (task.Exception != null)
 - ├─ TaskGenericsUtil.GetTaskResult
+- │  ├─ possible initialization of TaskGenericsUtil
+- │  │  └─ initialization of TaskGenericsUtil
+- │  │     ├─ new ConcurrentDictionary<Type, ITaskResultGetter>
+- │  │     └─ new ConcurrentDictionary<Type, ITcsResultSetter>
 - │  ├─ task.GetType
 - │  ├─ _cachedResultGetters.GetOrAdd
 - │  │  ├─ TaskGenericsUtil.GetTaskResultType
@@ -163,6 +175,8 @@ stdout:
 + │        └─ InternalCalls.EndInvokeDotNetFromJS
 + ├─ else (!(isNonGenericTask))
 + │  └─ TaskGenericsUtil.GetTaskResult
++ │     ├─ possible initialization of TaskGenericsUtil
++ │     │  └─ initialization of TaskGenericsUtil (depth limit)
 + │     ├─ task.GetType
 + │     ├─ _cachedResultGetters.GetOrAdd
 + │     │  ├─ TaskGenericsUtil.GetTaskResultType (depth limit)
@@ -184,6 +198,7 @@ stdout:
   └─ …
 
   DotNetDispatcher.GetTaskByType
+  ├─ possible initialization of DotNetDispatcher
   ├─ _cachedConvertToTaskByType.GetOrAdd
 - │  ├─ taskConverterMethodInfo.MakeGenericMethod
 - │  ├─ taskConverterMethodInfo.MakeGenericMethod(t).CreateDelegate<Func<object, Task>>
@@ -196,6 +211,7 @@ stdout:
   └─ converterDelegate.Invoke
 
   TaskGenericsUtil.GetTaskResult
+  ├─ possible initialization of TaskGenericsUtil
   ├─ task.GetType
   ├─ _cachedResultGetters.GetOrAdd
   │  ├─ TaskGenericsUtil.GetTaskResultType
@@ -224,4 +240,4 @@ eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot 
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
-22795 additional diagnostics; use --diagnostics full.
+22967 additional diagnostics; use --diagnostics full.

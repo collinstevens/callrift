@@ -78,7 +78,7 @@ public sealed class WorkspaceTests
             ["Flow.cs"] = "using System.Text.RegularExpressions; partial class Flow { public bool Match(string value) => Pattern().IsMatch(value); [GeneratedRegex(\"before\")] private static partial Regex Pattern(); }"
         };
         var after = new Dictionary<string, string>(before) { ["Flow.cs"] = before["Flow.cs"].Replace("\"before\"", "\"after\"", StringComparison.Ordinal) };
-        await SnapshotAsync("generator", new Scenario("generator", "SDK regex generator bodies participate in change detection; static fields and property accessors do not link the runner back to Flow.Match.", before, after, []), "--project", "App.csproj");
+        await SnapshotAsync("generator", new Scenario("generator", "SDK regex generator bodies participate in change detection; static initialization links Flow.Match to the regex constructor, while metadata dispatch leaves the generated runner as a separate root.", before, after, []), "--project", "App.csproj");
     }
 
     [Fact]

@@ -2860,6 +2860,28 @@ stdout:
     },
     {
       "code": "unresolved-call",
+      "message": "Cannot bind KubeRequest.Create.",
+      "location": {
+        "path": "src/Ocelot.Provider.Kubernetes/EndPointClientV1.cs",
+        "startLine": 11,
+        "startColumn": 9,
+        "endLine": 11,
+        "endColumn": 84
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind KubeRequest.Create.",
+      "location": {
+        "path": "src/Ocelot.Provider.Kubernetes/EndPointClientV1.cs",
+        "startLine": 14,
+        "startColumn": 9,
+        "endLine": 14,
+        "endColumn": 90
+      }
+    },
+    {
+      "code": "unresolved-call",
       "message": "Cannot bind : base(client).",
       "location": {
         "path": "src/Ocelot.Provider.Kubernetes/EndPointClientV1.cs",
@@ -2922,6 +2944,17 @@ stdout:
         "startColumn": 16,
         "endLine": 45,
         "endColumn": 140
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind KubeObjectV1.GetKubeKind<EndpointsV1>.",
+      "location": {
+        "path": "src/Ocelot.Provider.Kubernetes/Kube.cs",
+        "startLine": 18,
+        "startColumn": 98,
+        "endLine": 18,
+        "endColumn": 137
       }
     },
     {
@@ -13257,7 +13290,7 @@ stdout:
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ InMemoryFileConfigurationPollerOptions.DelayAsync",
-              "detail": null,
+              "detail": "depth limit",
               "before": {
                 "symbolId": "source::Ocelot.Configuration.Repository.InMemoryFileConfigurationPollerOptions.DelayAsync(global::System.Threading.CancellationToken)",
                 "signature": "Ocelot.Configuration.Repository.InMemoryFileConfigurationPollerOptions.DelayAsync(System.Threading.CancellationToken) -> System.Threading.Tasks.Task<int>",
@@ -13299,7 +13332,11 @@ stdout:
                 "origin": "source"
               },
               "children": [],
-              "omission": null
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
             },
             {
               "id": "n34",
@@ -14796,4 +14833,4 @@ samples/Basic/Program.cs:14: unresolved-call: Cannot bind builder.Environment.Is
 samples/Basic/Program.cs:16: unresolved-call: Cannot bind builder.Logging.AddConsole.
 samples/Basic/Program.cs:20: unresolved-call: Cannot bind builder.Build.
 samples/Basic/Program.cs:21: unresolved-call: Cannot bind app.UseOcelot.
-1072 additional diagnostics; use --diagnostics full.
+1075 additional diagnostics; use --diagnostics full.

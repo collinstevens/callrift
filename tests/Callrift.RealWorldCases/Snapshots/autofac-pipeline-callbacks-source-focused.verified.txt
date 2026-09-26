@@ -2,8 +2,12 @@
 exit: 0
 stdout:
   ResolvePipelineBuilder.BuildPipeline
+  ├─ possible initialization of ResolvePipelineBuilder
   ├─ while (current is not null)
 - │  ├─ ResolvePipelineBuilder.BuildPipeline.BuildMiddlewareChain
+- │  │  ├─ possible initialization of AutofacMetrics
+- │  │  │  └─ initialization of AutofacMetrics
+- │  │  │     └─ AutofacMetrics.IsEnabled
 - │  │  ├─ if (AutofacMetrics.MetricsEnabled)
 - │  │  │  └─ ResolvePipelineBuilder.BuildPipeline.BuildMetricsMiddlewareChain
 - │  │  │     ├─ stage.ToString
@@ -31,7 +35,7 @@ stdout:
 - │  │  │           │     ├─ ⇢ ScopeSelectionMiddleware.Execute (depth limit)
 - │  │  │           │     ├─ ⇢ SharingMiddleware.Execute (depth limit)
 - │  │  │           │     ├─ ⇢ StartableMiddleware.Execute (depth limit)
-- │  │  │           │     └─ ⇢ DecoratorMiddleware.Execute (depth limit)
+- │  │  │           │     └─ ⇢ DecoratorMiddleware.Execute (changes below depth limit)
 - │  │  │           └─ finally
 - │  │  │              ├─ ValueStopwatch.GetElapsedTime (depth limit)
 - │  │  │              └─ AutofacMetrics.RecordMiddlewareExecution
@@ -40,6 +44,9 @@ stdout:
 - │  │        └─ callback
 - │  │           └─ ResolvePipelineBuilder.BuildPipeline.ExecuteWithDiagnostics (changes below depth limit)
 - │  │              └─ IResolveMiddleware.Execute ↑ as above
++ │  ├─ possible initialization of AutofacMetrics
++ │  │  └─ initialization of AutofacMetrics
++ │  │     └─ AutofacMetrics.IsEnabled
 + │  ├─ if (AutofacMetrics.MetricsEnabled)
 + │  │  └─ ResolvePipelineBuilder.BuildMetricsMiddlewareChain
 + │  │     ├─ stage.ToString
@@ -67,7 +74,7 @@ stdout:
 + │  │        │  │     ├─ ⇢ ScopeSelectionMiddleware.Execute (depth limit)
 + │  │        │  │     ├─ ⇢ SharingMiddleware.Execute (depth limit)
 + │  │        │  │     ├─ ⇢ StartableMiddleware.Execute (depth limit)
-+ │  │        │  │     └─ ⇢ DecoratorMiddleware.Execute (depth limit)
++ │  │        │  │     └─ ⇢ DecoratorMiddleware.Execute (changes below depth limit)
 + │  │        │  └─ finally
 + │  │        │     ├─ ValueStopwatch.GetElapsedTime (depth limit)
 + │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution
@@ -114,8 +121,12 @@ exit: 0
 stdout:
 ```diff
   ResolvePipelineBuilder.BuildPipeline
+  ├─ possible initialization of ResolvePipelineBuilder
   ├─ while (current is not null)
 - │  ├─ ResolvePipelineBuilder.BuildPipeline.BuildMiddlewareChain
+- │  │  ├─ possible initialization of AutofacMetrics
+- │  │  │  └─ initialization of AutofacMetrics
+- │  │  │     └─ AutofacMetrics.IsEnabled
 - │  │  ├─ if (AutofacMetrics.MetricsEnabled)
 - │  │  │  └─ ResolvePipelineBuilder.BuildPipeline.BuildMetricsMiddlewareChain
 - │  │  │     ├─ stage.ToString
@@ -143,7 +154,7 @@ stdout:
 - │  │  │           │     ├─ ⇢ ScopeSelectionMiddleware.Execute (depth limit)
 - │  │  │           │     ├─ ⇢ SharingMiddleware.Execute (depth limit)
 - │  │  │           │     ├─ ⇢ StartableMiddleware.Execute (depth limit)
-- │  │  │           │     └─ ⇢ DecoratorMiddleware.Execute (depth limit)
+- │  │  │           │     └─ ⇢ DecoratorMiddleware.Execute (changes below depth limit)
 - │  │  │           └─ finally
 - │  │  │              ├─ ValueStopwatch.GetElapsedTime (depth limit)
 - │  │  │              └─ AutofacMetrics.RecordMiddlewareExecution
@@ -152,6 +163,9 @@ stdout:
 - │  │        └─ callback
 - │  │           └─ ResolvePipelineBuilder.BuildPipeline.ExecuteWithDiagnostics (changes below depth limit)
 - │  │              └─ IResolveMiddleware.Execute ↑ as above
++ │  ├─ possible initialization of AutofacMetrics
++ │  │  └─ initialization of AutofacMetrics
++ │  │     └─ AutofacMetrics.IsEnabled
 + │  ├─ if (AutofacMetrics.MetricsEnabled)
 + │  │  └─ ResolvePipelineBuilder.BuildMetricsMiddlewareChain
 + │  │     ├─ stage.ToString
@@ -179,7 +193,7 @@ stdout:
 + │  │        │  │     ├─ ⇢ ScopeSelectionMiddleware.Execute (depth limit)
 + │  │        │  │     ├─ ⇢ SharingMiddleware.Execute (depth limit)
 + │  │        │  │     ├─ ⇢ StartableMiddleware.Execute (depth limit)
-+ │  │        │  │     └─ ⇢ DecoratorMiddleware.Execute (depth limit)
++ │  │        │  │     └─ ⇢ DecoratorMiddleware.Execute (changes below depth limit)
 + │  │        │  └─ finally
 + │  │        │     ├─ ValueStopwatch.GetElapsedTime (depth limit)
 + │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution

@@ -68,7 +68,10 @@ stdout:
 +       └─ ? key.Equals
 
 + ConfigurationBuilderExtensions.OcelotJProperty
-+ ├─ ? MergedConfigJObject.OcelotJSection
++ ├─ if (globalConfiguration is null)
++ │  ├─ possible initialization of ConfigurationBuilderExtensions
++ │  │  └─ initialization of ConfigurationBuilderExtensions
++ │  └─ ? MergedConfigJObject.OcelotJSection
 + ├─ if (route is not null)
 + │  └─ ? .SelectToken
 + ├─ if (globalConfiguration is not null)
@@ -88,6 +91,8 @@ stdout:
 +    └─ ConfigurationBuilderExtensions.OcelotJGlobalProperty (changes below depth limit)
 
 + ConfigurationBuilderExtensions.OcelotJson
++ └─ possible initialization of ConfigurationBuilderExtensions
++    └─ initialization of ConfigurationBuilderExtensions
 
 + ConfigurationExtensions.OcelotAggregate
 + └─ ConfigurationExtensions.OcelotAggregates
@@ -104,7 +109,8 @@ stdout:
 + └─ ? OcelotGlobalSection(configuration, propertyName).Get<T>
 
 + ConfigurationExtensions.OcelotProperty
-+ ├─ ConfigurationExtensions.OcelotRoutes
++ ├─ if (current is null)
++ │  └─ ConfigurationExtensions.OcelotRoutes
 + ├─ ConfigurationExtensions.OcelotSection (changes below depth limit)
 + └─ if (property is not null)
 +    └─ ? property.Get<T>
@@ -118,7 +124,7 @@ stdout:
 ~ └─ new OcelotBuilder (changes below depth limit)
 
   ServiceCollectionExtensions.AddOcelotUsingBuilder
-  ├─ ServiceCollectionExtensions.FindConfiguration (depth limit)
+  ├─ if (configuration is null)
 ~ └─ new OcelotBuilder (changes below depth limit)
 
   ServiceCollectionExtensions.AddOcelotUsingBuilder
@@ -143,6 +149,7 @@ stdout:
 ~ └─ AuthenticationSteps.WithJwtBearerAuthentication (changes below depth limit)
 
   DiscoverySteps.WithDiscovery
+  ├─ possible initialization of DiscoverySteps
 ~ └─ ServiceCollectionExtensions.AddOcelot (changes below depth limit)
 
   WebSocketsSteps.StartHttp2OcelotWithWebSockets
@@ -314,7 +321,10 @@ stdout:
 +       └─ ? key.Equals
 
 + ConfigurationBuilderExtensions.OcelotJProperty
-+ ├─ ? MergedConfigJObject.OcelotJSection
++ ├─ if (globalConfiguration is null)
++ │  ├─ possible initialization of ConfigurationBuilderExtensions
++ │  │  └─ initialization of ConfigurationBuilderExtensions
++ │  └─ ? MergedConfigJObject.OcelotJSection
 + ├─ if (route is not null)
 + │  └─ ? .SelectToken
 + ├─ if (globalConfiguration is not null)
@@ -334,6 +344,8 @@ stdout:
 +    └─ ConfigurationBuilderExtensions.OcelotJGlobalProperty (changes below depth limit)
 
 + ConfigurationBuilderExtensions.OcelotJson
++ └─ possible initialization of ConfigurationBuilderExtensions
++    └─ initialization of ConfigurationBuilderExtensions
 
 + ConfigurationExtensions.OcelotAggregate
 + └─ ConfigurationExtensions.OcelotAggregates
@@ -350,7 +362,8 @@ stdout:
 + └─ ? OcelotGlobalSection(configuration, propertyName).Get<T>
 
 + ConfigurationExtensions.OcelotProperty
-+ ├─ ConfigurationExtensions.OcelotRoutes
++ ├─ if (current is null)
++ │  └─ ConfigurationExtensions.OcelotRoutes
 + ├─ ConfigurationExtensions.OcelotSection (changes below depth limit)
 + └─ if (property is not null)
 +    └─ ? property.Get<T>
@@ -364,7 +377,7 @@ stdout:
 ~ └─ new OcelotBuilder (changes below depth limit)
 
   ServiceCollectionExtensions.AddOcelotUsingBuilder
-  ├─ ServiceCollectionExtensions.FindConfiguration (depth limit)
+  ├─ if (configuration is null)
 ~ └─ new OcelotBuilder (changes below depth limit)
 
   ServiceCollectionExtensions.AddOcelotUsingBuilder
@@ -389,6 +402,7 @@ stdout:
 ~ └─ AuthenticationSteps.WithJwtBearerAuthentication (changes below depth limit)
 
   DiscoverySteps.WithDiscovery
+  ├─ possible initialization of DiscoverySteps
 ~ └─ ServiceCollectionExtensions.AddOcelot (changes below depth limit)
 
   WebSocketsSteps.StartHttp2OcelotWithWebSockets

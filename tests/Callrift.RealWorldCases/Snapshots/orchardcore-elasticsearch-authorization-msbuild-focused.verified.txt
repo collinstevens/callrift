@@ -2,6 +2,11 @@
 exit: 0
 stdout:
   AdminController.IndexInfo
++ ├─ possible initialization of ElasticsearchPermissions
++ │  └─ initialization of ElasticsearchPermissions
++ │     ├─ possible initialization of IndexingPermissions
++ │     │  └─ initialization of IndexingPermissions (depth limit)
++ │     └─ new Permission ×2 (depth limit)
 + ├─ AuthorizationServiceExtensions.AuthorizeAsync
 + │  └─ AuthorizationServiceExtensions.AuthorizeAsync
 + │     ├─ if (user == null)
@@ -18,12 +23,22 @@ stdout:
   └─ …
 
   AdminController.QueryIndex
++ ├─ possible initialization of ElasticsearchPermissions
++ │  └─ initialization of ElasticsearchPermissions ↑ as above
 + ├─ AuthorizationServiceExtensions.AuthorizeAsync ↑ as above
 + ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
 + │  └─ Forbid
   ├─ IIndexProfileStore.FindByNameAsync → DefaultIndexProfileStore.FindByNameAsync
   ├─ if (index is null)
-  └─ …
+  ├─ …
+  ├─ string.IsNullOrWhiteSpace
+  ├─ else (!(string.IsNullOrWhiteSpace(query)))
+  └─ AdminController.Query
+-    ├─ possible initialization of ElasticsearchPermissions
+-    │  └─ initialization of ElasticsearchPermissions (depth limit)
+     ├─ AuthorizationServiceExtensions.AuthorizeAsync
+     ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
+     └─ …
 stderr:
 
 format: md
@@ -31,6 +46,11 @@ exit: 0
 stdout:
 ```diff
   AdminController.IndexInfo
++ ├─ possible initialization of ElasticsearchPermissions
++ │  └─ initialization of ElasticsearchPermissions
++ │     ├─ possible initialization of IndexingPermissions
++ │     │  └─ initialization of IndexingPermissions (depth limit)
++ │     └─ new Permission ×2 (depth limit)
 + ├─ AuthorizationServiceExtensions.AuthorizeAsync
 + │  └─ AuthorizationServiceExtensions.AuthorizeAsync
 + │     ├─ if (user == null)
@@ -47,11 +67,21 @@ stdout:
   └─ …
 
   AdminController.QueryIndex
++ ├─ possible initialization of ElasticsearchPermissions
++ │  └─ initialization of ElasticsearchPermissions ↑ as above
 + ├─ AuthorizationServiceExtensions.AuthorizeAsync ↑ as above
 + ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
 + │  └─ Forbid
   ├─ IIndexProfileStore.FindByNameAsync → DefaultIndexProfileStore.FindByNameAsync
   ├─ if (index is null)
-  └─ …
+  ├─ …
+  ├─ string.IsNullOrWhiteSpace
+  ├─ else (!(string.IsNullOrWhiteSpace(query)))
+  └─ AdminController.Query
+-    ├─ possible initialization of ElasticsearchPermissions
+-    │  └─ initialization of ElasticsearchPermissions (depth limit)
+     ├─ AuthorizationServiceExtensions.AuthorizeAsync
+     ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
+     └─ …
 ```
 stderr:

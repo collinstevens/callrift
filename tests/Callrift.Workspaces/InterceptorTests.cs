@@ -69,6 +69,60 @@ public sealed class InterceptorTests
         Assert.Equal("added", inserted.GetProperty("change").GetString());
     }
 
+    [Theory]
+    [InlineData(false, false)]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(true, true)]
+    public async Task GeneratedStaticInitializersPreserveIdentityAndRealChanges(bool explicitConstructor, bool initializerChanges)
+    {
+        var before = Sources();
+        before["App/Flow.cs"] += " public static class Seed { public static int Before() => 1; public static int After() => 2; }";
+        var field = explicitConstructor
+            ? " private static readonly int Value; static Interceptor_" + "\" + generatedName + \"" + "() { Value = Seed.Before(); } "
+            : " private static readonly int Value = Seed.Before(); ";
+        before["Generator/CallGenerator.cs"] = before["Generator/CallGenerator.cs"]
+            .Replace("if (attribute is null) return;", "if (attribute is null) return; var generatedName = Guid.NewGuid().ToString(\"N\");", StringComparison.Ordinal)
+            .Replace("+ Guid.NewGuid().ToString(\"N\") +", "+ generatedName +", StringComparison.Ordinal)
+            .Replace("\" { \" + attribute", "\" { " + field + "\" + attribute", StringComparison.Ordinal)
+            .Replace("public static void Invoke() => Sink.Before();", "public static void Invoke() { _ = Value; Sink.Before(); }", StringComparison.Ordinal);
+        var after = new Dictionary<string, string>(before) { ["Revision.txt"] = "second revision" };
+        if (initializerChanges)
+            after["Generator/CallGenerator.cs"] = after["Generator/CallGenerator.cs"].Replace("Seed.Before()", "Seed.After()", StringComparison.Ordinal);
+        await using var fixture = await GitFixture.CreateAsync(new Scenario("interceptor-initializer", "Generated initializer identity survives regenerated private names while preserving changed initialization calls.", before, after, []));
+        string[] selection = ["--project", "App/App.csproj", "--framework", "net11.0"];
+        var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. selection, "--format", "json"]);
+        Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
+        using var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+        Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
+        var trees = document.RootElement.GetProperty("trees").EnumerateArray().ToArray();
+        if (initializerChanges)
+        {
+            var root = Assert.Single(trees);
+            Assert.Equal("Flow.Entry", root.GetProperty("label").GetString());
+            var nodes = Descendants(root).ToArray();
+            Assert.Contains(nodes, node => node.GetProperty("label").GetString() == "Seed.Before" && node.GetProperty("change").GetString() == "removed");
+            Assert.Contains(nodes, node => node.GetProperty("label").GetString() == "Seed.After" && node.GetProperty("change").GetString() == "added");
+            var initializer = Assert.Single(nodes, node => node.GetProperty("label").GetString()!.StartsWith("initialization of interceptors for ", StringComparison.Ordinal));
+            Assert.Equal(initializer.GetProperty("before").GetProperty("symbolId").GetString(), initializer.GetProperty("after").GetProperty("symbolId").GetString());
+        }
+        else Assert.Empty(trees);
+        Assert.DoesNotContain("Interceptor_", output);
+        var repeated = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. selection, "--format", "json", "--no-restore"]);
+        Assert.Equal(output, repeated);
+        foreach (var format in new[] { "text", "md", "json" })
+        {
+            var tree = await fixture.RunAsync(["tree", fixture.After, "--entry", "Flow.Entry", .. selection, "--format", format, "--no-restore"]);
+            Assert.True(tree.StartsWith("exit: 0\n", StringComparison.Ordinal), tree);
+            Assert.Contains("initialization of interceptors for Original.Run [interceptor in Flow.Entry]", tree);
+            Assert.DoesNotContain("Interceptor_", tree);
+            var reach = await fixture.RunAsync(["reach", fixture.After, "--entry", "Flow.Entry", "--to", initializerChanges ? "Seed.After" : "Seed.Before", .. selection, "--format", format, "--no-restore"]);
+            Assert.True(reach.StartsWith("exit: 0\n", StringComparison.Ordinal), reach);
+            Assert.Contains(initializerChanges ? "Seed.After" : "Seed.Before", reach);
+            Assert.DoesNotContain("Interceptor_", reach);
+        }
+    }
+
     private static IEnumerable<JsonElement> Descendants(JsonElement node)
     {
         yield return node;

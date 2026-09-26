@@ -12828,75 +12828,125 @@ stdout:
       "children": [
         {
           "id": "n7",
-          "kind": "call",
+          "kind": "branch",
           "change": "unchanged",
-          "label": "ServiceCollectionExtensions.FindConfiguration",
-          "detail": "depth limit",
+          "label": "if (configuration is null)",
+          "detail": null,
           "before": {
-            "symbolId": "source::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,IWebHostEnvironment)",
-            "signature": "Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection, IWebHostEnvironment) -> Microsoft.Extensions.Configuration.IConfiguration",
-            "binding": "resolved",
-            "dispatch": "direct",
-            "targetIds": [
-              "source::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,IWebHostEnvironment)"
-            ],
-            "definition": {
-              "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
-              "startLine": 78,
-              "startColumn": 5,
-              "endLine": 89,
-              "endColumn": 6
-            },
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
             "callSites": [
               {
                 "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
                 "startLine": 71,
-                "startColumn": 27,
+                "startColumn": 9,
                 "endLine": 71,
                 "endColumn": 59
               }
             ],
-            "relation": "call",
-            "candidates": [],
-            "origin": "source"
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
           },
           "after": {
-            "symbolId": "source::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,IWebHostEnvironment)",
-            "signature": "Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection, IWebHostEnvironment) -> Microsoft.Extensions.Configuration.IConfiguration",
-            "binding": "resolved",
-            "dispatch": "direct",
-            "targetIds": [
-              "source::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,IWebHostEnvironment)"
-            ],
-            "definition": {
-              "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
-              "startLine": 78,
-              "startColumn": 5,
-              "endLine": 89,
-              "endColumn": 6
-            },
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
             "callSites": [
               {
                 "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
                 "startLine": 71,
-                "startColumn": 27,
+                "startColumn": 9,
                 "endLine": 71,
                 "endColumn": 59
               }
             ],
-            "relation": "call",
-            "candidates": [],
-            "origin": "source"
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
           },
-          "children": [],
-          "omission": {
-            "reason": "depth-limit",
-            "symbolId": null,
-            "referenceId": null
-          }
+          "children": [
+            {
+              "id": "n8",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "ServiceCollectionExtensions.FindConfiguration",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "source::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,IWebHostEnvironment)",
+                "signature": "Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection, IWebHostEnvironment) -> Microsoft.Extensions.Configuration.IConfiguration",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,IWebHostEnvironment)"
+                ],
+                "definition": {
+                  "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+                  "startLine": 78,
+                  "startColumn": 5,
+                  "endLine": 89,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+                    "startLine": 71,
+                    "startColumn": 27,
+                    "endLine": 71,
+                    "endColumn": 59
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "source::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,IWebHostEnvironment)",
+                "signature": "Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection, IWebHostEnvironment) -> Microsoft.Extensions.Configuration.IConfiguration",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.DependencyInjection.ServiceCollectionExtensions.FindConfiguration(global::Microsoft.Extensions.DependencyInjection.IServiceCollection,IWebHostEnvironment)"
+                ],
+                "definition": {
+                  "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+                  "startLine": 78,
+                  "startColumn": 5,
+                  "endLine": 89,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/DependencyInjection/ServiceCollectionExtensions.cs",
+                    "startLine": 71,
+                    "startColumn": 27,
+                    "endLine": 71,
+                    "endColumn": 59
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            }
+          ],
+          "omission": null
         },
         {
-          "id": "n8",
+          "id": "n9",
           "kind": "call",
           "change": "modified",
           "label": "new OcelotBuilder",
@@ -12968,7 +13018,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n9",
+      "id": "n10",
       "kind": "member",
       "change": "unchanged",
       "label": "ServiceCollectionExtensions.AddOcelotUsingBuilder",
@@ -13015,7 +13065,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n10",
+          "id": "n11",
           "kind": "call",
           "change": "unchanged",
           "label": "ServiceCollectionExtensions.FindConfiguration",
@@ -13084,7 +13134,7 @@ stdout:
           }
         },
         {
-          "id": "n11",
+          "id": "n12",
           "kind": "call",
           "change": "modified",
           "label": "new OcelotBuilder",
@@ -13156,7 +13206,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n12",
+      "id": "n13",
       "kind": "member",
       "change": "unchanged",
       "label": "AuthenticationSteps.WithJwtBearerAuthentication",
@@ -13203,7 +13253,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n13",
+          "id": "n14",
           "kind": "call",
           "change": "modified",
           "label": "AuthenticationSteps.WithJwtBearerAuthentication",
@@ -13275,7 +13325,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n14",
+      "id": "n15",
       "kind": "member",
       "change": "unchanged",
       "label": "DiscoverySteps.WithDiscovery",
@@ -13322,7 +13372,126 @@ stdout:
       },
       "children": [
         {
-          "id": "n15",
+          "id": "n16",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "possible initialization of DiscoverySteps",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "testing/Steps/DiscoverySteps.cs",
+                "startLine": 67,
+                "startColumn": 23,
+                "endLine": 67,
+                "endColumn": 52
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "testing/Steps/DiscoverySteps.cs",
+                "startLine": 67,
+                "startColumn": 23,
+                "endLine": 67,
+                "endColumn": 52
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n17",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "initialization of DiscoverySteps",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "source::Ocelot.Testing.Steps.DiscoverySteps..cctor()",
+                "signature": "Ocelot.Testing.Steps.DiscoverySteps.DiscoverySteps() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.Testing.Steps.DiscoverySteps..cctor()"
+                ],
+                "definition": {
+                  "path": "testing/Steps/DiscoverySteps.cs",
+                  "startLine": 15,
+                  "startColumn": 1,
+                  "endLine": 69,
+                  "endColumn": 2
+                },
+                "callSites": [
+                  {
+                    "path": "testing/Steps/DiscoverySteps.cs",
+                    "startLine": 67,
+                    "startColumn": 23,
+                    "endLine": 67,
+                    "endColumn": 52
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "source::Ocelot.Testing.Steps.DiscoverySteps..cctor()",
+                "signature": "Ocelot.Testing.Steps.DiscoverySteps.DiscoverySteps() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.Testing.Steps.DiscoverySteps..cctor()"
+                ],
+                "definition": {
+                  "path": "testing/Steps/DiscoverySteps.cs",
+                  "startLine": 15,
+                  "startColumn": 1,
+                  "endLine": 69,
+                  "endColumn": 2
+                },
+                "callSites": [
+                  {
+                    "path": "testing/Steps/DiscoverySteps.cs",
+                    "startLine": 67,
+                    "startColumn": 23,
+                    "endLine": 67,
+                    "endColumn": 52
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n18",
           "kind": "call",
           "change": "modified",
           "label": "ServiceCollectionExtensions.AddOcelot",
@@ -13394,7 +13563,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n16",
+      "id": "n19",
       "kind": "member",
       "change": "unchanged",
       "label": "WebSocketsSteps.StartHttp2OcelotWithWebSockets",
@@ -13441,7 +13610,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n17",
+          "id": "n20",
           "kind": "call",
           "change": "unchanged",
           "label": "AcceptanceSteps.DownstreamUrl",
@@ -13506,7 +13675,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n18",
+          "id": "n21",
           "kind": "call",
           "change": "unchanged",
           "label": "AcceptanceSteps.GivenOcelotHostIsRunning",
@@ -13569,7 +13738,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n19",
+              "id": "n22",
               "kind": "call",
               "change": "unchanged",
               "label": "AcceptanceSteps.WithBasicConfiguration",
@@ -13638,7 +13807,7 @@ stdout:
               }
             },
             {
-              "id": "n20",
+              "id": "n23",
               "kind": "call",
               "change": "modified",
               "label": "AcceptanceSteps.WithAddOcelot",
@@ -13707,7 +13876,7 @@ stdout:
               }
             },
             {
-              "id": "n21",
+              "id": "n24",
               "kind": "call",
               "change": "unchanged",
               "label": "WebSocketsSteps.WithWebSockets",
@@ -13776,7 +13945,7 @@ stdout:
               }
             },
             {
-              "id": "n22",
+              "id": "n25",
               "kind": "call",
               "change": "unchanged",
               "label": "WebSocketsSteps.StartHttp2OcelotWithWebSockets.ConfigureWebHost",
@@ -13855,7 +14024,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n23",
+      "id": "n26",
       "kind": "member",
       "change": "unchanged",
       "label": "WebSocketsSteps.StartOcelotWithWebSockets",
@@ -13902,7 +14071,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n24",
+          "id": "n27",
           "kind": "call",
           "change": "modified",
           "label": "WebSocketsSteps.StartOcelotWithWebSockets",
@@ -13974,7 +14143,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n25",
+      "id": "n28",
       "kind": "member",
       "change": "unchanged",
       "label": "WebSocketsSteps.StartOcelotWithWebSockets",
@@ -14021,7 +14190,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n26",
+          "id": "n29",
           "kind": "call",
           "change": "unchanged",
           "label": "AcceptanceSteps.DownstreamUrl",
@@ -14090,7 +14259,7 @@ stdout:
           }
         },
         {
-          "id": "n27",
+          "id": "n30",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (configureServices is null)",
@@ -14137,7 +14306,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n28",
+              "id": "n31",
               "kind": "branch",
               "change": "unchanged",
               "label": "callback",
@@ -14184,7 +14353,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n29",
+                  "id": "n32",
                   "kind": "call",
                   "change": "modified",
                   "label": "AcceptanceSteps.WithAddOcelot",
@@ -14259,7 +14428,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n30",
+          "id": "n33",
           "kind": "call",
           "change": "modified",
           "label": "AcceptanceSteps.GivenOcelotHostIsRunning",
@@ -14322,7 +14491,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n31",
+              "id": "n34",
               "kind": "call",
               "change": "unchanged",
               "label": "AcceptanceSteps.WithBasicConfiguration",
@@ -14391,7 +14560,7 @@ stdout:
               }
             },
             {
-              "id": "n32",
+              "id": "n35",
               "kind": "call",
               "change": "unchanged",
               "label": "WebSocketsSteps.StartOcelotWithWebSockets.WithWebSocketsAndConfig",
@@ -14460,7 +14629,7 @@ stdout:
               }
             },
             {
-              "id": "n33",
+              "id": "n36",
               "kind": "call",
               "change": "unchanged",
               "label": "WebSocketsSteps.StartOcelotWithWebSockets.ConfigureWebHost",

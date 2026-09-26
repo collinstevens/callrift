@@ -7,11 +7,13 @@ stdout:
 
   DefaultWebAssemblyJSRuntime.BeginInvokeDotNet
   ├─ new DotNetInvocationInfo
-  └─ WebAssemblyCallQueue.Schedule
+  └─ WebAssemblyCallQueue.Schedule (depth limit)
+     ├─ possible initialization of DefaultWebAssemblyJSRuntime
 ~    └─ DotNetDispatcher.BeginInvokeDotNet (changes below depth limit)
 
   DefaultWebAssemblyJSRuntime.InvokeDotNet
   ├─ new DotNetInvocationInfo
+  ├─ possible initialization of DefaultWebAssemblyJSRuntime
 ~ └─ DotNetDispatcher.Invoke (changes below depth limit)
 
   new PhotinoWebViewManager
@@ -32,7 +34,7 @@ eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot 
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
-22795 additional diagnostics; use --diagnostics full.
+22967 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -44,11 +46,13 @@ stdout:
 
   DefaultWebAssemblyJSRuntime.BeginInvokeDotNet
   ├─ new DotNetInvocationInfo
-  └─ WebAssemblyCallQueue.Schedule
+  └─ WebAssemblyCallQueue.Schedule (depth limit)
+     ├─ possible initialization of DefaultWebAssemblyJSRuntime
 ~    └─ DotNetDispatcher.BeginInvokeDotNet (changes below depth limit)
 
   DefaultWebAssemblyJSRuntime.InvokeDotNet
   ├─ new DotNetInvocationInfo
+  ├─ possible initialization of DefaultWebAssemblyJSRuntime
 ~ └─ DotNetDispatcher.Invoke (changes below depth limit)
 
   new PhotinoWebViewManager
@@ -70,4 +74,4 @@ eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot 
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
-22795 additional diagnostics; use --diagnostics full.
+22967 additional diagnostics; use --diagnostics full.

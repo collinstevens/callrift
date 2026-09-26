@@ -43,9 +43,14 @@ stdout:
 +    └─ ConfigurationBuilderExtensions.OcelotJGlobalProperty (changes below depth limit)
 
 + ConfigurationBuilderExtensions.OcelotJProperty
-+ └─ ConfigurationBuilderExtensions.OcelotJSection
++ └─ if (globalConfiguration is null)
++    ├─ possible initialization of ConfigurationBuilderExtensions
++    │  └─ initialization of ConfigurationBuilderExtensions
++    └─ ConfigurationBuilderExtensions.OcelotJSection
 
 + ConfigurationBuilderExtensions.OcelotJson
++ └─ possible initialization of ConfigurationBuilderExtensions
++    └─ initialization of ConfigurationBuilderExtensions
 
 + ConfigurationExtensions.OcelotAggregate
 + └─ ConfigurationExtensions.OcelotAggregates
@@ -61,7 +66,8 @@ stdout:
 + └─ ConfigurationExtensions.OcelotGlobalSection (changes below depth limit)
 
 + ConfigurationExtensions.OcelotProperty
-+ ├─ ConfigurationExtensions.OcelotRoutes
++ ├─ if (current is null)
++ │  └─ ConfigurationExtensions.OcelotRoutes
 + └─ ConfigurationExtensions.OcelotSection (changes below depth limit)
 
 + ConfigurationExtensions.OcelotRoot
@@ -77,7 +83,8 @@ stdout:
 ~ └─ new OcelotBuilder (changes below depth limit)
 
   ServiceCollectionExtensions.AddOcelotUsingBuilder
-~ ├─ ServiceCollectionExtensions.FindConfiguration (changes below depth limit)
+  ├─ if (configuration is null)
+~ │  └─ ServiceCollectionExtensions.FindConfiguration (changes below depth limit)
 ~ └─ new OcelotBuilder (changes below depth limit)
 
   ServiceCollectionExtensions.AddOcelotUsingBuilder
@@ -162,9 +169,14 @@ stdout:
 +    └─ ConfigurationBuilderExtensions.OcelotJGlobalProperty (changes below depth limit)
 
 + ConfigurationBuilderExtensions.OcelotJProperty
-+ └─ ConfigurationBuilderExtensions.OcelotJSection
++ └─ if (globalConfiguration is null)
++    ├─ possible initialization of ConfigurationBuilderExtensions
++    │  └─ initialization of ConfigurationBuilderExtensions
++    └─ ConfigurationBuilderExtensions.OcelotJSection
 
 + ConfigurationBuilderExtensions.OcelotJson
++ └─ possible initialization of ConfigurationBuilderExtensions
++    └─ initialization of ConfigurationBuilderExtensions
 
 + ConfigurationExtensions.OcelotAggregate
 + └─ ConfigurationExtensions.OcelotAggregates
@@ -180,7 +192,8 @@ stdout:
 + └─ ConfigurationExtensions.OcelotGlobalSection (changes below depth limit)
 
 + ConfigurationExtensions.OcelotProperty
-+ ├─ ConfigurationExtensions.OcelotRoutes
++ ├─ if (current is null)
++ │  └─ ConfigurationExtensions.OcelotRoutes
 + └─ ConfigurationExtensions.OcelotSection (changes below depth limit)
 
 + ConfigurationExtensions.OcelotRoot
@@ -196,7 +209,8 @@ stdout:
 ~ └─ new OcelotBuilder (changes below depth limit)
 
   ServiceCollectionExtensions.AddOcelotUsingBuilder
-~ ├─ ServiceCollectionExtensions.FindConfiguration (changes below depth limit)
+  ├─ if (configuration is null)
+~ │  └─ ServiceCollectionExtensions.FindConfiguration (changes below depth limit)
 ~ └─ new OcelotBuilder (changes below depth limit)
 
   ServiceCollectionExtensions.AddOcelotUsingBuilder

@@ -1,23 +1,47 @@
-﻿SDK regex generator bodies participate in change detection; static fields and property accessors do not link the runner back to Flow.Match.
+﻿SDK regex generator bodies participate in change detection; static initialization links Flow.Match to the regex constructor, while metadata dispatch leaves the generated runner as a separate root.
 format: text
 exit: 0
 stdout:
-~ new Pattern_0 (body changed; visible calls unchanged)
-  └─ new Pattern_0.RunnerFactory
-
   Pattern_0.RunnerFactory.Runner.Scan
-~ └─ Pattern_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition (body changed; visible calls unchanged)
+  └─ Pattern_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition
+-    ├─ if (pos <= inputSpan.Length - 6)
+-    │  └─ possible initialization of Utilities
+-    │     └─ initialization of Utilities
++    └─ if (pos <= inputSpan.Length - 5)
++       └─ possible initialization of Utilities
++          └─ initialization of Utilities
+
+  Flow.Match
+  └─ Flow.Pattern
+     └─ possible initialization of Pattern_0
+        └─ initialization of Pattern_0
+           └─ new Pattern_0
+              ├─ possible initialization of Utilities
+~             │  └─ initialization of Utilities (body changed; visible calls unchanged)
+              └─ new Pattern_0.RunnerFactory
 stderr:
 
 format: md
 exit: 0
 stdout:
 ```diff
-~ new Pattern_0 (body changed; visible calls unchanged)
-  └─ new Pattern_0.RunnerFactory
-
   Pattern_0.RunnerFactory.Runner.Scan
-~ └─ Pattern_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition (body changed; visible calls unchanged)
+  └─ Pattern_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition
+-    ├─ if (pos <= inputSpan.Length - 6)
+-    │  └─ possible initialization of Utilities
+-    │     └─ initialization of Utilities
++    └─ if (pos <= inputSpan.Length - 5)
++       └─ possible initialization of Utilities
++          └─ initialization of Utilities
+
+  Flow.Match
+  └─ Flow.Pattern
+     └─ possible initialization of Pattern_0
+        └─ initialization of Pattern_0
+           └─ new Pattern_0
+              ├─ possible initialization of Utilities
+~             │  └─ initialization of Utilities (body changed; visible calls unchanged)
+              └─ new Pattern_0.RunnerFactory
 ```
 stderr:
 
@@ -55,109 +79,6 @@ stdout:
   "trees": [
     {
       "id": "n0",
-      "kind": "member",
-      "change": "modified",
-      "label": "new Pattern_0",
-      "detail": "body changed; visible calls unchanged",
-      "before": {
-        "symbolId": "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0..ctor()",
-        "signature": "System.Text.RegularExpressions.Generated.Pattern_0.Pattern_0() -> void",
-        "binding": "resolved",
-        "dispatch": "direct",
-        "targetIds": [
-          "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0..ctor()"
-        ],
-        "definition": {
-          "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
-          "startLine": 39,
-          "startColumn": 9,
-          "endLine": 47,
-          "endColumn": 10
-        },
-        "callSites": [],
-        "relation": "definition",
-        "candidates": null,
-        "origin": "source"
-      },
-      "after": {
-        "symbolId": "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0..ctor()",
-        "signature": "System.Text.RegularExpressions.Generated.Pattern_0.Pattern_0() -> void",
-        "binding": "resolved",
-        "dispatch": "direct",
-        "targetIds": [
-          "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0..ctor()"
-        ],
-        "definition": {
-          "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
-          "startLine": 39,
-          "startColumn": 9,
-          "endLine": 47,
-          "endColumn": 10
-        },
-        "callSites": [],
-        "relation": "definition",
-        "candidates": null,
-        "origin": "source"
-      },
-      "children": [
-        {
-          "id": "n1",
-          "kind": "call",
-          "change": "unchanged",
-          "label": "new Pattern_0.RunnerFactory",
-          "detail": null,
-          "before": {
-            "symbolId": "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory..ctor()",
-            "signature": null,
-            "binding": "resolved",
-            "dispatch": "direct",
-            "targetIds": [
-              "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory..ctor()"
-            ],
-            "definition": null,
-            "callSites": [
-              {
-                "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
-                "startLine": 45,
-                "startColumn": 28,
-                "endLine": 45,
-                "endColumn": 47
-              }
-            ],
-            "relation": "call",
-            "candidates": [],
-            "origin": "source"
-          },
-          "after": {
-            "symbolId": "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory..ctor()",
-            "signature": null,
-            "binding": "resolved",
-            "dispatch": "direct",
-            "targetIds": [
-              "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory..ctor()"
-            ],
-            "definition": null,
-            "callSites": [
-              {
-                "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
-                "startLine": 45,
-                "startColumn": 28,
-                "endLine": 45,
-                "endColumn": 47
-              }
-            ],
-            "relation": "call",
-            "candidates": [],
-            "origin": "source"
-          },
-          "children": [],
-          "omission": null
-        }
-      ],
-      "omission": null
-    },
-    {
-      "id": "n2",
       "kind": "member",
       "change": "unchanged",
       "label": "Pattern_0.RunnerFactory.Runner.Scan",
@@ -204,11 +125,11 @@ stdout:
       },
       "children": [
         {
-          "id": "n3",
+          "id": "n1",
           "kind": "call",
-          "change": "modified",
+          "change": "unchanged",
           "label": "Pattern_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition",
-          "detail": "body changed; visible calls unchanged",
+          "detail": null,
           "before": {
             "symbolId": "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(global::System.ReadOnlySpan<char>)",
             "signature": "System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan<char>) -> bool",
@@ -265,7 +186,686 @@ stdout:
             "candidates": [],
             "origin": "source"
           },
-          "children": [],
+          "children": [
+            {
+              "id": "n2",
+              "kind": "branch",
+              "change": "removed",
+              "label": "if (pos <= inputSpan.Length - 6)",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                    "startLine": 79,
+                    "startColumn": 21,
+                    "endLine": 89,
+                    "endColumn": 22
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": null,
+              "children": [
+                {
+                  "id": "n3",
+                  "kind": "branch",
+                  "change": "removed",
+                  "label": "possible initialization of Utilities",
+                  "detail": null,
+                  "before": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                        "startLine": 83,
+                        "startColumn": 65,
+                        "endLine": 83,
+                        "endColumn": 105
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "after": null,
+                  "children": [
+                    {
+                      "id": "n4",
+                      "kind": "call",
+                      "change": "removed",
+                      "label": "initialization of Utilities",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Utilities..cctor()",
+                        "signature": "System.Text.RegularExpressions.Generated.Utilities.Utilities() -> void",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Utilities..cctor()"
+                        ],
+                        "definition": {
+                          "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                          "startLine": 101,
+                          "startColumn": 5,
+                          "endLine": 112,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                            "startLine": 83,
+                            "startColumn": 65,
+                            "endLine": 83,
+                            "endColumn": 105
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "after": null,
+                      "children": [],
+                      "omission": null
+                    }
+                  ],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n5",
+              "kind": "branch",
+              "change": "added",
+              "label": "if (pos <= inputSpan.Length - 5)",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                    "startLine": 79,
+                    "startColumn": 21,
+                    "endLine": 89,
+                    "endColumn": 22
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n6",
+                  "kind": "branch",
+                  "change": "added",
+                  "label": "possible initialization of Utilities",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                        "startLine": 83,
+                        "startColumn": 65,
+                        "endLine": 83,
+                        "endColumn": 104
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "children": [
+                    {
+                      "id": "n7",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "initialization of Utilities",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Utilities..cctor()",
+                        "signature": "System.Text.RegularExpressions.Generated.Utilities.Utilities() -> void",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Utilities..cctor()"
+                        ],
+                        "definition": {
+                          "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                          "startLine": 101,
+                          "startColumn": 5,
+                          "endLine": 112,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                            "startLine": 83,
+                            "startColumn": 65,
+                            "endLine": 83,
+                            "endColumn": 104
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    }
+                  ],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n8",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "Flow.Match",
+      "detail": null,
+      "before": {
+        "symbolId": "project:App.csproj@net10.0::Flow.Match(string)",
+        "signature": "Flow.Match(string) -> bool",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:App.csproj@net10.0::Flow.Match(string)"
+        ],
+        "definition": {
+          "path": "Flow.cs",
+          "startLine": 1,
+          "startColumn": 60,
+          "endLine": 1,
+          "endColumn": 120
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "project:App.csproj@net10.0::Flow.Match(string)",
+        "signature": "Flow.Match(string) -> bool",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "project:App.csproj@net10.0::Flow.Match(string)"
+        ],
+        "definition": {
+          "path": "Flow.cs",
+          "startLine": 1,
+          "startColumn": 60,
+          "endLine": 1,
+          "endColumn": 120
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n9",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Flow.Pattern",
+          "detail": null,
+          "before": {
+            "symbolId": "project:App.csproj@net10.0::Flow.Pattern()",
+            "signature": "Flow.Pattern() -> System.Text.RegularExpressions.Regex",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:App.csproj@net10.0::Flow.Pattern()"
+            ],
+            "definition": {
+              "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+              "startLine": 15,
+              "startColumn": 5,
+              "endLine": 16,
+              "endColumn": 154
+            },
+            "callSites": [
+              {
+                "path": "Flow.cs",
+                "startLine": 1,
+                "startColumn": 95,
+                "endLine": 1,
+                "endColumn": 104
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:App.csproj@net10.0::Flow.Pattern()",
+            "signature": "Flow.Pattern() -> System.Text.RegularExpressions.Regex",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:App.csproj@net10.0::Flow.Pattern()"
+            ],
+            "definition": {
+              "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+              "startLine": 15,
+              "startColumn": 5,
+              "endLine": 16,
+              "endColumn": 154
+            },
+            "callSites": [
+              {
+                "path": "Flow.cs",
+                "startLine": 1,
+                "startColumn": 95,
+                "endLine": 1,
+                "endColumn": 104
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [
+            {
+              "id": "n10",
+              "kind": "branch",
+              "change": "unchanged",
+              "label": "possible initialization of Pattern_0",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                    "startLine": 16,
+                    "startColumn": 86,
+                    "endLine": 16,
+                    "endColumn": 153
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                    "startLine": 16,
+                    "startColumn": 86,
+                    "endLine": 16,
+                    "endColumn": 153
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n11",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "initialization of Pattern_0",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0..cctor()",
+                    "signature": "System.Text.RegularExpressions.Generated.Pattern_0.Pattern_0() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0..cctor()"
+                    ],
+                    "definition": {
+                      "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                      "startLine": 32,
+                      "startColumn": 5,
+                      "endLine": 98,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                        "startLine": 16,
+                        "startColumn": 86,
+                        "endLine": 16,
+                        "endColumn": 153
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0..cctor()",
+                    "signature": "System.Text.RegularExpressions.Generated.Pattern_0.Pattern_0() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0..cctor()"
+                    ],
+                    "definition": {
+                      "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                      "startLine": 32,
+                      "startColumn": 5,
+                      "endLine": 98,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                        "startLine": 16,
+                        "startColumn": 86,
+                        "endLine": 16,
+                        "endColumn": 153
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [
+                    {
+                      "id": "n12",
+                      "kind": "call",
+                      "change": "unchanged",
+                      "label": "new Pattern_0",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0..ctor()",
+                        "signature": "System.Text.RegularExpressions.Generated.Pattern_0.Pattern_0() -> void",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0..ctor()"
+                        ],
+                        "definition": {
+                          "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                          "startLine": 39,
+                          "startColumn": 9,
+                          "endLine": 47,
+                          "endColumn": 10
+                        },
+                        "callSites": [
+                          {
+                            "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                            "startLine": 36,
+                            "startColumn": 55,
+                            "endLine": 36,
+                            "endColumn": 60
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "after": {
+                        "symbolId": "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0..ctor()",
+                        "signature": "System.Text.RegularExpressions.Generated.Pattern_0.Pattern_0() -> void",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0..ctor()"
+                        ],
+                        "definition": {
+                          "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                          "startLine": 39,
+                          "startColumn": 9,
+                          "endLine": 47,
+                          "endColumn": 10
+                        },
+                        "callSites": [
+                          {
+                            "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                            "startLine": 36,
+                            "startColumn": 55,
+                            "endLine": 36,
+                            "endColumn": 60
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [
+                        {
+                          "id": "n13",
+                          "kind": "branch",
+                          "change": "unchanged",
+                          "label": "possible initialization of Utilities",
+                          "detail": null,
+                          "before": {
+                            "symbolId": null,
+                            "signature": null,
+                            "binding": "structural",
+                            "dispatch": "none",
+                            "targetIds": [],
+                            "definition": null,
+                            "callSites": [
+                              {
+                                "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                                "startLine": 43,
+                                "startColumn": 34,
+                                "endLine": 43,
+                                "endColumn": 60
+                              }
+                            ],
+                            "relation": "branch",
+                            "candidates": null,
+                            "origin": "structural"
+                          },
+                          "after": {
+                            "symbolId": null,
+                            "signature": null,
+                            "binding": "structural",
+                            "dispatch": "none",
+                            "targetIds": [],
+                            "definition": null,
+                            "callSites": [
+                              {
+                                "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                                "startLine": 43,
+                                "startColumn": 34,
+                                "endLine": 43,
+                                "endColumn": 60
+                              }
+                            ],
+                            "relation": "branch",
+                            "candidates": null,
+                            "origin": "structural"
+                          },
+                          "children": [
+                            {
+                              "id": "n14",
+                              "kind": "call",
+                              "change": "modified",
+                              "label": "initialization of Utilities",
+                              "detail": "body changed; visible calls unchanged",
+                              "before": {
+                                "symbolId": "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Utilities..cctor()",
+                                "signature": "System.Text.RegularExpressions.Generated.Utilities.Utilities() -> void",
+                                "binding": "resolved",
+                                "dispatch": "direct",
+                                "targetIds": [
+                                  "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Utilities..cctor()"
+                                ],
+                                "definition": {
+                                  "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                                  "startLine": 101,
+                                  "startColumn": 5,
+                                  "endLine": 112,
+                                  "endColumn": 6
+                                },
+                                "callSites": [
+                                  {
+                                    "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                                    "startLine": 43,
+                                    "startColumn": 34,
+                                    "endLine": 43,
+                                    "endColumn": 60
+                                  }
+                                ],
+                                "relation": "call",
+                                "candidates": [],
+                                "origin": "source"
+                              },
+                              "after": {
+                                "symbolId": "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Utilities..cctor()",
+                                "signature": "System.Text.RegularExpressions.Generated.Utilities.Utilities() -> void",
+                                "binding": "resolved",
+                                "dispatch": "direct",
+                                "targetIds": [
+                                  "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Utilities..cctor()"
+                                ],
+                                "definition": {
+                                  "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                                  "startLine": 101,
+                                  "startColumn": 5,
+                                  "endLine": 112,
+                                  "endColumn": 6
+                                },
+                                "callSites": [
+                                  {
+                                    "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                                    "startLine": 43,
+                                    "startColumn": 34,
+                                    "endLine": 43,
+                                    "endColumn": 60
+                                  }
+                                ],
+                                "relation": "call",
+                                "candidates": [],
+                                "origin": "source"
+                              },
+                              "children": [],
+                              "omission": null
+                            }
+                          ],
+                          "omission": null
+                        },
+                        {
+                          "id": "n15",
+                          "kind": "call",
+                          "change": "unchanged",
+                          "label": "new Pattern_0.RunnerFactory",
+                          "detail": null,
+                          "before": {
+                            "symbolId": "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory..ctor()",
+                            "signature": "System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory.RunnerFactory() -> void",
+                            "binding": "resolved",
+                            "dispatch": "direct",
+                            "targetIds": [
+                              "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory..ctor()"
+                            ],
+                            "definition": {
+                              "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                              "startLine": 50,
+                              "startColumn": 9,
+                              "endLine": 96,
+                              "endColumn": 10
+                            },
+                            "callSites": [
+                              {
+                                "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                                "startLine": 45,
+                                "startColumn": 28,
+                                "endLine": 45,
+                                "endColumn": 47
+                              }
+                            ],
+                            "relation": "call",
+                            "candidates": [],
+                            "origin": "source"
+                          },
+                          "after": {
+                            "symbolId": "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory..ctor()",
+                            "signature": "System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory.RunnerFactory() -> void",
+                            "binding": "resolved",
+                            "dispatch": "direct",
+                            "targetIds": [
+                              "project:App.csproj@net10.0/file:obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs::System.Text.RegularExpressions.Generated.Pattern_0.RunnerFactory..ctor()"
+                            ],
+                            "definition": {
+                              "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                              "startLine": 50,
+                              "startColumn": 9,
+                              "endLine": 96,
+                              "endColumn": 10
+                            },
+                            "callSites": [
+                              {
+                                "path": "obj/Debug/net10.0/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+                                "startLine": 45,
+                                "startColumn": 28,
+                                "endLine": 45,
+                                "endColumn": 47
+                              }
+                            ],
+                            "relation": "call",
+                            "candidates": [],
+                            "origin": "source"
+                          },
+                          "children": [],
+                          "omission": null
+                        }
+                      ],
+                      "omission": null
+                    }
+                  ],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
           "omission": null
         }
       ],

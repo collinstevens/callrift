@@ -29,7 +29,7 @@ stdout:
     ]
   },
   "hasChanges": true,
-  "truncated": false,
+  "truncated": true,
   "diagnostics": [
     {
       "code": "test-project-inferred",
@@ -47,9 +47,9 @@ stdout:
     {
       "id": "n0",
       "kind": "member",
-      "change": "modified",
+      "change": "unchanged",
       "label": "MessageTemplateParser.ParseTextToken",
-      "detail": "body changed; visible calls unchanged",
+      "detail": null,
       "before": {
         "symbolId": "source::Serilog.Parsing.MessageTemplateParser.ParseTextToken(int,string,out int)",
         "signature": "Serilog.Parsing.MessageTemplateParser.ParseTextToken(int, string, out int) -> Serilog.Parsing.TextToken",
@@ -93,6 +93,191 @@ stdout:
       "children": [
         {
           "id": "n1",
+          "kind": "branch",
+          "change": "added",
+          "label": "possible initialization of MessageTemplateParser",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Parsing/MessageTemplateParser.cs",
+                "startLine": 271,
+                "startColumn": 44,
+                "endLine": 271,
+                "endColumn": 59
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n2",
+              "kind": "call",
+              "change": "added",
+              "label": "initialization of MessageTemplateParser",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::Serilog.Parsing.MessageTemplateParser..cctor()",
+                "signature": "Serilog.Parsing.MessageTemplateParser.MessageTemplateParser() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Serilog.Parsing.MessageTemplateParser..cctor()"
+                ],
+                "definition": {
+                  "path": "src/Serilog/Parsing/MessageTemplateParser.cs",
+                  "startLine": 21,
+                  "startColumn": 1,
+                  "endLine": 346,
+                  "endColumn": 2
+                },
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Parsing/MessageTemplateParser.cs",
+                    "startLine": 271,
+                    "startColumn": 44,
+                    "endLine": 271,
+                    "endColumn": 59
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n3",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "new TextToken",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::Serilog.Parsing.TextToken..ctor(string)",
+                    "signature": "Serilog.Parsing.TextToken.TextToken(string) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Parsing.TextToken..ctor(string)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Parsing/TextToken.cs",
+                      "startLine": 27,
+                      "startColumn": 5,
+                      "endLine": 30,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Parsing/MessageTemplateParser.cs",
+                        "startLine": 23,
+                        "startColumn": 48,
+                        "endLine": 23,
+                        "endColumn": 55
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [
+                    {
+                      "id": "n4",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "new MessageTemplateToken",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "source::Serilog.Parsing.MessageTemplateToken..ctor()",
+                        "signature": "Serilog.Parsing.MessageTemplateToken.MessageTemplateToken() -> void",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "source::Serilog.Parsing.MessageTemplateToken..ctor()"
+                        ],
+                        "definition": {
+                          "path": "src/Serilog/Parsing/MessageTemplateToken.cs",
+                          "startLine": 20,
+                          "startColumn": 1,
+                          "endLine": 35,
+                          "endColumn": 2
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Serilog/Parsing/TextToken.cs",
+                            "startLine": 27,
+                            "startColumn": 5,
+                            "endLine": 30,
+                            "endColumn": 6
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n5",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "Guard.AgainstNull",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "source::Guard.AgainstNull`1(T,string)",
+                        "signature": "Guard.AgainstNull<T>(T?, string?) -> T",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "source::Guard.AgainstNull`1(T,string)"
+                        ],
+                        "definition": {
+                          "path": "src/Serilog/Guard.cs",
+                          "startLine": 13,
+                          "startColumn": 5,
+                          "endLine": 24,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Serilog/Parsing/TextToken.cs",
+                            "startLine": 29,
+                            "startColumn": 16,
+                            "endLine": 29,
+                            "endColumn": 39
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    }
+                  ],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n6",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (i == -1)",
@@ -139,7 +324,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n2",
+              "id": "n7",
               "kind": "call",
               "change": "unchanged",
               "label": "new TextToken",
@@ -202,7 +387,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n3",
+                  "id": "n8",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new MessageTemplateToken",
@@ -267,7 +452,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n4",
+                  "id": "n9",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "Guard.AgainstNull",
@@ -338,7 +523,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n5",
+          "id": "n10",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (ch == '{')",
@@ -385,7 +570,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n6",
+              "id": "n11",
               "kind": "branch",
               "change": "unchanged",
               "label": "else (!(i < messageTemplate.Length && messageTemplate[i] == '{'))",
@@ -432,7 +617,150 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n7",
+                  "id": "n12",
+                  "kind": "branch",
+                  "change": "removed",
+                  "label": "if (next == startAt)",
+                  "detail": null,
+                  "before": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Parsing/MessageTemplateParser.cs",
+                        "startLine": 296,
+                        "startColumn": 42,
+                        "endLine": 296,
+                        "endColumn": 56
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "after": null,
+                  "children": [
+                    {
+                      "id": "n13",
+                      "kind": "branch",
+                      "change": "removed",
+                      "label": "possible initialization of MessageTemplateParser",
+                      "detail": null,
+                      "before": {
+                        "symbolId": null,
+                        "signature": null,
+                        "binding": "structural",
+                        "dispatch": "none",
+                        "targetIds": [],
+                        "definition": null,
+                        "callSites": [
+                          {
+                            "path": "src/Serilog/Parsing/MessageTemplateParser.cs",
+                            "startLine": 296,
+                            "startColumn": 42,
+                            "endLine": 296,
+                            "endColumn": 56
+                          }
+                        ],
+                        "relation": "branch",
+                        "candidates": null,
+                        "origin": "structural"
+                      },
+                      "after": null,
+                      "children": [
+                        {
+                          "id": "n14",
+                          "kind": "call",
+                          "change": "removed",
+                          "label": "initialization of MessageTemplateParser",
+                          "detail": null,
+                          "before": {
+                            "symbolId": "source::Serilog.Parsing.MessageTemplateParser..cctor()",
+                            "signature": "Serilog.Parsing.MessageTemplateParser.MessageTemplateParser() -> void",
+                            "binding": "resolved",
+                            "dispatch": "direct",
+                            "targetIds": [
+                              "source::Serilog.Parsing.MessageTemplateParser..cctor()"
+                            ],
+                            "definition": {
+                              "path": "src/Serilog/Parsing/MessageTemplateParser.cs",
+                              "startLine": 21,
+                              "startColumn": 1,
+                              "endLine": 345,
+                              "endColumn": 2
+                            },
+                            "callSites": [
+                              {
+                                "path": "src/Serilog/Parsing/MessageTemplateParser.cs",
+                                "startLine": 296,
+                                "startColumn": 42,
+                                "endLine": 296,
+                                "endColumn": 56
+                              }
+                            ],
+                            "relation": "call",
+                            "candidates": [],
+                            "origin": "source"
+                          },
+                          "after": null,
+                          "children": [
+                            {
+                              "id": "n15",
+                              "kind": "call",
+                              "change": "removed",
+                              "label": "new TextToken",
+                              "detail": "depth limit",
+                              "before": {
+                                "symbolId": "source::Serilog.Parsing.TextToken..ctor(string)",
+                                "signature": "Serilog.Parsing.TextToken.TextToken(string) -> void",
+                                "binding": "resolved",
+                                "dispatch": "direct",
+                                "targetIds": [
+                                  "source::Serilog.Parsing.TextToken..ctor(string)"
+                                ],
+                                "definition": {
+                                  "path": "src/Serilog/Parsing/TextToken.cs",
+                                  "startLine": 27,
+                                  "startColumn": 5,
+                                  "endLine": 30,
+                                  "endColumn": 6
+                                },
+                                "callSites": [
+                                  {
+                                    "path": "src/Serilog/Parsing/MessageTemplateParser.cs",
+                                    "startLine": 23,
+                                    "startColumn": 48,
+                                    "endLine": 23,
+                                    "endColumn": 55
+                                  }
+                                ],
+                                "relation": "call",
+                                "candidates": [],
+                                "origin": "source"
+                              },
+                              "after": null,
+                              "children": [],
+                              "omission": {
+                                "reason": "depth-limit",
+                                "symbolId": null,
+                                "referenceId": null
+                              }
+                            }
+                          ],
+                          "omission": null
+                        }
+                      ],
+                      "omission": null
+                    }
+                  ],
+                  "omission": null
+                },
+                {
+                  "id": "n16",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "else (!(next == startAt))",
@@ -479,7 +807,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n8",
+                      "id": "n17",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "new TextToken",
@@ -542,7 +870,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n9",
+                          "id": "n18",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "new MessageTemplateToken",
@@ -607,7 +935,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n10",
+                          "id": "n19",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "Guard.AgainstNull",
@@ -684,7 +1012,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n11",
+          "id": "n20",
           "kind": "branch",
           "change": "unchanged",
           "label": "while (i < messageTemplate.Length)",
@@ -731,7 +1059,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n12",
+              "id": "n21",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (ch == '{')",
@@ -778,7 +1106,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n13",
+                  "id": "n22",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "else (!(i < messageTemplate.Length && messageTemplate[i] == '{'))",
@@ -825,7 +1153,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n14",
+                      "id": "n23",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "new TextToken",
@@ -888,7 +1216,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n15",
+                          "id": "n24",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "new MessageTemplateToken",
@@ -953,7 +1281,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n16",
+                          "id": "n25",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "Guard.AgainstNull",
@@ -1030,7 +1358,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n17",
+          "id": "n26",
           "kind": "call",
           "change": "unchanged",
           "label": "new TextToken",
@@ -1093,7 +1421,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n18",
+              "id": "n27",
               "kind": "call",
               "change": "unchanged",
               "label": "new MessageTemplateToken",
@@ -1158,7 +1486,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n19",
+              "id": "n28",
               "kind": "call",
               "change": "unchanged",
               "label": "Guard.AgainstNull",

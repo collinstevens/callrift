@@ -1,10 +1,22 @@
 ﻿format: text
 exit: 0
 stdout:
-~ MessageTemplateParser.ParseTextToken (body changed; visible calls unchanged)
+  MessageTemplateParser.ParseTextToken
++ ├─ possible initialization of MessageTemplateParser
++ │  └─ initialization of MessageTemplateParser
++ │     └─ new TextToken
++ │        ├─ new MessageTemplateToken
++ │        └─ Guard.AgainstNull
   ├─ if (i == -1)
   ├─ if (ch == '{')
-  └─ …
+  │  └─ else (!(i < messageTemplate.Length && messageTemplate[i] == '{'))
+- │     ├─ if (next == startAt)
+- │     │  └─ possible initialization of MessageTemplateParser
+- │     │     └─ initialization of MessageTemplateParser
+- │     │        └─ new TextToken (depth limit)
+  │     └─ else (!(next == startAt))
+  ├─ while (i < messageTemplate.Length)
+  └─ new TextToken
 stderr:
 test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
 
@@ -12,10 +24,22 @@ format: md
 exit: 0
 stdout:
 ```diff
-~ MessageTemplateParser.ParseTextToken (body changed; visible calls unchanged)
+  MessageTemplateParser.ParseTextToken
++ ├─ possible initialization of MessageTemplateParser
++ │  └─ initialization of MessageTemplateParser
++ │     └─ new TextToken
++ │        ├─ new MessageTemplateToken
++ │        └─ Guard.AgainstNull
   ├─ if (i == -1)
   ├─ if (ch == '{')
-  └─ …
+  │  └─ else (!(i < messageTemplate.Length && messageTemplate[i] == '{'))
+- │     ├─ if (next == startAt)
+- │     │  └─ possible initialization of MessageTemplateParser
+- │     │     └─ initialization of MessageTemplateParser
+- │     │        └─ new TextToken (depth limit)
+  │     └─ else (!(next == startAt))
+  ├─ while (i < messageTemplate.Length)
+  └─ new TextToken
 ```
 stderr:
 test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.

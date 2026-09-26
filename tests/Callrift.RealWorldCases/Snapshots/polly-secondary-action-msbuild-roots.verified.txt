@@ -6,36 +6,38 @@ stdout:
   ├─ ResiliencePipeline.GetSyncContext (depth limit)
   ├─ try
 ~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
+  │     └─ possible initialization of VoidResult
   └─ finally
 
   ResiliencePipeline.Execute
   ├─ Guard.NotNull
 ~ └─ ResiliencePipeline.Execute (changes below depth limit)
+     └─ possible initialization of VoidResult
 
   ResiliencePipeline.Execute
   ├─ Guard.NotNull
   ├─ ResiliencePipeline.GetSyncContext (depth limit)
   ├─ try
-~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
+~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit) ↑ as above
   └─ finally
 
   ResiliencePipeline.Execute
   ├─ Guard.NotNull
   ├─ ResiliencePipeline.GetSyncContext (depth limit)
   ├─ try
-~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
+~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit) ↑ as above
   └─ finally
 
   ResiliencePipeline.Execute
   ├─ Guard.NotNull
   ├─ ResiliencePipeline.GetSyncContext (depth limit)
   ├─ try
-~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
+~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit) ↑ as above
   └─ finally
 
   ResiliencePipeline.Execute
   ├─ Guard.NotNull
-~ └─ ResiliencePipeline.Execute (changes below depth limit)
+~ └─ ResiliencePipeline.Execute (changes below depth limit) ↑ as above
 
   ResiliencePipeline.ExecuteAsync
   ├─ …
@@ -133,36 +135,38 @@ stdout:
   ├─ ResiliencePipeline.GetSyncContext (depth limit)
   ├─ try
 ~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
+  │     └─ possible initialization of VoidResult
   └─ finally
 
   ResiliencePipeline.Execute
   ├─ Guard.NotNull
 ~ └─ ResiliencePipeline.Execute (changes below depth limit)
+     └─ possible initialization of VoidResult
 
   ResiliencePipeline.Execute
   ├─ Guard.NotNull
   ├─ ResiliencePipeline.GetSyncContext (depth limit)
   ├─ try
-~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
+~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit) ↑ as above
   └─ finally
 
   ResiliencePipeline.Execute
   ├─ Guard.NotNull
   ├─ ResiliencePipeline.GetSyncContext (depth limit)
   ├─ try
-~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
+~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit) ↑ as above
   └─ finally
 
   ResiliencePipeline.Execute
   ├─ Guard.NotNull
   ├─ ResiliencePipeline.GetSyncContext (depth limit)
   ├─ try
-~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
+~ │  └─ PipelineComponent.ExecuteCoreSync (changes below depth limit) ↑ as above
   └─ finally
 
   ResiliencePipeline.Execute
   ├─ Guard.NotNull
-~ └─ ResiliencePipeline.Execute (changes below depth limit)
+~ └─ ResiliencePipeline.Execute (changes below depth limit) ↑ as above
 
   ResiliencePipeline.ExecuteAsync
   ├─ …

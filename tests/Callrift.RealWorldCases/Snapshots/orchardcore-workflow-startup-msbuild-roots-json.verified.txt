@@ -145,6 +145,125 @@ stdout:
       "children": [
         {
           "id": "n1",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "possible initialization of WorkflowsPermissions",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Workflows/Controllers/ActivityController.cs",
+                "startLine": 54,
+                "startColumn": 63,
+                "endLine": 54,
+                "endColumn": 99
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Workflows/Controllers/ActivityController.cs",
+                "startLine": 55,
+                "startColumn": 63,
+                "endLine": 55,
+                "endColumn": 99
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n2",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "initialization of WorkflowsPermissions",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.WorkflowsPermissions..cctor()",
+                "signature": "OrchardCore.Workflows.WorkflowsPermissions.WorkflowsPermissions() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.WorkflowsPermissions..cctor()"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Workflows.Abstractions/WorkflowsPermissions.cs",
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 12,
+                  "endColumn": 2
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Workflows/Controllers/ActivityController.cs",
+                    "startLine": 54,
+                    "startColumn": 63,
+                    "endLine": 54,
+                    "endColumn": 99
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.WorkflowsPermissions..cctor()",
+                "signature": "OrchardCore.Workflows.WorkflowsPermissions.WorkflowsPermissions() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.WorkflowsPermissions..cctor()"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Workflows.Abstractions/WorkflowsPermissions.cs",
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 12,
+                  "endColumn": 2
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Workflows/Controllers/ActivityController.cs",
+                    "startLine": 55,
+                    "startColumn": 63,
+                    "endLine": 55,
+                    "endColumn": 99
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n3",
           "kind": "call",
           "change": "unchanged",
           "label": "AuthorizationServiceExtensions.AuthorizeAsync",
@@ -213,7 +332,7 @@ stdout:
           }
         },
         {
-          "id": "n2",
+          "id": "n4",
           "kind": "call",
           "change": "unchanged",
           "label": "IActivityLibrary.InstantiateActivity → ActivityLibrary.InstantiateActivity",
@@ -282,7 +401,7 @@ stdout:
           }
         },
         {
-          "id": "n3",
+          "id": "n5",
           "kind": "call",
           "change": "unchanged",
           "label": "new ActivityRecord",
@@ -351,7 +470,7 @@ stdout:
           }
         },
         {
-          "id": "n4",
+          "id": "n6",
           "kind": "call",
           "change": "unchanged",
           "label": "IActivityIdGenerator.GenerateUniqueId → ActivityIdGenerator.GenerateUniqueId",
@@ -420,7 +539,7 @@ stdout:
           }
         },
         {
-          "id": "n5",
+          "id": "n7",
           "kind": "call",
           "change": "unchanged",
           "label": "IDisplayManager<TModel>.BuildEditorAsync → ActivityDisplayManager.BuildEditorAsync",
@@ -489,7 +608,7 @@ stdout:
           }
         },
         {
-          "id": "n6",
+          "id": "n8",
           "kind": "call",
           "change": "unchanged",
           "label": "new ActivityEditViewModel",
@@ -554,7 +673,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n7",
+          "id": "n9",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (!activity.HasEditor)",
@@ -601,7 +720,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n8",
+              "id": "n10",
               "kind": "call",
               "change": "modified",
               "label": "ActivityController.Create",
@@ -676,7 +795,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n9",
+      "id": "n11",
       "kind": "member",
       "change": "unchanged",
       "label": "WorkflowTypeController.Edit",
@@ -723,7 +842,126 @@ stdout:
       },
       "children": [
         {
-          "id": "n10",
+          "id": "n12",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "possible initialization of WorkflowsPermissions",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Workflows/Controllers/WorkflowTypeController.cs",
+                "startLine": 464,
+                "startColumn": 63,
+                "endLine": 464,
+                "endColumn": 99
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Workflows/Controllers/WorkflowTypeController.cs",
+                "startLine": 464,
+                "startColumn": 63,
+                "endLine": 464,
+                "endColumn": 99
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n13",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "initialization of WorkflowsPermissions",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.WorkflowsPermissions..cctor()",
+                "signature": "OrchardCore.Workflows.WorkflowsPermissions.WorkflowsPermissions() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.WorkflowsPermissions..cctor()"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Workflows.Abstractions/WorkflowsPermissions.cs",
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 12,
+                  "endColumn": 2
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Workflows/Controllers/WorkflowTypeController.cs",
+                    "startLine": 464,
+                    "startColumn": 63,
+                    "endLine": 464,
+                    "endColumn": 99
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.WorkflowsPermissions..cctor()",
+                "signature": "OrchardCore.Workflows.WorkflowsPermissions.WorkflowsPermissions() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore/OrchardCore.Workflows.Abstractions/OrchardCore.Workflows.Abstractions.csproj@net10.0::OrchardCore.Workflows.WorkflowsPermissions..cctor()"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Workflows.Abstractions/WorkflowsPermissions.cs",
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 12,
+                  "endColumn": 2
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Workflows/Controllers/WorkflowTypeController.cs",
+                    "startLine": 464,
+                    "startColumn": 63,
+                    "endLine": 464,
+                    "endColumn": 99
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n14",
           "kind": "call",
           "change": "unchanged",
           "label": "AuthorizationServiceExtensions.AuthorizeAsync",
@@ -792,7 +1030,7 @@ stdout:
           }
         },
         {
-          "id": "n11",
+          "id": "n15",
           "kind": "call",
           "change": "unchanged",
           "label": "IWorkflowTypeStore.GetAsync → WorkflowTypeStore.GetAsync",
@@ -857,7 +1095,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n12",
+          "id": "n16",
           "kind": "call",
           "change": "unchanged",
           "label": "JObject.Parse",
@@ -926,11 +1164,11 @@ stdout:
           }
         },
         {
-          "id": "n13",
+          "id": "n17",
           "kind": "call",
           "change": "unchanged",
           "label": "JArray.FromObject",
-          "detail": null,
+          "detail": "depth limit",
           "before": {
             "symbolId": "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::System.Text.Json.Nodes.JArray.FromObject(object,global::System.Text.Json.JsonSerializerOptions)",
             "signature": "System.Text.Json.Nodes.JArray.FromObject(object?, System.Text.Json.JsonSerializerOptions?) -> System.Text.Json.Nodes.JsonArray?",
@@ -988,10 +1226,14 @@ stdout:
             "origin": "source"
           },
           "children": [],
-          "omission": null
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
         },
         {
-          "id": "n14",
+          "id": "n18",
           "kind": "branch",
           "change": "unchanged",
           "label": "foreach (var transitionState in transitions)",
@@ -1038,7 +1280,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n15",
+              "id": "n19",
               "kind": "call",
               "change": "unchanged",
               "label": "new Transition",
@@ -1106,7 +1348,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n16",
+          "id": "n20",
           "kind": "call",
           "change": "unchanged",
           "label": "IWorkflowTypeStore.SaveAsync → WorkflowTypeStore.SaveAsync",
@@ -1175,7 +1417,7 @@ stdout:
           }
         },
         {
-          "id": "n17",
+          "id": "n21",
           "kind": "call",
           "change": "unchanged",
           "label": "NotifierExtensions.SuccessAsync",
@@ -1244,7 +1486,7 @@ stdout:
           }
         },
         {
-          "id": "n18",
+          "id": "n22",
           "kind": "call",
           "change": "added",
           "label": "WorkflowTypeExtensions.IsMissingStartActivity",
@@ -1286,7 +1528,7 @@ stdout:
           }
         },
         {
-          "id": "n19",
+          "id": "n23",
           "kind": "branch",
           "change": "added",
           "label": "if (workflowType.IsMissingStartActivity())",
@@ -1314,7 +1556,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n20",
+              "id": "n24",
               "kind": "call",
               "change": "added",
               "label": "NotifierExtensions.WarningAsync",

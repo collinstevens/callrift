@@ -2,12 +2,16 @@
 exit: 0
 stdout:
   AdminController.IndexInfo
++ ├─ possible initialization of ElasticsearchPermissions
++ │  └─ initialization of ElasticsearchPermissions (depth limit)
 + ├─ AuthorizationServiceExtensions.AuthorizeAsync (depth limit)
   ├─ IIndexProfileStore.FindByIdAsync → DefaultIndexProfileStore.FindByIdAsync
   ├─ ElasticsearchIndexManager.GetIndexInfoAsync
   └─ …
 
   AdminController.QueryIndex
++ ├─ possible initialization of ElasticsearchPermissions
++ │  └─ initialization of ElasticsearchPermissions (depth limit)
 + ├─ AuthorizationServiceExtensions.AuthorizeAsync (depth limit)
   ├─ IIndexProfileStore.FindByNameAsync → DefaultIndexProfileStore.FindByNameAsync
   ├─ new AdminQueryViewModel
@@ -19,12 +23,16 @@ exit: 0
 stdout:
 ```diff
   AdminController.IndexInfo
++ ├─ possible initialization of ElasticsearchPermissions
++ │  └─ initialization of ElasticsearchPermissions (depth limit)
 + ├─ AuthorizationServiceExtensions.AuthorizeAsync (depth limit)
   ├─ IIndexProfileStore.FindByIdAsync → DefaultIndexProfileStore.FindByIdAsync
   ├─ ElasticsearchIndexManager.GetIndexInfoAsync
   └─ …
 
   AdminController.QueryIndex
++ ├─ possible initialization of ElasticsearchPermissions
++ │  └─ initialization of ElasticsearchPermissions (depth limit)
 + ├─ AuthorizationServiceExtensions.AuthorizeAsync (depth limit)
   ├─ IIndexProfileStore.FindByNameAsync → DefaultIndexProfileStore.FindByNameAsync
   ├─ new AdminQueryViewModel

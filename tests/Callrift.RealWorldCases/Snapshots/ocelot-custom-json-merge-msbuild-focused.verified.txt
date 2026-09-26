@@ -14,19 +14,13 @@ stdout:
 ~ ConfigurationBuilderExtensions.GetMergedOcelotJson (signature changed)
   ├─ …
   ├─ new DirectoryInfo(folder).EnumerateFiles().Where(fi => reg.IsMatch(fi.Name) && !fi.Name.Equals(environmentFileInfo.Name, StringComparison.OrdinalIgnoreCase) && !fi.FullName.Equals(environmentFileInfo.FullName, StringComparison.OrdinalIgnoreCase)).ToArray
-  ├─ new FileConfiguration
+  ├─ if (fileConfiguration is null)
 + ├─ ConfigurationBuilderExtensions.GuardSchema
-+ │  └─ new FileGlobalConfiguration
-+ │     ├─ new Object
-+ │     ├─ new FileGlobalAuthenticationOptions (depth limit)
-+ │     ├─ new Dictionary<string, string>
-+ │     ├─ new FileGlobalHttpHandlerOptions (depth limit)
-+ │     ├─ new FileMetadataOptions (depth limit)
-+ │     ├─ new FileSecurityOptions (depth limit)
-+ │     ├─ new FileServiceDiscoveryProvider (depth limit)
-+ │     └─ new Dictionary<string, string>
++ │  └─ if (configuration.GlobalConfiguration is null)
++ │     └─ new FileGlobalConfiguration (depth limit)
 + ├─ JObject.FromObject
-  ├─ Path.Join ×2
+  ├─ if (primaryFile is null)
+  ├─ if (globalFile is null)
   ├─ new FileInfo ×2
   ├─ foreach (var file in files)
   │  ├─ …
@@ -43,6 +37,8 @@ stdout:
 + │     │  └─ ConfigurationBuilderExtensions.OcelotJMergeSection (changes below depth limit)
 + │     └─ ConfigurationBuilderExtensions.OcelotJMergeSection ×3 (changes below depth limit)
 - ├─ JsonConvert.SerializeObject
++ ├─ possible initialization of ConfigurationBuilderExtensions
++ │  └─ initialization of ConfigurationBuilderExtensions
 + └─ jobj.ToString
 
 + ConfigurationBuilderExtensions.OcelotMergeConfiguration
@@ -84,19 +80,13 @@ stdout:
 ~ ConfigurationBuilderExtensions.GetMergedOcelotJson (signature changed)
   ├─ …
   ├─ new DirectoryInfo(folder).EnumerateFiles().Where(fi => reg.IsMatch(fi.Name) && !fi.Name.Equals(environmentFileInfo.Name, StringComparison.OrdinalIgnoreCase) && !fi.FullName.Equals(environmentFileInfo.FullName, StringComparison.OrdinalIgnoreCase)).ToArray
-  ├─ new FileConfiguration
+  ├─ if (fileConfiguration is null)
 + ├─ ConfigurationBuilderExtensions.GuardSchema
-+ │  └─ new FileGlobalConfiguration
-+ │     ├─ new Object
-+ │     ├─ new FileGlobalAuthenticationOptions (depth limit)
-+ │     ├─ new Dictionary<string, string>
-+ │     ├─ new FileGlobalHttpHandlerOptions (depth limit)
-+ │     ├─ new FileMetadataOptions (depth limit)
-+ │     ├─ new FileSecurityOptions (depth limit)
-+ │     ├─ new FileServiceDiscoveryProvider (depth limit)
-+ │     └─ new Dictionary<string, string>
++ │  └─ if (configuration.GlobalConfiguration is null)
++ │     └─ new FileGlobalConfiguration (depth limit)
 + ├─ JObject.FromObject
-  ├─ Path.Join ×2
+  ├─ if (primaryFile is null)
+  ├─ if (globalFile is null)
   ├─ new FileInfo ×2
   ├─ foreach (var file in files)
   │  ├─ …
@@ -113,6 +103,8 @@ stdout:
 + │     │  └─ ConfigurationBuilderExtensions.OcelotJMergeSection (changes below depth limit)
 + │     └─ ConfigurationBuilderExtensions.OcelotJMergeSection ×3 (changes below depth limit)
 - ├─ JsonConvert.SerializeObject
++ ├─ possible initialization of ConfigurationBuilderExtensions
++ │  └─ initialization of ConfigurationBuilderExtensions
 + └─ jobj.ToString
 
 + ConfigurationBuilderExtensions.OcelotMergeConfiguration

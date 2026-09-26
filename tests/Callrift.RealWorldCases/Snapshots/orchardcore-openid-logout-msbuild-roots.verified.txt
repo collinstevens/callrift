@@ -8,7 +8,7 @@ stdout:
   ├─ case ConsentTypes.Implicit: case ConsentTypes.External when authorizations.Count > 0: case Consen…
 ~ │  ├─ AccessController.PopulateIdentityClaims (changes below depth limit)
   │  ├─ AccessController.GetResourcesAsync
-  │  ├─ OpenIdExtensions.GetUserIdentifier
+  │  ├─ if (authorization is null)
   │  └─ …
   └─ default:
 
@@ -19,7 +19,7 @@ stdout:
   └─ default:
 ~    ├─ AccessController.PopulateIdentityClaims (changes below depth limit)
      ├─ AccessController.GetResourcesAsync
-     ├─ OpenIdExtensions.GetUserIdentifier
+     ├─ if (authorization is null)
      └─ …
 
   AccessController.Logout
@@ -76,7 +76,7 @@ stdout:
   ├─ case ConsentTypes.Implicit: case ConsentTypes.External when authorizations.Count > 0: case Consen…
 ~ │  ├─ AccessController.PopulateIdentityClaims (changes below depth limit)
   │  ├─ AccessController.GetResourcesAsync
-  │  ├─ OpenIdExtensions.GetUserIdentifier
+  │  ├─ if (authorization is null)
   │  └─ …
   └─ default:
 
@@ -87,7 +87,7 @@ stdout:
   └─ default:
 ~    ├─ AccessController.PopulateIdentityClaims (changes below depth limit)
      ├─ AccessController.GetResourcesAsync
-     ├─ OpenIdExtensions.GetUserIdentifier
+     ├─ if (authorization is null)
      └─ …
 
   AccessController.Logout

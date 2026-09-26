@@ -512,71 +512,121 @@ stdout:
             },
             {
               "id": "n8",
-              "kind": "call",
+              "kind": "branch",
               "change": "unchanged",
-              "label": "OpenIdExtensions.GetUserIdentifier",
+              "label": "if (authorization is null)",
               "detail": null,
               "before": {
-                "symbolId": "project:src/OrchardCore.Modules/OrchardCore.OpenId/OrchardCore.OpenId.csproj@net10.0::OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(global::System.Security.Claims.ClaimsIdentity)",
-                "signature": "OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(System.Security.Claims.ClaimsIdentity) -> string",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "project:src/OrchardCore.Modules/OrchardCore.OpenId/OrchardCore.OpenId.csproj@net10.0::OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(global::System.Security.Claims.ClaimsIdentity)"
-                ],
-                "definition": {
-                  "path": "src/OrchardCore.Modules/OrchardCore.OpenId/OpenIdExtensions.cs",
-                  "startLine": 8,
-                  "startColumn": 5,
-                  "endLine": 12,
-                  "endColumn": 109
-                },
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
                 "callSites": [
                   {
                     "path": "src/OrchardCore.Modules/OrchardCore.OpenId/Controllers/AccessController.cs",
-                    "startLine": 152,
-                    "startColumn": 30,
-                    "endLine": 152,
-                    "endColumn": 58
+                    "startLine": 150,
+                    "startColumn": 17,
+                    "endLine": 155,
+                    "endColumn": 50
                   }
                 ],
-                "relation": "call",
-                "candidates": [],
-                "origin": "source"
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
               },
               "after": {
-                "symbolId": "project:src/OrchardCore.Modules/OrchardCore.OpenId/OrchardCore.OpenId.csproj@net10.0::OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(global::System.Security.Claims.ClaimsIdentity)",
-                "signature": "OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(System.Security.Claims.ClaimsIdentity) -> string",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "project:src/OrchardCore.Modules/OrchardCore.OpenId/OrchardCore.OpenId.csproj@net10.0::OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(global::System.Security.Claims.ClaimsIdentity)"
-                ],
-                "definition": {
-                  "path": "src/OrchardCore.Modules/OrchardCore.OpenId/OpenIdExtensions.cs",
-                  "startLine": 8,
-                  "startColumn": 5,
-                  "endLine": 12,
-                  "endColumn": 109
-                },
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
                 "callSites": [
                   {
                     "path": "src/OrchardCore.Modules/OrchardCore.OpenId/Controllers/AccessController.cs",
-                    "startLine": 152,
-                    "startColumn": 30,
-                    "endLine": 152,
-                    "endColumn": 58
+                    "startLine": 150,
+                    "startColumn": 17,
+                    "endLine": 155,
+                    "endColumn": 50
                   }
                 ],
-                "relation": "call",
-                "candidates": [],
-                "origin": "source"
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
               },
-              "children": [],
+              "children": [
+                {
+                  "id": "n9",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "OpenIdExtensions.GetUserIdentifier",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "project:src/OrchardCore.Modules/OrchardCore.OpenId/OrchardCore.OpenId.csproj@net10.0::OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(global::System.Security.Claims.ClaimsIdentity)",
+                    "signature": "OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(System.Security.Claims.ClaimsIdentity) -> string",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore.Modules/OrchardCore.OpenId/OrchardCore.OpenId.csproj@net10.0::OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(global::System.Security.Claims.ClaimsIdentity)"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore.Modules/OrchardCore.OpenId/OpenIdExtensions.cs",
+                      "startLine": 8,
+                      "startColumn": 5,
+                      "endLine": 12,
+                      "endColumn": 109
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore.Modules/OrchardCore.OpenId/Controllers/AccessController.cs",
+                        "startLine": 152,
+                        "startColumn": 30,
+                        "endLine": 152,
+                        "endColumn": 58
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/OrchardCore.Modules/OrchardCore.OpenId/OrchardCore.OpenId.csproj@net10.0::OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(global::System.Security.Claims.ClaimsIdentity)",
+                    "signature": "OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(System.Security.Claims.ClaimsIdentity) -> string",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore.Modules/OrchardCore.OpenId/OrchardCore.OpenId.csproj@net10.0::OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(global::System.Security.Claims.ClaimsIdentity)"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore.Modules/OrchardCore.OpenId/OpenIdExtensions.cs",
+                      "startLine": 8,
+                      "startColumn": 5,
+                      "endLine": 12,
+                      "endColumn": 109
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore.Modules/OrchardCore.OpenId/Controllers/AccessController.cs",
+                        "startLine": 152,
+                        "startColumn": 30,
+                        "endLine": 152,
+                        "endColumn": 58
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
               "omission": null
             },
             {
-              "id": "n9",
+              "id": "n10",
               "kind": "call",
               "change": "unchanged",
               "label": "identity.SetDestinations",
@@ -627,7 +677,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n10",
+                  "id": "n11",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "AccessController.GetDestinations",
@@ -698,7 +748,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n11",
+          "id": "n12",
           "kind": "branch",
           "change": "unchanged",
           "label": "default:",
@@ -745,7 +795,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n12",
+              "id": "n13",
               "kind": "call",
               "change": "unchanged",
               "label": "new AuthorizeViewModel",
@@ -816,7 +866,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n13",
+      "id": "n14",
       "kind": "member",
       "change": "unchanged",
       "label": "AccessController.AuthorizeAccept",
@@ -863,7 +913,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n14",
+          "id": "n15",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (response is not null)",
@@ -910,7 +960,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n15",
+              "id": "n16",
               "kind": "call",
               "change": "unchanged",
               "label": "new ErrorViewModel",
@@ -978,7 +1028,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n16",
+          "id": "n17",
           "kind": "call",
           "change": "modified",
           "label": "OpenIdExtensions.GetUserIdentifier",
@@ -1047,7 +1097,7 @@ stdout:
           }
         },
         {
-          "id": "n17",
+          "id": "n18",
           "kind": "call",
           "change": "unchanged",
           "label": "OpenIdExtensions.ToListAsync",
@@ -1116,7 +1166,7 @@ stdout:
           }
         },
         {
-          "id": "n18",
+          "id": "n19",
           "kind": "branch",
           "change": "unchanged",
           "label": "default:",
@@ -1163,7 +1213,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n19",
+              "id": "n20",
               "kind": "call",
               "change": "modified",
               "label": "AccessController.PopulateIdentityClaims",
@@ -1232,7 +1282,7 @@ stdout:
               }
             },
             {
-              "id": "n20",
+              "id": "n21",
               "kind": "call",
               "change": "unchanged",
               "label": "AccessController.GetResourcesAsync",
@@ -1297,72 +1347,122 @@ stdout:
               "omission": null
             },
             {
-              "id": "n21",
-              "kind": "call",
+              "id": "n22",
+              "kind": "branch",
               "change": "unchanged",
-              "label": "OpenIdExtensions.GetUserIdentifier",
+              "label": "if (authorization is null)",
               "detail": null,
               "before": {
-                "symbolId": "project:src/OrchardCore.Modules/OrchardCore.OpenId/OrchardCore.OpenId.csproj@net10.0::OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(global::System.Security.Claims.ClaimsIdentity)",
-                "signature": "OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(System.Security.Claims.ClaimsIdentity) -> string",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "project:src/OrchardCore.Modules/OrchardCore.OpenId/OrchardCore.OpenId.csproj@net10.0::OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(global::System.Security.Claims.ClaimsIdentity)"
-                ],
-                "definition": {
-                  "path": "src/OrchardCore.Modules/OrchardCore.OpenId/OpenIdExtensions.cs",
-                  "startLine": 8,
-                  "startColumn": 5,
-                  "endLine": 12,
-                  "endColumn": 109
-                },
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
                 "callSites": [
                   {
                     "path": "src/OrchardCore.Modules/OrchardCore.OpenId/Controllers/AccessController.cs",
-                    "startLine": 265,
-                    "startColumn": 30,
-                    "endLine": 265,
-                    "endColumn": 58
+                    "startLine": 263,
+                    "startColumn": 17,
+                    "endLine": 268,
+                    "endColumn": 50
                   }
                 ],
-                "relation": "call",
-                "candidates": [],
-                "origin": "source"
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
               },
               "after": {
-                "symbolId": "project:src/OrchardCore.Modules/OrchardCore.OpenId/OrchardCore.OpenId.csproj@net10.0::OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(global::System.Security.Claims.ClaimsIdentity)",
-                "signature": "OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(System.Security.Claims.ClaimsIdentity) -> string",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "project:src/OrchardCore.Modules/OrchardCore.OpenId/OrchardCore.OpenId.csproj@net10.0::OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(global::System.Security.Claims.ClaimsIdentity)"
-                ],
-                "definition": {
-                  "path": "src/OrchardCore.Modules/OrchardCore.OpenId/OpenIdExtensions.cs",
-                  "startLine": 8,
-                  "startColumn": 5,
-                  "endLine": 12,
-                  "endColumn": 109
-                },
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
                 "callSites": [
                   {
                     "path": "src/OrchardCore.Modules/OrchardCore.OpenId/Controllers/AccessController.cs",
-                    "startLine": 265,
-                    "startColumn": 30,
-                    "endLine": 265,
-                    "endColumn": 58
+                    "startLine": 263,
+                    "startColumn": 17,
+                    "endLine": 268,
+                    "endColumn": 50
                   }
                 ],
-                "relation": "call",
-                "candidates": [],
-                "origin": "source"
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
               },
-              "children": [],
+              "children": [
+                {
+                  "id": "n23",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "OpenIdExtensions.GetUserIdentifier",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "project:src/OrchardCore.Modules/OrchardCore.OpenId/OrchardCore.OpenId.csproj@net10.0::OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(global::System.Security.Claims.ClaimsIdentity)",
+                    "signature": "OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(System.Security.Claims.ClaimsIdentity) -> string",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore.Modules/OrchardCore.OpenId/OrchardCore.OpenId.csproj@net10.0::OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(global::System.Security.Claims.ClaimsIdentity)"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore.Modules/OrchardCore.OpenId/OpenIdExtensions.cs",
+                      "startLine": 8,
+                      "startColumn": 5,
+                      "endLine": 12,
+                      "endColumn": 109
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore.Modules/OrchardCore.OpenId/Controllers/AccessController.cs",
+                        "startLine": 265,
+                        "startColumn": 30,
+                        "endLine": 265,
+                        "endColumn": 58
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/OrchardCore.Modules/OrchardCore.OpenId/OrchardCore.OpenId.csproj@net10.0::OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(global::System.Security.Claims.ClaimsIdentity)",
+                    "signature": "OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(System.Security.Claims.ClaimsIdentity) -> string",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore.Modules/OrchardCore.OpenId/OrchardCore.OpenId.csproj@net10.0::OrchardCore.OpenId.OpenIdExtensions.GetUserIdentifier(global::System.Security.Claims.ClaimsIdentity)"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore.Modules/OrchardCore.OpenId/OpenIdExtensions.cs",
+                      "startLine": 8,
+                      "startColumn": 5,
+                      "endLine": 12,
+                      "endColumn": 109
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore.Modules/OrchardCore.OpenId/Controllers/AccessController.cs",
+                        "startLine": 265,
+                        "startColumn": 30,
+                        "endLine": 265,
+                        "endColumn": 58
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
               "omission": null
             },
             {
-              "id": "n22",
+              "id": "n24",
               "kind": "call",
               "change": "unchanged",
               "label": "identity.SetDestinations",
@@ -1413,7 +1513,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n23",
+                  "id": "n25",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "AccessController.GetDestinations",
@@ -1487,7 +1587,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n24",
+      "id": "n26",
       "kind": "member",
       "change": "unchanged",
       "label": "AccessController.Logout",
@@ -1534,7 +1634,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n25",
+          "id": "n27",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (response is not null)",
@@ -1581,7 +1681,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n26",
+              "id": "n28",
               "kind": "call",
               "change": "unchanged",
               "label": "new ErrorViewModel",
@@ -1649,7 +1749,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n27",
+          "id": "n29",
           "kind": "call",
           "change": "unchanged",
           "label": "IOpenIdServerService.GetSettingsAsync → OpenIdServerService.GetSettingsAsync",
@@ -1718,7 +1818,7 @@ stdout:
           }
         },
         {
-          "id": "n28",
+          "id": "n30",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (!settings.RequireEndSessionConfirmation && !string.IsNullOrEmpty(request.IdTokenHint))",
@@ -1765,7 +1865,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n29",
+              "id": "n31",
               "kind": "branch",
               "change": "removed",
               "label": "if (hintResult is { Succeeded: true, Principal: not null })",
@@ -1793,7 +1893,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n30",
+                  "id": "n32",
                   "kind": "call",
                   "change": "removed",
                   "label": "OpenIdExtensions.GetUserIdentifier",
@@ -1834,7 +1934,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n31",
+              "id": "n33",
               "kind": "call",
               "change": "added",
               "label": "OpenIdExtensions.FindUserIdentifier",
@@ -1872,7 +1972,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n32",
+              "id": "n34",
               "kind": "branch",
               "change": "added",
               "label": "if (!string.IsNullOrEmpty(hintSubject) && !string.IsNullOrEmpty(userIdentifier) && CryptographicO…",
@@ -1900,7 +2000,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n33",
+                  "id": "n35",
                   "kind": "call",
                   "change": "added",
                   "label": "AccessController.SignOutAndRedirectAsync",
@@ -1947,7 +2047,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n34",
+      "id": "n36",
       "kind": "member",
       "change": "unchanged",
       "label": "AccessController.LogoutAccept",
@@ -1994,7 +2094,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n35",
+          "id": "n37",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (response is not null)",
@@ -2041,7 +2141,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n36",
+              "id": "n38",
               "kind": "call",
               "change": "unchanged",
               "label": "new ErrorViewModel",
@@ -2109,7 +2209,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n37",
+          "id": "n39",
           "kind": "call",
           "change": "added",
           "label": "AccessController.SignOutAndRedirectAsync",
@@ -2150,7 +2250,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n38",
+      "id": "n40",
       "kind": "member",
       "change": "unchanged",
       "label": "AccessController.Token",
@@ -2197,7 +2297,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n39",
+          "id": "n41",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (request.IsPasswordGrantType())",
@@ -2244,7 +2344,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n40",
+              "id": "n42",
               "kind": "call",
               "change": "modified",
               "label": "AccessController.ExchangePasswordGrantType",
@@ -2316,7 +2416,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n41",
+          "id": "n43",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (request.IsClientCredentialsGrantType())",
@@ -2363,7 +2463,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n42",
+              "id": "n44",
               "kind": "call",
               "change": "unchanged",
               "label": "AccessController.ExchangeClientCredentialsGrantType",
@@ -2435,7 +2535,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n43",
+          "id": "n45",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (request.IsAuthorizationCodeGrantType() || request.IsRefreshTokenGrantType())",
@@ -2482,7 +2582,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n44",
+              "id": "n46",
               "kind": "call",
               "change": "modified",
               "label": "AccessController.ExchangeAuthorizationCodeOrRefreshTokenGrantType",
@@ -2557,7 +2657,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n45",
+      "id": "n47",
       "kind": "member",
       "change": "unchanged",
       "label": "UserInfoController.Me",
@@ -2604,7 +2704,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n46",
+          "id": "n48",
           "kind": "call",
           "change": "modified",
           "label": "OpenIdExtensions.GetUserIdentifier",
@@ -2673,7 +2773,7 @@ stdout:
           }
         },
         {
-          "id": "n47",
+          "id": "n49",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (principal.HasScope(Scopes.Roles))",
@@ -2720,7 +2820,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n48",
+              "id": "n50",
               "kind": "call",
               "change": "unchanged",
               "label": "OpenIdExtensions.GetRoles",
@@ -2788,7 +2888,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n49",
+          "id": "n51",
           "kind": "call",
           "change": "unchanged",
           "label": "new UserInfoClaimsContext",
@@ -2853,7 +2953,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n50",
+          "id": "n52",
           "kind": "call",
           "change": "unchanged",
           "label": "InvokeExtensions.InvokeAsync",
@@ -2916,7 +3016,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n51",
+              "id": "n53",
               "kind": "call",
               "change": "unchanged",
               "label": "IUserInfoClaimsProvider.GenerateAsync",
@@ -2991,7 +3091,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n52",
+      "id": "n54",
       "kind": "member",
       "change": "unchanged",
       "label": "DeploymentSourceBase<TStep>.ProcessDeploymentStepAsync",
@@ -3038,7 +3138,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n53",
+          "id": "n55",
           "kind": "call",
           "change": "unchanged",
           "label": "DeploymentSourceBase<TStep>.ProcessAsync",
@@ -3105,7 +3205,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n54",
+              "id": "n56",
               "kind": "dispatchTarget",
               "change": "modified",
               "label": "⇢ OpenIdServerDeploymentSource.ProcessAsync",
@@ -3158,7 +3258,7 @@ stdout:
               }
             },
             {
-              "id": "n55",
+              "id": "n57",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ OpenIdValidationDeploymentSource.ProcessAsync",
@@ -3211,7 +3311,7 @@ stdout:
               }
             },
             {
-              "id": "n56",
+              "id": "n58",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ AllRateLimitPoliciesDeploymentSource.ProcessAsync",
@@ -3270,7 +3370,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n57",
+      "id": "n59",
       "kind": "member",
       "change": "unchanged",
       "label": "NamedRecipeStepHandler.ExecuteAsync",
@@ -3317,7 +3417,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n58",
+          "id": "n60",
           "kind": "call",
           "change": "unchanged",
           "label": "NamedRecipeStepHandler.HandleAsync",
@@ -3390,7 +3490,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n59",
+              "id": "n61",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ OpenIdApplicationStep.HandleAsync",
@@ -3443,7 +3543,7 @@ stdout:
               }
             },
             {
-              "id": "n60",
+              "id": "n62",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ OpenIdClientSettingsStep.HandleAsync",
@@ -3496,7 +3596,7 @@ stdout:
               }
             },
             {
-              "id": "n61",
+              "id": "n63",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ OpenIdScopeStep.HandleAsync",
@@ -3549,7 +3649,7 @@ stdout:
               }
             },
             {
-              "id": "n62",
+              "id": "n64",
               "kind": "dispatchTarget",
               "change": "modified",
               "label": "⇢ OpenIdServerSettingsStep.HandleAsync",
@@ -3602,7 +3702,7 @@ stdout:
               }
             },
             {
-              "id": "n63",
+              "id": "n65",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ OpenIdValidationSettingsStep.HandleAsync",
@@ -3655,7 +3755,7 @@ stdout:
               }
             },
             {
-              "id": "n64",
+              "id": "n66",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ CreateOrUpdateRateLimitPoliciesStep.HandleAsync",

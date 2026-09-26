@@ -78,6 +78,233 @@ stdout:
       "children": [
         {
           "id": "n1",
+          "kind": "branch",
+          "change": "added",
+          "label": "possible initialization of ElasticsearchPermissions",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 68,
+                "startColumn": 63,
+                "endLine": 68,
+                "endColumn": 108
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n2",
+              "kind": "call",
+              "change": "added",
+              "label": "initialization of ElasticsearchPermissions",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "project:src/OrchardCore/OrchardCore.Elasticsearch.Core/OrchardCore.Elasticsearch.Core.csproj@net10.0::OrchardCore.Elasticsearch.ElasticsearchPermissions..cctor()",
+                "signature": "OrchardCore.Elasticsearch.ElasticsearchPermissions.ElasticsearchPermissions() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore/OrchardCore.Elasticsearch.Core/OrchardCore.Elasticsearch.Core.csproj@net10.0::OrchardCore.Elasticsearch.ElasticsearchPermissions..cctor()"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Elasticsearch.Core/ElasticsearchPermissions.cs",
+                  "startLine": 6,
+                  "startColumn": 1,
+                  "endLine": 11,
+                  "endColumn": 2
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                    "startLine": 68,
+                    "startColumn": 63,
+                    "endLine": 68,
+                    "endColumn": 108
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n3",
+                  "kind": "branch",
+                  "change": "added",
+                  "label": "possible initialization of IndexingPermissions",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Elasticsearch.Core/ElasticsearchPermissions.cs",
+                        "startLine": 8,
+                        "startColumn": 123,
+                        "endLine": 8,
+                        "endColumn": 156
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "children": [
+                    {
+                      "id": "n4",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "initialization of IndexingPermissions",
+                      "detail": "depth limit",
+                      "before": null,
+                      "after": {
+                        "symbolId": "project:src/OrchardCore/OrchardCore.Indexing.Core/OrchardCore.Indexing.Core.csproj@net10.0::OrchardCore.Indexing.Core.IndexingPermissions..cctor()",
+                        "signature": "OrchardCore.Indexing.Core.IndexingPermissions.IndexingPermissions() -> void",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/OrchardCore/OrchardCore.Indexing.Core/OrchardCore.Indexing.Core.csproj@net10.0::OrchardCore.Indexing.Core.IndexingPermissions..cctor()"
+                        ],
+                        "definition": {
+                          "path": "src/OrchardCore/OrchardCore.Indexing.Core/IndexingPermissions.cs",
+                          "startLine": 7,
+                          "startColumn": 1,
+                          "endLine": 27,
+                          "endColumn": 2
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/OrchardCore/OrchardCore.Elasticsearch.Core/ElasticsearchPermissions.cs",
+                            "startLine": 8,
+                            "startColumn": 123,
+                            "endLine": 8,
+                            "endColumn": 156
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": {
+                        "reason": "depth-limit",
+                        "symbolId": null,
+                        "referenceId": null
+                      }
+                    }
+                  ],
+                  "omission": null
+                },
+                {
+                  "id": "n5",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "new Permission",
+                  "detail": "depth limit",
+                  "before": null,
+                  "after": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,global::System.Collections.Generic.IEnumerable<global::OrchardCore.Security.Permissions.Permission>,bool)",
+                    "signature": "OrchardCore.Security.Permissions.Permission.Permission(string, string, System.Collections.Generic.IEnumerable<OrchardCore.Security.Permissions.Permission>, bool) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,global::System.Collections.Generic.IEnumerable<global::OrchardCore.Security.Permissions.Permission>,bool)"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/Permissions/Permission.cs",
+                      "startLine": 55,
+                      "startColumn": 5,
+                      "endLine": 58,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Elasticsearch.Core/ElasticsearchPermissions.cs",
+                        "startLine": 8,
+                        "startColumn": 62,
+                        "endLine": 8,
+                        "endColumn": 158
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n6",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "new Permission",
+                  "detail": "depth limit",
+                  "before": null,
+                  "after": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,global::System.Collections.Generic.IEnumerable<global::OrchardCore.Security.Permissions.Permission>,bool)",
+                    "signature": "OrchardCore.Security.Permissions.Permission.Permission(string, string, System.Collections.Generic.IEnumerable<OrchardCore.Security.Permissions.Permission>, bool) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,global::System.Collections.Generic.IEnumerable<global::OrchardCore.Security.Permissions.Permission>,bool)"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/Permissions/Permission.cs",
+                      "startLine": 55,
+                      "startColumn": 5,
+                      "endLine": 58,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Elasticsearch.Core/ElasticsearchPermissions.cs",
+                        "startLine": 10,
+                        "startColumn": 57,
+                        "endLine": 10,
+                        "endColumn": 136
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n7",
           "kind": "call",
           "change": "added",
           "label": "AuthorizationServiceExtensions.AuthorizeAsync",
@@ -113,7 +340,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n2",
+              "id": "n8",
               "kind": "call",
               "change": "added",
               "label": "AuthorizationServiceExtensions.AuthorizeAsync",
@@ -149,7 +376,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n3",
+                  "id": "n9",
                   "kind": "branch",
                   "change": "added",
                   "label": "if (user == null)",
@@ -177,7 +404,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n4",
+                      "id": "n10",
                       "kind": "call",
                       "change": "added",
                       "label": "Task.FromResult",
@@ -212,7 +439,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n5",
+                  "id": "n11",
                   "kind": "call",
                   "change": "added",
                   "label": "new PermissionRequirement",
@@ -254,7 +481,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n6",
+                  "id": "n12",
                   "kind": "call",
                   "change": "added",
                   "label": "service.AuthorizeAsync",
@@ -286,7 +513,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n7",
+                  "id": "n13",
                   "kind": "branch",
                   "change": "added",
                   "label": "if (task.IsCompletedSuccessfully)",
@@ -314,7 +541,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n8",
+                      "id": "n14",
                       "kind": "call",
                       "change": "added",
                       "label": "Task.FromResult",
@@ -349,7 +576,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n9",
+                  "id": "n15",
                   "kind": "call",
                   "change": "added",
                   "label": "AuthorizationServiceExtensions.AuthorizeAsync.Awaited",
@@ -393,7 +620,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n10",
+          "id": "n16",
           "kind": "branch",
           "change": "added",
           "label": "if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…",
@@ -421,7 +648,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n11",
+              "id": "n17",
               "kind": "call",
               "change": "added",
               "label": "Forbid",
@@ -456,7 +683,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n12",
+          "id": "n18",
           "kind": "call",
           "change": "unchanged",
           "label": "IIndexProfileStore.FindByIdAsync → DefaultIndexProfileStore.FindByIdAsync",
@@ -519,7 +746,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n13",
+              "id": "n19",
               "kind": "call",
               "change": "unchanged",
               "label": "ArgumentException.ThrowIfNullOrEmpty",
@@ -572,7 +799,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n14",
+              "id": "n20",
               "kind": "call",
               "change": "unchanged",
               "label": "_session.Query<IndexProfile, IndexProfileIndex>",
@@ -625,7 +852,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n15",
+              "id": "n21",
               "kind": "call",
               "change": "unchanged",
               "label": "_session.Query<IndexProfile, IndexProfileIndex>().Where",
@@ -678,7 +905,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n16",
+              "id": "n22",
               "kind": "call",
               "change": "unchanged",
               "label": "_session.Query<IndexProfile, IndexProfileIndex>().Where(x => x.IndexProfileId == id).FirstOrDefaultAsync",
@@ -734,7 +961,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n17",
+          "id": "n23",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (index is null)",
@@ -781,7 +1008,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n18",
+              "id": "n24",
               "kind": "call",
               "change": "unchanged",
               "label": "NotFound",
@@ -837,7 +1064,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n19",
+          "id": "n25",
           "kind": "call",
           "change": "unchanged",
           "label": "ElasticsearchIndexManager.GetIndexInfoAsync",
@@ -900,7 +1127,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n20",
+              "id": "n26",
               "kind": "call",
               "change": "unchanged",
               "label": "ArgumentNullException.ThrowIfNull",
@@ -953,7 +1180,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n21",
+              "id": "n27",
               "kind": "call",
               "change": "unchanged",
               "label": "_elasticClient.Indices.GetAsync<GetIndexResponse>",
@@ -1004,7 +1231,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n22",
+                  "id": "n28",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "descriptor.Indices",
@@ -1060,7 +1287,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n23",
+              "id": "n29",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (!response.IsValidResponse)",
@@ -1107,7 +1334,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n24",
+                  "id": "n30",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "response.TryGetOriginalException",
@@ -1160,7 +1387,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n25",
+                  "id": "n31",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (response.TryGetOriginalException(out var ex))",
@@ -1207,7 +1434,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n26",
+                      "id": "n32",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "_logger.LogError",
@@ -1263,7 +1490,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n27",
+                  "id": "n33",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "else (!(response.TryGetOriginalException(out var ex)))",
@@ -1310,7 +1537,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n28",
+                      "id": "n34",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "_logger.LogWarning",
@@ -1369,7 +1596,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n29",
+              "id": "n35",
               "kind": "call",
               "change": "unchanged",
               "label": "_elasticClient.RequestResponseSerializer.SerializeToString",
@@ -1425,7 +1652,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n30",
+          "id": "n36",
           "kind": "call",
           "change": "unchanged",
           "label": "JNode.Parse",
@@ -1488,7 +1715,126 @@ stdout:
           },
           "children": [
             {
-              "id": "n31",
+              "id": "n37",
+              "kind": "branch",
+              "change": "unchanged",
+              "label": "possible initialization of JOptions",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore/OrchardCore.Abstractions/Json/Nodes/JNode.cs",
+                    "startLine": 34,
+                    "startColumn": 63,
+                    "endLine": 34,
+                    "endColumn": 76
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore/OrchardCore.Abstractions/Json/Nodes/JNode.cs",
+                    "startLine": 34,
+                    "startColumn": 63,
+                    "endLine": 34,
+                    "endColumn": 76
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n38",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "initialization of JOptions",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::System.Text.Json.JOptions..cctor()",
+                    "signature": "System.Text.Json.JOptions.JOptions() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::System.Text.Json.JOptions..cctor()"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Abstractions/Json/JOptions.cs",
+                      "startLine": 43,
+                      "startColumn": 5,
+                      "endLine": 82,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Abstractions/Json/Nodes/JNode.cs",
+                        "startLine": 34,
+                        "startColumn": 63,
+                        "endLine": 34,
+                        "endColumn": 76
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::System.Text.Json.JOptions..cctor()",
+                    "signature": "System.Text.Json.JOptions.JOptions() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::System.Text.Json.JOptions..cctor()"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Abstractions/Json/JOptions.cs",
+                      "startLine": 43,
+                      "startColumn": 5,
+                      "endLine": 82,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Abstractions/Json/Nodes/JNode.cs",
+                        "startLine": 34,
+                        "startColumn": 63,
+                        "endLine": 34,
+                        "endColumn": 76
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n39",
               "kind": "call",
               "change": "unchanged",
               "label": "JNode.Parse",
@@ -1551,7 +1897,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n32",
+                  "id": "n40",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "JsonNode.Parse",
@@ -1610,7 +1956,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n33",
+          "id": "n41",
           "kind": "call",
           "change": "unchanged",
           "label": "JNode.Parse(info).ToJsonString",
@@ -1663,7 +2009,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n34",
+          "id": "n42",
           "kind": "call",
           "change": "unchanged",
           "label": "new IndexInfoViewModel",
@@ -1726,7 +2072,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n35",
+              "id": "n43",
               "kind": "call",
               "change": "unchanged",
               "label": "new Object",
@@ -1782,7 +2128,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n36",
+          "id": "n44",
           "kind": "call",
           "change": "unchanged",
           "label": "View",
@@ -1838,7 +2184,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n37",
+      "id": "n45",
       "kind": "member",
       "change": "unchanged",
       "label": "AdminController.QueryIndex",
@@ -1885,7 +2231,234 @@ stdout:
       },
       "children": [
         {
-          "id": "n38",
+          "id": "n46",
+          "kind": "branch",
+          "change": "added",
+          "label": "possible initialization of ElasticsearchPermissions",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                "startLine": 94,
+                "startColumn": 63,
+                "endLine": 94,
+                "endColumn": 108
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n47",
+              "kind": "call",
+              "change": "added",
+              "label": "initialization of ElasticsearchPermissions",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "project:src/OrchardCore/OrchardCore.Elasticsearch.Core/OrchardCore.Elasticsearch.Core.csproj@net10.0::OrchardCore.Elasticsearch.ElasticsearchPermissions..cctor()",
+                "signature": "OrchardCore.Elasticsearch.ElasticsearchPermissions.ElasticsearchPermissions() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore/OrchardCore.Elasticsearch.Core/OrchardCore.Elasticsearch.Core.csproj@net10.0::OrchardCore.Elasticsearch.ElasticsearchPermissions..cctor()"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Elasticsearch.Core/ElasticsearchPermissions.cs",
+                  "startLine": 6,
+                  "startColumn": 1,
+                  "endLine": 11,
+                  "endColumn": 2
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                    "startLine": 94,
+                    "startColumn": 63,
+                    "endLine": 94,
+                    "endColumn": 108
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n48",
+                  "kind": "branch",
+                  "change": "added",
+                  "label": "possible initialization of IndexingPermissions",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Elasticsearch.Core/ElasticsearchPermissions.cs",
+                        "startLine": 8,
+                        "startColumn": 123,
+                        "endLine": 8,
+                        "endColumn": 156
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "children": [
+                    {
+                      "id": "n49",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "initialization of IndexingPermissions",
+                      "detail": "depth limit",
+                      "before": null,
+                      "after": {
+                        "symbolId": "project:src/OrchardCore/OrchardCore.Indexing.Core/OrchardCore.Indexing.Core.csproj@net10.0::OrchardCore.Indexing.Core.IndexingPermissions..cctor()",
+                        "signature": "OrchardCore.Indexing.Core.IndexingPermissions.IndexingPermissions() -> void",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/OrchardCore/OrchardCore.Indexing.Core/OrchardCore.Indexing.Core.csproj@net10.0::OrchardCore.Indexing.Core.IndexingPermissions..cctor()"
+                        ],
+                        "definition": {
+                          "path": "src/OrchardCore/OrchardCore.Indexing.Core/IndexingPermissions.cs",
+                          "startLine": 7,
+                          "startColumn": 1,
+                          "endLine": 27,
+                          "endColumn": 2
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/OrchardCore/OrchardCore.Elasticsearch.Core/ElasticsearchPermissions.cs",
+                            "startLine": 8,
+                            "startColumn": 123,
+                            "endLine": 8,
+                            "endColumn": 156
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": {
+                        "reason": "depth-limit",
+                        "symbolId": null,
+                        "referenceId": null
+                      }
+                    }
+                  ],
+                  "omission": null
+                },
+                {
+                  "id": "n50",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "new Permission",
+                  "detail": "depth limit",
+                  "before": null,
+                  "after": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,global::System.Collections.Generic.IEnumerable<global::OrchardCore.Security.Permissions.Permission>,bool)",
+                    "signature": "OrchardCore.Security.Permissions.Permission.Permission(string, string, System.Collections.Generic.IEnumerable<OrchardCore.Security.Permissions.Permission>, bool) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,global::System.Collections.Generic.IEnumerable<global::OrchardCore.Security.Permissions.Permission>,bool)"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/Permissions/Permission.cs",
+                      "startLine": 55,
+                      "startColumn": 5,
+                      "endLine": 58,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Elasticsearch.Core/ElasticsearchPermissions.cs",
+                        "startLine": 8,
+                        "startColumn": 62,
+                        "endLine": 8,
+                        "endColumn": 158
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n51",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "new Permission",
+                  "detail": "depth limit",
+                  "before": null,
+                  "after": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,global::System.Collections.Generic.IEnumerable<global::OrchardCore.Security.Permissions.Permission>,bool)",
+                    "signature": "OrchardCore.Security.Permissions.Permission.Permission(string, string, System.Collections.Generic.IEnumerable<OrchardCore.Security.Permissions.Permission>, bool) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,global::System.Collections.Generic.IEnumerable<global::OrchardCore.Security.Permissions.Permission>,bool)"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/Permissions/Permission.cs",
+                      "startLine": 55,
+                      "startColumn": 5,
+                      "endLine": 58,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Elasticsearch.Core/ElasticsearchPermissions.cs",
+                        "startLine": 10,
+                        "startColumn": 57,
+                        "endLine": 10,
+                        "endColumn": 136
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n52",
           "kind": "call",
           "change": "added",
           "label": "AuthorizationServiceExtensions.AuthorizeAsync",
@@ -1921,7 +2494,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n39",
+              "id": "n53",
               "kind": "call",
               "change": "added",
               "label": "AuthorizationServiceExtensions.AuthorizeAsync",
@@ -1957,7 +2530,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n40",
+                  "id": "n54",
                   "kind": "branch",
                   "change": "added",
                   "label": "if (user == null)",
@@ -1985,7 +2558,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n41",
+                      "id": "n55",
                       "kind": "call",
                       "change": "added",
                       "label": "Task.FromResult",
@@ -2020,7 +2593,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n42",
+                  "id": "n56",
                   "kind": "call",
                   "change": "added",
                   "label": "new PermissionRequirement",
@@ -2062,7 +2635,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n43",
+                  "id": "n57",
                   "kind": "call",
                   "change": "added",
                   "label": "service.AuthorizeAsync",
@@ -2094,7 +2667,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n44",
+                  "id": "n58",
                   "kind": "branch",
                   "change": "added",
                   "label": "if (task.IsCompletedSuccessfully)",
@@ -2122,7 +2695,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n45",
+                      "id": "n59",
                       "kind": "call",
                       "change": "added",
                       "label": "Task.FromResult",
@@ -2157,7 +2730,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n46",
+                  "id": "n60",
                   "kind": "call",
                   "change": "added",
                   "label": "AuthorizationServiceExtensions.AuthorizeAsync.Awaited",
@@ -2201,7 +2774,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n47",
+          "id": "n61",
           "kind": "branch",
           "change": "added",
           "label": "if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…",
@@ -2229,7 +2802,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n48",
+              "id": "n62",
               "kind": "call",
               "change": "added",
               "label": "Forbid",
@@ -2264,7 +2837,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n49",
+          "id": "n63",
           "kind": "call",
           "change": "unchanged",
           "label": "IIndexProfileStore.FindByNameAsync → DefaultIndexProfileStore.FindByNameAsync",
@@ -2327,7 +2900,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n50",
+              "id": "n64",
               "kind": "call",
               "change": "unchanged",
               "label": "ArgumentException.ThrowIfNullOrEmpty",
@@ -2380,7 +2953,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n51",
+              "id": "n65",
               "kind": "call",
               "change": "unchanged",
               "label": "_session.Query<IndexProfile, IndexProfileIndex>",
@@ -2433,7 +3006,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n52",
+              "id": "n66",
               "kind": "call",
               "change": "unchanged",
               "label": "_session.Query<IndexProfile, IndexProfileIndex>().Where",
@@ -2486,7 +3059,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n53",
+              "id": "n67",
               "kind": "call",
               "change": "unchanged",
               "label": "_session.Query<IndexProfile, IndexProfileIndex>().Where(x => x.Name == name).FirstOrDefaultAsync",
@@ -2542,7 +3115,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n54",
+          "id": "n68",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (index is null)",
@@ -2589,7 +3162,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n55",
+              "id": "n69",
               "kind": "call",
               "change": "unchanged",
               "label": "NotFound",
@@ -2645,7 +3218,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n56",
+          "id": "n70",
           "kind": "call",
           "change": "unchanged",
           "label": "new AdminQueryViewModel",
@@ -2708,7 +3281,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n57",
+              "id": "n71",
               "kind": "call",
               "change": "unchanged",
               "label": "new Object",
@@ -2764,7 +3337,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n58",
+          "id": "n72",
           "kind": "call",
           "change": "unchanged",
           "label": "string.IsNullOrWhiteSpace",
@@ -2817,7 +3390,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n59",
+          "id": "n73",
           "kind": "branch",
           "change": "unchanged",
           "label": "else (!(string.IsNullOrWhiteSpace(query)))",
@@ -2864,7 +3437,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n60",
+              "id": "n74",
               "kind": "call",
               "change": "unchanged",
               "label": "Base64.FromUTF8Base64String",
@@ -2927,7 +3500,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n61",
+                  "id": "n75",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "ArgumentNullException.ThrowIfNull",
@@ -2980,7 +3553,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n62",
+                  "id": "n76",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "Base64.GetDeserializedBase64Length",
@@ -3045,7 +3618,126 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n63",
+                  "id": "n77",
+                  "kind": "branch",
+                  "change": "unchanged",
+                  "label": "possible initialization of MemoryStreamFactory",
+                  "detail": null,
+                  "before": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Abstractions/Base64.cs",
+                        "startLine": 20,
+                        "startColumn": 34,
+                        "endLine": 20,
+                        "endColumn": 80
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "after": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Abstractions/Base64.cs",
+                        "startLine": 20,
+                        "startColumn": 34,
+                        "endLine": 20,
+                        "endColumn": 80
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "children": [
+                    {
+                      "id": "n78",
+                      "kind": "call",
+                      "change": "unchanged",
+                      "label": "initialization of MemoryStreamFactory",
+                      "detail": "depth limit",
+                      "before": {
+                        "symbolId": "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::OrchardCore.MemoryStreamFactory..cctor()",
+                        "signature": "OrchardCore.MemoryStreamFactory.MemoryStreamFactory() -> void",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::OrchardCore.MemoryStreamFactory..cctor()"
+                        ],
+                        "definition": {
+                          "path": "src/OrchardCore/OrchardCore.Abstractions/MemoryStreamFactory.cs",
+                          "startLine": 9,
+                          "startColumn": 5,
+                          "endLine": 18,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/OrchardCore/OrchardCore.Abstractions/Base64.cs",
+                            "startLine": 20,
+                            "startColumn": 34,
+                            "endLine": 20,
+                            "endColumn": 80
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "after": {
+                        "symbolId": "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::OrchardCore.MemoryStreamFactory..cctor()",
+                        "signature": "OrchardCore.MemoryStreamFactory.MemoryStreamFactory() -> void",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::OrchardCore.MemoryStreamFactory..cctor()"
+                        ],
+                        "definition": {
+                          "path": "src/OrchardCore/OrchardCore.Abstractions/MemoryStreamFactory.cs",
+                          "startLine": 9,
+                          "startColumn": 5,
+                          "endLine": 18,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/OrchardCore/OrchardCore.Abstractions/Base64.cs",
+                            "startLine": 20,
+                            "startColumn": 34,
+                            "endLine": 20,
+                            "endColumn": 80
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": {
+                        "reason": "depth-limit",
+                        "symbolId": null,
+                        "referenceId": null
+                      }
+                    }
+                  ],
+                  "omission": null
+                },
+                {
+                  "id": "n79",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "MemoryStreamFactory.GetStream",
@@ -3114,7 +3806,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n64",
+                  "id": "n80",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "memoryStream.GetSpan",
@@ -3167,7 +3859,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n65",
+                  "id": "n81",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "Convert.TryFromBase64String",
@@ -3220,7 +3912,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n66",
+                  "id": "n82",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (!Convert.TryFromBase64String(base64, span, out var bytesWritten))",
@@ -3267,7 +3959,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n67",
+                      "id": "n83",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "new FormatException",
@@ -3323,7 +4015,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n68",
+                  "id": "n84",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "span.Slice",
@@ -3376,7 +4068,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n69",
+                  "id": "n85",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "Encoding.UTF8.GetString",
@@ -3435,7 +4127,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n70",
+          "id": "n86",
           "kind": "call",
           "change": "unchanged",
           "label": "AdminController.Query",
@@ -3498,7 +4190,80 @@ stdout:
           },
           "children": [
             {
-              "id": "n71",
+              "id": "n87",
+              "kind": "branch",
+              "change": "removed",
+              "label": "possible initialization of ElasticsearchPermissions",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                    "startLine": 135,
+                    "startColumn": 63,
+                    "endLine": 135,
+                    "endColumn": 108
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": null,
+              "children": [
+                {
+                  "id": "n88",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "initialization of ElasticsearchPermissions",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Elasticsearch.Core/OrchardCore.Elasticsearch.Core.csproj@net10.0::OrchardCore.Elasticsearch.ElasticsearchPermissions..cctor()",
+                    "signature": "OrchardCore.Elasticsearch.ElasticsearchPermissions.ElasticsearchPermissions() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Elasticsearch.Core/OrchardCore.Elasticsearch.Core.csproj@net10.0::OrchardCore.Elasticsearch.ElasticsearchPermissions..cctor()"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Elasticsearch.Core/ElasticsearchPermissions.cs",
+                      "startLine": 6,
+                      "startColumn": 1,
+                      "endLine": 11,
+                      "endColumn": 2
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore.Modules/OrchardCore.Elasticsearch/Controllers/AdminController.cs",
+                        "startLine": 135,
+                        "startColumn": 63,
+                        "endLine": 135,
+                        "endColumn": 108
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n89",
               "kind": "call",
               "change": "unchanged",
               "label": "AuthorizationServiceExtensions.AuthorizeAsync",
@@ -3561,7 +4326,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n72",
+                  "id": "n90",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "AuthorizationServiceExtensions.AuthorizeAsync",
@@ -3633,7 +4398,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n73",
+              "id": "n91",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…",
@@ -3680,7 +4445,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n74",
+                  "id": "n92",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "Forbid",
@@ -3736,7 +4501,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n75",
+              "id": "n93",
               "kind": "call",
               "change": "unchanged",
               "label": "ElasticsearchConnectionOptions.ConfigurationExists",
@@ -3799,7 +4564,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n76",
+                  "id": "n94",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (!_isConfigured.HasValue)",
@@ -3846,7 +4611,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n77",
+                      "id": "n95",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "string.IsNullOrEmpty",
@@ -3899,7 +4664,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n78",
+                      "id": "n96",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "if (!string.IsNullOrEmpty(Url))",
@@ -3946,7 +4711,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n79",
+                          "id": "n97",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "Uri.TryCreate",
@@ -4008,7 +4773,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n80",
+              "id": "n98",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (!_elasticConnectionOptions.ConfigurationExists())",
@@ -4055,7 +4820,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n81",
+                  "id": "n99",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "BadRequest",
@@ -4111,7 +4876,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n82",
+              "id": "n100",
               "kind": "call",
               "change": "unchanged",
               "label": "AdminController.GetMatchAllQuery",
@@ -4174,7 +4939,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n83",
+                  "id": "n101",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "AdminController.GetDecodedMatchAllQuery",
@@ -4239,7 +5004,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n84",
+                  "id": "n102",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "Encoding.UTF8.GetBytes",
@@ -4292,7 +5057,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n85",
+                  "id": "n103",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "Convert.ToBase64String",
@@ -4348,7 +5113,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n86",
+              "id": "n104",
               "kind": "call",
               "change": "unchanged",
               "label": "IIndexProfileStore.GetByProviderAsync → DefaultIndexProfileStore.GetByProviderAsync",
@@ -4411,7 +5176,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n87",
+                  "id": "n105",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "ArgumentException.ThrowIfNullOrEmpty",
@@ -4464,7 +5229,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n88",
+                  "id": "n106",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "_session.Query<IndexProfile, IndexProfileIndex>",
@@ -4517,7 +5282,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n89",
+                  "id": "n107",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "_session.Query<IndexProfile, IndexProfileIndex>().Where",
@@ -4570,7 +5335,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n90",
+                  "id": "n108",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "_session.Query<IndexProfile, IndexProfileIndex>().Where(x => x.ProviderName == providerName).ListAsync",
@@ -4626,7 +5391,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n91",
+              "id": "n109",
               "kind": "call",
               "change": "unchanged",
               "label": "(await _indexProfileStore.GetByProviderAsync(ElasticsearchConstants.ProviderName)).Select",
@@ -4677,7 +5442,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n92",
+                  "id": "n110",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new SelectListItem",
@@ -4733,7 +5498,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n93",
+              "id": "n111",
               "kind": "call",
               "change": "unchanged",
               "label": "(await _indexProfileStore.GetByProviderAsync(ElasticsearchConstants.ProviderName)).Select(x => new SelectListItem(x.Name, x.Id)).OrderBy",
@@ -4786,7 +5551,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n94",
+              "id": "n112",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (!ModelState.IsValid)",
@@ -4833,7 +5598,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n95",
+                  "id": "n113",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "View",
@@ -4889,7 +5654,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n96",
+              "id": "n114",
               "kind": "call",
               "change": "unchanged",
               "label": "IIndexProfileStore.FindByIdAsync → DefaultIndexProfileStore.FindByIdAsync",
@@ -4952,7 +5717,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n97",
+                  "id": "n115",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "ArgumentException.ThrowIfNullOrEmpty",
@@ -5005,7 +5770,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n98",
+                  "id": "n116",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "_session.Query<IndexProfile, IndexProfileIndex>",
@@ -5058,7 +5823,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n99",
+                  "id": "n117",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "_session.Query<IndexProfile, IndexProfileIndex>().Where",
@@ -5111,7 +5876,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n100",
+                  "id": "n118",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "_session.Query<IndexProfile, IndexProfileIndex>().Where(x => x.IndexProfileId == id).FirstOrDefaultAsync",
@@ -5167,7 +5932,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n101",
+              "id": "n119",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (index is null)",
@@ -5214,7 +5979,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n102",
+                  "id": "n120",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "NotFound",
@@ -5270,7 +6035,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n103",
+              "id": "n121",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (index.ProviderName != ElasticsearchConstants.ProviderName)",
@@ -5317,7 +6082,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n104",
+                  "id": "n122",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "BadRequest",
@@ -5373,7 +6138,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n105",
+              "id": "n123",
               "kind": "call",
               "change": "unchanged",
               "label": "ElasticsearchIndexManager.ExistsAsync",
@@ -5436,7 +6201,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n106",
+                  "id": "n124",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "ArgumentException.ThrowIfNullOrEmpty",
@@ -5489,7 +6254,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n107",
+                  "id": "n125",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new Elastic.Clients.Elasticsearch.IndexManagement.ExistsRequest",
@@ -5542,7 +6307,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n108",
+                  "id": "n126",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "_elasticClient.Indices.ExistsAsync",
@@ -5595,7 +6360,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n109",
+                  "id": "n127",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (!response.IsValidResponse)",
@@ -5642,7 +6407,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n110",
+                      "id": "n128",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "response.TryGetOriginalException",
@@ -5695,7 +6460,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n111",
+                      "id": "n129",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "if (response.TryGetOriginalException(out var ex))",
@@ -5742,7 +6507,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n112",
+                          "id": "n130",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "_logger.LogError",
@@ -5798,7 +6563,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n113",
+                      "id": "n131",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "else (!(response.TryGetOriginalException(out var ex)))",
@@ -5845,7 +6610,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n114",
+                          "id": "n132",
                           "kind": "branch",
                           "change": "unchanged",
                           "label": "if (response.ApiCallDetails.HttpStatusCode != 404)",
@@ -5892,7 +6657,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n115",
+                              "id": "n133",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "_logger.LogWarning",
@@ -5957,7 +6722,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n116",
+              "id": "n134",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (!await _elasticIndexManager.ExistsAsync(index.IndexFullName))",
@@ -6004,7 +6769,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n117",
+                  "id": "n135",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "NotFound",
@@ -6060,7 +6825,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n118",
+              "id": "n136",
               "kind": "call",
               "change": "unchanged",
               "label": "string.IsNullOrEmpty",
@@ -6113,7 +6878,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n119",
+              "id": "n137",
               "kind": "call",
               "change": "unchanged",
               "label": "string.IsNullOrEmpty",
@@ -6166,7 +6931,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n120",
+              "id": "n138",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (string.IsNullOrEmpty(model.DecodedQuery))",
@@ -6213,7 +6978,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n121",
+                  "id": "n139",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "AdminController.GetDecodedMatchAllQuery",
@@ -6281,7 +7046,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n122",
+              "id": "n140",
               "kind": "call",
               "change": "unchanged",
               "label": "new Stopwatch",
@@ -6334,7 +7099,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n123",
+              "id": "n141",
               "kind": "call",
               "change": "unchanged",
               "label": "stopwatch.Start",
@@ -6387,7 +7152,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n124",
+              "id": "n142",
               "kind": "call",
               "change": "unchanged",
               "label": "JConvert.DeserializeObject",
@@ -6450,7 +7215,176 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n125",
+                  "id": "n143",
+                  "kind": "branch",
+                  "change": "unchanged",
+                  "label": "if (options is null)",
+                  "detail": null,
+                  "before": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Abstractions/Json/JConvert.cs",
+                        "startLine": 21,
+                        "startColumn": 53,
+                        "endLine": 21,
+                        "endColumn": 80
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "after": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Abstractions/Json/JConvert.cs",
+                        "startLine": 21,
+                        "startColumn": 53,
+                        "endLine": 21,
+                        "endColumn": 80
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "children": [
+                    {
+                      "id": "n144",
+                      "kind": "branch",
+                      "change": "unchanged",
+                      "label": "possible initialization of JOptions",
+                      "detail": null,
+                      "before": {
+                        "symbolId": null,
+                        "signature": null,
+                        "binding": "structural",
+                        "dispatch": "none",
+                        "targetIds": [],
+                        "definition": null,
+                        "callSites": [
+                          {
+                            "path": "src/OrchardCore/OrchardCore.Abstractions/Json/JConvert.cs",
+                            "startLine": 21,
+                            "startColumn": 64,
+                            "endLine": 21,
+                            "endColumn": 80
+                          }
+                        ],
+                        "relation": "branch",
+                        "candidates": null,
+                        "origin": "structural"
+                      },
+                      "after": {
+                        "symbolId": null,
+                        "signature": null,
+                        "binding": "structural",
+                        "dispatch": "none",
+                        "targetIds": [],
+                        "definition": null,
+                        "callSites": [
+                          {
+                            "path": "src/OrchardCore/OrchardCore.Abstractions/Json/JConvert.cs",
+                            "startLine": 21,
+                            "startColumn": 64,
+                            "endLine": 21,
+                            "endColumn": 80
+                          }
+                        ],
+                        "relation": "branch",
+                        "candidates": null,
+                        "origin": "structural"
+                      },
+                      "children": [
+                        {
+                          "id": "n145",
+                          "kind": "call",
+                          "change": "unchanged",
+                          "label": "initialization of JOptions",
+                          "detail": "depth limit",
+                          "before": {
+                            "symbolId": "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::System.Text.Json.JOptions..cctor()",
+                            "signature": "System.Text.Json.JOptions.JOptions() -> void",
+                            "binding": "resolved",
+                            "dispatch": "direct",
+                            "targetIds": [
+                              "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::System.Text.Json.JOptions..cctor()"
+                            ],
+                            "definition": {
+                              "path": "src/OrchardCore/OrchardCore.Abstractions/Json/JOptions.cs",
+                              "startLine": 43,
+                              "startColumn": 5,
+                              "endLine": 82,
+                              "endColumn": 6
+                            },
+                            "callSites": [
+                              {
+                                "path": "src/OrchardCore/OrchardCore.Abstractions/Json/JConvert.cs",
+                                "startLine": 21,
+                                "startColumn": 64,
+                                "endLine": 21,
+                                "endColumn": 80
+                              }
+                            ],
+                            "relation": "call",
+                            "candidates": [],
+                            "origin": "source"
+                          },
+                          "after": {
+                            "symbolId": "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::System.Text.Json.JOptions..cctor()",
+                            "signature": "System.Text.Json.JOptions.JOptions() -> void",
+                            "binding": "resolved",
+                            "dispatch": "direct",
+                            "targetIds": [
+                              "project:src/OrchardCore/OrchardCore.Abstractions/OrchardCore.Abstractions.csproj@net10.0::System.Text.Json.JOptions..cctor()"
+                            ],
+                            "definition": {
+                              "path": "src/OrchardCore/OrchardCore.Abstractions/Json/JOptions.cs",
+                              "startLine": 43,
+                              "startColumn": 5,
+                              "endLine": 82,
+                              "endColumn": 6
+                            },
+                            "callSites": [
+                              {
+                                "path": "src/OrchardCore/OrchardCore.Abstractions/Json/JConvert.cs",
+                                "startLine": 21,
+                                "startColumn": 64,
+                                "endLine": 21,
+                                "endColumn": 80
+                              }
+                            ],
+                            "relation": "call",
+                            "candidates": [],
+                            "origin": "source"
+                          },
+                          "children": [],
+                          "omission": {
+                            "reason": "depth-limit",
+                            "symbolId": null,
+                            "referenceId": null
+                          }
+                        }
+                      ],
+                      "omission": null
+                    }
+                  ],
+                  "omission": null
+                },
+                {
+                  "id": "n146",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "JsonSerializer.Deserialize<TValue>",
@@ -6506,7 +7440,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n126",
+              "id": "n147",
               "kind": "call",
               "change": "unchanged",
               "label": "parameters.Select",
@@ -6557,7 +7491,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n127",
+                  "id": "n148",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "FluidValue.Create",
@@ -6610,7 +7544,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n128",
+                  "id": "n149",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new KeyValuePair<string, FluidValue>",
@@ -6666,7 +7600,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n129",
+              "id": "n150",
               "kind": "call",
               "change": "unchanged",
               "label": "LiquidTemplateManagerExtensions.RenderStringAsync",
@@ -6729,7 +7663,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n130",
+                  "id": "n151",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "ILiquidTemplateManager.RenderStringAsync",
@@ -6797,7 +7731,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n131",
+              "id": "n152",
               "kind": "branch",
               "change": "unchanged",
               "label": "try",
@@ -6844,7 +7778,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n132",
+                  "id": "n153",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "string.IsNullOrEmpty",
@@ -6897,7 +7831,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n133",
+                  "id": "n154",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (!string.IsNullOrEmpty(tokenizedContent))",
@@ -6944,7 +7878,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n134",
+                      "id": "n155",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "ElasticsearchQueryService.SearchAsync",
@@ -7019,7 +7953,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n135",
+              "id": "n156",
               "kind": "branch",
               "change": "unchanged",
               "label": "catch (Exception e)",
@@ -7066,7 +8000,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n136",
+                  "id": "n157",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "_logger.LogError",
@@ -7119,7 +8053,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n137",
+                  "id": "n158",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "ModelState.AddModelError",
@@ -7175,7 +8109,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n138",
+              "id": "n159",
               "kind": "call",
               "change": "unchanged",
               "label": "stopwatch.Stop",
@@ -7228,7 +8162,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n139",
+              "id": "n160",
               "kind": "call",
               "change": "unchanged",
               "label": "View",

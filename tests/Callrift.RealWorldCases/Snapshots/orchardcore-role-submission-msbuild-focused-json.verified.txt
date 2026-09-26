@@ -78,6 +78,260 @@ stdout:
       "children": [
         {
           "id": "n1",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "possible initialization of RolesPermissions",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                "startLine": 111,
+                "startColumn": 63,
+                "endLine": 111,
+                "endColumn": 91
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                "startLine": 121,
+                "startColumn": 63,
+                "endLine": 121,
+                "endColumn": 91
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n2",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "initialization of RolesPermissions",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/OrchardCore/OrchardCore.Roles.Core/OrchardCore.Roles.Core.csproj@net10.0::OrchardCore.Roles.RolesPermissions..cctor()",
+                "signature": "OrchardCore.Roles.RolesPermissions.RolesPermissions() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore/OrchardCore.Roles.Core/OrchardCore.Roles.Core.csproj@net10.0::OrchardCore.Roles.RolesPermissions..cctor()"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Roles.Core/RolesPermissions.cs",
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 9,
+                  "endColumn": 2
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                    "startLine": 111,
+                    "startColumn": 63,
+                    "endLine": 111,
+                    "endColumn": 91
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/OrchardCore/OrchardCore.Roles.Core/OrchardCore.Roles.Core.csproj@net10.0::OrchardCore.Roles.RolesPermissions..cctor()",
+                "signature": "OrchardCore.Roles.RolesPermissions.RolesPermissions() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore/OrchardCore.Roles.Core/OrchardCore.Roles.Core.csproj@net10.0::OrchardCore.Roles.RolesPermissions..cctor()"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Roles.Core/RolesPermissions.cs",
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 9,
+                  "endColumn": 2
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                    "startLine": 121,
+                    "startColumn": 63,
+                    "endLine": 121,
+                    "endColumn": 91
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n3",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "new Permission",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,bool)",
+                    "signature": "OrchardCore.Security.Permissions.Permission.Permission(string, string, bool) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,bool)"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/Permissions/Permission.cs",
+                      "startLine": 39,
+                      "startColumn": 5,
+                      "endLine": 43,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Roles.Core/RolesPermissions.cs",
+                        "startLine": 7,
+                        "startColumn": 53,
+                        "endLine": 7,
+                        "endColumn": 113
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,bool)",
+                    "signature": "OrchardCore.Security.Permissions.Permission.Permission(string, string, bool) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,bool)"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/Permissions/Permission.cs",
+                      "startLine": 39,
+                      "startColumn": 5,
+                      "endLine": 43,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Roles.Core/RolesPermissions.cs",
+                        "startLine": 7,
+                        "startColumn": 53,
+                        "endLine": 7,
+                        "endColumn": 113
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n4",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "new Permission",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,global::System.Collections.Generic.IEnumerable<global::OrchardCore.Security.Permissions.Permission>,bool)",
+                    "signature": "OrchardCore.Security.Permissions.Permission.Permission(string, string, System.Collections.Generic.IEnumerable<OrchardCore.Security.Permissions.Permission>, bool) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,global::System.Collections.Generic.IEnumerable<global::OrchardCore.Security.Permissions.Permission>,bool)"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/Permissions/Permission.cs",
+                      "startLine": 55,
+                      "startColumn": 5,
+                      "endLine": 58,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Roles.Core/RolesPermissions.cs",
+                        "startLine": 8,
+                        "startColumn": 51,
+                        "endLine": 8,
+                        "endColumn": 96
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,global::System.Collections.Generic.IEnumerable<global::OrchardCore.Security.Permissions.Permission>,bool)",
+                    "signature": "OrchardCore.Security.Permissions.Permission.Permission(string, string, System.Collections.Generic.IEnumerable<OrchardCore.Security.Permissions.Permission>, bool) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,global::System.Collections.Generic.IEnumerable<global::OrchardCore.Security.Permissions.Permission>,bool)"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/Permissions/Permission.cs",
+                      "startLine": 55,
+                      "startColumn": 5,
+                      "endLine": 58,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Roles.Core/RolesPermissions.cs",
+                        "startLine": 8,
+                        "startColumn": 51,
+                        "endLine": 8,
+                        "endColumn": 96
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n5",
           "kind": "call",
           "change": "unchanged",
           "label": "AuthorizationServiceExtensions.AuthorizeAsync",
@@ -140,7 +394,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n2",
+              "id": "n6",
               "kind": "call",
               "change": "unchanged",
               "label": "AuthorizationServiceExtensions.AuthorizeAsync",
@@ -203,7 +457,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n3",
+                  "id": "n7",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (user == null)",
@@ -250,7 +504,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n4",
+                      "id": "n8",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "Task.FromResult",
@@ -306,7 +560,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n5",
+                  "id": "n9",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new PermissionRequirement",
@@ -375,7 +629,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n6",
+                  "id": "n10",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "service.AuthorizeAsync",
@@ -428,7 +682,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n7",
+                  "id": "n11",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (task.IsCompletedSuccessfully)",
@@ -475,7 +729,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n8",
+                      "id": "n12",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "Task.FromResult",
@@ -531,7 +785,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n9",
+                  "id": "n13",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "AuthorizationServiceExtensions.AuthorizeAsync.Awaited",
@@ -602,7 +856,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n10",
+          "id": "n14",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (!await _authorizationService.AuthorizeAsync(User, RolesPermissions.ManageRoles))",
@@ -649,7 +903,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n11",
+              "id": "n15",
               "kind": "call",
               "change": "unchanged",
               "label": "Forbid",
@@ -705,7 +959,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n12",
+          "id": "n16",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (ModelState.IsValid)",
@@ -752,7 +1006,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n13",
+              "id": "n17",
               "kind": "call",
               "change": "unchanged",
               "label": "AdminController.ValidateRoleNameAsync",
@@ -815,7 +1069,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n14",
+                  "id": "n18",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "roleName.Trim",
@@ -868,7 +1122,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n15",
+                  "id": "n19",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "roleName.Contains",
@@ -921,7 +1175,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n16",
+                  "id": "n20",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (roleName.Contains('/'))",
@@ -968,7 +1222,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n17",
+                      "id": "n21",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "ModelState.AddModelError",
@@ -1024,7 +1278,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n18",
+                  "id": "n22",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "_roleManager.FindByNameAsync",
@@ -1077,7 +1331,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n19",
+                  "id": "n23",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (await _roleManager.FindByNameAsync(roleName) != null)",
@@ -1124,7 +1378,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n20",
+                      "id": "n24",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "ModelState.AddModelError",
@@ -1186,7 +1440,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n21",
+          "id": "n25",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (ModelState.IsValid && await ValidateRoleNameAsync(model.RoleName))",
@@ -1233,7 +1487,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n22",
+              "id": "n26",
               "kind": "call",
               "change": "unchanged",
               "label": "new Role",
@@ -1296,7 +1550,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n23",
+                  "id": "n27",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new Object",
@@ -1352,7 +1606,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n24",
+              "id": "n28",
               "kind": "call",
               "change": "unchanged",
               "label": "_roleManager.CreateAsync",
@@ -1405,7 +1659,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n25",
+              "id": "n29",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (result.Succeeded)",
@@ -1452,7 +1706,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n26",
+                  "id": "n30",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "NotifierExtensions.SuccessAsync",
@@ -1521,7 +1775,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n27",
+                  "id": "n31",
                   "kind": "branch",
                   "change": "added",
                   "label": "if (submit == SaveAndConfigureSubmitValue)",
@@ -1549,7 +1803,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n28",
+                      "id": "n32",
                       "kind": "call",
                       "change": "added",
                       "label": "RedirectToAction",
@@ -1584,7 +1838,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n29",
+                  "id": "n33",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "RedirectToAction",
@@ -1640,7 +1894,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n30",
+              "id": "n34",
               "kind": "call",
               "change": "unchanged",
               "label": "IDocumentStore.CancelAsync",
@@ -1705,7 +1959,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n31",
+                  "id": "n35",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ DocumentStore.CancelAsync",
@@ -1758,7 +2012,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n32",
+                  "id": "n36",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ FileDocumentStore.CancelAsync",
@@ -1814,7 +2068,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n33",
+              "id": "n37",
               "kind": "branch",
               "change": "unchanged",
               "label": "foreach (var error in result.Errors)",
@@ -1861,7 +2115,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n34",
+                  "id": "n38",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "ModelState.AddModelError",
@@ -1920,7 +2174,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n35",
+          "id": "n39",
           "kind": "call",
           "change": "unchanged",
           "label": "View",
@@ -1976,7 +2230,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n36",
+      "id": "n40",
       "kind": "member",
       "change": "modified",
       "label": "AdminController.EditPost",
@@ -2023,7 +2277,261 @@ stdout:
       },
       "children": [
         {
-          "id": "n37",
+          "id": "n41",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "possible initialization of RolesPermissions",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                "startLine": 170,
+                "startColumn": 63,
+                "endLine": 170,
+                "endColumn": 91
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                "startLine": 185,
+                "startColumn": 63,
+                "endLine": 185,
+                "endColumn": 91
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n42",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "initialization of RolesPermissions",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/OrchardCore/OrchardCore.Roles.Core/OrchardCore.Roles.Core.csproj@net10.0::OrchardCore.Roles.RolesPermissions..cctor()",
+                "signature": "OrchardCore.Roles.RolesPermissions.RolesPermissions() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore/OrchardCore.Roles.Core/OrchardCore.Roles.Core.csproj@net10.0::OrchardCore.Roles.RolesPermissions..cctor()"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Roles.Core/RolesPermissions.cs",
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 9,
+                  "endColumn": 2
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                    "startLine": 170,
+                    "startColumn": 63,
+                    "endLine": 170,
+                    "endColumn": 91
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/OrchardCore/OrchardCore.Roles.Core/OrchardCore.Roles.Core.csproj@net10.0::OrchardCore.Roles.RolesPermissions..cctor()",
+                "signature": "OrchardCore.Roles.RolesPermissions.RolesPermissions() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/OrchardCore/OrchardCore.Roles.Core/OrchardCore.Roles.Core.csproj@net10.0::OrchardCore.Roles.RolesPermissions..cctor()"
+                ],
+                "definition": {
+                  "path": "src/OrchardCore/OrchardCore.Roles.Core/RolesPermissions.cs",
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 9,
+                  "endColumn": 2
+                },
+                "callSites": [
+                  {
+                    "path": "src/OrchardCore.Modules/OrchardCore.Roles/Controllers/AdminController.cs",
+                    "startLine": 185,
+                    "startColumn": 63,
+                    "endLine": 185,
+                    "endColumn": 91
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n43",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "new Permission",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,bool)",
+                    "signature": "OrchardCore.Security.Permissions.Permission.Permission(string, string, bool) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,bool)"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/Permissions/Permission.cs",
+                      "startLine": 39,
+                      "startColumn": 5,
+                      "endLine": 43,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Roles.Core/RolesPermissions.cs",
+                        "startLine": 7,
+                        "startColumn": 53,
+                        "endLine": 7,
+                        "endColumn": 113
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,bool)",
+                    "signature": "OrchardCore.Security.Permissions.Permission.Permission(string, string, bool) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,bool)"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/Permissions/Permission.cs",
+                      "startLine": 39,
+                      "startColumn": 5,
+                      "endLine": 43,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Roles.Core/RolesPermissions.cs",
+                        "startLine": 7,
+                        "startColumn": 53,
+                        "endLine": 7,
+                        "endColumn": 113
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n44",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "new Permission",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,global::System.Collections.Generic.IEnumerable<global::OrchardCore.Security.Permissions.Permission>,bool)",
+                    "signature": "OrchardCore.Security.Permissions.Permission.Permission(string, string, System.Collections.Generic.IEnumerable<OrchardCore.Security.Permissions.Permission>, bool) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,global::System.Collections.Generic.IEnumerable<global::OrchardCore.Security.Permissions.Permission>,bool)"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/Permissions/Permission.cs",
+                      "startLine": 55,
+                      "startColumn": 5,
+                      "endLine": 58,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Roles.Core/RolesPermissions.cs",
+                        "startLine": 8,
+                        "startColumn": 51,
+                        "endLine": 8,
+                        "endColumn": 96
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,global::System.Collections.Generic.IEnumerable<global::OrchardCore.Security.Permissions.Permission>,bool)",
+                    "signature": "OrchardCore.Security.Permissions.Permission.Permission(string, string, System.Collections.Generic.IEnumerable<OrchardCore.Security.Permissions.Permission>, bool) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/OrchardCore/OrchardCore.Infrastructure.Abstractions/OrchardCore.Infrastructure.Abstractions.csproj@net10.0::OrchardCore.Security.Permissions.Permission..ctor(string,string,global::System.Collections.Generic.IEnumerable<global::OrchardCore.Security.Permissions.Permission>,bool)"
+                    ],
+                    "definition": {
+                      "path": "src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/Permissions/Permission.cs",
+                      "startLine": 55,
+                      "startColumn": 5,
+                      "endLine": 58,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/OrchardCore/OrchardCore.Roles.Core/RolesPermissions.cs",
+                        "startLine": 8,
+                        "startColumn": 51,
+                        "endLine": 8,
+                        "endColumn": 96
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n45",
           "kind": "call",
           "change": "unchanged",
           "label": "AuthorizationServiceExtensions.AuthorizeAsync",
@@ -2086,7 +2594,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n38",
+              "id": "n46",
               "kind": "call",
               "change": "unchanged",
               "label": "AuthorizationServiceExtensions.AuthorizeAsync",
@@ -2149,7 +2657,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n39",
+                  "id": "n47",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (user == null)",
@@ -2196,7 +2704,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n40",
+                      "id": "n48",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "Task.FromResult",
@@ -2252,7 +2760,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n41",
+                  "id": "n49",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new PermissionRequirement",
@@ -2321,7 +2829,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n42",
+                  "id": "n50",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "service.AuthorizeAsync",
@@ -2374,7 +2882,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n43",
+                  "id": "n51",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (task.IsCompletedSuccessfully)",
@@ -2421,7 +2929,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n44",
+                      "id": "n52",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "Task.FromResult",
@@ -2477,7 +2985,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n45",
+                  "id": "n53",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "AuthorizationServiceExtensions.AuthorizeAsync.Awaited",
@@ -2548,7 +3056,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n46",
+          "id": "n54",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (!await _authorizationService.AuthorizeAsync(User, RolesPermissions.ManageRoles))",
@@ -2595,7 +3103,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n47",
+              "id": "n55",
               "kind": "call",
               "change": "unchanged",
               "label": "Forbid",
@@ -2651,7 +3159,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n48",
+          "id": "n56",
           "kind": "call",
           "change": "unchanged",
           "label": "_roleManager.FindByIdAsync",
@@ -2704,7 +3212,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n49",
+          "id": "n57",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (await _roleManager.FindByIdAsync(id)is not Role role)",
@@ -2751,7 +3259,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n50",
+              "id": "n58",
               "kind": "call",
               "change": "unchanged",
               "label": "NotFound",
@@ -2807,7 +3315,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n51",
+          "id": "n59",
           "kind": "call",
           "change": "unchanged",
           "label": "IRoleService.IsAdminRoleAsync → RoleService.IsAdminRoleAsync",
@@ -2870,7 +3378,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n52",
+              "id": "n60",
               "kind": "call",
               "change": "unchanged",
               "label": "SystemRoleProviderExtensions.IsAdminRole",
@@ -2933,7 +3441,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n53",
+                  "id": "n61",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "ArgumentException.ThrowIfNullOrEmpty",
@@ -2986,7 +3494,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n54",
+                  "id": "n62",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "ISystemRoleProvider.GetAdminRole → DefaultSystemRoleProvider.GetAdminRole",
@@ -3051,7 +3559,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n55",
+                  "id": "n63",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "adminRole.RoleName.Equals",
@@ -3107,7 +3615,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n56",
+              "id": "n64",
               "kind": "call",
               "change": "unchanged",
               "label": "ValueTask.FromResult",
@@ -3163,7 +3671,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n57",
+          "id": "n65",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (!await _roleService.IsAdminRoleAsync(role.RoleName))",
@@ -3210,7 +3718,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n58",
+              "id": "n66",
               "kind": "call",
               "change": "unchanged",
               "label": "role.RoleClaims.RemoveAll",
@@ -3263,7 +3771,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n59",
+              "id": "n67",
               "kind": "call",
               "change": "unchanged",
               "label": "AdminController.ExtractSelectedPermissions",
@@ -3326,7 +3834,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n60",
+                  "id": "n68",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "Request.Form.Keys.Where",
@@ -3377,7 +3885,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n61",
+                      "id": "n69",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "key.StartsWith",
@@ -3433,7 +3941,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n62",
+                  "id": "n70",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "Request.Form.Keys.Where(key => key.StartsWith(\"Checkbox.\", StringComparison.Ordinal) && Request.Form[key] == \"true\").Select",
@@ -3484,7 +3992,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n63",
+                      "id": "n71",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "RoleClaim.Create",
@@ -3559,7 +4067,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n64",
+              "id": "n72",
               "kind": "call",
               "change": "unchanged",
               "label": "role.RoleClaims.AddRange",
@@ -3615,7 +4123,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n65",
+          "id": "n73",
           "kind": "call",
           "change": "unchanged",
           "label": "_roleManager.UpdateAsync",
@@ -3668,7 +4176,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n66",
+          "id": "n74",
           "kind": "call",
           "change": "unchanged",
           "label": "NotifierExtensions.SuccessAsync",
@@ -3731,7 +4239,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n67",
+              "id": "n75",
               "kind": "call",
               "change": "unchanged",
               "label": "new NotifyContext",
@@ -3794,7 +4302,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n68",
+                  "id": "n76",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new Object",
@@ -3850,7 +4358,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n69",
+              "id": "n77",
               "kind": "call",
               "change": "unchanged",
               "label": "INotifier.AddAsync → Notifier.AddAsync",
@@ -3913,7 +4421,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n70",
+                  "id": "n78",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "_logger.IsEnabled",
@@ -3966,7 +4474,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n71",
+                  "id": "n79",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (_logger.IsEnabled(LogLevel.Information))",
@@ -4013,7 +4521,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n72",
+                      "id": "n80",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "_logger.LogInformation",
@@ -4069,7 +4577,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n73",
+                  "id": "n81",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new NotifyEntry",
@@ -4138,7 +4646,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n74",
+                  "id": "n82",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "_entries.Add",
@@ -4197,7 +4705,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n75",
+          "id": "n83",
           "kind": "branch",
           "change": "added",
           "label": "if (submit == SaveAndContinueSubmitValue)",
@@ -4225,7 +4733,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n76",
+              "id": "n84",
               "kind": "call",
               "change": "added",
               "label": "RedirectToAction",
@@ -4260,7 +4768,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n77",
+          "id": "n85",
           "kind": "call",
           "change": "unchanged",
           "label": "RedirectToAction",

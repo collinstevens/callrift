@@ -63,6 +63,17 @@ internal static class InterceptorSymbols
             var digest = Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(identity)));
             result.Add(method, new InterceptorIdentity((scope?.Invoke(method) ?? "source") + "::<interceptor>:" + digest, ordered[0].Label));
         }
+        foreach (var group in result.ToArray().GroupBy(pair => pair.Key.ContainingType, SymbolEqualityComparer.Default))
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var type = (INamedTypeSymbol)group.Key!;
+            var ordered = group.Select(pair => pair.Value).OrderBy(identity => identity.Key, StringComparer.Ordinal).ToArray();
+            var digest = Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(string.Join("\0", ordered.Select(identity => identity.Key)))));
+            var label = "initialization of interceptors for " + string.Join(", ", ordered.Select(identity => identity.Label));
+            foreach (var constructor in type.StaticConstructors)
+                result.Add(SymbolNames.Normalize(constructor), new InterceptorIdentity(
+                    symbols.InitializationScope(type) + "::<interceptor-initializer>:" + digest, label));
+        }
         return result;
     }
 }

@@ -53,10 +53,12 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
         return AsRoot(tree);
     }
 
-    private CallTree ExpandMember(string key, HashSet<string> active, int depth)
+    private CallTree ExpandMember(string key, HashSet<string> active, int depth, HashSet<string>? initialized = null)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        initialized ??= new HashSet<string>(StringComparer.Ordinal);
         var member = resolvedGraph.Members[key];
+        if (member.TypeInitializerType is not null) initialized.Add(key);
         var definition = member.DefinitionKey ?? key;
         var side = new NodeSide(definition, member.Signature, "resolved", "direct", [definition], member.Location, [], "definition")
         { ContextTargetKey = key };
@@ -66,21 +68,47 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
         if (active.Contains(key))
             return new CallTree(key, member.Label, member.MatchName, member.Signature, [], false, "↺ cycle")
             { Kind = "member", Side = side, Omission = new Omission("cycle", definition) { ReferenceKey = key } };
-        if (depth >= options.MaxDepth && HasVisibleCalls(member.Calls))
-            return new CallTree(key, member.Label, member.MatchName, member.Signature, [], ReachesChange(key), ReachesChange(key) ? "changes below depth limit" : "depth limit")
+        if (depth >= options.MaxDepth && HasVisibleCalls(member.Calls, initialized))
+            return new CallTree(key, member.Label, member.MatchName, member.Signature, [], ReachesChange(key, initialized), ReachesChange(key, initialized) ? "changes below depth limit" : "depth limit")
             { Kind = "member", Side = side, Omission = new Omission("depth-limit") };
+        var prelude = member.Calls.TakeWhile(call => call.IsInitialization).ToArray();
+        var initializers = ExpandCalls(prelude, active, depth + 1, initialized);
         var path = new HashSet<string>(active, StringComparer.Ordinal) { key };
-        return new CallTree(key, member.Label, member.MatchName, member.Signature, ExpandCalls(member.Calls, path, depth + 1), changed.Contains(key))
+        var body = ExpandCalls(member.Calls.Skip(prelude.Length), path, depth + 1, initialized);
+        return new CallTree(key, member.Label, member.MatchName, member.Signature, initializers.Concat(body).ToArray(), changed.Contains(key))
         { Kind = "member", Side = side };
     }
 
-    private IReadOnlyList<CallTree> ExpandCalls(IEnumerable<CallStep> calls, HashSet<string> active, int depth)
+    private IReadOnlyList<CallTree> ExpandCalls(IEnumerable<CallStep> calls, HashSet<string> active, int depth, HashSet<string>? initialized = null)
     {
+        initialized ??= new HashSet<string>(StringComparer.Ordinal);
         var trees = new List<CallTree>();
+        var callbackInitializations = new Dictionary<int, HashSet<string>>();
+        HashSet<string>? completedParts = null;
         foreach (var call in calls)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var children = ExpandCalls(call.Children, active, depth + 1);
+            var currentInitializations = initialized;
+            if (call.CallbackGroup is { } group)
+            {
+                if (!callbackInitializations.TryGetValue(group, out var callbackState))
+                    callbackInitializations[group] = callbackState = new HashSet<string>(currentInitializations, StringComparer.Ordinal);
+                currentInitializations = callbackState;
+            }
+            if (!call.IsInitializationPart && completedParts is not null)
+            {
+                initialized.UnionWith(completedParts);
+                completedParts = null;
+            }
+            if (call.IsInitialization && call.Children.FirstOrDefault() is { } initializer && !currentInitializations.Add(initializer.Key)) continue;
+            var invocationInitializations = new HashSet<string>(currentInitializations, StringComparer.Ordinal);
+            var childInitializations = call.IsInitialization ? currentInitializations : new HashSet<string>(currentInitializations, StringComparer.Ordinal);
+            var children = ExpandCalls(call.Children, active, depth + 1, childInitializations);
+            if (call.IsInitializationPart)
+            {
+                completedParts ??= new HashSet<string>(StringComparer.Ordinal);
+                completedParts.UnionWith(childInitializations);
+            }
             var possibleTargets = resolvedGraph.Targets(call, cancellationToken);
             if (call.Kind == "branch")
             {
@@ -97,18 +125,18 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
             {
                 if (possibleTargets.Count == 1)
                 {
-                    var implementation = ExpandMember(possibleTargets[0], active, depth);
+                    var implementation = ExpandMember(possibleTargets[0], active, depth, new HashSet<string>(currentInitializations, StringComparer.Ordinal));
                     tree = implementation with { Key = call.Key, Label = call.Label + " → " + implementation.Label, MatchName = call.Label + " → " + implementation.MatchName };
                 }
                 else
                     tree = new CallTree(call.Key, call.Label, call.Key, call.Key, possibleTargets.Select((t, index) =>
                     {
-                        var implementation = ExpandMember(t, active, depth + 1);
+                        var implementation = ExpandMember(t, active, depth + 1, new HashSet<string>(currentInitializations, StringComparer.Ordinal));
                         return implementation with { Key = call.SemanticTargets?[index] ?? t, Label = "⇢ " + implementation.Label, Kind = "dispatchTarget" };
                     }).ToArray());
             }
             else if (resolvedGraph.Members.ContainsKey(call.Key))
-                tree = ExpandMember(call.Key, active, depth);
+                tree = ExpandMember(call.Key, active, depth, currentInitializations);
             else
                 tree = new CallTree(call.Key, call.Label, call.Key, call.Key, []);
             resolvedGraph.Members.TryGetValue(call.Key, out var declaration);
@@ -139,7 +167,7 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
                     ExpandDispatch = () =>
                     {
                         var key = possibleTargets.Count == 1 ? possibleTargets[0] : call.Key;
-                        var implementation = ExpandMember(key, active, depth + 1);
+                        var implementation = ExpandMember(key, active, depth + 1, new HashSet<string>(invocationInitializations, StringComparer.Ordinal));
                         var target = implementation with
                         {
                             Key = possibleTargets.Count == 1 ? call.SemanticTargets?[0] ?? key : call.SemanticKey ?? key,
@@ -164,26 +192,29 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
             }
             trees.Add(tree);
         }
+        if (completedParts is not null) initialized.UnionWith(completedParts);
         return trees;
     }
 
-    private bool HasVisibleCalls(IEnumerable<CallStep> calls)
+    private bool HasVisibleCalls(IEnumerable<CallStep> calls, IReadOnlySet<string> initialized)
     {
         foreach (var call in calls)
         {
             cancellationToken.ThrowIfCancellationRequested();
+            if (call.IsInitialization && call.Children.FirstOrDefault() is { } initializer && initialized.Contains(initializer.Key)) continue;
             if (call.Kind != "branch" && (call.IsSource || call.Kind == "unresolved" || options.IncludeExternals
                 || resolvedGraph.Members.ContainsKey(call.Key) || resolvedGraph.Targets(call, cancellationToken).Count > 0))
                 return true;
-            if (HasVisibleCalls(call.Children)) return true;
+            if (HasVisibleCalls(call.Children, initialized)) return true;
         }
         return false;
     }
 
-    private bool ReachesChange(string key)
+    private bool ReachesChange(string key, IReadOnlySet<string> initialized)
     {
         cancellationToken.ThrowIfCancellationRequested();
         if (changed.Count == 0) return false;
+        if (initialized.Count != 0) return FindUninitializedChange(key, initialized, new HashSet<string>(StringComparer.Ordinal));
         lock (changeReachability)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -198,6 +229,30 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
                 }
             return result;
         }
+    }
+
+    private bool FindUninitializedChange(string key, IReadOnlySet<string> initialized, HashSet<string> visited)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        if (changed.Contains(key)) return true;
+        if (!visited.Add(key) || !resolvedGraph.Members.TryGetValue(key, out var member)) return false;
+        bool CallsReachChange(IEnumerable<CallStep> calls)
+        {
+            foreach (var call in calls)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                if (call.IsInitialization && call.Children.FirstOrDefault() is { } initializer && initialized.Contains(initializer.Key)) continue;
+                if (call.Kind == "call")
+                {
+                    if (FindUninitializedChange(call.Key, initialized, visited)) return true;
+                    foreach (var target in resolvedGraph.Targets(call, cancellationToken))
+                        if (FindUninitializedChange(target, initialized, visited)) return true;
+                }
+                if (CallsReachChange(call.Children)) return true;
+            }
+            return false;
+        }
+        return CallsReachChange(member.Calls);
     }
 
     private bool FindChangedPath(string key, HashSet<string> visited)

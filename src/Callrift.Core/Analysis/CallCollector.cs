@@ -30,6 +30,30 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 Walk(lambda.Body, body);
                 Callback(lambda, body, result);
                 return;
+            case ExpressionSyntax expression when expression is IdentifierNameSyntax or GenericNameSyntax or MemberAccessExpressionSyntax
+                && model.GetTypeInfo(expression, cancellationToken).ConvertedType?.TypeKind == TypeKind.Delegate
+                && model.GetSymbolInfo(expression, cancellationToken).Symbol is IMethodSymbol method:
+                if (expression is MemberAccessExpressionSyntax methodAccess)
+                    Walk(methodAccess.Expression, result);
+                Callback(expression, [CreateCall(expression, method, [])], result);
+                return;
+            case AssignmentExpressionSyntax assignment when assignment.IsKind(SyntaxKind.CoalesceAssignmentExpression):
+                Walk(assignment.Left, result);
+                Branch("if (" + SymbolNames.Compact(assignment.Left) + " is null)", assignment, [assignment.Right], result);
+                return;
+            case AssignmentExpressionSyntax assignment when StaticMember(assignment.Left) is { } assignedMember:
+                var readBeforeAssignment = !assignment.IsKind(SyntaxKind.SimpleAssignmentExpression) && assignedMember is not IEventSymbol;
+                if (readBeforeAssignment) Walk(assignment.Left, result);
+                Walk(assignment.Right, result);
+                if (!readBeforeAssignment) AddStaticMember(assignment.Left, result);
+                return;
+            case MemberAccessExpressionSyntax access:
+                Walk(access.Expression, result);
+                AddStaticMember(access, result);
+                return;
+            case IdentifierNameSyntax identifier:
+                AddStaticMember(identifier, result);
+                return;
             case InvocationExpressionSyntax invocation:
                 if (invocation.Expression is IdentifierNameSyntax { Identifier.ValueText: "nameof" } && model.GetConstantValue(invocation, cancellationToken).HasValue)
                     return;
@@ -118,16 +142,26 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 };
                 Branch("if (" + predicate + ")", binary, [binary.Right], result);
                 return;
-            case ExpressionSyntax expression when expression is IdentifierNameSyntax or GenericNameSyntax or MemberAccessExpressionSyntax
-                && model.GetTypeInfo(expression, cancellationToken).ConvertedType?.TypeKind == TypeKind.Delegate
-                && model.GetSymbolInfo(expression, cancellationToken).Symbol is IMethodSymbol method:
-                if (expression is MemberAccessExpressionSyntax methodAccess)
-                    Walk(methodAccess.Expression, result);
-                Callback(expression, [CreateCall(expression, method, [])], result);
-                return;
         }
         foreach (var child in node.ChildNodes())
             Walk(child, result);
+    }
+
+    private ISymbol? StaticMember(SyntaxNode node) => model.GetSymbolInfo(node, cancellationToken).Symbol switch
+    {
+        IFieldSymbol { IsStatic: true, IsConst: false } field => field,
+        IPropertySymbol { IsStatic: true } property => property,
+        IEventSymbol { IsStatic: true } eventSymbol => eventSymbol,
+        _ => null
+    };
+
+    private void AddStaticMember(SyntaxNode node, List<CallStep> result)
+    {
+        if (StaticMember(node) is not { } member) return;
+        if (member.ContainingType.Locations.Any(location => location.IsInSource) && member.ContainingType.StaticConstructors.Length == 0) return;
+        var type = DescribeType(member.ContainingType);
+        result.Add(new CallStep("initialize", "initialize:" + type.Name, "initialization", true, symbols.Location(node), [])
+        { InitializationTriggerType = type, InitializationTriggerIsField = true, InitializationScope = symbols.InitializationScope(member.ContainingType) });
     }
 
     private void Callback(SyntaxNode node, IReadOnlyList<CallStep> calls, List<CallStep> result)
@@ -140,8 +174,10 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
     private void Emit(SyntaxNode invocation, SeparatedSyntaxList<ArgumentSyntax> arguments, List<CallStep> result)
     {
         var callbacks = new List<CallStep>();
+        var argumentIndex = 0;
         foreach (var argument in arguments)
         {
+            var callbackStart = callbacks.Count;
             var expression = argument.Expression;
             while (expression is ParenthesizedExpressionSyntax or CastExpressionSyntax)
                 expression = expression is ParenthesizedExpressionSyntax parenthesized ? parenthesized.Expression : ((CastExpressionSyntax)expression).Expression;
@@ -155,6 +191,9 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             }
             else
                 Walk(expression, result);
+            for (var index = callbackStart; index < callbacks.Count; index++)
+                callbacks[index] = callbacks[index] with { CallbackGroup = argumentIndex };
+            argumentIndex++;
         }
         var info = model.GetSymbolInfo(invocation, cancellationToken);
         var target = invocation is InvocationExpressionSyntax interceptable
@@ -206,6 +245,8 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             ? symbols.Label(normalized) : SymbolNames.SyntaxLabel(node), source, symbols.Location(node), children)
         {
             SuppressDispatch = exactReceiver,
+            InitializationTriggerType = TypeInitialization.Triggers(method) ? DescribeType(method.ContainingType) : null,
+            InitializationScope = TypeInitialization.Triggers(method) ? symbols.InitializationScope(method.ContainingType) : null,
             DispatchType = dispatches ? DescribeType(method.ContainingType) : null,
             ReceiverType = dispatches ? ReceiverConstraint(receiver, node.SpanStart) : null,
             InvocationReceiverType = !GenericBindings.HasContainingInstance(method) ? null : method.MethodKind == MethodKind.Constructor

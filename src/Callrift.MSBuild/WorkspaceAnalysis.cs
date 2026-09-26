@@ -124,6 +124,16 @@ public static class WorkspaceAnalysis
         if (projects.Count == 0) throw new InvalidOperationException("The workspace contains no included C# projects.");
         var byAssembly = new Dictionary<IAssemblySymbol, string>(ReferenceEqualityComparer.Instance);
         foreach (var project in projects) byAssembly.Add(project.Compilation.Assembly, project.Scope);
+        foreach (var project in projects)
+            foreach (var reference in project.Compilation.References.OfType<CompilationReference>())
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                if (!byAssembly.TryGetValue(reference.Compilation.Assembly, out var scope)
+                    || project.Compilation.GetAssemblyOrModuleSymbol(reference) is not IAssemblySymbol projected) continue;
+                if (byAssembly.TryGetValue(projected, out var existing) && existing != scope)
+                    throw new InvalidOperationException($"Ambiguous project identity for referenced assembly {projected.Name}.");
+                byAssembly[projected] = scope;
+            }
         string Scope(ISymbol symbol)
         {
             if (byAssembly.TryGetValue(symbol.ContainingAssembly, out var known)) return known;
@@ -156,8 +166,8 @@ public static class WorkspaceAnalysis
                     return Path.GetRelativePath(request.Root, path).Replace('\\', '/');
                 return "generated/" + Path.GetRelativePath(request.Root, item.Project.FilePath!).Replace('\\', '/') + "/" + string.Join('/', path.Replace('\\', '/').Split('/').TakeLast(3));
             }
-            var graph = SourceOnlyAnalysisProvider.AnalyzeCompilation(item.Compilation, scope: Scope, logicalPath: LogicalPath,
-                includeBodyFingerprints: true, cancellationToken: cancellationToken);
+            var graph = SourceOnlyAnalysisProvider.AnalyzeCompilation(item.Compilation, syntaxTrees: null, scope: Scope, logicalPath: LogicalPath,
+                includeBodyFingerprints: true, cancellationToken: cancellationToken, typeScope: Scope);
             foreach (var member in graph.Members) members.Add(member.Key, member.Value);
             foreach (var definition in graph.TypeDefinitions) typeDefinitions[definition.Key] = definition.Value;
             diagnostics.AddRange(graph.Diagnostics);
