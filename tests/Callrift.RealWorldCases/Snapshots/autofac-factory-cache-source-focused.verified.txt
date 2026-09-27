@@ -1,0 +1,549 @@
+﻿format: text
+exit: 0
+stdout:
+  new FactoryGenerator
+  ├─ new Object
+  ├─ Enforce.ArgumentTypeIsFunction
+  ├─ FactoryGenerator.GetParameterMapping
+- ├─ FactoryGenerator.CreateGenerator
+- │  ├─ Expression.Parameter ×2
+- │  ├─ TypeExtensions.GetDeclaredMethod
+- │  │  ├─ if (@this is null)
+- │  │  │  └─ new ArgumentNullException
+- │  │  ├─ if (methodName is null)
+- │  │  │  └─ new ArgumentNullException
+- │  │  ├─ @this.GetMethod
+- │  │  └─ if (@this.GetMethod(methodName, DeclaredMemberFlags) is null)
+- │  │     └─ ? new ArgumentException
+- │  ├─ invoke.GetParameters
+- │  ├─ invoke.GetParameters().Select
+- │  │  ├─ ParameterInfo.get_ParameterType
+- │  │  ├─ ParameterInfo.get_Name
+- │  │  └─ Expression.Parameter
+- │  ├─ invoke.GetParameters().Select(pi => Expression.Parameter(pi.ParameterType, pi.Name)).ToList
+- │  ├─ FactoryGenerator.DelegateTypeIsFunc
+- │  │  ├─ MemberInfo.get_Name
+- │  │  └─ delegateType.Name.StartsWith
+- │  ├─ if (DelegateTypeIsFunc(delegateType) && pm == ParameterMapping.ByType)
+- │  │  ├─ Type.get_GenericTypeArguments
+- │  │  ├─ Array.get_Length ×2
+- │  │  ├─ Array.Resize
+- │  │  ├─ arguments.Distinct
+- │  │  ├─ arguments.Distinct().Count
+- │  │  ├─ Array.get_Length
+- │  │  └─ if (arguments.Distinct().Count() != arguments.Length)
+- │  │     ├─ arguments.ToArray
+- │  │     ├─ CultureInfo.get_CurrentCulture
+- │  │     ├─ Type.get_AssemblyQualifiedName
+- │  │     ├─ string.Join
+- │  │     ├─ ? string.Format
+- │  │     ├─ new DependencyResolutionException (depth limit)
+- │  │     ├─ Expression.Constant
+- │  │     ├─ MethodInfo.get_ReturnType
+- │  │     └─ Expression.Throw
+- │  ├─ if (resolveCast == null)
+- │  │  ├─ FactoryGenerator.MapParameters
+- │  │  │  ├─ case ParameterMapping.ByType
+- │  │  │  │  ├─ creatorParams.Select
+- │  │  │  │  │  ├─ TypeExtensions.GetMatchingConstructor (depth limit)
+- │  │  │  │  │  ├─ ParameterExpression.get_Type
+- │  │  │  │  │  ├─ Expression.Constant
+- │  │  │  │  │  ├─ Expression.Convert
+- │  │  │  │  │  └─ Expression.New
+- │  │  │  │  └─ creatorParams.Select(p => Expression.New(typeof(TypedParameter).GetMatchingConstructor(new[] { typeof(Type), typeof(object) })!, Expression.Constant(p.Type, typeof(Type)), Expression.Convert(p, typeof(object)))).ToArray
+- │  │  │  ├─ case ParameterMapping.ByPosition
+- │  │  │  │  ├─ creatorParams.Select
+- │  │  │  │  │  ├─ TypeExtensions.GetMatchingConstructor (depth limit)
+- │  │  │  │  │  ├─ Expression.Constant
+- │  │  │  │  │  ├─ Expression.Convert
+- │  │  │  │  │  └─ Expression.New
+- │  │  │  │  └─ creatorParams.Select((p, i) => Expression.New(typeof(PositionalParameter).GetMatchingConstructor(new[] { typeof(int), typeof(object) })!, Expression.Constant(i, typeof(int)), Expression.Convert(p, typeof(object)))).ToArray
+- │  │  │  └─ case _
+- │  │  │     ├─ creatorParams.Select
+- │  │  │     │  ├─ TypeExtensions.GetMatchingConstructor (depth limit)
+- │  │  │     │  ├─ ParameterExpression.get_Name
+- │  │  │     │  ├─ Expression.Constant
+- │  │  │     │  ├─ Expression.Convert
+- │  │  │     │  └─ Expression.New
+- │  │  │     └─ creatorParams.Select(p => Expression.New(typeof(NamedParameter).GetMatchingConstructor(new[] { typeof(string), typeof(object) })!, Expression.Constant(p.Name, typeof(string)), Expression.Convert(p, typeof(object)))).ToArray
+- │  │  ├─ makeResolveCall
+- │  │  ├─ MethodInfo.get_ReturnType
+- │  │  └─ Expression.Convert
+- │  ├─ Expression.Lambda
+- │  ├─ Expression.Lambda<Func<IComponentContext, IEnumerable<Parameter>, Delegate>>
+- │  ├─ activator.Compile
+- │  ├─ possible initialization of FactoryGenerator
+- │  │  └─ initialization of FactoryGenerator
+- │  │     └─ ReflectionExtensions.GetConstructor (depth limit)
+- │  │        └─ new ResolveRequest (depth limit)
+- │  ├─ Expression.Constant ×2
+- │  ├─ Expression.NewArrayInit
+- │  ├─ Expression.Constant
+- │  ├─ Expression.New
+- │  ├─ ReflectionExtensions.GetMethod
+- │  │  ├─ if (methodCallExpression == null)
+- │  │  │  └─ new ArgumentNullException
+- │  │  ├─ LambdaExpression.get_Body
+- │  │  ├─ if (methodCallExpression.Body is not MethodCallExpression callExpression)
+- │  │  │  ├─ CultureInfo.get_CurrentCulture
+- │  │  │  ├─ ? string.Format
+- │  │  │  └─ new ArgumentException
+- │  │  ├─ MethodCallExpression.get_Method
+- │  │  ├─ new ResolveRequest
+- │  │  │  ├─ ServiceRegistration.get_Registration
+- │  │  │  └─ ServiceRegistration.get_Pipeline
+- │  │  └─ IComponentContext.ResolveComponent
+- │  │     ├─ ⇢ Container.ResolveComponent (depth limit)
+- │  │     ├─ ⇢ LifetimeScope.ResolveComponent (depth limit)
+- │  │     ├─ ⇢ DefaultResolveRequestContext.ResolveComponent (depth limit)
+- │  │     └─ ⇢ DecoratorContext.ResolveComponent (depth limit)
+- │  └─ Expression.Call
++ ├─ possible initialization of FactoryGenerator
++ │  └─ initialization of FactoryGenerator
++ │     ├─ new ×2
++ │     └─ ReflectionExtensions.GetConstructor
++ │        ├─ if (constructorCallExpression == null)
++ │        │  └─ new ArgumentNullException
++ │        ├─ LambdaExpression.get_Body
++ │        ├─ if (constructorCallExpression.Body is not NewExpression callExpression)
++ │        │  ├─ CultureInfo.get_CurrentCulture
++ │        │  ├─ ? string.Format
++ │        │  └─ new ArgumentException
++ │        ├─ NewExpression.get_Constructor
++ │        └─ new ResolveRequest (depth limit)
++ ├─ ServiceRegistrationGeneratorCache.GetOrAdd
++ │  └─ FactoryGenerator.CreateServiceRegistrationGenerator
++ │     ├─ Expression.Parameter ×4
++ │     ├─ TypeExtensions.GetDeclaredMethod
++ │     │  ├─ if (@this is null)
++ │     │  │  └─ new ArgumentNullException
++ │     │  ├─ if (methodName is null)
++ │     │  │  └─ new ArgumentNullException
++ │     │  ├─ @this.GetMethod
++ │     │  └─ if (@this.GetMethod(methodName, DeclaredMemberFlags) is null)
++ │     │     └─ ? new ArgumentException
++ │     ├─ invoke.GetParameters
++ │     ├─ invoke.GetParameters().Select
++ │     │  ├─ ParameterInfo.get_ParameterType
++ │     │  ├─ ParameterInfo.get_Name
++ │     │  └─ Expression.Parameter
++ │     ├─ invoke.GetParameters().Select(pi => Expression.Parameter(pi.ParameterType, pi.Name)).ToList
++ │     ├─ FactoryGenerator.DelegateTypeIsFunc
++ │     │  ├─ MemberInfo.get_Name
++ │     │  └─ delegateType.Name.StartsWith
++ │     ├─ if (DelegateTypeIsFunc(delegateType) && pm == ParameterMapping.ByType)
++ │     │  ├─ Type.get_GenericTypeArguments
++ │     │  ├─ Array.get_Length ×2
++ │     │  ├─ Array.Resize
++ │     │  ├─ arguments.Distinct
++ │     │  ├─ arguments.Distinct().Count
++ │     │  ├─ Array.get_Length
++ │     │  └─ if (arguments.Distinct().Count() != arguments.Length)
++ │     │     ├─ arguments.ToArray
++ │     │     ├─ CultureInfo.get_CurrentCulture
++ │     │     ├─ Type.get_AssemblyQualifiedName
++ │     │     ├─ string.Join
++ │     │     ├─ ? string.Format
++ │     │     ├─ new DependencyResolutionException (depth limit)
++ │     │     ├─ Expression.Constant
++ │     │     ├─ MethodInfo.get_ReturnType
++ │     │     └─ Expression.Throw
++ │     ├─ if (resolveCast == null)
++ │     │  ├─ FactoryGenerator.MapParameters (depth limit)
++ │     │  ├─ Expression.NewArrayInit
++ │     │  ├─ Expression.Constant
++ │     │  ├─ Expression.New
++ │     │  ├─ ReflectionExtensions.GetMethod (depth limit)
++ │     │  │  ├─ new ResolveRequest (depth limit)
++ │     │  │  └─ IComponentContext.ResolveComponent
++ │     │  │     ├─ ⇢ Container.ResolveComponent (depth limit)
++ │     │  │     ├─ ⇢ LifetimeScope.ResolveComponent (depth limit)
++ │     │  │     ├─ ⇢ DefaultResolveRequestContext.ResolveComponent (depth limit)
++ │     │  │     └─ ⇢ DecoratorContext.ResolveComponent (depth limit)
++ │     │  ├─ Expression.Call
++ │     │  ├─ MethodInfo.get_ReturnType
++ │     │  └─ Expression.Convert
++ │     ├─ Expression.Lambda
++ │     ├─ Expression.Lambda<Func<Service, ServiceRegistration, IComponentContext, IEnumerable<Parameter>, Delegate>>
++ │     └─ activator.Compile
++ └─ callback
++    └─ compiledGenerator
+
+  new FactoryGenerator
+  ├─ new Object
+  ├─ Service.op_Equality
+  ├─ if (service == null)
+  ├─ Enforce.ArgumentTypeIsFunction
+  ├─ FactoryGenerator.GetParameterMapping
+- ├─ FactoryGenerator.CreateGenerator
+- │  ├─ Expression.Parameter ×2
+- │  ├─ TypeExtensions.GetDeclaredMethod ↑ as above
+- │  ├─ invoke.GetParameters
+- │  ├─ invoke.GetParameters().Select ↑ as above
+- │  ├─ invoke.GetParameters().Select(pi => Expression.Parameter(pi.ParameterType, pi.Name)).ToList
+- │  ├─ FactoryGenerator.DelegateTypeIsFunc ↑ as above
+- │  ├─ if (DelegateTypeIsFunc(delegateType) && pm == ParameterMapping.ByType)
+- │  │  ├─ Type.get_GenericTypeArguments
+- │  │  ├─ Array.get_Length ×2
+- │  │  ├─ Array.Resize
+- │  │  ├─ arguments.Distinct
+- │  │  ├─ arguments.Distinct().Count
+- │  │  ├─ Array.get_Length
+- │  │  └─ if (arguments.Distinct().Count() != arguments.Length)
+- │  │     ├─ arguments.ToArray
+- │  │     ├─ CultureInfo.get_CurrentCulture
+- │  │     ├─ Type.get_AssemblyQualifiedName
+- │  │     ├─ string.Join
+- │  │     ├─ ? string.Format
+- │  │     ├─ new DependencyResolutionException (depth limit)
+- │  │     ├─ Expression.Constant
+- │  │     ├─ MethodInfo.get_ReturnType
+- │  │     └─ Expression.Throw
+- │  ├─ if (resolveCast == null)
+- │  │  ├─ FactoryGenerator.MapParameters ↑ as above
+- │  │  ├─ makeResolveCall
+- │  │  ├─ MethodInfo.get_ReturnType
+- │  │  └─ Expression.Convert
+- │  ├─ Expression.Lambda
+- │  ├─ Expression.Lambda<Func<IComponentContext, IEnumerable<Parameter>, Delegate>>
+- │  ├─ activator.Compile
+- │  ├─ Expression.Constant
+- │  ├─ Expression.NewArrayInit
+- │  ├─ ReflectionExtensions.GetMethod
+- │  │  ├─ if (methodCallExpression == null)
+- │  │  │  └─ new ArgumentNullException
+- │  │  ├─ LambdaExpression.get_Body
+- │  │  ├─ if (methodCallExpression.Body is not MethodCallExpression callExpression)
+- │  │  │  ├─ CultureInfo.get_CurrentCulture
+- │  │  │  ├─ ? string.Format
+- │  │  │  └─ new ArgumentException
+- │  │  ├─ MethodCallExpression.get_Method
+- │  │  └─ ResolutionExtensions.ResolveService
+- │  │     └─ ResolutionExtensions.ResolveService (changes below depth limit)
+- │  └─ Expression.Call
++ ├─ possible initialization of FactoryGenerator
++ │  └─ initialization of FactoryGenerator ↑ as above
++ ├─ ServiceOnlyGeneratorCache.GetOrAdd
++ │  └─ FactoryGenerator.CreateServiceOnlyGenerator
++ │     ├─ Expression.Parameter ×3
++ │     ├─ TypeExtensions.GetDeclaredMethod ↑ as above
++ │     ├─ invoke.GetParameters
++ │     ├─ invoke.GetParameters().Select ↑ as above
++ │     ├─ invoke.GetParameters().Select(pi => Expression.Parameter(pi.ParameterType, pi.Name)).ToList
++ │     ├─ FactoryGenerator.DelegateTypeIsFunc ↑ as above
++ │     ├─ if (DelegateTypeIsFunc(delegateType) && pm == ParameterMapping.ByType)
++ │     │  ├─ Type.get_GenericTypeArguments
++ │     │  ├─ Array.get_Length ×2
++ │     │  ├─ Array.Resize
++ │     │  ├─ arguments.Distinct
++ │     │  ├─ arguments.Distinct().Count
++ │     │  ├─ Array.get_Length
++ │     │  └─ if (arguments.Distinct().Count() != arguments.Length)
++ │     │     ├─ arguments.ToArray
++ │     │     ├─ CultureInfo.get_CurrentCulture
++ │     │     ├─ Type.get_AssemblyQualifiedName
++ │     │     ├─ string.Join
++ │     │     ├─ ? string.Format
++ │     │     ├─ new DependencyResolutionException (depth limit)
++ │     │     ├─ Expression.Constant
++ │     │     ├─ MethodInfo.get_ReturnType
++ │     │     └─ Expression.Throw
++ │     ├─ if (resolveCast == null)
++ │     │  ├─ FactoryGenerator.MapParameters (depth limit)
++ │     │  ├─ Expression.NewArrayInit
++ │     │  ├─ ReflectionExtensions.GetMethod (depth limit)
++ │     │  │  └─ ResolutionExtensions.ResolveService (changes below depth limit)
++ │     │  ├─ Expression.Call
++ │     │  ├─ MethodInfo.get_ReturnType
++ │     │  └─ Expression.Convert
++ │     ├─ Expression.Lambda
++ │     ├─ Expression.Lambda<Func<Service, IComponentContext, IEnumerable<Parameter>, Delegate>>
++ │     └─ activator.Compile
++ └─ callback
++    └─ compiledGenerator
+stderr:
+bench/Autofac.BenchmarkProfiling/Program.cs:35: unresolved-call: Cannot bind BenchmarkConverter.TypeToBenchmarks.
+bench/Autofac.BenchmarkProfiling/Program.cs:62: unresolved-call: Cannot bind PrintCases; candidates: source::Autofac.BenchmarkProfiling.Program.PrintCases(BenchmarkRunInfo)
+bench/Autofac.BenchmarkProfiling/Program.cs:74: unresolved-call: Cannot bind PrintCases; candidates: source::Autofac.BenchmarkProfiling.Program.PrintCases(BenchmarkRunInfo)
+bench/Autofac.BenchmarkProfiling/Program.cs:80: unresolved-call: Cannot bind Activator.CreateInstance; candidates: source::System.Activator.CreateInstance(global::System.Type), source::System.Activator.CreateInstance(global::System.Type,bool), source::System.Activator.CreateInstance(global::System.Type,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo), source::System.Activator.CreateInstance(global::System.Type,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo,object[]), source::System.Activator.CreateInstance(global::System.Type,object[]), source::System.Activator.CreateInstance(global::System.Type,object[],object[]), source::System.Activator.CreateInstance(string,string), source::System.Activator.CreateInstance(string,string,bool,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo,object[]), source::System.Activator.CreateInstance(string,string,object[]), source::System.Activator.CreateInstance`1()
+bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalSetup.
+bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
+bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
+bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
+176 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  new FactoryGenerator
+  ├─ new Object
+  ├─ Enforce.ArgumentTypeIsFunction
+  ├─ FactoryGenerator.GetParameterMapping
+- ├─ FactoryGenerator.CreateGenerator
+- │  ├─ Expression.Parameter ×2
+- │  ├─ TypeExtensions.GetDeclaredMethod
+- │  │  ├─ if (@this is null)
+- │  │  │  └─ new ArgumentNullException
+- │  │  ├─ if (methodName is null)
+- │  │  │  └─ new ArgumentNullException
+- │  │  ├─ @this.GetMethod
+- │  │  └─ if (@this.GetMethod(methodName, DeclaredMemberFlags) is null)
+- │  │     └─ ? new ArgumentException
+- │  ├─ invoke.GetParameters
+- │  ├─ invoke.GetParameters().Select
+- │  │  ├─ ParameterInfo.get_ParameterType
+- │  │  ├─ ParameterInfo.get_Name
+- │  │  └─ Expression.Parameter
+- │  ├─ invoke.GetParameters().Select(pi => Expression.Parameter(pi.ParameterType, pi.Name)).ToList
+- │  ├─ FactoryGenerator.DelegateTypeIsFunc
+- │  │  ├─ MemberInfo.get_Name
+- │  │  └─ delegateType.Name.StartsWith
+- │  ├─ if (DelegateTypeIsFunc(delegateType) && pm == ParameterMapping.ByType)
+- │  │  ├─ Type.get_GenericTypeArguments
+- │  │  ├─ Array.get_Length ×2
+- │  │  ├─ Array.Resize
+- │  │  ├─ arguments.Distinct
+- │  │  ├─ arguments.Distinct().Count
+- │  │  ├─ Array.get_Length
+- │  │  └─ if (arguments.Distinct().Count() != arguments.Length)
+- │  │     ├─ arguments.ToArray
+- │  │     ├─ CultureInfo.get_CurrentCulture
+- │  │     ├─ Type.get_AssemblyQualifiedName
+- │  │     ├─ string.Join
+- │  │     ├─ ? string.Format
+- │  │     ├─ new DependencyResolutionException (depth limit)
+- │  │     ├─ Expression.Constant
+- │  │     ├─ MethodInfo.get_ReturnType
+- │  │     └─ Expression.Throw
+- │  ├─ if (resolveCast == null)
+- │  │  ├─ FactoryGenerator.MapParameters
+- │  │  │  ├─ case ParameterMapping.ByType
+- │  │  │  │  ├─ creatorParams.Select
+- │  │  │  │  │  ├─ TypeExtensions.GetMatchingConstructor (depth limit)
+- │  │  │  │  │  ├─ ParameterExpression.get_Type
+- │  │  │  │  │  ├─ Expression.Constant
+- │  │  │  │  │  ├─ Expression.Convert
+- │  │  │  │  │  └─ Expression.New
+- │  │  │  │  └─ creatorParams.Select(p => Expression.New(typeof(TypedParameter).GetMatchingConstructor(new[] { typeof(Type), typeof(object) })!, Expression.Constant(p.Type, typeof(Type)), Expression.Convert(p, typeof(object)))).ToArray
+- │  │  │  ├─ case ParameterMapping.ByPosition
+- │  │  │  │  ├─ creatorParams.Select
+- │  │  │  │  │  ├─ TypeExtensions.GetMatchingConstructor (depth limit)
+- │  │  │  │  │  ├─ Expression.Constant
+- │  │  │  │  │  ├─ Expression.Convert
+- │  │  │  │  │  └─ Expression.New
+- │  │  │  │  └─ creatorParams.Select((p, i) => Expression.New(typeof(PositionalParameter).GetMatchingConstructor(new[] { typeof(int), typeof(object) })!, Expression.Constant(i, typeof(int)), Expression.Convert(p, typeof(object)))).ToArray
+- │  │  │  └─ case _
+- │  │  │     ├─ creatorParams.Select
+- │  │  │     │  ├─ TypeExtensions.GetMatchingConstructor (depth limit)
+- │  │  │     │  ├─ ParameterExpression.get_Name
+- │  │  │     │  ├─ Expression.Constant
+- │  │  │     │  ├─ Expression.Convert
+- │  │  │     │  └─ Expression.New
+- │  │  │     └─ creatorParams.Select(p => Expression.New(typeof(NamedParameter).GetMatchingConstructor(new[] { typeof(string), typeof(object) })!, Expression.Constant(p.Name, typeof(string)), Expression.Convert(p, typeof(object)))).ToArray
+- │  │  ├─ makeResolveCall
+- │  │  ├─ MethodInfo.get_ReturnType
+- │  │  └─ Expression.Convert
+- │  ├─ Expression.Lambda
+- │  ├─ Expression.Lambda<Func<IComponentContext, IEnumerable<Parameter>, Delegate>>
+- │  ├─ activator.Compile
+- │  ├─ possible initialization of FactoryGenerator
+- │  │  └─ initialization of FactoryGenerator
+- │  │     └─ ReflectionExtensions.GetConstructor (depth limit)
+- │  │        └─ new ResolveRequest (depth limit)
+- │  ├─ Expression.Constant ×2
+- │  ├─ Expression.NewArrayInit
+- │  ├─ Expression.Constant
+- │  ├─ Expression.New
+- │  ├─ ReflectionExtensions.GetMethod
+- │  │  ├─ if (methodCallExpression == null)
+- │  │  │  └─ new ArgumentNullException
+- │  │  ├─ LambdaExpression.get_Body
+- │  │  ├─ if (methodCallExpression.Body is not MethodCallExpression callExpression)
+- │  │  │  ├─ CultureInfo.get_CurrentCulture
+- │  │  │  ├─ ? string.Format
+- │  │  │  └─ new ArgumentException
+- │  │  ├─ MethodCallExpression.get_Method
+- │  │  ├─ new ResolveRequest
+- │  │  │  ├─ ServiceRegistration.get_Registration
+- │  │  │  └─ ServiceRegistration.get_Pipeline
+- │  │  └─ IComponentContext.ResolveComponent
+- │  │     ├─ ⇢ Container.ResolveComponent (depth limit)
+- │  │     ├─ ⇢ LifetimeScope.ResolveComponent (depth limit)
+- │  │     ├─ ⇢ DefaultResolveRequestContext.ResolveComponent (depth limit)
+- │  │     └─ ⇢ DecoratorContext.ResolveComponent (depth limit)
+- │  └─ Expression.Call
++ ├─ possible initialization of FactoryGenerator
++ │  └─ initialization of FactoryGenerator
++ │     ├─ new ×2
++ │     └─ ReflectionExtensions.GetConstructor
++ │        ├─ if (constructorCallExpression == null)
++ │        │  └─ new ArgumentNullException
++ │        ├─ LambdaExpression.get_Body
++ │        ├─ if (constructorCallExpression.Body is not NewExpression callExpression)
++ │        │  ├─ CultureInfo.get_CurrentCulture
++ │        │  ├─ ? string.Format
++ │        │  └─ new ArgumentException
++ │        ├─ NewExpression.get_Constructor
++ │        └─ new ResolveRequest (depth limit)
++ ├─ ServiceRegistrationGeneratorCache.GetOrAdd
++ │  └─ FactoryGenerator.CreateServiceRegistrationGenerator
++ │     ├─ Expression.Parameter ×4
++ │     ├─ TypeExtensions.GetDeclaredMethod
++ │     │  ├─ if (@this is null)
++ │     │  │  └─ new ArgumentNullException
++ │     │  ├─ if (methodName is null)
++ │     │  │  └─ new ArgumentNullException
++ │     │  ├─ @this.GetMethod
++ │     │  └─ if (@this.GetMethod(methodName, DeclaredMemberFlags) is null)
++ │     │     └─ ? new ArgumentException
++ │     ├─ invoke.GetParameters
++ │     ├─ invoke.GetParameters().Select
++ │     │  ├─ ParameterInfo.get_ParameterType
++ │     │  ├─ ParameterInfo.get_Name
++ │     │  └─ Expression.Parameter
++ │     ├─ invoke.GetParameters().Select(pi => Expression.Parameter(pi.ParameterType, pi.Name)).ToList
++ │     ├─ FactoryGenerator.DelegateTypeIsFunc
++ │     │  ├─ MemberInfo.get_Name
++ │     │  └─ delegateType.Name.StartsWith
++ │     ├─ if (DelegateTypeIsFunc(delegateType) && pm == ParameterMapping.ByType)
++ │     │  ├─ Type.get_GenericTypeArguments
++ │     │  ├─ Array.get_Length ×2
++ │     │  ├─ Array.Resize
++ │     │  ├─ arguments.Distinct
++ │     │  ├─ arguments.Distinct().Count
++ │     │  ├─ Array.get_Length
++ │     │  └─ if (arguments.Distinct().Count() != arguments.Length)
++ │     │     ├─ arguments.ToArray
++ │     │     ├─ CultureInfo.get_CurrentCulture
++ │     │     ├─ Type.get_AssemblyQualifiedName
++ │     │     ├─ string.Join
++ │     │     ├─ ? string.Format
++ │     │     ├─ new DependencyResolutionException (depth limit)
++ │     │     ├─ Expression.Constant
++ │     │     ├─ MethodInfo.get_ReturnType
++ │     │     └─ Expression.Throw
++ │     ├─ if (resolveCast == null)
++ │     │  ├─ FactoryGenerator.MapParameters (depth limit)
++ │     │  ├─ Expression.NewArrayInit
++ │     │  ├─ Expression.Constant
++ │     │  ├─ Expression.New
++ │     │  ├─ ReflectionExtensions.GetMethod (depth limit)
++ │     │  │  ├─ new ResolveRequest (depth limit)
++ │     │  │  └─ IComponentContext.ResolveComponent
++ │     │  │     ├─ ⇢ Container.ResolveComponent (depth limit)
++ │     │  │     ├─ ⇢ LifetimeScope.ResolveComponent (depth limit)
++ │     │  │     ├─ ⇢ DefaultResolveRequestContext.ResolveComponent (depth limit)
++ │     │  │     └─ ⇢ DecoratorContext.ResolveComponent (depth limit)
++ │     │  ├─ Expression.Call
++ │     │  ├─ MethodInfo.get_ReturnType
++ │     │  └─ Expression.Convert
++ │     ├─ Expression.Lambda
++ │     ├─ Expression.Lambda<Func<Service, ServiceRegistration, IComponentContext, IEnumerable<Parameter>, Delegate>>
++ │     └─ activator.Compile
++ └─ callback
++    └─ compiledGenerator
+
+  new FactoryGenerator
+  ├─ new Object
+  ├─ Service.op_Equality
+  ├─ if (service == null)
+  ├─ Enforce.ArgumentTypeIsFunction
+  ├─ FactoryGenerator.GetParameterMapping
+- ├─ FactoryGenerator.CreateGenerator
+- │  ├─ Expression.Parameter ×2
+- │  ├─ TypeExtensions.GetDeclaredMethod ↑ as above
+- │  ├─ invoke.GetParameters
+- │  ├─ invoke.GetParameters().Select ↑ as above
+- │  ├─ invoke.GetParameters().Select(pi => Expression.Parameter(pi.ParameterType, pi.Name)).ToList
+- │  ├─ FactoryGenerator.DelegateTypeIsFunc ↑ as above
+- │  ├─ if (DelegateTypeIsFunc(delegateType) && pm == ParameterMapping.ByType)
+- │  │  ├─ Type.get_GenericTypeArguments
+- │  │  ├─ Array.get_Length ×2
+- │  │  ├─ Array.Resize
+- │  │  ├─ arguments.Distinct
+- │  │  ├─ arguments.Distinct().Count
+- │  │  ├─ Array.get_Length
+- │  │  └─ if (arguments.Distinct().Count() != arguments.Length)
+- │  │     ├─ arguments.ToArray
+- │  │     ├─ CultureInfo.get_CurrentCulture
+- │  │     ├─ Type.get_AssemblyQualifiedName
+- │  │     ├─ string.Join
+- │  │     ├─ ? string.Format
+- │  │     ├─ new DependencyResolutionException (depth limit)
+- │  │     ├─ Expression.Constant
+- │  │     ├─ MethodInfo.get_ReturnType
+- │  │     └─ Expression.Throw
+- │  ├─ if (resolveCast == null)
+- │  │  ├─ FactoryGenerator.MapParameters ↑ as above
+- │  │  ├─ makeResolveCall
+- │  │  ├─ MethodInfo.get_ReturnType
+- │  │  └─ Expression.Convert
+- │  ├─ Expression.Lambda
+- │  ├─ Expression.Lambda<Func<IComponentContext, IEnumerable<Parameter>, Delegate>>
+- │  ├─ activator.Compile
+- │  ├─ Expression.Constant
+- │  ├─ Expression.NewArrayInit
+- │  ├─ ReflectionExtensions.GetMethod
+- │  │  ├─ if (methodCallExpression == null)
+- │  │  │  └─ new ArgumentNullException
+- │  │  ├─ LambdaExpression.get_Body
+- │  │  ├─ if (methodCallExpression.Body is not MethodCallExpression callExpression)
+- │  │  │  ├─ CultureInfo.get_CurrentCulture
+- │  │  │  ├─ ? string.Format
+- │  │  │  └─ new ArgumentException
+- │  │  ├─ MethodCallExpression.get_Method
+- │  │  └─ ResolutionExtensions.ResolveService
+- │  │     └─ ResolutionExtensions.ResolveService (changes below depth limit)
+- │  └─ Expression.Call
++ ├─ possible initialization of FactoryGenerator
++ │  └─ initialization of FactoryGenerator ↑ as above
++ ├─ ServiceOnlyGeneratorCache.GetOrAdd
++ │  └─ FactoryGenerator.CreateServiceOnlyGenerator
++ │     ├─ Expression.Parameter ×3
++ │     ├─ TypeExtensions.GetDeclaredMethod ↑ as above
++ │     ├─ invoke.GetParameters
++ │     ├─ invoke.GetParameters().Select ↑ as above
++ │     ├─ invoke.GetParameters().Select(pi => Expression.Parameter(pi.ParameterType, pi.Name)).ToList
++ │     ├─ FactoryGenerator.DelegateTypeIsFunc ↑ as above
++ │     ├─ if (DelegateTypeIsFunc(delegateType) && pm == ParameterMapping.ByType)
++ │     │  ├─ Type.get_GenericTypeArguments
++ │     │  ├─ Array.get_Length ×2
++ │     │  ├─ Array.Resize
++ │     │  ├─ arguments.Distinct
++ │     │  ├─ arguments.Distinct().Count
++ │     │  ├─ Array.get_Length
++ │     │  └─ if (arguments.Distinct().Count() != arguments.Length)
++ │     │     ├─ arguments.ToArray
++ │     │     ├─ CultureInfo.get_CurrentCulture
++ │     │     ├─ Type.get_AssemblyQualifiedName
++ │     │     ├─ string.Join
++ │     │     ├─ ? string.Format
++ │     │     ├─ new DependencyResolutionException (depth limit)
++ │     │     ├─ Expression.Constant
++ │     │     ├─ MethodInfo.get_ReturnType
++ │     │     └─ Expression.Throw
++ │     ├─ if (resolveCast == null)
++ │     │  ├─ FactoryGenerator.MapParameters (depth limit)
++ │     │  ├─ Expression.NewArrayInit
++ │     │  ├─ ReflectionExtensions.GetMethod (depth limit)
++ │     │  │  └─ ResolutionExtensions.ResolveService (changes below depth limit)
++ │     │  ├─ Expression.Call
++ │     │  ├─ MethodInfo.get_ReturnType
++ │     │  └─ Expression.Convert
++ │     ├─ Expression.Lambda
++ │     ├─ Expression.Lambda<Func<Service, IComponentContext, IEnumerable<Parameter>, Delegate>>
++ │     └─ activator.Compile
++ └─ callback
++    └─ compiledGenerator
+```
+stderr:
+bench/Autofac.BenchmarkProfiling/Program.cs:35: unresolved-call: Cannot bind BenchmarkConverter.TypeToBenchmarks.
+bench/Autofac.BenchmarkProfiling/Program.cs:62: unresolved-call: Cannot bind PrintCases; candidates: source::Autofac.BenchmarkProfiling.Program.PrintCases(BenchmarkRunInfo)
+bench/Autofac.BenchmarkProfiling/Program.cs:74: unresolved-call: Cannot bind PrintCases; candidates: source::Autofac.BenchmarkProfiling.Program.PrintCases(BenchmarkRunInfo)
+bench/Autofac.BenchmarkProfiling/Program.cs:80: unresolved-call: Cannot bind Activator.CreateInstance; candidates: source::System.Activator.CreateInstance(global::System.Type), source::System.Activator.CreateInstance(global::System.Type,bool), source::System.Activator.CreateInstance(global::System.Type,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo), source::System.Activator.CreateInstance(global::System.Type,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo,object[]), source::System.Activator.CreateInstance(global::System.Type,object[]), source::System.Activator.CreateInstance(global::System.Type,object[],object[]), source::System.Activator.CreateInstance(string,string), source::System.Activator.CreateInstance(string,string,bool,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo,object[]), source::System.Activator.CreateInstance(string,string,object[]), source::System.Activator.CreateInstance`1()
+bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalSetup.
+bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
+bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
+bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
+176 additional diagnostics; use --diagnostics full.

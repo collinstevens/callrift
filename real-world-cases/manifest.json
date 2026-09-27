@@ -3558,5 +3558,80 @@
     "beforeLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
     "afterLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
     "review": "../tests/Callrift.RealWorldCases/SerilogRestrictedListenerExpectations.cs"
+  },
+  {
+    "repository": "https://github.com/autofac/Autofac.git",
+    "cacheName": "autofac",
+    "license": "MIT",
+    "licenseFile": "LICENSE",
+    "id": "autofac-factory-cache",
+    "before": "0e724c2f17159cbbb5b3f4984175540dfc7d0034",
+    "after": "016b0719b0ebedd2a49a520d3ef7cc0df33fc361",
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "2"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "FactoryGenerator..ctor(global::System.Type,global::Autofac.Core.Service,global::Autofac.Features.GeneratedFactories.ParameterMapping)",
+          "--entry",
+          "FactoryGenerator..ctor(global::System.Type,global::Autofac.Core.Service,global::Autofac.Core.ServiceRegistration,global::Autofac.Features.GeneratedFactories.ParameterMapping)"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "options": [
+          "--depth",
+          "2",
+          "--project",
+          "src/Autofac/Autofac.csproj",
+          "--framework",
+          "net10.0"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "FactoryGenerator..ctor(global::System.Type,global::Autofac.Core.Service,global::Autofac.Features.GeneratedFactories.ParameterMapping)",
+          "--entry",
+          "FactoryGenerator..ctor(global::System.Type,global::Autofac.Core.Service,global::Autofac.Core.ServiceRegistration,global::Autofac.Features.GeneratedFactories.ParameterMapping)",
+          "--project",
+          "src/Autofac/Autofac.csproj",
+          "--framework",
+          "net10.0"
+        ]
+      }
+    ],
+    "reason": "Review compiled factory-generator caching in source and restored Autofac net10.0 modes. Both constructors replace CreateGenerator with distinct ConcurrentDictionary.GetOrAdd callbacks and closures passing service or service-registration values to the compiled delegate. Focused views preserve mapping and duplicate-type guards, show parameterized expression construction, and move possible static initialization to cache reads. Automatic roots include registration and resolution entry points with explicit depth omissions; restored roots include regenerated delegate sources. Callbacks and expression-tree bodies represent possible calls, not proof of runtime resolution, exactly-once compilation, scope correctness or performance. Source mode retains 182 unresolved-call entries and two inferred test-project diagnostics; restored mode has none. All formats repeat exactly on the review machine.",
+    "tags": [
+      "constructors",
+      "callbacks",
+      "static-initialization",
+      "expression-trees",
+      "generated-code",
+      "source-msbuild"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "beforeLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
+    "afterLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
+    "review": "../tests/Callrift.RealWorldCases/AutofacFactoryCacheExpectations.cs"
   }
 ]

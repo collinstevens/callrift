@@ -89,6 +89,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             SerilogTraceJsonExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "serilog-restricted-listener")
             SerilogRestrictedListenerExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "autofac-factory-cache")
+            AutofacFactoryCacheExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "serilog-exception-format")
             SerilogAccessorExpectations.VerifyExceptionFormatting(result);
         if (entry.Id == "serilog-extra-arguments")

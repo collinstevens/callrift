@@ -1,0 +1,1369 @@
+﻿format: text
+exit: 0
+stdout:
+  RegistrationExtensions.RegisterGeneratedFactory
+  ├─ …
+  ├─ InternalTypeExtensions.FunctionReturnType
+  ├─ new TypedService
+  └─ RegistrationExtensions.RegisterGeneratedFactory
+~    └─ GeneratedFactoryRegistrationExtensions.RegisterGeneratedFactory (changes below depth limit)
+
+  RegistrationExtensions.RegisterGeneratedFactory
+  ├─ …
+  ├─ InternalTypeExtensions.FunctionReturnType
+  ├─ new TypedService
+  └─ RegistrationExtensions.RegisterGeneratedFactory
+~    └─ GeneratedFactoryRegistrationExtensions.RegisterGeneratedFactory (changes below depth limit)
+
+  ContainerBuilder.RegisterBuildCallback
+  ├─ if (_buildCallbacks == null)
+  │  ├─ new BuildCallbackService
+~ │  └─ RegistrationExtensions.RegisterInstance (changes below depth limit)
+  └─ BuildCallbackService.AddCallback
+
+  Container.BeginLifetimeScope
+  └─ LifetimeScope.BeginLifetimeScope
+     ├─ LifetimeScope.MakeAnonymousTag
+~    └─ LifetimeScope.BeginLifetimeScope (changes below depth limit)
+
+  Container.BeginLifetimeScope
+  └─ LifetimeScope.BeginLifetimeScope
+~    └─ LifetimeScope.InternalBeginLifetimeScope (changes below depth limit)
+
+  Container.BeginLoadContextLifetimeScope
+  └─ LifetimeScope.BeginLoadContextLifetimeScope
+     ├─ LifetimeScope.MakeAnonymousTag
+~    └─ LifetimeScope.BeginLoadContextLifetimeScope (changes below depth limit)
+
+  Container.BeginLoadContextLifetimeScope
+  └─ LifetimeScope.BeginLoadContextLifetimeScope
+     ├─ if (loadContext == AssemblyLoadContext.Default)
+~    ├─ LifetimeScope.InternalBeginLifetimeScope (changes below depth limit)
+     ├─ callback
+     └─ LifetimeScope.add_CurrentScopeEnding
+
+  Container.GetService
+  └─ ((IServiceProvider)_rootLifetimeScope).GetService → LifetimeScope.GetService
+~    └─ ResolutionExtensions.ResolveOptional (changes below depth limit)
+
+  ImplicitRegistrationSource.CreateRegistration
+  ├─ RegistrationBuilder.ForDelegate
+  │  ├─ …
+  │  ├─ new RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> (depth limit)
+  │  ├─ new ResolveRequest (depth limit)
+  │  └─ ImplicitRegistrationSource.ResolveInstance
+~ │     ├─ ⇢ LazyRegistrationSource.ResolveInstance (changes below depth limit)
+  │     ├─ ⇢ MetaRegistrationSource.ResolveInstance (depth limit)
+~ │     └─ ⇢ OwnedInstanceRegistrationSource.ResolveInstance (changes below depth limit)
+  ├─ ImplicitRegistrationSource.BuildRegistration
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As
+  └─ …
+
+  ComponentRegistry.TryGetRegistration
+  └─ IComponentRegistryServices.TryGetRegistration
+~    └─ ⇢ DefaultRegisteredServicesTracker.TryGetRegistration ×2 (changes below depth limit)
+
+  ResolvedParameter.ForNamed
+  └─ ResolvedParameter.ForKeyed
+     ├─ new KeyedService (depth limit)
+     └─ new ResolvedParameter (depth limit)
+        ├─ if (pi.ParameterType == typeof(TService))
+~       │  └─ ResolutionExtensions.IsRegisteredService (changes below depth limit)
+~       └─ ResolutionExtensions.ResolveService (changes below depth limit)
+
+  MetadataFilterAttribute.CanResolve
+  ├─ ResolutionExtensions.Resolve
+  │  ├─ possible initialization of ResolveRequest
+~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
+  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Any
+
+  MetadataFilterAttribute.FilterAll
+  ├─ ResolutionExtensions.Resolve ↑ as above
+  ├─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where
+  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where(m => m.Metadata.TryGetValue(metadataKey, out var value) && metadataValue.Equals(value)).Select
+
+  MetadataFilterAttribute.FilterOne
+  ├─ ResolutionExtensions.Resolve ↑ as above
+  ├─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where
+  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where(m => m.Metadata.TryGetValue(metadataKey, out var value) && metadataValue.Equals(value)).Select
+
+  RegistrationExtensions.WithAttributeFiltering
+  └─ RegistrationExtensions.WithParameter
+     ├─ new ResolvedParameter (depth limit)
+     ├─ RegistrationExtensions.WithParameter (depth limit)
+     ├─ if (filter is not null)
+     │  └─ ParameterFilterAttribute.CanResolveParameter
+~    │     ├─ ⇢ KeyFilterAttribute.CanResolveParameter (changes below depth limit)
+     │     └─ ⇢ MetadataFilterAttribute.CanResolveParameter (depth limit)
+     └─ ParameterFilterAttribute.ResolveParameter
+~       ├─ ⇢ KeyFilterAttribute.ResolveParameter (changes below depth limit)
+        └─ ⇢ MetadataFilterAttribute.ResolveParameter (depth limit)
+
+  FactoryGenerator.GenerateFactory
+  └─ FactoryGenerator.GenerateFactory
+~    └─ ResolutionExtensions.Resolve (changes below depth limit)
+
+  KeyedServiceIndex<TKey, TValue>.TryGetValue
+  ├─ KeyedServiceIndex<TKey, TValue>.GetService
+  └─ ResolutionExtensions.TryResolveService
+     ├─ possible initialization of ResolveRequest
+~    └─ ResolutionExtensions.TryResolveService (changes below depth limit)
+
+  KeyedServiceIndex<TKey, TValue>.get_Item
+  ├─ KeyedServiceIndex<TKey, TValue>.GetService
+  └─ ResolutionExtensions.ResolveService
+     ├─ possible initialization of ResolveRequest
+~    └─ ResolutionExtensions.ResolveService (changes below depth limit)
+
+  LazyWithMetadataRegistrationSource.CreateLazyRegistration
+  ├─ MetadataViewProvider.GetMetadataViewProvider
+  ├─ RegistrationBuilder.ForDelegate
+  │  ├─ …
+  │  ├─ new SingleRegistrationStyle
+  │  ├─ new RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> (depth limit)
+~ │  ├─ ResolutionExtensions.Resolve (changes below depth limit)
+  │  ├─ IServiceWithType.get_ServiceType
+  │  ├─ new ResolveRequest (depth limit)
+  │  └─ …
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As
+  ├─ ServiceRegistration.get_Registration
+  └─ …
+
+  ModuleRegistrationExtensions.IfNotRegistered
+  └─ ModuleRegistrationExtensions.OnlyIf
+     ├─ …
+     ├─ DeferredCallback.set_Callback
+     ├─ new TypedService (depth limit)
+~    └─ IComponentRegistryBuilder.IsRegistered → ComponentRegistryBuilder.IsRegistered (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterAssemblyModules
+  ├─ new ModuleRegistrar
+  └─ ModuleRegistrationExtensions.RegisterAssemblyModules
+~    └─ ModuleRegistrationExtensions.RegisterAssemblyModules (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterAssemblyModules
+  ├─ new ModuleRegistrar
+  └─ ModuleRegistrationExtensions.RegisterAssemblyModules
+~    ├─ new ContainerBuilder (changes below depth limit)
+~    ├─ RegistrationExtensions.RegisterAssemblyTypes (changes below depth limit)
+     ├─ RegistrationExtensions.Where (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
+~    ├─ ContainerBuilder.Build (changes below depth limit)
+~    ├─ ResolutionExtensions.Resolve (changes below depth limit)
+     └─ foreach (var module in moduleContainer.Resolve<IEnumerable<IModule>>())
+~       └─ IModuleRegistrar.RegisterModule → ModuleRegistrar.RegisterModule (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterAssemblyModules
+  └─ ModuleRegistrationExtensions.RegisterAssemblyModules ↑ as above
+
+  ModuleRegistrationExtensions.RegisterAssemblyModules
+  ├─ new ModuleRegistrar
+  └─ ModuleRegistrationExtensions.RegisterAssemblyModules ↑ as above
+
+  ModuleRegistrationExtensions.RegisterModule
+  ├─ new ModuleRegistrar
+  └─ ModuleRegistrar.RegisterModule
+     ├─ if (_moduleConfigureChain is null)
+     │  └─ callback
+~    │     └─ IModule.Configure → Module.Configure (changes below depth limit)
+     └─ else (!(_moduleConfigureChain is null))
+        └─ callback
+~          └─ IModule.Configure → Module.Configure (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterModule
+  ├─ new ModuleRegistrar
+  └─ ModuleRegistrationExtensions.RegisterModule
+~    └─ IModuleRegistrar.RegisterModule → ModuleRegistrar.RegisterModule (changes below depth limit)
+
+  RegistrationExtensions.AsImplementedInterfaces
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData
+  ├─ IConcreteActivatorData.get_Activator
+  │  ├─ ⇢ ConcreteReflectionActivatorData.get_Activator (depth limit)
+  │  ├─ ⇢ SimpleActivatorData.get_Activator
+~ │  └─ ⇢ GeneratedFactoryActivatorData.get_Activator (changes below depth limit)
+  ├─ IInstanceActivator.get_LimitType
+  ├─ RegistrationExtensions.GetImplementedInterfaces
+  └─ …
+
+  RegistrationExtensions.AsSelf
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData
+  ├─ IConcreteActivatorData.get_Activator ↑ as above
+  ├─ IInstanceActivator.get_LimitType
+  └─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As
+
+  RegistrationExtensions.Except
+  ├─ …
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData
+  ├─ BaseScanningActivatorData<TActivatorData, TRegistrationStyle>.get_PostScanningCallbacks
+  └─ result.ActivatorData.PostScanningCallbacks.Add
+     ├─ RegistrationBuilder.ForType (depth limit)
+~    └─ RegistrationBuilder.RegisterSingleComponent (changes below depth limit)
+
+  RegistrationExtensions.IfNotRegistered
+  └─ RegistrationExtensions.OnlyIf
+     ├─ …
+     ├─ DeferredCallback.set_Callback
+     ├─ new TypedService (depth limit)
+~    └─ IComponentRegistryBuilder.IsRegistered → ComponentRegistryBuilder.IsRegistered (changes below depth limit)
+
+  RegistrationExtensions.PropertiesAutowired
+  ├─ new DefaultPropertySelector
+  └─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired
+     ├─ RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ResolvePipeline
+     └─ PipelineBuilderExtensions.Use (depth limit)
+        ├─ ResolveRequestContext.get_NewInstanceActivated → DefaultResolveRequestContext.get_NewInstanceActivated (depth limit)
+        ├─ if (allowCircularDependencies)
+        │  ├─ ResolveRequestContext.get_Instance → DefaultResolveRequestContext.get_Instance
+        │  ├─ callback
+        │  │  ├─ ResolveRequestCompletingEventArgs.get_RequestContext
+        │  │  ├─ ResolveRequestContext.get_Parameters → DefaultResolveRequestContext.get_Parameters
+~       │  │  └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+        │  └─ ResolveRequestContext.add_RequestCompleting
+        └─ else (!(allowCircularDependencies))
+           ├─ ResolveRequestContext.get_Instance → DefaultResolveRequestContext.get_Instance
+           ├─ ResolveRequestContext.get_Parameters → DefaultResolveRequestContext.get_Parameters
+~          └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  RegistrationExtensions.PropertiesAutowired
+  ├─ new DelegatePropertySelector
+  └─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired ↑ as above
+
+  RegistrationExtensions.Register
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit)
+~    │  └─ RegistrationBuilder.RegisterSingleComponent (changes below depth limit)
+     └─ RegistrationData.set_DeferredCallback
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker9<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker9<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker9WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker9WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker10<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TDependency10, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker10<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TDependency10, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker10WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TDependency10, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker10WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TDependency10, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker1<TDependency1, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker1<TDependency1, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker1WithComponentContext<TDependency1, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker1WithComponentContext<TDependency1, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker2<TDependency1, TDependency2, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker2<TDependency1, TDependency2, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker2WithComponentContext<TDependency1, TDependency2, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker2WithComponentContext<TDependency1, TDependency2, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker3<TDependency1, TDependency2, TDependency3, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker3<TDependency1, TDependency2, TDependency3, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker3WithComponentContext<TDependency1, TDependency2, TDependency3, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker3WithComponentContext<TDependency1, TDependency2, TDependency3, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker4<TDependency1, TDependency2, TDependency3, TDependency4, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker4<TDependency1, TDependency2, TDependency3, TDependency4, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker4WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker4WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker5<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker5<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker5WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker5WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker6<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker6<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker6WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker6WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker7<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker7<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker7WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker7WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker8<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker8<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker8WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker8WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.RegisterComponent
+  └─ ContainerBuilder.RegisterCallback
+     ├─ new DeferredCallback (depth limit)
+~    └─ IComponentRegistryBuilder.Register → ComponentRegistryBuilder.Register (changes below depth limit)
+
+  RegistrationExtensions.RegisterComposite
+  ├─ RegistrationExtensions.RegisterType
+  │  ├─ RegistrationBuilder.ForType (depth limit)
+  │  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+  │  ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+  │  └─ RegistrationData.set_DeferredCallback
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As
+  └─ RegistrationExtensions.ApplyCompositeConfiguration
+
+  RegistrationExtensions.RegisterComposite
+  └─ RegistrationExtensions.RegisterComposite
+     ├─ RegistrationExtensions.Register (changes below depth limit)
+~    │  └─ ResolutionExtensions.Resolve (changes below depth limit)
+     └─ RegistrationExtensions.ApplyCompositeConfiguration (depth limit)
+
+  RegistrationExtensions.RegisterComposite
+  ├─ RegistrationExtensions.RegisterType
+  │  ├─ RegistrationBuilder.ForType (depth limit)
+  │  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+  │  ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+  │  └─ RegistrationData.set_DeferredCallback
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As
+  └─ RegistrationExtensions.ApplyCompositeConfiguration
+
+  RegistrationExtensions.RegisterDecorator
+  ├─ …
+  ├─ new DecoratorMiddleware
+  ├─ ServiceMiddlewareRegistrationExtensions.RegisterServiceMiddleware
+  └─ ContainerBuilder.RegisterCallback ↑ as above
+
+  RegistrationExtensions.RegisterDecorator
+  ├─ …
+  ├─ new DecoratorMiddleware
+  ├─ ServiceMiddlewareRegistrationExtensions.RegisterServiceMiddleware
+  └─ ContainerBuilder.RegisterCallback ↑ as above
+
+  RegistrationExtensions.RegisterDecorator
+  ├─ …
+  ├─ new DecoratorMiddleware
+  ├─ ServiceMiddlewareRegistrationExtensions.RegisterServiceMiddleware
+  └─ ContainerBuilder.RegisterCallback ↑ as above
+
+  RegistrationExtensions.RegisterTypes
+  └─ ScanningRegistrationExtensions.ScanAndRegisterTypes
+     ├─ …
+     ├─ new RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> (depth limit)
+     ├─ RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit)
+~    │  └─ TypeExtensions.FilterAndRegisterConcreteTypes (changes below depth limit)
+     └─ RegistrationData.set_DeferredCallback
+
+  ResolutionExtensions.InjectProperties
+  ├─ DefaultPropertySelector.get_OverwriteSetValueInstance
+  ├─ possible initialization of ResolveRequest
+  └─ AutowiringPropertyInjector.InjectProperties
+     ├─ …
+     ├─ InternalReflectionCaches.get_AutowiringInjectableProperties
+     ├─ injectablePropertiesCache.GetOrAdd
+     ├─ for (index < injectableProperties.Count)
+     │  ├─ IPropertySelector.InjectProperty
+     │  ├─ resolveParameters.FirstOrDefault
+     │  │  ├─ Parameter.CanSupplyValue
+~    │  │  │  ├─ ⇢ AutowiringParameter.CanSupplyValue (changes below depth limit)
+     │  │  │  ├─ ⇢ DefaultValueParameter.CanSupplyValue
+     │  │  │  ├─ ⇢ ConstantParameter.CanSupplyValue (depth limit)
+     │  │  │  └─ …
+     │  │  └─ if (p.CanSupplyValue(setParameter, context, out valueProvider))
+     │  ├─ if (parameter is not null)
+     │  ├─ new TypedService (depth limit)
+     │  ├─ new NamedParameter (depth limit)
+~    │  ├─ ResolutionExtensions.TryResolveService (changes below depth limit)
+     │  └─ if (context.TryResolveService(propertyService, new Parameter[] { instanceTypeParameter }, out var…
+     └─ if (recordMetrics)
+
+  ResolutionExtensions.InjectProperties
+  ├─ possible initialization of ResolveRequest
+  └─ AutowiringPropertyInjector.InjectProperties ↑ as above
+
+  ResolutionExtensions.InjectProperties
+  └─ AutowiringPropertyInjector.InjectProperties ↑ as above
+
+  ResolutionExtensions.InjectProperties
+  └─ AutowiringPropertyInjector.InjectProperties ↑ as above
+
+  ResolutionExtensions.InjectProperties
+  ├─ DefaultPropertySelector.get_OverwriteSetValueInstance
+  └─ AutowiringPropertyInjector.InjectProperties ↑ as above
+
+  ResolutionExtensions.InjectProperties
+  ├─ DefaultPropertySelector.get_OverwriteSetValueInstance
+  └─ AutowiringPropertyInjector.InjectProperties ↑ as above
+
+  ResolutionExtensions.InjectUnsetProperties
+  ├─ DefaultPropertySelector.get_PreserveSetValueInstance
+  ├─ possible initialization of ResolveRequest
+  └─ AutowiringPropertyInjector.InjectProperties ↑ as above
+
+  ResolutionExtensions.InjectUnsetProperties
+  ├─ DefaultPropertySelector.get_PreserveSetValueInstance
+  └─ AutowiringPropertyInjector.InjectProperties ↑ as above
+
+  ResolutionExtensions.InjectUnsetProperties
+  ├─ DefaultPropertySelector.get_PreserveSetValueInstance
+  └─ AutowiringPropertyInjector.InjectProperties ↑ as above
+
+  ResolutionExtensions.IsRegistered
+  └─ ResolutionExtensions.IsRegistered
+     ├─ new TypedService (depth limit)
+~    └─ ResolutionExtensions.IsRegisteredService (changes below depth limit)
+
+  ResolutionExtensions.IsRegisteredWithName
+  └─ ResolutionExtensions.IsRegisteredWithKey
+     ├─ new KeyedService (depth limit)
+~    └─ ResolutionExtensions.IsRegisteredService (changes below depth limit)
+
+  ResolutionExtensions.IsRegisteredWithName
+  └─ ResolutionExtensions.IsRegisteredWithKey
+~    └─ ResolutionExtensions.IsRegisteredWithKey (changes below depth limit)
+
+  ResolutionExtensions.Resolve
+  ├─ possible initialization of ResolveRequest
+  └─ ResolutionExtensions.Resolve
+     ├─ new TypedService (depth limit)
+~    └─ ResolutionExtensions.ResolveService (changes below depth limit)
+
+  ResolutionExtensions.Resolve
+  └─ ResolutionExtensions.Resolve ↑ as above
+
+  ResolutionExtensions.Resolve
+  └─ ResolutionExtensions.Resolve
+~    ├─ ResolutionExtensions.Resolve (changes below depth limit)
+     └─ ResolutionExtensions.CastInstance (depth limit)
+
+  ResolutionExtensions.ResolveKeyed
+  ├─ possible initialization of ResolveRequest
+  └─ ResolutionExtensions.ResolveKeyed
+     ├─ ResolutionExtensions.EnsureAnyKeyUsageIsValid (depth limit)
+     ├─ new KeyedService (depth limit)
+~    └─ ResolutionExtensions.ResolveService (changes below depth limit)
+
+  ResolutionExtensions.ResolveKeyed
+  └─ ResolutionExtensions.ResolveKeyed ↑ as above
+
+  ResolutionExtensions.ResolveKeyed
+  ├─ possible initialization of ResolveRequest
+  └─ ResolutionExtensions.ResolveKeyed
+     ├─ ResolutionExtensions.EnsureAnyKeyUsageIsValid (depth limit)
+     ├─ new KeyedService (depth limit)
+~    ├─ ResolutionExtensions.ResolveService (changes below depth limit)
+     └─ ResolutionExtensions.CastInstance (depth limit)
+
+  ResolutionExtensions.ResolveKeyed
+  └─ ResolutionExtensions.ResolveKeyed ↑ as above
+
+  ResolutionExtensions.ResolveNamed
+  ├─ possible initialization of ResolveRequest
+  └─ ResolutionExtensions.ResolveNamed
+     ├─ new KeyedService (depth limit)
+~    └─ ResolutionExtensions.ResolveService (changes below depth limit)
+
+  ResolutionExtensions.ResolveNamed
+  └─ ResolutionExtensions.ResolveNamed ↑ as above
+
+  ResolutionExtensions.ResolveNamed
+  ├─ possible initialization of ResolveRequest
+  └─ ResolutionExtensions.ResolveNamed
+     ├─ new KeyedService (depth limit)
+~    ├─ ResolutionExtensions.ResolveService (changes below depth limit)
+     └─ ResolutionExtensions.CastInstance (depth limit)
+
+  ResolutionExtensions.ResolveNamed
+  └─ ResolutionExtensions.ResolveNamed ↑ as above
+
+  ResolutionExtensions.ResolveOptional
+  └─ ResolutionExtensions.ResolveOptional
+     ├─ new TypedService (depth limit)
+~    └─ ResolutionExtensions.ResolveOptionalService (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptional
+  ├─ possible initialization of ResolveRequest
+  └─ ResolutionExtensions.ResolveOptional
+     ├─ new TypedService (depth limit)
+~    ├─ ResolutionExtensions.ResolveOptionalService (changes below depth limit)
+     └─ ResolutionExtensions.CastInstance (depth limit)
+
+  ResolutionExtensions.ResolveOptional
+  └─ ResolutionExtensions.ResolveOptional ↑ as above
+
+  ResolutionExtensions.ResolveOptionalNamed
+  └─ ResolutionExtensions.ResolveOptionalKeyed
+     ├─ possible initialization of ResolveRequest
+~    └─ ResolutionExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptionalNamed
+  └─ ResolutionExtensions.ResolveOptionalKeyed
+~    └─ ResolutionExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptionalNamed
+  └─ ResolutionExtensions.ResolveOptionalKeyed
+     ├─ new KeyedService (depth limit)
+~    ├─ ResolutionExtensions.ResolveOptionalService (changes below depth limit)
+     └─ ResolutionExtensions.CastInstance (depth limit)
+
+  ResolutionExtensions.ResolveOptionalService
+  ├─ possible initialization of ResolveRequest
+  └─ ResolutionExtensions.ResolveOptionalService
+     ├─ Service.op_Equality
+~    └─ ResolutionExtensions.TryResolveService (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptionalService
+  └─ ResolutionExtensions.ResolveOptionalService ↑ as above
+
+  ResolutionExtensions.TryResolve
+  ├─ ResolutionExtensions.TryResolve
+  │  ├─ new TypedService (depth limit)
+  │  ├─ possible initialization of ResolveRequest
+~ │  └─ ResolutionExtensions.TryResolveService (changes below depth limit)
+  └─ if (context.TryResolve(typeof(T), out var component))
+
+  ResolutionExtensions.TryResolveKeyed
+  ├─ ResolutionExtensions.TryResolveKeyed
+  │  ├─ …
+  │  ├─ new KeyedService (depth limit)
+  │  ├─ possible initialization of ResolveRequest
+~ │  └─ ResolutionExtensions.TryResolveService (changes below depth limit)
+  └─ if (context.TryResolveKeyed(serviceKey, typeof(T), out var component))
+
+  ResolutionExtensions.TryResolveNamed
+  ├─ ResolutionExtensions.TryResolveNamed
+  │  ├─ new KeyedService (depth limit)
+  │  ├─ possible initialization of ResolveRequest
+~ │  └─ ResolutionExtensions.TryResolveService (changes below depth limit)
+  └─ if (context.TryResolveNamed(serviceName, typeof(T), out var component))
+
+  ResolutionValueExtensions.ResolveOptional
+  ├─ possible initialization of ResolutionValueExtensions
+  └─ ResolutionValueExtensions.ResolveOptional
+     ├─ new TypedService (depth limit)
+~    └─ ResolutionExtensions.ResolveOptionalService (changes below depth limit)
+
+  ResolutionValueExtensions.ResolveOptional
+  └─ ResolutionValueExtensions.ResolveOptional ↑ as above
+
+  ResolutionValueExtensions.ResolveOptionalNamed
+  └─ ResolutionValueExtensions.ResolveOptionalKeyed
+     ├─ possible initialization of ResolutionValueExtensions
+~    └─ ResolutionValueExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionValueExtensions.ResolveOptionalNamed
+  └─ ResolutionValueExtensions.ResolveOptionalKeyed
+~    └─ ResolutionValueExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionValueExtensions.ResolveOptionalNamed
+  └─ ResolutionValueExtensions.ResolveOptionalKeyed
+     ├─ new KeyedService (depth limit)
+~    └─ ResolutionExtensions.ResolveOptionalService (changes below depth limit)
+
+  ResolutionValueExtensions.TryResolve
+  └─ ResolutionExtensions.TryResolve ↑ as above
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  RegistrationExtensions.RegisterGeneratedFactory
+  ├─ …
+  ├─ InternalTypeExtensions.FunctionReturnType
+  ├─ new TypedService
+  └─ RegistrationExtensions.RegisterGeneratedFactory
+~    └─ GeneratedFactoryRegistrationExtensions.RegisterGeneratedFactory (changes below depth limit)
+
+  RegistrationExtensions.RegisterGeneratedFactory
+  ├─ …
+  ├─ InternalTypeExtensions.FunctionReturnType
+  ├─ new TypedService
+  └─ RegistrationExtensions.RegisterGeneratedFactory
+~    └─ GeneratedFactoryRegistrationExtensions.RegisterGeneratedFactory (changes below depth limit)
+
+  ContainerBuilder.RegisterBuildCallback
+  ├─ if (_buildCallbacks == null)
+  │  ├─ new BuildCallbackService
+~ │  └─ RegistrationExtensions.RegisterInstance (changes below depth limit)
+  └─ BuildCallbackService.AddCallback
+
+  Container.BeginLifetimeScope
+  └─ LifetimeScope.BeginLifetimeScope
+     ├─ LifetimeScope.MakeAnonymousTag
+~    └─ LifetimeScope.BeginLifetimeScope (changes below depth limit)
+
+  Container.BeginLifetimeScope
+  └─ LifetimeScope.BeginLifetimeScope
+~    └─ LifetimeScope.InternalBeginLifetimeScope (changes below depth limit)
+
+  Container.BeginLoadContextLifetimeScope
+  └─ LifetimeScope.BeginLoadContextLifetimeScope
+     ├─ LifetimeScope.MakeAnonymousTag
+~    └─ LifetimeScope.BeginLoadContextLifetimeScope (changes below depth limit)
+
+  Container.BeginLoadContextLifetimeScope
+  └─ LifetimeScope.BeginLoadContextLifetimeScope
+     ├─ if (loadContext == AssemblyLoadContext.Default)
+~    ├─ LifetimeScope.InternalBeginLifetimeScope (changes below depth limit)
+     ├─ callback
+     └─ LifetimeScope.add_CurrentScopeEnding
+
+  Container.GetService
+  └─ ((IServiceProvider)_rootLifetimeScope).GetService → LifetimeScope.GetService
+~    └─ ResolutionExtensions.ResolveOptional (changes below depth limit)
+
+  ImplicitRegistrationSource.CreateRegistration
+  ├─ RegistrationBuilder.ForDelegate
+  │  ├─ …
+  │  ├─ new RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> (depth limit)
+  │  ├─ new ResolveRequest (depth limit)
+  │  └─ ImplicitRegistrationSource.ResolveInstance
+~ │     ├─ ⇢ LazyRegistrationSource.ResolveInstance (changes below depth limit)
+  │     ├─ ⇢ MetaRegistrationSource.ResolveInstance (depth limit)
+~ │     └─ ⇢ OwnedInstanceRegistrationSource.ResolveInstance (changes below depth limit)
+  ├─ ImplicitRegistrationSource.BuildRegistration
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As
+  └─ …
+
+  ComponentRegistry.TryGetRegistration
+  └─ IComponentRegistryServices.TryGetRegistration
+~    └─ ⇢ DefaultRegisteredServicesTracker.TryGetRegistration ×2 (changes below depth limit)
+
+  ResolvedParameter.ForNamed
+  └─ ResolvedParameter.ForKeyed
+     ├─ new KeyedService (depth limit)
+     └─ new ResolvedParameter (depth limit)
+        ├─ if (pi.ParameterType == typeof(TService))
+~       │  └─ ResolutionExtensions.IsRegisteredService (changes below depth limit)
+~       └─ ResolutionExtensions.ResolveService (changes below depth limit)
+
+  MetadataFilterAttribute.CanResolve
+  ├─ ResolutionExtensions.Resolve
+  │  ├─ possible initialization of ResolveRequest
+~ │  └─ ResolutionExtensions.Resolve (changes below depth limit)
+  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Any
+
+  MetadataFilterAttribute.FilterAll
+  ├─ ResolutionExtensions.Resolve ↑ as above
+  ├─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where
+  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where(m => m.Metadata.TryGetValue(metadataKey, out var value) && metadataValue.Equals(value)).Select
+
+  MetadataFilterAttribute.FilterOne
+  ├─ ResolutionExtensions.Resolve ↑ as above
+  ├─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where
+  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where(m => m.Metadata.TryGetValue(metadataKey, out var value) && metadataValue.Equals(value)).Select
+
+  RegistrationExtensions.WithAttributeFiltering
+  └─ RegistrationExtensions.WithParameter
+     ├─ new ResolvedParameter (depth limit)
+     ├─ RegistrationExtensions.WithParameter (depth limit)
+     ├─ if (filter is not null)
+     │  └─ ParameterFilterAttribute.CanResolveParameter
+~    │     ├─ ⇢ KeyFilterAttribute.CanResolveParameter (changes below depth limit)
+     │     └─ ⇢ MetadataFilterAttribute.CanResolveParameter (depth limit)
+     └─ ParameterFilterAttribute.ResolveParameter
+~       ├─ ⇢ KeyFilterAttribute.ResolveParameter (changes below depth limit)
+        └─ ⇢ MetadataFilterAttribute.ResolveParameter (depth limit)
+
+  FactoryGenerator.GenerateFactory
+  └─ FactoryGenerator.GenerateFactory
+~    └─ ResolutionExtensions.Resolve (changes below depth limit)
+
+  KeyedServiceIndex<TKey, TValue>.TryGetValue
+  ├─ KeyedServiceIndex<TKey, TValue>.GetService
+  └─ ResolutionExtensions.TryResolveService
+     ├─ possible initialization of ResolveRequest
+~    └─ ResolutionExtensions.TryResolveService (changes below depth limit)
+
+  KeyedServiceIndex<TKey, TValue>.get_Item
+  ├─ KeyedServiceIndex<TKey, TValue>.GetService
+  └─ ResolutionExtensions.ResolveService
+     ├─ possible initialization of ResolveRequest
+~    └─ ResolutionExtensions.ResolveService (changes below depth limit)
+
+  LazyWithMetadataRegistrationSource.CreateLazyRegistration
+  ├─ MetadataViewProvider.GetMetadataViewProvider
+  ├─ RegistrationBuilder.ForDelegate
+  │  ├─ …
+  │  ├─ new SingleRegistrationStyle
+  │  ├─ new RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> (depth limit)
+~ │  ├─ ResolutionExtensions.Resolve (changes below depth limit)
+  │  ├─ IServiceWithType.get_ServiceType
+  │  ├─ new ResolveRequest (depth limit)
+  │  └─ …
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As
+  ├─ ServiceRegistration.get_Registration
+  └─ …
+
+  ModuleRegistrationExtensions.IfNotRegistered
+  └─ ModuleRegistrationExtensions.OnlyIf
+     ├─ …
+     ├─ DeferredCallback.set_Callback
+     ├─ new TypedService (depth limit)
+~    └─ IComponentRegistryBuilder.IsRegistered → ComponentRegistryBuilder.IsRegistered (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterAssemblyModules
+  ├─ new ModuleRegistrar
+  └─ ModuleRegistrationExtensions.RegisterAssemblyModules
+~    └─ ModuleRegistrationExtensions.RegisterAssemblyModules (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterAssemblyModules
+  ├─ new ModuleRegistrar
+  └─ ModuleRegistrationExtensions.RegisterAssemblyModules
+~    ├─ new ContainerBuilder (changes below depth limit)
+~    ├─ RegistrationExtensions.RegisterAssemblyTypes (changes below depth limit)
+     ├─ RegistrationExtensions.Where (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
+~    ├─ ContainerBuilder.Build (changes below depth limit)
+~    ├─ ResolutionExtensions.Resolve (changes below depth limit)
+     └─ foreach (var module in moduleContainer.Resolve<IEnumerable<IModule>>())
+~       └─ IModuleRegistrar.RegisterModule → ModuleRegistrar.RegisterModule (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterAssemblyModules
+  └─ ModuleRegistrationExtensions.RegisterAssemblyModules ↑ as above
+
+  ModuleRegistrationExtensions.RegisterAssemblyModules
+  ├─ new ModuleRegistrar
+  └─ ModuleRegistrationExtensions.RegisterAssemblyModules ↑ as above
+
+  ModuleRegistrationExtensions.RegisterModule
+  ├─ new ModuleRegistrar
+  └─ ModuleRegistrar.RegisterModule
+     ├─ if (_moduleConfigureChain is null)
+     │  └─ callback
+~    │     └─ IModule.Configure → Module.Configure (changes below depth limit)
+     └─ else (!(_moduleConfigureChain is null))
+        └─ callback
+~          └─ IModule.Configure → Module.Configure (changes below depth limit)
+
+  ModuleRegistrationExtensions.RegisterModule
+  ├─ new ModuleRegistrar
+  └─ ModuleRegistrationExtensions.RegisterModule
+~    └─ IModuleRegistrar.RegisterModule → ModuleRegistrar.RegisterModule (changes below depth limit)
+
+  RegistrationExtensions.AsImplementedInterfaces
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData
+  ├─ IConcreteActivatorData.get_Activator
+  │  ├─ ⇢ ConcreteReflectionActivatorData.get_Activator (depth limit)
+  │  ├─ ⇢ SimpleActivatorData.get_Activator
+~ │  └─ ⇢ GeneratedFactoryActivatorData.get_Activator (changes below depth limit)
+  ├─ IInstanceActivator.get_LimitType
+  ├─ RegistrationExtensions.GetImplementedInterfaces
+  └─ …
+
+  RegistrationExtensions.AsSelf
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData
+  ├─ IConcreteActivatorData.get_Activator ↑ as above
+  ├─ IInstanceActivator.get_LimitType
+  └─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As
+
+  RegistrationExtensions.Except
+  ├─ …
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData
+  ├─ BaseScanningActivatorData<TActivatorData, TRegistrationStyle>.get_PostScanningCallbacks
+  └─ result.ActivatorData.PostScanningCallbacks.Add
+     ├─ RegistrationBuilder.ForType (depth limit)
+~    └─ RegistrationBuilder.RegisterSingleComponent (changes below depth limit)
+
+  RegistrationExtensions.IfNotRegistered
+  └─ RegistrationExtensions.OnlyIf
+     ├─ …
+     ├─ DeferredCallback.set_Callback
+     ├─ new TypedService (depth limit)
+~    └─ IComponentRegistryBuilder.IsRegistered → ComponentRegistryBuilder.IsRegistered (changes below depth limit)
+
+  RegistrationExtensions.PropertiesAutowired
+  ├─ new DefaultPropertySelector
+  └─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired
+     ├─ RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ResolvePipeline
+     └─ PipelineBuilderExtensions.Use (depth limit)
+        ├─ ResolveRequestContext.get_NewInstanceActivated → DefaultResolveRequestContext.get_NewInstanceActivated (depth limit)
+        ├─ if (allowCircularDependencies)
+        │  ├─ ResolveRequestContext.get_Instance → DefaultResolveRequestContext.get_Instance
+        │  ├─ callback
+        │  │  ├─ ResolveRequestCompletingEventArgs.get_RequestContext
+        │  │  ├─ ResolveRequestContext.get_Parameters → DefaultResolveRequestContext.get_Parameters
+~       │  │  └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+        │  └─ ResolveRequestContext.add_RequestCompleting
+        └─ else (!(allowCircularDependencies))
+           ├─ ResolveRequestContext.get_Instance → DefaultResolveRequestContext.get_Instance
+           ├─ ResolveRequestContext.get_Parameters → DefaultResolveRequestContext.get_Parameters
+~          └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
+
+  RegistrationExtensions.PropertiesAutowired
+  ├─ new DelegatePropertySelector
+  └─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired ↑ as above
+
+  RegistrationExtensions.Register
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit)
+~    │  └─ RegistrationBuilder.RegisterSingleComponent (changes below depth limit)
+     └─ RegistrationData.set_DeferredCallback
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker9<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker9<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker9WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker9WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker10<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TDependency10, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker10<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TDependency10, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker10WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TDependency10, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker10WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TDependency9, TDependency10, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker1<TDependency1, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker1<TDependency1, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker1WithComponentContext<TDependency1, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker1WithComponentContext<TDependency1, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker2<TDependency1, TDependency2, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker2<TDependency1, TDependency2, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker2WithComponentContext<TDependency1, TDependency2, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker2WithComponentContext<TDependency1, TDependency2, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker3<TDependency1, TDependency2, TDependency3, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker3<TDependency1, TDependency2, TDependency3, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker3WithComponentContext<TDependency1, TDependency2, TDependency3, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker3WithComponentContext<TDependency1, TDependency2, TDependency3, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker4<TDependency1, TDependency2, TDependency3, TDependency4, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker4<TDependency1, TDependency2, TDependency3, TDependency4, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker4WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker4WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker5<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker5<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker5WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker5WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker6<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker6<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker6WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker6WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker7<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker7<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker7WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker7WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker8<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker8<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.Register
+  ├─ new DelegateInvokers.DelegateInvoker8WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TComponent>
+  └─ RegistrationExtensions.Register
+     ├─ RegistrationBuilder.ForDelegate (depth limit)
+     ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+     ├─ RegistrationData.set_DeferredCallback
+~    └─ DelegateInvokers.DelegateInvoker8WithComponentContext<TDependency1, TDependency2, TDependency3, TDependency4, TDependency5, TDependency6, TDependency7, TDependency8, TComponent>.ResolveWithDelegate (changes below depth limit)
+
+  RegistrationExtensions.RegisterComponent
+  └─ ContainerBuilder.RegisterCallback
+     ├─ new DeferredCallback (depth limit)
+~    └─ IComponentRegistryBuilder.Register → ComponentRegistryBuilder.Register (changes below depth limit)
+
+  RegistrationExtensions.RegisterComposite
+  ├─ RegistrationExtensions.RegisterType
+  │  ├─ RegistrationBuilder.ForType (depth limit)
+  │  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+  │  ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+  │  └─ RegistrationData.set_DeferredCallback
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As
+  └─ RegistrationExtensions.ApplyCompositeConfiguration
+
+  RegistrationExtensions.RegisterComposite
+  └─ RegistrationExtensions.RegisterComposite
+     ├─ RegistrationExtensions.Register (changes below depth limit)
+~    │  └─ ResolutionExtensions.Resolve (changes below depth limit)
+     └─ RegistrationExtensions.ApplyCompositeConfiguration (depth limit)
+
+  RegistrationExtensions.RegisterComposite
+  ├─ RegistrationExtensions.RegisterType
+  │  ├─ RegistrationBuilder.ForType (depth limit)
+  │  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+  │  ├─ ContainerBuilder.RegisterCallback (depth limit) ↑ as above
+  │  └─ RegistrationData.set_DeferredCallback
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As
+  └─ RegistrationExtensions.ApplyCompositeConfiguration
+
+  RegistrationExtensions.RegisterDecorator
+  ├─ …
+  ├─ new DecoratorMiddleware
+  ├─ ServiceMiddlewareRegistrationExtensions.RegisterServiceMiddleware
+  └─ ContainerBuilder.RegisterCallback ↑ as above
+
+  RegistrationExtensions.RegisterDecorator
+  ├─ …
+  ├─ new DecoratorMiddleware
+  ├─ ServiceMiddlewareRegistrationExtensions.RegisterServiceMiddleware
+  └─ ContainerBuilder.RegisterCallback ↑ as above
+
+  RegistrationExtensions.RegisterDecorator
+  ├─ …
+  ├─ new DecoratorMiddleware
+  ├─ ServiceMiddlewareRegistrationExtensions.RegisterServiceMiddleware
+  └─ ContainerBuilder.RegisterCallback ↑ as above
+
+  RegistrationExtensions.RegisterTypes
+  └─ ScanningRegistrationExtensions.ScanAndRegisterTypes
+     ├─ …
+     ├─ new RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> (depth limit)
+     ├─ RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_RegistrationData
+     ├─ ContainerBuilder.RegisterCallback (depth limit)
+~    │  └─ TypeExtensions.FilterAndRegisterConcreteTypes (changes below depth limit)
+     └─ RegistrationData.set_DeferredCallback
+
+  ResolutionExtensions.InjectProperties
+  ├─ DefaultPropertySelector.get_OverwriteSetValueInstance
+  ├─ possible initialization of ResolveRequest
+  └─ AutowiringPropertyInjector.InjectProperties
+     ├─ …
+     ├─ InternalReflectionCaches.get_AutowiringInjectableProperties
+     ├─ injectablePropertiesCache.GetOrAdd
+     ├─ for (index < injectableProperties.Count)
+     │  ├─ IPropertySelector.InjectProperty
+     │  ├─ resolveParameters.FirstOrDefault
+     │  │  ├─ Parameter.CanSupplyValue
+~    │  │  │  ├─ ⇢ AutowiringParameter.CanSupplyValue (changes below depth limit)
+     │  │  │  ├─ ⇢ DefaultValueParameter.CanSupplyValue
+     │  │  │  ├─ ⇢ ConstantParameter.CanSupplyValue (depth limit)
+     │  │  │  └─ …
+     │  │  └─ if (p.CanSupplyValue(setParameter, context, out valueProvider))
+     │  ├─ if (parameter is not null)
+     │  ├─ new TypedService (depth limit)
+     │  ├─ new NamedParameter (depth limit)
+~    │  ├─ ResolutionExtensions.TryResolveService (changes below depth limit)
+     │  └─ if (context.TryResolveService(propertyService, new Parameter[] { instanceTypeParameter }, out var…
+     └─ if (recordMetrics)
+
+  ResolutionExtensions.InjectProperties
+  ├─ possible initialization of ResolveRequest
+  └─ AutowiringPropertyInjector.InjectProperties ↑ as above
+
+  ResolutionExtensions.InjectProperties
+  └─ AutowiringPropertyInjector.InjectProperties ↑ as above
+
+  ResolutionExtensions.InjectProperties
+  └─ AutowiringPropertyInjector.InjectProperties ↑ as above
+
+  ResolutionExtensions.InjectProperties
+  ├─ DefaultPropertySelector.get_OverwriteSetValueInstance
+  └─ AutowiringPropertyInjector.InjectProperties ↑ as above
+
+  ResolutionExtensions.InjectProperties
+  ├─ DefaultPropertySelector.get_OverwriteSetValueInstance
+  └─ AutowiringPropertyInjector.InjectProperties ↑ as above
+
+  ResolutionExtensions.InjectUnsetProperties
+  ├─ DefaultPropertySelector.get_PreserveSetValueInstance
+  ├─ possible initialization of ResolveRequest
+  └─ AutowiringPropertyInjector.InjectProperties ↑ as above
+
+  ResolutionExtensions.InjectUnsetProperties
+  ├─ DefaultPropertySelector.get_PreserveSetValueInstance
+  └─ AutowiringPropertyInjector.InjectProperties ↑ as above
+
+  ResolutionExtensions.InjectUnsetProperties
+  ├─ DefaultPropertySelector.get_PreserveSetValueInstance
+  └─ AutowiringPropertyInjector.InjectProperties ↑ as above
+
+  ResolutionExtensions.IsRegistered
+  └─ ResolutionExtensions.IsRegistered
+     ├─ new TypedService (depth limit)
+~    └─ ResolutionExtensions.IsRegisteredService (changes below depth limit)
+
+  ResolutionExtensions.IsRegisteredWithName
+  └─ ResolutionExtensions.IsRegisteredWithKey
+     ├─ new KeyedService (depth limit)
+~    └─ ResolutionExtensions.IsRegisteredService (changes below depth limit)
+
+  ResolutionExtensions.IsRegisteredWithName
+  └─ ResolutionExtensions.IsRegisteredWithKey
+~    └─ ResolutionExtensions.IsRegisteredWithKey (changes below depth limit)
+
+  ResolutionExtensions.Resolve
+  ├─ possible initialization of ResolveRequest
+  └─ ResolutionExtensions.Resolve
+     ├─ new TypedService (depth limit)
+~    └─ ResolutionExtensions.ResolveService (changes below depth limit)
+
+  ResolutionExtensions.Resolve
+  └─ ResolutionExtensions.Resolve ↑ as above
+
+  ResolutionExtensions.Resolve
+  └─ ResolutionExtensions.Resolve
+~    ├─ ResolutionExtensions.Resolve (changes below depth limit)
+     └─ ResolutionExtensions.CastInstance (depth limit)
+
+  ResolutionExtensions.ResolveKeyed
+  ├─ possible initialization of ResolveRequest
+  └─ ResolutionExtensions.ResolveKeyed
+     ├─ ResolutionExtensions.EnsureAnyKeyUsageIsValid (depth limit)
+     ├─ new KeyedService (depth limit)
+~    └─ ResolutionExtensions.ResolveService (changes below depth limit)
+
+  ResolutionExtensions.ResolveKeyed
+  └─ ResolutionExtensions.ResolveKeyed ↑ as above
+
+  ResolutionExtensions.ResolveKeyed
+  ├─ possible initialization of ResolveRequest
+  └─ ResolutionExtensions.ResolveKeyed
+     ├─ ResolutionExtensions.EnsureAnyKeyUsageIsValid (depth limit)
+     ├─ new KeyedService (depth limit)
+~    ├─ ResolutionExtensions.ResolveService (changes below depth limit)
+     └─ ResolutionExtensions.CastInstance (depth limit)
+
+  ResolutionExtensions.ResolveKeyed
+  └─ ResolutionExtensions.ResolveKeyed ↑ as above
+
+  ResolutionExtensions.ResolveNamed
+  ├─ possible initialization of ResolveRequest
+  └─ ResolutionExtensions.ResolveNamed
+     ├─ new KeyedService (depth limit)
+~    └─ ResolutionExtensions.ResolveService (changes below depth limit)
+
+  ResolutionExtensions.ResolveNamed
+  └─ ResolutionExtensions.ResolveNamed ↑ as above
+
+  ResolutionExtensions.ResolveNamed
+  ├─ possible initialization of ResolveRequest
+  └─ ResolutionExtensions.ResolveNamed
+     ├─ new KeyedService (depth limit)
+~    ├─ ResolutionExtensions.ResolveService (changes below depth limit)
+     └─ ResolutionExtensions.CastInstance (depth limit)
+
+  ResolutionExtensions.ResolveNamed
+  └─ ResolutionExtensions.ResolveNamed ↑ as above
+
+  ResolutionExtensions.ResolveOptional
+  └─ ResolutionExtensions.ResolveOptional
+     ├─ new TypedService (depth limit)
+~    └─ ResolutionExtensions.ResolveOptionalService (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptional
+  ├─ possible initialization of ResolveRequest
+  └─ ResolutionExtensions.ResolveOptional
+     ├─ new TypedService (depth limit)
+~    ├─ ResolutionExtensions.ResolveOptionalService (changes below depth limit)
+     └─ ResolutionExtensions.CastInstance (depth limit)
+
+  ResolutionExtensions.ResolveOptional
+  └─ ResolutionExtensions.ResolveOptional ↑ as above
+
+  ResolutionExtensions.ResolveOptionalNamed
+  └─ ResolutionExtensions.ResolveOptionalKeyed
+     ├─ possible initialization of ResolveRequest
+~    └─ ResolutionExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptionalNamed
+  └─ ResolutionExtensions.ResolveOptionalKeyed
+~    └─ ResolutionExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptionalNamed
+  └─ ResolutionExtensions.ResolveOptionalKeyed
+     ├─ new KeyedService (depth limit)
+~    ├─ ResolutionExtensions.ResolveOptionalService (changes below depth limit)
+     └─ ResolutionExtensions.CastInstance (depth limit)
+
+  ResolutionExtensions.ResolveOptionalService
+  ├─ possible initialization of ResolveRequest
+  └─ ResolutionExtensions.ResolveOptionalService
+     ├─ Service.op_Equality
+~    └─ ResolutionExtensions.TryResolveService (changes below depth limit)
+
+  ResolutionExtensions.ResolveOptionalService
+  └─ ResolutionExtensions.ResolveOptionalService ↑ as above
+
+  ResolutionExtensions.TryResolve
+  ├─ ResolutionExtensions.TryResolve
+  │  ├─ new TypedService (depth limit)
+  │  ├─ possible initialization of ResolveRequest
+~ │  └─ ResolutionExtensions.TryResolveService (changes below depth limit)
+  └─ if (context.TryResolve(typeof(T), out var component))
+
+  ResolutionExtensions.TryResolveKeyed
+  ├─ ResolutionExtensions.TryResolveKeyed
+  │  ├─ …
+  │  ├─ new KeyedService (depth limit)
+  │  ├─ possible initialization of ResolveRequest
+~ │  └─ ResolutionExtensions.TryResolveService (changes below depth limit)
+  └─ if (context.TryResolveKeyed(serviceKey, typeof(T), out var component))
+
+  ResolutionExtensions.TryResolveNamed
+  ├─ ResolutionExtensions.TryResolveNamed
+  │  ├─ new KeyedService (depth limit)
+  │  ├─ possible initialization of ResolveRequest
+~ │  └─ ResolutionExtensions.TryResolveService (changes below depth limit)
+  └─ if (context.TryResolveNamed(serviceName, typeof(T), out var component))
+
+  ResolutionValueExtensions.ResolveOptional
+  ├─ possible initialization of ResolutionValueExtensions
+  └─ ResolutionValueExtensions.ResolveOptional
+     ├─ new TypedService (depth limit)
+~    └─ ResolutionExtensions.ResolveOptionalService (changes below depth limit)
+
+  ResolutionValueExtensions.ResolveOptional
+  └─ ResolutionValueExtensions.ResolveOptional ↑ as above
+
+  ResolutionValueExtensions.ResolveOptionalNamed
+  └─ ResolutionValueExtensions.ResolveOptionalKeyed
+     ├─ possible initialization of ResolutionValueExtensions
+~    └─ ResolutionValueExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionValueExtensions.ResolveOptionalNamed
+  └─ ResolutionValueExtensions.ResolveOptionalKeyed
+~    └─ ResolutionValueExtensions.ResolveOptionalKeyed (changes below depth limit)
+
+  ResolutionValueExtensions.ResolveOptionalNamed
+  └─ ResolutionValueExtensions.ResolveOptionalKeyed
+     ├─ new KeyedService (depth limit)
+~    └─ ResolutionExtensions.ResolveOptionalService (changes below depth limit)
+
+  ResolutionValueExtensions.TryResolve
+  └─ ResolutionExtensions.TryResolve ↑ as above
+```
+stderr:
