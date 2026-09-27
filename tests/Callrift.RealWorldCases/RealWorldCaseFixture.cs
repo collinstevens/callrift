@@ -63,6 +63,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             SerilogRestrictedSinkExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "serilog-self-metrics")
             SerilogMetricsExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "serilog-metrics-sequencing")
+            SerilogSequencingExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "polly-fault-null-outcome")
             PollyFaultExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "cleanarchitecture-value-object-operators")

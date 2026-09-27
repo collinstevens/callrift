@@ -2499,5 +2499,101 @@
         "routine": false
       }
     ]
+  },
+  {
+    "id": "serilog-metrics-sequencing",
+    "repository": "https://github.com/serilog/serilog.git",
+    "cacheName": "serilog",
+    "before": "561271a8a53b6549db175ada0cd5bda16e11874c",
+    "after": "6d9fc0b84e004418f2677b5961b9c8970349d0be",
+    "license": "Apache-2.0",
+    "licenseFile": "LICENSE",
+    "beforeLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "afterLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "options": [],
+    "review": "../tests/Callrift.RealWorldCases/SerilogSequencingExpectations.cs",
+    "routine": false,
+    "reason": "Move emitted-event counting from the shared emission helper to the public Write overloads and the span overload, preventing nested sink calls from counting the same event again. Rename Dispatch to PostLevelCheckEmit while preserving enrichment, exception logging and sink emission. Independent pinned source, declarations, bindings, dispatch, root connectivity, diagnostics and location checks cover automatic and focused views in both modes. Source mode omits project defines; restored net10.0 includes the span overload and default interface bodies. Call-free null and disabled-level return guards are absent; property access and collection-expression lowering remain unmodeled. Possible dispatch and initialization do not prove runtime receiver values, recursion or actual event counts.",
+    "tags": [
+      "call-order",
+      "renames",
+      "overloads",
+      "explicit-interface",
+      "interface-dispatch",
+      "static-initialization",
+      "exceptions",
+      "automatic-roots",
+      "multi-target"
+    ],
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "2",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "Serilog.Core.Logger.Write(global::Serilog.Events.LogEvent)",
+          "--entry",
+          "Serilog.Core.Logger.Write(global::Serilog.Events.LogEventLevel,global::System.Exception,string,object[])",
+          "--entry",
+          "Logger.Serilog.Core.ILogEventSink.Emit",
+          "--entry",
+          "Logger.Dispatch",
+          "--entry",
+          "Logger.PostLevelCheckEmit"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1",
+          "--project",
+          "src/Serilog/Serilog.csproj",
+          "--framework",
+          "net10.0"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "2",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "Serilog.Core.Logger.Write(global::Serilog.Events.LogEvent)",
+          "--entry",
+          "Serilog.Core.Logger.Write(global::Serilog.Events.LogEventLevel,global::System.Exception,string,object[])",
+          "--entry",
+          "Logger.Serilog.Core.ILogEventSink.Emit",
+          "--entry",
+          "Logger.Dispatch",
+          "--entry",
+          "Logger.PostLevelCheckEmit",
+          "--entry",
+          "Serilog.Core.Logger.Write(global::Serilog.Events.LogEventLevel,global::System.Exception,string,global::System.ReadOnlySpan<object>)",
+          "--project",
+          "src/Serilog/Serilog.csproj",
+          "--framework",
+          "net10.0"
+        ]
+      }
+    ]
   }
 ]

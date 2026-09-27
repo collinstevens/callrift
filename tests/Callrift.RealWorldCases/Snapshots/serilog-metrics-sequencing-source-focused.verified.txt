@@ -1,0 +1,233 @@
+﻿format: text
+exit: 0
+stdout:
+- Logger.Dispatch
+- ├─ try
+- │  └─ ILogEventEnricher.Enrich
+- │     ├─ ⇢ LogContextEnricher.Enrich (depth limit)
+- │     ├─ ⇢ ConditionalEnricher.Enrich (depth limit)
+- │     ├─ ⇢ EmptyEnricher.Enrich
+- │     ├─ ⇢ FixedPropertyEnricher.Enrich (depth limit)
+- │     ├─ ⇢ PropertyEnricher.Enrich (depth limit)
+- │     └─ ⇢ SafeAggregateEnricher.Enrich (depth limit)
+- ├─ catch (Exception ex)
+- │  └─ SelfLog.WriteLine (depth limit)
+- ├─ ILogEventSink.Emit
+- │  ├─ ⇢ Logger.Serilog.Core.ILogEventSink.Emit (changes below depth limit)
+- │  ├─ ⇢ AggregateSink.Emit (changes below depth limit)
+- │  ├─ ⇢ BatchingSink.Emit (depth limit)
+- │  ├─ ⇢ ConditionalSink.Emit (changes below depth limit)
+- │  ├─ ⇢ DisposingAggregateSink.Emit (changes below depth limit)
+- │  ├─ ⇢ FailureListenerSink.Emit (changes below depth limit)
+- │  ├─ ⇢ FilteringSink.Emit (changes below depth limit)
+- │  ├─ ⇢ OptionalInterfaceForwardingSink.Emit (changes below depth limit)
+- │  ├─ ⇢ RestrictedSink.Emit (changes below depth limit)
+- │  ├─ ⇢ SafeAggregateSink.Emit (changes below depth limit)
+- │  └─ ⇢ SecondaryLoggerSink.Emit (changes below depth limit)
+- ├─ possible initialization of SelfMetrics
+- │  └─ initialization of SelfMetrics (depth limit)
+- └─ SelfMetrics.PipelineEventEmitted.Add
+
++ Logger.PostLevelCheckEmit
++ ├─ try
++ │  └─ ILogEventEnricher.Enrich
++ │     ├─ ⇢ LogContextEnricher.Enrich (depth limit)
++ │     ├─ ⇢ ConditionalEnricher.Enrich (depth limit)
++ │     ├─ ⇢ EmptyEnricher.Enrich
++ │     ├─ ⇢ FixedPropertyEnricher.Enrich (depth limit)
++ │     ├─ ⇢ PropertyEnricher.Enrich (depth limit)
++ │     └─ ⇢ SafeAggregateEnricher.Enrich (depth limit)
++ ├─ catch (Exception ex)
++ │  └─ SelfLog.WriteLine (depth limit)
++ └─ ILogEventSink.Emit
++    ├─ ⇢ Logger.Serilog.Core.ILogEventSink.Emit (changes below depth limit)
++    ├─ ⇢ AggregateSink.Emit (changes below depth limit)
++    ├─ ⇢ BatchingSink.Emit (depth limit)
++    ├─ ⇢ ConditionalSink.Emit (changes below depth limit)
++    ├─ ⇢ DisposingAggregateSink.Emit (changes below depth limit)
++    ├─ ⇢ FailureListenerSink.Emit (changes below depth limit)
++    ├─ ⇢ FilteringSink.Emit (changes below depth limit)
++    ├─ ⇢ OptionalInterfaceForwardingSink.Emit (changes below depth limit)
++    ├─ ⇢ RestrictedSink.Emit (changes below depth limit)
++    ├─ ⇢ SafeAggregateSink.Emit (changes below depth limit)
++    └─ ⇢ SecondaryLoggerSink.Emit (changes below depth limit)
+
+  Logger.Serilog.Core.ILogEventSink.Emit
+  ├─ Guard.AgainstNull
+- ├─ Logger.Dispatch
+- │  ├─ try
+- │  │  └─ ILogEventEnricher.Enrich ↑ as above
+- │  ├─ catch (Exception ex)
+- │  │  └─ SelfLog.WriteLine (depth limit)
+- │  ├─ ILogEventSink.Emit
+- │  │  ├─ ⇢ Logger.Serilog.Core.ILogEventSink.Emit (↺ cycle)
+- │  │  ├─ ⇢ AggregateSink.Emit (changes below depth limit)
+- │  │  ├─ ⇢ BatchingSink.Emit (depth limit)
+- │  │  ├─ ⇢ ConditionalSink.Emit (changes below depth limit)
+- │  │  ├─ ⇢ DisposingAggregateSink.Emit (changes below depth limit)
+- │  │  ├─ ⇢ FailureListenerSink.Emit (changes below depth limit)
+- │  │  ├─ ⇢ FilteringSink.Emit (changes below depth limit)
+- │  │  ├─ ⇢ OptionalInterfaceForwardingSink.Emit (changes below depth limit)
+- │  │  ├─ ⇢ RestrictedSink.Emit (changes below depth limit)
+- │  │  ├─ ⇢ SafeAggregateSink.Emit (changes below depth limit)
+- │  │  └─ ⇢ SecondaryLoggerSink.Emit (changes below depth limit)
+- │  ├─ possible initialization of SelfMetrics
+- │  │  └─ initialization of SelfMetrics (depth limit)
+- │  └─ SelfMetrics.PipelineEventEmitted.Add
++ └─ Logger.PostLevelCheckEmit
++    ├─ try
++    │  └─ ILogEventEnricher.Enrich ↑ as above
++    ├─ catch (Exception ex)
++    │  └─ SelfLog.WriteLine (depth limit)
++    └─ ILogEventSink.Emit
++       ├─ ⇢ Logger.Serilog.Core.ILogEventSink.Emit (↺ cycle)
++       ├─ ⇢ AggregateSink.Emit (changes below depth limit)
++       ├─ ⇢ BatchingSink.Emit (depth limit)
++       ├─ ⇢ ConditionalSink.Emit (changes below depth limit)
++       ├─ ⇢ DisposingAggregateSink.Emit (changes below depth limit)
++       ├─ ⇢ FailureListenerSink.Emit (changes below depth limit)
++       ├─ ⇢ FilteringSink.Emit (changes below depth limit)
++       ├─ ⇢ OptionalInterfaceForwardingSink.Emit (changes below depth limit)
++       ├─ ⇢ RestrictedSink.Emit (changes below depth limit)
++       ├─ ⇢ SafeAggregateSink.Emit (changes below depth limit)
++       └─ ⇢ SecondaryLoggerSink.Emit (changes below depth limit)
+
+  Logger.Write
+  ├─ Logger.IsEnabled
+- ├─ Logger.Dispatch ↑ as above
++ ├─ Logger.PostLevelCheckEmit ↑ as above
++ ├─ possible initialization of SelfMetrics
++ │  └─ initialization of SelfMetrics (depth limit)
++ └─ SelfMetrics.PipelineEventEmitted.Add
+
+  Logger.Write
+  ├─ Logger.IsEnabled
+  ├─ if (propertyValues != null)
+  ├─ if (propertyValues is null)
+  ├─ MessageTemplateProcessor.Process
+  ├─ new LogEvent
+- ├─ Logger.Dispatch ↑ as above
++ ├─ Logger.PostLevelCheckEmit ↑ as above
++ ├─ possible initialization of SelfMetrics
++ │  └─ initialization of SelfMetrics (depth limit)
++ └─ SelfMetrics.PipelineEventEmitted.Add
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
+
+format: md
+exit: 0
+stdout:
+```diff
+- Logger.Dispatch
+- ├─ try
+- │  └─ ILogEventEnricher.Enrich
+- │     ├─ ⇢ LogContextEnricher.Enrich (depth limit)
+- │     ├─ ⇢ ConditionalEnricher.Enrich (depth limit)
+- │     ├─ ⇢ EmptyEnricher.Enrich
+- │     ├─ ⇢ FixedPropertyEnricher.Enrich (depth limit)
+- │     ├─ ⇢ PropertyEnricher.Enrich (depth limit)
+- │     └─ ⇢ SafeAggregateEnricher.Enrich (depth limit)
+- ├─ catch (Exception ex)
+- │  └─ SelfLog.WriteLine (depth limit)
+- ├─ ILogEventSink.Emit
+- │  ├─ ⇢ Logger.Serilog.Core.ILogEventSink.Emit (changes below depth limit)
+- │  ├─ ⇢ AggregateSink.Emit (changes below depth limit)
+- │  ├─ ⇢ BatchingSink.Emit (depth limit)
+- │  ├─ ⇢ ConditionalSink.Emit (changes below depth limit)
+- │  ├─ ⇢ DisposingAggregateSink.Emit (changes below depth limit)
+- │  ├─ ⇢ FailureListenerSink.Emit (changes below depth limit)
+- │  ├─ ⇢ FilteringSink.Emit (changes below depth limit)
+- │  ├─ ⇢ OptionalInterfaceForwardingSink.Emit (changes below depth limit)
+- │  ├─ ⇢ RestrictedSink.Emit (changes below depth limit)
+- │  ├─ ⇢ SafeAggregateSink.Emit (changes below depth limit)
+- │  └─ ⇢ SecondaryLoggerSink.Emit (changes below depth limit)
+- ├─ possible initialization of SelfMetrics
+- │  └─ initialization of SelfMetrics (depth limit)
+- └─ SelfMetrics.PipelineEventEmitted.Add
+
++ Logger.PostLevelCheckEmit
++ ├─ try
++ │  └─ ILogEventEnricher.Enrich
++ │     ├─ ⇢ LogContextEnricher.Enrich (depth limit)
++ │     ├─ ⇢ ConditionalEnricher.Enrich (depth limit)
++ │     ├─ ⇢ EmptyEnricher.Enrich
++ │     ├─ ⇢ FixedPropertyEnricher.Enrich (depth limit)
++ │     ├─ ⇢ PropertyEnricher.Enrich (depth limit)
++ │     └─ ⇢ SafeAggregateEnricher.Enrich (depth limit)
++ ├─ catch (Exception ex)
++ │  └─ SelfLog.WriteLine (depth limit)
++ └─ ILogEventSink.Emit
++    ├─ ⇢ Logger.Serilog.Core.ILogEventSink.Emit (changes below depth limit)
++    ├─ ⇢ AggregateSink.Emit (changes below depth limit)
++    ├─ ⇢ BatchingSink.Emit (depth limit)
++    ├─ ⇢ ConditionalSink.Emit (changes below depth limit)
++    ├─ ⇢ DisposingAggregateSink.Emit (changes below depth limit)
++    ├─ ⇢ FailureListenerSink.Emit (changes below depth limit)
++    ├─ ⇢ FilteringSink.Emit (changes below depth limit)
++    ├─ ⇢ OptionalInterfaceForwardingSink.Emit (changes below depth limit)
++    ├─ ⇢ RestrictedSink.Emit (changes below depth limit)
++    ├─ ⇢ SafeAggregateSink.Emit (changes below depth limit)
++    └─ ⇢ SecondaryLoggerSink.Emit (changes below depth limit)
+
+  Logger.Serilog.Core.ILogEventSink.Emit
+  ├─ Guard.AgainstNull
+- ├─ Logger.Dispatch
+- │  ├─ try
+- │  │  └─ ILogEventEnricher.Enrich ↑ as above
+- │  ├─ catch (Exception ex)
+- │  │  └─ SelfLog.WriteLine (depth limit)
+- │  ├─ ILogEventSink.Emit
+- │  │  ├─ ⇢ Logger.Serilog.Core.ILogEventSink.Emit (↺ cycle)
+- │  │  ├─ ⇢ AggregateSink.Emit (changes below depth limit)
+- │  │  ├─ ⇢ BatchingSink.Emit (depth limit)
+- │  │  ├─ ⇢ ConditionalSink.Emit (changes below depth limit)
+- │  │  ├─ ⇢ DisposingAggregateSink.Emit (changes below depth limit)
+- │  │  ├─ ⇢ FailureListenerSink.Emit (changes below depth limit)
+- │  │  ├─ ⇢ FilteringSink.Emit (changes below depth limit)
+- │  │  ├─ ⇢ OptionalInterfaceForwardingSink.Emit (changes below depth limit)
+- │  │  ├─ ⇢ RestrictedSink.Emit (changes below depth limit)
+- │  │  ├─ ⇢ SafeAggregateSink.Emit (changes below depth limit)
+- │  │  └─ ⇢ SecondaryLoggerSink.Emit (changes below depth limit)
+- │  ├─ possible initialization of SelfMetrics
+- │  │  └─ initialization of SelfMetrics (depth limit)
+- │  └─ SelfMetrics.PipelineEventEmitted.Add
++ └─ Logger.PostLevelCheckEmit
++    ├─ try
++    │  └─ ILogEventEnricher.Enrich ↑ as above
++    ├─ catch (Exception ex)
++    │  └─ SelfLog.WriteLine (depth limit)
++    └─ ILogEventSink.Emit
++       ├─ ⇢ Logger.Serilog.Core.ILogEventSink.Emit (↺ cycle)
++       ├─ ⇢ AggregateSink.Emit (changes below depth limit)
++       ├─ ⇢ BatchingSink.Emit (depth limit)
++       ├─ ⇢ ConditionalSink.Emit (changes below depth limit)
++       ├─ ⇢ DisposingAggregateSink.Emit (changes below depth limit)
++       ├─ ⇢ FailureListenerSink.Emit (changes below depth limit)
++       ├─ ⇢ FilteringSink.Emit (changes below depth limit)
++       ├─ ⇢ OptionalInterfaceForwardingSink.Emit (changes below depth limit)
++       ├─ ⇢ RestrictedSink.Emit (changes below depth limit)
++       ├─ ⇢ SafeAggregateSink.Emit (changes below depth limit)
++       └─ ⇢ SecondaryLoggerSink.Emit (changes below depth limit)
+
+  Logger.Write
+  ├─ Logger.IsEnabled
+- ├─ Logger.Dispatch ↑ as above
++ ├─ Logger.PostLevelCheckEmit ↑ as above
++ ├─ possible initialization of SelfMetrics
++ │  └─ initialization of SelfMetrics (depth limit)
++ └─ SelfMetrics.PipelineEventEmitted.Add
+
+  Logger.Write
+  ├─ Logger.IsEnabled
+  ├─ if (propertyValues != null)
+  ├─ if (propertyValues is null)
+  ├─ MessageTemplateProcessor.Process
+  ├─ new LogEvent
+- ├─ Logger.Dispatch ↑ as above
++ ├─ Logger.PostLevelCheckEmit ↑ as above
++ ├─ possible initialization of SelfMetrics
++ │  └─ initialization of SelfMetrics (depth limit)
++ └─ SelfMetrics.PipelineEventEmitted.Add
+```
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
