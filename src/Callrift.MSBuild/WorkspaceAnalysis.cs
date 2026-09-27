@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Callrift.Core;
@@ -123,6 +124,7 @@ public static class WorkspaceAnalysis
             foreach (var group in unmatched)
                 if (!group.Candidates.Any(selected.Contains))
                     throw new InvalidOperationException($"Cannot select framework '{request.Options.Framework}' for {group.Path}; available: {string.Join(", ", group.Frameworks)}.");
+            solution = await PreserveAdditionalFileOrderAsync(solution, selected, cancellationToken);
             return new LoadedWorkspace(request, workspace, solution, loaded, selected);
         }
         catch
@@ -130,6 +132,27 @@ public static class WorkspaceAnalysis
             workspace.Dispose();
             throw;
         }
+    }
+
+    private static async Task<Solution> PreserveAdditionalFileOrderAsync(Solution solution, IReadOnlySet<ProjectId> selected, CancellationToken cancellationToken)
+    {
+        foreach (var project in solution.Projects.Where(project => selected.Contains(project.Id)))
+        {
+            var documents = project.AdditionalDocuments.ToArray();
+            if (documents.Length == 0) continue;
+            var ordered = ImmutableArray.CreateBuilder<DocumentInfo>(documents.Length);
+            for (var index = 0; index < documents.Length; index++)
+            {
+                var document = documents[index];
+                var text = await document.GetTextAsync(cancellationToken);
+                var id = DocumentId.CreateFromSerialized(project.Id, new Guid(index + 1, 0, 0, new byte[8]));
+                ordered.Add(DocumentInfo.Create(id, document.Name, document.Folders,
+                    loader: TextLoader.From(TextAndVersion.Create(text, VersionStamp.Create(), document.FilePath)), filePath: document.FilePath));
+            }
+            solution = solution.RemoveAdditionalDocuments(documents.Select(document => document.Id).ToImmutableArray())
+                .AddAdditionalDocuments(ordered.MoveToImmutable());
+        }
+        return solution;
     }
 
     private static async Task<CallGraph> AnalyzeLoadedAsync(WorkspaceRequest request, MSBuildWorkspace workspace,
