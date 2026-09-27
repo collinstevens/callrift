@@ -36,7 +36,7 @@ stdout:
 
   ImplicitRegistrationSource.CreateRegistration
   ├─ RegistrationBuilder.ForDelegate (depth limit)
-  │  ├─ new ResolveRequest
+  │  ├─ new ResolveRequest (depth limit)
   │  └─ ImplicitRegistrationSource.ResolveInstance
 ~ │     ├─ ⇢ LazyRegistrationSource.ResolveInstance (changes below depth limit)
   │     ├─ ⇢ MetaRegistrationSource.ResolveInstance (depth limit)
@@ -58,11 +58,13 @@ stdout:
 
   MetadataFilterAttribute.FilterAll
 ~ ├─ ResolutionExtensions.Resolve (changes below depth limit)
-  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where
+  ├─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where
+  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where(m => m.Metadata.TryGetValue(metadataKey, out var value) && metadataValue.Equals(value)).Select
 
   MetadataFilterAttribute.FilterOne
 ~ ├─ ResolutionExtensions.Resolve (changes below depth limit)
-  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where
+  ├─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where
+  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where(m => m.Metadata.TryGetValue(metadataKey, out var value) && metadataValue.Equals(value)).Select
 
   RegistrationExtensions.WithAttributeFiltering
   └─ RegistrationExtensions.WithParameter (depth limit)
@@ -74,13 +76,6 @@ stdout:
 ~       ├─ ⇢ KeyFilterAttribute.ResolveParameter (changes below depth limit)
         └─ ⇢ MetadataFilterAttribute.ResolveParameter (depth limit)
 
-  new FactoryGenerator
-  ├─ …
-  ├─ FactoryGenerator.GetParameterMapping (depth limit)
-  ├─ possible initialization of ReflectionCacheSet
-  └─ ReflectionCacheSet.Shared.Internal.GeneratedFactoryServiceOnlyGenerators.GetOrAdd
-~    └─ FactoryGenerator.CreateServiceOnlyGenerator (changes below depth limit)
-
   FactoryGenerator.GenerateFactory
 ~ └─ FactoryGenerator.GenerateFactory (changes below depth limit)
 
@@ -88,14 +83,19 @@ stdout:
   ├─ KeyedServiceIndex<TKey, TValue>.GetService (depth limit)
 ~ └─ ResolutionExtensions.TryResolveService (changes below depth limit)
 
+  KeyedServiceIndex<TKey, TValue>.get_Item
+  ├─ KeyedServiceIndex<TKey, TValue>.GetService (depth limit)
+~ └─ ResolutionExtensions.ResolveService (changes below depth limit)
+
   LazyWithMetadataRegistrationSource.CreateLazyRegistration
   ├─ MetadataViewProvider.GetMetadataViewProvider (depth limit)
   ├─ RegistrationBuilder.ForDelegate (depth limit)
 ~ │  ├─ ResolutionExtensions.Resolve (changes below depth limit)
-  │  ├─ new ResolveRequest
-  │  └─ new Func<T>
+  │  ├─ IServiceWithType.get_ServiceType
+  │  ├─ new ResolveRequest (depth limit)
+  │  └─ …
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ RegistrationExtensions.Targeting
+  ├─ ServiceRegistration.get_Registration
   └─ …
 
   ModuleRegistrationExtensions.IfNotRegistered
@@ -126,8 +126,26 @@ stdout:
   ├─ new ModuleRegistrar (depth limit)
 ~ └─ ModuleRegistrationExtensions.RegisterModule (changes below depth limit)
 
+  RegistrationExtensions.AsImplementedInterfaces
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData
+  ├─ IConcreteActivatorData.get_Activator
+  │  ├─ ⇢ ConcreteReflectionActivatorData.get_Activator (depth limit)
+  │  ├─ ⇢ SimpleActivatorData.get_Activator
+~ │  └─ ⇢ GeneratedFactoryActivatorData.get_Activator (changes below depth limit)
+  ├─ IInstanceActivator.get_LimitType
+  ├─ RegistrationExtensions.GetImplementedInterfaces (depth limit)
+  └─ …
+
+  RegistrationExtensions.AsSelf
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData
+  ├─ IConcreteActivatorData.get_Activator ↑ as above
+  ├─ IInstanceActivator.get_LimitType
+  └─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
+
   RegistrationExtensions.Except
-  ├─ RegistrationExtensions.Except (depth limit)
+  ├─ …
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData
+  ├─ BaseScanningActivatorData<TActivatorData, TRegistrationStyle>.get_PostScanningCallbacks
   └─ result.ActivatorData.PostScanningCallbacks.Add
      ├─ RegistrationBuilder.ForType (depth limit)
 ~    └─ RegistrationBuilder.RegisterSingleComponent (changes below depth limit)
@@ -287,7 +305,7 @@ stdout:
 ~ └─ ScanningRegistrationExtensions.ScanAndRegisterTypes (changes below depth limit)
 
   ResolutionExtensions.InjectProperties
-  ├─ possible initialization of DefaultPropertySelector
+  ├─ DefaultPropertySelector.get_OverwriteSetValueInstance (depth limit)
   ├─ possible initialization of ResolveRequest
 ~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
 
@@ -302,24 +320,24 @@ stdout:
 ~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
 
   ResolutionExtensions.InjectProperties
-  ├─ possible initialization of DefaultPropertySelector
+  ├─ DefaultPropertySelector.get_OverwriteSetValueInstance (depth limit)
 ~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
 
   ResolutionExtensions.InjectProperties
-  ├─ possible initialization of DefaultPropertySelector
+  ├─ DefaultPropertySelector.get_OverwriteSetValueInstance (depth limit)
 ~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
 
   ResolutionExtensions.InjectUnsetProperties
-  ├─ possible initialization of DefaultPropertySelector
+  ├─ DefaultPropertySelector.get_PreserveSetValueInstance (depth limit)
   ├─ possible initialization of ResolveRequest
 ~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
 
   ResolutionExtensions.InjectUnsetProperties
-  ├─ possible initialization of DefaultPropertySelector
+  ├─ DefaultPropertySelector.get_PreserveSetValueInstance (depth limit)
 ~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
 
   ResolutionExtensions.InjectUnsetProperties
-  ├─ possible initialization of DefaultPropertySelector
+  ├─ DefaultPropertySelector.get_PreserveSetValueInstance (depth limit)
 ~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
 
   ResolutionExtensions.IsRegistered
@@ -466,7 +484,7 @@ stdout:
 
   ImplicitRegistrationSource.CreateRegistration
   ├─ RegistrationBuilder.ForDelegate (depth limit)
-  │  ├─ new ResolveRequest
+  │  ├─ new ResolveRequest (depth limit)
   │  └─ ImplicitRegistrationSource.ResolveInstance
 ~ │     ├─ ⇢ LazyRegistrationSource.ResolveInstance (changes below depth limit)
   │     ├─ ⇢ MetaRegistrationSource.ResolveInstance (depth limit)
@@ -488,11 +506,13 @@ stdout:
 
   MetadataFilterAttribute.FilterAll
 ~ ├─ ResolutionExtensions.Resolve (changes below depth limit)
-  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where
+  ├─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where
+  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where(m => m.Metadata.TryGetValue(metadataKey, out var value) && metadataValue.Equals(value)).Select
 
   MetadataFilterAttribute.FilterOne
 ~ ├─ ResolutionExtensions.Resolve (changes below depth limit)
-  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where
+  ├─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where
+  └─ context.Resolve<IEnumerable<Meta<Lazy<T>>>>().Where(m => m.Metadata.TryGetValue(metadataKey, out var value) && metadataValue.Equals(value)).Select
 
   RegistrationExtensions.WithAttributeFiltering
   └─ RegistrationExtensions.WithParameter (depth limit)
@@ -504,13 +524,6 @@ stdout:
 ~       ├─ ⇢ KeyFilterAttribute.ResolveParameter (changes below depth limit)
         └─ ⇢ MetadataFilterAttribute.ResolveParameter (depth limit)
 
-  new FactoryGenerator
-  ├─ …
-  ├─ FactoryGenerator.GetParameterMapping (depth limit)
-  ├─ possible initialization of ReflectionCacheSet
-  └─ ReflectionCacheSet.Shared.Internal.GeneratedFactoryServiceOnlyGenerators.GetOrAdd
-~    └─ FactoryGenerator.CreateServiceOnlyGenerator (changes below depth limit)
-
   FactoryGenerator.GenerateFactory
 ~ └─ FactoryGenerator.GenerateFactory (changes below depth limit)
 
@@ -518,14 +531,19 @@ stdout:
   ├─ KeyedServiceIndex<TKey, TValue>.GetService (depth limit)
 ~ └─ ResolutionExtensions.TryResolveService (changes below depth limit)
 
+  KeyedServiceIndex<TKey, TValue>.get_Item
+  ├─ KeyedServiceIndex<TKey, TValue>.GetService (depth limit)
+~ └─ ResolutionExtensions.ResolveService (changes below depth limit)
+
   LazyWithMetadataRegistrationSource.CreateLazyRegistration
   ├─ MetadataViewProvider.GetMetadataViewProvider (depth limit)
   ├─ RegistrationBuilder.ForDelegate (depth limit)
 ~ │  ├─ ResolutionExtensions.Resolve (changes below depth limit)
-  │  ├─ new ResolveRequest
-  │  └─ new Func<T>
+  │  ├─ IServiceWithType.get_ServiceType
+  │  ├─ new ResolveRequest (depth limit)
+  │  └─ …
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
-  ├─ RegistrationExtensions.Targeting
+  ├─ ServiceRegistration.get_Registration
   └─ …
 
   ModuleRegistrationExtensions.IfNotRegistered
@@ -556,8 +574,26 @@ stdout:
   ├─ new ModuleRegistrar (depth limit)
 ~ └─ ModuleRegistrationExtensions.RegisterModule (changes below depth limit)
 
+  RegistrationExtensions.AsImplementedInterfaces
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData
+  ├─ IConcreteActivatorData.get_Activator
+  │  ├─ ⇢ ConcreteReflectionActivatorData.get_Activator (depth limit)
+  │  ├─ ⇢ SimpleActivatorData.get_Activator
+~ │  └─ ⇢ GeneratedFactoryActivatorData.get_Activator (changes below depth limit)
+  ├─ IInstanceActivator.get_LimitType
+  ├─ RegistrationExtensions.GetImplementedInterfaces (depth limit)
+  └─ …
+
+  RegistrationExtensions.AsSelf
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData
+  ├─ IConcreteActivatorData.get_Activator ↑ as above
+  ├─ IInstanceActivator.get_LimitType
+  └─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
+
   RegistrationExtensions.Except
-  ├─ RegistrationExtensions.Except (depth limit)
+  ├─ …
+  ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.get_ActivatorData
+  ├─ BaseScanningActivatorData<TActivatorData, TRegistrationStyle>.get_PostScanningCallbacks
   └─ result.ActivatorData.PostScanningCallbacks.Add
      ├─ RegistrationBuilder.ForType (depth limit)
 ~    └─ RegistrationBuilder.RegisterSingleComponent (changes below depth limit)
@@ -717,7 +753,7 @@ stdout:
 ~ └─ ScanningRegistrationExtensions.ScanAndRegisterTypes (changes below depth limit)
 
   ResolutionExtensions.InjectProperties
-  ├─ possible initialization of DefaultPropertySelector
+  ├─ DefaultPropertySelector.get_OverwriteSetValueInstance (depth limit)
   ├─ possible initialization of ResolveRequest
 ~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
 
@@ -732,24 +768,24 @@ stdout:
 ~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
 
   ResolutionExtensions.InjectProperties
-  ├─ possible initialization of DefaultPropertySelector
+  ├─ DefaultPropertySelector.get_OverwriteSetValueInstance (depth limit)
 ~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
 
   ResolutionExtensions.InjectProperties
-  ├─ possible initialization of DefaultPropertySelector
+  ├─ DefaultPropertySelector.get_OverwriteSetValueInstance (depth limit)
 ~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
 
   ResolutionExtensions.InjectUnsetProperties
-  ├─ possible initialization of DefaultPropertySelector
+  ├─ DefaultPropertySelector.get_PreserveSetValueInstance (depth limit)
   ├─ possible initialization of ResolveRequest
 ~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
 
   ResolutionExtensions.InjectUnsetProperties
-  ├─ possible initialization of DefaultPropertySelector
+  ├─ DefaultPropertySelector.get_PreserveSetValueInstance (depth limit)
 ~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
 
   ResolutionExtensions.InjectUnsetProperties
-  ├─ possible initialization of DefaultPropertySelector
+  ├─ DefaultPropertySelector.get_PreserveSetValueInstance (depth limit)
 ~ └─ AutowiringPropertyInjector.InjectProperties (changes below depth limit)
 
   ResolutionExtensions.IsRegistered

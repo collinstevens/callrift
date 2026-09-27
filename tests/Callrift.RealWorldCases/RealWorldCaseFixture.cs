@@ -101,6 +101,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             AutofacServiceKeyExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "autofac-pipeline-callbacks")
             AutofacPipelineExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "autofac-multi-service-registration")
+            AutofacMultiServiceExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "autofac-build-failure-disposal")
             AutofacDisposalExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "autofac-pipeline-subscription-guard")

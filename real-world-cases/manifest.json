@@ -404,7 +404,7 @@
     "afterLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
     "before": "b7f65d61fcd650ac5850b05f83df1b5dbaaf8d27",
     "after": "66c7093f139336f661094284261b2c9a17615b7d",
-    "reason": "Move pipeline builders into static methods and inline diagnostic execution into returned callbacks. Independent pinned-source and compiler review verifies Middleware/Previous getter order, MetricsEnabled before builder selection, DiagnosticSource reads before diagnostic guards and completion, and PhaseReached writes before execution. Metrics paths preserve stopwatch recording in finally. Ten possible middleware implementations are checked without claiming runtime dispatch or allocation reduction. Automatic roots total134 in source mode and103 with restored net10.0; all paths to changed seeds were checked. Generated declarations were independently rebuilt. Source has187 diagnostics, including six additional unresolved resource calls; restored diagnostics remain empty. The call-free metrics initialization early return remains absent, so metric creation is not claimed unconditional. External calls are filtered by view options. Upstream tests were read but not executed.",
+    "reason": "Move pipeline builders into static methods and inline diagnostic execution into returned callbacks. Independent pinned-source and compiler review verifies Middleware/Previous getter order, MetricsEnabled before builder selection, DiagnosticSource reads before diagnostic guards and completion, and PhaseReached writes before execution. Metrics paths preserve stopwatch recording in finally. Ten possible middleware implementations are checked without claiming runtime dispatch or allocation reduction. Automatic roots total 134 in source mode and 103 with restored net10.0; all paths to changed seeds were checked. Generated declarations were independently rebuilt. Source has 187 diagnostics, including six additional unresolved resource calls; restored diagnostics remain empty. The call-free metrics initialization early return remains absent, so metric creation is not claimed unconditional. External calls are filtered by view options. Upstream tests were read but not executed.",
     "tags": [
       "returned-callback",
       "local-function",
@@ -472,18 +472,19 @@
     "afterLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
     "before": "30842446a27c81cee45748d8f1916eeac2a5d58d",
     "after": "6d74fde113aed93ec0b0118561f5fc94dd22bdd1",
-    "reason": "Hold multi-service source registrations until each service drains the producing source",
+    "reason": "Hold multi-service source registrations until each service drains the producing source. Independent pinned-source and compiler review verifies initialization getter guards, InitializationDepth read/write order, queue checks before dequeue, and Services getter dispatch before additional-service handling. The old bool and new originating-source AddRegistration signatures remain distinct with base and scope-restricted candidates. Source automatic roots total 142, including new benchmark methods and implicit constructors; restored net10.0 has 101 roots. All paths to changed seeds were checked. Generated declarations were independently rebuilt. Source has 187 diagnostics including six additional unresolved resource calls; restored diagnostics remain empty. Focused text matches across modes, while JSON preserves the unresolved source exception versus restored resource getter. External dictionary operations and call-free continue/return guards are omitted; depth limits hide holding and locking bodies. Static calls do not prove thread safety or runtime registration order. Upstream tests were read but not executed.",
     "tags": [
       "feature-change",
       "signature-change",
       "branch-guard",
       "concurrency",
       "interface-dispatch",
-      "application-entry"
+      "application-entry",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/source-only-coverage.md",
-    "review": "reviews/autofac-multi-service-registration.md",
+    "review": "../tests/Callrift.RealWorldCases/AutofacMultiServiceExpectations.cs",
     "routine": false,
     "views": [
       {
