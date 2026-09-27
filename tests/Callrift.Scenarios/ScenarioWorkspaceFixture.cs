@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Text;
 using System.Text.Json;
 using Callrift.Core;
+using Callrift.FixtureWorker;
 using Callrift.MSBuild;
 
 namespace Callrift.Scenarios;
@@ -113,7 +114,7 @@ internal static class ScenarioWorkspaceFixture
             using var timeout = new CancellationTokenSource(TimeSpan.FromMinutes(3));
             try
             {
-                await File.WriteAllTextAsync(requestPath, JsonSerializer.Serialize(new WorkspaceRequest(root, options, includeTests, resultPath)), timeout.Token);
+                await File.WriteAllTextAsync(requestPath, JsonSerializer.Serialize(new FixtureWorkerRequest(new WorkspaceRequest(root, options, includeTests, resultPath), shape.ReuseRoot ? shape.Key : null)), timeout.Token);
                 await process.StandardInput.WriteLineAsync(JsonSerializer.Serialize(requestPath).AsMemory(), timeout.Token);
                 await process.StandardInput.FlushAsync(timeout.Token);
                 var response = await process.StandardOutput.ReadLineAsync(timeout.Token);

@@ -26,7 +26,8 @@ internal sealed record FixtureProjectShape(string Key, bool ReuseRoot)
         foreach (var file in files)
         {
             if (!paths.Add(file.Key.Replace('\\', '/'))) return null;
-            if (Path.IsPathRooted(file.Key) || file.Key.Replace('\\', '/').Split('/').Any(part => part is "" or "." or "..")) return null;
+            if (Path.IsPathRooted(file.Key) || file.Key.Replace('\\', '/').Split('/').Any(part => part is "" or "." or ".."
+                || part.Equals("bin", StringComparison.OrdinalIgnoreCase) || part.Equals("obj", StringComparison.OrdinalIgnoreCase))) return null;
             if (!file.Key.EndsWith(".cs", StringComparison.OrdinalIgnoreCase) && !file.Key.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase)) return null;
         }
         try
@@ -42,7 +43,8 @@ internal sealed record FixtureProjectShape(string Key, bool ReuseRoot)
                     {
                         foreach (var property in group.Elements())
                             if (property.Name.Namespace != XNamespace.None || !Properties.Contains(property.Name.LocalName)
-                                || property.HasAttributes || property.HasElements || HasExpression(property.Value)) return null;
+                                || property.HasAttributes || property.HasElements || HasExpression(property.Value)
+                                || property.Name == "AssemblyName" && property.Value.IndexOfAny(['/', '\\']) >= 0) return null;
                     }
                     else if (group.Name == "ItemGroup")
                     {
@@ -55,7 +57,8 @@ internal sealed record FixtureProjectShape(string Key, bool ReuseRoot)
                             var validationRoot = Path.Combine(temporaryRoot, "callrift-project-shape");
                             var referenced = Path.GetRelativePath(validationRoot, Path.GetFullPath(reference.Value,
                                 Path.Combine(validationRoot, Path.GetDirectoryName(project.Key)!))).Replace('\\', '/');
-                            if (!projects.Any(candidate => candidate.Key.Replace('\\', '/') == referenced)) return null;
+                            if (project.Key.Replace('\\', '/') == referenced
+                                || !projects.Any(candidate => candidate.Key.Replace('\\', '/') == referenced)) return null;
                         }
                     }
                     else return null;

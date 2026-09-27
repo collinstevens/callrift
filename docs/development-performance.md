@@ -1372,7 +1372,7 @@ passes, with no overlapping measured runs; the warm result remains pending.
 
 ### Reusable scenario workers and restored project shapes
 
-The scenario harness now owns a lazy pool of at most four dedicated workers.
+At checkpoint `06a33c1`, the scenario harness gained a lazy pool of at most four dedicated workers.
 Each request still calls production `WorkspaceAnalysis.AnalyzeAsync`, creates a
 fresh MSBuild workspace, compiles and analyzes the supplied source, and serializes
 the complete graph. It does not cache graphs or loaded Roslyn solutions. The
@@ -1415,3 +1415,116 @@ paths, changed source, EOF and parent-exit termination with stdin held open. Pro
 sources were removed; no permanent tests or reviewed snapshots were added or
 changed. The test wrapper now prints changed paths when its revision is marked
 dirty, making future CI source-state reports more specific.
+
+### Supported-platform worker checkpoint
+
+[Run 36283119561](https://github.com/collinstevens/callrift/actions/runs/36283119561)
+at `06a33c1` passed all required fast, representative integration, quality and
+broad jobs. Each OS retained 305 slow scenarios, 26 workspace rows and 25 routine
+cases. All three case jobs explicitly restored their primary-key repository
+caches; workspace outputs were fresh per job.
+
+| Complete dotnet test command | Ubuntu | Windows | macOS |
+|---|---:|---:|---:|
+| Slow scenarios | 925.30 s | 690.98 s | 597.46 s |
+| Workspaces | 154.99 s | 304.76 s | 250.38 s |
+| Routine cases, prepared repository caches | 264.33 s | 356.12 s | 207.53 s |
+| Broad path, earliest suite job start to final required suite result | 16m 17s | 13m 43s | 10m 38s |
+
+The nine broad jobs consumed 72.22 runner-minutes, including their setup and
+teardown. This compares with 143.82 minutes for the original three sequential
+broad jobs, but the original caches missed, so it is not a matched warm-cache
+comparison. Scheduling before the earliest broad job is excluded from these
+path timings and must be reported separately for the final target assessment.
+All suite targets and the ten-minute broad target remain unmet. The scenario
+improvement is consistent with the focused reduction in restores and worker
+starts; hosted timings alone do not isolate its effect from runner variance.
+
+Dirty-checkout reports inspected in this run identify `mise.lock` as the changed
+file. No reviewed test expectations were changed by this checkpoint.
+
+### Completed original warm E2E measurement
+
+The original warm full command at `75bdd97` passed the same 426 executions in
+3238.36 s (53m 58s), retaining the cold run's external repository and workspace
+caches, prepared SDK and global NuGet cache. Its scenario, workspace and all-case
+dotnet portions were 480.08 s, 260.30 s and 2497.64 s. The cold-to-warm gap was
+737.53 s, during which focused worker validation ran; no measured runs overlapped.
+The sampler recorded 15,511.52 descendant CPU-seconds and 16.47 GiB peak summed
+RSS. It observed 1014 analysis workers and 805 restore commands in each original
+run. Warm caches reduced total elapsed time by only 0.96% in this single pair;
+they did not remove repeated analysis and process startup. Matched optimized
+cold/warm full-command measurements are still outstanding.
+
+### Rejected scheduling and materialization experiments
+
+On CPUs 0–3, the two existing AspNetCore and Orchard source-roots rows were
+measured twice per variant with prepared repository caches. The first pair ran
+parallel then sequential before/after analysis; the repeat reversed that order.
+All selected rows passed and the fixture source and binaries were restored after
+each experiment.
+
+| Pair scheduling | Wall seconds, first / repeat | Sampled CPU seconds, first / repeat | Peak summed RSS GiB, first / repeat |
+|---|---:|---:|---:|
+| Parallel | 79.83 / 73.13 | 235.92 / 193.25 | 5.06 / 6.16 |
+| Sequential | 72.08 / 76.91 | 164.99 / 191.86 | 5.01 / 5.98 |
+
+The first CPU improvement did not repeat, and elapsed-time ordering reversed.
+The fixture therefore keeps its existing pair scheduling. Separately, avoiding
+writes of identical cached snapshot bytes passed five existing interceptor and
+framework-dispatch CLI rows but changed elapsed time only from 39.92 to 39.29 s
+and sampled CPU from 85.90 to 84.95 s. That production change was not adopted.
+These samples do not establish a useful improvement beyond normal variation.
+
+### Retaining eligible scenario workspaces
+
+The fixture worker now retains a loaded MSBuild workspace for consecutive requests
+with the same strict single-project shape, root and options. It rereads all loaded
+regular source documents, updates changed Roslyn source text and runs the graph
+analysis and compilation diagnostics for every request. SDK source generators
+observe the updated solution. Shape, root or option changes discard the loaded
+workspace. Multi-project fixtures still load fresh, and unsupported shapes retain
+the original fixture path. The shape guard additionally rejects bin/obj input
+paths, path-bearing assembly names and self references.
+
+Production loading and analysis share the same implementation through an internal
+loaded-workspace owner. The public production entry point continues to load,
+analyze and dispose a fresh workspace per call; only the fixture tool has friend
+access to retain it. Errors discard retained state. Parent exit, EOF, bounded
+requests and assembly teardown retain their existing cleanup ownership.
+
+Twelve temporary probes compared complete raw graphs from the original production
+worker, the refactored fresh worker and the retained worker. They matched across
+source edits, introduced and cleared errors, SDK regex generator changes, added
+and renamed files, project-property changes, Debug/Release options and different
+roots. Separate probes checked shape rejection and malformed-input recovery, EOF
+and parent-exit termination after a workspace had loaded. These probes do not
+replace the existing integration expectations or supported-platform CI.
+
+The same 95-row sample on CPUs 0–3 passed in 38.89 s with 120.42 sampled CPU-seconds
+and 2.55 GiB peak summed RSS, compared with 98.76 s / 319.63 CPU-seconds / 2.95 GiB
+for the worker-only checkpoint. Exact case-name multisets matched the original
+baseline and worker-only samples. All three reached four overlapping rows. The
+new sample still used 20 restores, ten fresh workers and four pooled workers;
+its additional reduction comes from avoiding repeated project loading inside
+eligible pooled workers, not fewer executed rows or CLI checks.
+
+The concurrency comparison retained the exact same 95 rows and four-CPU affinity:
+
+| Collection limit / observed overlap | Complete command | Sampled CPU | Peak summed RSS | Pooled workers |
+|---|---:|---:|---:|---:|
+| 1 / 1 | 60.09 s | 88.38 s | 1.45 GiB | 1 |
+| 2 / 2 | 43.44 s | 101.93 s | 2.00 GiB | 2 |
+| 4 / 4 | 38.86 s | 120.98 s | 2.53 GiB | 4 |
+
+Four remains the limit for lower latency, with its higher CPU and memory cost
+explicitly retained. The two four-collection samples have a 38.88 s median and
+38.86–38.89 s range; these are short local samples, not a hosted-runner guarantee.
+The complete fast command still passed 350 rows in 4.64 s with no fixture workers.
+
+The existing four project-classification/file-local integration rows passed in
+32.38 s, and eight mixed-framework, referenced-generator, define and cache rows
+passed in 18.85 s. The full solution built without warnings or errors. Temporary
+probe sources were removed before the checkpoint; reviewed expectations remain
+unchanged. Supported-platform CI for this loading refactor is pending, and no
+hosted-suite or full E2E target is claimed from these focused results.
