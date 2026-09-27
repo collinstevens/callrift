@@ -1568,3 +1568,69 @@ analysis with buffering still took 77.89 s / 196.63 s. Earlier availability of
 inputs changed overlap; the isolated I/O gain did not establish a suite gain.
 Per-analysis memoization of method keys and labels likewise took 77.58 s / 227.37
 CPU-seconds. All selected snapshots passed, but neither change was retained.
+
+### Timing-report checkpoint
+
+[Run 36287556821](https://github.com/collinstevens/callrift/actions/runs/36287556821)
+at `1a7c623` passed all required checks with the same production and harness code
+as `4ed0fd0`, plus timing output. It retained 305 / 26 / 25 broad executions per OS.
+All case jobs restored their repository caches.
+
+| Complete dotnet test command | Ubuntu | Windows | macOS |
+|---|---:|---:|---:|
+| Scenarios | 416.33 s | 771.68 s | 751.45 s |
+| Workspaces | 276.52 s | 317.07 s | 255.69 s |
+| Cases | 257.58 s | 357.46 s | 262.71 s |
+| Broad path | 7m 40s | 14m 24s | 13m 37s |
+
+Broad runner time was 70.73 minutes. Initial scheduling delays were 2 / 3 / 7 s
+respectively. This repeat demonstrates substantial hosted variance: macOS no
+longer met the broad target, while Ubuntu improved. No per-suite target was met.
+The largest scenario class totals were constructor equivalence and static
+initializer declarations, both of which still repeat full CLI analysis across
+semantic/query permutations. Framework-dispatch and parity classes led workspace
+class totals; the generated-interceptor CLI row alone took 137–156 s. These are
+specific remaining targets, not grounds to drop those behaviors or assertions.
+
+A bounded managed-thread trace resolved method names after an initial trace lost
+its method-resolution data at process exit. Its sampling includes waiting time,
+so thread-stack percentages are not CPU utilization. GC polling motivated a
+case-host server-GC experiment using the documented
+[per-process GC setting](https://learn.microsoft.com/en-us/dotnet/core/runtime-config/garbage-collector#workstation-vs-server).
+Both source rows passed in 70.48 s, but sampled CPU rose to 242.65 s versus 193.25 s
+in the earlier control; peak summed RSS was 5.22 GiB. That setting was reverted.
+
+### Reference preparation inside the existing MSBuild worker
+
+Reference preparation now invokes the real MSBuild `ResolveReferences` target
+through a short-lived `BuildManager` inside the existing isolated analysis worker.
+It retains the same project, configuration and selected framework and reads the
+resolved-reference items from the completed project state. It uses one build node,
+disables node reuse, restores the operating environment and shuts down the in-process
+node after the build. Build diagnostics remain analysis failures, and cancellation
+can cancel submissions. The outer worker process still owns the CLI cancellation
+and timeout boundary, including child tasks. No graph, project output or resolved
+reference result is cached by this change.
+
+Matched Debug samples on CPUs 0–3 retained five existing generated-interceptor
+and mixed-framework dispatch CLI rows, including every repeated CLI call. The
+first pair ran control then candidate; the repeat reversed that order.
+
+| Reference preparation | Wall seconds, first / repeat | Sampled CPU seconds, first / repeat | Peak summed RSS GiB, first / repeat |
+|---|---:|---:|---:|
+| Separate reference processes | 39.90 / 39.64 | 85.55 / 86.31 | 1.76 / 1.74 |
+| Inside each analysis worker | 36.52 / 36.01 | 77.63 / 77.00 | 1.84 / 1.86 |
+
+Median elapsed time fell 8.8% and sampled CPU about 10%, with a modest memory
+increase. Both variants still launched 26 analysis workers; separate reference
+processes fell from 26 to zero. All five rows passed in every sample. This is a
+focused improvement, not evidence that the hosted workspace target is met.
+
+Eight existing framework, referenced-generator, define and cache rows passed in
+16.80 s; four imported-project/classification and file-local CLI rows passed in
+28.55 s. Full raw graphs matched the original worker for mixed-framework Debug,
+Release and changed-reference inputs. Temporary probes verified cancellation of
+an active reference-build `Exec` child and preservation of failing-target
+diagnostics. Probe sources were removed before committing. The solution built
+without warnings or errors, and all 350 fast rows passed in 4.49 s including
+complete invocation startup. Supported-platform CI for this change is pending.

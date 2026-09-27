@@ -1,8 +1,10 @@
+using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Text.Json;
 using Callrift.Core;
 using Microsoft.Build.Construction;
+using Microsoft.Build.Execution;
+using Microsoft.Build.Framework;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Formatting;
@@ -323,25 +325,56 @@ public static class WorkspaceAnalysis
 
     private static async Task<HashSet<string>> ResolveReferenceOutputsAsync(WorkspaceRequest request, string path, string framework, CancellationToken cancellationToken)
     {
-        var resultPath = Path.Combine(Path.GetDirectoryName(request.Root)!, "references-" + Guid.NewGuid().ToString("N") + ".json");
-        var arguments = new List<string>
+        cancellationToken.ThrowIfCancellationRequested();
+        var properties = new Dictionary<string, string> { ["Configuration"] = request.Options.Configuration };
+        if (framework.Length > 0 && framework != "default") properties["TargetFramework"] = framework;
+        using var collection = new BuildProjectCollection(properties);
+        using var manager = new BuildManager();
+        var log = new ReferenceBuildLog();
+        var parameters = new BuildParameters(collection)
         {
-            "msbuild", path, "-target:ResolveReferences", "-getItem:_ResolvedProjectReferencePaths",
-            "-getResultOutputFile:" + resultPath,
-            "-property:Configuration=" + request.Options.Configuration, "-nologo", "-verbosity:quiet"
+            EnableNodeReuse = false,
+            SaveOperatingEnvironment = true,
+            ShutdownInProcNodeOnBuildFinish = true,
+            MaxNodeCount = 1,
+            Loggers = [log]
         };
-        if (framework.Length > 0 && framework != "default") arguments.Add("-property:TargetFramework=" + framework);
+        var data = new BuildRequestData(path, properties, null, ["ResolveReferences"], null, BuildRequestDataFlags.ProvideProjectStateAfterBuild);
+        var completion = new TaskCompletionSource<BuildResult>(TaskCreationOptions.RunContinuationsAsynchronously);
+        BuildResult result;
+        manager.BeginBuild(parameters);
         try
         {
-            await MSBuildAnalysisProvider.RunProcessAsync(Path.GetDirectoryName(path)!, arguments, request.Root, cancellationToken);
-            using var document = JsonDocument.Parse(await File.ReadAllTextAsync(resultPath, cancellationToken));
-            return document.RootElement.GetProperty("Items").GetProperty("_ResolvedProjectReferencePaths").EnumerateArray()
-                .Select(item => Path.GetFullPath(item.GetProperty("FullPath").GetString()!)).ToHashSet(PathComparer);
+            var submission = manager.PendBuildRequest(data);
+            submission.ExecuteAsync(completed => completion.TrySetResult(completed.BuildResult), null);
+            using var registration = cancellationToken.Register(manager.CancelAllSubmissions);
+            result = await completion.Task;
         }
         finally
         {
-            File.Delete(resultPath);
+            manager.EndBuild();
         }
+        cancellationToken.ThrowIfCancellationRequested();
+        if (result.OverallResult != BuildResultCode.Success)
+            throw new InvalidOperationException("MSBuild analysis failed:\n" + MSBuildAnalysisProvider.CleanMessage(
+                string.Join("\n", log.Messages.Append(result.Exception?.Message).Where(message => !string.IsNullOrEmpty(message))), request.Root).Trim());
+        var state = result.ProjectStateAfterBuild ?? throw new InvalidOperationException("MSBuild returned no reference project state.");
+        return state.GetItems("_ResolvedProjectReferencePaths").Select(item => Path.GetFullPath(item.GetMetadataValue("FullPath"))).ToHashSet(PathComparer);
+    }
+
+    private sealed class ReferenceBuildLog : ILogger
+    {
+        public ConcurrentQueue<string> Messages { get; } = new();
+        public LoggerVerbosity Verbosity { get; set; } = LoggerVerbosity.Quiet;
+        public string? Parameters { get; set; }
+
+        public void Initialize(IEventSource eventSource)
+        {
+            eventSource.ErrorRaised += (_, error) => Messages.Enqueue($"{error.File}({error.LineNumber},{error.ColumnNumber}): error {error.Code}: {error.Message}");
+            eventSource.WarningRaised += (_, warning) => Messages.Enqueue($"{warning.File}({warning.LineNumber},{warning.ColumnNumber}): warning {warning.Code}: {warning.Message}");
+        }
+
+        public void Shutdown() { }
     }
 
     internal sealed record LoadedProject(ProjectId Id, string Path, string Framework, bool IsTest);
