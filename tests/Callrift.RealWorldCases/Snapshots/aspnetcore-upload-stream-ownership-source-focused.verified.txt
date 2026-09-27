@@ -2,97 +2,256 @@
 exit: 0
 stdout:
 ~ DefaultHubDispatcher<THub>.CleanupInvocation (signature changed)
+- ├─ HubMethodInvocationMessage.get_StreamIds
 - ├─ if (hubMessage.StreamIds != null)
+- │  ├─ HubMethodInvocationMessage.get_StreamIds
 - │  └─ foreach (var stream in hubMessage.StreamIds)
+- │     ├─ HubConnectionContext.get_StreamTracker (changes below depth limit)
 - │     ├─ CompletionMessage.Empty (depth limit)
 - │     └─ StreamTracker.TryComplete (changes below depth limit)
 + ├─ if (streamOwner is not null)
++ │  ├─ HubMethodInvocationMessage.get_StreamIds
 + │  └─ foreach (var streamId in hubMessage.StreamIds!)
++ │     ├─ HubConnectionContext.get_StreamTracker (changes below depth limit)
++ │     ├─ Nullable<T>.get_Value
 + │     └─ StreamTracker.TryComplete (changes below depth limit)
   ├─ if (hub != null)
   └─ scope.DisposeAsync
 
   DefaultHubDispatcher<THub>.Invoke
+  ├─ HubMethodDescriptor.get_MethodExecutor
   ├─ _serviceScopeFactory.CreateAsyncScope
   ├─ try
   │  ├─ …
+  │  ├─ scope.ServiceProvider.GetRequiredService<IHubActivator<THub>>
+  │  ├─ IHubActivator<THub>.Create → DefaultHubActivator<THub>.Create
+  │  ├─ HubConnectionContext.get_HubCallerContext
+  │  │  ├─ Volatile.Read
+  │  │  └─ if (hubCallerContext is null)
+~ │  │     └─ HubConnectionContext.InitializeHubCallerContext (changes below depth limit)
+  │  ├─ AsyncServiceScope.get_ServiceProvider
+  │  ├─ HubMethodInvocationMessage.get_Arguments
+  │  ├─ DefaultHubDispatcher<THub>.IsHubMethodAuthorized
   │  ├─ if (!await IsHubMethodAuthorized(scope.ServiceProvider, hubCallerContext, descriptor, hubMethodIn…
+  │  │  ├─ …
+  │  │  ├─ HubInvocationMessage.get_InvocationId
+  │  │  ├─ HubMethodInvocationMessage.get_Target
+~ │  │  └─ DefaultHubDispatcher<THub>.SendInvocationError (changes below depth limit)
   │  ├─ DefaultHubDispatcher<THub>.ValidateInvocationMode
+  │  │  ├─ HubMethodDescriptor.get_IsStreamResponse (depth limit)
+  │  │  ├─ if (hubMethodDescriptor.IsStreamResponse && !isStreamResponse)
+  │  │  │  ├─ HubInvocationMessage.get_InvocationId
+  │  │  │  ├─ string.IsNullOrEmpty
+  │  │  │  └─ if (!string.IsNullOrEmpty(hubMethodInvocationMessage.InvocationId))
+  │  │  │     ├─ …
+  │  │  │     ├─ HubMethodInvocationMessage.get_Target
+  │  │  │     ├─ CompletionMessage.WithError (depth limit)
+  │  │  │     └─ HubConnectionContext.WriteAsync
+~ │  │  │        ├─ ⇢ HubConnectionContext.WriteAsync (changes below depth limit)
+  │  │  │        ├─ ⇢ DefaultHubDispatcherBenchmark.NoErrorHubConnectionContext.WriteAsync (depth limit)
+  │  │  │        └─ ⇢ HubConnectionContextUtils.MockHubConnectionContext.WriteAsync (depth limit)
+  │  │  ├─ HubMethodDescriptor.get_IsStreamResponse (depth limit)
+  │  │  └─ if (!hubMethodDescriptor.IsStreamResponse && isStreamResponse)
+  │  │     ├─ …
+  │  │     ├─ HubMethodInvocationMessage.get_Target
+  │  │     ├─ CompletionMessage.WithError (depth limit)
+  │  │     └─ HubConnectionContext.WriteAsync ↑ as above
   │  ├─ try
+  │  │  ├─ …
+  │  │  ├─ HubMethodDescriptor.get_StreamingParameters
+  │  │  ├─ if (descriptor.StreamingParameters is not null)
   │  │  ├─ if (clientStreamLength != serverStreamLength)
+  │  │  │  ├─ …
+  │  │  │  ├─ HubMethodInvocationMessage.get_Target
+  │  │  │  ├─ ErrorMessageHelper.BuildErrorMessage (depth limit)
+~ │  │  │  └─ DefaultHubDispatcher<THub>.SendInvocationError (changes below depth limit)
   │  │  ├─ DefaultHubDispatcher<THub>.InitializeHub (depth limit)
+  │  │  ├─ HubMethodInvocationMessage.get_Arguments
+  │  │  ├─ HubMethodDescriptor.get_HasSyntheticArguments
   │  │  ├─ if (descriptor.HasSyntheticArguments)
 ~ │  │  │  └─ DefaultHubDispatcher<THub>.ReplaceArguments (signature changed)
   │  │  ├─ if (isStreamCall || isStreamResponse)
   │  │  ├─ if (isStreamResponse)
+  │  │  │  ├─ HubInvocationMessage.get_InvocationId
 ~ │  │  │  └─ DefaultHubDispatcher<THub>.StreamAsync (signature changed)
   │  │  └─ else (!(isStreamResponse))
 ~ │  │     └─ DefaultHubDispatcher<THub>.Invoke.ExecuteInvocation (signature changed)
   │  ├─ catch (TargetInvocationException ex)
+  │  │  ├─ …
+  │  │  ├─ Exception.get_InnerException
+  │  │  ├─ ErrorMessageHelper.BuildErrorMessage (depth limit)
+~ │  │  └─ DefaultHubDispatcher<THub>.SendInvocationError (changes below depth limit)
   │  └─ catch (Exception ex)
+  │     ├─ …
+  │     ├─ HubMethodInvocationMessage.get_Target
+  │     ├─ ErrorMessageHelper.BuildErrorMessage (depth limit)
+~ │     └─ DefaultHubDispatcher<THub>.SendInvocationError (changes below depth limit)
   └─ finally
      └─ if (disposeScope)
+        ├─ if (hub is not null)
         ├─ if (hub?.Clients is HubCallerClients hubCallerClients)
 ~       └─ DefaultHubDispatcher<THub>.CleanupInvocation (signature changed)
 
 ~ DefaultHubDispatcher<THub>.Invoke.ExecuteInvocation (signature changed)
   ├─ …
+  ├─ HubMethodInvocationMessage.get_Target
+  ├─ HubInvocationMessage.get_Headers
+  ├─ DefaultHubDispatcher<THub>.StartActivity
+  │  ├─ …
+  │  ├─ possible initialization of DefaultHubDispatcher<THub>
+  │  ├─ TagList.Add
+  │  ├─ if (connection is not null)
+  │  │  ├─ HubConnectionContext.get_Features (depth limit)
+~ │  │  └─ ConnectionEndpointTags.AddConnectionEndpointTags (changes below depth limit)
+  │  ├─ if ((linkedActivity is not null))
+  │  ├─ if (headers != null)
+  │  └─ …
+  ├─ if (cts != null)
+  ├─ if (cts != null && !string.IsNullOrEmpty(hubMethodInvocationMessage.InvocationId))
+  │  ├─ …
+  │  ├─ HubInvocationMessage.get_InvocationId
+  │  ├─ connection.ActiveRequestCancellationSources.TryAdd
+  │  └─ if (!connection.ActiveRequestCancellationSources.TryAdd(hubMethodInvocationMessage.InvocationId!,…
+  │     ├─ …
+  │     ├─ HubInvocationMessage.get_InvocationId ×2
+~ │     ├─ DefaultHubDispatcher<THub>.SendInvocationError (changes below depth limit)
+  │     └─ cts.Dispose
   ├─ try
   ├─ catch (Exception ex)
+  │  ├─ …
+  │  ├─ HubMethodInvocationMessage.get_Target
+  │  ├─ ErrorMessageHelper.BuildErrorMessage
+  │  └─ DefaultHubDispatcher<THub>.SendInvocationError
+  │     ├─ string.IsNullOrEmpty
+  │     ├─ CompletionMessage.WithError (depth limit)
+  │     └─ HubConnectionContext.WriteAsync ↑ as above
   ├─ finally
   │  ├─ …
   │  ├─ if (ctsRegistered)
   │  ├─ if (cts is not null)
   │  └─ if (isStreamCall)
 ~ │     └─ DefaultHubDispatcher<THub>.CleanupInvocation (signature changed)
+  ├─ HubInvocationMessage.get_InvocationId
   ├─ string.IsNullOrEmpty
   └─ if (!string.IsNullOrEmpty(hubMethodInvocationMessage.InvocationId))
+     ├─ HubInvocationMessage.get_InvocationId
+     ├─ CompletionMessage.WithResult
+     └─ HubConnectionContext.WriteAsync ↑ as above
 
 ~ DefaultHubDispatcher<THub>.ReplaceArguments (signature changed)
+  ├─ HubMethodDescriptor.get_OriginalParameterTypes
+  ├─ IReadOnlyCollection<T>.get_Count
 - ├─ for (parameterPointer < arguments.Length)
+- │  ├─ Array.get_Length
 - │  ├─ HubMethodDescriptor.IsServiceArgument
 - │  ├─ if (descriptor.IsServiceArgument(parameterPointer))
+- │  │  ├─ AsyncServiceScope.get_ServiceProvider
+- │  │  ├─ HubMethodDescriptor.get_OriginalParameterTypes
+- │  │  ├─ IReadOnlyList<T>.get_Item
 - │  │  └─ HubMethodDescriptor.GetService (depth limit)
 - │  └─ else (!(descriptor.IsServiceArgument(parameterPointer)))
+- │     ├─ HubMethodDescriptor.get_OriginalParameterTypes
+- │     ├─ IReadOnlyList<T>.get_Item
+- │     ├─ Type.op_Equality
 - │     ├─ if (descriptor.OriginalParameterTypes[parameterPointer] == typeof(CancellationToken))
-- │     │  └─ CancellationTokenSource.CreateLinkedTokenSource
+- │     │  ├─ HubConnectionContext.get_ConnectionAborted
+- │     │  ├─ CancellationTokenSource.CreateLinkedTokenSource
+- │     │  └─ CancellationTokenSource.get_Token
 - │     └─ else (!(descriptor.OriginalParameterTypes[parameterPointer] == typeof(CancellationToken)))
 - │        ├─ if (isStreamCall)
+- │        │  ├─ HubMethodDescriptor.get_OriginalParameterTypes
+- │        │  ├─ IReadOnlyList<T>.get_Item
 - │        │  └─ ReflectionHelper.IsStreamingType (depth limit)
 - │        ├─ if (isStreamCall && ReflectionHelper.IsStreamingType(descriptor.OriginalParameterTypes[parameterP…
+- │        │  ├─ HubMethodInvocationMessage.get_StreamIds
 - │        │  ├─ DefaultHubDispatcherLog.StartingParameterStream
+- │        │  ├─ HubMethodDescriptor.get_StreamingParameters
+- │        │  ├─ List<T>.get_Item
+- │        │  ├─ HubConnectionContext.get_StreamTracker (changes below depth limit)
+- │        │  ├─ HubMethodInvocationMessage.get_StreamIds
+- │        │  ├─ HubMethodDescriptor.get_OriginalParameterTypes
+- │        │  ├─ IReadOnlyList<T>.get_Item
 - │        │  └─ StreamTracker.AddStream (changes below depth limit)
 - │        └─ else (!(isStreamCall && ReflectionHelper.IsStreamingType(descriptor.OriginalParameterTypes[parame…
+- │           ├─ HubMethodInvocationMessage.get_Arguments
+- │           ├─ if (hubMethodInvocationMessage.Arguments is not null)
+- │           │  └─ Array.get_Length
 - │           ├─ if (hubMethodInvocationMessage.Arguments?.Length > hubInvocationArgumentPointer)
+- │           │  ├─ HubMethodInvocationMessage.get_Arguments
 - │           │  └─ if (!(hubMethodInvocationMessage.Arguments[hubInvocationArgumentPointer] == null))
+- │           │     ├─ HubMethodDescriptor.get_OriginalParameterTypes
+- │           │     ├─ IReadOnlyList<T>.get_Item
+- │           │     ├─ HubMethodInvocationMessage.get_Arguments
 - │           │     ├─ if (hubMethodInvocationMessage.Arguments[hubInvocationArgumentPointer] is not null)
 - │           │     │  └─ .GetType
 - │           │     └─ descriptor.OriginalParameterTypes[parameterPointer].IsAssignableFrom
+- │           ├─ if (hubMethodInvocationMessage.Arguments?.Length > hubInvocationArgumentPointer && (hubMethodInvo…
+- │           │  └─ HubMethodInvocationMessage.get_Arguments
 - │           └─ else (!(hubMethodInvocationMessage.Arguments?.Length > hubInvocationArgumentPointer && (hubMethod…
+- │              ├─ HubMethodDescriptor.get_OriginalParameterTypes
+- │              ├─ IReadOnlyList<T>.get_Item
+- │              ├─ MemberInfo.get_Name
+- │              ├─ HubMethodDescriptor.get_MethodExecutor
+- │              ├─ ObjectMethodExecutor.get_MethodInfo
+- │              ├─ MemberInfo.get_Name
 - │              └─ Debug.Assert
 + ├─ try
 + │  └─ for (parameterPointer < arguments.Length)
++ │     ├─ Array.get_Length
 + │     ├─ HubMethodDescriptor.IsServiceArgument
 + │     ├─ if (descriptor.IsServiceArgument(parameterPointer))
++ │     │  ├─ AsyncServiceScope.get_ServiceProvider
++ │     │  ├─ HubMethodDescriptor.get_OriginalParameterTypes
++ │     │  ├─ IReadOnlyList<T>.get_Item
 + │     │  └─ HubMethodDescriptor.GetService (depth limit)
 + │     └─ else (!(descriptor.IsServiceArgument(parameterPointer)))
++ │        ├─ HubMethodDescriptor.get_OriginalParameterTypes
++ │        ├─ IReadOnlyList<T>.get_Item
++ │        ├─ Type.op_Equality
 + │        ├─ if (descriptor.OriginalParameterTypes[parameterPointer] == typeof(CancellationToken))
-+ │        │  └─ CancellationTokenSource.CreateLinkedTokenSource
++ │        │  ├─ HubConnectionContext.get_ConnectionAborted
++ │        │  ├─ CancellationTokenSource.CreateLinkedTokenSource
++ │        │  └─ CancellationTokenSource.get_Token
 + │        └─ else (!(descriptor.OriginalParameterTypes[parameterPointer] == typeof(CancellationToken)))
 + │           ├─ if (isStreamCall)
++ │           │  ├─ HubMethodDescriptor.get_OriginalParameterTypes
++ │           │  ├─ IReadOnlyList<T>.get_Item
 + │           │  └─ ReflectionHelper.IsStreamingType (depth limit)
 + │           ├─ if (isStreamCall && ReflectionHelper.IsStreamingType(descriptor.OriginalParameterTypes[parameterP…
++ │           │  ├─ HubMethodInvocationMessage.get_StreamIds
 + │           │  ├─ DefaultHubDispatcherLog.StartingParameterStream
++ │           │  ├─ HubMethodDescriptor.get_StreamingParameters
++ │           │  ├─ List<T>.get_Item
++ │           │  ├─ HubConnectionContext.get_StreamTracker (changes below depth limit)
++ │           │  ├─ HubMethodInvocationMessage.get_StreamIds
++ │           │  ├─ HubMethodDescriptor.get_OriginalParameterTypes
++ │           │  ├─ IReadOnlyList<T>.get_Item
 + │           │  ├─ if (streamOwner is null)
++ │           │  │  ├─ HubConnectionContext.get_StreamTracker (changes below depth limit)
 + │           │  │  └─ StreamTracker.GetNextStreamOwner (changes below depth limit)
 + │           │  └─ StreamTracker.AddStream (changes below depth limit)
 + │           └─ else (!(isStreamCall && ReflectionHelper.IsStreamingType(descriptor.OriginalParameterTypes[parame…
++ │              ├─ HubMethodInvocationMessage.get_Arguments
++ │              ├─ if (hubMethodInvocationMessage.Arguments is not null)
++ │              │  └─ Array.get_Length
 + │              ├─ if (hubMethodInvocationMessage.Arguments?.Length > hubInvocationArgumentPointer)
++ │              │  ├─ HubMethodInvocationMessage.get_Arguments
 + │              │  └─ if (!(hubMethodInvocationMessage.Arguments[hubInvocationArgumentPointer] == null))
++ │              │     ├─ HubMethodDescriptor.get_OriginalParameterTypes
++ │              │     ├─ IReadOnlyList<T>.get_Item
++ │              │     ├─ HubMethodInvocationMessage.get_Arguments
 + │              │     ├─ if (hubMethodInvocationMessage.Arguments[hubInvocationArgumentPointer] is not null)
 + │              │     │  └─ .GetType
 + │              │     └─ descriptor.OriginalParameterTypes[parameterPointer].IsAssignableFrom
++ │              ├─ if (hubMethodInvocationMessage.Arguments?.Length > hubInvocationArgumentPointer && (hubMethodInvo…
++ │              │  └─ HubMethodInvocationMessage.get_Arguments
 + │              └─ else (!(hubMethodInvocationMessage.Arguments?.Length > hubInvocationArgumentPointer && (hubMethod…
++ │                 ├─ HubMethodDescriptor.get_OriginalParameterTypes
++ │                 ├─ IReadOnlyList<T>.get_Item
++ │                 ├─ MemberInfo.get_Name
++ │                 ├─ HubMethodDescriptor.get_MethodExecutor
++ │                 ├─ ObjectMethodExecutor.get_MethodInfo
++ │                 ├─ MemberInfo.get_Name
 + │                 └─ Debug.Assert
 + └─ finally
 +    └─ if (!argumentsReplaced)
@@ -101,19 +260,34 @@ stdout:
 
 ~ DefaultHubDispatcher<THub>.StreamAsync (signature changed)
   ├─ …
+  ├─ HubMethodInvocationMessage.get_Target
+  ├─ HubInvocationMessage.get_Headers
+  ├─ DefaultHubDispatcher<THub>.StartActivity ↑ as above
+  ├─ try
+  │  ├─ …
+  │  ├─ DefaultHubDispatcherLog.StreamingResult
+  │  ├─ new StreamItemMessage
+  │  └─ while (await enumerator.MoveNextAsync())
+  │     ├─ …
+  │     ├─ IAsyncEnumerator<T>.get_Current
+  │     ├─ StreamItemMessage.set_Item
+  │     └─ HubConnectionContext.WriteAsync ↑ as above
   ├─ catch (ChannelClosedException ex)
   ├─ catch (Exception ex)
   └─ finally
-     ├─ if (activity is not null)
+     ├─ …
+     ├─ Activity.get_Current
+     ├─ if (Activity.Current != previousActivity)
 ~    ├─ DefaultHubDispatcher<THub>.CleanupInvocation (signature changed) ↑ as above
      ├─ if (ctsRegistered)
      ├─ CompletionMessage.WithError
-     └─ …
+     └─ HubConnectionContext.WriteAsync ↑ as above
 
 ~ StreamTracker.AddStream (signature changed)
   ├─ …
   ├─ _buildConverterMethod.MakeGenericMethod
   ├─ _buildConverterMethod.MakeGenericMethod(itemType).Invoke
+- ├─ ConcurrentDictionary<TKey, TValue>.set_Item
 + ├─ _lookup.TryAdd
 + ├─ if (!_lookup.TryAdd(streamId, (streamOwner, newConverter)))
 + │  └─ new HubException
@@ -138,8 +312,8 @@ stdout:
   └─ new KeyNotFoundException
 
 ~ StreamTracker.TryComplete (body changed; visible calls unchanged)
+  ├─ HubInvocationMessage.get_InvocationId
   ├─ _lookup.TryRemove
-  ├─ else (!(message.HasResult || message.Error == null))
   └─ …
 
 + StreamTracker.TryComplete
@@ -147,126 +321,291 @@ stdout:
 + ├─ KeyValuePair.Create
 + ├─ _lookup.TryRemove
 + └─ StreamTracker.IStreamConverter.TryComplete → StreamTracker.ChannelConverter<T>.TryComplete
++    ├─ Channel<TWrite, TRead>.get_Writer
 +    └─ _channel.Writer.TryComplete
 
   StreamTracker.TryProcessItem
+  ├─ HubInvocationMessage.get_InvocationId
 - ├─ StreamTracker.TryGetConverter ↑ as above
 - ├─ if (TryGetConverter(message.InvocationId!, out var converter))
+- │  ├─ StreamItemMessage.get_Item
 - │  └─ StreamTracker.IStreamConverter.WriteToStream → StreamTracker.ChannelConverter<T>.WriteToStream
+- │     ├─ Channel<TWrite, TRead>.get_Writer
 - │     ├─ _channel.Writer.WriteAsync
 - │     └─ _channel.Writer.WriteAsync((T? )o).AsTask
 + ├─ StreamTracker.TryGetRegistration ↑ as above
 + └─ if (TryGetRegistration(message.InvocationId!, out var registration))
++    ├─ StreamItemMessage.get_Item
 +    └─ StreamTracker.IStreamConverter.WriteToStream → StreamTracker.ChannelConverter<T>.WriteToStream
++       ├─ Channel<TWrite, TRead>.get_Writer
 +       ├─ _channel.Writer.WriteAsync
 +       └─ _channel.Writer.WriteAsync((T? )o).AsTask
 stderr:
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:19: unresolved-call: Cannot bind new RootCommand.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind collection initializer Add.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:24: unresolved-call: Cannot bind new Argument<string[]>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind collection initializer Add.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot bind new Argument<string>.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
-23089 additional diagnostics; use --diagnostics full.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind collection initializer Add.
+23404 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
 stdout:
 ```diff
 ~ DefaultHubDispatcher<THub>.CleanupInvocation (signature changed)
+- ├─ HubMethodInvocationMessage.get_StreamIds
 - ├─ if (hubMessage.StreamIds != null)
+- │  ├─ HubMethodInvocationMessage.get_StreamIds
 - │  └─ foreach (var stream in hubMessage.StreamIds)
+- │     ├─ HubConnectionContext.get_StreamTracker (changes below depth limit)
 - │     ├─ CompletionMessage.Empty (depth limit)
 - │     └─ StreamTracker.TryComplete (changes below depth limit)
 + ├─ if (streamOwner is not null)
++ │  ├─ HubMethodInvocationMessage.get_StreamIds
 + │  └─ foreach (var streamId in hubMessage.StreamIds!)
++ │     ├─ HubConnectionContext.get_StreamTracker (changes below depth limit)
++ │     ├─ Nullable<T>.get_Value
 + │     └─ StreamTracker.TryComplete (changes below depth limit)
   ├─ if (hub != null)
   └─ scope.DisposeAsync
 
   DefaultHubDispatcher<THub>.Invoke
+  ├─ HubMethodDescriptor.get_MethodExecutor
   ├─ _serviceScopeFactory.CreateAsyncScope
   ├─ try
   │  ├─ …
+  │  ├─ scope.ServiceProvider.GetRequiredService<IHubActivator<THub>>
+  │  ├─ IHubActivator<THub>.Create → DefaultHubActivator<THub>.Create
+  │  ├─ HubConnectionContext.get_HubCallerContext
+  │  │  ├─ Volatile.Read
+  │  │  └─ if (hubCallerContext is null)
+~ │  │     └─ HubConnectionContext.InitializeHubCallerContext (changes below depth limit)
+  │  ├─ AsyncServiceScope.get_ServiceProvider
+  │  ├─ HubMethodInvocationMessage.get_Arguments
+  │  ├─ DefaultHubDispatcher<THub>.IsHubMethodAuthorized
   │  ├─ if (!await IsHubMethodAuthorized(scope.ServiceProvider, hubCallerContext, descriptor, hubMethodIn…
+  │  │  ├─ …
+  │  │  ├─ HubInvocationMessage.get_InvocationId
+  │  │  ├─ HubMethodInvocationMessage.get_Target
+~ │  │  └─ DefaultHubDispatcher<THub>.SendInvocationError (changes below depth limit)
   │  ├─ DefaultHubDispatcher<THub>.ValidateInvocationMode
+  │  │  ├─ HubMethodDescriptor.get_IsStreamResponse (depth limit)
+  │  │  ├─ if (hubMethodDescriptor.IsStreamResponse && !isStreamResponse)
+  │  │  │  ├─ HubInvocationMessage.get_InvocationId
+  │  │  │  ├─ string.IsNullOrEmpty
+  │  │  │  └─ if (!string.IsNullOrEmpty(hubMethodInvocationMessage.InvocationId))
+  │  │  │     ├─ …
+  │  │  │     ├─ HubMethodInvocationMessage.get_Target
+  │  │  │     ├─ CompletionMessage.WithError (depth limit)
+  │  │  │     └─ HubConnectionContext.WriteAsync
+~ │  │  │        ├─ ⇢ HubConnectionContext.WriteAsync (changes below depth limit)
+  │  │  │        ├─ ⇢ DefaultHubDispatcherBenchmark.NoErrorHubConnectionContext.WriteAsync (depth limit)
+  │  │  │        └─ ⇢ HubConnectionContextUtils.MockHubConnectionContext.WriteAsync (depth limit)
+  │  │  ├─ HubMethodDescriptor.get_IsStreamResponse (depth limit)
+  │  │  └─ if (!hubMethodDescriptor.IsStreamResponse && isStreamResponse)
+  │  │     ├─ …
+  │  │     ├─ HubMethodInvocationMessage.get_Target
+  │  │     ├─ CompletionMessage.WithError (depth limit)
+  │  │     └─ HubConnectionContext.WriteAsync ↑ as above
   │  ├─ try
+  │  │  ├─ …
+  │  │  ├─ HubMethodDescriptor.get_StreamingParameters
+  │  │  ├─ if (descriptor.StreamingParameters is not null)
   │  │  ├─ if (clientStreamLength != serverStreamLength)
+  │  │  │  ├─ …
+  │  │  │  ├─ HubMethodInvocationMessage.get_Target
+  │  │  │  ├─ ErrorMessageHelper.BuildErrorMessage (depth limit)
+~ │  │  │  └─ DefaultHubDispatcher<THub>.SendInvocationError (changes below depth limit)
   │  │  ├─ DefaultHubDispatcher<THub>.InitializeHub (depth limit)
+  │  │  ├─ HubMethodInvocationMessage.get_Arguments
+  │  │  ├─ HubMethodDescriptor.get_HasSyntheticArguments
   │  │  ├─ if (descriptor.HasSyntheticArguments)
 ~ │  │  │  └─ DefaultHubDispatcher<THub>.ReplaceArguments (signature changed)
   │  │  ├─ if (isStreamCall || isStreamResponse)
   │  │  ├─ if (isStreamResponse)
+  │  │  │  ├─ HubInvocationMessage.get_InvocationId
 ~ │  │  │  └─ DefaultHubDispatcher<THub>.StreamAsync (signature changed)
   │  │  └─ else (!(isStreamResponse))
 ~ │  │     └─ DefaultHubDispatcher<THub>.Invoke.ExecuteInvocation (signature changed)
   │  ├─ catch (TargetInvocationException ex)
+  │  │  ├─ …
+  │  │  ├─ Exception.get_InnerException
+  │  │  ├─ ErrorMessageHelper.BuildErrorMessage (depth limit)
+~ │  │  └─ DefaultHubDispatcher<THub>.SendInvocationError (changes below depth limit)
   │  └─ catch (Exception ex)
+  │     ├─ …
+  │     ├─ HubMethodInvocationMessage.get_Target
+  │     ├─ ErrorMessageHelper.BuildErrorMessage (depth limit)
+~ │     └─ DefaultHubDispatcher<THub>.SendInvocationError (changes below depth limit)
   └─ finally
      └─ if (disposeScope)
+        ├─ if (hub is not null)
         ├─ if (hub?.Clients is HubCallerClients hubCallerClients)
 ~       └─ DefaultHubDispatcher<THub>.CleanupInvocation (signature changed)
 
 ~ DefaultHubDispatcher<THub>.Invoke.ExecuteInvocation (signature changed)
   ├─ …
+  ├─ HubMethodInvocationMessage.get_Target
+  ├─ HubInvocationMessage.get_Headers
+  ├─ DefaultHubDispatcher<THub>.StartActivity
+  │  ├─ …
+  │  ├─ possible initialization of DefaultHubDispatcher<THub>
+  │  ├─ TagList.Add
+  │  ├─ if (connection is not null)
+  │  │  ├─ HubConnectionContext.get_Features (depth limit)
+~ │  │  └─ ConnectionEndpointTags.AddConnectionEndpointTags (changes below depth limit)
+  │  ├─ if ((linkedActivity is not null))
+  │  ├─ if (headers != null)
+  │  └─ …
+  ├─ if (cts != null)
+  ├─ if (cts != null && !string.IsNullOrEmpty(hubMethodInvocationMessage.InvocationId))
+  │  ├─ …
+  │  ├─ HubInvocationMessage.get_InvocationId
+  │  ├─ connection.ActiveRequestCancellationSources.TryAdd
+  │  └─ if (!connection.ActiveRequestCancellationSources.TryAdd(hubMethodInvocationMessage.InvocationId!,…
+  │     ├─ …
+  │     ├─ HubInvocationMessage.get_InvocationId ×2
+~ │     ├─ DefaultHubDispatcher<THub>.SendInvocationError (changes below depth limit)
+  │     └─ cts.Dispose
   ├─ try
   ├─ catch (Exception ex)
+  │  ├─ …
+  │  ├─ HubMethodInvocationMessage.get_Target
+  │  ├─ ErrorMessageHelper.BuildErrorMessage
+  │  └─ DefaultHubDispatcher<THub>.SendInvocationError
+  │     ├─ string.IsNullOrEmpty
+  │     ├─ CompletionMessage.WithError (depth limit)
+  │     └─ HubConnectionContext.WriteAsync ↑ as above
   ├─ finally
   │  ├─ …
   │  ├─ if (ctsRegistered)
   │  ├─ if (cts is not null)
   │  └─ if (isStreamCall)
 ~ │     └─ DefaultHubDispatcher<THub>.CleanupInvocation (signature changed)
+  ├─ HubInvocationMessage.get_InvocationId
   ├─ string.IsNullOrEmpty
   └─ if (!string.IsNullOrEmpty(hubMethodInvocationMessage.InvocationId))
+     ├─ HubInvocationMessage.get_InvocationId
+     ├─ CompletionMessage.WithResult
+     └─ HubConnectionContext.WriteAsync ↑ as above
 
 ~ DefaultHubDispatcher<THub>.ReplaceArguments (signature changed)
+  ├─ HubMethodDescriptor.get_OriginalParameterTypes
+  ├─ IReadOnlyCollection<T>.get_Count
 - ├─ for (parameterPointer < arguments.Length)
+- │  ├─ Array.get_Length
 - │  ├─ HubMethodDescriptor.IsServiceArgument
 - │  ├─ if (descriptor.IsServiceArgument(parameterPointer))
+- │  │  ├─ AsyncServiceScope.get_ServiceProvider
+- │  │  ├─ HubMethodDescriptor.get_OriginalParameterTypes
+- │  │  ├─ IReadOnlyList<T>.get_Item
 - │  │  └─ HubMethodDescriptor.GetService (depth limit)
 - │  └─ else (!(descriptor.IsServiceArgument(parameterPointer)))
+- │     ├─ HubMethodDescriptor.get_OriginalParameterTypes
+- │     ├─ IReadOnlyList<T>.get_Item
+- │     ├─ Type.op_Equality
 - │     ├─ if (descriptor.OriginalParameterTypes[parameterPointer] == typeof(CancellationToken))
-- │     │  └─ CancellationTokenSource.CreateLinkedTokenSource
+- │     │  ├─ HubConnectionContext.get_ConnectionAborted
+- │     │  ├─ CancellationTokenSource.CreateLinkedTokenSource
+- │     │  └─ CancellationTokenSource.get_Token
 - │     └─ else (!(descriptor.OriginalParameterTypes[parameterPointer] == typeof(CancellationToken)))
 - │        ├─ if (isStreamCall)
+- │        │  ├─ HubMethodDescriptor.get_OriginalParameterTypes
+- │        │  ├─ IReadOnlyList<T>.get_Item
 - │        │  └─ ReflectionHelper.IsStreamingType (depth limit)
 - │        ├─ if (isStreamCall && ReflectionHelper.IsStreamingType(descriptor.OriginalParameterTypes[parameterP…
+- │        │  ├─ HubMethodInvocationMessage.get_StreamIds
 - │        │  ├─ DefaultHubDispatcherLog.StartingParameterStream
+- │        │  ├─ HubMethodDescriptor.get_StreamingParameters
+- │        │  ├─ List<T>.get_Item
+- │        │  ├─ HubConnectionContext.get_StreamTracker (changes below depth limit)
+- │        │  ├─ HubMethodInvocationMessage.get_StreamIds
+- │        │  ├─ HubMethodDescriptor.get_OriginalParameterTypes
+- │        │  ├─ IReadOnlyList<T>.get_Item
 - │        │  └─ StreamTracker.AddStream (changes below depth limit)
 - │        └─ else (!(isStreamCall && ReflectionHelper.IsStreamingType(descriptor.OriginalParameterTypes[parame…
+- │           ├─ HubMethodInvocationMessage.get_Arguments
+- │           ├─ if (hubMethodInvocationMessage.Arguments is not null)
+- │           │  └─ Array.get_Length
 - │           ├─ if (hubMethodInvocationMessage.Arguments?.Length > hubInvocationArgumentPointer)
+- │           │  ├─ HubMethodInvocationMessage.get_Arguments
 - │           │  └─ if (!(hubMethodInvocationMessage.Arguments[hubInvocationArgumentPointer] == null))
+- │           │     ├─ HubMethodDescriptor.get_OriginalParameterTypes
+- │           │     ├─ IReadOnlyList<T>.get_Item
+- │           │     ├─ HubMethodInvocationMessage.get_Arguments
 - │           │     ├─ if (hubMethodInvocationMessage.Arguments[hubInvocationArgumentPointer] is not null)
 - │           │     │  └─ .GetType
 - │           │     └─ descriptor.OriginalParameterTypes[parameterPointer].IsAssignableFrom
+- │           ├─ if (hubMethodInvocationMessage.Arguments?.Length > hubInvocationArgumentPointer && (hubMethodInvo…
+- │           │  └─ HubMethodInvocationMessage.get_Arguments
 - │           └─ else (!(hubMethodInvocationMessage.Arguments?.Length > hubInvocationArgumentPointer && (hubMethod…
+- │              ├─ HubMethodDescriptor.get_OriginalParameterTypes
+- │              ├─ IReadOnlyList<T>.get_Item
+- │              ├─ MemberInfo.get_Name
+- │              ├─ HubMethodDescriptor.get_MethodExecutor
+- │              ├─ ObjectMethodExecutor.get_MethodInfo
+- │              ├─ MemberInfo.get_Name
 - │              └─ Debug.Assert
 + ├─ try
 + │  └─ for (parameterPointer < arguments.Length)
++ │     ├─ Array.get_Length
 + │     ├─ HubMethodDescriptor.IsServiceArgument
 + │     ├─ if (descriptor.IsServiceArgument(parameterPointer))
++ │     │  ├─ AsyncServiceScope.get_ServiceProvider
++ │     │  ├─ HubMethodDescriptor.get_OriginalParameterTypes
++ │     │  ├─ IReadOnlyList<T>.get_Item
 + │     │  └─ HubMethodDescriptor.GetService (depth limit)
 + │     └─ else (!(descriptor.IsServiceArgument(parameterPointer)))
++ │        ├─ HubMethodDescriptor.get_OriginalParameterTypes
++ │        ├─ IReadOnlyList<T>.get_Item
++ │        ├─ Type.op_Equality
 + │        ├─ if (descriptor.OriginalParameterTypes[parameterPointer] == typeof(CancellationToken))
-+ │        │  └─ CancellationTokenSource.CreateLinkedTokenSource
++ │        │  ├─ HubConnectionContext.get_ConnectionAborted
++ │        │  ├─ CancellationTokenSource.CreateLinkedTokenSource
++ │        │  └─ CancellationTokenSource.get_Token
 + │        └─ else (!(descriptor.OriginalParameterTypes[parameterPointer] == typeof(CancellationToken)))
 + │           ├─ if (isStreamCall)
++ │           │  ├─ HubMethodDescriptor.get_OriginalParameterTypes
++ │           │  ├─ IReadOnlyList<T>.get_Item
 + │           │  └─ ReflectionHelper.IsStreamingType (depth limit)
 + │           ├─ if (isStreamCall && ReflectionHelper.IsStreamingType(descriptor.OriginalParameterTypes[parameterP…
++ │           │  ├─ HubMethodInvocationMessage.get_StreamIds
 + │           │  ├─ DefaultHubDispatcherLog.StartingParameterStream
++ │           │  ├─ HubMethodDescriptor.get_StreamingParameters
++ │           │  ├─ List<T>.get_Item
++ │           │  ├─ HubConnectionContext.get_StreamTracker (changes below depth limit)
++ │           │  ├─ HubMethodInvocationMessage.get_StreamIds
++ │           │  ├─ HubMethodDescriptor.get_OriginalParameterTypes
++ │           │  ├─ IReadOnlyList<T>.get_Item
 + │           │  ├─ if (streamOwner is null)
++ │           │  │  ├─ HubConnectionContext.get_StreamTracker (changes below depth limit)
 + │           │  │  └─ StreamTracker.GetNextStreamOwner (changes below depth limit)
 + │           │  └─ StreamTracker.AddStream (changes below depth limit)
 + │           └─ else (!(isStreamCall && ReflectionHelper.IsStreamingType(descriptor.OriginalParameterTypes[parame…
++ │              ├─ HubMethodInvocationMessage.get_Arguments
++ │              ├─ if (hubMethodInvocationMessage.Arguments is not null)
++ │              │  └─ Array.get_Length
 + │              ├─ if (hubMethodInvocationMessage.Arguments?.Length > hubInvocationArgumentPointer)
++ │              │  ├─ HubMethodInvocationMessage.get_Arguments
 + │              │  └─ if (!(hubMethodInvocationMessage.Arguments[hubInvocationArgumentPointer] == null))
++ │              │     ├─ HubMethodDescriptor.get_OriginalParameterTypes
++ │              │     ├─ IReadOnlyList<T>.get_Item
++ │              │     ├─ HubMethodInvocationMessage.get_Arguments
 + │              │     ├─ if (hubMethodInvocationMessage.Arguments[hubInvocationArgumentPointer] is not null)
 + │              │     │  └─ .GetType
 + │              │     └─ descriptor.OriginalParameterTypes[parameterPointer].IsAssignableFrom
++ │              ├─ if (hubMethodInvocationMessage.Arguments?.Length > hubInvocationArgumentPointer && (hubMethodInvo…
++ │              │  └─ HubMethodInvocationMessage.get_Arguments
 + │              └─ else (!(hubMethodInvocationMessage.Arguments?.Length > hubInvocationArgumentPointer && (hubMethod…
++ │                 ├─ HubMethodDescriptor.get_OriginalParameterTypes
++ │                 ├─ IReadOnlyList<T>.get_Item
++ │                 ├─ MemberInfo.get_Name
++ │                 ├─ HubMethodDescriptor.get_MethodExecutor
++ │                 ├─ ObjectMethodExecutor.get_MethodInfo
++ │                 ├─ MemberInfo.get_Name
 + │                 └─ Debug.Assert
 + └─ finally
 +    └─ if (!argumentsReplaced)
@@ -275,19 +614,34 @@ stdout:
 
 ~ DefaultHubDispatcher<THub>.StreamAsync (signature changed)
   ├─ …
+  ├─ HubMethodInvocationMessage.get_Target
+  ├─ HubInvocationMessage.get_Headers
+  ├─ DefaultHubDispatcher<THub>.StartActivity ↑ as above
+  ├─ try
+  │  ├─ …
+  │  ├─ DefaultHubDispatcherLog.StreamingResult
+  │  ├─ new StreamItemMessage
+  │  └─ while (await enumerator.MoveNextAsync())
+  │     ├─ …
+  │     ├─ IAsyncEnumerator<T>.get_Current
+  │     ├─ StreamItemMessage.set_Item
+  │     └─ HubConnectionContext.WriteAsync ↑ as above
   ├─ catch (ChannelClosedException ex)
   ├─ catch (Exception ex)
   └─ finally
-     ├─ if (activity is not null)
+     ├─ …
+     ├─ Activity.get_Current
+     ├─ if (Activity.Current != previousActivity)
 ~    ├─ DefaultHubDispatcher<THub>.CleanupInvocation (signature changed) ↑ as above
      ├─ if (ctsRegistered)
      ├─ CompletionMessage.WithError
-     └─ …
+     └─ HubConnectionContext.WriteAsync ↑ as above
 
 ~ StreamTracker.AddStream (signature changed)
   ├─ …
   ├─ _buildConverterMethod.MakeGenericMethod
   ├─ _buildConverterMethod.MakeGenericMethod(itemType).Invoke
+- ├─ ConcurrentDictionary<TKey, TValue>.set_Item
 + ├─ _lookup.TryAdd
 + ├─ if (!_lookup.TryAdd(streamId, (streamOwner, newConverter)))
 + │  └─ new HubException
@@ -312,8 +666,8 @@ stdout:
   └─ new KeyNotFoundException
 
 ~ StreamTracker.TryComplete (body changed; visible calls unchanged)
+  ├─ HubInvocationMessage.get_InvocationId
   ├─ _lookup.TryRemove
-  ├─ else (!(message.HasResult || message.Error == null))
   └─ …
 
 + StreamTracker.TryComplete
@@ -321,27 +675,33 @@ stdout:
 + ├─ KeyValuePair.Create
 + ├─ _lookup.TryRemove
 + └─ StreamTracker.IStreamConverter.TryComplete → StreamTracker.ChannelConverter<T>.TryComplete
++    ├─ Channel<TWrite, TRead>.get_Writer
 +    └─ _channel.Writer.TryComplete
 
   StreamTracker.TryProcessItem
+  ├─ HubInvocationMessage.get_InvocationId
 - ├─ StreamTracker.TryGetConverter ↑ as above
 - ├─ if (TryGetConverter(message.InvocationId!, out var converter))
+- │  ├─ StreamItemMessage.get_Item
 - │  └─ StreamTracker.IStreamConverter.WriteToStream → StreamTracker.ChannelConverter<T>.WriteToStream
+- │     ├─ Channel<TWrite, TRead>.get_Writer
 - │     ├─ _channel.Writer.WriteAsync
 - │     └─ _channel.Writer.WriteAsync((T? )o).AsTask
 + ├─ StreamTracker.TryGetRegistration ↑ as above
 + └─ if (TryGetRegistration(message.InvocationId!, out var registration))
++    ├─ StreamItemMessage.get_Item
 +    └─ StreamTracker.IStreamConverter.WriteToStream → StreamTracker.ChannelConverter<T>.WriteToStream
++       ├─ Channel<TWrite, TRead>.get_Writer
 +       ├─ _channel.Writer.WriteAsync
 +       └─ _channel.Writer.WriteAsync((T? )o).AsTask
 ```
 stderr:
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:19: unresolved-call: Cannot bind new RootCommand.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind collection initializer Add.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:24: unresolved-call: Cannot bind new Argument<string[]>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind collection initializer Add.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot bind new Argument<string>.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
-23089 additional diagnostics; use --diagnostics full.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind collection initializer Add.
+23404 additional diagnostics; use --diagnostics full.

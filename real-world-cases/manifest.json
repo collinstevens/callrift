@@ -1816,7 +1816,7 @@
     "licenseFile": "LICENSE.txt",
     "beforeLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
     "afterLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
-    "reason": "Reject duplicate SignalR upload stream IDs through TryAdd and HubException, allocate an invocation owner lazily, thread ownership through dispatch and cleanup signatures, and dispose argument-binding cancellation sources on failure. Pinned source and upstream tests reviewed; upstream tests were not executed. Automatic roots, rendered bindings, declarations, diagnostics, and text/Markdown/JSON reviewed independently. Call-free owner-mismatch and failed-removal guards are omitted; visible cleanup calls do not prove ownership value flow. Possible dispatch does not prove runtime execution. Source mode lacks project references, defines, generators, and runtime/reflection edges. Restored trial exits 2 because the pinned tree includes unsupported src/submodules/MessagePack-CSharp; no restored-mode claim.",
+    "reason": "Prevent colliding SignalR uploads from replacing or completing another invocation's streams. Registration assigns an owner, rejects duplicate IDs and threads ownership through invocation cleanup. Executable expectations cover owner allocation, StreamIds and Nullable.Value reads, Channel.Writer before completion, and cancellation disposal when argument replacement fails. Independent review covers 7980 signatures (7944 exact prior declarations and 36 newly read), 60222 source bindings, 1432 metadata bindings, 116978 rendered locations and all 23412 diagnostics. The 2324 automatic roots have independently bound paths to changed members; possible dispatch and five ancestor cycles are conservative connectivity, not runtime execution proof. All six formats repeat exactly on Linux, including after allocation optimizations. TryComplete owner-mismatch and failed-removal guards only return false and remain absent from the call tree; assertions preserve this limitation explicitly. Pinned production and upstream test diffs reviewed; upstream tests were not executed. Source mode lacks project references, defines and generators. Restored trial exits 2 for unsupported src/submodules/MessagePack-CSharp. Final cross-platform validation remains required.",
     "tags": [
       "duplicate-registration",
       "branch-guard",
@@ -1825,7 +1825,8 @@
       "resource-cleanup",
       "signature-change",
       "cross-project",
-      "automatic-roots"
+      "automatic-roots",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/aspnetcore-source-coverage.md",
