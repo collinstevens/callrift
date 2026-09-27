@@ -3148,5 +3148,64 @@
         "routine": false
       }
     ]
+  },
+  {
+    "id": "serilog-context-collections",
+    "repository": "https://github.com/serilog/serilog.git",
+    "cacheName": "serilog",
+    "license": "Apache-2.0",
+    "licenseFile": "LICENSE",
+    "before": "84cb7a65d823655e09374babfa0704eacfad3171",
+    "after": "cd6420aeafcdedd3790da1a03a419e389f0faa64",
+    "beforeLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "afterLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "reason": "Add span and enumerable parameter-collection overloads for LogContext.Push; the existing array overload preserves its null guard and forwards through AsSpan to the span overload. Automatic roots retain the array and enumerable entry points, while the focused view also selects the nested span target by full identity. Both new loops create a bookmark, push enrichers and publish the stack through the context setter. All 20 declarations, 33 source edges, 44 metadata sites and 249 locations were independently reviewed; six CLI outputs repeat exactly. Overload priority attributes, implicit enumeration/conversion mechanics, bookmark disposal and AsyncLocal execution semantics are not inferred from the visible calls. Source-only analysis excludes test projects and does not evaluate the changed PolySharp package or all target frameworks; depth omissions remain explicit.",
+    "tags": [
+      "overloads",
+      "span",
+      "parameter-collections",
+      "guards",
+      "property-accessors",
+      "static-initialization"
+    ],
+    "options": [
+      "--depth",
+      "4",
+      "--context",
+      "all",
+      "--externals"
+    ],
+    "knownIssue": "issues/source-only-coverage.md",
+    "review": "../tests/Callrift.RealWorldCases/SerilogContextCollectionExpectations.cs",
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "3",
+          "--context",
+          "all",
+          "--externals"
+        ],
+        "routine": false
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--depth",
+          "5",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "source::Serilog.Context.LogContext.Push(global::System.ReadOnlySpan<global::Serilog.Core.ILogEventEnricher>)",
+          "--entry",
+          "source::Serilog.Context.LogContext.Push(global::System.Collections.Generic.IEnumerable<global::Serilog.Core.ILogEventEnricher>)",
+          "--entry",
+          "source::Serilog.Context.LogContext.Push(global::Serilog.Core.ILogEventEnricher[])"
+        ],
+        "routine": false
+      }
+    ]
   }
 ]

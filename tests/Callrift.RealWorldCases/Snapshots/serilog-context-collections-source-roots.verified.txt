@@ -1,0 +1,117 @@
+﻿format: text
+exit: 0
+stdout:
+  LogContext.Push
+  ├─ Guard.AgainstNull
+- ├─ LogContext.GetOrCreateEnricherStack
+- │  ├─ LogContext.get_Enrichers
+- │  │  ├─ possible initialization of LogContext
+- │  │  │  └─ initialization of LogContext (depth limit)
+- │  │  └─ AsyncLocal<T>.get_Value
+- │  └─ if (enrichers == null)
+- │     ├─ EnricherStack.get_Empty (depth limit)
+- │     └─ LogContext.set_Enrichers (depth limit)
+- ├─ new LogContext.ContextStackBookmark
+- │  └─ new Object
+- ├─ for (i < enrichers.Length)
+- │  ├─ Array.get_Length
+- │  └─ EnricherStack.Push
+- │     └─ new EnricherStack (depth limit)
+- ├─ LogContext.set_Enrichers
+- │  └─ AsyncLocal<T>.set_Value
++ ├─ enrichers.AsSpan
++ └─ LogContext.Push
++    ├─ LogContext.GetOrCreateEnricherStack
++    │  ├─ LogContext.get_Enrichers (depth limit)
++    │  └─ if (enrichers == null)
++    │     ├─ EnricherStack.get_Empty (depth limit)
++    │     └─ LogContext.set_Enrichers (depth limit)
++    ├─ new LogContext.ContextStackBookmark
++    │  └─ new Object
++    ├─ foreach (var enricher in enrichers)
++    │  └─ EnricherStack.Push (depth limit)
++    └─ LogContext.set_Enrichers
++       ├─ possible initialization of LogContext
++       │  └─ initialization of LogContext (depth limit)
++       └─ AsyncLocal<T>.set_Value
+
++ LogContext.Push
++ ├─ Guard.AgainstNull
++ │  └─ if (argument is null)
++ │     └─ new ArgumentNullException
++ ├─ LogContext.GetOrCreateEnricherStack
++ │  ├─ LogContext.get_Enrichers
++ │  │  ├─ possible initialization of LogContext
++ │  │  │  └─ initialization of LogContext (depth limit)
++ │  │  └─ AsyncLocal<T>.get_Value
++ │  └─ if (enrichers == null)
++ │     ├─ EnricherStack.get_Empty (depth limit)
++ │     └─ LogContext.set_Enrichers (depth limit)
++ ├─ new LogContext.ContextStackBookmark ↑ as above
++ ├─ foreach (var enricher in enrichers)
++ │  └─ EnricherStack.Push
++ │     └─ new EnricherStack (depth limit)
++ └─ LogContext.set_Enrichers
++    └─ AsyncLocal<T>.set_Value
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
+
+format: md
+exit: 0
+stdout:
+```diff
+  LogContext.Push
+  ├─ Guard.AgainstNull
+- ├─ LogContext.GetOrCreateEnricherStack
+- │  ├─ LogContext.get_Enrichers
+- │  │  ├─ possible initialization of LogContext
+- │  │  │  └─ initialization of LogContext (depth limit)
+- │  │  └─ AsyncLocal<T>.get_Value
+- │  └─ if (enrichers == null)
+- │     ├─ EnricherStack.get_Empty (depth limit)
+- │     └─ LogContext.set_Enrichers (depth limit)
+- ├─ new LogContext.ContextStackBookmark
+- │  └─ new Object
+- ├─ for (i < enrichers.Length)
+- │  ├─ Array.get_Length
+- │  └─ EnricherStack.Push
+- │     └─ new EnricherStack (depth limit)
+- ├─ LogContext.set_Enrichers
+- │  └─ AsyncLocal<T>.set_Value
++ ├─ enrichers.AsSpan
++ └─ LogContext.Push
++    ├─ LogContext.GetOrCreateEnricherStack
++    │  ├─ LogContext.get_Enrichers (depth limit)
++    │  └─ if (enrichers == null)
++    │     ├─ EnricherStack.get_Empty (depth limit)
++    │     └─ LogContext.set_Enrichers (depth limit)
++    ├─ new LogContext.ContextStackBookmark
++    │  └─ new Object
++    ├─ foreach (var enricher in enrichers)
++    │  └─ EnricherStack.Push (depth limit)
++    └─ LogContext.set_Enrichers
++       ├─ possible initialization of LogContext
++       │  └─ initialization of LogContext (depth limit)
++       └─ AsyncLocal<T>.set_Value
+
++ LogContext.Push
++ ├─ Guard.AgainstNull
++ │  └─ if (argument is null)
++ │     └─ new ArgumentNullException
++ ├─ LogContext.GetOrCreateEnricherStack
++ │  ├─ LogContext.get_Enrichers
++ │  │  ├─ possible initialization of LogContext
++ │  │  │  └─ initialization of LogContext (depth limit)
++ │  │  └─ AsyncLocal<T>.get_Value
++ │  └─ if (enrichers == null)
++ │     ├─ EnricherStack.get_Empty (depth limit)
++ │     └─ LogContext.set_Enrichers (depth limit)
++ ├─ new LogContext.ContextStackBookmark ↑ as above
++ ├─ foreach (var enricher in enrichers)
++ │  └─ EnricherStack.Push
++ │     └─ new EnricherStack (depth limit)
++ └─ LogContext.set_Enrichers
++    └─ AsyncLocal<T>.set_Value
+```
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.

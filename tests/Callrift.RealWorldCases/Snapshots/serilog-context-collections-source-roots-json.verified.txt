@@ -1,0 +1,2094 @@
+﻿exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "84cb7a65d823655e09374babfa0704eacfad3171",
+    "commit": "84cb7a65d823655e09374babfa0704eacfad3171",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "cd6420aeafcdedd3790da1a03a419e389f0faa64",
+    "commit": "cd6420aeafcdedd3790da1a03a419e389f0faa64",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "source",
+    "status": "partial",
+    "limitations": [
+      "single-compilation",
+      "bcl-references-only",
+      "synthetic-implicit-usings",
+      "no-project-defines-or-generators",
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "callbacks-are-possible-calls"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": true,
+  "diagnostics": [
+    {
+      "code": "test-project-inferred",
+      "message": "Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.",
+      "location": {
+        "path": "test/TestDummies/TestDummies.csproj",
+        "startLine": 1,
+        "startColumn": 1,
+        "endLine": null,
+        "endColumn": null
+      }
+    }
+  ],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "LogContext.Push",
+      "detail": null,
+      "before": {
+        "symbolId": "source::Serilog.Context.LogContext.Push(global::Serilog.Core.ILogEventEnricher[])",
+        "signature": "public static Serilog.Context.LogContext.Push(params Serilog.Core.ILogEventEnricher[] enrichers) -> System.IDisposable",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Serilog.Context.LogContext.Push(global::Serilog.Core.ILogEventEnricher[])"
+        ],
+        "definition": {
+          "path": "src/Serilog/Context/LogContext.cs",
+          "startLine": 91,
+          "startColumn": 5,
+          "endLine": 104,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "source::Serilog.Context.LogContext.Push(global::Serilog.Core.ILogEventEnricher[])",
+        "signature": "public static Serilog.Context.LogContext.Push(params Serilog.Core.ILogEventEnricher[] enrichers) -> System.IDisposable",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Serilog.Context.LogContext.Push(global::Serilog.Core.ILogEventEnricher[])"
+        ],
+        "definition": {
+          "path": "src/Serilog/Context/LogContext.cs",
+          "startLine": 92,
+          "startColumn": 5,
+          "endLine": 98,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Guard.AgainstNull",
+          "detail": null,
+          "before": {
+            "symbolId": "source::Guard.AgainstNull`1(T,string)",
+            "signature": "public static Guard.AgainstNull<T>(T? argument, [string? paramName = null]) -> T where T : class",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Guard.AgainstNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Serilog/Guard.cs",
+              "startLine": 13,
+              "startColumn": 5,
+              "endLine": 24,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Serilog/Context/LogContext.cs",
+                "startLine": 93,
+                "startColumn": 9,
+                "endLine": 93,
+                "endColumn": 37
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Guard.AgainstNull`1(T,string)",
+            "signature": "public static Guard.AgainstNull<T>(T? argument, [string? paramName = null]) -> T where T : class",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Guard.AgainstNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Serilog/Guard.cs",
+              "startLine": 13,
+              "startColumn": 5,
+              "endLine": 24,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Serilog/Context/LogContext.cs",
+                "startLine": 95,
+                "startColumn": 9,
+                "endLine": 95,
+                "endColumn": 37
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [
+            {
+              "id": "n2",
+              "kind": "branch",
+              "change": "unchanged",
+              "label": "if (argument is null)",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Guard.cs",
+                    "startLine": 18,
+                    "startColumn": 9,
+                    "endLine": 21,
+                    "endColumn": 10
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Guard.cs",
+                    "startLine": 18,
+                    "startColumn": 9,
+                    "endLine": 21,
+                    "endColumn": 10
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n3",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "new ArgumentNullException",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "source::System.ArgumentNullException..ctor(string)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::System.ArgumentNullException..ctor(string)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Guard.cs",
+                        "startLine": 20,
+                        "startColumn": 19,
+                        "endLine": 20,
+                        "endColumn": 55
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "after": {
+                    "symbolId": "source::System.ArgumentNullException..ctor(string)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::System.ArgumentNullException..ctor(string)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Guard.cs",
+                        "startLine": 20,
+                        "startColumn": 19,
+                        "endLine": 20,
+                        "endColumn": 55
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n4",
+          "kind": "call",
+          "change": "removed",
+          "label": "LogContext.GetOrCreateEnricherStack",
+          "detail": null,
+          "before": {
+            "symbolId": "source::Serilog.Context.LogContext.GetOrCreateEnricherStack()",
+            "signature": "private static Serilog.Context.LogContext.GetOrCreateEnricherStack() -> Serilog.Context.EnricherStack",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Serilog.Context.LogContext.GetOrCreateEnricherStack()"
+            ],
+            "definition": {
+              "path": "src/Serilog/Context/LogContext.cs",
+              "startLine": 143,
+              "startColumn": 5,
+              "endLine": 152,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Serilog/Context/LogContext.cs",
+                "startLine": 95,
+                "startColumn": 21,
+                "endLine": 95,
+                "endColumn": 47
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": null,
+          "children": [
+            {
+              "id": "n5",
+              "kind": "call",
+              "change": "removed",
+              "label": "LogContext.get_Enrichers",
+              "detail": null,
+              "before": {
+                "symbolId": "source::Serilog.Context.LogContext.get_Enrichers()",
+                "signature": "private static Serilog.Context.LogContext.get_Enrichers() -> Serilog.Context.EnricherStack?",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Serilog.Context.LogContext.get_Enrichers()"
+                ],
+                "definition": {
+                  "path": "src/Serilog/Context/LogContext.cs",
+                  "startLine": 183,
+                  "startColumn": 9,
+                  "endLine": 183,
+                  "endColumn": 27
+                },
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Context/LogContext.cs",
+                    "startLine": 145,
+                    "startColumn": 25,
+                    "endLine": 145,
+                    "endColumn": 34
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": null,
+              "children": [
+                {
+                  "id": "n6",
+                  "kind": "branch",
+                  "change": "removed",
+                  "label": "possible initialization of LogContext",
+                  "detail": null,
+                  "before": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Context/LogContext.cs",
+                        "startLine": 183,
+                        "startColumn": 16,
+                        "endLine": 183,
+                        "endColumn": 20
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "after": null,
+                  "children": [
+                    {
+                      "id": "n7",
+                      "kind": "call",
+                      "change": "removed",
+                      "label": "initialization of LogContext",
+                      "detail": "depth limit",
+                      "before": {
+                        "symbolId": "source::Serilog.Context.LogContext..cctor()",
+                        "signature": "static Serilog.Context.LogContext.LogContext() -> void",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "source::Serilog.Context.LogContext..cctor()"
+                        ],
+                        "definition": {
+                          "path": "src/Serilog/Context/LogContext.cs",
+                          "startLine": 38,
+                          "startColumn": 1,
+                          "endLine": 186,
+                          "endColumn": 2
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Serilog/Context/LogContext.cs",
+                            "startLine": 183,
+                            "startColumn": 16,
+                            "endLine": 183,
+                            "endColumn": 20
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "after": null,
+                      "children": [],
+                      "omission": {
+                        "reason": "depth-limit",
+                        "symbolId": null,
+                        "referenceId": null
+                      }
+                    }
+                  ],
+                  "omission": null
+                },
+                {
+                  "id": "n8",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "AsyncLocal<T>.get_Value",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "source::System.Threading.AsyncLocal<T>.get_Value()",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::System.Threading.AsyncLocal<T>.get_Value()"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Context/LogContext.cs",
+                        "startLine": 183,
+                        "startColumn": 16,
+                        "endLine": 183,
+                        "endColumn": 26
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n9",
+              "kind": "branch",
+              "change": "removed",
+              "label": "if (enrichers == null)",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Context/LogContext.cs",
+                    "startLine": 146,
+                    "startColumn": 9,
+                    "endLine": 150,
+                    "endColumn": 10
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": null,
+              "children": [
+                {
+                  "id": "n10",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "EnricherStack.get_Empty",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Context.EnricherStack.get_Empty()",
+                    "signature": "public static Serilog.Context.EnricherStack.get_Empty() -> Serilog.Context.EnricherStack",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Context.EnricherStack.get_Empty()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Context/EnricherStack.cs",
+                      "startLine": 47,
+                      "startColumn": 41,
+                      "endLine": 47,
+                      "endColumn": 45
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Context/LogContext.cs",
+                        "startLine": 148,
+                        "startColumn": 25,
+                        "endLine": 148,
+                        "endColumn": 44
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n11",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "LogContext.set_Enrichers",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Context.LogContext.set_Enrichers(global::Serilog.Context.EnricherStack)",
+                    "signature": "private static Serilog.Context.LogContext.set_Enrichers(Serilog.Context.EnricherStack? value) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Context.LogContext.set_Enrichers(global::Serilog.Context.EnricherStack)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Context/LogContext.cs",
+                      "startLine": 184,
+                      "startColumn": 9,
+                      "endLine": 184,
+                      "endColumn": 35
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Context/LogContext.cs",
+                        "startLine": 149,
+                        "startColumn": 13,
+                        "endLine": 149,
+                        "endColumn": 22
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n12",
+          "kind": "call",
+          "change": "removed",
+          "label": "new LogContext.ContextStackBookmark",
+          "detail": null,
+          "before": {
+            "symbolId": "source::Serilog.Context.LogContext.ContextStackBookmark..ctor(global::Serilog.Context.EnricherStack)",
+            "signature": "public Serilog.Context.LogContext.ContextStackBookmark.ContextStackBookmark(Serilog.Context.EnricherStack bookmark) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Serilog.Context.LogContext.ContextStackBookmark..ctor(global::Serilog.Context.EnricherStack)"
+            ],
+            "definition": {
+              "path": "src/Serilog/Context/LogContext.cs",
+              "startLine": 170,
+              "startColumn": 9,
+              "endLine": 173,
+              "endColumn": 10
+            },
+            "callSites": [
+              {
+                "path": "src/Serilog/Context/LogContext.cs",
+                "startLine": 96,
+                "startColumn": 24,
+                "endLine": 96,
+                "endColumn": 55
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": null,
+          "children": [
+            {
+              "id": "n13",
+              "kind": "call",
+              "change": "removed",
+              "label": "new Object",
+              "detail": null,
+              "before": {
+                "symbolId": "source::object..ctor()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::object..ctor()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Context/LogContext.cs",
+                    "startLine": 170,
+                    "startColumn": 9,
+                    "endLine": 173,
+                    "endColumn": 10
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": null,
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n14",
+          "kind": "branch",
+          "change": "removed",
+          "label": "for (i < enrichers.Length)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Context/LogContext.cs",
+                "startLine": 98,
+                "startColumn": 9,
+                "endLine": 99,
+                "endColumn": 46
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": null,
+          "children": [
+            {
+              "id": "n15",
+              "kind": "call",
+              "change": "removed",
+              "label": "Array.get_Length",
+              "detail": null,
+              "before": {
+                "symbolId": "source::System.Array.get_Length()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::System.Array.get_Length()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Context/LogContext.cs",
+                    "startLine": 98,
+                    "startColumn": 29,
+                    "endLine": 98,
+                    "endColumn": 45
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": null,
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n16",
+              "kind": "call",
+              "change": "removed",
+              "label": "EnricherStack.Push",
+              "detail": null,
+              "before": {
+                "symbolId": "source::Serilog.Context.EnricherStack.Push(global::Serilog.Core.ILogEventEnricher)",
+                "signature": "public Serilog.Context.EnricherStack.Push(Serilog.Core.ILogEventEnricher t) -> Serilog.Context.EnricherStack",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Serilog.Context.EnricherStack.Push(global::Serilog.Core.ILogEventEnricher)"
+                ],
+                "definition": {
+                  "path": "src/Serilog/Context/EnricherStack.cs",
+                  "startLine": 51,
+                  "startColumn": 5,
+                  "endLine": 51,
+                  "endColumn": 68
+                },
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Context/LogContext.cs",
+                    "startLine": 99,
+                    "startColumn": 21,
+                    "endLine": 99,
+                    "endColumn": 45
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": null,
+              "children": [
+                {
+                  "id": "n17",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "new EnricherStack",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Context.EnricherStack..ctor(global::Serilog.Context.EnricherStack,global::Serilog.Core.ILogEventEnricher)",
+                    "signature": "private Serilog.Context.EnricherStack.EnricherStack(Serilog.Context.EnricherStack under, Serilog.Core.ILogEventEnricher top) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Context.EnricherStack..ctor(global::Serilog.Context.EnricherStack,global::Serilog.Core.ILogEventEnricher)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Context/EnricherStack.cs",
+                      "startLine": 32,
+                      "startColumn": 5,
+                      "endLine": 37,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Context/EnricherStack.cs",
+                        "startLine": 51,
+                        "startColumn": 55,
+                        "endLine": 51,
+                        "endColumn": 67
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n18",
+          "kind": "call",
+          "change": "removed",
+          "label": "LogContext.set_Enrichers",
+          "detail": null,
+          "before": {
+            "symbolId": "source::Serilog.Context.LogContext.set_Enrichers(global::Serilog.Context.EnricherStack)",
+            "signature": "private static Serilog.Context.LogContext.set_Enrichers(Serilog.Context.EnricherStack? value) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Serilog.Context.LogContext.set_Enrichers(global::Serilog.Context.EnricherStack)"
+            ],
+            "definition": {
+              "path": "src/Serilog/Context/LogContext.cs",
+              "startLine": 184,
+              "startColumn": 9,
+              "endLine": 184,
+              "endColumn": 35
+            },
+            "callSites": [
+              {
+                "path": "src/Serilog/Context/LogContext.cs",
+                "startLine": 101,
+                "startColumn": 9,
+                "endLine": 101,
+                "endColumn": 18
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": null,
+          "children": [
+            {
+              "id": "n19",
+              "kind": "call",
+              "change": "removed",
+              "label": "AsyncLocal<T>.set_Value",
+              "detail": null,
+              "before": {
+                "symbolId": "source::System.Threading.AsyncLocal<T>.set_Value(T)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::System.Threading.AsyncLocal<T>.set_Value(T)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Context/LogContext.cs",
+                    "startLine": 184,
+                    "startColumn": 16,
+                    "endLine": 184,
+                    "endColumn": 26
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": null,
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n20",
+          "kind": "call",
+          "change": "added",
+          "label": "enrichers.AsSpan",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": "source::System.MemoryExtensions.AsSpan`1(T[])",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::System.MemoryExtensions.AsSpan`1(T[])"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Context/LogContext.cs",
+                "startLine": 97,
+                "startColumn": 21,
+                "endLine": 97,
+                "endColumn": 39
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n21",
+          "kind": "call",
+          "change": "added",
+          "label": "LogContext.Push",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": "source::Serilog.Context.LogContext.Push(global::System.ReadOnlySpan<global::Serilog.Core.ILogEventEnricher>)",
+            "signature": "public static Serilog.Context.LogContext.Push(params System.ReadOnlySpan<Serilog.Core.ILogEventEnricher> enrichers) -> System.IDisposable",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Serilog.Context.LogContext.Push(global::System.ReadOnlySpan<global::Serilog.Core.ILogEventEnricher>)"
+            ],
+            "definition": {
+              "path": "src/Serilog/Context/LogContext.cs",
+              "startLine": 109,
+              "startColumn": 5,
+              "endLine": 123,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Serilog/Context/LogContext.cs",
+                "startLine": 97,
+                "startColumn": 16,
+                "endLine": 97,
+                "endColumn": 40
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [
+            {
+              "id": "n22",
+              "kind": "call",
+              "change": "added",
+              "label": "LogContext.GetOrCreateEnricherStack",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::Serilog.Context.LogContext.GetOrCreateEnricherStack()",
+                "signature": "private static Serilog.Context.LogContext.GetOrCreateEnricherStack() -> Serilog.Context.EnricherStack",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Serilog.Context.LogContext.GetOrCreateEnricherStack()"
+                ],
+                "definition": {
+                  "path": "src/Serilog/Context/LogContext.cs",
+                  "startLine": 190,
+                  "startColumn": 5,
+                  "endLine": 199,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Context/LogContext.cs",
+                    "startLine": 112,
+                    "startColumn": 21,
+                    "endLine": 112,
+                    "endColumn": 47
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n23",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "LogContext.get_Enrichers",
+                  "detail": "depth limit",
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::Serilog.Context.LogContext.get_Enrichers()",
+                    "signature": "private static Serilog.Context.LogContext.get_Enrichers() -> Serilog.Context.EnricherStack?",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Context.LogContext.get_Enrichers()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Context/LogContext.cs",
+                      "startLine": 230,
+                      "startColumn": 9,
+                      "endLine": 230,
+                      "endColumn": 27
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Context/LogContext.cs",
+                        "startLine": 192,
+                        "startColumn": 25,
+                        "endLine": 192,
+                        "endColumn": 34
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n24",
+                  "kind": "branch",
+                  "change": "added",
+                  "label": "if (enrichers == null)",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Context/LogContext.cs",
+                        "startLine": 193,
+                        "startColumn": 9,
+                        "endLine": 197,
+                        "endColumn": 10
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "children": [
+                    {
+                      "id": "n25",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "EnricherStack.get_Empty",
+                      "detail": "depth limit",
+                      "before": null,
+                      "after": {
+                        "symbolId": "source::Serilog.Context.EnricherStack.get_Empty()",
+                        "signature": "public static Serilog.Context.EnricherStack.get_Empty() -> Serilog.Context.EnricherStack",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "source::Serilog.Context.EnricherStack.get_Empty()"
+                        ],
+                        "definition": {
+                          "path": "src/Serilog/Context/EnricherStack.cs",
+                          "startLine": 47,
+                          "startColumn": 41,
+                          "endLine": 47,
+                          "endColumn": 45
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Serilog/Context/LogContext.cs",
+                            "startLine": 195,
+                            "startColumn": 25,
+                            "endLine": 195,
+                            "endColumn": 44
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": {
+                        "reason": "depth-limit",
+                        "symbolId": null,
+                        "referenceId": null
+                      }
+                    },
+                    {
+                      "id": "n26",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "LogContext.set_Enrichers",
+                      "detail": "depth limit",
+                      "before": null,
+                      "after": {
+                        "symbolId": "source::Serilog.Context.LogContext.set_Enrichers(global::Serilog.Context.EnricherStack)",
+                        "signature": "private static Serilog.Context.LogContext.set_Enrichers(Serilog.Context.EnricherStack? value) -> void",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "source::Serilog.Context.LogContext.set_Enrichers(global::Serilog.Context.EnricherStack)"
+                        ],
+                        "definition": {
+                          "path": "src/Serilog/Context/LogContext.cs",
+                          "startLine": 231,
+                          "startColumn": 9,
+                          "endLine": 231,
+                          "endColumn": 35
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Serilog/Context/LogContext.cs",
+                            "startLine": 196,
+                            "startColumn": 13,
+                            "endLine": 196,
+                            "endColumn": 22
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": {
+                        "reason": "depth-limit",
+                        "symbolId": null,
+                        "referenceId": null
+                      }
+                    }
+                  ],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n27",
+              "kind": "call",
+              "change": "added",
+              "label": "new LogContext.ContextStackBookmark",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::Serilog.Context.LogContext.ContextStackBookmark..ctor(global::Serilog.Context.EnricherStack)",
+                "signature": "public Serilog.Context.LogContext.ContextStackBookmark.ContextStackBookmark(Serilog.Context.EnricherStack bookmark) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Serilog.Context.LogContext.ContextStackBookmark..ctor(global::Serilog.Context.EnricherStack)"
+                ],
+                "definition": {
+                  "path": "src/Serilog/Context/LogContext.cs",
+                  "startLine": 217,
+                  "startColumn": 9,
+                  "endLine": 220,
+                  "endColumn": 10
+                },
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Context/LogContext.cs",
+                    "startLine": 113,
+                    "startColumn": 24,
+                    "endLine": 113,
+                    "endColumn": 55
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n28",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "new Object",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::object..ctor()",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::object..ctor()"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Context/LogContext.cs",
+                        "startLine": 217,
+                        "startColumn": 9,
+                        "endLine": 220,
+                        "endColumn": 10
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n29",
+              "kind": "branch",
+              "change": "added",
+              "label": "foreach (var enricher in enrichers)",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Context/LogContext.cs",
+                    "startLine": 115,
+                    "startColumn": 9,
+                    "endLine": 118,
+                    "endColumn": 10
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n30",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "EnricherStack.Push",
+                  "detail": "depth limit",
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::Serilog.Context.EnricherStack.Push(global::Serilog.Core.ILogEventEnricher)",
+                    "signature": "public Serilog.Context.EnricherStack.Push(Serilog.Core.ILogEventEnricher t) -> Serilog.Context.EnricherStack",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Context.EnricherStack.Push(global::Serilog.Core.ILogEventEnricher)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Context/EnricherStack.cs",
+                      "startLine": 51,
+                      "startColumn": 5,
+                      "endLine": 51,
+                      "endColumn": 68
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Context/LogContext.cs",
+                        "startLine": 117,
+                        "startColumn": 21,
+                        "endLine": 117,
+                        "endColumn": 41
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n31",
+              "kind": "call",
+              "change": "added",
+              "label": "LogContext.set_Enrichers",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::Serilog.Context.LogContext.set_Enrichers(global::Serilog.Context.EnricherStack)",
+                "signature": "private static Serilog.Context.LogContext.set_Enrichers(Serilog.Context.EnricherStack? value) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Serilog.Context.LogContext.set_Enrichers(global::Serilog.Context.EnricherStack)"
+                ],
+                "definition": {
+                  "path": "src/Serilog/Context/LogContext.cs",
+                  "startLine": 231,
+                  "startColumn": 9,
+                  "endLine": 231,
+                  "endColumn": 35
+                },
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Context/LogContext.cs",
+                    "startLine": 120,
+                    "startColumn": 9,
+                    "endLine": 120,
+                    "endColumn": 18
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n32",
+                  "kind": "branch",
+                  "change": "added",
+                  "label": "possible initialization of LogContext",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Context/LogContext.cs",
+                        "startLine": 231,
+                        "startColumn": 16,
+                        "endLine": 231,
+                        "endColumn": 20
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "children": [
+                    {
+                      "id": "n33",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "initialization of LogContext",
+                      "detail": "depth limit",
+                      "before": null,
+                      "after": {
+                        "symbolId": "source::Serilog.Context.LogContext..cctor()",
+                        "signature": "static Serilog.Context.LogContext.LogContext() -> void",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "source::Serilog.Context.LogContext..cctor()"
+                        ],
+                        "definition": {
+                          "path": "src/Serilog/Context/LogContext.cs",
+                          "startLine": 38,
+                          "startColumn": 1,
+                          "endLine": 233,
+                          "endColumn": 2
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Serilog/Context/LogContext.cs",
+                            "startLine": 231,
+                            "startColumn": 16,
+                            "endLine": 231,
+                            "endColumn": 20
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": {
+                        "reason": "depth-limit",
+                        "symbolId": null,
+                        "referenceId": null
+                      }
+                    }
+                  ],
+                  "omission": null
+                },
+                {
+                  "id": "n34",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "AsyncLocal<T>.set_Value",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::System.Threading.AsyncLocal<T>.set_Value(T)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::System.Threading.AsyncLocal<T>.set_Value(T)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Context/LogContext.cs",
+                        "startLine": 231,
+                        "startColumn": 16,
+                        "endLine": 231,
+                        "endColumn": 26
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n35",
+      "kind": "member",
+      "change": "added",
+      "label": "LogContext.Push",
+      "detail": null,
+      "before": null,
+      "after": {
+        "symbolId": "source::Serilog.Context.LogContext.Push(global::System.Collections.Generic.IEnumerable<global::Serilog.Core.ILogEventEnricher>)",
+        "signature": "public static Serilog.Context.LogContext.Push(params System.Collections.Generic.IEnumerable<Serilog.Core.ILogEventEnricher> enrichers) -> System.IDisposable",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Serilog.Context.LogContext.Push(global::System.Collections.Generic.IEnumerable<global::Serilog.Core.ILogEventEnricher>)"
+        ],
+        "definition": {
+          "path": "src/Serilog/Context/LogContext.cs",
+          "startLine": 135,
+          "startColumn": 5,
+          "endLine": 151,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n36",
+          "kind": "call",
+          "change": "added",
+          "label": "Guard.AgainstNull",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": "source::Guard.AgainstNull`1(T,string)",
+            "signature": "public static Guard.AgainstNull<T>(T? argument, [string? paramName = null]) -> T where T : class",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Guard.AgainstNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Serilog/Guard.cs",
+              "startLine": 13,
+              "startColumn": 5,
+              "endLine": 24,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Serilog/Context/LogContext.cs",
+                "startLine": 138,
+                "startColumn": 9,
+                "endLine": 138,
+                "endColumn": 37
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [
+            {
+              "id": "n37",
+              "kind": "branch",
+              "change": "added",
+              "label": "if (argument is null)",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Guard.cs",
+                    "startLine": 18,
+                    "startColumn": 9,
+                    "endLine": 21,
+                    "endColumn": 10
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n38",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "new ArgumentNullException",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::System.ArgumentNullException..ctor(string)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::System.ArgumentNullException..ctor(string)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Guard.cs",
+                        "startLine": 20,
+                        "startColumn": 19,
+                        "endLine": 20,
+                        "endColumn": 55
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n39",
+          "kind": "call",
+          "change": "added",
+          "label": "LogContext.GetOrCreateEnricherStack",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": "source::Serilog.Context.LogContext.GetOrCreateEnricherStack()",
+            "signature": "private static Serilog.Context.LogContext.GetOrCreateEnricherStack() -> Serilog.Context.EnricherStack",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Serilog.Context.LogContext.GetOrCreateEnricherStack()"
+            ],
+            "definition": {
+              "path": "src/Serilog/Context/LogContext.cs",
+              "startLine": 190,
+              "startColumn": 5,
+              "endLine": 199,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Serilog/Context/LogContext.cs",
+                "startLine": 140,
+                "startColumn": 21,
+                "endLine": 140,
+                "endColumn": 47
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [
+            {
+              "id": "n40",
+              "kind": "call",
+              "change": "added",
+              "label": "LogContext.get_Enrichers",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::Serilog.Context.LogContext.get_Enrichers()",
+                "signature": "private static Serilog.Context.LogContext.get_Enrichers() -> Serilog.Context.EnricherStack?",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Serilog.Context.LogContext.get_Enrichers()"
+                ],
+                "definition": {
+                  "path": "src/Serilog/Context/LogContext.cs",
+                  "startLine": 230,
+                  "startColumn": 9,
+                  "endLine": 230,
+                  "endColumn": 27
+                },
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Context/LogContext.cs",
+                    "startLine": 192,
+                    "startColumn": 25,
+                    "endLine": 192,
+                    "endColumn": 34
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n41",
+                  "kind": "branch",
+                  "change": "added",
+                  "label": "possible initialization of LogContext",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Context/LogContext.cs",
+                        "startLine": 230,
+                        "startColumn": 16,
+                        "endLine": 230,
+                        "endColumn": 20
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "children": [
+                    {
+                      "id": "n42",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "initialization of LogContext",
+                      "detail": "depth limit",
+                      "before": null,
+                      "after": {
+                        "symbolId": "source::Serilog.Context.LogContext..cctor()",
+                        "signature": "static Serilog.Context.LogContext.LogContext() -> void",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "source::Serilog.Context.LogContext..cctor()"
+                        ],
+                        "definition": {
+                          "path": "src/Serilog/Context/LogContext.cs",
+                          "startLine": 38,
+                          "startColumn": 1,
+                          "endLine": 233,
+                          "endColumn": 2
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Serilog/Context/LogContext.cs",
+                            "startLine": 230,
+                            "startColumn": 16,
+                            "endLine": 230,
+                            "endColumn": 20
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": {
+                        "reason": "depth-limit",
+                        "symbolId": null,
+                        "referenceId": null
+                      }
+                    }
+                  ],
+                  "omission": null
+                },
+                {
+                  "id": "n43",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "AsyncLocal<T>.get_Value",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::System.Threading.AsyncLocal<T>.get_Value()",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::System.Threading.AsyncLocal<T>.get_Value()"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Context/LogContext.cs",
+                        "startLine": 230,
+                        "startColumn": 16,
+                        "endLine": 230,
+                        "endColumn": 26
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n44",
+              "kind": "branch",
+              "change": "added",
+              "label": "if (enrichers == null)",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Context/LogContext.cs",
+                    "startLine": 193,
+                    "startColumn": 9,
+                    "endLine": 197,
+                    "endColumn": 10
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n45",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "EnricherStack.get_Empty",
+                  "detail": "depth limit",
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::Serilog.Context.EnricherStack.get_Empty()",
+                    "signature": "public static Serilog.Context.EnricherStack.get_Empty() -> Serilog.Context.EnricherStack",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Context.EnricherStack.get_Empty()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Context/EnricherStack.cs",
+                      "startLine": 47,
+                      "startColumn": 41,
+                      "endLine": 47,
+                      "endColumn": 45
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Context/LogContext.cs",
+                        "startLine": 195,
+                        "startColumn": 25,
+                        "endLine": 195,
+                        "endColumn": 44
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n46",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "LogContext.set_Enrichers",
+                  "detail": "depth limit",
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::Serilog.Context.LogContext.set_Enrichers(global::Serilog.Context.EnricherStack)",
+                    "signature": "private static Serilog.Context.LogContext.set_Enrichers(Serilog.Context.EnricherStack? value) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Context.LogContext.set_Enrichers(global::Serilog.Context.EnricherStack)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Context/LogContext.cs",
+                      "startLine": 231,
+                      "startColumn": 9,
+                      "endLine": 231,
+                      "endColumn": 35
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Context/LogContext.cs",
+                        "startLine": 196,
+                        "startColumn": 13,
+                        "endLine": 196,
+                        "endColumn": 22
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n47",
+          "kind": "call",
+          "change": "added",
+          "label": "new LogContext.ContextStackBookmark",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": "source::Serilog.Context.LogContext.ContextStackBookmark..ctor(global::Serilog.Context.EnricherStack)",
+            "signature": "public Serilog.Context.LogContext.ContextStackBookmark.ContextStackBookmark(Serilog.Context.EnricherStack bookmark) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Serilog.Context.LogContext.ContextStackBookmark..ctor(global::Serilog.Context.EnricherStack)"
+            ],
+            "definition": {
+              "path": "src/Serilog/Context/LogContext.cs",
+              "startLine": 217,
+              "startColumn": 9,
+              "endLine": 220,
+              "endColumn": 10
+            },
+            "callSites": [
+              {
+                "path": "src/Serilog/Context/LogContext.cs",
+                "startLine": 141,
+                "startColumn": 24,
+                "endLine": 141,
+                "endColumn": 55
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [
+            {
+              "id": "n48",
+              "kind": "call",
+              "change": "added",
+              "label": "new Object",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::object..ctor()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::object..ctor()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Context/LogContext.cs",
+                    "startLine": 217,
+                    "startColumn": 9,
+                    "endLine": 220,
+                    "endColumn": 10
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n49",
+          "kind": "branch",
+          "change": "added",
+          "label": "foreach (var enricher in enrichers)",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Context/LogContext.cs",
+                "startLine": 143,
+                "startColumn": 9,
+                "endLine": 146,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n50",
+              "kind": "call",
+              "change": "added",
+              "label": "EnricherStack.Push",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::Serilog.Context.EnricherStack.Push(global::Serilog.Core.ILogEventEnricher)",
+                "signature": "public Serilog.Context.EnricherStack.Push(Serilog.Core.ILogEventEnricher t) -> Serilog.Context.EnricherStack",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Serilog.Context.EnricherStack.Push(global::Serilog.Core.ILogEventEnricher)"
+                ],
+                "definition": {
+                  "path": "src/Serilog/Context/EnricherStack.cs",
+                  "startLine": 51,
+                  "startColumn": 5,
+                  "endLine": 51,
+                  "endColumn": 68
+                },
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Context/LogContext.cs",
+                    "startLine": 145,
+                    "startColumn": 21,
+                    "endLine": 145,
+                    "endColumn": 41
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n51",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "new EnricherStack",
+                  "detail": "depth limit",
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::Serilog.Context.EnricherStack..ctor(global::Serilog.Context.EnricherStack,global::Serilog.Core.ILogEventEnricher)",
+                    "signature": "private Serilog.Context.EnricherStack.EnricherStack(Serilog.Context.EnricherStack under, Serilog.Core.ILogEventEnricher top) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Context.EnricherStack..ctor(global::Serilog.Context.EnricherStack,global::Serilog.Core.ILogEventEnricher)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Context/EnricherStack.cs",
+                      "startLine": 32,
+                      "startColumn": 5,
+                      "endLine": 37,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Context/EnricherStack.cs",
+                        "startLine": 51,
+                        "startColumn": 55,
+                        "endLine": 51,
+                        "endColumn": 67
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n52",
+          "kind": "call",
+          "change": "added",
+          "label": "LogContext.set_Enrichers",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": "source::Serilog.Context.LogContext.set_Enrichers(global::Serilog.Context.EnricherStack)",
+            "signature": "private static Serilog.Context.LogContext.set_Enrichers(Serilog.Context.EnricherStack? value) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Serilog.Context.LogContext.set_Enrichers(global::Serilog.Context.EnricherStack)"
+            ],
+            "definition": {
+              "path": "src/Serilog/Context/LogContext.cs",
+              "startLine": 231,
+              "startColumn": 9,
+              "endLine": 231,
+              "endColumn": 35
+            },
+            "callSites": [
+              {
+                "path": "src/Serilog/Context/LogContext.cs",
+                "startLine": 148,
+                "startColumn": 9,
+                "endLine": 148,
+                "endColumn": 18
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [
+            {
+              "id": "n53",
+              "kind": "call",
+              "change": "added",
+              "label": "AsyncLocal<T>.set_Value",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::System.Threading.AsyncLocal<T>.set_Value(T)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::System.Threading.AsyncLocal<T>.set_Value(T)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Context/LogContext.cs",
+                    "startLine": 231,
+                    "startColumn": 16,
+                    "endLine": 231,
+                    "endColumn": 26
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
