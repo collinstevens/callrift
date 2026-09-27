@@ -1,0 +1,165 @@
+﻿format: text
+exit: 0
+stdout:
+  LoggerSinkConfiguration.Sink
+  ├─ Guard.AgainstNull
+  ├─ if (levelSwitch != null)
+  │  ├─ if (restrictedToMinimumLevel != LevelAlias.Minimum)
+  │  ├─ new RestrictedSink (depth limit)
++ │  ├─ OptionalInterfaceForwardingSink.SupportsAll
++ │  ├─ if (!OptionalInterfaceForwardingSink.SupportsAll(sink))
++ │  │  └─ OptionalInterfaceForwardingSink.SupportsAny
++ │  └─ if (!OptionalInterfaceForwardingSink.SupportsAll(sink) && OptionalInterfaceForwardingSink.Support…
++ │     └─ new OptionalInterfaceForwardingSink (depth limit)
+  ├─ else (!(levelSwitch != null))
+  │  └─ if (restrictedToMinimumLevel > LevelAlias.Minimum)
+  │     ├─ new LoggingLevelSwitch (depth limit)
+  │     ├─ new RestrictedSink (depth limit)
++ │     ├─ OptionalInterfaceForwardingSink.SupportsAll
++ │     ├─ if (!OptionalInterfaceForwardingSink.SupportsAll(sink))
++ │     │  └─ OptionalInterfaceForwardingSink.SupportsAny
++ │     └─ if (!OptionalInterfaceForwardingSink.SupportsAll(sink) && OptionalInterfaceForwardingSink.Support…
++ │        └─ new OptionalInterfaceForwardingSink (depth limit)
+  └─ _addSink
+
+  OptionalInterfaceForwardingSink.Dispose
+  ├─ if (_sink is IDisposable inner)
+  │  └─ inner.Dispose
+  │     ├─ ⇢ EnricherStack.Enumerator.Dispose
+  │     ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~ │     ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+  │     ├─ ⇢ Logger.Dispose (depth limit)
+~ │     ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+~ │     ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+~ │     ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+  │     ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (↺ cycle)
+- │     ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+~ │     └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+  └─ if ((_receiver as IDisposable) is not null)
+     └─ .Dispose
+        ├─ ⇢ EnricherStack.Enumerator.Dispose
+        ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~       ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+        ├─ ⇢ Logger.Dispose (depth limit)
+~       ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+~       ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+~       ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+        ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (↺ cycle)
+-       ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+~       └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+
+  OptionalInterfaceForwardingSink.SetFailureListener
+  ├─ if ((_sink as ISetLoggingFailureListener) is not null)
+  │  └─ ISetLoggingFailureListener.SetFailureListener
+  │     ├─ ⇢ BatchingSink.SetFailureListener (depth limit)
+  │     ├─ ⇢ OptionalInterfaceForwardingSink.SetFailureListener (↺ cycle)
+- │     └─ ⇢ RestrictedSink.SetFailureListener (changes below depth limit)
+  └─ if ((_receiver as ISetLoggingFailureListener) is not null)
+     └─ ISetLoggingFailureListener.SetFailureListener ↑ as above
+
+- RestrictedSink.Dispose
+- └─ if ((_sink as IDisposable) is not null)
+-    └─ .Dispose
+-       ├─ ⇢ EnricherStack.Enumerator.Dispose
+-       ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+-       ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+-       ├─ ⇢ Logger.Dispose (depth limit)
+-       ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+-       ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+-       ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+-       ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (changes below depth limit)
+-       ├─ ⇢ RestrictedSink.Dispose (↺ cycle)
+-       └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+
+- RestrictedSink.SetFailureListener
+- └─ if (_sink is ISetLoggingFailureListener sfl)
+-    └─ ISetLoggingFailureListener.SetFailureListener
+-       ├─ ⇢ BatchingSink.SetFailureListener (depth limit)
+-       ├─ ⇢ OptionalInterfaceForwardingSink.SetFailureListener (changes below depth limit)
+-       └─ ⇢ RestrictedSink.SetFailureListener (↺ cycle)
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
+
+format: md
+exit: 0
+stdout:
+```diff
+  LoggerSinkConfiguration.Sink
+  ├─ Guard.AgainstNull
+  ├─ if (levelSwitch != null)
+  │  ├─ if (restrictedToMinimumLevel != LevelAlias.Minimum)
+  │  ├─ new RestrictedSink (depth limit)
++ │  ├─ OptionalInterfaceForwardingSink.SupportsAll
++ │  ├─ if (!OptionalInterfaceForwardingSink.SupportsAll(sink))
++ │  │  └─ OptionalInterfaceForwardingSink.SupportsAny
++ │  └─ if (!OptionalInterfaceForwardingSink.SupportsAll(sink) && OptionalInterfaceForwardingSink.Support…
++ │     └─ new OptionalInterfaceForwardingSink (depth limit)
+  ├─ else (!(levelSwitch != null))
+  │  └─ if (restrictedToMinimumLevel > LevelAlias.Minimum)
+  │     ├─ new LoggingLevelSwitch (depth limit)
+  │     ├─ new RestrictedSink (depth limit)
++ │     ├─ OptionalInterfaceForwardingSink.SupportsAll
++ │     ├─ if (!OptionalInterfaceForwardingSink.SupportsAll(sink))
++ │     │  └─ OptionalInterfaceForwardingSink.SupportsAny
++ │     └─ if (!OptionalInterfaceForwardingSink.SupportsAll(sink) && OptionalInterfaceForwardingSink.Support…
++ │        └─ new OptionalInterfaceForwardingSink (depth limit)
+  └─ _addSink
+
+  OptionalInterfaceForwardingSink.Dispose
+  ├─ if (_sink is IDisposable inner)
+  │  └─ inner.Dispose
+  │     ├─ ⇢ EnricherStack.Enumerator.Dispose
+  │     ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~ │     ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+  │     ├─ ⇢ Logger.Dispose (depth limit)
+~ │     ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+~ │     ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+~ │     ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+  │     ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (↺ cycle)
+- │     ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+~ │     └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+  └─ if ((_receiver as IDisposable) is not null)
+     └─ .Dispose
+        ├─ ⇢ EnricherStack.Enumerator.Dispose
+        ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~       ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+        ├─ ⇢ Logger.Dispose (depth limit)
+~       ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+~       ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+~       ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+        ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (↺ cycle)
+-       ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+~       └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+
+  OptionalInterfaceForwardingSink.SetFailureListener
+  ├─ if ((_sink as ISetLoggingFailureListener) is not null)
+  │  └─ ISetLoggingFailureListener.SetFailureListener
+  │     ├─ ⇢ BatchingSink.SetFailureListener (depth limit)
+  │     ├─ ⇢ OptionalInterfaceForwardingSink.SetFailureListener (↺ cycle)
+- │     └─ ⇢ RestrictedSink.SetFailureListener (changes below depth limit)
+  └─ if ((_receiver as ISetLoggingFailureListener) is not null)
+     └─ ISetLoggingFailureListener.SetFailureListener ↑ as above
+
+- RestrictedSink.Dispose
+- └─ if ((_sink as IDisposable) is not null)
+-    └─ .Dispose
+-       ├─ ⇢ EnricherStack.Enumerator.Dispose
+-       ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+-       ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+-       ├─ ⇢ Logger.Dispose (depth limit)
+-       ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+-       ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+-       ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+-       ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (changes below depth limit)
+-       ├─ ⇢ RestrictedSink.Dispose (↺ cycle)
+-       └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+
+- RestrictedSink.SetFailureListener
+- └─ if (_sink is ISetLoggingFailureListener sfl)
+-    └─ ISetLoggingFailureListener.SetFailureListener
+-       ├─ ⇢ BatchingSink.SetFailureListener (depth limit)
+-       ├─ ⇢ OptionalInterfaceForwardingSink.SetFailureListener (changes below depth limit)
+-       └─ ⇢ RestrictedSink.SetFailureListener (↺ cycle)
+```
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.

@@ -2,15 +2,15 @@ namespace Callrift.RealWorldCases;
 
 internal static class RealWorldCaseData
 {
-    private static readonly IReadOnlyDictionary<string, bool> RepositoryViews = new Dictionary<string, bool>
+    private static readonly IReadOnlyDictionary<string, (bool History, bool Views)> RepositoryCollections = new Dictionary<string, (bool, bool)>
     {
-        ["serilog"] = false,
-        ["cleanarchitecture"] = false,
-        ["autofac"] = true,
-        ["polly"] = true,
-        ["ocelot"] = true,
-        ["orchardcore"] = true,
-        ["aspnetcore"] = true
+        ["serilog"] = (true, true),
+        ["cleanarchitecture"] = (true, false),
+        ["autofac"] = (false, true),
+        ["polly"] = (false, true),
+        ["ocelot"] = (false, true),
+        ["orchardcore"] = (false, true),
+        ["aspnetcore"] = (false, true)
     };
 
     private static readonly IReadOnlyDictionary<string, RealWorldCase> Manifest = ReadManifest();
@@ -38,9 +38,9 @@ internal static class RealWorldCaseData
         var entries = RealWorldCaseStore.ReadManifest();
         foreach (var entry in entries)
         {
-            if (!RepositoryViews.TryGetValue(entry.CacheName, out var reviewedViews))
+            if (!RepositoryCollections.TryGetValue(entry.CacheName, out var collection))
                 throw new InvalidOperationException($"Add a case collection for repository {entry.CacheName} before selecting its cases.");
-            if (reviewedViews != (entry.Views is not null))
+            if (!(entry.Views is null ? collection.History : collection.Views))
                 throw new InvalidOperationException($"The case collection for {entry.CacheName} does not match the views declared by {entry.Id}.");
         }
         return entries.ToDictionary(entry => entry.Id, StringComparer.Ordinal);

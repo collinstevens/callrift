@@ -5,10 +5,15 @@ namespace Callrift.RealWorldCases;
 public sealed class SerilogRealWorldCaseTests(RealWorldCaseFixture fixture) : IClassFixture<RealWorldCaseFixture>
 {
     public static IEnumerable<object[]> Entries => RealWorldCaseData.Entries("serilog");
+    public static IEnumerable<object[]> Views => RealWorldCaseData.Views("serilog");
 
     [Theory]
     [MemberData(nameof(Entries))]
     public Task PinnedHistory(string id) => fixture.VerifyHistoryAsync(id);
+
+    [Theory]
+    [MemberData(nameof(Views))]
+    public Task ReviewedView(string id, string viewId) => fixture.VerifyViewAsync(id, viewId);
 }
 
 public sealed class CleanArchitectureRealWorldCaseTests(RealWorldCaseFixture fixture) : IClassFixture<RealWorldCaseFixture>

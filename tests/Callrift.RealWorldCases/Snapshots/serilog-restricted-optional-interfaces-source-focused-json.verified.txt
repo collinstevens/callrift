@@ -1,0 +1,3678 @@
+﻿exit: 0
+stdout:
+{
+  "schemaVersion": 1,
+  "command": "diff",
+  "from": {
+    "kind": "revision",
+    "ref": "c53eb147ceafe5b88cc57f95f78e8116b86cf620",
+    "commit": "c53eb147ceafe5b88cc57f95f78e8116b86cf620",
+    "contentId": null
+  },
+  "to": {
+    "kind": "revision",
+    "ref": "2ef63645cf0d0edd4b187510b238754249c4348f",
+    "commit": "2ef63645cf0d0edd4b187510b238754249c4348f",
+    "contentId": null
+  },
+  "analysis": {
+    "mode": "source",
+    "status": "partial",
+    "limitations": [
+      "single-compilation",
+      "bcl-references-only",
+      "synthetic-implicit-usings",
+      "no-project-defines-or-generators",
+      "possible-dispatch",
+      "unfollowed-accessors-operators-events",
+      "callbacks-are-possible-calls"
+    ]
+  },
+  "hasChanges": true,
+  "truncated": true,
+  "diagnostics": [
+    {
+      "code": "test-project-inferred",
+      "message": "Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.",
+      "location": {
+        "path": "test/TestDummies/TestDummies.csproj",
+        "startLine": 1,
+        "startColumn": 1,
+        "endLine": null,
+        "endColumn": null
+      }
+    }
+  ],
+  "trees": [
+    {
+      "id": "n0",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "LoggerSinkConfiguration.Sink",
+      "detail": null,
+      "before": {
+        "symbolId": "source::Serilog.Configuration.LoggerSinkConfiguration.Sink(global::Serilog.Core.ILogEventSink,global::Serilog.Events.LogEventLevel,global::Serilog.Core.LoggingLevelSwitch)",
+        "signature": "public Serilog.Configuration.LoggerSinkConfiguration.Sink(Serilog.Core.ILogEventSink logEventSink, [Serilog.Events.LogEventLevel restrictedToMinimumLevel = Serilog.Events.LogEventLevel.Verbose], [Serilog.Core.LoggingLevelSwitch? levelSwitch = null]) -> Serilog.LoggerConfiguration",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Serilog.Configuration.LoggerSinkConfiguration.Sink(global::Serilog.Core.ILogEventSink,global::Serilog.Events.LogEventLevel,global::Serilog.Core.LoggingLevelSwitch)"
+        ],
+        "definition": {
+          "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+          "startLine": 61,
+          "startColumn": 5,
+          "endLine": 86,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "source::Serilog.Configuration.LoggerSinkConfiguration.Sink(global::Serilog.Core.ILogEventSink,global::Serilog.Events.LogEventLevel,global::Serilog.Core.LoggingLevelSwitch)",
+        "signature": "public Serilog.Configuration.LoggerSinkConfiguration.Sink(Serilog.Core.ILogEventSink logEventSink, [Serilog.Events.LogEventLevel restrictedToMinimumLevel = Serilog.Events.LogEventLevel.Verbose], [Serilog.Core.LoggingLevelSwitch? levelSwitch = null]) -> Serilog.LoggerConfiguration",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Serilog.Configuration.LoggerSinkConfiguration.Sink(global::Serilog.Core.ILogEventSink,global::Serilog.Events.LogEventLevel,global::Serilog.Core.LoggingLevelSwitch)"
+        ],
+        "definition": {
+          "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+          "startLine": 61,
+          "startColumn": 5,
+          "endLine": 94,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n1",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Guard.AgainstNull",
+          "detail": null,
+          "before": {
+            "symbolId": "source::Guard.AgainstNull`1(T,string)",
+            "signature": "public static Guard.AgainstNull<T>(T? argument, [string? paramName = null]) -> T where T : class",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Guard.AgainstNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Serilog/Guard.cs",
+              "startLine": 13,
+              "startColumn": 5,
+              "endLine": 24,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                "startLine": 69,
+                "startColumn": 9,
+                "endLine": 69,
+                "endColumn": 40
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Guard.AgainstNull`1(T,string)",
+            "signature": "public static Guard.AgainstNull<T>(T? argument, [string? paramName = null]) -> T where T : class",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Guard.AgainstNull`1(T,string)"
+            ],
+            "definition": {
+              "path": "src/Serilog/Guard.cs",
+              "startLine": 13,
+              "startColumn": 5,
+              "endLine": 24,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                "startLine": 69,
+                "startColumn": 9,
+                "endLine": 69,
+                "endColumn": 40
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [
+            {
+              "id": "n2",
+              "kind": "branch",
+              "change": "unchanged",
+              "label": "if (argument is null)",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Guard.cs",
+                    "startLine": 18,
+                    "startColumn": 9,
+                    "endLine": 21,
+                    "endColumn": 10
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Guard.cs",
+                    "startLine": 18,
+                    "startColumn": 9,
+                    "endLine": 21,
+                    "endColumn": 10
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n3",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "new ArgumentNullException",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "source::System.ArgumentNullException..ctor(string)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::System.ArgumentNullException..ctor(string)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Guard.cs",
+                        "startLine": 20,
+                        "startColumn": 19,
+                        "endLine": 20,
+                        "endColumn": 55
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "after": {
+                    "symbolId": "source::System.ArgumentNullException..ctor(string)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::System.ArgumentNullException..ctor(string)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Guard.cs",
+                        "startLine": 20,
+                        "startColumn": 19,
+                        "endLine": 20,
+                        "endColumn": 55
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n4",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (levelSwitch != null)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                "startLine": 72,
+                "startColumn": 9,
+                "endLine": 82,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                "startLine": 72,
+                "startColumn": 9,
+                "endLine": 90,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n5",
+              "kind": "branch",
+              "change": "unchanged",
+              "label": "if (restrictedToMinimumLevel != LevelAlias.Minimum)",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                    "startLine": 74,
+                    "startColumn": 13,
+                    "endLine": 75,
+                    "endColumn": 204
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                    "startLine": 74,
+                    "startColumn": 13,
+                    "endLine": 75,
+                    "endColumn": 204
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n6",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "SelfLog.WriteLine",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Debugging.SelfLog.WriteLine(string,object,object,object)",
+                    "signature": "public static Serilog.Debugging.SelfLog.WriteLine(string format, [object? arg0 = null], [object? arg1 = null], [object? arg2 = null]) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Debugging.SelfLog.WriteLine(string,object,object,object)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Debugging/SelfLog.cs",
+                      "startLine": 74,
+                      "startColumn": 5,
+                      "endLine": 78,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                        "startLine": 75,
+                        "startColumn": 17,
+                        "endLine": 75,
+                        "endColumn": 203
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Debugging.SelfLog.WriteLine(string,object,object,object)",
+                    "signature": "public static Serilog.Debugging.SelfLog.WriteLine(string format, [object? arg0 = null], [object? arg1 = null], [object? arg2 = null]) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Debugging.SelfLog.WriteLine(string,object,object,object)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Debugging/SelfLog.cs",
+                      "startLine": 74,
+                      "startColumn": 5,
+                      "endLine": 78,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                        "startLine": 75,
+                        "startColumn": 17,
+                        "endLine": 75,
+                        "endColumn": 203
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n7",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "new RestrictedSink",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "source::Serilog.Core.Sinks.RestrictedSink..ctor(global::Serilog.Core.ILogEventSink,global::Serilog.Core.LoggingLevelSwitch)",
+                "signature": "public Serilog.Core.Sinks.RestrictedSink.RestrictedSink(Serilog.Core.ILogEventSink sink, Serilog.Core.LoggingLevelSwitch levelSwitch) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Serilog.Core.Sinks.RestrictedSink..ctor(global::Serilog.Core.ILogEventSink,global::Serilog.Core.LoggingLevelSwitch)"
+                ],
+                "definition": {
+                  "path": "src/Serilog/Core/Sinks/RestrictedSink.cs",
+                  "startLine": 25,
+                  "startColumn": 5,
+                  "endLine": 29,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                    "startLine": 77,
+                    "startColumn": 20,
+                    "endLine": 77,
+                    "endColumn": 57
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "source::Serilog.Core.Sinks.RestrictedSink..ctor(global::Serilog.Core.ILogEventSink,global::Serilog.Core.LoggingLevelSwitch)",
+                "signature": "public Serilog.Core.Sinks.RestrictedSink.RestrictedSink(Serilog.Core.ILogEventSink sink, Serilog.Core.LoggingLevelSwitch levelSwitch) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Serilog.Core.Sinks.RestrictedSink..ctor(global::Serilog.Core.ILogEventSink,global::Serilog.Core.LoggingLevelSwitch)"
+                ],
+                "definition": {
+                  "path": "src/Serilog/Core/Sinks/RestrictedSink.cs",
+                  "startLine": 22,
+                  "startColumn": 5,
+                  "endLine": 26,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                    "startLine": 77,
+                    "startColumn": 20,
+                    "endLine": 77,
+                    "endColumn": 65
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            },
+            {
+              "id": "n8",
+              "kind": "call",
+              "change": "added",
+              "label": "OptionalInterfaceForwardingSink.SupportsAll",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SupportsAll(global::Serilog.Core.ILogEventSink)",
+                "signature": "public static Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SupportsAll(Serilog.Core.ILogEventSink possibleReceiver) -> bool",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SupportsAll(global::Serilog.Core.ILogEventSink)"
+                ],
+                "definition": {
+                  "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                  "startLine": 84,
+                  "startColumn": 5,
+                  "endLine": 92,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                    "startLine": 78,
+                    "startColumn": 18,
+                    "endLine": 78,
+                    "endColumn": 67
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n9",
+              "kind": "branch",
+              "change": "added",
+              "label": "if (!OptionalInterfaceForwardingSink.SupportsAll(sink))",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                    "startLine": 78,
+                    "startColumn": 17,
+                    "endLine": 78,
+                    "endColumn": 128
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n10",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "OptionalInterfaceForwardingSink.SupportsAny",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SupportsAny(global::Serilog.Core.ILogEventSink)",
+                    "signature": "public static Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SupportsAny(Serilog.Core.ILogEventSink possibleReceiver) -> bool",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SupportsAny(global::Serilog.Core.ILogEventSink)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                      "startLine": 74,
+                      "startColumn": 5,
+                      "endLine": 82,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                        "startLine": 78,
+                        "startColumn": 71,
+                        "endLine": 78,
+                        "endColumn": 128
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n11",
+              "kind": "branch",
+              "change": "added",
+              "label": "if (!OptionalInterfaceForwardingSink.SupportsAll(sink) && OptionalInterfaceForwardingSink.Support…",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                    "startLine": 78,
+                    "startColumn": 13,
+                    "endLine": 81,
+                    "endColumn": 14
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n12",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "new OptionalInterfaceForwardingSink",
+                  "detail": "depth limit",
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink..ctor(global::Serilog.Core.ILogEventSink,global::Serilog.Core.ILogEventSink)",
+                    "signature": "public Serilog.Core.Sinks.OptionalInterfaceForwardingSink.OptionalInterfaceForwardingSink(Serilog.Core.ILogEventSink sink, Serilog.Core.ILogEventSink receiver) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink..ctor(global::Serilog.Core.ILogEventSink,global::Serilog.Core.ILogEventSink)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                      "startLine": 25,
+                      "startColumn": 5,
+                      "endLine": 29,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                        "startLine": 80,
+                        "startColumn": 24,
+                        "endLine": 80,
+                        "endColumn": 79
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n13",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "else (!(levelSwitch != null))",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                "startLine": 79,
+                "startColumn": 9,
+                "endLine": 82,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                "startLine": 83,
+                "startColumn": 9,
+                "endLine": 90,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n14",
+              "kind": "branch",
+              "change": "unchanged",
+              "label": "if (restrictedToMinimumLevel > LevelAlias.Minimum)",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                    "startLine": 79,
+                    "startColumn": 14,
+                    "endLine": 82,
+                    "endColumn": 10
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                    "startLine": 83,
+                    "startColumn": 14,
+                    "endLine": 90,
+                    "endColumn": 10
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n15",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "new LoggingLevelSwitch",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.LoggingLevelSwitch..ctor(global::Serilog.Events.LogEventLevel)",
+                    "signature": "public Serilog.Core.LoggingLevelSwitch.LoggingLevelSwitch([Serilog.Events.LogEventLevel initialMinimumLevel = Serilog.Events.LogEventLevel.Information]) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.LoggingLevelSwitch..ctor(global::Serilog.Events.LogEventLevel)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/LoggingLevelSwitch.cs",
+                      "startLine": 30,
+                      "startColumn": 5,
+                      "endLine": 33,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                        "startLine": 81,
+                        "startColumn": 45,
+                        "endLine": 81,
+                        "endColumn": 74
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.LoggingLevelSwitch..ctor(global::Serilog.Events.LogEventLevel)",
+                    "signature": "public Serilog.Core.LoggingLevelSwitch.LoggingLevelSwitch([Serilog.Events.LogEventLevel initialMinimumLevel = Serilog.Events.LogEventLevel.Information]) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.LoggingLevelSwitch..ctor(global::Serilog.Events.LogEventLevel)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/LoggingLevelSwitch.cs",
+                      "startLine": 30,
+                      "startColumn": 5,
+                      "endLine": 33,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                        "startLine": 85,
+                        "startColumn": 53,
+                        "endLine": 85,
+                        "endColumn": 82
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n16",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "new RestrictedSink",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.RestrictedSink..ctor(global::Serilog.Core.ILogEventSink,global::Serilog.Core.LoggingLevelSwitch)",
+                    "signature": "public Serilog.Core.Sinks.RestrictedSink.RestrictedSink(Serilog.Core.ILogEventSink sink, Serilog.Core.LoggingLevelSwitch levelSwitch) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.RestrictedSink..ctor(global::Serilog.Core.ILogEventSink,global::Serilog.Core.LoggingLevelSwitch)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/RestrictedSink.cs",
+                      "startLine": 25,
+                      "startColumn": 5,
+                      "endLine": 29,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                        "startLine": 81,
+                        "startColumn": 20,
+                        "endLine": 81,
+                        "endColumn": 75
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Sinks.RestrictedSink..ctor(global::Serilog.Core.ILogEventSink,global::Serilog.Core.LoggingLevelSwitch)",
+                    "signature": "public Serilog.Core.Sinks.RestrictedSink.RestrictedSink(Serilog.Core.ILogEventSink sink, Serilog.Core.LoggingLevelSwitch levelSwitch) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.RestrictedSink..ctor(global::Serilog.Core.ILogEventSink,global::Serilog.Core.LoggingLevelSwitch)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/RestrictedSink.cs",
+                      "startLine": 22,
+                      "startColumn": 5,
+                      "endLine": 26,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                        "startLine": 85,
+                        "startColumn": 20,
+                        "endLine": 85,
+                        "endColumn": 83
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n17",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "OptionalInterfaceForwardingSink.SupportsAll",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SupportsAll(global::Serilog.Core.ILogEventSink)",
+                    "signature": "public static Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SupportsAll(Serilog.Core.ILogEventSink possibleReceiver) -> bool",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SupportsAll(global::Serilog.Core.ILogEventSink)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                      "startLine": 84,
+                      "startColumn": 5,
+                      "endLine": 92,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                        "startLine": 86,
+                        "startColumn": 18,
+                        "endLine": 86,
+                        "endColumn": 67
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n18",
+                  "kind": "branch",
+                  "change": "added",
+                  "label": "if (!OptionalInterfaceForwardingSink.SupportsAll(sink))",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                        "startLine": 86,
+                        "startColumn": 17,
+                        "endLine": 86,
+                        "endColumn": 128
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "children": [
+                    {
+                      "id": "n19",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "OptionalInterfaceForwardingSink.SupportsAny",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SupportsAny(global::Serilog.Core.ILogEventSink)",
+                        "signature": "public static Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SupportsAny(Serilog.Core.ILogEventSink possibleReceiver) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SupportsAny(global::Serilog.Core.ILogEventSink)"
+                        ],
+                        "definition": {
+                          "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                          "startLine": 74,
+                          "startColumn": 5,
+                          "endLine": 82,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                            "startLine": 86,
+                            "startColumn": 71,
+                            "endLine": 86,
+                            "endColumn": 128
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    }
+                  ],
+                  "omission": null
+                },
+                {
+                  "id": "n20",
+                  "kind": "branch",
+                  "change": "added",
+                  "label": "if (!OptionalInterfaceForwardingSink.SupportsAll(sink) && OptionalInterfaceForwardingSink.Support…",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                        "startLine": 86,
+                        "startColumn": 13,
+                        "endLine": 89,
+                        "endColumn": 14
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "children": [
+                    {
+                      "id": "n21",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "new OptionalInterfaceForwardingSink",
+                      "detail": "depth limit",
+                      "before": null,
+                      "after": {
+                        "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink..ctor(global::Serilog.Core.ILogEventSink,global::Serilog.Core.ILogEventSink)",
+                        "signature": "public Serilog.Core.Sinks.OptionalInterfaceForwardingSink.OptionalInterfaceForwardingSink(Serilog.Core.ILogEventSink sink, Serilog.Core.ILogEventSink receiver) -> void",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink..ctor(global::Serilog.Core.ILogEventSink,global::Serilog.Core.ILogEventSink)"
+                        ],
+                        "definition": {
+                          "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                          "startLine": 25,
+                          "startColumn": 5,
+                          "endLine": 29,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                            "startLine": 88,
+                            "startColumn": 24,
+                            "endLine": 88,
+                            "endColumn": 79
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": {
+                        "reason": "depth-limit",
+                        "symbolId": null,
+                        "referenceId": null
+                      }
+                    }
+                  ],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n22",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "_addSink",
+          "detail": null,
+          "before": {
+            "symbolId": "source::System.Action<T>.Invoke(T)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::System.Action<T>.Invoke(T)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                "startLine": 84,
+                "startColumn": 9,
+                "endLine": 84,
+                "endColumn": 23
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "after": {
+            "symbolId": "source::System.Action<T>.Invoke(T)",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::System.Action<T>.Invoke(T)"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+                "startLine": 92,
+                "startColumn": 9,
+                "endLine": 92,
+                "endColumn": 23
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "children": [],
+          "omission": null
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n23",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "OptionalInterfaceForwardingSink.Dispose",
+      "detail": null,
+      "before": {
+        "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()",
+        "signature": "public Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose() -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()"
+        ],
+        "definition": {
+          "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+          "startLine": 31,
+          "startColumn": 5,
+          "endLine": 39,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()",
+        "signature": "public Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose() -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()"
+        ],
+        "definition": {
+          "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+          "startLine": 31,
+          "startColumn": 5,
+          "endLine": 39,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n24",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (_sink is IDisposable inner)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                "startLine": 33,
+                "startColumn": 9,
+                "endLine": 36,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                "startLine": 33,
+                "startColumn": 9,
+                "endLine": 36,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n25",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "inner.Dispose",
+              "detail": null,
+              "before": {
+                "symbolId": "source::System.IDisposable.Dispose()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "source::Serilog.Context.EnricherStack.Enumerator.Dispose()",
+                  "source::Serilog.Context.LogContext.ContextStackBookmark.Dispose()",
+                  "source::Serilog.Core.Enrichers.ConditionalEnricher.Dispose()",
+                  "source::Serilog.Core.Logger.Dispose()",
+                  "source::Serilog.Core.Sinks.Batching.BatchingSink.Dispose()",
+                  "source::Serilog.Core.Sinks.ConditionalSink.Dispose()",
+                  "source::Serilog.Core.Sinks.DisposingAggregateSink.Dispose()",
+                  "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()",
+                  "source::Serilog.Core.Sinks.RestrictedSink.Dispose()",
+                  "source::Serilog.Core.Sinks.SecondaryLoggerSink.Dispose()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                    "startLine": 35,
+                    "startColumn": 13,
+                    "endLine": 35,
+                    "endColumn": 28
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "source::System.IDisposable.Dispose()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "source::Serilog.Context.EnricherStack.Enumerator.Dispose()",
+                  "source::Serilog.Context.LogContext.ContextStackBookmark.Dispose()",
+                  "source::Serilog.Core.Enrichers.ConditionalEnricher.Dispose()",
+                  "source::Serilog.Core.Logger.Dispose()",
+                  "source::Serilog.Core.Sinks.Batching.BatchingSink.Dispose()",
+                  "source::Serilog.Core.Sinks.ConditionalSink.Dispose()",
+                  "source::Serilog.Core.Sinks.DisposingAggregateSink.Dispose()",
+                  "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()",
+                  "source::Serilog.Core.Sinks.SecondaryLoggerSink.Dispose()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                    "startLine": 35,
+                    "startColumn": 13,
+                    "endLine": 35,
+                    "endColumn": 28
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [
+                {
+                  "id": "n26",
+                  "kind": "dispatchTarget",
+                  "change": "unchanged",
+                  "label": "⇢ EnricherStack.Enumerator.Dispose",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "source::Serilog.Context.EnricherStack.Enumerator.Dispose()",
+                    "signature": "public Serilog.Context.EnricherStack.Enumerator.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Context.EnricherStack.Enumerator.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Context/EnricherStack.cs",
+                      "startLine": 87,
+                      "startColumn": 9,
+                      "endLine": 89,
+                      "endColumn": 10
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Context.EnricherStack.Enumerator.Dispose()",
+                    "signature": "public Serilog.Context.EnricherStack.Enumerator.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Context.EnricherStack.Enumerator.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Context/EnricherStack.cs",
+                      "startLine": 87,
+                      "startColumn": 9,
+                      "endLine": 89,
+                      "endColumn": 10
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n27",
+                  "kind": "dispatchTarget",
+                  "change": "unchanged",
+                  "label": "⇢ LogContext.ContextStackBookmark.Dispose",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Context.LogContext.ContextStackBookmark.Dispose()",
+                    "signature": "public Serilog.Context.LogContext.ContextStackBookmark.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Context.LogContext.ContextStackBookmark.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Context/LogContext.cs",
+                      "startLine": 222,
+                      "startColumn": 9,
+                      "endLine": 225,
+                      "endColumn": 10
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Context.LogContext.ContextStackBookmark.Dispose()",
+                    "signature": "public Serilog.Context.LogContext.ContextStackBookmark.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Context.LogContext.ContextStackBookmark.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Context/LogContext.cs",
+                      "startLine": 222,
+                      "startColumn": 9,
+                      "endLine": 225,
+                      "endColumn": 10
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n28",
+                  "kind": "dispatchTarget",
+                  "change": "modified",
+                  "label": "⇢ ConditionalEnricher.Dispose",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Enrichers.ConditionalEnricher.Dispose()",
+                    "signature": "public Serilog.Core.Enrichers.ConditionalEnricher.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Enrichers.ConditionalEnricher.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Enrichers/ConditionalEnricher.cs",
+                      "startLine": 34,
+                      "startColumn": 5,
+                      "endLine": 37,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Enrichers.ConditionalEnricher.Dispose()",
+                    "signature": "public Serilog.Core.Enrichers.ConditionalEnricher.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Enrichers.ConditionalEnricher.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Enrichers/ConditionalEnricher.cs",
+                      "startLine": 34,
+                      "startColumn": 5,
+                      "endLine": 37,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n29",
+                  "kind": "dispatchTarget",
+                  "change": "unchanged",
+                  "label": "⇢ Logger.Dispose",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Logger.Dispose()",
+                    "signature": "public Serilog.Core.Logger.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Logger.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Logger.cs",
+                      "startLine": 1445,
+                      "startColumn": 5,
+                      "endLine": 1448,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Logger.Dispose()",
+                    "signature": "public Serilog.Core.Logger.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Logger.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Logger.cs",
+                      "startLine": 1445,
+                      "startColumn": 5,
+                      "endLine": 1448,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n30",
+                  "kind": "dispatchTarget",
+                  "change": "modified",
+                  "label": "⇢ BatchingSink.Dispose",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.Batching.BatchingSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.Batching.BatchingSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.Batching.BatchingSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/Batching/BatchingSink.cs",
+                      "startLine": 263,
+                      "startColumn": 5,
+                      "endLine": 279,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Sinks.Batching.BatchingSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.Batching.BatchingSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.Batching.BatchingSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/Batching/BatchingSink.cs",
+                      "startLine": 263,
+                      "startColumn": 5,
+                      "endLine": 279,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n31",
+                  "kind": "dispatchTarget",
+                  "change": "modified",
+                  "label": "⇢ ConditionalSink.Dispose",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.ConditionalSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.ConditionalSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.ConditionalSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/ConditionalSink.cs",
+                      "startLine": 37,
+                      "startColumn": 5,
+                      "endLine": 40,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Sinks.ConditionalSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.ConditionalSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.ConditionalSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/ConditionalSink.cs",
+                      "startLine": 37,
+                      "startColumn": 5,
+                      "endLine": 40,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n32",
+                  "kind": "dispatchTarget",
+                  "change": "modified",
+                  "label": "⇢ DisposingAggregateSink.Dispose",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.DisposingAggregateSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.DisposingAggregateSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.DisposingAggregateSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/DisposingAggregateSink.cs",
+                      "startLine": 51,
+                      "startColumn": 5,
+                      "endLine": 66,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Sinks.DisposingAggregateSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.DisposingAggregateSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.DisposingAggregateSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/DisposingAggregateSink.cs",
+                      "startLine": 51,
+                      "startColumn": 5,
+                      "endLine": 66,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n33",
+                  "kind": "dispatchTarget",
+                  "change": "unchanged",
+                  "label": "⇢ OptionalInterfaceForwardingSink.Dispose",
+                  "detail": "↺ cycle",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                      "startLine": 31,
+                      "startColumn": 5,
+                      "endLine": 39,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                      "startLine": 31,
+                      "startColumn": 5,
+                      "endLine": 39,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "cycle",
+                    "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()",
+                    "referenceId": "n23"
+                  }
+                },
+                {
+                  "id": "n34",
+                  "kind": "dispatchTarget",
+                  "change": "removed",
+                  "label": "⇢ RestrictedSink.Dispose",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.RestrictedSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.RestrictedSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.RestrictedSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/RestrictedSink.cs",
+                      "startLine": 49,
+                      "startColumn": 5,
+                      "endLine": 52,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n35",
+                  "kind": "dispatchTarget",
+                  "change": "modified",
+                  "label": "⇢ SecondaryLoggerSink.Dispose",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.SecondaryLoggerSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.SecondaryLoggerSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.SecondaryLoggerSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/SecondaryLoggerSink.cs",
+                      "startLine": 46,
+                      "startColumn": 5,
+                      "endLine": 52,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Sinks.SecondaryLoggerSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.SecondaryLoggerSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.SecondaryLoggerSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/SecondaryLoggerSink.cs",
+                      "startLine": 46,
+                      "startColumn": 5,
+                      "endLine": 52,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n36",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if ((_receiver as IDisposable) is not null)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                "startLine": 38,
+                "startColumn": 9,
+                "endLine": 38,
+                "endColumn": 46
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                "startLine": 38,
+                "startColumn": 9,
+                "endLine": 38,
+                "endColumn": 46
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n37",
+              "kind": "call",
+              "change": "unchanged",
+              "label": ".Dispose",
+              "detail": null,
+              "before": {
+                "symbolId": "source::System.IDisposable.Dispose()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "source::Serilog.Context.EnricherStack.Enumerator.Dispose()",
+                  "source::Serilog.Context.LogContext.ContextStackBookmark.Dispose()",
+                  "source::Serilog.Core.Enrichers.ConditionalEnricher.Dispose()",
+                  "source::Serilog.Core.Logger.Dispose()",
+                  "source::Serilog.Core.Sinks.Batching.BatchingSink.Dispose()",
+                  "source::Serilog.Core.Sinks.ConditionalSink.Dispose()",
+                  "source::Serilog.Core.Sinks.DisposingAggregateSink.Dispose()",
+                  "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()",
+                  "source::Serilog.Core.Sinks.RestrictedSink.Dispose()",
+                  "source::Serilog.Core.Sinks.SecondaryLoggerSink.Dispose()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                    "startLine": 38,
+                    "startColumn": 36,
+                    "endLine": 38,
+                    "endColumn": 46
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "source::System.IDisposable.Dispose()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "source::Serilog.Context.EnricherStack.Enumerator.Dispose()",
+                  "source::Serilog.Context.LogContext.ContextStackBookmark.Dispose()",
+                  "source::Serilog.Core.Enrichers.ConditionalEnricher.Dispose()",
+                  "source::Serilog.Core.Logger.Dispose()",
+                  "source::Serilog.Core.Sinks.Batching.BatchingSink.Dispose()",
+                  "source::Serilog.Core.Sinks.ConditionalSink.Dispose()",
+                  "source::Serilog.Core.Sinks.DisposingAggregateSink.Dispose()",
+                  "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()",
+                  "source::Serilog.Core.Sinks.SecondaryLoggerSink.Dispose()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                    "startLine": 38,
+                    "startColumn": 36,
+                    "endLine": 38,
+                    "endColumn": 46
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [
+                {
+                  "id": "n38",
+                  "kind": "dispatchTarget",
+                  "change": "unchanged",
+                  "label": "⇢ EnricherStack.Enumerator.Dispose",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "source::Serilog.Context.EnricherStack.Enumerator.Dispose()",
+                    "signature": "public Serilog.Context.EnricherStack.Enumerator.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Context.EnricherStack.Enumerator.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Context/EnricherStack.cs",
+                      "startLine": 87,
+                      "startColumn": 9,
+                      "endLine": 89,
+                      "endColumn": 10
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Context.EnricherStack.Enumerator.Dispose()",
+                    "signature": "public Serilog.Context.EnricherStack.Enumerator.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Context.EnricherStack.Enumerator.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Context/EnricherStack.cs",
+                      "startLine": 87,
+                      "startColumn": 9,
+                      "endLine": 89,
+                      "endColumn": 10
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n39",
+                  "kind": "dispatchTarget",
+                  "change": "unchanged",
+                  "label": "⇢ LogContext.ContextStackBookmark.Dispose",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Context.LogContext.ContextStackBookmark.Dispose()",
+                    "signature": "public Serilog.Context.LogContext.ContextStackBookmark.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Context.LogContext.ContextStackBookmark.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Context/LogContext.cs",
+                      "startLine": 222,
+                      "startColumn": 9,
+                      "endLine": 225,
+                      "endColumn": 10
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Context.LogContext.ContextStackBookmark.Dispose()",
+                    "signature": "public Serilog.Context.LogContext.ContextStackBookmark.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Context.LogContext.ContextStackBookmark.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Context/LogContext.cs",
+                      "startLine": 222,
+                      "startColumn": 9,
+                      "endLine": 225,
+                      "endColumn": 10
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n40",
+                  "kind": "dispatchTarget",
+                  "change": "modified",
+                  "label": "⇢ ConditionalEnricher.Dispose",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Enrichers.ConditionalEnricher.Dispose()",
+                    "signature": "public Serilog.Core.Enrichers.ConditionalEnricher.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Enrichers.ConditionalEnricher.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Enrichers/ConditionalEnricher.cs",
+                      "startLine": 34,
+                      "startColumn": 5,
+                      "endLine": 37,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Enrichers.ConditionalEnricher.Dispose()",
+                    "signature": "public Serilog.Core.Enrichers.ConditionalEnricher.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Enrichers.ConditionalEnricher.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Enrichers/ConditionalEnricher.cs",
+                      "startLine": 34,
+                      "startColumn": 5,
+                      "endLine": 37,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n41",
+                  "kind": "dispatchTarget",
+                  "change": "unchanged",
+                  "label": "⇢ Logger.Dispose",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Logger.Dispose()",
+                    "signature": "public Serilog.Core.Logger.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Logger.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Logger.cs",
+                      "startLine": 1445,
+                      "startColumn": 5,
+                      "endLine": 1448,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Logger.Dispose()",
+                    "signature": "public Serilog.Core.Logger.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Logger.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Logger.cs",
+                      "startLine": 1445,
+                      "startColumn": 5,
+                      "endLine": 1448,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n42",
+                  "kind": "dispatchTarget",
+                  "change": "modified",
+                  "label": "⇢ BatchingSink.Dispose",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.Batching.BatchingSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.Batching.BatchingSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.Batching.BatchingSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/Batching/BatchingSink.cs",
+                      "startLine": 263,
+                      "startColumn": 5,
+                      "endLine": 279,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Sinks.Batching.BatchingSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.Batching.BatchingSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.Batching.BatchingSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/Batching/BatchingSink.cs",
+                      "startLine": 263,
+                      "startColumn": 5,
+                      "endLine": 279,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n43",
+                  "kind": "dispatchTarget",
+                  "change": "modified",
+                  "label": "⇢ ConditionalSink.Dispose",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.ConditionalSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.ConditionalSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.ConditionalSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/ConditionalSink.cs",
+                      "startLine": 37,
+                      "startColumn": 5,
+                      "endLine": 40,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Sinks.ConditionalSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.ConditionalSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.ConditionalSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/ConditionalSink.cs",
+                      "startLine": 37,
+                      "startColumn": 5,
+                      "endLine": 40,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n44",
+                  "kind": "dispatchTarget",
+                  "change": "modified",
+                  "label": "⇢ DisposingAggregateSink.Dispose",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.DisposingAggregateSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.DisposingAggregateSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.DisposingAggregateSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/DisposingAggregateSink.cs",
+                      "startLine": 51,
+                      "startColumn": 5,
+                      "endLine": 66,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Sinks.DisposingAggregateSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.DisposingAggregateSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.DisposingAggregateSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/DisposingAggregateSink.cs",
+                      "startLine": 51,
+                      "startColumn": 5,
+                      "endLine": 66,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n45",
+                  "kind": "dispatchTarget",
+                  "change": "unchanged",
+                  "label": "⇢ OptionalInterfaceForwardingSink.Dispose",
+                  "detail": "↺ cycle",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                      "startLine": 31,
+                      "startColumn": 5,
+                      "endLine": 39,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                      "startLine": 31,
+                      "startColumn": 5,
+                      "endLine": 39,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "cycle",
+                    "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()",
+                    "referenceId": "n23"
+                  }
+                },
+                {
+                  "id": "n46",
+                  "kind": "dispatchTarget",
+                  "change": "removed",
+                  "label": "⇢ RestrictedSink.Dispose",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.RestrictedSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.RestrictedSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.RestrictedSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/RestrictedSink.cs",
+                      "startLine": 49,
+                      "startColumn": 5,
+                      "endLine": 52,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n47",
+                  "kind": "dispatchTarget",
+                  "change": "modified",
+                  "label": "⇢ SecondaryLoggerSink.Dispose",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.SecondaryLoggerSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.SecondaryLoggerSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.SecondaryLoggerSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/SecondaryLoggerSink.cs",
+                      "startLine": 46,
+                      "startColumn": 5,
+                      "endLine": 52,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Sinks.SecondaryLoggerSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.SecondaryLoggerSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.SecondaryLoggerSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/SecondaryLoggerSink.cs",
+                      "startLine": 46,
+                      "startColumn": 5,
+                      "endLine": 52,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n48",
+      "kind": "member",
+      "change": "unchanged",
+      "label": "OptionalInterfaceForwardingSink.SetFailureListener",
+      "detail": null,
+      "before": {
+        "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+        "signature": "public Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(Serilog.Core.ILoggingFailureListener listener) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+        ],
+        "definition": {
+          "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+          "startLine": 68,
+          "startColumn": 5,
+          "endLine": 72,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": {
+        "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+        "signature": "public Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(Serilog.Core.ILoggingFailureListener listener) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+        ],
+        "definition": {
+          "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+          "startLine": 68,
+          "startColumn": 5,
+          "endLine": 72,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n49",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if ((_sink as ISetLoggingFailureListener) is not null)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                "startLine": 70,
+                "startColumn": 9,
+                "endLine": 70,
+                "endColumn": 76
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                "startLine": 70,
+                "startColumn": 9,
+                "endLine": 70,
+                "endColumn": 76
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n50",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "ISetLoggingFailureListener.SetFailureListener",
+              "detail": null,
+              "before": {
+                "symbolId": "source::Serilog.Core.ISetLoggingFailureListener.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                "signature": "public abstract Serilog.Core.ISetLoggingFailureListener.SetFailureListener(Serilog.Core.ILoggingFailureListener failureListener) -> void",
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "source::Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                  "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                  "source::Serilog.Core.Sinks.RestrictedSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+                ],
+                "definition": {
+                  "path": "src/Serilog/Core/ISetLoggingFailureListener.cs",
+                  "startLine": 27,
+                  "startColumn": 5,
+                  "endLine": 27,
+                  "endColumn": 70
+                },
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                    "startLine": 70,
+                    "startColumn": 47,
+                    "endLine": 70,
+                    "endColumn": 76
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "source::Serilog.Core.ISetLoggingFailureListener.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                "signature": "public abstract Serilog.Core.ISetLoggingFailureListener.SetFailureListener(Serilog.Core.ILoggingFailureListener failureListener) -> void",
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "source::Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                  "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+                ],
+                "definition": {
+                  "path": "src/Serilog/Core/ISetLoggingFailureListener.cs",
+                  "startLine": 27,
+                  "startColumn": 5,
+                  "endLine": 27,
+                  "endColumn": 70
+                },
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                    "startLine": 70,
+                    "startColumn": 47,
+                    "endLine": 70,
+                    "endColumn": 76
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n51",
+                  "kind": "dispatchTarget",
+                  "change": "unchanged",
+                  "label": "⇢ BatchingSink.SetFailureListener",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                    "signature": "public Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(Serilog.Core.ILoggingFailureListener failureListener) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/Batching/BatchingSink.cs",
+                      "startLine": 256,
+                      "startColumn": 5,
+                      "endLine": 260,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                    "signature": "public Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(Serilog.Core.ILoggingFailureListener failureListener) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/Batching/BatchingSink.cs",
+                      "startLine": 256,
+                      "startColumn": 5,
+                      "endLine": 260,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n52",
+                  "kind": "dispatchTarget",
+                  "change": "unchanged",
+                  "label": "⇢ OptionalInterfaceForwardingSink.SetFailureListener",
+                  "detail": "↺ cycle",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                    "signature": "public Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(Serilog.Core.ILoggingFailureListener listener) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                      "startLine": 68,
+                      "startColumn": 5,
+                      "endLine": 72,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                    "signature": "public Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(Serilog.Core.ILoggingFailureListener listener) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                      "startLine": 68,
+                      "startColumn": 5,
+                      "endLine": 72,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "cycle",
+                    "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                    "referenceId": "n48"
+                  }
+                },
+                {
+                  "id": "n53",
+                  "kind": "dispatchTarget",
+                  "change": "removed",
+                  "label": "⇢ RestrictedSink.SetFailureListener",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.RestrictedSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                    "signature": "public Serilog.Core.Sinks.RestrictedSink.SetFailureListener(Serilog.Core.ILoggingFailureListener failureListener) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.RestrictedSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/RestrictedSink.cs",
+                      "startLine": 41,
+                      "startColumn": 5,
+                      "endLine": 47,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n54",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if ((_receiver as ISetLoggingFailureListener) is not null)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                "startLine": 71,
+                "startColumn": 9,
+                "endLine": 71,
+                "endColumn": 80
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                "startLine": 71,
+                "startColumn": 9,
+                "endLine": 71,
+                "endColumn": 80
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n55",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "ISetLoggingFailureListener.SetFailureListener",
+              "detail": null,
+              "before": {
+                "symbolId": "source::Serilog.Core.ISetLoggingFailureListener.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                "signature": "public abstract Serilog.Core.ISetLoggingFailureListener.SetFailureListener(Serilog.Core.ILoggingFailureListener failureListener) -> void",
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "source::Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                  "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                  "source::Serilog.Core.Sinks.RestrictedSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+                ],
+                "definition": {
+                  "path": "src/Serilog/Core/ISetLoggingFailureListener.cs",
+                  "startLine": 27,
+                  "startColumn": 5,
+                  "endLine": 27,
+                  "endColumn": 70
+                },
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                    "startLine": 71,
+                    "startColumn": 51,
+                    "endLine": 71,
+                    "endColumn": 80
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "source::Serilog.Core.ISetLoggingFailureListener.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                "signature": "public abstract Serilog.Core.ISetLoggingFailureListener.SetFailureListener(Serilog.Core.ILoggingFailureListener failureListener) -> void",
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "source::Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                  "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+                ],
+                "definition": {
+                  "path": "src/Serilog/Core/ISetLoggingFailureListener.cs",
+                  "startLine": 27,
+                  "startColumn": 5,
+                  "endLine": 27,
+                  "endColumn": 70
+                },
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                    "startLine": 71,
+                    "startColumn": 51,
+                    "endLine": 71,
+                    "endColumn": 80
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n56",
+                  "kind": "dispatchTarget",
+                  "change": "unchanged",
+                  "label": "⇢ BatchingSink.SetFailureListener",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                    "signature": "public Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(Serilog.Core.ILoggingFailureListener failureListener) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/Batching/BatchingSink.cs",
+                      "startLine": 256,
+                      "startColumn": 5,
+                      "endLine": 260,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                    "signature": "public Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(Serilog.Core.ILoggingFailureListener failureListener) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/Batching/BatchingSink.cs",
+                      "startLine": 256,
+                      "startColumn": 5,
+                      "endLine": 260,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n57",
+                  "kind": "dispatchTarget",
+                  "change": "unchanged",
+                  "label": "⇢ OptionalInterfaceForwardingSink.SetFailureListener",
+                  "detail": "↺ cycle",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                    "signature": "public Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(Serilog.Core.ILoggingFailureListener listener) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                      "startLine": 68,
+                      "startColumn": 5,
+                      "endLine": 72,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                    "signature": "public Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(Serilog.Core.ILoggingFailureListener listener) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                      "startLine": 68,
+                      "startColumn": 5,
+                      "endLine": 72,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "cycle",
+                    "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                    "referenceId": "n48"
+                  }
+                },
+                {
+                  "id": "n58",
+                  "kind": "dispatchTarget",
+                  "change": "removed",
+                  "label": "⇢ RestrictedSink.SetFailureListener",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.RestrictedSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                    "signature": "public Serilog.Core.Sinks.RestrictedSink.SetFailureListener(Serilog.Core.ILoggingFailureListener failureListener) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.RestrictedSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/RestrictedSink.cs",
+                      "startLine": 41,
+                      "startColumn": 5,
+                      "endLine": 47,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n59",
+      "kind": "member",
+      "change": "removed",
+      "label": "RestrictedSink.Dispose",
+      "detail": null,
+      "before": {
+        "symbolId": "source::Serilog.Core.Sinks.RestrictedSink.Dispose()",
+        "signature": "public Serilog.Core.Sinks.RestrictedSink.Dispose() -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Serilog.Core.Sinks.RestrictedSink.Dispose()"
+        ],
+        "definition": {
+          "path": "src/Serilog/Core/Sinks/RestrictedSink.cs",
+          "startLine": 49,
+          "startColumn": 5,
+          "endLine": 52,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": null,
+      "children": [
+        {
+          "id": "n60",
+          "kind": "branch",
+          "change": "removed",
+          "label": "if ((_sink as IDisposable) is not null)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Sinks/RestrictedSink.cs",
+                "startLine": 51,
+                "startColumn": 9,
+                "endLine": 51,
+                "endColumn": 42
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": null,
+          "children": [
+            {
+              "id": "n61",
+              "kind": "call",
+              "change": "removed",
+              "label": ".Dispose",
+              "detail": null,
+              "before": {
+                "symbolId": "source::System.IDisposable.Dispose()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "source::Serilog.Context.EnricherStack.Enumerator.Dispose()",
+                  "source::Serilog.Context.LogContext.ContextStackBookmark.Dispose()",
+                  "source::Serilog.Core.Enrichers.ConditionalEnricher.Dispose()",
+                  "source::Serilog.Core.Logger.Dispose()",
+                  "source::Serilog.Core.Sinks.Batching.BatchingSink.Dispose()",
+                  "source::Serilog.Core.Sinks.ConditionalSink.Dispose()",
+                  "source::Serilog.Core.Sinks.DisposingAggregateSink.Dispose()",
+                  "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()",
+                  "source::Serilog.Core.Sinks.RestrictedSink.Dispose()",
+                  "source::Serilog.Core.Sinks.SecondaryLoggerSink.Dispose()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Sinks/RestrictedSink.cs",
+                    "startLine": 51,
+                    "startColumn": 32,
+                    "endLine": 51,
+                    "endColumn": 42
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": null,
+              "children": [
+                {
+                  "id": "n62",
+                  "kind": "dispatchTarget",
+                  "change": "removed",
+                  "label": "⇢ EnricherStack.Enumerator.Dispose",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "source::Serilog.Context.EnricherStack.Enumerator.Dispose()",
+                    "signature": "public Serilog.Context.EnricherStack.Enumerator.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Context.EnricherStack.Enumerator.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Context/EnricherStack.cs",
+                      "startLine": 87,
+                      "startColumn": 9,
+                      "endLine": 89,
+                      "endColumn": 10
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n63",
+                  "kind": "dispatchTarget",
+                  "change": "removed",
+                  "label": "⇢ LogContext.ContextStackBookmark.Dispose",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Context.LogContext.ContextStackBookmark.Dispose()",
+                    "signature": "public Serilog.Context.LogContext.ContextStackBookmark.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Context.LogContext.ContextStackBookmark.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Context/LogContext.cs",
+                      "startLine": 222,
+                      "startColumn": 9,
+                      "endLine": 225,
+                      "endColumn": 10
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n64",
+                  "kind": "dispatchTarget",
+                  "change": "removed",
+                  "label": "⇢ ConditionalEnricher.Dispose",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Enrichers.ConditionalEnricher.Dispose()",
+                    "signature": "public Serilog.Core.Enrichers.ConditionalEnricher.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Enrichers.ConditionalEnricher.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Enrichers/ConditionalEnricher.cs",
+                      "startLine": 34,
+                      "startColumn": 5,
+                      "endLine": 37,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n65",
+                  "kind": "dispatchTarget",
+                  "change": "removed",
+                  "label": "⇢ Logger.Dispose",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Logger.Dispose()",
+                    "signature": "public Serilog.Core.Logger.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Logger.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Logger.cs",
+                      "startLine": 1445,
+                      "startColumn": 5,
+                      "endLine": 1448,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n66",
+                  "kind": "dispatchTarget",
+                  "change": "removed",
+                  "label": "⇢ BatchingSink.Dispose",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.Batching.BatchingSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.Batching.BatchingSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.Batching.BatchingSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/Batching/BatchingSink.cs",
+                      "startLine": 263,
+                      "startColumn": 5,
+                      "endLine": 279,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n67",
+                  "kind": "dispatchTarget",
+                  "change": "removed",
+                  "label": "⇢ ConditionalSink.Dispose",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.ConditionalSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.ConditionalSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.ConditionalSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/ConditionalSink.cs",
+                      "startLine": 37,
+                      "startColumn": 5,
+                      "endLine": 40,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n68",
+                  "kind": "dispatchTarget",
+                  "change": "removed",
+                  "label": "⇢ DisposingAggregateSink.Dispose",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.DisposingAggregateSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.DisposingAggregateSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.DisposingAggregateSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/DisposingAggregateSink.cs",
+                      "startLine": 51,
+                      "startColumn": 5,
+                      "endLine": 66,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n69",
+                  "kind": "dispatchTarget",
+                  "change": "removed",
+                  "label": "⇢ OptionalInterfaceForwardingSink.Dispose",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                      "startLine": 31,
+                      "startColumn": 5,
+                      "endLine": 39,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n70",
+                  "kind": "dispatchTarget",
+                  "change": "removed",
+                  "label": "⇢ RestrictedSink.Dispose",
+                  "detail": "↺ cycle",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.RestrictedSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.RestrictedSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.RestrictedSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/RestrictedSink.cs",
+                      "startLine": 49,
+                      "startColumn": 5,
+                      "endLine": 52,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "cycle",
+                    "symbolId": "source::Serilog.Core.Sinks.RestrictedSink.Dispose()",
+                    "referenceId": "n59"
+                  }
+                },
+                {
+                  "id": "n71",
+                  "kind": "dispatchTarget",
+                  "change": "removed",
+                  "label": "⇢ SecondaryLoggerSink.Dispose",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.SecondaryLoggerSink.Dispose()",
+                    "signature": "public Serilog.Core.Sinks.SecondaryLoggerSink.Dispose() -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.SecondaryLoggerSink.Dispose()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/SecondaryLoggerSink.cs",
+                      "startLine": 46,
+                      "startColumn": 5,
+                      "endLine": 52,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n72",
+      "kind": "member",
+      "change": "removed",
+      "label": "RestrictedSink.SetFailureListener",
+      "detail": null,
+      "before": {
+        "symbolId": "source::Serilog.Core.Sinks.RestrictedSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+        "signature": "public Serilog.Core.Sinks.RestrictedSink.SetFailureListener(Serilog.Core.ILoggingFailureListener failureListener) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Serilog.Core.Sinks.RestrictedSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+        ],
+        "definition": {
+          "path": "src/Serilog/Core/Sinks/RestrictedSink.cs",
+          "startLine": 41,
+          "startColumn": 5,
+          "endLine": 47,
+          "endColumn": 6
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "after": null,
+      "children": [
+        {
+          "id": "n73",
+          "kind": "branch",
+          "change": "removed",
+          "label": "if (_sink is ISetLoggingFailureListener sfl)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Sinks/RestrictedSink.cs",
+                "startLine": 43,
+                "startColumn": 9,
+                "endLine": 46,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": null,
+          "children": [
+            {
+              "id": "n74",
+              "kind": "call",
+              "change": "removed",
+              "label": "ISetLoggingFailureListener.SetFailureListener",
+              "detail": null,
+              "before": {
+                "symbolId": "source::Serilog.Core.ISetLoggingFailureListener.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                "signature": "public abstract Serilog.Core.ISetLoggingFailureListener.SetFailureListener(Serilog.Core.ILoggingFailureListener failureListener) -> void",
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "source::Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                  "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                  "source::Serilog.Core.Sinks.RestrictedSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+                ],
+                "definition": {
+                  "path": "src/Serilog/Core/ISetLoggingFailureListener.cs",
+                  "startLine": 27,
+                  "startColumn": 5,
+                  "endLine": 27,
+                  "endColumn": 70
+                },
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Sinks/RestrictedSink.cs",
+                    "startLine": 45,
+                    "startColumn": 13,
+                    "endLine": 45,
+                    "endColumn": 52
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": null,
+              "children": [
+                {
+                  "id": "n75",
+                  "kind": "dispatchTarget",
+                  "change": "removed",
+                  "label": "⇢ BatchingSink.SetFailureListener",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                    "signature": "public Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(Serilog.Core.ILoggingFailureListener failureListener) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.Batching.BatchingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/Batching/BatchingSink.cs",
+                      "startLine": 256,
+                      "startColumn": 5,
+                      "endLine": 260,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n76",
+                  "kind": "dispatchTarget",
+                  "change": "removed",
+                  "label": "⇢ OptionalInterfaceForwardingSink.SetFailureListener",
+                  "detail": "changes below depth limit",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                    "signature": "public Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(Serilog.Core.ILoggingFailureListener listener) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.OptionalInterfaceForwardingSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/OptionalInterfaceForwardingSink.cs",
+                      "startLine": 68,
+                      "startColumn": 5,
+                      "endLine": 72,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n77",
+                  "kind": "dispatchTarget",
+                  "change": "removed",
+                  "label": "⇢ RestrictedSink.SetFailureListener",
+                  "detail": "↺ cycle",
+                  "before": {
+                    "symbolId": "source::Serilog.Core.Sinks.RestrictedSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                    "signature": "public Serilog.Core.Sinks.RestrictedSink.SetFailureListener(Serilog.Core.ILoggingFailureListener failureListener) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Core.Sinks.RestrictedSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/Sinks/RestrictedSink.cs",
+                      "startLine": 41,
+                      "startColumn": 5,
+                      "endLine": 47,
+                      "endColumn": 6
+                    },
+                    "callSites": [],
+                    "relation": "definition",
+                    "candidates": null,
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "cycle",
+                    "symbolId": "source::Serilog.Core.Sinks.RestrictedSink.SetFailureListener(global::Serilog.Core.ILoggingFailureListener)",
+                    "referenceId": "n72"
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    }
+  ],
+  "paths": []
+}
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
