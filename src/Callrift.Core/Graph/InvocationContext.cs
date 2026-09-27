@@ -29,7 +29,7 @@ internal sealed class InvocationContext(string Key, IReadOnlyDictionary<string, 
             result.AppendLiteral(Key);
             result.AppendLiteral("\u001e");
             var first = true;
-            foreach (var argument in Arguments.OrderBy(p => p.Key, StringComparer.Ordinal))
+            foreach (var argument in Arguments.Count > 1 ? Arguments.OrderBy(p => p.Key, StringComparer.Ordinal) : Arguments.AsEnumerable())
             {
                 if (!first) result.AppendLiteral(";");
                 first = false;
@@ -193,13 +193,14 @@ internal sealed class InvocationContext(string Key, IReadOnlyDictionary<string, 
             cancellationToken.ThrowIfCancellationRequested();
             foreach (var bindings in candidate.Bind(call.DispatchType, call.ReceiverType, graph.TypeDefinitions, cancellationToken))
             {
-                var instance = candidate.ImplementationType?.Resolve(bindings, "candidate:", []);
+                var instance = bindings.Count == 0 ? candidate.ImplementationType : candidate.ImplementationType?.Resolve(bindings, "candidate:", []);
                 if (call.InvocationReceiverExact && call.InvocationReceiverType is { } expected && instance is not null && !instance.CanUnify(expected)) continue;
-                var arguments = candidate.GenericArguments.ToDictionary(p => p.Key, p => p.Value.Resolve(bindings, "candidate:", []), StringComparer.Ordinal);
+                var arguments = candidate.GenericArguments.Count == 0 ? null
+                    : candidate.GenericArguments.ToDictionary(p => p.Key, p => bindings.Count == 0 ? p.Value : p.Value.Resolve(bindings, "candidate:", []), StringComparer.Ordinal);
                 if (graph.Members.TryGetValue(candidate.Target, out var member))
                     for (var index = 0; index < member.MethodParameters.Count && index < call.MethodArguments.Count; index++)
-                        arguments[member.MethodParameters[index]] = call.MethodArguments[index];
-                yield return Create(graph, candidate.Target, arguments, instance, candidate.ImplementationTypeExact);
+                        (arguments ??= new Dictionary<string, DispatchType>(StringComparer.Ordinal))[member.MethodParameters[index]] = call.MethodArguments[index];
+                yield return Create(graph, candidate.Target, arguments is null ? ImmutableDictionary<string, DispatchType>.Empty : arguments, instance, candidate.ImplementationTypeExact);
             }
         }
     }

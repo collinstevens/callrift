@@ -36,19 +36,20 @@ internal static class ContextGraph
             pending.Enqueue(frame);
             return frame;
         }
-        IReadOnlyList<CallStep> Rewrite(IEnumerable<CallStep> calls, InvocationContext frame)
+        IReadOnlyList<CallStep> Rewrite(IReadOnlyList<CallStep> calls, InvocationContext frame)
         {
-            var result = new List<CallStep>();
+            if (calls.Count == 0) return [];
+            var result = new List<CallStep>(calls.Count);
             foreach (var original in calls)
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 var call = frame.Resolve(original);
                 var requested = call.Kind == "call" ? InvocationContext.DispatchTargets(graph, call, cancellationToken)
-                    .GroupBy(target => target.Identity, StringComparer.Ordinal).OrderBy(group => group.Key, StringComparer.Ordinal).Select(group => group.First()).ToArray() : [];
+                    .DistinctBy(target => target.Identity, StringComparer.Ordinal).OrderBy(target => target.Identity, StringComparer.Ordinal).ToArray() : [];
                 var direct = requested.Length == 1 && requested[0].Key == call.Key ? requested[0] : null;
                 if (direct is not null) requested = [];
-                var semanticTargets = requested.Select(target => target.Identity).ToArray();
-                var targets = requested.Select(Add).Select(target => target.Identity).ToArray();
+                var semanticTargets = requested.Length == 0 ? [] : requested.Select(target => target.Identity).ToArray();
+                var targets = requested.Length == 0 ? [] : requested.Select(Add).Select(target => target.Identity).ToArray();
                 var key = call.Key;
                 var semanticKey = key;
                 if (call.Kind == "call" && targets.Length == 0 && graph.Members.ContainsKey(key))

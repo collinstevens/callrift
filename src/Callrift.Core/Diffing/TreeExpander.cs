@@ -161,14 +161,14 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
             tree = tree with
             {
                 Kind = "call",
+                DispatchLabel = call.Kind == "call" ? call.Label : tree.DispatchLabel,
+                ExpandedDispatch = call.Kind == "call" ? possibleTargets.Count > 1 : tree.ExpandedDispatch,
                 AlignmentKey = call.AlignmentKey,
                 Side = side,
                 Children = children.Count == 0 ? tree.Children : tree.Children.Concat(children).ToArray(),
                 InvocationKey = InvocationContext.Create(resolvedGraph, call.DefinitionKey ?? call.Key, call.GenericArguments).Identity,
                 SemanticKey = (call.SemanticKey ?? call.Key) + (call.SemanticTargets is { Count: > 0 } semanticTargets ? "→" + string.Join(";", semanticTargets) : "")
             };
-            if (call.Kind == "call")
-                tree = tree with { DispatchLabel = call.Label, ExpandedDispatch = possibleTargets.Count > 1 };
             if (canExpandDispatch)
             {
                 var compact = tree;
