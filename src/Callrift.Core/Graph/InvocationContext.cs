@@ -1,11 +1,20 @@
 namespace Callrift.Core;
 
-internal sealed record InvocationContext(string Key, IReadOnlyDictionary<string, DispatchType> Arguments, bool Limited = false,
+internal sealed class InvocationContext(string Key, IReadOnlyDictionary<string, DispatchType> Arguments, bool Limited = false,
     DispatchType? Receiver = null, bool ReceiverSpecialized = false, bool ReceiverExact = false,
     IReadOnlyDictionary<string, DispatchTypeDefinition>? Definitions = null)
 {
+    public string Key { get; } = Key;
+    public IReadOnlyDictionary<string, DispatchType> Arguments { get; } = Arguments;
+    public bool Limited { get; } = Limited;
+    public DispatchType? Receiver { get; } = Receiver;
+    public bool ReceiverSpecialized { get; } = ReceiverSpecialized;
+    public bool ReceiverExact { get; } = ReceiverExact;
+    public IReadOnlyDictionary<string, DispatchTypeDefinition>? Definitions { get; } = Definitions;
+    private string? identity;
+
     public bool HasSpecialization => Arguments.Count != 0 || ReceiverSpecialized;
-    public string Identity => Limited ? Key + "\u001e<context-limit>" : !HasSpecialization ? Key : Key + "\u001e" + string.Join(";", Arguments.OrderBy(p => p.Key, StringComparer.Ordinal).Select(p => p.Key + "=" + TypeKey(p.Value, Definitions)))
+    public string Identity => identity ??= Limited ? Key + "\u001e<context-limit>" : !HasSpecialization ? Key : Key + "\u001e" + string.Join(";", Arguments.OrderBy(p => p.Key, StringComparer.Ordinal).Select(p => p.Key + "=" + TypeKey(p.Value, Definitions)))
         + (ReceiverSpecialized ? ";this=" + TypeKey(Receiver!, Definitions) + (ReceiverExact ? "!" : "") : "");
 
     public static InvocationContext Create(CallGraph graph, string key, IReadOnlyDictionary<string, DispatchType> arguments, DispatchType? receiver = null, bool receiverExact = false)
@@ -49,8 +58,8 @@ internal sealed record InvocationContext(string Key, IReadOnlyDictionary<string,
         InvocationReceiverType = call.UsesContainingInstance && Receiver is not null ? Receiver
             : call.InvocationReceiverType is { } instance ? DispatchTypeCatalog.Substitute(instance, Arguments) : null,
         InvocationReceiverExact = call.UsesContainingInstance && Receiver is not null ? ReceiverExact : call.InvocationReceiverExact,
-        GenericArguments = call.GenericArguments.ToDictionary(p => p.Key, p => DispatchTypeCatalog.Substitute(p.Value, Arguments), StringComparer.Ordinal),
-        MethodArguments = call.MethodArguments.Select(t => DispatchTypeCatalog.Substitute(t, Arguments)).ToArray()
+        GenericArguments = Arguments.Count == 0 || call.GenericArguments.Count == 0 ? call.GenericArguments : call.GenericArguments.ToDictionary(p => p.Key, p => DispatchTypeCatalog.Substitute(p.Value, Arguments), StringComparer.Ordinal),
+        MethodArguments = Arguments.Count == 0 || call.MethodArguments.Count == 0 ? call.MethodArguments : call.MethodArguments.Select(t => DispatchTypeCatalog.Substitute(t, Arguments)).ToArray()
     };
 
     internal static IEnumerable<InvocationContext> DispatchTargets(CallGraph graph, CallStep call, CancellationToken cancellationToken = default)

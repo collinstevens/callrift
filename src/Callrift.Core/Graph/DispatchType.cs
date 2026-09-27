@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Microsoft.CodeAnalysis;
 
 namespace Callrift.Core;
@@ -7,9 +8,16 @@ public sealed record DispatchType(string Name, IReadOnlyList<DispatchType> Argum
     public IReadOnlyList<VarianceKind>? VarianceDirections { get; init; }
     public DispatchConstraints? Constraints { get; init; }
 
+    private static readonly ConditionalWeakTable<ITypeSymbol, DispatchType> ConstrainedTypes = new();
+    private static readonly ConditionalWeakTable<ITypeSymbol, DispatchType> UnconstrainedTypes = new();
+
     internal static DispatchType From(ITypeSymbol type) => From(type, true);
 
-    private static DispatchType From(ITypeSymbol type, bool constraints) => type switch
+    private static DispatchType From(ITypeSymbol type, bool constraints) => constraints
+        ? ConstrainedTypes.GetValue(type, static symbol => Create(symbol, true))
+        : UnconstrainedTypes.GetValue(type, static symbol => Create(symbol, false));
+
+    private static DispatchType Create(ITypeSymbol type, bool constraints) => type switch
     {
         ITypeParameterSymbol parameter => new(parameter.ContainingSymbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat) + ":" + parameter.Ordinal, [], true)
         {
@@ -72,7 +80,15 @@ public sealed record DispatchType(string Name, IReadOnlyList<DispatchType> Argum
     {
         if (IsParameter && active.Add(side + Name) && bindings.TryGetValue(side + Name, out var bound))
             return bound.Type.Resolve(bindings, bound.Side, active);
-        return this with { Arguments = Arguments.Select(a => a.Resolve(bindings, side, new HashSet<string>(active, StringComparer.Ordinal))).ToArray() };
+        DispatchType[]? arguments = null;
+        for (var index = 0; index < Arguments.Count; index++)
+        {
+            var resolved = Arguments[index].Resolve(bindings, side, new HashSet<string>(active, StringComparer.Ordinal));
+            if (ReferenceEquals(resolved, Arguments[index])) continue;
+            arguments ??= Arguments.ToArray();
+            arguments[index] = resolved;
+        }
+        return arguments is null ? this : this with { Arguments = arguments };
     }
 
     private static bool Unify(DispatchType left, string leftSide, DispatchType right, string rightSide,
