@@ -15,3 +15,8 @@
 - Use `mise run test:e2e` only for an explicit broad run. Empty or invalid focused selections must fail.
 - Push after appropriate focused validation and continue independent work while CI runs. Do not stall a checkpoint waiting for the full suite.
 - Do not repeat passing checks unless a relevant change or unresolved failure justifies another run. Report pending or failed CI accurately.
+
+# Documentation
+
+- Do not create or update documentation unless the user explicitly requests it.
+- Do not generate performance reports, handoff bundles, or replacement documentation as part of implementation work. Keep necessary working evidence in ignored artifacts.

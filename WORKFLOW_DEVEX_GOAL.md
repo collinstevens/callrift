@@ -1,14 +1,12 @@
 # Test-suite performance goal
 
-Status: complete. Cold run 36295334411 (`79df40b`) and warm run 36295841555 (`320cc45`, identical tested code) passed every required job. Longest complete shard commands meet every suite budget. Whole broad paths including setup, staggered starts and teardown took 3m 53s / 7m 45s / 9m 21s cold and 4m 44s / 5m 02s / 5m 44s warm on Ubuntu / Windows / macOS. All nine repository and eighteen package caches explicitly hit in the warm run. Per-suite command budgets use the longest shard invocation; full suite spans are separately published and are not claimed to fit those execution-only budgets. Aggregate work, runner cost, coverage mappings and cleanup are documented in `docs/development-performance.md`. Matched full-corpus cold/warm improvement retains all 426 executions. This phase does not resume the paused implementation goal in `GOAL.md`.
+Status: complete. Cold run 36295334411 (`79df40b`) and warm run 36295841555 (`320cc45`, identical tested code) passed every required job. Longest complete shard commands meet every suite budget. Whole broad paths including setup, staggered starts and teardown took 3m 53s / 7m 45s / 9m 21s cold and 4m 44s / 5m 02s / 5m 44s warm on Ubuntu / Windows / macOS. All nine repository and eighteen package caches explicitly hit in the warm run. Per-suite command budgets use the longest shard invocation; full suite spans are separately published and are not claimed to fit those execution-only budgets. Matched full-corpus cold/warm improvement retains all 426 executions. Regular implementation is ready to resume under `GOAL.md`.
 
 ## Outcome
 
 Bring broad CI feedback below ten minutes on every supported operating system while preserving behavioral coverage, reviewed expectations, and real integration boundaries. Reduce the work performed as well as elapsed time: moving tests to another trigger, shrinking the selection, or adding runners alone does not achieve this goal.
 
 Keep the existing fast development path fast. Broad tests remain asynchronous CI feedback and explicit local commands, never a commit or push gate. Completion requires measured improvement in the expensive suites themselves, not another declaration that slow CI is acceptable because local iteration is unblocked.
-
-The previous phase's inventory and measurements remain historical evidence in [development-performance.md](docs/development-performance.md). Its completed checklist does not establish completion of this phase.
 
 ## Measured baseline
 
@@ -110,6 +108,6 @@ Record machine or runner type, OS, SDK, revision, selected cases, build state, c
 - [x] Aggregate work is reduced; any additional runner cost is quantified separately from elapsed-time improvement.
 - [x] The explicit all-cases E2E command has its own matched before/after evidence with the pinned corpus preserved.
 - [x] The current fast-tier budget and focused integration workflow remain intact.
-- [x] Equivalent behavioral coverage, unchanged reviewed expectations, concurrency stability, and passing supported-platform CI are documented in `docs/development-performance.md`.
+- [x] Equivalent behavioral coverage, unchanged reviewed expectations, concurrency stability, and passing supported-platform CI were verified.
 
 Do not mark this phase complete solely because the fast tier passes, jobs have been split, or slow tests have moved out of the developer's way.
