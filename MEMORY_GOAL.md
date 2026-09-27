@@ -1,6 +1,12 @@
 # Memory allocation optimization goal
 
-Status: ready to continue. The latest measured implementation is `f6b9bb3`, including allocation changes in `fb4d30d`.
+Status: complete on 2026-09-27 at implementation checkpoint `2b6dc2d`. Against the matched post-conversion baseline, managed allocations fell from 19.08 GB to 10.99 GB (42.4%); harness time fell from 59.92 s to 42.09 s, peak working set from 4.02 GB to 3.50 GB, and GC pause time from 13.20 s to 9.36 s. These are individual runs, not statistical guarantees. The earlier baseline below has different analysis behavior and is retained as historical context.
+
+The final pinned workload preserves 71,455 / 71,534 contexts, 945 changed members, 657 roots, and 1,515,173 output characters; UTF-8 SHA-256 is `C4E0466F945124BCFF49F298A10D344151F5E2487080853E1CDB12C29D8CD699`. Installed package `0.1.0-preview.1.local.20260927.20` reproduced that output in 44.59 s. Final checks passed: 434 fast, 136 focused integration, two framework workspace tests, formatting, repeated smaller JSON comparisons, and temporary graph/service/cancellation audits. No tracked analysis objects or compilations survived the lifetime audit.
+
+Fresh allocation-stack review supports stopping: dominant remaining costs are Roslyn binding/operation graphs, canonical identities, normalized labels, and context-sensitive tree state. Earlier semantic-model, formatting-cache, and trivia experiments were ineffective; the type-only shortcut saved only about 30 MB and was reverted. Remaining iterator sites individually account for at most 39 MB; coordinated Git-content reuse, alternate tree-state representations, or an operation-driven collector would add disproportionate lifecycle or correctness complexity. No remaining high-confidence local candidate justifies another change. Evidence remains under ignored `artifacts/sbox-breakdown/round18-*` and `artifacts/allocation-reader/round18-*`.
+
+CI for the implementation checkpoint remains pending. Completed Linux case jobs reproduce the existing Serilog missing-data failure and AspNetCore/OrchardCore source-roots snapshot failures; these were not changed by the optimization work.
 
 Continue profiling and reducing Callrift's memory allocations until the remaining opportunities no longer justify their implementation complexity, correctness risk, or maintenance cost. Preserve the complete analysis and observable behavior. Treat each improvement as an experiment with a measured result.
 
