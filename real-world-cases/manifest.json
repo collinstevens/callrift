@@ -404,17 +404,18 @@
     "afterLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
     "before": "b7f65d61fcd650ac5850b05f83df1b5dbaaf8d27",
     "after": "66c7093f139336f661094284261b2c9a17615b7d",
-    "reason": "Move middleware-chain builders out of local functions and expand returned diagnostic callbacks",
+    "reason": "Move pipeline builders into static methods and inline diagnostic execution into returned callbacks. Independent pinned-source and compiler review verifies Middleware/Previous getter order, MetricsEnabled before builder selection, DiagnosticSource reads before diagnostic guards and completion, and PhaseReached writes before execution. Metrics paths preserve stopwatch recording in finally. Ten possible middleware implementations are checked without claiming runtime dispatch or allocation reduction. Automatic roots total134 in source mode and103 with restored net10.0; all paths to changed seeds were checked. Generated declarations were independently rebuilt. Source has187 diagnostics, including six additional unresolved resource calls; restored diagnostics remain empty. The call-free metrics initialization early return remains absent, so metric creation is not claimed unconditional. External calls are filtered by view options. Upstream tests were read but not executed.",
     "tags": [
       "returned-callback",
       "local-function",
       "method-move",
       "exception-path",
-      "interface-dispatch"
+      "interface-dispatch",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/source-only-coverage.md",
-    "review": "reviews/autofac-pipeline-callbacks.md",
+    "review": "../tests/Callrift.RealWorldCases/AutofacPipelineExpectations.cs",
     "routine": true,
     "views": [
       {

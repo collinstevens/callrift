@@ -4,25 +4,41 @@ stdout:
   ResolvePipelineBuilder.BuildPipeline
   ├─ possible initialization of ResolvePipelineBuilder
   ├─ while (current is not null)
+  │  ├─ MiddlewareDeclaration.get_Middleware
 - │  ├─ ResolvePipelineBuilder.BuildPipeline.BuildMiddlewareChain
 - │  │  ├─ possible initialization of AutofacMetrics
 - │  │  │  └─ initialization of AutofacMetrics
-- │  │  │     └─ AutofacMetrics.IsEnabled
+- │  │  │     ├─ AutofacMetrics.IsEnabled
+- │  │  │     ├─ AutofacMetrics.get_MetricsEnabled
+- │  │  │     └─ AutofacMetrics.get_DiagnosticsMeter ×12
+- │  │  ├─ AutofacMetrics.get_MetricsEnabled
 - │  │  ├─ if (AutofacMetrics.MetricsEnabled)
 - │  │  │  └─ ResolvePipelineBuilder.BuildPipeline.BuildMetricsMiddlewareChain
+- │  │  │     ├─ IResolveMiddleware.get_Phase
+- │  │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.get_Phase
+- │  │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.get_Phase
+- │  │  │     │  ├─ ⇢ CoreEventMiddleware.get_Phase
+- │  │  │     │  ├─ ⇢ DelegateMiddleware.get_Phase
+- │  │  │     │  ├─ ⇢ DisposalTrackingMiddleware.get_Phase
+- │  │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.get_Phase
+- │  │  │     │  ├─ ⇢ ScopeSelectionMiddleware.get_Phase
+- │  │  │     │  ├─ ⇢ SharingMiddleware.get_Phase
+- │  │  │     │  ├─ ⇢ StartableMiddleware.get_Phase
+- │  │  │     │  └─ ⇢ DecoratorMiddleware.get_Phase
 - │  │  │     ├─ stage.ToString
 - │  │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.ToString
 - │  │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.ToString
-- │  │  │     │  ├─ ⇢ CoreEventMiddleware.ToString
+- │  │  │     │  ├─ ⇢ CoreEventMiddleware.ToString (depth limit)
 - │  │  │     │  ├─ ⇢ DelegateMiddleware.ToString
 - │  │  │     │  ├─ ⇢ DisposalTrackingMiddleware.ToString
 - │  │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.ToString
 - │  │  │     │  ├─ ⇢ ScopeSelectionMiddleware.ToString
 - │  │  │     │  ├─ ⇢ SharingMiddleware.ToString
 - │  │  │     │  ├─ ⇢ StartableMiddleware.ToString
-- │  │  │     │  └─ ⇢ DecoratorMiddleware.ToString
+- │  │  │     │  └─ ⇢ DecoratorMiddleware.ToString (depth limit)
 - │  │  │     └─ callback
 - │  │  │        └─ ResolvePipelineBuilder.BuildPipeline.ExecuteWithDiagnostics (changes below depth limit)
+- │  │  │           ├─ ResolveRequestContext.set_PhaseReached → DefaultResolveRequestContext.set_PhaseReached
 - │  │  │           ├─ ValueStopwatch.StartNew (depth limit)
 - │  │  │           ├─ try
 - │  │  │           │  └─ IResolveMiddleware.Execute
@@ -38,30 +54,48 @@ stdout:
 - │  │  │           │     └─ ⇢ DecoratorMiddleware.Execute (changes below depth limit)
 - │  │  │           └─ finally
 - │  │  │              ├─ ValueStopwatch.GetElapsedTime (depth limit)
-- │  │  │              └─ AutofacMetrics.RecordMiddlewareExecution
+- │  │  │              └─ AutofacMetrics.RecordMiddlewareExecution (depth limit)
 - │  │  └─ else (!(AutofacMetrics.MetricsEnabled))
 - │  │     └─ ResolvePipelineBuilder.BuildPipeline.BuildStandardMiddlewareChain
+- │  │        ├─ IResolveMiddleware.get_Phase ↑ as above
 - │  │        └─ callback
 - │  │           └─ ResolvePipelineBuilder.BuildPipeline.ExecuteWithDiagnostics (changes below depth limit)
+- │  │              ├─ ResolveRequestContext.set_PhaseReached → DefaultResolveRequestContext.set_PhaseReached
 - │  │              └─ IResolveMiddleware.Execute ↑ as above
 + │  ├─ possible initialization of AutofacMetrics
 + │  │  └─ initialization of AutofacMetrics
-+ │  │     └─ AutofacMetrics.IsEnabled
++ │  │     ├─ AutofacMetrics.IsEnabled
++ │  │     ├─ AutofacMetrics.get_MetricsEnabled
++ │  │     └─ AutofacMetrics.get_DiagnosticsMeter ×12
++ │  ├─ AutofacMetrics.get_MetricsEnabled
 + │  ├─ if (AutofacMetrics.MetricsEnabled)
 + │  │  └─ ResolvePipelineBuilder.BuildMetricsMiddlewareChain
++ │  │     ├─ IResolveMiddleware.get_Phase
++ │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.get_Phase
++ │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.get_Phase
++ │  │     │  ├─ ⇢ CoreEventMiddleware.get_Phase
++ │  │     │  ├─ ⇢ DelegateMiddleware.get_Phase
++ │  │     │  ├─ ⇢ DisposalTrackingMiddleware.get_Phase
++ │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.get_Phase
++ │  │     │  ├─ ⇢ ScopeSelectionMiddleware.get_Phase
++ │  │     │  ├─ ⇢ SharingMiddleware.get_Phase
++ │  │     │  ├─ ⇢ StartableMiddleware.get_Phase
++ │  │     │  └─ ⇢ DecoratorMiddleware.get_Phase
 + │  │     ├─ stage.ToString
 + │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.ToString
 + │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.ToString
-+ │  │     │  ├─ ⇢ CoreEventMiddleware.ToString
++ │  │     │  ├─ ⇢ CoreEventMiddleware.ToString (depth limit)
 + │  │     │  ├─ ⇢ DelegateMiddleware.ToString
 + │  │     │  ├─ ⇢ DisposalTrackingMiddleware.ToString
 + │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.ToString
 + │  │     │  ├─ ⇢ ScopeSelectionMiddleware.ToString
 + │  │     │  ├─ ⇢ SharingMiddleware.ToString
 + │  │     │  ├─ ⇢ StartableMiddleware.ToString
-+ │  │     │  └─ ⇢ DecoratorMiddleware.ToString
++ │  │     │  └─ ⇢ DecoratorMiddleware.ToString (depth limit)
 + │  │     └─ callback
++ │  │        ├─ ResolveRequestContext.get_DiagnosticSource → DefaultResolveRequestContext.get_DiagnosticSource
 + │  │        ├─ if (!context.DiagnosticSource.IsEnabled())
++ │  │        │  ├─ ResolveRequestContext.set_PhaseReached → DefaultResolveRequestContext.set_PhaseReached
 + │  │        │  ├─ ValueStopwatch.StartNew (depth limit)
 + │  │        │  ├─ try
 + │  │        │  │  └─ IResolveMiddleware.Execute
@@ -77,33 +111,45 @@ stdout:
 + │  │        │  │     └─ ⇢ DecoratorMiddleware.Execute (changes below depth limit)
 + │  │        │  └─ finally
 + │  │        │     ├─ ValueStopwatch.GetElapsedTime (depth limit)
-+ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution
++ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution (depth limit)
++ │  │        ├─ ResolveRequestContext.get_DiagnosticSource → DefaultResolveRequestContext.get_DiagnosticSource
 + │  │        ├─ DiagnosticSourceExtensions.MiddlewareStart (depth limit)
 + │  │        ├─ try
++ │  │        │  ├─ ResolveRequestContext.set_PhaseReached → DefaultResolveRequestContext.set_PhaseReached
 + │  │        │  ├─ ValueStopwatch.StartNew (depth limit)
 + │  │        │  ├─ try
 + │  │        │  │  └─ IResolveMiddleware.Execute ↑ as above
 + │  │        │  └─ finally
 + │  │        │     ├─ ValueStopwatch.GetElapsedTime (depth limit)
-+ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution
++ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution (depth limit)
 + │  │        └─ finally
 + │  │           ├─ if (succeeded)
++ │  │           │  ├─ ResolveRequestContext.get_DiagnosticSource → DefaultResolveRequestContext.get_DiagnosticSource
 + │  │           │  └─ DiagnosticSourceExtensions.MiddlewareSuccess (depth limit)
 + │  │           └─ else (!(succeeded))
++ │  │              ├─ ResolveRequestContext.get_DiagnosticSource → DefaultResolveRequestContext.get_DiagnosticSource
 + │  │              └─ DiagnosticSourceExtensions.MiddlewareFailure (depth limit)
-+ │  └─ else (!(AutofacMetrics.MetricsEnabled))
-+ │     └─ ResolvePipelineBuilder.BuildStandardMiddlewareChain
-+ │        └─ callback
-+ │           ├─ if (!context.DiagnosticSource.IsEnabled())
-+ │           │  └─ IResolveMiddleware.Execute ↑ as above
-+ │           ├─ DiagnosticSourceExtensions.MiddlewareStart (depth limit)
-+ │           ├─ try
-+ │           │  └─ IResolveMiddleware.Execute ↑ as above
-+ │           └─ finally
-+ │              ├─ if (succeeded)
-+ │              │  └─ DiagnosticSourceExtensions.MiddlewareSuccess (depth limit)
-+ │              └─ else (!(succeeded))
-+ │                 └─ DiagnosticSourceExtensions.MiddlewareFailure (depth limit)
++ │  ├─ else (!(AutofacMetrics.MetricsEnabled))
++ │  │  └─ ResolvePipelineBuilder.BuildStandardMiddlewareChain
++ │  │     ├─ IResolveMiddleware.get_Phase ↑ as above
++ │  │     └─ callback
++ │  │        ├─ ResolveRequestContext.get_DiagnosticSource → DefaultResolveRequestContext.get_DiagnosticSource
++ │  │        ├─ if (!context.DiagnosticSource.IsEnabled())
++ │  │        │  ├─ ResolveRequestContext.set_PhaseReached → DefaultResolveRequestContext.set_PhaseReached
++ │  │        │  └─ IResolveMiddleware.Execute ↑ as above
++ │  │        ├─ ResolveRequestContext.get_DiagnosticSource → DefaultResolveRequestContext.get_DiagnosticSource
++ │  │        ├─ DiagnosticSourceExtensions.MiddlewareStart (depth limit)
++ │  │        ├─ try
++ │  │        │  ├─ ResolveRequestContext.set_PhaseReached → DefaultResolveRequestContext.set_PhaseReached
++ │  │        │  └─ IResolveMiddleware.Execute ↑ as above
++ │  │        └─ finally
++ │  │           ├─ if (succeeded)
++ │  │           │  ├─ ResolveRequestContext.get_DiagnosticSource → DefaultResolveRequestContext.get_DiagnosticSource
++ │  │           │  └─ DiagnosticSourceExtensions.MiddlewareSuccess (depth limit)
++ │  │           └─ else (!(succeeded))
++ │  │              ├─ ResolveRequestContext.get_DiagnosticSource → DefaultResolveRequestContext.get_DiagnosticSource
++ │  │              └─ DiagnosticSourceExtensions.MiddlewareFailure (depth limit)
+  │  └─ MiddlewareDeclaration.get_Previous
   └─ new ResolvePipeline
 stderr:
 bench/Autofac.BenchmarkProfiling/Program.cs:35: unresolved-call: Cannot bind BenchmarkConverter.TypeToBenchmarks.
@@ -114,7 +160,7 @@ bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind Ben
 bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
-173 additional diagnostics; use --diagnostics full.
+179 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -123,25 +169,41 @@ stdout:
   ResolvePipelineBuilder.BuildPipeline
   ├─ possible initialization of ResolvePipelineBuilder
   ├─ while (current is not null)
+  │  ├─ MiddlewareDeclaration.get_Middleware
 - │  ├─ ResolvePipelineBuilder.BuildPipeline.BuildMiddlewareChain
 - │  │  ├─ possible initialization of AutofacMetrics
 - │  │  │  └─ initialization of AutofacMetrics
-- │  │  │     └─ AutofacMetrics.IsEnabled
+- │  │  │     ├─ AutofacMetrics.IsEnabled
+- │  │  │     ├─ AutofacMetrics.get_MetricsEnabled
+- │  │  │     └─ AutofacMetrics.get_DiagnosticsMeter ×12
+- │  │  ├─ AutofacMetrics.get_MetricsEnabled
 - │  │  ├─ if (AutofacMetrics.MetricsEnabled)
 - │  │  │  └─ ResolvePipelineBuilder.BuildPipeline.BuildMetricsMiddlewareChain
+- │  │  │     ├─ IResolveMiddleware.get_Phase
+- │  │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.get_Phase
+- │  │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.get_Phase
+- │  │  │     │  ├─ ⇢ CoreEventMiddleware.get_Phase
+- │  │  │     │  ├─ ⇢ DelegateMiddleware.get_Phase
+- │  │  │     │  ├─ ⇢ DisposalTrackingMiddleware.get_Phase
+- │  │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.get_Phase
+- │  │  │     │  ├─ ⇢ ScopeSelectionMiddleware.get_Phase
+- │  │  │     │  ├─ ⇢ SharingMiddleware.get_Phase
+- │  │  │     │  ├─ ⇢ StartableMiddleware.get_Phase
+- │  │  │     │  └─ ⇢ DecoratorMiddleware.get_Phase
 - │  │  │     ├─ stage.ToString
 - │  │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.ToString
 - │  │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.ToString
-- │  │  │     │  ├─ ⇢ CoreEventMiddleware.ToString
+- │  │  │     │  ├─ ⇢ CoreEventMiddleware.ToString (depth limit)
 - │  │  │     │  ├─ ⇢ DelegateMiddleware.ToString
 - │  │  │     │  ├─ ⇢ DisposalTrackingMiddleware.ToString
 - │  │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.ToString
 - │  │  │     │  ├─ ⇢ ScopeSelectionMiddleware.ToString
 - │  │  │     │  ├─ ⇢ SharingMiddleware.ToString
 - │  │  │     │  ├─ ⇢ StartableMiddleware.ToString
-- │  │  │     │  └─ ⇢ DecoratorMiddleware.ToString
+- │  │  │     │  └─ ⇢ DecoratorMiddleware.ToString (depth limit)
 - │  │  │     └─ callback
 - │  │  │        └─ ResolvePipelineBuilder.BuildPipeline.ExecuteWithDiagnostics (changes below depth limit)
+- │  │  │           ├─ ResolveRequestContext.set_PhaseReached → DefaultResolveRequestContext.set_PhaseReached
 - │  │  │           ├─ ValueStopwatch.StartNew (depth limit)
 - │  │  │           ├─ try
 - │  │  │           │  └─ IResolveMiddleware.Execute
@@ -157,30 +219,48 @@ stdout:
 - │  │  │           │     └─ ⇢ DecoratorMiddleware.Execute (changes below depth limit)
 - │  │  │           └─ finally
 - │  │  │              ├─ ValueStopwatch.GetElapsedTime (depth limit)
-- │  │  │              └─ AutofacMetrics.RecordMiddlewareExecution
+- │  │  │              └─ AutofacMetrics.RecordMiddlewareExecution (depth limit)
 - │  │  └─ else (!(AutofacMetrics.MetricsEnabled))
 - │  │     └─ ResolvePipelineBuilder.BuildPipeline.BuildStandardMiddlewareChain
+- │  │        ├─ IResolveMiddleware.get_Phase ↑ as above
 - │  │        └─ callback
 - │  │           └─ ResolvePipelineBuilder.BuildPipeline.ExecuteWithDiagnostics (changes below depth limit)
+- │  │              ├─ ResolveRequestContext.set_PhaseReached → DefaultResolveRequestContext.set_PhaseReached
 - │  │              └─ IResolveMiddleware.Execute ↑ as above
 + │  ├─ possible initialization of AutofacMetrics
 + │  │  └─ initialization of AutofacMetrics
-+ │  │     └─ AutofacMetrics.IsEnabled
++ │  │     ├─ AutofacMetrics.IsEnabled
++ │  │     ├─ AutofacMetrics.get_MetricsEnabled
++ │  │     └─ AutofacMetrics.get_DiagnosticsMeter ×12
++ │  ├─ AutofacMetrics.get_MetricsEnabled
 + │  ├─ if (AutofacMetrics.MetricsEnabled)
 + │  │  └─ ResolvePipelineBuilder.BuildMetricsMiddlewareChain
++ │  │     ├─ IResolveMiddleware.get_Phase
++ │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.get_Phase
++ │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.get_Phase
++ │  │     │  ├─ ⇢ CoreEventMiddleware.get_Phase
++ │  │     │  ├─ ⇢ DelegateMiddleware.get_Phase
++ │  │     │  ├─ ⇢ DisposalTrackingMiddleware.get_Phase
++ │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.get_Phase
++ │  │     │  ├─ ⇢ ScopeSelectionMiddleware.get_Phase
++ │  │     │  ├─ ⇢ SharingMiddleware.get_Phase
++ │  │     │  ├─ ⇢ StartableMiddleware.get_Phase
++ │  │     │  └─ ⇢ DecoratorMiddleware.get_Phase
 + │  │     ├─ stage.ToString
 + │  │     │  ├─ ⇢ ActivatorErrorHandlingMiddleware.ToString
 + │  │     │  ├─ ⇢ CircularDependencyDetectorMiddleware.ToString
-+ │  │     │  ├─ ⇢ CoreEventMiddleware.ToString
++ │  │     │  ├─ ⇢ CoreEventMiddleware.ToString (depth limit)
 + │  │     │  ├─ ⇢ DelegateMiddleware.ToString
 + │  │     │  ├─ ⇢ DisposalTrackingMiddleware.ToString
 + │  │     │  ├─ ⇢ RegistrationPipelineInvokeMiddleware.ToString
 + │  │     │  ├─ ⇢ ScopeSelectionMiddleware.ToString
 + │  │     │  ├─ ⇢ SharingMiddleware.ToString
 + │  │     │  ├─ ⇢ StartableMiddleware.ToString
-+ │  │     │  └─ ⇢ DecoratorMiddleware.ToString
++ │  │     │  └─ ⇢ DecoratorMiddleware.ToString (depth limit)
 + │  │     └─ callback
++ │  │        ├─ ResolveRequestContext.get_DiagnosticSource → DefaultResolveRequestContext.get_DiagnosticSource
 + │  │        ├─ if (!context.DiagnosticSource.IsEnabled())
++ │  │        │  ├─ ResolveRequestContext.set_PhaseReached → DefaultResolveRequestContext.set_PhaseReached
 + │  │        │  ├─ ValueStopwatch.StartNew (depth limit)
 + │  │        │  ├─ try
 + │  │        │  │  └─ IResolveMiddleware.Execute
@@ -196,33 +276,45 @@ stdout:
 + │  │        │  │     └─ ⇢ DecoratorMiddleware.Execute (changes below depth limit)
 + │  │        │  └─ finally
 + │  │        │     ├─ ValueStopwatch.GetElapsedTime (depth limit)
-+ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution
++ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution (depth limit)
++ │  │        ├─ ResolveRequestContext.get_DiagnosticSource → DefaultResolveRequestContext.get_DiagnosticSource
 + │  │        ├─ DiagnosticSourceExtensions.MiddlewareStart (depth limit)
 + │  │        ├─ try
++ │  │        │  ├─ ResolveRequestContext.set_PhaseReached → DefaultResolveRequestContext.set_PhaseReached
 + │  │        │  ├─ ValueStopwatch.StartNew (depth limit)
 + │  │        │  ├─ try
 + │  │        │  │  └─ IResolveMiddleware.Execute ↑ as above
 + │  │        │  └─ finally
 + │  │        │     ├─ ValueStopwatch.GetElapsedTime (depth limit)
-+ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution
++ │  │        │     └─ AutofacMetrics.RecordMiddlewareExecution (depth limit)
 + │  │        └─ finally
 + │  │           ├─ if (succeeded)
++ │  │           │  ├─ ResolveRequestContext.get_DiagnosticSource → DefaultResolveRequestContext.get_DiagnosticSource
 + │  │           │  └─ DiagnosticSourceExtensions.MiddlewareSuccess (depth limit)
 + │  │           └─ else (!(succeeded))
++ │  │              ├─ ResolveRequestContext.get_DiagnosticSource → DefaultResolveRequestContext.get_DiagnosticSource
 + │  │              └─ DiagnosticSourceExtensions.MiddlewareFailure (depth limit)
-+ │  └─ else (!(AutofacMetrics.MetricsEnabled))
-+ │     └─ ResolvePipelineBuilder.BuildStandardMiddlewareChain
-+ │        └─ callback
-+ │           ├─ if (!context.DiagnosticSource.IsEnabled())
-+ │           │  └─ IResolveMiddleware.Execute ↑ as above
-+ │           ├─ DiagnosticSourceExtensions.MiddlewareStart (depth limit)
-+ │           ├─ try
-+ │           │  └─ IResolveMiddleware.Execute ↑ as above
-+ │           └─ finally
-+ │              ├─ if (succeeded)
-+ │              │  └─ DiagnosticSourceExtensions.MiddlewareSuccess (depth limit)
-+ │              └─ else (!(succeeded))
-+ │                 └─ DiagnosticSourceExtensions.MiddlewareFailure (depth limit)
++ │  ├─ else (!(AutofacMetrics.MetricsEnabled))
++ │  │  └─ ResolvePipelineBuilder.BuildStandardMiddlewareChain
++ │  │     ├─ IResolveMiddleware.get_Phase ↑ as above
++ │  │     └─ callback
++ │  │        ├─ ResolveRequestContext.get_DiagnosticSource → DefaultResolveRequestContext.get_DiagnosticSource
++ │  │        ├─ if (!context.DiagnosticSource.IsEnabled())
++ │  │        │  ├─ ResolveRequestContext.set_PhaseReached → DefaultResolveRequestContext.set_PhaseReached
++ │  │        │  └─ IResolveMiddleware.Execute ↑ as above
++ │  │        ├─ ResolveRequestContext.get_DiagnosticSource → DefaultResolveRequestContext.get_DiagnosticSource
++ │  │        ├─ DiagnosticSourceExtensions.MiddlewareStart (depth limit)
++ │  │        ├─ try
++ │  │        │  ├─ ResolveRequestContext.set_PhaseReached → DefaultResolveRequestContext.set_PhaseReached
++ │  │        │  └─ IResolveMiddleware.Execute ↑ as above
++ │  │        └─ finally
++ │  │           ├─ if (succeeded)
++ │  │           │  ├─ ResolveRequestContext.get_DiagnosticSource → DefaultResolveRequestContext.get_DiagnosticSource
++ │  │           │  └─ DiagnosticSourceExtensions.MiddlewareSuccess (depth limit)
++ │  │           └─ else (!(succeeded))
++ │  │              ├─ ResolveRequestContext.get_DiagnosticSource → DefaultResolveRequestContext.get_DiagnosticSource
++ │  │              └─ DiagnosticSourceExtensions.MiddlewareFailure (depth limit)
+  │  └─ MiddlewareDeclaration.get_Previous
   └─ new ResolvePipeline
 ```
 stderr:
@@ -234,4 +326,4 @@ bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind Ben
 bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
-173 additional diagnostics; use --diagnostics full.
+179 additional diagnostics; use --diagnostics full.
