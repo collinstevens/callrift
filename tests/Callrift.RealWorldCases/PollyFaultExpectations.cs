@@ -36,8 +36,19 @@ internal static class PollyFaultExpectations
         var root = Assert.Single(result.Trees);
         Assert.Equal("FaultGenerator.op_Implicit", root.Label);
         AssertConversion(root);
-        Assert.Equal('~', root.Mark);
-        Assert.Equal("body changed; visible calls unchanged", root.Detail);
+        Assert.Equal(' ', root.Mark);
+        Assert.Null(root.Detail);
+        var callback = root.Children[2];
+        Assert.Equal("callback", callback.After!.Relation);
+        var nullable = Assert.Single(callback.Children, node => node.Label == "if (generatorDelegate(args.Context) is not null)");
+        Assert.Equal('+', nullable.Mark);
+        var exception = Assert.Single(nullable.Children);
+        Assert.Equal("Outcome<TResult>.get_Exception", exception.Label);
+        Assert.Equal('+', exception.Mark);
+        Assert.Null(exception.Before);
+        var removedException = Assert.Single(callback.Children, node => node.Label == "Outcome<TResult>.get_Exception");
+        Assert.Equal('-', removedException.Mark);
+        Assert.Equal(removedException.Before!.SymbolId, exception.After!.SymbolId);
         if (!focused) return;
         Assert.Equal([workspace ? "Guard.NotNull" : "? Guard.NotNull", "GeneratorHelper<TResult>.CreateGenerator", "callback"],
             root.Children.Select(node => node.Label));
@@ -46,19 +57,22 @@ internal static class PollyFaultExpectations
         if (workspace)
             Assert.EndsWith("::System.ArgumentNullException.ThrowIfNull(object,string)", Assert.Single(guard.Children).After!.SymbolId);
         var helper = root.Children[1];
-        Assert.Equal(["_factories.ToArray", "_weights.ToArray", "callback"], helper.Children.Select(node => node.Label));
-        var generated = helper.Children[2];
+        Assert.Equal(["List<T>.get_Count", "_factories.ToArray", "_weights.ToArray", "callback"], helper.Children.Select(node => node.Label));
+        var generated = helper.Children[3];
         Assert.Equal(["generator", "for (i < factories.Length)"], generated.Children.Select(node => node.Label));
-        var condition = Assert.Single(generated.Children[1].Children);
+        Assert.Equal("Array.get_Length", generated.Children[1].Children[0].Label);
+        var condition = generated.Children[1].Children[1];
         Assert.Equal("if (generatedWeight < weight)", condition.Label);
         Assert.Equal("factories[i]", Assert.Single(condition.Children).Label);
-        var callback = root.Children[2];
-        Assert.Equal("callback", callback.After!.Relation);
-        Assert.Equal(["generatorDelegate", "new ValueTask<Exception?>"], callback.Children.Select(node => node.Label));
-        Assert.All(callback.Children, node => Assert.Equal(81, Assert.Single(node.After!.CallSites).Line));
-        Assert.All(Descendants(root.Children), node => Assert.Equal(' ', node.Mark));
-        Assert.DoesNotContain(Descendants(root.Children), node => node.Label.Contains(".Exception", StringComparison.Ordinal)
-            || node.Label.Contains(".Value", StringComparison.Ordinal) || node.Label.Contains("!= null", StringComparison.Ordinal));
+        Assert.Equal(["FaultGeneratorArguments.get_Context", "generatorDelegate", "Nullable<T>.get_Value",
+            "Outcome<TResult>.get_Exception", "if (generatorDelegate(args.Context) is not null)", "new ValueTask<Exception?>"],
+            callback.Children.Select(node => node.Label));
+        Assert.All(callback.Children, node => Assert.Equal(81, Assert.Single((node.After ?? node.Before)!.CallSites).Line));
+        Assert.Equal('-', callback.Children[2].Mark);
+        Assert.Null(callback.Children[2].After);
+        Assert.All(Descendants(helper.Children), node => Assert.Equal(' ', node.Mark));
+        Assert.Equal(["Outcome<TResult>.get_ExceptionDispatchInfo", "if (ExceptionDispatchInfo is not null)"], exception.Children.Select(node => node.Label));
+        Assert.Equal("ExceptionDispatchInfo.get_SourceException", Assert.Single(exception.Children[1].Children).Label);
     }
 
     private static void AssertConversion(DiffNode node)

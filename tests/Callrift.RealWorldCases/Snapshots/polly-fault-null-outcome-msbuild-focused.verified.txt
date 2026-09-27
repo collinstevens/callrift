@@ -1,10 +1,23 @@
 ﻿format: text
 exit: 0
 stdout:
-~ FaultGenerator.op_Implicit (body changed; visible calls unchanged)
+  FaultGenerator.op_Implicit
   ├─ Guard.NotNull
   ├─ GeneratorHelper<TResult>.CreateGenerator
   └─ callback
+     ├─ FaultGeneratorArguments.get_Context
+     ├─ generatorDelegate
+-    ├─ Nullable<T>.get_Value
+-    ├─ Outcome<TResult>.get_Exception
+-    │  ├─ Outcome<TResult>.get_ExceptionDispatchInfo
+-    │  └─ if (ExceptionDispatchInfo is not null)
+-    │     └─ ExceptionDispatchInfo.get_SourceException
++    ├─ if (generatorDelegate(args.Context) is not null)
++    │  └─ Outcome<TResult>.get_Exception
++    │     ├─ Outcome<TResult>.get_ExceptionDispatchInfo
++    │     └─ if (ExceptionDispatchInfo is not null)
++    │        └─ ExceptionDispatchInfo.get_SourceException
+     └─ new ValueTask<Exception?>
 stderr:
 src/Polly.Core/CircuitBreaker/CircuitBreakerResilienceStrategy.cs:30: generic-context-limit: Generic invocation expansion for CircuitBreakerResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
 src/Polly.Core/Fallback/FallbackResilienceStrategy.cs:20: generic-context-limit: Generic invocation expansion for FallbackResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
@@ -20,10 +33,23 @@ format: md
 exit: 0
 stdout:
 ```diff
-~ FaultGenerator.op_Implicit (body changed; visible calls unchanged)
+  FaultGenerator.op_Implicit
   ├─ Guard.NotNull
   ├─ GeneratorHelper<TResult>.CreateGenerator
   └─ callback
+     ├─ FaultGeneratorArguments.get_Context
+     ├─ generatorDelegate
+-    ├─ Nullable<T>.get_Value
+-    ├─ Outcome<TResult>.get_Exception
+-    │  ├─ Outcome<TResult>.get_ExceptionDispatchInfo
+-    │  └─ if (ExceptionDispatchInfo is not null)
+-    │     └─ ExceptionDispatchInfo.get_SourceException
++    ├─ if (generatorDelegate(args.Context) is not null)
++    │  └─ Outcome<TResult>.get_Exception
++    │     ├─ Outcome<TResult>.get_ExceptionDispatchInfo
++    │     └─ if (ExceptionDispatchInfo is not null)
++    │        └─ ExceptionDispatchInfo.get_SourceException
+     └─ new ValueTask<Exception?>
 ```
 stderr:
 src/Polly.Core/CircuitBreaker/CircuitBreakerResilienceStrategy.cs:30: generic-context-limit: Generic invocation expansion for CircuitBreakerResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.

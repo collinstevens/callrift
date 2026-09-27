@@ -1,9 +1,14 @@
 ﻿format: text
 exit: 0
 stdout:
-~ FaultGenerator.op_Implicit (body changed; visible calls unchanged)
+  FaultGenerator.op_Implicit
   ├─ Guard.NotNull
-  └─ GeneratorHelper<TResult>.CreateGenerator
+  ├─ GeneratorHelper<TResult>.CreateGenerator
+  └─ callback
+     ├─ FaultGeneratorArguments.get_Context
+-    ├─ Outcome<TResult>.get_Exception (depth limit)
++    └─ if (generatorDelegate(args.Context) is not null)
++       └─ Outcome<TResult>.get_Exception (depth limit)
 stderr:
 src/Polly.Core/CircuitBreaker/CircuitBreakerResilienceStrategy.cs:30: generic-context-limit: Generic invocation expansion for CircuitBreakerResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
 src/Polly.Core/Fallback/FallbackResilienceStrategy.cs:20: generic-context-limit: Generic invocation expansion for FallbackResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
@@ -19,9 +24,14 @@ format: md
 exit: 0
 stdout:
 ```diff
-~ FaultGenerator.op_Implicit (body changed; visible calls unchanged)
+  FaultGenerator.op_Implicit
   ├─ Guard.NotNull
-  └─ GeneratorHelper<TResult>.CreateGenerator
+  ├─ GeneratorHelper<TResult>.CreateGenerator
+  └─ callback
+     ├─ FaultGeneratorArguments.get_Context
+-    ├─ Outcome<TResult>.get_Exception (depth limit)
++    └─ if (generatorDelegate(args.Context) is not null)
++       └─ Outcome<TResult>.get_Exception (depth limit)
 ```
 stderr:
 src/Polly.Core/CircuitBreaker/CircuitBreakerResilienceStrategy.cs:30: generic-context-limit: Generic invocation expansion for CircuitBreakerResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.

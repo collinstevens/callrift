@@ -188,9 +188,9 @@ stdout:
     {
       "id": "n0",
       "kind": "member",
-      "change": "modified",
+      "change": "unchanged",
       "label": "FaultGenerator.op_Implicit",
-      "detail": "body changed; visible calls unchanged",
+      "detail": null,
       "before": {
         "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Simmy.Fault.FaultGenerator.op_Implicit(global::Polly.Simmy.Fault.FaultGenerator)->global::System.Func<global::Polly.Simmy.Fault.FaultGeneratorArguments, global::System.Threading.Tasks.ValueTask<global::System.Exception>>",
         "signature": "public static Polly.Simmy.Fault.FaultGenerator.implicit operator System.Func<Polly.Simmy.Fault.FaultGeneratorArguments, System.Threading.Tasks.ValueTask<System.Exception?>>(Polly.Simmy.Fault.FaultGenerator generator) -> System.Func<Polly.Simmy.Fault.FaultGeneratorArguments, System.Threading.Tasks.ValueTask<System.Exception?>>",
@@ -418,6 +418,59 @@ stdout:
               "id": "n4",
               "kind": "call",
               "change": "unchanged",
+              "label": "List<T>.get_Count",
+              "detail": null,
+              "before": {
+                "symbolId": "metadata:System.Collections::System.Collections.Generic.List<T>.get_Count()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Collections::System.Collections.Generic.List<T>.get_Count()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Polly.Core/Simmy/Utils/GeneratorHelper.cs",
+                    "startLine": 22,
+                    "startColumn": 13,
+                    "endLine": 22,
+                    "endColumn": 29
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "metadata:System.Collections::System.Collections.Generic.List<T>.get_Count()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Collections::System.Collections.Generic.List<T>.get_Count()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Polly.Core/Simmy/Utils/GeneratorHelper.cs",
+                    "startLine": 22,
+                    "startColumn": 13,
+                    "endLine": 22,
+                    "endColumn": 29
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n5",
+              "kind": "call",
+              "change": "unchanged",
               "label": "_factories.ToArray",
               "detail": null,
               "before": {
@@ -468,7 +521,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n5",
+              "id": "n6",
               "kind": "call",
               "change": "unchanged",
               "label": "_weights.ToArray",
@@ -521,7 +574,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n6",
+              "id": "n7",
               "kind": "branch",
               "change": "unchanged",
               "label": "callback",
@@ -568,7 +621,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n7",
+                  "id": "n8",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "generator",
@@ -621,7 +674,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n8",
+                  "id": "n9",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "for (i < factories.Length)",
@@ -668,7 +721,60 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n9",
+                      "id": "n10",
+                      "kind": "call",
+                      "change": "unchanged",
+                      "label": "Array.get_Length",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "metadata:System.Runtime::System.Array.get_Length()",
+                        "signature": null,
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "metadata:System.Runtime::System.Array.get_Length()"
+                        ],
+                        "definition": null,
+                        "callSites": [
+                          {
+                            "path": "src/Polly.Core/Simmy/Utils/GeneratorHelper.cs",
+                            "startLine": 37,
+                            "startColumn": 33,
+                            "endLine": 37,
+                            "endColumn": 49
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "metadata"
+                      },
+                      "after": {
+                        "symbolId": "metadata:System.Runtime::System.Array.get_Length()",
+                        "signature": null,
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "metadata:System.Runtime::System.Array.get_Length()"
+                        ],
+                        "definition": null,
+                        "callSites": [
+                          {
+                            "path": "src/Polly.Core/Simmy/Utils/GeneratorHelper.cs",
+                            "startLine": 37,
+                            "startColumn": 33,
+                            "endLine": 37,
+                            "endColumn": 49
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "metadata"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n11",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "if (generatedWeight < weight)",
@@ -715,7 +821,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n10",
+                          "id": "n12",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "factories[i]",
@@ -780,7 +886,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n11",
+          "id": "n13",
           "kind": "branch",
           "change": "unchanged",
           "label": "callback",
@@ -827,7 +933,72 @@ stdout:
           },
           "children": [
             {
-              "id": "n12",
+              "id": "n14",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "FaultGeneratorArguments.get_Context",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Simmy.Fault.FaultGeneratorArguments.get_Context()",
+                "signature": "public readonly Polly.Simmy.Fault.FaultGeneratorArguments.get_Context() -> Polly.ResilienceContext",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Simmy.Fault.FaultGeneratorArguments.get_Context()"
+                ],
+                "definition": {
+                  "path": "src/Polly.Core/Simmy/Fault/FaultGeneratorArguments.cs",
+                  "startLine": 19,
+                  "startColumn": 40,
+                  "endLine": 19,
+                  "endColumn": 44
+                },
+                "callSites": [
+                  {
+                    "path": "src/Polly.Core/Simmy/Fault/FaultGenerator.cs",
+                    "startLine": 81,
+                    "startColumn": 68,
+                    "endLine": 81,
+                    "endColumn": 80
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Simmy.Fault.FaultGeneratorArguments.get_Context()",
+                "signature": "public readonly Polly.Simmy.Fault.FaultGeneratorArguments.get_Context() -> Polly.ResilienceContext",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Simmy.Fault.FaultGeneratorArguments.get_Context()"
+                ],
+                "definition": {
+                  "path": "src/Polly.Core/Simmy/Fault/FaultGeneratorArguments.cs",
+                  "startLine": 19,
+                  "startColumn": 40,
+                  "endLine": 19,
+                  "endColumn": 44
+                },
+                "callSites": [
+                  {
+                    "path": "src/Polly.Core/Simmy/Fault/FaultGenerator.cs",
+                    "startLine": 81,
+                    "startColumn": 68,
+                    "endLine": 81,
+                    "endColumn": 80
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n15",
               "kind": "call",
               "change": "unchanged",
               "label": "generatorDelegate",
@@ -880,7 +1051,350 @@ stdout:
               "omission": null
             },
             {
-              "id": "n13",
+              "id": "n16",
+              "kind": "call",
+              "change": "removed",
+              "label": "Nullable<T>.get_Value",
+              "detail": null,
+              "before": {
+                "symbolId": "metadata:System.Runtime::System.Nullable<T>.get_Value()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::System.Nullable<T>.get_Value()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Polly.Core/Simmy/Fault/FaultGenerator.cs",
+                    "startLine": 81,
+                    "startColumn": 50,
+                    "endLine": 81,
+                    "endColumn": 88
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": null,
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n17",
+              "kind": "call",
+              "change": "removed",
+              "label": "Outcome<TResult>.get_Exception",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Outcome<TResult>.get_Exception()",
+                "signature": "public readonly Polly.Outcome<TResult>.get_Exception() -> System.Exception?",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Outcome<TResult>.get_Exception()"
+                ],
+                "definition": {
+                  "path": "src/Polly.Core/Outcome.TResult.cs",
+                  "startLine": 28,
+                  "startColumn": 5,
+                  "endLine": 28,
+                  "endColumn": 75
+                },
+                "callSites": [
+                  {
+                    "path": "src/Polly.Core/Simmy/Fault/FaultGenerator.cs",
+                    "startLine": 81,
+                    "startColumn": 50,
+                    "endLine": 81,
+                    "endColumn": 98
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": null,
+              "children": [
+                {
+                  "id": "n18",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "Outcome<TResult>.get_ExceptionDispatchInfo",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Outcome<TResult>.get_ExceptionDispatchInfo()",
+                    "signature": "internal readonly Polly.Outcome<TResult>.get_ExceptionDispatchInfo() -> System.Runtime.ExceptionServices.ExceptionDispatchInfo?",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Outcome<TResult>.get_ExceptionDispatchInfo()"
+                    ],
+                    "definition": {
+                      "path": "src/Polly.Core/Outcome.TResult.cs",
+                      "startLine": 33,
+                      "startColumn": 61,
+                      "endLine": 33,
+                      "endColumn": 65
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Polly.Core/Outcome.TResult.cs",
+                        "startLine": 28,
+                        "startColumn": 36,
+                        "endLine": 28,
+                        "endColumn": 57
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n19",
+                  "kind": "branch",
+                  "change": "removed",
+                  "label": "if (ExceptionDispatchInfo is not null)",
+                  "detail": null,
+                  "before": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Polly.Core/Outcome.TResult.cs",
+                        "startLine": 28,
+                        "startColumn": 36,
+                        "endLine": 28,
+                        "endColumn": 74
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "after": null,
+                  "children": [
+                    {
+                      "id": "n20",
+                      "kind": "call",
+                      "change": "removed",
+                      "label": "ExceptionDispatchInfo.get_SourceException",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "metadata:System.Runtime::System.Runtime.ExceptionServices.ExceptionDispatchInfo.get_SourceException()",
+                        "signature": null,
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "metadata:System.Runtime::System.Runtime.ExceptionServices.ExceptionDispatchInfo.get_SourceException()"
+                        ],
+                        "definition": null,
+                        "callSites": [
+                          {
+                            "path": "src/Polly.Core/Outcome.TResult.cs",
+                            "startLine": 28,
+                            "startColumn": 58,
+                            "endLine": 28,
+                            "endColumn": 74
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "metadata"
+                      },
+                      "after": null,
+                      "children": [],
+                      "omission": null
+                    }
+                  ],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n21",
+              "kind": "branch",
+              "change": "added",
+              "label": "if (generatorDelegate(args.Context) is not null)",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Polly.Core/Simmy/Fault/FaultGenerator.cs",
+                    "startLine": 81,
+                    "startColumn": 50,
+                    "endLine": 81,
+                    "endColumn": 92
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n22",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "Outcome<TResult>.get_Exception",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Outcome<TResult>.get_Exception()",
+                    "signature": "public readonly Polly.Outcome<TResult>.get_Exception() -> System.Exception?",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Outcome<TResult>.get_Exception()"
+                    ],
+                    "definition": {
+                      "path": "src/Polly.Core/Outcome.TResult.cs",
+                      "startLine": 28,
+                      "startColumn": 5,
+                      "endLine": 28,
+                      "endColumn": 75
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Polly.Core/Simmy/Fault/FaultGenerator.cs",
+                        "startLine": 81,
+                        "startColumn": 82,
+                        "endLine": 81,
+                        "endColumn": 92
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [
+                    {
+                      "id": "n23",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "Outcome<TResult>.get_ExceptionDispatchInfo",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Outcome<TResult>.get_ExceptionDispatchInfo()",
+                        "signature": "internal readonly Polly.Outcome<TResult>.get_ExceptionDispatchInfo() -> System.Runtime.ExceptionServices.ExceptionDispatchInfo?",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Polly.Core/Polly.Core.csproj@net8.0::Polly.Outcome<TResult>.get_ExceptionDispatchInfo()"
+                        ],
+                        "definition": {
+                          "path": "src/Polly.Core/Outcome.TResult.cs",
+                          "startLine": 33,
+                          "startColumn": 61,
+                          "endLine": 33,
+                          "endColumn": 65
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Polly.Core/Outcome.TResult.cs",
+                            "startLine": 28,
+                            "startColumn": 36,
+                            "endLine": 28,
+                            "endColumn": 57
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n24",
+                      "kind": "branch",
+                      "change": "added",
+                      "label": "if (ExceptionDispatchInfo is not null)",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": null,
+                        "signature": null,
+                        "binding": "structural",
+                        "dispatch": "none",
+                        "targetIds": [],
+                        "definition": null,
+                        "callSites": [
+                          {
+                            "path": "src/Polly.Core/Outcome.TResult.cs",
+                            "startLine": 28,
+                            "startColumn": 36,
+                            "endLine": 28,
+                            "endColumn": 74
+                          }
+                        ],
+                        "relation": "branch",
+                        "candidates": null,
+                        "origin": "structural"
+                      },
+                      "children": [
+                        {
+                          "id": "n25",
+                          "kind": "call",
+                          "change": "added",
+                          "label": "ExceptionDispatchInfo.get_SourceException",
+                          "detail": null,
+                          "before": null,
+                          "after": {
+                            "symbolId": "metadata:System.Runtime::System.Runtime.ExceptionServices.ExceptionDispatchInfo.get_SourceException()",
+                            "signature": null,
+                            "binding": "resolved",
+                            "dispatch": "direct",
+                            "targetIds": [
+                              "metadata:System.Runtime::System.Runtime.ExceptionServices.ExceptionDispatchInfo.get_SourceException()"
+                            ],
+                            "definition": null,
+                            "callSites": [
+                              {
+                                "path": "src/Polly.Core/Outcome.TResult.cs",
+                                "startLine": 28,
+                                "startColumn": 58,
+                                "endLine": 28,
+                                "endColumn": 74
+                              }
+                            ],
+                            "relation": "call",
+                            "candidates": [],
+                            "origin": "metadata"
+                          },
+                          "children": [],
+                          "omission": null
+                        }
+                      ],
+                      "omission": null
+                    }
+                  ],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n26",
               "kind": "call",
               "change": "unchanged",
               "label": "new ValueTask<Exception?>",

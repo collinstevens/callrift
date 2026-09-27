@@ -2127,13 +2127,14 @@
     "after": "482bdf824fba19c1188655156e512570c3d7f7af",
     "beforeLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
     "afterLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
-    "reason": "Return null from the converted fault-generator callback when no exception is generated; discover implicit-conversion callers while retaining the explicit limitation that call-free property guards are invisible",
+    "reason": "Return null from the converted fault-generator callback when no exception is generated. Independent pinned source and compiler-binding review now exposes the removed Nullable.Value read and guards Outcome.Exception access under a non-null generator result. Automatic roots retain conversion callers and show option setters after conversions. Helper Count is visible, while the return-only empty-factory guard remains omitted. Source mode merges conflicting legacy/Core declarations and leaves unresolved dependencies; restored net8.0 retains generic expansion limits. Possible callbacks and bounded expansion do not establish runtime values or complete reachability.",
     "tags": [
       "implicit-conversion",
       "nullable-outcome",
       "callback",
       "property-initializer",
-      "top-level"
+      "top-level",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/polly-coverage.md",
