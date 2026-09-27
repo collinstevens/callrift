@@ -122,6 +122,25 @@ public sealed record DispatchContract(string Target, DispatchType Type, IReadOnl
         IReadOnlyDictionary<string, DispatchTypeDefinition>? definitions, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        if (Type.Name != contract.Name || Type.Arguments.Count != contract.Arguments.Count) return [];
+        if (receiver is not null && !receiver.IsParameter && ReceiverTypes is not null)
+        {
+            for (var index = 0; index < ReceiverTypes.Count; index++)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                var type = ReceiverTypes[index];
+                if (type.Name == receiver.Name && type.Arguments.Count == receiver.Arguments.Count)
+                    return BindMatchingTypes(contract, receiver, definitions, cancellationToken);
+            }
+            return [];
+        }
+        return BindMatchingTypes(contract, receiver, definitions, cancellationToken);
+    }
+
+    private IEnumerable<IReadOnlyDictionary<string, (DispatchType Type, string Side)>> BindMatchingTypes(DispatchType contract, DispatchType? receiver,
+        IReadOnlyDictionary<string, DispatchTypeDefinition>? definitions, CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
         var bindings = new Dictionary<string, (DispatchType Type, string Side)>(StringComparer.Ordinal);
         if (!Type.CanMatch(contract, bindings, definitions)) yield break;
         if (receiver is null || receiver.IsParameter || ReceiverTypes is null)
@@ -132,6 +151,7 @@ public sealed record DispatchContract(string Target, DispatchType Type, IReadOnl
         foreach (var type in ReceiverTypes)
         {
             cancellationToken.ThrowIfCancellationRequested();
+            if (type.Name != receiver.Name || type.Arguments.Count != receiver.Arguments.Count) continue;
             var constrained = new Dictionary<string, (DispatchType Type, string Side)>(bindings, StringComparer.Ordinal);
             if (type.CanMatch(receiver, constrained, definitions) && Type.CanMatch(contract, constrained, definitions)
                 && DispatchConstraints.Allow(Type, constrained, "candidate:", definitions)

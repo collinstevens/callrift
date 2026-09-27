@@ -26,7 +26,7 @@ public static class ChangeDetector
                 continue;
             }
             if (DefinitionChanged(oldMember, newMember)
-                || Fingerprint(oldMember.Calls, before, cancellationToken) != Fingerprint(newMember.Calls, after, cancellationToken))
+                || !CallsEqual(oldMember.Calls, newMember.Calls, before, after, cancellationToken))
                 changed.Add(key);
         }
         return changed;
@@ -37,10 +37,21 @@ public static class ChangeDetector
             ? !SyntaxFactory.AreEquivalent(before.Body, after.Body, topLevel: false)
             : before.BodyFingerprint != after.BodyFingerprint);
 
-    private static string Fingerprint(IEnumerable<CallStep> calls, CallGraph graph, CancellationToken cancellationToken) => string.Join(";", calls.Select(c =>
+    private static bool CallsEqual(IReadOnlyList<CallStep> before, IReadOnlyList<CallStep> after, CallGraph beforeGraph, CallGraph afterGraph,
+        CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        return c.Kind + ":" + (c.SemanticKey ?? c.Key) + ":" + graph.Members.GetValueOrDefault(c.DefinitionKey ?? c.Key)?.Signature + "[" + string.Join(",", c.SemanticTargets ?? graph.Targets(c, cancellationToken))
-            + "]{" + Fingerprint(c.Children, graph, cancellationToken) + "}";
-    }));
+        if (before.Count != after.Count) return false;
+        for (var index = 0; index < before.Count; index++)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var left = before[index];
+            var right = after[index];
+            if (left.Kind != right.Kind || (left.SemanticKey ?? left.Key) != (right.SemanticKey ?? right.Key)
+                || beforeGraph.Members.GetValueOrDefault(left.DefinitionKey ?? left.Key)?.Signature != afterGraph.Members.GetValueOrDefault(right.DefinitionKey ?? right.Key)?.Signature
+                || !(left.SemanticTargets ?? beforeGraph.Targets(left, cancellationToken)).SequenceEqual(right.SemanticTargets ?? afterGraph.Targets(right, cancellationToken), StringComparer.Ordinal)
+                || !CallsEqual(left.Children, right.Children, beforeGraph, afterGraph, cancellationToken)) return false;
+        }
+        return true;
+    }
 }
