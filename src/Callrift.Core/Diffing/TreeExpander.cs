@@ -1,3 +1,5 @@
+using System.Collections.Concurrent;
+
 namespace Callrift.Core;
 
 public sealed record CallTree(string Key, string Label, string MatchName, string Signature, IReadOnlyList<CallTree> Children, bool BodyChanged = false, string? Detail = null)
@@ -18,6 +20,7 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
     public TreeExpander(CallGraph graph, IReadOnlySet<string> changed, DiffOptions options) : this(graph, changed, options, default) { }
 
     private readonly CallGraph resolvedGraph = ContextGraph.Create(graph, cancellationToken);
+    private readonly ConcurrentDictionary<CallStep, string> semanticKeys = new(ReferenceEqualityComparer.Instance);
     private readonly Lock changeReachabilityLock = new();
     private HashSet<string>? changeReachability;
     private HashSet<string>? changesWithoutInitialization;
@@ -79,6 +82,10 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
         }
         if (member.Calls.Count == 0)
             return new CallTree(key, member.Label, member.MatchName, member.Signature, [], changed.Contains(key))
+            { Kind = "member", Side = side };
+        if (!member.Calls[0].IsInitialization)
+            return new CallTree(key, member.Label, member.MatchName, member.Signature,
+                ExpandCalls(member.Calls, new HashSet<string>(active, StringComparer.Ordinal) { key }, depth + 1, initialized), changed.Contains(key))
             { Kind = "member", Side = side };
         var prelude = member.Calls.TakeWhile(call => call.IsInitialization).ToArray();
         var initializers = ExpandCalls(prelude, active, depth + 1, initialized);
@@ -170,7 +177,9 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
                 Side = side,
                 Children = children.Count == 0 ? tree.Children : tree.Children.Concat(children).ToArray(),
                 InvocationKey = InvocationContext.Create(resolvedGraph, call.DefinitionKey ?? call.Key, call.GenericArguments).Identity,
-                SemanticKey = (call.SemanticKey ?? call.Key) + (call.SemanticTargets is { Count: > 0 } semanticTargets ? "→" + string.Join(";", semanticTargets) : "")
+                SemanticKey = call.SemanticTargets is { Count: > 0 }
+                    ? semanticKeys.GetOrAdd(call, static value => (value.SemanticKey ?? value.Key) + "→" + string.Join(";", value.SemanticTargets!))
+                    : call.SemanticKey ?? call.Key
             };
             if (canExpandDispatch)
             {
