@@ -76,8 +76,15 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             case InvocationExpressionSyntax invocation:
                 if (invocation.Expression is IdentifierNameSyntax { Identifier.ValueText: "nameof" } && model.GetConstantValue(invocation, cancellationToken).HasValue)
                     return;
-                Walk(invocation.Expression, result);
-                Emit(invocation, invocation.ArgumentList.Arguments, result);
+                var invocationBinding = model.GetSymbolInfo(invocation, cancellationToken);
+                if (invocationBinding.Symbol is IMethodSymbol { MethodKind: MethodKind.Ordinary or MethodKind.ReducedExtension or MethodKind.LocalFunction }
+                    && invocation.Expression is IdentifierNameSyntax or GenericNameSyntax or MemberAccessExpressionSyntax)
+                {
+                    if (invocation.Expression is MemberAccessExpressionSyntax invokedMember) Walk(invokedMember.Expression, result);
+                }
+                else
+                    Walk(invocation.Expression, result);
+                Emit(invocation, invocation.ArgumentList.Arguments, result, invocationBinding);
                 return;
             case BaseObjectCreationExpressionSyntax creation:
                 Emit(creation, creation.ArgumentList?.Arguments ?? [], result);
@@ -201,11 +208,11 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             { Relation = "callback" });
     }
 
-    private void Emit(SyntaxNode invocation, SeparatedSyntaxList<ArgumentSyntax> arguments, List<CallStep> result) =>
-        Emit(invocation, arguments.Select(argument => argument.Expression), result);
+    private void Emit(SyntaxNode invocation, SeparatedSyntaxList<ArgumentSyntax> arguments, List<CallStep> result, SymbolInfo? invocationBinding = null) =>
+        Emit(invocation, arguments.Select(argument => argument.Expression), result, invocationBinding: invocationBinding);
 
     private void Emit(SyntaxNode invocation, IEnumerable<ExpressionSyntax> arguments, List<CallStep> result,
-        SymbolInfo? initializerBinding = null, ExpressionSyntax? collection = null)
+        SymbolInfo? initializerBinding = null, ExpressionSyntax? collection = null, SymbolInfo? invocationBinding = null)
     {
         var callbacks = new List<CallStep>();
         var argumentIndex = 0;
@@ -231,7 +238,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 callbacks[index] = callbacks[index] with { CallbackGroup = argumentIndex };
             argumentIndex++;
         }
-        var info = initializerBinding ?? model.GetSymbolInfo(invocation, cancellationToken);
+        var info = initializerBinding ?? invocationBinding ?? model.GetSymbolInfo(invocation, cancellationToken);
         var target = initializerBinding is null && invocation is InvocationExpressionSyntax interceptable
             ? InterceptorSymbols.Find(model, interceptable, cancellationToken) ?? info.Symbol as IMethodSymbol
             : info.Symbol as IMethodSymbol;
