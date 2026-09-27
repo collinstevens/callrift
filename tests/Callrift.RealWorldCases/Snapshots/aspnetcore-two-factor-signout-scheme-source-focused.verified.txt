@@ -2,60 +2,76 @@
 exit: 0
 stdout:
   SecurityStampValidator<TUser>.ValidateAsync
-  ├─ TimeProvider.GetUtcNow
+  ├─ …
+  ├─ DateTimeOffset.op_Inequality
   ├─ if (issuedUtc != null)
   └─ if (validate)
+     ├─ …
      ├─ SecurityStampValidator<TUser>.VerifySecurityStamp
      ├─ if (user != null)
      └─ else (!(user != null))
         ├─ …
-        ├─ CookieValidatePrincipalContext.RejectPrincipal
+        ├─ SecurityStampValidator<TUser>.get_SignInManager
         ├─ SignInManager<TUser>.SignOutAsync (depth limit)
+-       ├─ SecurityStampValidator<TUser>.get_SignInManager
+-       ├─ SignInManager<TUser>.get_Context (depth limit)
++       ├─ BaseContext<TOptions>.get_HttpContext
++       ├─ HttpContext.get_RequestServices → DefaultHttpContext.get_RequestServices (depth limit)
 +       ├─ context.HttpContext.RequestServices.GetRequiredService<IAuthenticationSchemeProvider>
         ├─ possible initialization of IdentityConstants
 -       ├─ AuthenticationHttpContextExtensions.SignOutAsync (depth limit)
 +       ├─ IAuthenticationSchemeProvider.GetSchemeAsync → AuthenticationSchemeProvider.GetSchemeAsync (depth limit)
 +       └─ if (await schemes.GetSchemeAsync(IdentityConstants.TwoFactorRememberMeScheme) != null)
++          ├─ SecurityStampValidator<TUser>.get_SignInManager
++          ├─ SignInManager<TUser>.get_Context (depth limit)
 +          └─ AuthenticationHttpContextExtensions.SignOutAsync (depth limit)
 stderr:
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:19: unresolved-call: Cannot bind new RootCommand.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind collection initializer Add.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:24: unresolved-call: Cannot bind new Argument<string[]>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind collection initializer Add.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot bind new Argument<string>.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
-23087 additional diagnostics; use --diagnostics full.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind collection initializer Add.
+23402 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
 stdout:
 ```diff
   SecurityStampValidator<TUser>.ValidateAsync
-  ├─ TimeProvider.GetUtcNow
+  ├─ …
+  ├─ DateTimeOffset.op_Inequality
   ├─ if (issuedUtc != null)
   └─ if (validate)
+     ├─ …
      ├─ SecurityStampValidator<TUser>.VerifySecurityStamp
      ├─ if (user != null)
      └─ else (!(user != null))
         ├─ …
-        ├─ CookieValidatePrincipalContext.RejectPrincipal
+        ├─ SecurityStampValidator<TUser>.get_SignInManager
         ├─ SignInManager<TUser>.SignOutAsync (depth limit)
+-       ├─ SecurityStampValidator<TUser>.get_SignInManager
+-       ├─ SignInManager<TUser>.get_Context (depth limit)
++       ├─ BaseContext<TOptions>.get_HttpContext
++       ├─ HttpContext.get_RequestServices → DefaultHttpContext.get_RequestServices (depth limit)
 +       ├─ context.HttpContext.RequestServices.GetRequiredService<IAuthenticationSchemeProvider>
         ├─ possible initialization of IdentityConstants
 -       ├─ AuthenticationHttpContextExtensions.SignOutAsync (depth limit)
 +       ├─ IAuthenticationSchemeProvider.GetSchemeAsync → AuthenticationSchemeProvider.GetSchemeAsync (depth limit)
 +       └─ if (await schemes.GetSchemeAsync(IdentityConstants.TwoFactorRememberMeScheme) != null)
++          ├─ SecurityStampValidator<TUser>.get_SignInManager
++          ├─ SignInManager<TUser>.get_Context (depth limit)
 +          └─ AuthenticationHttpContextExtensions.SignOutAsync (depth limit)
 ```
 stderr:
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:19: unresolved-call: Cannot bind new RootCommand.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind collection initializer Add.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:24: unresolved-call: Cannot bind new Argument<string[]>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind collection initializer Add.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot bind new Argument<string>.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
-23087 additional diagnostics; use --diagnostics full.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind collection initializer Add.
+23402 additional diagnostics; use --diagnostics full.

@@ -1928,7 +1928,7 @@
     "licenseFile": "LICENSE.txt",
     "beforeLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
     "afterLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
-    "reason": "Check whether the two-factor remember-me scheme is registered before signing it out after security-stamp rejection. Preserve principal rejection and SignInManager sign-out; add service resolution, possible scheme-provider dispatch, and move HttpContext sign-out under the new non-null guard. Automatic discovery retains the three Identity registration roots. The call tree does not prove runtime registration or value flow. Pinned production diffs and upstream test helpers reviewed; upstream tests were not executed. Source declarations, bindings, root connectivity, diagnostics and all output formats reviewed independently. Source mode lacks project references, defines and generators; possible callbacks and dispatch do not prove runtime execution. Restored trial exits 2 for unsupported src/submodules/MessagePack-CSharp.",
+    "reason": "Check whether the two-factor remember-me scheme is registered before signing it out after security-stamp rejection. Preserve principal rejection and SignInManager sign-out; add HttpContext and RequestServices getter reads before service resolution and possible scheme-provider dispatch. Move the SignInManager getter, Context getter and HttpContext sign-out together under the non-null guard, retaining their definition identities. Automatic discovery retains three Identity registration roots. Independent review covers both views, all 69 signatures, 134 source edges, 23 metadata edges, 282 rendered locations and 23410 source diagnostics. The 97 additional duplicate accessor diagnostics reflect platform stubs, copied analyzers, sample/template models and shared pipe types combined by source-only analysis. All six formats repeat exactly on Linux. Pinned production diffs and upstream test helpers reviewed; upstream tests were not executed. Source mode lacks project references, defines and generators; possible callbacks and dispatch do not prove runtime execution, scheme registration or value flow. Restored trial exits 2 for unsupported src/submodules/MessagePack-CSharp. Final cross-platform validation remains required.",
     "tags": [
       "branch-guard",
       "overload",
@@ -1937,7 +1937,8 @@
       "async",
       "interface-dispatch",
       "resource-cleanup",
-      "dependency-injection"
+      "dependency-injection",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/aspnetcore-source-coverage.md",

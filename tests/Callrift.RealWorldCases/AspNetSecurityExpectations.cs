@@ -60,8 +60,14 @@ internal static class AspNetSecurityExpectations
         Assert.Equal(["source::Microsoft.AspNetCore.Authentication.AuthenticationSchemeProvider.GetSchemeAsync(string)"], lookup.After.TargetIds);
         var guard = Assert.Single(failed.Children, node => node.Label == "if (await schemes.GetSchemeAsync(IdentityConstants.TwoFactorRememberMeScheme) != null)");
         Assert.Equal('+', guard.Mark);
-        var added = Assert.Single(guard.Children);
-        var removed = Assert.Single(failed.Children, node => node.Mark == '-');
+        string[] signOutCalls = ["SecurityStampValidator<TUser>.get_SignInManager", "SignInManager<TUser>.get_Context", "AuthenticationHttpContextExtensions.SignOutAsync"];
+        Assert.Equal(signOutCalls, guard.Children.Select(node => node.Label));
+        Assert.All(guard.Children, node => Assert.Equal('+', node.Mark));
+        var removedCalls = failed.Children.Where(node => node.Mark == '-').ToArray();
+        Assert.Equal(signOutCalls, removedCalls.Select(node => node.Label));
+        Assert.Equal(removedCalls.Select(node => node.Before!.SymbolId), guard.Children.Select(node => node.After!.SymbolId));
+        var added = guard.Children[^1];
+        var removed = removedCalls[^1];
         Assert.Equal("AuthenticationHttpContextExtensions.SignOutAsync", added.Label);
         Assert.Equal('+', added.Mark);
         Assert.Equal(removed.Before!.SymbolId, added.After!.SymbolId);
@@ -75,8 +81,8 @@ internal static class AspNetSecurityExpectations
         Assert.Equal("partial", result.Coverage.Status);
         Assert.Contains("possible-dispatch", result.Coverage.Limitations);
         Assert.Contains("unfollowed-accessors-operators-events", result.Coverage.Limitations);
-        Assert.Equal(22750, result.Diagnostics.Count(diagnostic => diagnostic.Code == "unresolved-call"));
-        Assert.Equal(82, result.Diagnostics.Count(diagnostic => diagnostic.Code == "duplicate-member"));
+        Assert.Equal(22968, result.Diagnostics.Count(diagnostic => diagnostic.Code == "unresolved-call"));
+        Assert.Equal(179, result.Diagnostics.Count(diagnostic => diagnostic.Code == "duplicate-member"));
     }
 
     private static IEnumerable<DiffNode> Descendants(IEnumerable<DiffNode> nodes)
