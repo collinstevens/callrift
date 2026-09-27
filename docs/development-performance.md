@@ -1528,3 +1528,43 @@ passed in 18.85 s. The full solution built without warnings or errors. Temporary
 probe sources were removed before the checkpoint; reviewed expectations remain
 unchanged. Supported-platform CI for this loading refactor is pending, and no
 hosted-suite or full E2E target is claimed from these focused results.
+
+### Loaded-workspace CI and remaining hot paths
+
+[Run 36286698303](https://github.com/collinstevens/callrift/actions/runs/36286698303)
+at `4ed0fd0` passed every required job on all three platforms. Each retained all
+305 scenarios, 26 workspaces and 25 routine cases. Every case job restored its
+primary-key repository cache.
+
+| Complete dotnet test command | Ubuntu | Windows | macOS |
+|---|---:|---:|---:|
+| Slow scenarios | 504.83 s | 763.23 s | 551.59 s |
+| Workspaces | 183.79 s | 208.20 s | 319.39 s |
+| Routine cases, prepared repository caches | 265.21 s | 345.16 s | 355.98 s |
+| Broad path, earliest suite job start to final suite result | 8m 58s | 14m 15s | 9m 56s |
+
+The nine broad jobs consumed 67.80 runner-minutes including setup and teardown.
+Ubuntu and macOS met the broad latency target in this warm-cache run; Windows
+and every per-suite target remain above budget. Windows scenarios were slower
+than the worker-only checkpoint despite the local focused improvement, so the
+local sample does not establish a supported-platform speedup by itself. The
+wrapper now reports the five slowest cases and classes by accumulated case time
+from the existing TRX result, without uploading additional artifacts. Class sums
+accumulate individual row elapsed times; they are not CPU or whole-job time.
+Workflow creation preceded the first broad job by 2 s on Ubuntu and Windows,
+and 5 s on macOS; that initial scheduling delay is separate from the paths above.
+
+A temporary stage-timing sample of the existing AspNetCore and Orchard source
+rows measured roughly 20–24 s in member collection per revision, another 5–6 s
+in instance-initializer processing, and about 1–2 s in dispatch. Concurrent stage
+wall times overlap and must not be added as CPU time. Instrumentation was removed.
+
+Two further experiments were rejected. Buffered Git reads reduced an isolated
+11,229-blob read from 0.41–0.53 s to 0.22–0.32 s with identical complete-content
+hashes, and preserved six binary sizes including empty files and the 64 KiB
+boundary. However, the complete source-pair command took 82.44 s / 246.53 sampled
+CPU-seconds, versus the earlier 73.13 s / 193.25 s control. Sequential revision
+analysis with buffering still took 77.89 s / 196.63 s. Earlier availability of
+inputs changed overlap; the isolated I/O gain did not establish a suite gain.
+Per-analysis memoization of method keys and labels likewise took 77.58 s / 227.37
+CPU-seconds. All selected snapshots passed, but neither change was retained.

@@ -66,6 +66,33 @@ try {
         $failed = [int]$counters.GetAttribute('failed')
         $summary = "$project at ${revision}: $executed executed, $failed failed, ${elapsed}s including dotnet startup and any build/restore."
         Write-Host $summary
+        if ($Suite -ne 'Fast') {
+            $classes = @{}
+            foreach ($definition in $document.SelectNodes("//*[local-name()='UnitTest']")) {
+                $method = $definition.SelectSingleNode("*[local-name()='TestMethod']")
+                if ($null -ne $method) { $classes[$definition.GetAttribute('id')] = $method.GetAttribute('className') }
+            }
+            $timings = foreach ($result in $document.SelectNodes("//*[local-name()='UnitTestResult']")) {
+                $duration = [TimeSpan]::Zero
+                if (-not [TimeSpan]::TryParse($result.GetAttribute('duration'), [Globalization.CultureInfo]::InvariantCulture, [ref]$duration)) { continue }
+                [pscustomobject]@{
+                    Name = $result.GetAttribute('testName')
+                    Class = $classes[$result.GetAttribute('testId')]
+                    Seconds = $duration.TotalSeconds
+                }
+            }
+            $classWork = $timings | Group-Object Class | ForEach-Object {
+                [pscustomobject]@{ Name = $_.Name; Seconds = ($_.Group | Measure-Object Seconds -Sum).Sum }
+            }
+            foreach ($group in ($classWork | Sort-Object Seconds -Descending | Select-Object -First 5)) {
+                $seconds = $group.Seconds.ToString('F2', [Globalization.CultureInfo]::InvariantCulture)
+                Write-Host "Class accumulated case time: ${seconds}s $($group.Name)"
+            }
+            foreach ($case in ($timings | Sort-Object Seconds -Descending | Select-Object -First 5)) {
+                $seconds = $case.Seconds.ToString('F2', [Globalization.CultureInfo]::InvariantCulture)
+                Write-Host "Slow case: ${seconds}s $($case.Name)"
+            }
+        }
         if ($env:GITHUB_STEP_SUMMARY) {
             Add-Content $env:GITHUB_STEP_SUMMARY "$summary`n`nReproduce: ``$reproduce```n"
         }
