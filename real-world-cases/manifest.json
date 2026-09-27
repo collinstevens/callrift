@@ -2231,13 +2231,14 @@
     "after": "d942c0446d6dd67149f2f96eca4b631d58cf416b",
     "beforeLicenseBlob": "20e161181137c75ff743500b197414ff88f11eba",
     "afterLicenseBlob": "20e161181137c75ff743500b197414ff88f11eba",
-    "reason": "Add value-object equality and inequality operators, preserving helper calls and possible equality-component dispatch without false recursion from object null comparisons; retain the invisible call-free null-XOR guard limitation",
+    "reason": "Add value-object equality and inequality operators, preserving helper calls and possible equality-component dispatch without false recursion from object null comparisons. Independent pinned-source and compiler review verifies Colour.Code beneath component dispatch. Equality reaches the getter; inequality has an extra helper and stops at depth five, so focused views are truncated. The call-free null-XOR guard remains absent. Both automatic roots reach the added operators. Source diagnostics gain six unresolved calls from existing database and current-user getter bodies; restored Domain/net10.0 remains diagnostic-free. All formats repeat exactly. Possible dispatch does not prove runtime execution. Upstream tests were read but not executed.",
     "tags": [
       "operators",
       "abstract-dispatch",
       "conditional-access",
       "short-circuit",
-      "null-guard"
+      "null-guard",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/source-only-coverage.md",

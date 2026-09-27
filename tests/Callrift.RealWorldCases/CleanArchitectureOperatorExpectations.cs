@@ -11,9 +11,13 @@ internal static class CleanArchitectureOperatorExpectations
         Assert.Equal("partial", result.Coverage.Status);
         Assert.Contains("possible-dispatch", result.Coverage.Limitations);
         Assert.Contains("unfollowed-accessors-operators-events", result.Coverage.Limitations);
-        Assert.Equal(!focused, result.Truncated);
+        Assert.True(result.Truncated);
         if (workspace) Assert.Empty(result.Diagnostics);
-        else Assert.All(result.Diagnostics, diagnostic => Assert.Equal("unresolved-call", diagnostic.Code));
+        else
+        {
+            Assert.Equal(383, result.Diagnostics.Count);
+            Assert.All(result.Diagnostics, diagnostic => Assert.Equal("unresolved-call", diagnostic.Code));
+        }
         Assert.Equal(["ValueObject.op_Equality", "ValueObject.op_Inequality"], result.Trees.Select(node => node.Label));
         Assert.Equal([46, 51], result.Trees.Select(node => node.After!.Definition!.Line));
         var all = Descendants(result.Trees).ToArray();
@@ -45,7 +49,20 @@ internal static class CleanArchitectureOperatorExpectations
             {
                 Assert.EndsWith("::CleanArchitecture.Domain.Common.ValueObject.GetEqualityComponents()", node.After!.SymbolId);
                 Assert.EndsWith("::CleanArchitecture.Domain.ValueObjects.Colour.GetEqualityComponents()", Assert.Single(node.After.TargetIds));
-                Assert.Empty(node.Children);
+                if (root.Label == "ValueObject.op_Equality")
+                {
+                    Assert.Null(node.Omission);
+                    var getter = Assert.Single(node.Children);
+                    Assert.Equal("Colour.get_Code", getter.Label);
+                    Assert.Equal("public CleanArchitecture.Domain.ValueObjects.Colour.get_Code() -> string", getter.After!.Signature);
+                    Assert.Equal("src/Domain/ValueObjects/Colour.cs", getter.After.Definition!.Path);
+                    Assert.Equal(33, getter.After.Definition.Line);
+                }
+                else
+                {
+                    Assert.Empty(node.Children);
+                    Assert.Equal("depth-limit", node.Omission!.Reason);
+                }
             });
             Assert.Equal("GetEqualityComponents().SequenceEqual", equals.Children[^1].Label);
         }

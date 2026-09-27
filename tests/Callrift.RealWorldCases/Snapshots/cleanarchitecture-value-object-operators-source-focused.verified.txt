@@ -10,11 +10,20 @@ stdout:
 +          │  ├─ GetType
 +          │  └─ Type.op_Inequality
 +          ├─ ValueObject.GetEqualityComponents → Colour.GetEqualityComponents ×2
++          │  └─ Colour.get_Code
 +          └─ GetEqualityComponents().SequenceEqual
 
 + ValueObject.op_Inequality
 + └─ ValueObject.NotEqualOperator
-+    └─ ValueObject.EqualOperator ↑ as above
++    └─ ValueObject.EqualOperator
++       └─ if (left is not null)
++          └─ ValueObject.Equals
++             ├─ if (!(obj == null))
++             │  ├─ obj.GetType
++             │  ├─ GetType
++             │  └─ Type.op_Inequality
++             ├─ ValueObject.GetEqualityComponents → Colour.GetEqualityComponents ×2 (depth limit)
++             └─ GetEqualityComponents().SequenceEqual
 stderr:
 src/AppHost/Program.cs:1: unresolved-call: Cannot bind DistributedApplication.CreateBuilder.
 src/AppHost/Program.cs:25: unresolved-call: Cannot bind builder.AddProject<Projects.Web>.
@@ -24,7 +33,7 @@ src/Application/Common/Behaviours/AuthorizationBehaviour.cs:14: unresolved-call:
 src/Application/Common/Behaviours/AuthorizationBehaviour.cs:78: unresolved-call: Cannot bind next.
 src/Application/Common/Behaviours/LoggingBehaviour.cs:14: unresolved-call: Cannot bind implicit base constructor for new LoggingBehaviour<TRequest>.
 src/Application/Common/Behaviours/PerformanceBehaviour.cs:15: unresolved-call: Cannot bind implicit base constructor for new PerformanceBehaviour<TRequest, TResponse>.
-369 additional diagnostics; use --diagnostics full.
+375 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -39,11 +48,20 @@ stdout:
 +          │  ├─ GetType
 +          │  └─ Type.op_Inequality
 +          ├─ ValueObject.GetEqualityComponents → Colour.GetEqualityComponents ×2
++          │  └─ Colour.get_Code
 +          └─ GetEqualityComponents().SequenceEqual
 
 + ValueObject.op_Inequality
 + └─ ValueObject.NotEqualOperator
-+    └─ ValueObject.EqualOperator ↑ as above
++    └─ ValueObject.EqualOperator
++       └─ if (left is not null)
++          └─ ValueObject.Equals
++             ├─ if (!(obj == null))
++             │  ├─ obj.GetType
++             │  ├─ GetType
++             │  └─ Type.op_Inequality
++             ├─ ValueObject.GetEqualityComponents → Colour.GetEqualityComponents ×2 (depth limit)
++             └─ GetEqualityComponents().SequenceEqual
 ```
 stderr:
 src/AppHost/Program.cs:1: unresolved-call: Cannot bind DistributedApplication.CreateBuilder.
@@ -54,4 +72,4 @@ src/Application/Common/Behaviours/AuthorizationBehaviour.cs:14: unresolved-call:
 src/Application/Common/Behaviours/AuthorizationBehaviour.cs:78: unresolved-call: Cannot bind next.
 src/Application/Common/Behaviours/LoggingBehaviour.cs:14: unresolved-call: Cannot bind implicit base constructor for new LoggingBehaviour<TRequest>.
 src/Application/Common/Behaviours/PerformanceBehaviour.cs:15: unresolved-call: Cannot bind implicit base constructor for new PerformanceBehaviour<TRequest, TResponse>.
-369 additional diagnostics; use --diagnostics full.
+375 additional diagnostics; use --diagnostics full.
