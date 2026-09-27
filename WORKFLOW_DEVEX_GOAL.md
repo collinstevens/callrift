@@ -1,6 +1,6 @@
 # Test-suite performance goal
 
-Status: second performance phase in progress; format and pinned-graph reuse, preparation coordination, bounded suite scheduling, reusable scenario workers, retained eligible workspaces and independent CI suites under validation. Repository-cache restoration is verified on all supported platforms; warm case and other per-suite targets remain unmet. The previous phase established fast everyday feedback, but broad CI originally took 46–49 minutes. This phase makes the remaining suite fast. It does not resume the paused implementation goal in `GOAL.md`.
+Status: second performance phase in progress. Matched full-corpus cold/warm improvement is established at `2fae0fb`, with all 426 executions retained. Warm broad CI is below ten minutes on all platforms in run 36289779318, but every individual suite target remains unmet in that run and optimized cold CI remains outstanding. The previous phase established fast everyday feedback, but broad CI originally took 46–49 minutes. This phase makes the remaining suite fast. It does not resume the paused implementation goal in `GOAL.md`.
 
 ## Outcome
 
@@ -108,8 +108,8 @@ Record machine or runner type, OS, SDK, revision, selected cases, build state, c
 - [ ] Format-only assertions reuse analysis, and redundant restoration/worker setup is reduced without losing meaningful integration checks.
 - [ ] All per-suite and broad CI targets are met on Ubuntu, Windows, and macOS, with cold and warm conditions reported honestly.
 - [ ] Aggregate work is reduced; any additional runner cost is quantified separately from elapsed-time improvement.
-- [ ] The explicit all-cases E2E command has its own matched before/after evidence with the pinned corpus preserved.
-- [ ] The current fast-tier budget and focused integration workflow remain intact.
+- [x] The explicit all-cases E2E command has its own matched before/after evidence with the pinned corpus preserved.
+- [x] The current fast-tier budget and focused integration workflow remain intact.
 - [ ] Equivalent behavioral coverage, unchanged reviewed expectations, concurrency stability, and passing supported-platform CI are documented in `docs/development-performance.md`.
 
 Do not mark this phase complete solely because the fast tier passes, jobs have been split, or slow tests have moved out of the developer's way.

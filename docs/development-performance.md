@@ -1784,3 +1784,71 @@ All 350 fast rows passed through mise in 5.78 s with no fixture workers started.
 The seven constructor-equivalence integration rows passed through the standard
 focused command in 13.45 s including build/startup, confirming scenario pool use
 and teardown after moving assembly registration. No fixture worker remained alive.
+
+### Matched complete E2E results at 2fae0fb
+
+Both optimized `mise run test:e2e` invocations passed all 426 executions: 305
+scenarios, 26 workspaces and all 95 pinned cases. The original `75bdd97` baseline
+and candidate used the same Ubuntu 26.04 Ryzen 9 7945HX host, 44,825 MiB RAM,
+native 32-logical-CPU affinity, SDK `11.0.100-rc.1.26425.128` and Debug configuration.
+SDK and global NuGet caches were prepared. Each version's cold run started with
+absent external repository/workspace caches; its warm run retained those same
+directories. Optimized explicit preparation took 1.20 s to restore and 1.46 s to
+build, outside the measured command. No other local build or profile overlapped.
+
+| Complete command | Original cold / warm | Optimized cold / warm |
+|---|---:|---:|
+| Elapsed seconds | 3269.90 / 3238.36 | 508.23 / 474.53 |
+| Sampled descendant CPU seconds | 15532.82 / 15511.52 | 2394.24 / 2367.18 |
+| Peak summed RSS GiB | 16.60 / 16.47 | 8.65 / 11.88 |
+| Analysis workers | 1014 / 1014 | 194 / 194 |
+| Additional pooled fixture workers | 0 / 0 | 6 / 6 |
+| Sampled restore processes | 805 / 805 | 169 / 171 |
+
+Cold elapsed time fell 84.5%, warm elapsed time 85.3%, and sampled CPU about 84.6%
+and 84.7%. RSS is summed across sampled descendants, not unique physical memory;
+detached compiler-server CPU remains outside this historical sampler. The warm
+RSS increase relative to the candidate's cold run shows why a single peak should
+not be treated as a guaranteed memory ceiling.
+
+The optimized scenario/workspace/all-case dotnet portions were
+97.23 / 38.41 / 372.23 s cold and 97.19 / 39.60 / 337.38 s warm. Observed case
+overlap was four / four / two. TRX method-and-parameter multisets match the
+baseline exactly; scenario full names also match, while earlier workspace and
+case class moves are mapped separately. The pinned manifest and every reviewed
+snapshot are unchanged from `90083f5`. These full-corpus results are independent
+of the smaller routine CI selection.
+
+### Supported-platform CI at 2fae0fb
+
+[Run 36289779318](https://github.com/collinstevens/callrift/actions/runs/36289779318)
+passed every required job on all three platforms. All case jobs restored their
+repository caches; each platform retained 305 scenarios, 26 workspaces and 25
+routine cases, alongside fast and representative integration coverage.
+
+| Complete dotnet test command | Ubuntu | Windows | macOS |
+|---|---:|---:|---:|
+| Scenarios | 382.18 s | 452.52 s | 364.18 s |
+| Workspaces | 196.21 s | 230.05 s | 188.59 s |
+| Routine cases | 238.34 s | 353.17 s | 348.01 s |
+| Broad dependency path including setup | 7m 05s | 9m 01s | 6m 46s |
+
+Initial scheduling delay was 40 / 41 / 44 s respectively, reported separately
+from those paths. The nine broad jobs consumed 54.87 runner-minutes, versus
+143.82 for the original three sequential broad jobs. Thus the lower latency is
+accompanied by less aggregate work despite repeated setup. All warm broad paths
+met ten minutes in this run, but none of its individual suite measurements met
+their targets. Optimized cold CI evidence remains outstanding. Hosted variance
+and the remaining expensive diagnostic, interceptor and large-source cases mean
+the performance goal is still open.
+
+A subsequent call-collection experiment reused receiver facts within each call
+and skipped empty containing-type binding descriptions. All 350 fast rows passed,
+the two largest source-roots cases passed in every sample, and 132 complete
+scenario graphs matched the original, including body fingerprints and nested
+generic bindings. The performance gain did not repeat: control/candidate elapsed
+times were 83.47 / 79.32 s initially, then 78.95 / 84.10 s with execution order
+reversed. Sampled CPU was 247.70 / 234.57 s initially and 232.93 / 244.20 s on
+repeat. Median elapsed time was slightly worse and median CPU essentially flat.
+Both code changes were reverted, original binaries rebuilt, and temporary probe
+sources removed. No improvement is claimed from that experiment.
