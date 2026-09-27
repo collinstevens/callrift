@@ -1,0 +1,25 @@
+﻿format: text
+exit: 0
+stdout:
+  LoadBalancingMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRoute (depth limit)
+  ├─ HttpItemsExtensions.IInternalConfiguration (depth limit)
+~ ├─ ILoadBalancerHouse.Get → LoadBalancerHouse.Get (changes below depth limit)
+  ├─ if (loadBalancer.IsError)
+  ├─ ILoadBalancer.LeaseAsync
+  └─ …
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  LoadBalancingMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRoute (depth limit)
+  ├─ HttpItemsExtensions.IInternalConfiguration (depth limit)
+~ ├─ ILoadBalancerHouse.Get → LoadBalancerHouse.Get (changes below depth limit)
+  ├─ if (loadBalancer.IsError)
+  ├─ ILoadBalancer.LeaseAsync
+  └─ …
+```
+stderr:

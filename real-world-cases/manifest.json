@@ -2852,5 +2852,95 @@
         ]
       }
     ]
+  },
+  {
+    "id": "ocelot-consul-service-address",
+    "repository": "https://github.com/ThreeMammals/Ocelot.git",
+    "cacheName": "ocelot",
+    "before": "9acc27195c181d2f3ed0029a5a8d3b18323d6079",
+    "after": "7cd514681430d9da595dda5140b5bbd9655bc278",
+    "license": "MIT",
+    "licenseFile": "LICENSE.md",
+    "beforeLicenseBlob": "058bbbcec4d6137a36c5cc6a46a599f93bb10c42",
+    "afterLicenseBlob": "058bbbcec4d6137a36c5cc6a46a599f93bb10c42",
+    "reason": "Prioritize the Consul service instance address before node address and node name. Review the added null-or-empty check through unchanged virtual service builders and cross-project load-balancer discovery. Independently reviewed pinned source, declarations, source/metadata bindings, automatic-root connectivity, locations and all source diagnostics; all twelve CLI formats repeated exactly. Restored net8.0 mode binds Consul package types and discovers LoadBalancingMiddleware.Invoke as the automatic root. Source-only mode lacks project imports and packages, leaves the string check and target-typed host constructor unresolved, and stops at Consul.BuildServices. The graph does not model address values, property access or call-free ternary/null-coalescing branches, so it cannot prove fallback selection. The path through CookieStickySessionsCreator is a possible method-group callback and interface dispatch, not proof of runtime configuration. Possible logging callbacks and depth truncation remain explicit. Upstream address-priority tests were read but not executed.",
+    "tags": [
+      "service-discovery",
+      "null-guard",
+      "conditional-access",
+      "virtual-dispatch",
+      "interface-dispatch",
+      "method-group",
+      "cross-project",
+      "automatic-roots"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "review": "../tests/Callrift.RealWorldCases/OcelotConsulExpectations.cs",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "6",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "DefaultConsulServiceBuilder.GetDownstreamHost",
+          "--entry",
+          "DefaultConsulServiceBuilder.GetServiceHostAndPort",
+          "--entry",
+          "DefaultConsulServiceBuilder.CreateService",
+          "--entry",
+          "DefaultConsulServiceBuilder.BuildServices"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1",
+          "--project",
+          "src/Ocelot.Provider.Consul/Ocelot.Provider.Consul.csproj",
+          "--framework",
+          "net8.0"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "6",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "DefaultConsulServiceBuilder.GetDownstreamHost",
+          "--entry",
+          "DefaultConsulServiceBuilder.GetServiceHostAndPort",
+          "--entry",
+          "DefaultConsulServiceBuilder.CreateService",
+          "--entry",
+          "DefaultConsulServiceBuilder.BuildServices",
+          "--project",
+          "src/Ocelot.Provider.Consul/Ocelot.Provider.Consul.csproj",
+          "--framework",
+          "net8.0"
+        ]
+      }
+    ]
   }
 ]

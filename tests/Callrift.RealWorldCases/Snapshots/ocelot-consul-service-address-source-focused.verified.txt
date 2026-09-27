@@ -1,0 +1,77 @@
+﻿format: text
+exit: 0
+stdout:
+  DefaultConsulServiceBuilder.BuildServices
+  ├─ ArgumentNullException.ThrowIfNull
+  ├─ new List<Service>
+  └─ foreach (var serviceEntry in entries)
+     ├─ DefaultConsulServiceBuilder.IsValid
+     └─ if (IsValid(serviceEntry))
+        ├─ DefaultConsulServiceBuilder.GetNode
+        ├─ DefaultConsulServiceBuilder.CreateService
+        │  ├─ DefaultConsulServiceBuilder.GetServiceName
+        │  ├─ DefaultConsulServiceBuilder.GetServiceHostAndPort
+        │  │  ├─ DefaultConsulServiceBuilder.GetDownstreamHost
++       │  │  │  └─ ? string.IsNullOrEmpty
+        │  │  └─ ? new
+        │  ├─ DefaultConsulServiceBuilder.GetServiceId
+        │  ├─ DefaultConsulServiceBuilder.GetServiceVersion
+        │  ├─ DefaultConsulServiceBuilder.GetServiceTags
+        │  └─ new Service
+        └─ if (item != null)
+
+  DefaultConsulServiceBuilder.CreateService ↑ as above
+
+  DefaultConsulServiceBuilder.GetDownstreamHost ↑ as above
+
+  DefaultConsulServiceBuilder.GetServiceHostAndPort ↑ as above
+stderr:
+samples/Basic/Program.cs:4: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+samples/Basic/Program.cs:7: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+samples/Basic/Program.cs:7: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+samples/Basic/Program.cs:10: unresolved-call: Cannot bind builder.Services.AddOcelot.
+samples/Basic/Program.cs:14: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+samples/Basic/Program.cs:16: unresolved-call: Cannot bind builder.Logging.AddConsole.
+samples/Basic/Program.cs:20: unresolved-call: Cannot bind builder.Build.
+samples/Basic/Program.cs:21: unresolved-call: Cannot bind app.UseOcelot.
+1025 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  DefaultConsulServiceBuilder.BuildServices
+  ├─ ArgumentNullException.ThrowIfNull
+  ├─ new List<Service>
+  └─ foreach (var serviceEntry in entries)
+     ├─ DefaultConsulServiceBuilder.IsValid
+     └─ if (IsValid(serviceEntry))
+        ├─ DefaultConsulServiceBuilder.GetNode
+        ├─ DefaultConsulServiceBuilder.CreateService
+        │  ├─ DefaultConsulServiceBuilder.GetServiceName
+        │  ├─ DefaultConsulServiceBuilder.GetServiceHostAndPort
+        │  │  ├─ DefaultConsulServiceBuilder.GetDownstreamHost
++       │  │  │  └─ ? string.IsNullOrEmpty
+        │  │  └─ ? new
+        │  ├─ DefaultConsulServiceBuilder.GetServiceId
+        │  ├─ DefaultConsulServiceBuilder.GetServiceVersion
+        │  ├─ DefaultConsulServiceBuilder.GetServiceTags
+        │  └─ new Service
+        └─ if (item != null)
+
+  DefaultConsulServiceBuilder.CreateService ↑ as above
+
+  DefaultConsulServiceBuilder.GetDownstreamHost ↑ as above
+
+  DefaultConsulServiceBuilder.GetServiceHostAndPort ↑ as above
+```
+stderr:
+samples/Basic/Program.cs:4: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+samples/Basic/Program.cs:7: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+samples/Basic/Program.cs:7: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+samples/Basic/Program.cs:10: unresolved-call: Cannot bind builder.Services.AddOcelot.
+samples/Basic/Program.cs:14: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+samples/Basic/Program.cs:16: unresolved-call: Cannot bind builder.Logging.AddConsole.
+samples/Basic/Program.cs:20: unresolved-call: Cannot bind builder.Build.
+samples/Basic/Program.cs:21: unresolved-call: Cannot bind app.UseOcelot.
+1025 additional diagnostics; use --diagnostics full.

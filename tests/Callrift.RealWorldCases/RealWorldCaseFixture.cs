@@ -83,6 +83,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             AutofacSubscriptionExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "ocelot-aggregate-route-arrays")
             OcelotAggregationExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "ocelot-consul-service-address")
+            OcelotConsulExpectations.Verify(result, options.Entries.Count > 0);
         var diagnostics = string.Concat(result.Diagnostics.Take(8).Select(diagnostic =>
             (diagnostic.Location is null ? "" : $"{diagnostic.Location.Path}:{diagnostic.Location.Line}: ") + $"{diagnostic.Code}: {diagnostic.Message}\n"));
         if (result.Diagnostics.Count > 8)
