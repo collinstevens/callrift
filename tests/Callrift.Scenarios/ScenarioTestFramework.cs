@@ -1,9 +1,6 @@
 using System.Reflection;
-using Xunit;
 using Xunit.Abstractions;
 using Xunit.Sdk;
-
-[assembly: TestFramework("Callrift.Scenarios.ScenarioTestFramework", "Callrift.Scenarios")]
 
 namespace Callrift.Scenarios;
 

@@ -1744,3 +1744,43 @@ fell from 26 to 15 and CLI invocations from 20 to five. Restores increased from
 10 to 11 because the shared generated graph deliberately uses a fresh workspace.
 The workspace project built without warnings or errors. Hosted targets remain
 unproven for this checkpoint.
+
+### Sharing the bounded fixture pool with workspace assertions
+
+Workspace snapshots and the non-CLI framework-dispatch rows now use the same
+strict project-shape eligibility checks and four-slot worker pool as scenarios.
+The pool accepts explicit MSBuild options, which remain part of the shape key.
+Eligible single-project snapshots can retain their loaded workspace and refresh
+source documents; eligible project-reference fixtures reuse only the worker and
+still create and restore fresh roots for both revisions. Custom imports,
+packages and referenced generators retain the original fresh-worker path.
+The existing SDK regex snapshot still exercises changed generated output through
+real MSBuild and compilation. CLI parity, cache behavior and independent generated
+interceptor runs retain their original process boundaries.
+
+Both test assemblies now register the shared assembly runner explicitly. It
+disposes each assembly's pool after its cases finish. The workspace project links
+the existing fixture implementation and copies the dedicated worker as a build
+dependency; no new tests, project-shape exceptions or concurrency increases were
+introduced. Locked restore succeeded without lock-file changes, and the complete
+solution built without warnings or errors.
+
+The complete 26-row workspace suite ran on the prepared Debug host, CPUs 0–3,
+against `e2f9867`. The repeat reversed the candidate/control order. All rows passed
+in all four samples; exact TRX case-name multisets and reviewed snapshots match.
+
+| Workspace harness | Invocation seconds, first / repeat | Sampled CPU seconds, first / repeat | Peak summed RSS GiB, first / repeat |
+|---|---:|---:|---:|
+| Fresh workers | 66.29 / 66.09 | 244.21 / 245.32 | 2.73 / 2.75 |
+| Shared bounded pool | 62.24 / 61.84 | 228.20 / 227.27 | 3.37 / 3.24 |
+
+Median elapsed time fell 6.3% and sampled CPU 7.0%. Analysis workers fell from 72
+to 54, with two pooled workers observed; restores fell from 56 to 48. Both variants
+had four overlapping cases and 25–26 sampled CLI processes, reflecting the
+sampler's limited visibility into short-lived processes. The pool was fully
+disposed before each invocation returned. Higher retained memory is the explicit
+cost of this modest gain; this local measurement does not establish hosted targets.
+All 350 fast rows passed through mise in 5.78 s with no fixture workers started.
+The seven constructor-equivalence integration rows passed through the standard
+focused command in 13.45 s including build/startup, confirming scenario pool use
+and teardown after moving assembly registration. No fixture worker remained alive.

@@ -7,6 +7,7 @@ using Xunit;
 using static Callrift.Workspaces.WorkspaceTests;
 
 [assembly: CollectionBehavior(MaxParallelThreads = 4)]
+[assembly: TestFramework("Callrift.Scenarios.ScenarioTestFramework", "Callrift.Workspaces")]
 
 namespace Callrift.Workspaces;
 
@@ -34,7 +35,7 @@ public sealed class WorkspaceTests
 
     internal static async Task SnapshotAsync(string name, Scenario scenario, string target = "App.csproj")
     {
-        var (before, after) = await WorkspaceFixture.AnalyzeAsync(scenario, options: new MSBuildOptions(target, NoRestore: true));
+        var (before, after) = await ScenarioWorkspaceFixture.AnalyzeAsync(scenario, includeTests: false, options: new MSBuildOptions(target, NoRestore: true));
         var options = new DiffOptions();
         var result = CallriftService.Compare(before, after, options) with
         {

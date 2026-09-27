@@ -3,6 +3,7 @@ using VerifyXunit;
 using Xunit;
 
 [assembly: CollectionBehavior(MaxParallelThreads = 4)]
+[assembly: TestFramework("Callrift.Scenarios.ScenarioTestFramework", "Callrift.Scenarios")]
 
 namespace Callrift.Scenarios;
 

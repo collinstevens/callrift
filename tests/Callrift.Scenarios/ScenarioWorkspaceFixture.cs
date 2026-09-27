@@ -15,9 +15,9 @@ internal static class ScenarioWorkspaceFixture
     private static readonly List<FixtureWorker> Workers = [];
     private static readonly List<FixtureWorker> Available = [];
 
-    public static async Task<(CallGraph Before, CallGraph After)> AnalyzeAsync(Scenario scenario, bool includeTests)
+    public static async Task<(CallGraph Before, CallGraph After)> AnalyzeAsync(Scenario scenario, bool includeTests, MSBuildOptions? options = null)
     {
-        var options = new MSBuildOptions("App.csproj", NoRestore: true);
+        options ??= new MSBuildOptions("App.csproj", NoRestore: true);
         var beforeShape = FixtureProjectShape.Create(scenario.Before, options);
         var afterShape = FixtureProjectShape.Create(scenario.After, options);
         if (beforeShape is null || afterShape is null)

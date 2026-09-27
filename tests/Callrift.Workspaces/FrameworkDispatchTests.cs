@@ -31,7 +31,7 @@ public sealed class FrameworkDispatchTests
         var scenario = new Scenario("framework-interface", "A BCL interface call reaches a referenced implementation across framework identities.", before, after, []);
         await using var fixture = framework == "netstandard2.0" && !nested ? await GitFixture.CreateAsync(scenario) : null;
         var graphs = fixture is null
-            ? await WorkspaceFixture.AnalyzeAsync(scenario, options: new MSBuildOptions("App/App.csproj", NoRestore: true))
+            ? await ScenarioWorkspaceFixture.AnalyzeAsync(scenario, includeTests: false, options: new MSBuildOptions("App/App.csproj", NoRestore: true))
             : default;
         foreach (var command in new[] { "diff", "tree", "reach" })
         {
