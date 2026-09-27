@@ -322,15 +322,23 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         try
         {
             var first = true;
-            foreach (var token in node.DescendantTokens())
+            var lastToken = node.GetLastToken(includeZeroWidth: true);
+            for (var token = node.GetFirstToken(includeZeroWidth: true); token.RawKind != 0; token = token.GetNextToken(includeZeroWidth: true))
             {
                 if (!first) text.AppendLiteral("\0");
                 first = false;
                 text.AppendFormatted(token.RawKind);
                 text.AppendLiteral(":");
                 text.AppendLiteral(token.Text);
+                if (token == lastToken) break;
             }
-            return Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(text.ToString())));
+            var value = text.ToString();
+            var byteCount = Encoding.UTF8.GetByteCount(value);
+            Span<byte> bytes = byteCount <= 512 ? stackalloc byte[byteCount] : new byte[byteCount];
+            Encoding.UTF8.GetBytes(value, bytes);
+            Span<byte> hash = stackalloc byte[SHA256.HashSizeInBytes];
+            SHA256.HashData(bytes, hash);
+            return Convert.ToHexStringLower(hash);
         }
         finally
         {
