@@ -1,0 +1,155 @@
+﻿format: text
+exit: 0
+stdout:
+  ContainerBuilder.Build
+  ├─ new SelfComponentRegistration
+  ├─ IComponentRegistryBuilder.Register → ComponentRegistryBuilder.Register
+  ├─ ContainerBuilder.Build
+  ├─ IComponentRegistryBuilder.Build → ComponentRegistryBuilder.Build
+  ├─ new Container
+- ├─ if ((options & ContainerBuildOptions.IgnoreStartableComponents) == ContainerBuildOptions.None)
+- │  └─ StartableManager.StartStartableComponents
+- │     ├─ try
+- │     │  ├─ new TypedService (depth limit)
+- │     │  ├─ IComponentRegistry.ServiceRegistrationsFor → ComponentRegistry.ServiceRegistrationsFor (depth limit)
+- │     │  ├─ componentRegistry.ServiceRegistrationsFor(startableService).Where
+- │     │  │  └─ r.Metadata.ContainsKey → FallbackDictionary<TKey, TValue>.ContainsKey (depth limit)
+- │     │  ├─ foreach (var registration in componentRegistry.ServiceRegistrationsFor(startableService).Where(r …
+- │     │  │  └─ try
+- │     │  │     ├─ Enumerable.Empty<Parameter>
+- │     │  │     ├─ new ResolveRequest
+- │     │  │     └─ IComponentContext.ResolveComponent
+- │     │  │        ├─ ⇢ Container.ResolveComponent (depth limit)
+- │     │  │        ├─ ⇢ LifetimeScope.ResolveComponent (depth limit)
+- │     │  │        ├─ ⇢ DefaultResolveRequestContext.ResolveComponent (depth limit)
+- │     │  │        └─ ⇢ DecoratorContext.ResolveComponent (depth limit)
+- │     │  ├─ new AutoActivateService (depth limit)
+- │     │  ├─ IComponentRegistry.ServiceRegistrationsFor → ComponentRegistry.ServiceRegistrationsFor (depth limit)
+- │     │  ├─ componentRegistry.ServiceRegistrationsFor(autoActivateService).Where
+- │     │  │  └─ r.Metadata.ContainsKey → FallbackDictionary<TKey, TValue>.ContainsKey (depth limit)
+- │     │  └─ foreach (var registration in componentRegistry.ServiceRegistrationsFor(autoActivateService).Where…
+- │     │     ├─ try
+- │     │     │  ├─ Enumerable.Empty<Parameter>
+- │     │     │  ├─ new ResolveRequest
+- │     │     │  └─ IComponentContext.ResolveComponent ↑ as above
+- │     │     └─ catch (DependencyResolutionException ex)
+- │     │        ├─ string.Format
+- │     │        └─ new DependencyResolutionException (depth limit)
+- │     └─ finally
+- │        └─ properties.Remove → FallbackDictionary<TKey, TValue>.Remove (depth limit)
+- ├─ BuildCallbackManager.RunBuildCallbacks
+- │  ├─ possible initialization of BuildCallbackManager
+- │  │  └─ initialization of BuildCallbackManager (depth limit)
+- │  ├─ IComponentRegistry.ServiceRegistrationsFor → ComponentRegistry.ServiceRegistrationsFor
+- │  │  └─ IRegisteredServicesTracker.ServiceRegistrationsFor
+- │  │     └─ ⇢ DefaultRegisteredServicesTracker.ServiceRegistrationsFor ×2 (depth limit)
+- │  └─ foreach (var srv in buildCallbackServices)
+- │     ├─ srv.Metadata.ContainsKey → FallbackDictionary<TKey, TValue>.ContainsKey (depth limit)
+- │     ├─ Enumerable.Empty<Parameter>
+- │     ├─ new ResolveRequest
+- │     ├─ IComponentContext.ResolveComponent
+- │     │  ├─ ⇢ Container.ResolveComponent (depth limit)
+- │     │  └─ ⇢ LifetimeScope.ResolveComponent (depth limit)
+- │     └─ BuildCallbackService.Execute (depth limit)
++ ├─ try
++ │  ├─ if ((options & ContainerBuildOptions.IgnoreStartableComponents) == ContainerBuildOptions.None)
++ │  │  └─ StartableManager.StartStartableComponents (depth limit)
++ │  └─ BuildCallbackManager.RunBuildCallbacks
++ │     ├─ possible initialization of BuildCallbackManager
++ │     │  └─ initialization of BuildCallbackManager (depth limit)
++ │     ├─ IComponentRegistry.ServiceRegistrationsFor → ComponentRegistry.ServiceRegistrationsFor (depth limit)
++ │     └─ foreach (var srv in buildCallbackServices)
++ │        ├─ srv.Metadata.ContainsKey → FallbackDictionary<TKey, TValue>.ContainsKey (depth limit)
++ │        ├─ Enumerable.Empty<Parameter>
++ │        ├─ new ResolveRequest
++ │        ├─ IComponentContext.ResolveComponent
++ │        │  ├─ ⇢ Container.ResolveComponent (depth limit)
++ │        │  └─ ⇢ LifetimeScope.ResolveComponent (depth limit)
++ │        └─ BuildCallbackService.Execute (depth limit)
++ ├─ catch
++ │  └─ Disposable.Dispose
++ │     ├─ Interlocked.Exchange
++ │     ├─ Disposable.Dispose → Container.Dispose (depth limit)
++ │     └─ GC.SuppressFinalize
+  ├─ possible initialization of ReflectionCacheSet
+  └─ ReflectionCacheSet.OnContainerBuildClearCaches
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  ContainerBuilder.Build
+  ├─ new SelfComponentRegistration
+  ├─ IComponentRegistryBuilder.Register → ComponentRegistryBuilder.Register
+  ├─ ContainerBuilder.Build
+  ├─ IComponentRegistryBuilder.Build → ComponentRegistryBuilder.Build
+  ├─ new Container
+- ├─ if ((options & ContainerBuildOptions.IgnoreStartableComponents) == ContainerBuildOptions.None)
+- │  └─ StartableManager.StartStartableComponents
+- │     ├─ try
+- │     │  ├─ new TypedService (depth limit)
+- │     │  ├─ IComponentRegistry.ServiceRegistrationsFor → ComponentRegistry.ServiceRegistrationsFor (depth limit)
+- │     │  ├─ componentRegistry.ServiceRegistrationsFor(startableService).Where
+- │     │  │  └─ r.Metadata.ContainsKey → FallbackDictionary<TKey, TValue>.ContainsKey (depth limit)
+- │     │  ├─ foreach (var registration in componentRegistry.ServiceRegistrationsFor(startableService).Where(r …
+- │     │  │  └─ try
+- │     │  │     ├─ Enumerable.Empty<Parameter>
+- │     │  │     ├─ new ResolveRequest
+- │     │  │     └─ IComponentContext.ResolveComponent
+- │     │  │        ├─ ⇢ Container.ResolveComponent (depth limit)
+- │     │  │        ├─ ⇢ LifetimeScope.ResolveComponent (depth limit)
+- │     │  │        ├─ ⇢ DefaultResolveRequestContext.ResolveComponent (depth limit)
+- │     │  │        └─ ⇢ DecoratorContext.ResolveComponent (depth limit)
+- │     │  ├─ new AutoActivateService (depth limit)
+- │     │  ├─ IComponentRegistry.ServiceRegistrationsFor → ComponentRegistry.ServiceRegistrationsFor (depth limit)
+- │     │  ├─ componentRegistry.ServiceRegistrationsFor(autoActivateService).Where
+- │     │  │  └─ r.Metadata.ContainsKey → FallbackDictionary<TKey, TValue>.ContainsKey (depth limit)
+- │     │  └─ foreach (var registration in componentRegistry.ServiceRegistrationsFor(autoActivateService).Where…
+- │     │     ├─ try
+- │     │     │  ├─ Enumerable.Empty<Parameter>
+- │     │     │  ├─ new ResolveRequest
+- │     │     │  └─ IComponentContext.ResolveComponent ↑ as above
+- │     │     └─ catch (DependencyResolutionException ex)
+- │     │        ├─ string.Format
+- │     │        └─ new DependencyResolutionException (depth limit)
+- │     └─ finally
+- │        └─ properties.Remove → FallbackDictionary<TKey, TValue>.Remove (depth limit)
+- ├─ BuildCallbackManager.RunBuildCallbacks
+- │  ├─ possible initialization of BuildCallbackManager
+- │  │  └─ initialization of BuildCallbackManager (depth limit)
+- │  ├─ IComponentRegistry.ServiceRegistrationsFor → ComponentRegistry.ServiceRegistrationsFor
+- │  │  └─ IRegisteredServicesTracker.ServiceRegistrationsFor
+- │  │     └─ ⇢ DefaultRegisteredServicesTracker.ServiceRegistrationsFor ×2 (depth limit)
+- │  └─ foreach (var srv in buildCallbackServices)
+- │     ├─ srv.Metadata.ContainsKey → FallbackDictionary<TKey, TValue>.ContainsKey (depth limit)
+- │     ├─ Enumerable.Empty<Parameter>
+- │     ├─ new ResolveRequest
+- │     ├─ IComponentContext.ResolveComponent
+- │     │  ├─ ⇢ Container.ResolveComponent (depth limit)
+- │     │  └─ ⇢ LifetimeScope.ResolveComponent (depth limit)
+- │     └─ BuildCallbackService.Execute (depth limit)
++ ├─ try
++ │  ├─ if ((options & ContainerBuildOptions.IgnoreStartableComponents) == ContainerBuildOptions.None)
++ │  │  └─ StartableManager.StartStartableComponents (depth limit)
++ │  └─ BuildCallbackManager.RunBuildCallbacks
++ │     ├─ possible initialization of BuildCallbackManager
++ │     │  └─ initialization of BuildCallbackManager (depth limit)
++ │     ├─ IComponentRegistry.ServiceRegistrationsFor → ComponentRegistry.ServiceRegistrationsFor (depth limit)
++ │     └─ foreach (var srv in buildCallbackServices)
++ │        ├─ srv.Metadata.ContainsKey → FallbackDictionary<TKey, TValue>.ContainsKey (depth limit)
++ │        ├─ Enumerable.Empty<Parameter>
++ │        ├─ new ResolveRequest
++ │        ├─ IComponentContext.ResolveComponent
++ │        │  ├─ ⇢ Container.ResolveComponent (depth limit)
++ │        │  └─ ⇢ LifetimeScope.ResolveComponent (depth limit)
++ │        └─ BuildCallbackService.Execute (depth limit)
++ ├─ catch
++ │  └─ Disposable.Dispose
++ │     ├─ Interlocked.Exchange
++ │     ├─ Disposable.Dispose → Container.Dispose (depth limit)
++ │     └─ GC.SuppressFinalize
+  ├─ possible initialization of ReflectionCacheSet
+  └─ ReflectionCacheSet.OnContainerBuildClearCaches
+```
+stderr:

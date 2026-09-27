@@ -2322,5 +2322,79 @@
         ]
       }
     ]
+  },
+  {
+    "id": "autofac-build-failure-disposal",
+    "repository": "https://github.com/autofac/Autofac.git",
+    "cacheName": "autofac",
+    "license": "MIT",
+    "licenseFile": "LICENSE",
+    "before": "f8d4095df4ca429b948c0f6f7c7b511e65b07988",
+    "after": "6caf2405e25257e01417c6c2d5a292838328d36a",
+    "beforeLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
+    "afterLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
+    "reason": "Dispose the newly built container when startup or build callbacks fail, preserving successful-path ordering and possible virtual cleanup dispatch; rethrow and call-free disposal guards remain unrendered",
+    "tags": [
+      "exception-cleanup",
+      "virtual-dispatch",
+      "moved-calls",
+      "startup",
+      "callback"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "review": "../tests/Callrift.RealWorldCases/AutofacDisposalExpectations.cs",
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--entry",
+          "Autofac.ContainerBuilder.Build(global::Autofac.Builder.ContainerBuildOptions)",
+          "--depth",
+          "3",
+          "--context",
+          "all",
+          "--externals"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Autofac/Autofac.csproj",
+          "--framework",
+          "net8.0",
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Autofac/Autofac.csproj",
+          "--framework",
+          "net8.0",
+          "--entry",
+          "Autofac.ContainerBuilder.Build(global::Autofac.Builder.ContainerBuildOptions)",
+          "--depth",
+          "3",
+          "--context",
+          "all",
+          "--externals"
+        ]
+      }
+    ]
   }
 ]
