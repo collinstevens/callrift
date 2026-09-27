@@ -107,6 +107,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             PollyRetryExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "polly-timeout-exception-value")
             PollyTimeoutExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "polly-async-overhead")
+            PollyAsyncOverheadExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "cleanarchitecture-value-object-operators")
             CleanArchitectureOperatorExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "cleanarchitecture-static-endpoint-groups")

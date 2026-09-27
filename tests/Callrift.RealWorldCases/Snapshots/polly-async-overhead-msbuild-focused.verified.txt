@@ -1,0 +1,659 @@
+﻿format: text
+exit: 0
+stdout:
+  CircuitBreakerManualControl.Initialize
+  ├─ _onIsolate.Add
+  ├─ _onReset.Add
+- ├─ if (_isolated)
+- │  ├─ ResilienceContextPool.get_Shared
+- │  │  └─ possible initialization of ResilienceContextPool
+- │  │     └─ initialization of ResilienceContextPool (depth limit)
+- │  ├─ ResilienceContextPool.Get
+- │  │  └─ ResilienceContextPool.Get
+- │  │     └─ ResilienceContextPool.Get (depth limit)
+- │  ├─ ResilienceContext.Initialize
+- │  │  ├─ ResilienceContext.set_IsSynchronous
+- │  │  └─ ResilienceContext.set_ResultType
+- │  ├─ CircuitBreakerManualControl.IsolateAsync
+- │  │  ├─ Guard.NotNull
+- │  │  │  └─ ArgumentNullException.ThrowIfNull
+- │  │  ├─ _onIsolate.ToArray
+- │  │  └─ foreach (var action in callbacks)
+- │  │     ├─ action
+- │  │     ├─ ResilienceContext.get_ContinueOnCapturedContext
+- │  │     └─ action(context).ConfigureAwait
+- │  ├─ IsolateAsync(context).GetAwaiter
+- │  └─ IsolateAsync(context).GetAwaiter().GetResult
++ ├─ if (isolated)
++ │  ├─ ResilienceContextPool.get_Shared
++ │  │  └─ possible initialization of ResilienceContextPool
++ │  │     └─ initialization of ResilienceContextPool (depth limit)
++ │  ├─ ResilienceContextPool.Get
++ │  │  └─ ResilienceContextPool.Get
++ │  │     └─ ResilienceContextPool.Get (depth limit)
++ │  ├─ ResilienceContext.Initialize
++ │  │  ├─ ResilienceContext.set_IsSynchronous
++ │  │  └─ ResilienceContext.set_ResultType
++ │  ├─ onIsolate
++ │  ├─ onIsolate(context).GetAwaiter
++ │  └─ onIsolate(context).GetAwaiter().GetResult
+~ └─ new CircuitBreakerManualControl.RegistrationDisposable (signature changed)
+     ├─ new Object
+-    ├─ _onIsolate.Remove
+-    └─ _onReset.Remove
+
+~ CircuitStateController<T>.OnActionPreExecuteAsync (signature changed)
+  ├─ CircuitStateController<T>.EnsureNotDisposed
++ ├─ Task.get_CompletedTask
+  ├─ if (_circuitState == CircuitState.Open)
+  ├─ if (_circuitState == CircuitState.Open && PermitHalfOpenCircuitTest_NeedsLock())
+  ├─ case CircuitState.Open
+  ├─ case CircuitState.HalfOpen when !isHalfOpen
+  ├─ case CircuitState.Isolated
+  ├─ if (isHalfOpen && _onHalfOpen is not null)
+  │  └─ CircuitStateController<T>.ScheduleHalfOpenTask
+~ │     └─ ScheduledTaskExecutor.ScheduleTask (signature changed)
+  │        ├─ ObjectDisposedException.ThrowIf
+  │        ├─ new TaskCompletionSource<object>
+- │        ├─ TaskCompletionSource<TResult>.get_Task
+- │        ├─ ResilienceContext.get_ContinueOnCapturedContext
+~ │        ├─ new ScheduledTaskExecutor.Entry (signature changed)
+  │        ├─ _tasks.Enqueue
+  │        ├─ _semaphore.Release
++ │        ├─ TaskCompletionSource<TResult>.get_Task
+  │        ├─ new OnCircuitHalfOpenedArguments
+  │        ├─ _onHalfOpen!
+  │        └─ _onHalfOpen!(new OnCircuitHalfOpenedArguments(context)).AsTask
++ ├─ if (exception is not null)
++ │  ├─ ResilienceStrategyTelemetry.SetTelemetrySource
++ │  │  ├─ Guard.NotNull
++ │  │  │  └─ ArgumentNullException.ThrowIfNull
++ │  │  ├─ ResilienceStrategyTelemetry.get_TelemetrySource
++ │  │  └─ ExecutionRejectedException.set_TelemetrySource
++ │  ├─ new Outcome<TResult>
++ │  │  ├─ new Outcome<TResult>
++ │  │  ├─ Guard.NotNull ↑ as above
++ │  │  └─ ExceptionDispatchInfo.Capture
++ │  └─ new
+~ ├─ CircuitStateController<T>.ExecuteScheduledTaskAsync (signature changed)
+- │  ├─ if (task is not null)
+- │  │  ├─ ResilienceContext.get_IsSynchronous
+- │  │  ├─ if (context.IsSynchronous)
+- │  │  │  ├─ task.GetAwaiter
+- │  │  │  └─ task.GetAwaiter().GetResult
+- │  │  └─ else (!(context.IsSynchronous))
+- │  │     ├─ ResilienceContext.get_ContinueOnCapturedContext
+- │  │     └─ task.ConfigureAwait
++ │  ├─ ResilienceContext.get_IsSynchronous
++ │  ├─ if (context.IsSynchronous)
++ │  │  └─ Task.get_IsCompleted
++ │  └─ if (context.IsSynchronous && !task.IsCompleted)
++ │     ├─ task.GetAwaiter
++ │     └─ task.GetAwaiter().GetResult
+- ├─ ResilienceContext.get_ContinueOnCapturedContext
+- ├─ ExecuteScheduledTaskAsync(task, context).ConfigureAwait
+- ├─ if (exception is not null)
+- │  ├─ ResilienceStrategyTelemetry.SetTelemetrySource
+- │  │  ├─ Guard.NotNull ↑ as above
+- │  │  ├─ ResilienceStrategyTelemetry.get_TelemetrySource
+- │  │  └─ ExecutionRejectedException.set_TelemetrySource
+- │  └─ Outcome.FromException
+- │     ├─ Guard.NotNull ↑ as above
+- │     └─ new Outcome<TResult>
+- │        ├─ new Outcome<TResult>
+- │        ├─ Guard.NotNull (depth limit)
+- │        └─ ExceptionDispatchInfo.Capture
++ ├─ Task.get_IsCompleted
++ ├─ if (!task.IsCompleted)
++ │  ├─ ResilienceContext.get_ContinueOnCapturedContext
++ │  └─ CircuitStateController<T>.WaitHalfOpenTask
++ │     └─ task.ConfigureAwait
++ ├─ Task.get_IsCompleted
++ ├─ Debug.Assert
++ ├─ task.GetAwaiter
++ └─ task.GetAwaiter().GetResult
+
+~ PipelineComponent.ExecuteCoreSync (signature changed)
+~ ├─ PipelineComponent.ExecuteCore (generic arguments changed)
+~ │  ├─ ⇢ BridgeComponent.ExecuteCore (generic arguments changed)
+  │  │  ├─ BridgeComponent.get_Strategy
+~ │  │  └─ ResilienceStrategy.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ ChaosBehaviorStrategy.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ ChaosFaultStrategy.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ ChaosLatencyStrategy.ExecuteCore (generic arguments changed)
+~ │  │     └─ ⇢ TimeoutResilienceStrategy.ExecuteCore (generic arguments changed)
+~ │  ├─ ⇢ BridgeComponent<T>.ExecuteCore (generic arguments changed)
+  │  │  ├─ if (callback is Func<ResilienceContext, TState, ValueTask<Outcome<T>>> casted)
+  │  │  │  ├─ BridgeComponent<T>.get_Strategy
+~ │  │  │  ├─ ResilienceStrategy<TResult>.ExecuteCore (generic arguments changed)
+~ │  │  │  │  ├─ ⇢ CircuitBreakerResilienceStrategy<T>.ExecuteCore (generic arguments changed)
+~ │  │  │  │  ├─ ⇢ FallbackResilienceStrategy<T>.ExecuteCore (generic arguments changed)
+~ │  │  │  │  ├─ ⇢ HedgingResilienceStrategy<T>.ExecuteCore (generic arguments changed)
+~ │  │  │  │  ├─ ⇢ RetryResilienceStrategy<T>.ExecuteCore (generic arguments changed)
+~ │  │  │  │  └─ ⇢ ChaosOutcomeStrategy<T>.ExecuteCore (generic arguments changed)
+- │  │  │  ├─ BridgeComponent<T>.ConvertValueTask (changes below depth limit)
++ │  │  │  ├─ Debug.Assert
++ │  │  │  └─ Unsafe.As<ValueTask<Outcome<T>>, ValueTask<Outcome<TResult>>>
+  │  │  └─ else (!(callback is Func<ResilienceContext, TState, ValueTask<Outcome<T>>> casted))
+  │  │     ├─ BridgeComponent<T>.get_Strategy
+~ │  │     ├─ ResilienceStrategy<TResult>.ExecuteCore (generic arguments changed)
+~ │  │     │  ├─ ⇢ CircuitBreakerResilienceStrategy<T>.ExecuteCore (generic arguments changed)
+~ │  │     │  ├─ ⇢ FallbackResilienceStrategy<T>.ExecuteCore (generic arguments changed)
+~ │  │     │  ├─ ⇢ HedgingResilienceStrategy<T>.ExecuteCore (generic arguments changed)
+~ │  │     │  ├─ ⇢ RetryResilienceStrategy<T>.ExecuteCore (generic arguments changed)
+~ │  │     │  ├─ ⇢ ChaosOutcomeStrategy<T>.ExecuteCore (generic arguments changed)
+  │  │     │  ├─ state.callback
+  │  │     │  ├─ ResilienceContext.get_ContinueOnCapturedContext
+  │  │     │  ├─ state.callback(context, state.state).ConfigureAwait
+- │  │     │  ├─ BridgeComponent<T>.ConvertOutcome (changes below depth limit)
++ │  │     │  └─ BridgeComponentBase.ConvertOutcome (changes below depth limit)
+- │  │     ├─ BridgeComponent<T>.ConvertValueTask (changes below depth limit)
++ │  │     ├─ ValueTask<TResult>.get_IsCompletedSuccessfully
++ │  │     ├─ if (valueTask.IsCompletedSuccessfully)
++ │  │     │  ├─ ValueTask<TResult>.get_Result
++ │  │     │  ├─ BridgeComponentBase.ConvertOutcome (changes below depth limit)
++ │  │     │  └─ new ValueTask<Outcome<TResult>>
++ │  │     └─ BridgeComponent<T>.ExecuteCore.ConvertValueTaskAsync (changes below depth limit)
+~ │  ├─ ⇢ ComponentWithDisposeCallbacks.ExecuteCore (generic arguments changed)
+  │  │  ├─ ComponentWithDisposeCallbacks.get_Component
+~ │  │  └─ PipelineComponent.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ BridgeComponent.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ BridgeComponent<T>.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ ComponentWithDisposeCallbacks.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ CompositeComponent.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ DelegatingComponent.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ ExternalComponent.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore (generic arguments changed)
+~ │  │     └─ ⇢ ReloadableComponent.ExecuteCore (generic arguments changed)
+~ │  ├─ ⇢ CompositeComponent.ExecuteCore (generic arguments changed)
+  │  │  ├─ ResilienceStrategyTelemetry.get_Enabled
+  │  │  ├─ if (!_telemetry.Enabled)
+~ │  │  │  └─ CompositeComponent.ExecuteCoreWithoutTelemetry (generic arguments changed)
+~ │  │  └─ CompositeComponent.ExecuteCoreWithTelemetry (generic arguments changed)
+  │  │     ├─ _timeProvider.GetTimestamp
+  │  │     ├─ new ResilienceEvent
+  │  │     ├─ ResilienceStrategyTelemetry.Report (depth limit)
+~ │  │     ├─ CompositeComponent.ExecuteCoreWithoutTelemetry (generic arguments changed)
+  │  │     ├─ ResilienceContext.get_ContinueOnCapturedContext
+  │  │     ├─ ExecuteCoreWithoutTelemetry(callback, context, state).ConfigureAwait
+  │  │     ├─ new ResilienceEvent
+  │  │     ├─ _timeProvider.GetElapsedTime
+  │  │     ├─ new PipelineExecutedArguments
+  │  │     └─ ResilienceStrategyTelemetry.Report (depth limit)
+~ │  ├─ ⇢ DelegatingComponent.ExecuteCore (generic arguments changed)
+  │  │  ├─ RuntimeFeature.get_IsDynamicCodeSupported
+  │  │  ├─ if (RuntimeFeature.IsDynamicCodeSupported)
+~ │  │  │  └─ DelegatingComponent.ExecuteComponent (generic arguments changed)
+  │  │  └─ else (!(RuntimeFeature.IsDynamicCodeSupported))
+~ │  │     └─ DelegatingComponent.ExecuteComponentAot (generic arguments changed)
+~ │  ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (generic arguments changed)
+  │  │  ├─ Interlocked.Increment
+  │  │  ├─ try
+  │  │  │  ├─ ExecutionTrackingComponent.get_Component
+~ │  │  │  ├─ PipelineComponent.ExecuteCore (generic arguments changed) ↑ as above
+  │  │  │  ├─ ResilienceContext.get_ContinueOnCapturedContext
+  │  │  │  └─ Component.ExecuteCore(callback, context, state).ConfigureAwait
+  │  │  └─ finally
+~ │  ├─ ⇢ ExternalComponent.ExecuteCore (generic arguments changed)
+  │  │  ├─ ExternalComponent.get_Component
+~ │  │  └─ PipelineComponent.ExecuteCore (generic arguments changed) ↑ as above
+~ │  ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore (generic arguments changed)
+  │  │  └─ callback
+~ │  ├─ ⇢ ReloadableComponent.ExecuteCore (generic arguments changed)
+  │  │  ├─ ReloadableComponent.get_Component
+~ │  │  └─ PipelineComponent.ExecuteCore (generic arguments changed) ↑ as above
+- │  ├─ state.callbackMethod
+- │  ├─ new ValueTask<Outcome<TResult>>
++ │  ├─ try
++ │  │  ├─ state.callback
++ │  │  ├─ new Outcome<TResult>
++ │  │  │  └─ new Outcome<TResult>
++ │  │  └─ new ValueTask<Outcome<TResult>>
++ │  └─ catch (Exception e)
++ │     ├─ new Outcome<TResult>
++ │     │  ├─ new Outcome<TResult>
++ │     │  ├─ Guard.NotNull (depth limit)
++ │     │  └─ ExceptionDispatchInfo.Capture
++ │     └─ new ValueTask<Outcome<TResult>>
+  ├─ TaskHelper.GetResult
++ └─ Outcome<TResult>.GetResultOrRethrow
++    ├─ Outcome<TResult>.get_ExceptionDispatchInfo
++    ├─ if (ExceptionDispatchInfo is not null)
++    │  └─ .Throw
++    └─ Outcome<TResult>.get_Result
+
++ ReloadableComponent.Reload
++ ├─ _tokenSource!.Dispose
++ ├─ ResilienceContextPool.get_Shared
++ │  └─ possible initialization of ResilienceContextPool
++ │     └─ initialization of ResilienceContextPool
++ │        └─ new ResilienceContextPool.SharedPool (depth limit)
++ ├─ ResilienceContextPool.Get
++ │  └─ ResilienceContextPool.Get
++ │     └─ ResilienceContextPool.Get
++ │        ├─ new ResilienceContextCreationArguments
++ │        └─ ResilienceContextPool.Get → ResilienceContextPool.SharedPool.Get (depth limit)
++ ├─ ResilienceContext.Initialize ↑ as above
++ ├─ new ResilienceEvent
++ ├─ new ReloadableComponent.OnReloadArguments
++ │  └─ new Object
++ ├─ ResilienceStrategyTelemetry.Report
++ │  ├─ Guard.NotNull ↑ as above
++ │  ├─ ResilienceStrategyTelemetry.get_Listener
++ │  ├─ if (!(Listener is null))
++ │  │  └─ ResilienceEvent.get_Severity
++ │  ├─ ResilienceStrategyTelemetry.get_Listener
++ │  ├─ ResilienceStrategyTelemetry.get_TelemetrySource
++ │  ├─ new TelemetryEventArguments<TResult, TArgs>
++ │  └─ TelemetryListener.Write
++ ├─ ResilienceContextPool.get_Shared
++ ├─ ResilienceContextPool.Return → ResilienceContextPool.SharedPool.Return
++ │  ├─ Guard.NotNull ↑ as above
++ │  └─ ObjectPool<T>.Return
++ │     ├─ _returnFunc
++ │     ├─ if (!(_fastItem != null))
++ │     │  └─ Interlocked.CompareExchange
++ │     └─ if (_fastItem != null || Interlocked.CompareExchange(ref _fastItem, obj, null) != null)
++ │        ├─ Interlocked.Increment
++ │        ├─ possible initialization of ObjectPool<T>
++ │        │  └─ initialization of ObjectPool<T> (depth limit)
++ │        ├─ if (Interlocked.Increment(ref _numItems) <= MaxCapacity)
++ │        │  └─ _items.Enqueue
++ │        └─ Interlocked.Decrement
++ ├─ ReloadableComponent.get_Component
++ ├─ try
++ │  ├─ _factory
++ │  └─ ReloadableComponent.set_Component
++ ├─ catch (Exception e)
++ │  ├─ new ResilienceContext
++ │  │  ├─ new ResilienceProperties
++ │  │  │  ├─ new Dictionary<string, object?>
++ │  │  │  └─ new Object
++ │  │  └─ new Object
++ │  ├─ ResilienceContext.Initialize ↑ as above
++ │  ├─ new ResilienceEvent
++ │  ├─ Outcome.FromException
++ │  │  └─ Outcome.FromException
++ │  │     ├─ Guard.NotNull (depth limit)
++ │  │     └─ new Outcome<TResult> (depth limit)
++ │  ├─ new ReloadableComponent.ReloadFailedArguments
++ │  │  └─ new Object
++ │  └─ ResilienceStrategyTelemetry.Report
++ │     ├─ ResilienceStrategyTelemetry.get_Listener
++ │     ├─ if (!(Listener is null))
++ │     │  └─ ResilienceEvent.get_Severity
++ │     ├─ ResilienceStrategyTelemetry.get_Listener
++ │     ├─ ResilienceStrategyTelemetry.get_TelemetrySource
++ │     ├─ new TelemetryEventArguments<TResult, TArgs>
++ │     └─ TelemetryListener.Write
++ ├─ ReloadableComponent.TryRegisterOnReload
++ │  ├─ List<T>.get_Count
++ │  ├─ CancellationTokenSource.CreateLinkedTokenSource
++ │  ├─ CancellationTokenSource.get_Token
++ │  └─ _tokenSource.Token.UnsafeRegister
++ │     └─ ReloadableComponent.Reload (↺ cycle)
++ └─ ReloadableComponent.DisposeDiscardedComponentSafeAsync
++    ├─ try
++    │  ├─ PipelineComponent.DisposeAsync
++    │  │  ├─ ⇢ BridgeComponentBase.DisposeAsync (changes below depth limit)
++    │  │  ├─ ⇢ ComponentWithDisposeCallbacks.DisposeAsync (changes below depth limit)
++    │  │  ├─ ⇢ CompositeComponent.DisposeAsync (changes below depth limit)
++    │  │  ├─ ⇢ DelegatingComponent.DisposeAsync
++    │  │  ├─ ⇢ ExecutionTrackingComponent.DisposeAsync (changes below depth limit)
++    │  │  ├─ ⇢ ExternalComponent.DisposeAsync
++    │  │  ├─ ⇢ PipelineComponent.NullComponent.DisposeAsync
++    │  │  └─ ⇢ ReloadableComponent.DisposeAsync (changes below depth limit)
++    │  └─ component.DisposeAsync().ConfigureAwait
++    └─ catch (Exception e)
++       ├─ new ResilienceContext
++       │  ├─ new ResilienceProperties (depth limit)
++       │  └─ new Object
++       ├─ ResilienceContext.Initialize ↑ as above
++       ├─ new ResilienceEvent
++       ├─ Outcome.FromException
++       │  └─ Outcome.FromException (depth limit)
++       ├─ new ReloadableComponent.DisposedFailedArguments
++       │  └─ new Object
++       └─ ResilienceStrategyTelemetry.Report ↑ as above
+stderr:
+src/Polly.Core/CircuitBreaker/CircuitBreakerResilienceStrategy.cs:30: generic-context-limit: Generic invocation expansion for CircuitBreakerResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Fallback/FallbackResilienceStrategy.cs:20: generic-context-limit: Generic invocation expansion for FallbackResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Hedging/HedgingResilienceStrategy.cs:34: generic-context-limit: Generic invocation expansion for HedgingResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Retry/RetryResilienceStrategy.cs:46: generic-context-limit: Generic invocation expansion for RetryResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Simmy/Outcomes/ChaosOutcomeStrategy.cs:19: generic-context-limit: Generic invocation expansion for ChaosOutcomeStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/BridgeComponent.cs:11: generic-context-limit: Generic invocation expansion for BridgeComponent.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/BridgeComponent.TResult.cs:13: generic-context-limit: Generic invocation expansion for BridgeComponent<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/ComponentWithDisposeCallbacks.cs:22: generic-context-limit: Generic invocation expansion for ComponentWithDisposeCallbacks.ExecuteCore exceeded 128 type nodes.
+14 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  CircuitBreakerManualControl.Initialize
+  ├─ _onIsolate.Add
+  ├─ _onReset.Add
+- ├─ if (_isolated)
+- │  ├─ ResilienceContextPool.get_Shared
+- │  │  └─ possible initialization of ResilienceContextPool
+- │  │     └─ initialization of ResilienceContextPool (depth limit)
+- │  ├─ ResilienceContextPool.Get
+- │  │  └─ ResilienceContextPool.Get
+- │  │     └─ ResilienceContextPool.Get (depth limit)
+- │  ├─ ResilienceContext.Initialize
+- │  │  ├─ ResilienceContext.set_IsSynchronous
+- │  │  └─ ResilienceContext.set_ResultType
+- │  ├─ CircuitBreakerManualControl.IsolateAsync
+- │  │  ├─ Guard.NotNull
+- │  │  │  └─ ArgumentNullException.ThrowIfNull
+- │  │  ├─ _onIsolate.ToArray
+- │  │  └─ foreach (var action in callbacks)
+- │  │     ├─ action
+- │  │     ├─ ResilienceContext.get_ContinueOnCapturedContext
+- │  │     └─ action(context).ConfigureAwait
+- │  ├─ IsolateAsync(context).GetAwaiter
+- │  └─ IsolateAsync(context).GetAwaiter().GetResult
++ ├─ if (isolated)
++ │  ├─ ResilienceContextPool.get_Shared
++ │  │  └─ possible initialization of ResilienceContextPool
++ │  │     └─ initialization of ResilienceContextPool (depth limit)
++ │  ├─ ResilienceContextPool.Get
++ │  │  └─ ResilienceContextPool.Get
++ │  │     └─ ResilienceContextPool.Get (depth limit)
++ │  ├─ ResilienceContext.Initialize
++ │  │  ├─ ResilienceContext.set_IsSynchronous
++ │  │  └─ ResilienceContext.set_ResultType
++ │  ├─ onIsolate
++ │  ├─ onIsolate(context).GetAwaiter
++ │  └─ onIsolate(context).GetAwaiter().GetResult
+~ └─ new CircuitBreakerManualControl.RegistrationDisposable (signature changed)
+     ├─ new Object
+-    ├─ _onIsolate.Remove
+-    └─ _onReset.Remove
+
+~ CircuitStateController<T>.OnActionPreExecuteAsync (signature changed)
+  ├─ CircuitStateController<T>.EnsureNotDisposed
++ ├─ Task.get_CompletedTask
+  ├─ if (_circuitState == CircuitState.Open)
+  ├─ if (_circuitState == CircuitState.Open && PermitHalfOpenCircuitTest_NeedsLock())
+  ├─ case CircuitState.Open
+  ├─ case CircuitState.HalfOpen when !isHalfOpen
+  ├─ case CircuitState.Isolated
+  ├─ if (isHalfOpen && _onHalfOpen is not null)
+  │  └─ CircuitStateController<T>.ScheduleHalfOpenTask
+~ │     └─ ScheduledTaskExecutor.ScheduleTask (signature changed)
+  │        ├─ ObjectDisposedException.ThrowIf
+  │        ├─ new TaskCompletionSource<object>
+- │        ├─ TaskCompletionSource<TResult>.get_Task
+- │        ├─ ResilienceContext.get_ContinueOnCapturedContext
+~ │        ├─ new ScheduledTaskExecutor.Entry (signature changed)
+  │        ├─ _tasks.Enqueue
+  │        ├─ _semaphore.Release
++ │        ├─ TaskCompletionSource<TResult>.get_Task
+  │        ├─ new OnCircuitHalfOpenedArguments
+  │        ├─ _onHalfOpen!
+  │        └─ _onHalfOpen!(new OnCircuitHalfOpenedArguments(context)).AsTask
++ ├─ if (exception is not null)
++ │  ├─ ResilienceStrategyTelemetry.SetTelemetrySource
++ │  │  ├─ Guard.NotNull
++ │  │  │  └─ ArgumentNullException.ThrowIfNull
++ │  │  ├─ ResilienceStrategyTelemetry.get_TelemetrySource
++ │  │  └─ ExecutionRejectedException.set_TelemetrySource
++ │  ├─ new Outcome<TResult>
++ │  │  ├─ new Outcome<TResult>
++ │  │  ├─ Guard.NotNull ↑ as above
++ │  │  └─ ExceptionDispatchInfo.Capture
++ │  └─ new
+~ ├─ CircuitStateController<T>.ExecuteScheduledTaskAsync (signature changed)
+- │  ├─ if (task is not null)
+- │  │  ├─ ResilienceContext.get_IsSynchronous
+- │  │  ├─ if (context.IsSynchronous)
+- │  │  │  ├─ task.GetAwaiter
+- │  │  │  └─ task.GetAwaiter().GetResult
+- │  │  └─ else (!(context.IsSynchronous))
+- │  │     ├─ ResilienceContext.get_ContinueOnCapturedContext
+- │  │     └─ task.ConfigureAwait
++ │  ├─ ResilienceContext.get_IsSynchronous
++ │  ├─ if (context.IsSynchronous)
++ │  │  └─ Task.get_IsCompleted
++ │  └─ if (context.IsSynchronous && !task.IsCompleted)
++ │     ├─ task.GetAwaiter
++ │     └─ task.GetAwaiter().GetResult
+- ├─ ResilienceContext.get_ContinueOnCapturedContext
+- ├─ ExecuteScheduledTaskAsync(task, context).ConfigureAwait
+- ├─ if (exception is not null)
+- │  ├─ ResilienceStrategyTelemetry.SetTelemetrySource
+- │  │  ├─ Guard.NotNull ↑ as above
+- │  │  ├─ ResilienceStrategyTelemetry.get_TelemetrySource
+- │  │  └─ ExecutionRejectedException.set_TelemetrySource
+- │  └─ Outcome.FromException
+- │     ├─ Guard.NotNull ↑ as above
+- │     └─ new Outcome<TResult>
+- │        ├─ new Outcome<TResult>
+- │        ├─ Guard.NotNull (depth limit)
+- │        └─ ExceptionDispatchInfo.Capture
++ ├─ Task.get_IsCompleted
++ ├─ if (!task.IsCompleted)
++ │  ├─ ResilienceContext.get_ContinueOnCapturedContext
++ │  └─ CircuitStateController<T>.WaitHalfOpenTask
++ │     └─ task.ConfigureAwait
++ ├─ Task.get_IsCompleted
++ ├─ Debug.Assert
++ ├─ task.GetAwaiter
++ └─ task.GetAwaiter().GetResult
+
+~ PipelineComponent.ExecuteCoreSync (signature changed)
+~ ├─ PipelineComponent.ExecuteCore (generic arguments changed)
+~ │  ├─ ⇢ BridgeComponent.ExecuteCore (generic arguments changed)
+  │  │  ├─ BridgeComponent.get_Strategy
+~ │  │  └─ ResilienceStrategy.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ ChaosBehaviorStrategy.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ ChaosFaultStrategy.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ ChaosLatencyStrategy.ExecuteCore (generic arguments changed)
+~ │  │     └─ ⇢ TimeoutResilienceStrategy.ExecuteCore (generic arguments changed)
+~ │  ├─ ⇢ BridgeComponent<T>.ExecuteCore (generic arguments changed)
+  │  │  ├─ if (callback is Func<ResilienceContext, TState, ValueTask<Outcome<T>>> casted)
+  │  │  │  ├─ BridgeComponent<T>.get_Strategy
+~ │  │  │  ├─ ResilienceStrategy<TResult>.ExecuteCore (generic arguments changed)
+~ │  │  │  │  ├─ ⇢ CircuitBreakerResilienceStrategy<T>.ExecuteCore (generic arguments changed)
+~ │  │  │  │  ├─ ⇢ FallbackResilienceStrategy<T>.ExecuteCore (generic arguments changed)
+~ │  │  │  │  ├─ ⇢ HedgingResilienceStrategy<T>.ExecuteCore (generic arguments changed)
+~ │  │  │  │  ├─ ⇢ RetryResilienceStrategy<T>.ExecuteCore (generic arguments changed)
+~ │  │  │  │  └─ ⇢ ChaosOutcomeStrategy<T>.ExecuteCore (generic arguments changed)
+- │  │  │  ├─ BridgeComponent<T>.ConvertValueTask (changes below depth limit)
++ │  │  │  ├─ Debug.Assert
++ │  │  │  └─ Unsafe.As<ValueTask<Outcome<T>>, ValueTask<Outcome<TResult>>>
+  │  │  └─ else (!(callback is Func<ResilienceContext, TState, ValueTask<Outcome<T>>> casted))
+  │  │     ├─ BridgeComponent<T>.get_Strategy
+~ │  │     ├─ ResilienceStrategy<TResult>.ExecuteCore (generic arguments changed)
+~ │  │     │  ├─ ⇢ CircuitBreakerResilienceStrategy<T>.ExecuteCore (generic arguments changed)
+~ │  │     │  ├─ ⇢ FallbackResilienceStrategy<T>.ExecuteCore (generic arguments changed)
+~ │  │     │  ├─ ⇢ HedgingResilienceStrategy<T>.ExecuteCore (generic arguments changed)
+~ │  │     │  ├─ ⇢ RetryResilienceStrategy<T>.ExecuteCore (generic arguments changed)
+~ │  │     │  ├─ ⇢ ChaosOutcomeStrategy<T>.ExecuteCore (generic arguments changed)
+  │  │     │  ├─ state.callback
+  │  │     │  ├─ ResilienceContext.get_ContinueOnCapturedContext
+  │  │     │  ├─ state.callback(context, state.state).ConfigureAwait
+- │  │     │  ├─ BridgeComponent<T>.ConvertOutcome (changes below depth limit)
++ │  │     │  └─ BridgeComponentBase.ConvertOutcome (changes below depth limit)
+- │  │     ├─ BridgeComponent<T>.ConvertValueTask (changes below depth limit)
++ │  │     ├─ ValueTask<TResult>.get_IsCompletedSuccessfully
++ │  │     ├─ if (valueTask.IsCompletedSuccessfully)
++ │  │     │  ├─ ValueTask<TResult>.get_Result
++ │  │     │  ├─ BridgeComponentBase.ConvertOutcome (changes below depth limit)
++ │  │     │  └─ new ValueTask<Outcome<TResult>>
++ │  │     └─ BridgeComponent<T>.ExecuteCore.ConvertValueTaskAsync (changes below depth limit)
+~ │  ├─ ⇢ ComponentWithDisposeCallbacks.ExecuteCore (generic arguments changed)
+  │  │  ├─ ComponentWithDisposeCallbacks.get_Component
+~ │  │  └─ PipelineComponent.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ BridgeComponent.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ BridgeComponent<T>.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ ComponentWithDisposeCallbacks.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ CompositeComponent.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ DelegatingComponent.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ ExternalComponent.ExecuteCore (generic arguments changed)
+~ │  │     ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore (generic arguments changed)
+~ │  │     └─ ⇢ ReloadableComponent.ExecuteCore (generic arguments changed)
+~ │  ├─ ⇢ CompositeComponent.ExecuteCore (generic arguments changed)
+  │  │  ├─ ResilienceStrategyTelemetry.get_Enabled
+  │  │  ├─ if (!_telemetry.Enabled)
+~ │  │  │  └─ CompositeComponent.ExecuteCoreWithoutTelemetry (generic arguments changed)
+~ │  │  └─ CompositeComponent.ExecuteCoreWithTelemetry (generic arguments changed)
+  │  │     ├─ _timeProvider.GetTimestamp
+  │  │     ├─ new ResilienceEvent
+  │  │     ├─ ResilienceStrategyTelemetry.Report (depth limit)
+~ │  │     ├─ CompositeComponent.ExecuteCoreWithoutTelemetry (generic arguments changed)
+  │  │     ├─ ResilienceContext.get_ContinueOnCapturedContext
+  │  │     ├─ ExecuteCoreWithoutTelemetry(callback, context, state).ConfigureAwait
+  │  │     ├─ new ResilienceEvent
+  │  │     ├─ _timeProvider.GetElapsedTime
+  │  │     ├─ new PipelineExecutedArguments
+  │  │     └─ ResilienceStrategyTelemetry.Report (depth limit)
+~ │  ├─ ⇢ DelegatingComponent.ExecuteCore (generic arguments changed)
+  │  │  ├─ RuntimeFeature.get_IsDynamicCodeSupported
+  │  │  ├─ if (RuntimeFeature.IsDynamicCodeSupported)
+~ │  │  │  └─ DelegatingComponent.ExecuteComponent (generic arguments changed)
+  │  │  └─ else (!(RuntimeFeature.IsDynamicCodeSupported))
+~ │  │     └─ DelegatingComponent.ExecuteComponentAot (generic arguments changed)
+~ │  ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (generic arguments changed)
+  │  │  ├─ Interlocked.Increment
+  │  │  ├─ try
+  │  │  │  ├─ ExecutionTrackingComponent.get_Component
+~ │  │  │  ├─ PipelineComponent.ExecuteCore (generic arguments changed) ↑ as above
+  │  │  │  ├─ ResilienceContext.get_ContinueOnCapturedContext
+  │  │  │  └─ Component.ExecuteCore(callback, context, state).ConfigureAwait
+  │  │  └─ finally
+~ │  ├─ ⇢ ExternalComponent.ExecuteCore (generic arguments changed)
+  │  │  ├─ ExternalComponent.get_Component
+~ │  │  └─ PipelineComponent.ExecuteCore (generic arguments changed) ↑ as above
+~ │  ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore (generic arguments changed)
+  │  │  └─ callback
+~ │  ├─ ⇢ ReloadableComponent.ExecuteCore (generic arguments changed)
+  │  │  ├─ ReloadableComponent.get_Component
+~ │  │  └─ PipelineComponent.ExecuteCore (generic arguments changed) ↑ as above
+- │  ├─ state.callbackMethod
+- │  ├─ new ValueTask<Outcome<TResult>>
++ │  ├─ try
++ │  │  ├─ state.callback
++ │  │  ├─ new Outcome<TResult>
++ │  │  │  └─ new Outcome<TResult>
++ │  │  └─ new ValueTask<Outcome<TResult>>
++ │  └─ catch (Exception e)
++ │     ├─ new Outcome<TResult>
++ │     │  ├─ new Outcome<TResult>
++ │     │  ├─ Guard.NotNull (depth limit)
++ │     │  └─ ExceptionDispatchInfo.Capture
++ │     └─ new ValueTask<Outcome<TResult>>
+  ├─ TaskHelper.GetResult
++ └─ Outcome<TResult>.GetResultOrRethrow
++    ├─ Outcome<TResult>.get_ExceptionDispatchInfo
++    ├─ if (ExceptionDispatchInfo is not null)
++    │  └─ .Throw
++    └─ Outcome<TResult>.get_Result
+
++ ReloadableComponent.Reload
++ ├─ _tokenSource!.Dispose
++ ├─ ResilienceContextPool.get_Shared
++ │  └─ possible initialization of ResilienceContextPool
++ │     └─ initialization of ResilienceContextPool
++ │        └─ new ResilienceContextPool.SharedPool (depth limit)
++ ├─ ResilienceContextPool.Get
++ │  └─ ResilienceContextPool.Get
++ │     └─ ResilienceContextPool.Get
++ │        ├─ new ResilienceContextCreationArguments
++ │        └─ ResilienceContextPool.Get → ResilienceContextPool.SharedPool.Get (depth limit)
++ ├─ ResilienceContext.Initialize ↑ as above
++ ├─ new ResilienceEvent
++ ├─ new ReloadableComponent.OnReloadArguments
++ │  └─ new Object
++ ├─ ResilienceStrategyTelemetry.Report
++ │  ├─ Guard.NotNull ↑ as above
++ │  ├─ ResilienceStrategyTelemetry.get_Listener
++ │  ├─ if (!(Listener is null))
++ │  │  └─ ResilienceEvent.get_Severity
++ │  ├─ ResilienceStrategyTelemetry.get_Listener
++ │  ├─ ResilienceStrategyTelemetry.get_TelemetrySource
++ │  ├─ new TelemetryEventArguments<TResult, TArgs>
++ │  └─ TelemetryListener.Write
++ ├─ ResilienceContextPool.get_Shared
++ ├─ ResilienceContextPool.Return → ResilienceContextPool.SharedPool.Return
++ │  ├─ Guard.NotNull ↑ as above
++ │  └─ ObjectPool<T>.Return
++ │     ├─ _returnFunc
++ │     ├─ if (!(_fastItem != null))
++ │     │  └─ Interlocked.CompareExchange
++ │     └─ if (_fastItem != null || Interlocked.CompareExchange(ref _fastItem, obj, null) != null)
++ │        ├─ Interlocked.Increment
++ │        ├─ possible initialization of ObjectPool<T>
++ │        │  └─ initialization of ObjectPool<T> (depth limit)
++ │        ├─ if (Interlocked.Increment(ref _numItems) <= MaxCapacity)
++ │        │  └─ _items.Enqueue
++ │        └─ Interlocked.Decrement
++ ├─ ReloadableComponent.get_Component
++ ├─ try
++ │  ├─ _factory
++ │  └─ ReloadableComponent.set_Component
++ ├─ catch (Exception e)
++ │  ├─ new ResilienceContext
++ │  │  ├─ new ResilienceProperties
++ │  │  │  ├─ new Dictionary<string, object?>
++ │  │  │  └─ new Object
++ │  │  └─ new Object
++ │  ├─ ResilienceContext.Initialize ↑ as above
++ │  ├─ new ResilienceEvent
++ │  ├─ Outcome.FromException
++ │  │  └─ Outcome.FromException
++ │  │     ├─ Guard.NotNull (depth limit)
++ │  │     └─ new Outcome<TResult> (depth limit)
++ │  ├─ new ReloadableComponent.ReloadFailedArguments
++ │  │  └─ new Object
++ │  └─ ResilienceStrategyTelemetry.Report
++ │     ├─ ResilienceStrategyTelemetry.get_Listener
++ │     ├─ if (!(Listener is null))
++ │     │  └─ ResilienceEvent.get_Severity
++ │     ├─ ResilienceStrategyTelemetry.get_Listener
++ │     ├─ ResilienceStrategyTelemetry.get_TelemetrySource
++ │     ├─ new TelemetryEventArguments<TResult, TArgs>
++ │     └─ TelemetryListener.Write
++ ├─ ReloadableComponent.TryRegisterOnReload
++ │  ├─ List<T>.get_Count
++ │  ├─ CancellationTokenSource.CreateLinkedTokenSource
++ │  ├─ CancellationTokenSource.get_Token
++ │  └─ _tokenSource.Token.UnsafeRegister
++ │     └─ ReloadableComponent.Reload (↺ cycle)
++ └─ ReloadableComponent.DisposeDiscardedComponentSafeAsync
++    ├─ try
++    │  ├─ PipelineComponent.DisposeAsync
++    │  │  ├─ ⇢ BridgeComponentBase.DisposeAsync (changes below depth limit)
++    │  │  ├─ ⇢ ComponentWithDisposeCallbacks.DisposeAsync (changes below depth limit)
++    │  │  ├─ ⇢ CompositeComponent.DisposeAsync (changes below depth limit)
++    │  │  ├─ ⇢ DelegatingComponent.DisposeAsync
++    │  │  ├─ ⇢ ExecutionTrackingComponent.DisposeAsync (changes below depth limit)
++    │  │  ├─ ⇢ ExternalComponent.DisposeAsync
++    │  │  ├─ ⇢ PipelineComponent.NullComponent.DisposeAsync
++    │  │  └─ ⇢ ReloadableComponent.DisposeAsync (changes below depth limit)
++    │  └─ component.DisposeAsync().ConfigureAwait
++    └─ catch (Exception e)
++       ├─ new ResilienceContext
++       │  ├─ new ResilienceProperties (depth limit)
++       │  └─ new Object
++       ├─ ResilienceContext.Initialize ↑ as above
++       ├─ new ResilienceEvent
++       ├─ Outcome.FromException
++       │  └─ Outcome.FromException (depth limit)
++       ├─ new ReloadableComponent.DisposedFailedArguments
++       │  └─ new Object
++       └─ ResilienceStrategyTelemetry.Report ↑ as above
+```
+stderr:
+src/Polly.Core/CircuitBreaker/CircuitBreakerResilienceStrategy.cs:30: generic-context-limit: Generic invocation expansion for CircuitBreakerResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Fallback/FallbackResilienceStrategy.cs:20: generic-context-limit: Generic invocation expansion for FallbackResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Hedging/HedgingResilienceStrategy.cs:34: generic-context-limit: Generic invocation expansion for HedgingResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Retry/RetryResilienceStrategy.cs:46: generic-context-limit: Generic invocation expansion for RetryResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Simmy/Outcomes/ChaosOutcomeStrategy.cs:19: generic-context-limit: Generic invocation expansion for ChaosOutcomeStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/BridgeComponent.cs:11: generic-context-limit: Generic invocation expansion for BridgeComponent.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/BridgeComponent.TResult.cs:13: generic-context-limit: Generic invocation expansion for BridgeComponent<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/ComponentWithDisposeCallbacks.cs:22: generic-context-limit: Generic invocation expansion for ComponentWithDisposeCallbacks.ExecuteCore exceeded 128 type nodes.
+14 additional diagnostics; use --diagnostics full.

@@ -1,0 +1,1035 @@
+﻿format: text
+exit: 0
+stdout:
+  CircuitBreakerManualControl.CloseAsync
+  ├─ ResilienceContextPool.get_Shared
+  ├─ ResilienceContextPool.Get
++ ├─ ResilienceContext.Initialize
++ │  ├─ ResilienceContext.set_IsSynchronous
++ │  └─ ResilienceContext.set_ResultType
+  ├─ try
+- │  ├─ CircuitBreakerManualControl.CloseAsync (changes below depth limit)
++ │  └─ foreach (var action in callbacks)
++ │     └─ ResilienceContext.get_ContinueOnCapturedContext
+  └─ finally
+
+  CircuitBreakerManualControl.IsolateAsync
+  ├─ …
+  ├─ ResilienceContextPool.Get
+  ├─ ResilienceContext.Initialize
+  ├─ try
+- │  ├─ CircuitBreakerManualControl.IsolateAsync (changes below depth limit)
++ │  └─ foreach (var action in callbacks)
++ │     └─ ResilienceContext.get_ContinueOnCapturedContext
+  └─ finally
+
+- ScheduledTaskExecutor.Entry.set_ContinueOnCapturedContext
+
+  CircuitBreakerResiliencePipelineBuilderExtensions.AddCircuitBreaker
+  ├─ Guard.NotNull ×2
+  └─ ResiliencePipelineBuilderExtensions.AddStrategy
+     ├─ …
+     ├─ Guard.NotNull
+     ├─ ResiliencePipelineBuilderBase.AddPipelineComponent (depth limit)
+~    └─ CircuitBreakerResiliencePipelineBuilderExtensions.CreateStrategy (changes below depth limit)
+
+  CircuitBreakerResiliencePipelineBuilderExtensions.AddCircuitBreaker
+  ├─ Guard.NotNull ×2
+  └─ ResiliencePipelineBuilderExtensions.AddStrategy
+     ├─ …
+     ├─ Guard.NotNull
+     ├─ ResiliencePipelineBuilderBase.AddPipelineComponent (depth limit)
+~    └─ CircuitBreakerResiliencePipelineBuilderExtensions.CreateStrategy (changes below depth limit)
+
+  new HedgingStrategyOptions<TResult>
+  ├─ possible initialization of HedgingConstants
+  ├─ possible initialization of DefaultPredicates<TArgs, TResult>
+- ├─ callback
+- │  └─ callback
+- │     ├─ HedgingActionGeneratorArguments<TResult>.get_PrimaryContext
+- │     ├─ ResilienceContext.get_IsSynchronous
+- │     ├─ if (args.PrimaryContext.IsSynchronous)
+- │     │  ├─ Task.Run
+- │     │  │  ├─ HedgingActionGeneratorArguments<TResult>.get_Callback
+- │     │  │  └─ HedgingActionGeneratorArguments<TResult>.get_ActionContext
+- │     │  ├─ HedgingActionGeneratorArguments<TResult>.get_ActionContext
+- │     │  └─ ResilienceContext.get_ContinueOnCapturedContext
+- │     ├─ HedgingActionGeneratorArguments<TResult>.get_Callback
+- │     ├─ HedgingActionGeneratorArguments<TResult>.get_ActionContext ×2
+- │     └─ ResilienceContext.get_ContinueOnCapturedContext
++ ├─ possible initialization of HedgingStrategyOptions<TResult>
++ │  └─ initialization of HedgingStrategyOptions<TResult> (changes below depth limit)
+  ├─ new ResilienceStrategyOptions
+  └─ ResilienceStrategyOptions.set_Name
+
+  HedgingResiliencePipelineBuilderExtensions.AddHedging
+  ├─ Guard.NotNull ×2
+  └─ ResiliencePipelineBuilderExtensions.AddStrategy
+     ├─ …
+     ├─ Guard.NotNull
+     ├─ ResiliencePipelineBuilderBase.AddPipelineComponent (depth limit)
+~    └─ HedgingResiliencePipelineBuilderExtensions.CreateHedgingStrategy (changes below depth limit)
+
+- clone RegistryPipelineComponentBuilder<TBuilder, TKey>.Builder
+- └─ new RegistryPipelineComponentBuilder<TBuilder, TKey>.Builder
+
+- RegistryPipelineComponentBuilder<TBuilder, TKey>.Builder.get_EqualityContract
+
+- RegistryPipelineComponentBuilder<TBuilder, TKey>.Builder.set_ComponentFactory
+
+- RegistryPipelineComponentBuilder<TBuilder, TKey>.Builder.set_Instance
+
+- RegistryPipelineComponentBuilder<TBuilder, TKey>.Builder.set_ReloadTokens
+
+- RegistryPipelineComponentBuilder<TBuilder, TKey>.Builder.set_Telemetry
+
+  ResiliencePipelineProvider<TKey>.GetPipeline
+  └─ ResiliencePipelineProvider<TKey>.TryGetPipeline → ResiliencePipelineRegistry<TKey>.TryGetPipeline
+     ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
+     └─ if (_builders.TryGetValue(key, out var configure))
+~       └─ ResiliencePipelineRegistry<TKey>.GetOrAddPipeline (changes below depth limit)
+
+  ResiliencePipelineProvider<TKey>.GetPipeline
+  └─ ResiliencePipelineProvider<TKey>.TryGetPipeline → ResiliencePipelineRegistry<TKey>.TryGetPipeline
+     ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
+~    ├─ ResiliencePipelineRegistry<TKey>.GetGenericRegistry (changes below depth limit)
+~    └─ ResiliencePipelineRegistry<TKey>.GenericRegistry<TResult>.TryGet (changes below depth limit)
+
+  ResiliencePipelineRegistry<TKey>.GetOrAddPipeline
+  ├─ Guard.NotNull
+  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
+  └─ ResiliencePipelineRegistry<TKey>.GetOrAddPipeline
+     ├─ Guard.NotNull
+     ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
+-    ├─ _pipelines.GetOrAdd
+-    │  ├─ new RegistryPipelineComponentBuilder<TBuilder, TKey>
+-    │  ├─ RegistryPipelineComponentBuilder<TBuilder, TKey>.CreateComponent (changes below depth limit)
+-    │  └─ new ResiliencePipeline (depth limit)
++    ├─ new RegistryPipelineComponentBuilder<TBuilder, TKey>
++    ├─ RegistryPipelineComponentBuilder<TBuilder, TKey>.CreateComponent (changes below depth limit)
++    └─ new ResiliencePipeline (depth limit)
+
+  ResiliencePipelineRegistry<TKey>.GetOrAddPipeline
+  ├─ Guard.NotNull
+  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
+  └─ ResiliencePipelineRegistry<TKey>.GetOrAddPipeline
+     ├─ Guard.NotNull
+     ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
+~    ├─ ResiliencePipelineRegistry<TKey>.GetGenericRegistry (changes below depth limit)
+~    └─ ResiliencePipelineRegistry<TKey>.GenericRegistry<TResult>.GetOrAdd (changes below depth limit)
+
+  ResiliencePipelineRegistry<TKey>.TryAddBuilder
+  ├─ Guard.NotNull
+  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
+  ├─ ResiliencePipelineRegistry<TKey>.GetGenericRegistry
+- │  ├─ _genericRegistry.GetOrAdd
+- │  │  └─ new ResiliencePipelineRegistry<TKey>.GenericRegistry<TResult>
+- │  │     └─ new ResiliencePipelineBuilder<TResult> (depth limit)
++ │  └─ new ResiliencePipelineRegistry<TKey>.GenericRegistry<TResult>
++ │     └─ new ResiliencePipelineBuilder<TResult> (depth limit)
+  └─ ResiliencePipelineRegistry<TKey>.GenericRegistry<TResult>.TryAddBuilder
+
+  ResiliencePipeline.Execute
+  ├─ Guard.NotNull
+  ├─ ResiliencePipeline.GetSyncContext
+  ├─ try
+  │  ├─ ResiliencePipeline.get_Component
+~ │  ├─ PipelineComponent.ExecuteCoreSync (signature changed)
+- │  │  ├─ try
+- │  │  │  └─ Outcome.get_Void (depth limit)
+- │  │  ├─ catch (Exception e)
+- │  │  │  └─ Outcome.FromException (depth limit)
++ │  │  └─ possible initialization of VoidResult
++ │  │     └─ initialization of VoidResult (depth limit)
+- │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  └─ finally
+
+  ResiliencePipeline.Execute
+  ├─ Guard.NotNull
+- ├─ Guard.NotNull
+- ├─ ResiliencePipeline.InitializeSyncContext
+- │  └─ ResiliencePipeline.InitializeSyncContext (depth limit)
+- ├─ ResiliencePipeline.get_Component
+- ├─ PipelineComponent.ExecuteCoreSync
+- │  ├─ PipelineComponent.ExecuteCore
+- │  │  ├─ ⇢ BridgeComponent.ExecuteCore (changes below depth limit)
+- │  │  ├─ ⇢ BridgeComponent<T>.ExecuteCore (changes below depth limit)
+- │  │  ├─ ⇢ ComponentWithDisposeCallbacks.ExecuteCore (changes below depth limit)
+- │  │  ├─ ⇢ CompositeComponent.ExecuteCore (changes below depth limit)
+- │  │  ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
+- │  │  ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
+- │  │  ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
+- │  │  ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore
+- │  │  └─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
+- │  ├─ TaskHelper.GetResult
+- │  ├─ try
+- │  │  └─ Outcome.get_Void (depth limit)
+- │  └─ catch (Exception e)
+- │     └─ Outcome.FromException (depth limit)
+- ├─ Outcome<TResult>.GetResultOrRethrow
+- │  ├─ Outcome<TResult>.get_ExceptionDispatchInfo
+- │  └─ Outcome<TResult>.get_Result
++ └─ ResiliencePipeline.Execute
++    ├─ Guard.NotNull ×2
++    ├─ ResiliencePipeline.InitializeSyncContext (depth limit)
++    ├─ ResiliencePipeline.get_Component
++    ├─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
++    └─ possible initialization of VoidResult
++       └─ initialization of VoidResult (depth limit)
+
+  ResiliencePipeline.Execute
+  ├─ Guard.NotNull
+  ├─ ResiliencePipeline.GetSyncContext
+  ├─ try
+  │  ├─ ResiliencePipeline.get_Component
+~ │  ├─ PipelineComponent.ExecuteCoreSync (signature changed)
+- │  │  ├─ try
+- │  │  │  ├─ ResilienceContext.get_CancellationToken
+- │  │  │  └─ Outcome.get_Void (depth limit)
+- │  │  ├─ catch (Exception e)
+- │  │  │  └─ Outcome.FromException (depth limit)
++ │  │  ├─ ResilienceContext.get_CancellationToken
++ │  │  └─ possible initialization of VoidResult
++ │  │     └─ initialization of VoidResult (depth limit)
+- │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  └─ finally
+
+  ResiliencePipeline.Execute
+  ├─ Guard.NotNull
+  ├─ ResiliencePipeline.GetSyncContext
+  ├─ try
+  │  ├─ ResiliencePipeline.get_Component
+~ │  ├─ PipelineComponent.ExecuteCoreSync (signature changed) ↑ as above
+- │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  └─ finally
+
+  ResiliencePipeline.Execute
+  ├─ Guard.NotNull
+  ├─ ResiliencePipeline.GetSyncContext
+  ├─ try
+  │  ├─ ResiliencePipeline.get_Component
+~ │  ├─ PipelineComponent.ExecuteCoreSync (signature changed) ↑ as above
+- │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  └─ finally
+
+  ResiliencePipeline.Execute
+  ├─ Guard.NotNull
+- ├─ Guard.NotNull
+- ├─ ResiliencePipeline.InitializeSyncContext ↑ as above
+- ├─ ResiliencePipeline.get_Component
+- ├─ PipelineComponent.ExecuteCoreSync ↑ as above
+- ├─ Outcome<TResult>.GetResultOrRethrow ↑ as above
++ └─ ResiliencePipeline.Execute ↑ as above
+
+  ResiliencePipeline.ExecuteAsync
+  ├─ …
+  ├─ ResiliencePipeline.InitializeAsyncContext
+  ├─ ResiliencePipeline.get_Component
+  ├─ PipelineComponent.ExecuteCore
+~ │  ├─ ⇢ BridgeComponent.ExecuteCore (changes below depth limit)
+~ │  ├─ ⇢ BridgeComponent<T>.ExecuteCore (changes below depth limit)
+~ │  ├─ ⇢ ComponentWithDisposeCallbacks.ExecuteCore (changes below depth limit)
+~ │  ├─ ⇢ CompositeComponent.ExecuteCore (changes below depth limit)
+~ │  ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
+~ │  ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
+~ │  ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
+  │  ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore
+~ │  ├─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
+  │  ├─ try
+  │  └─ catch (Exception e)
+  ├─ ResilienceContext.get_ContinueOnCapturedContext
+  └─ Outcome<TResult>.GetResultOrRethrow
+
+  ResiliencePipeline.ExecuteAsync
+  ├─ Guard.NotNull
+  ├─ ResiliencePipeline.GetAsyncContext
+  ├─ try
+  │  ├─ ResiliencePipeline.get_Component
+  │  ├─ PipelineComponent.ExecuteCore
+~ │  │  ├─ ⇢ BridgeComponent.ExecuteCore (changes below depth limit)
+~ │  │  ├─ ⇢ BridgeComponent<T>.ExecuteCore (changes below depth limit)
+~ │  │  ├─ ⇢ ComponentWithDisposeCallbacks.ExecuteCore (changes below depth limit)
+~ │  │  ├─ ⇢ CompositeComponent.ExecuteCore (changes below depth limit)
+~ │  │  ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
+~ │  │  ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
+~ │  │  ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
+  │  │  ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore
+~ │  │  ├─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
+  │  │  ├─ try
+  │  │  └─ catch (Exception e)
+  │  ├─ ResilienceContext.get_ContinueOnCapturedContext
+  │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  └─ finally
+
+  ResiliencePipeline.ExecuteAsync
+  ├─ Guard.NotNull
+  ├─ ResiliencePipeline.GetAsyncContext
+  ├─ try
+  │  ├─ ResiliencePipeline.get_Component
+  │  ├─ PipelineComponent.ExecuteCore ↑ as above
+  │  ├─ ResilienceContext.get_ContinueOnCapturedContext
+  │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  └─ finally
+
+  ResiliencePipeline.ExecuteAsync
+  ├─ …
+  ├─ ResiliencePipeline.InitializeAsyncContext
+  ├─ ResiliencePipeline.get_Component
+  ├─ PipelineComponent.ExecuteCore ↑ as above
+  ├─ ResilienceContext.get_ContinueOnCapturedContext
+  └─ Outcome<TResult>.GetResultOrRethrow
+
+  ResiliencePipeline<T>.Execute
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.Execute
+     ├─ Guard.NotNull
+     ├─ ResiliencePipeline.GetSyncContext (depth limit)
+     ├─ try
+     │  ├─ ResiliencePipeline.get_Component
+~    │  ├─ PipelineComponent.ExecuteCoreSync (signature changed)
+-    │  │  ├─ try
+-    │  │  │  └─ Outcome.FromResult (depth limit)
+-    │  │  └─ catch (Exception e)
+-    │  │     └─ Outcome.FromException (depth limit)
+-    │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+     └─ finally
+
+  ResiliencePipeline<T>.Execute
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.Execute
+     ├─ Guard.NotNull
+-    ├─ Guard.NotNull
+-    ├─ ResiliencePipeline.InitializeSyncContext (depth limit)
+-    ├─ ResiliencePipeline.get_Component
+-    ├─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
+-    │  ├─ try
+-    │  │  └─ Outcome.FromResult (depth limit)
+-    │  └─ catch (Exception e)
+-    │     └─ Outcome.FromException (depth limit)
+-    ├─ Outcome<TResult>.GetResultOrRethrow (depth limit)
++    └─ ResiliencePipeline.Execute (changes below depth limit)
+
+  ResiliencePipeline<T>.Execute
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.Execute
+     ├─ Guard.NotNull
+     ├─ ResiliencePipeline.GetSyncContext (depth limit)
+     ├─ try
+     │  ├─ ResiliencePipeline.get_Component
+~    │  ├─ PipelineComponent.ExecuteCoreSync (signature changed)
+-    │  │  ├─ try
+-    │  │  │  ├─ ResilienceContext.get_CancellationToken
+-    │  │  │  └─ Outcome.FromResult (depth limit)
+-    │  │  ├─ catch (Exception e)
+-    │  │  │  └─ Outcome.FromException (depth limit)
++    │  │  └─ ResilienceContext.get_CancellationToken
+-    │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+     └─ finally
+
+  ResiliencePipeline<T>.Execute
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.Execute
+     ├─ Guard.NotNull
+     ├─ ResiliencePipeline.GetSyncContext (depth limit)
+     ├─ try
+     │  ├─ ResiliencePipeline.get_Component
+~    │  ├─ PipelineComponent.ExecuteCoreSync (signature changed) ↑ as above
+-    │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+     └─ finally
+
+  ResiliencePipeline<T>.Execute
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.Execute
+     ├─ Guard.NotNull
+     ├─ ResiliencePipeline.GetSyncContext (depth limit)
+     ├─ try
+     │  ├─ ResiliencePipeline.get_Component
+~    │  ├─ PipelineComponent.ExecuteCoreSync (signature changed) ↑ as above
+-    │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+     └─ finally
+
+  ResiliencePipeline<T>.Execute
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.Execute
+     ├─ …
+     ├─ ResiliencePipeline.InitializeSyncContext (depth limit)
+     ├─ ResiliencePipeline.get_Component
+~    ├─ PipelineComponent.ExecuteCoreSync (signature changed) ↑ as above
+-    └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+
+  ResiliencePipeline<T>.ExecuteAsync
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.ExecuteAsync
+     ├─ …
+     ├─ ResiliencePipeline.InitializeAsyncContext (depth limit)
+     ├─ ResiliencePipeline.get_Component
+     ├─ PipelineComponent.ExecuteCore
+~    │  ├─ ⇢ BridgeComponent.ExecuteCore (changes below depth limit)
+~    │  ├─ ⇢ BridgeComponent<T>.ExecuteCore (changes below depth limit)
+~    │  ├─ ⇢ ComponentWithDisposeCallbacks.ExecuteCore (changes below depth limit)
+~    │  ├─ ⇢ CompositeComponent.ExecuteCore (changes below depth limit)
+~    │  ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
+~    │  ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
+~    │  ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
+     │  ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore
+~    │  ├─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
+     │  ├─ try
+     │  └─ catch (Exception e)
+     ├─ ResilienceContext.get_ContinueOnCapturedContext
+     └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+
+  ResiliencePipeline<T>.ExecuteAsync
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.ExecuteAsync
+     ├─ Guard.NotNull
+     ├─ ResiliencePipeline.GetAsyncContext (depth limit)
+     ├─ try
+     │  ├─ ResiliencePipeline.get_Component
+     │  ├─ PipelineComponent.ExecuteCore
+~    │  │  ├─ ⇢ BridgeComponent.ExecuteCore (changes below depth limit)
+~    │  │  ├─ ⇢ BridgeComponent<T>.ExecuteCore (changes below depth limit)
+~    │  │  ├─ ⇢ ComponentWithDisposeCallbacks.ExecuteCore (changes below depth limit)
+~    │  │  ├─ ⇢ CompositeComponent.ExecuteCore (changes below depth limit)
+~    │  │  ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
+~    │  │  ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
+~    │  │  ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
+     │  │  ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore
+~    │  │  ├─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
+     │  │  ├─ try
+     │  │  └─ catch (Exception e)
+     │  ├─ ResilienceContext.get_ContinueOnCapturedContext
+     │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+     └─ finally
+
+  ResiliencePipeline<T>.ExecuteAsync
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.ExecuteAsync
+     ├─ Guard.NotNull
+     ├─ ResiliencePipeline.GetAsyncContext (depth limit)
+     ├─ try
+     │  ├─ ResiliencePipeline.get_Component
+     │  ├─ PipelineComponent.ExecuteCore ↑ as above
+     │  ├─ ResilienceContext.get_ContinueOnCapturedContext
+     │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+     └─ finally
+
+  ResiliencePipeline<T>.ExecuteAsync
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.ExecuteAsync
+     ├─ …
+     ├─ ResiliencePipeline.InitializeAsyncContext (depth limit)
+     ├─ ResiliencePipeline.get_Component
+     ├─ PipelineComponent.ExecuteCore ↑ as above
+     ├─ ResilienceContext.get_ContinueOnCapturedContext
+     └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+
+  ResiliencePipeline<T>.ExecuteOutcomeAsync
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.ExecuteOutcomeAsync
+     ├─ …
+     ├─ ResiliencePipeline.InitializeAsyncContext (depth limit)
+     ├─ ResiliencePipeline.get_Component
+     └─ PipelineComponent.ExecuteCore
+~       ├─ ⇢ BridgeComponent.ExecuteCore (changes below depth limit)
+~       ├─ ⇢ BridgeComponent<T>.ExecuteCore (changes below depth limit)
+~       ├─ ⇢ ComponentWithDisposeCallbacks.ExecuteCore (changes below depth limit)
+~       ├─ ⇢ CompositeComponent.ExecuteCore (changes below depth limit)
+~       ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
+~       ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
+~       ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
+        ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore
+~       └─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
+
+  new RetryStrategyOptions
+  └─ new RetryStrategyOptions<TResult>
+     ├─ possible initialization of RetryConstants
+     ├─ possible initialization of DefaultPredicates<TArgs, TResult>
+-    ├─ possible initialization of RandomUtil
+-    │  └─ initialization of RandomUtil (changes below depth limit)
+     ├─ callback
+~    │  └─ RandomUtil.NextDouble (signature changed)
+     ├─ new ResilienceStrategyOptions
+     └─ ResilienceStrategyOptions.set_Name
+
+  ChaosBehaviorPipelineBuilderExtensions.AddChaosBehavior
+  ├─ Guard.NotNull
+  ├─ new ChaosBehaviorStrategyOptions
+~ │  ├─ new ChaosStrategyOptions (changes below depth limit)
+  │  └─ ResilienceStrategyOptions.set_Name
+  ├─ ChaosStrategyOptions.set_InjectionRate
+  ├─ callback
+  └─ …
+
+  ChaosFaultPipelineBuilderExtensions.AddChaosFault
+  ├─ Guard.NotNull
+  ├─ new ChaosFaultStrategyOptions
+~ │  ├─ new ChaosStrategyOptions (changes below depth limit)
+  │  └─ ResilienceStrategyOptions.set_Name
+  ├─ ChaosStrategyOptions.set_InjectionRate
+  ├─ ChaosFaultStrategyOptions.set_FaultGenerator
+  └─ …
+
+  ChaosLatencyPipelineBuilderExtensions.AddChaosLatency
+  ├─ Guard.NotNull
+  ├─ new ChaosLatencyStrategyOptions
+  │  ├─ possible initialization of ChaosLatencyConstants
+~ │  ├─ new ChaosStrategyOptions (changes below depth limit)
+  │  └─ ResilienceStrategyOptions.set_Name
+  ├─ ChaosStrategyOptions.set_InjectionRate
+  ├─ ChaosLatencyStrategyOptions.set_Latency
+  └─ …
+
+  ChaosOutcomePipelineBuilderExtensions.AddChaosOutcome
+  ├─ Guard.NotNull
+  ├─ new ChaosOutcomeStrategyOptions<TResult>
+~ │  ├─ new ChaosStrategyOptions (changes below depth limit)
+  │  └─ ResilienceStrategyOptions.set_Name
+  ├─ ChaosStrategyOptions.set_InjectionRate
+  ├─ callback
+  └─ …
+
+  new FaultGenerator
+- ├─ possible initialization of RandomUtil
+- │  └─ initialization of RandomUtil (changes below depth limit)
+  └─ new GeneratorHelper<TResult>
+~    └─ RandomUtil.Next (signature changed)
+
+  new OutcomeGenerator<TResult>
+- ├─ possible initialization of RandomUtil
+- │  └─ initialization of RandomUtil (changes below depth limit)
+- ├─ new OutcomeGenerator<TResult>
+- │  ├─ new GeneratorHelper<TResult>
+- │  └─ RandomUtil.Next
++ └─ new GeneratorHelper<TResult>
++    └─ RandomUtil.Next
+
+- TaskHelper.GetResult
+stderr:
+src/Polly.Core/CircuitBreaker/CircuitBreakerResilienceStrategy.cs:30: generic-context-limit: Generic invocation expansion for CircuitBreakerResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Fallback/FallbackResilienceStrategy.cs:20: generic-context-limit: Generic invocation expansion for FallbackResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Hedging/HedgingResilienceStrategy.cs:34: generic-context-limit: Generic invocation expansion for HedgingResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Retry/RetryResilienceStrategy.cs:46: generic-context-limit: Generic invocation expansion for RetryResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Simmy/Outcomes/ChaosOutcomeStrategy.cs:19: generic-context-limit: Generic invocation expansion for ChaosOutcomeStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/BridgeComponent.cs:11: generic-context-limit: Generic invocation expansion for BridgeComponent.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/BridgeComponent.TResult.cs:13: generic-context-limit: Generic invocation expansion for BridgeComponent<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/ComponentWithDisposeCallbacks.cs:22: generic-context-limit: Generic invocation expansion for ComponentWithDisposeCallbacks.ExecuteCore exceeded 128 type nodes.
+14 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  CircuitBreakerManualControl.CloseAsync
+  ├─ ResilienceContextPool.get_Shared
+  ├─ ResilienceContextPool.Get
++ ├─ ResilienceContext.Initialize
++ │  ├─ ResilienceContext.set_IsSynchronous
++ │  └─ ResilienceContext.set_ResultType
+  ├─ try
+- │  ├─ CircuitBreakerManualControl.CloseAsync (changes below depth limit)
++ │  └─ foreach (var action in callbacks)
++ │     └─ ResilienceContext.get_ContinueOnCapturedContext
+  └─ finally
+
+  CircuitBreakerManualControl.IsolateAsync
+  ├─ …
+  ├─ ResilienceContextPool.Get
+  ├─ ResilienceContext.Initialize
+  ├─ try
+- │  ├─ CircuitBreakerManualControl.IsolateAsync (changes below depth limit)
++ │  └─ foreach (var action in callbacks)
++ │     └─ ResilienceContext.get_ContinueOnCapturedContext
+  └─ finally
+
+- ScheduledTaskExecutor.Entry.set_ContinueOnCapturedContext
+
+  CircuitBreakerResiliencePipelineBuilderExtensions.AddCircuitBreaker
+  ├─ Guard.NotNull ×2
+  └─ ResiliencePipelineBuilderExtensions.AddStrategy
+     ├─ …
+     ├─ Guard.NotNull
+     ├─ ResiliencePipelineBuilderBase.AddPipelineComponent (depth limit)
+~    └─ CircuitBreakerResiliencePipelineBuilderExtensions.CreateStrategy (changes below depth limit)
+
+  CircuitBreakerResiliencePipelineBuilderExtensions.AddCircuitBreaker
+  ├─ Guard.NotNull ×2
+  └─ ResiliencePipelineBuilderExtensions.AddStrategy
+     ├─ …
+     ├─ Guard.NotNull
+     ├─ ResiliencePipelineBuilderBase.AddPipelineComponent (depth limit)
+~    └─ CircuitBreakerResiliencePipelineBuilderExtensions.CreateStrategy (changes below depth limit)
+
+  new HedgingStrategyOptions<TResult>
+  ├─ possible initialization of HedgingConstants
+  ├─ possible initialization of DefaultPredicates<TArgs, TResult>
+- ├─ callback
+- │  └─ callback
+- │     ├─ HedgingActionGeneratorArguments<TResult>.get_PrimaryContext
+- │     ├─ ResilienceContext.get_IsSynchronous
+- │     ├─ if (args.PrimaryContext.IsSynchronous)
+- │     │  ├─ Task.Run
+- │     │  │  ├─ HedgingActionGeneratorArguments<TResult>.get_Callback
+- │     │  │  └─ HedgingActionGeneratorArguments<TResult>.get_ActionContext
+- │     │  ├─ HedgingActionGeneratorArguments<TResult>.get_ActionContext
+- │     │  └─ ResilienceContext.get_ContinueOnCapturedContext
+- │     ├─ HedgingActionGeneratorArguments<TResult>.get_Callback
+- │     ├─ HedgingActionGeneratorArguments<TResult>.get_ActionContext ×2
+- │     └─ ResilienceContext.get_ContinueOnCapturedContext
++ ├─ possible initialization of HedgingStrategyOptions<TResult>
++ │  └─ initialization of HedgingStrategyOptions<TResult> (changes below depth limit)
+  ├─ new ResilienceStrategyOptions
+  └─ ResilienceStrategyOptions.set_Name
+
+  HedgingResiliencePipelineBuilderExtensions.AddHedging
+  ├─ Guard.NotNull ×2
+  └─ ResiliencePipelineBuilderExtensions.AddStrategy
+     ├─ …
+     ├─ Guard.NotNull
+     ├─ ResiliencePipelineBuilderBase.AddPipelineComponent (depth limit)
+~    └─ HedgingResiliencePipelineBuilderExtensions.CreateHedgingStrategy (changes below depth limit)
+
+- clone RegistryPipelineComponentBuilder<TBuilder, TKey>.Builder
+- └─ new RegistryPipelineComponentBuilder<TBuilder, TKey>.Builder
+
+- RegistryPipelineComponentBuilder<TBuilder, TKey>.Builder.get_EqualityContract
+
+- RegistryPipelineComponentBuilder<TBuilder, TKey>.Builder.set_ComponentFactory
+
+- RegistryPipelineComponentBuilder<TBuilder, TKey>.Builder.set_Instance
+
+- RegistryPipelineComponentBuilder<TBuilder, TKey>.Builder.set_ReloadTokens
+
+- RegistryPipelineComponentBuilder<TBuilder, TKey>.Builder.set_Telemetry
+
+  ResiliencePipelineProvider<TKey>.GetPipeline
+  └─ ResiliencePipelineProvider<TKey>.TryGetPipeline → ResiliencePipelineRegistry<TKey>.TryGetPipeline
+     ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
+     └─ if (_builders.TryGetValue(key, out var configure))
+~       └─ ResiliencePipelineRegistry<TKey>.GetOrAddPipeline (changes below depth limit)
+
+  ResiliencePipelineProvider<TKey>.GetPipeline
+  └─ ResiliencePipelineProvider<TKey>.TryGetPipeline → ResiliencePipelineRegistry<TKey>.TryGetPipeline
+     ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
+~    ├─ ResiliencePipelineRegistry<TKey>.GetGenericRegistry (changes below depth limit)
+~    └─ ResiliencePipelineRegistry<TKey>.GenericRegistry<TResult>.TryGet (changes below depth limit)
+
+  ResiliencePipelineRegistry<TKey>.GetOrAddPipeline
+  ├─ Guard.NotNull
+  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
+  └─ ResiliencePipelineRegistry<TKey>.GetOrAddPipeline
+     ├─ Guard.NotNull
+     ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
+-    ├─ _pipelines.GetOrAdd
+-    │  ├─ new RegistryPipelineComponentBuilder<TBuilder, TKey>
+-    │  ├─ RegistryPipelineComponentBuilder<TBuilder, TKey>.CreateComponent (changes below depth limit)
+-    │  └─ new ResiliencePipeline (depth limit)
++    ├─ new RegistryPipelineComponentBuilder<TBuilder, TKey>
++    ├─ RegistryPipelineComponentBuilder<TBuilder, TKey>.CreateComponent (changes below depth limit)
++    └─ new ResiliencePipeline (depth limit)
+
+  ResiliencePipelineRegistry<TKey>.GetOrAddPipeline
+  ├─ Guard.NotNull
+  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
+  └─ ResiliencePipelineRegistry<TKey>.GetOrAddPipeline
+     ├─ Guard.NotNull
+     ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
+~    ├─ ResiliencePipelineRegistry<TKey>.GetGenericRegistry (changes below depth limit)
+~    └─ ResiliencePipelineRegistry<TKey>.GenericRegistry<TResult>.GetOrAdd (changes below depth limit)
+
+  ResiliencePipelineRegistry<TKey>.TryAddBuilder
+  ├─ Guard.NotNull
+  ├─ ResiliencePipelineRegistry<TKey>.EnsureNotDisposed
+  ├─ ResiliencePipelineRegistry<TKey>.GetGenericRegistry
+- │  ├─ _genericRegistry.GetOrAdd
+- │  │  └─ new ResiliencePipelineRegistry<TKey>.GenericRegistry<TResult>
+- │  │     └─ new ResiliencePipelineBuilder<TResult> (depth limit)
++ │  └─ new ResiliencePipelineRegistry<TKey>.GenericRegistry<TResult>
++ │     └─ new ResiliencePipelineBuilder<TResult> (depth limit)
+  └─ ResiliencePipelineRegistry<TKey>.GenericRegistry<TResult>.TryAddBuilder
+
+  ResiliencePipeline.Execute
+  ├─ Guard.NotNull
+  ├─ ResiliencePipeline.GetSyncContext
+  ├─ try
+  │  ├─ ResiliencePipeline.get_Component
+~ │  ├─ PipelineComponent.ExecuteCoreSync (signature changed)
+- │  │  ├─ try
+- │  │  │  └─ Outcome.get_Void (depth limit)
+- │  │  ├─ catch (Exception e)
+- │  │  │  └─ Outcome.FromException (depth limit)
++ │  │  └─ possible initialization of VoidResult
++ │  │     └─ initialization of VoidResult (depth limit)
+- │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  └─ finally
+
+  ResiliencePipeline.Execute
+  ├─ Guard.NotNull
+- ├─ Guard.NotNull
+- ├─ ResiliencePipeline.InitializeSyncContext
+- │  └─ ResiliencePipeline.InitializeSyncContext (depth limit)
+- ├─ ResiliencePipeline.get_Component
+- ├─ PipelineComponent.ExecuteCoreSync
+- │  ├─ PipelineComponent.ExecuteCore
+- │  │  ├─ ⇢ BridgeComponent.ExecuteCore (changes below depth limit)
+- │  │  ├─ ⇢ BridgeComponent<T>.ExecuteCore (changes below depth limit)
+- │  │  ├─ ⇢ ComponentWithDisposeCallbacks.ExecuteCore (changes below depth limit)
+- │  │  ├─ ⇢ CompositeComponent.ExecuteCore (changes below depth limit)
+- │  │  ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
+- │  │  ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
+- │  │  ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
+- │  │  ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore
+- │  │  └─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
+- │  ├─ TaskHelper.GetResult
+- │  ├─ try
+- │  │  └─ Outcome.get_Void (depth limit)
+- │  └─ catch (Exception e)
+- │     └─ Outcome.FromException (depth limit)
+- ├─ Outcome<TResult>.GetResultOrRethrow
+- │  ├─ Outcome<TResult>.get_ExceptionDispatchInfo
+- │  └─ Outcome<TResult>.get_Result
++ └─ ResiliencePipeline.Execute
++    ├─ Guard.NotNull ×2
++    ├─ ResiliencePipeline.InitializeSyncContext (depth limit)
++    ├─ ResiliencePipeline.get_Component
++    ├─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
++    └─ possible initialization of VoidResult
++       └─ initialization of VoidResult (depth limit)
+
+  ResiliencePipeline.Execute
+  ├─ Guard.NotNull
+  ├─ ResiliencePipeline.GetSyncContext
+  ├─ try
+  │  ├─ ResiliencePipeline.get_Component
+~ │  ├─ PipelineComponent.ExecuteCoreSync (signature changed)
+- │  │  ├─ try
+- │  │  │  ├─ ResilienceContext.get_CancellationToken
+- │  │  │  └─ Outcome.get_Void (depth limit)
+- │  │  ├─ catch (Exception e)
+- │  │  │  └─ Outcome.FromException (depth limit)
++ │  │  ├─ ResilienceContext.get_CancellationToken
++ │  │  └─ possible initialization of VoidResult
++ │  │     └─ initialization of VoidResult (depth limit)
+- │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  └─ finally
+
+  ResiliencePipeline.Execute
+  ├─ Guard.NotNull
+  ├─ ResiliencePipeline.GetSyncContext
+  ├─ try
+  │  ├─ ResiliencePipeline.get_Component
+~ │  ├─ PipelineComponent.ExecuteCoreSync (signature changed) ↑ as above
+- │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  └─ finally
+
+  ResiliencePipeline.Execute
+  ├─ Guard.NotNull
+  ├─ ResiliencePipeline.GetSyncContext
+  ├─ try
+  │  ├─ ResiliencePipeline.get_Component
+~ │  ├─ PipelineComponent.ExecuteCoreSync (signature changed) ↑ as above
+- │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  └─ finally
+
+  ResiliencePipeline.Execute
+  ├─ Guard.NotNull
+- ├─ Guard.NotNull
+- ├─ ResiliencePipeline.InitializeSyncContext ↑ as above
+- ├─ ResiliencePipeline.get_Component
+- ├─ PipelineComponent.ExecuteCoreSync ↑ as above
+- ├─ Outcome<TResult>.GetResultOrRethrow ↑ as above
++ └─ ResiliencePipeline.Execute ↑ as above
+
+  ResiliencePipeline.ExecuteAsync
+  ├─ …
+  ├─ ResiliencePipeline.InitializeAsyncContext
+  ├─ ResiliencePipeline.get_Component
+  ├─ PipelineComponent.ExecuteCore
+~ │  ├─ ⇢ BridgeComponent.ExecuteCore (changes below depth limit)
+~ │  ├─ ⇢ BridgeComponent<T>.ExecuteCore (changes below depth limit)
+~ │  ├─ ⇢ ComponentWithDisposeCallbacks.ExecuteCore (changes below depth limit)
+~ │  ├─ ⇢ CompositeComponent.ExecuteCore (changes below depth limit)
+~ │  ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
+~ │  ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
+~ │  ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
+  │  ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore
+~ │  ├─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
+  │  ├─ try
+  │  └─ catch (Exception e)
+  ├─ ResilienceContext.get_ContinueOnCapturedContext
+  └─ Outcome<TResult>.GetResultOrRethrow
+
+  ResiliencePipeline.ExecuteAsync
+  ├─ Guard.NotNull
+  ├─ ResiliencePipeline.GetAsyncContext
+  ├─ try
+  │  ├─ ResiliencePipeline.get_Component
+  │  ├─ PipelineComponent.ExecuteCore
+~ │  │  ├─ ⇢ BridgeComponent.ExecuteCore (changes below depth limit)
+~ │  │  ├─ ⇢ BridgeComponent<T>.ExecuteCore (changes below depth limit)
+~ │  │  ├─ ⇢ ComponentWithDisposeCallbacks.ExecuteCore (changes below depth limit)
+~ │  │  ├─ ⇢ CompositeComponent.ExecuteCore (changes below depth limit)
+~ │  │  ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
+~ │  │  ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
+~ │  │  ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
+  │  │  ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore
+~ │  │  ├─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
+  │  │  ├─ try
+  │  │  └─ catch (Exception e)
+  │  ├─ ResilienceContext.get_ContinueOnCapturedContext
+  │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  └─ finally
+
+  ResiliencePipeline.ExecuteAsync
+  ├─ Guard.NotNull
+  ├─ ResiliencePipeline.GetAsyncContext
+  ├─ try
+  │  ├─ ResiliencePipeline.get_Component
+  │  ├─ PipelineComponent.ExecuteCore ↑ as above
+  │  ├─ ResilienceContext.get_ContinueOnCapturedContext
+  │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+  └─ finally
+
+  ResiliencePipeline.ExecuteAsync
+  ├─ …
+  ├─ ResiliencePipeline.InitializeAsyncContext
+  ├─ ResiliencePipeline.get_Component
+  ├─ PipelineComponent.ExecuteCore ↑ as above
+  ├─ ResilienceContext.get_ContinueOnCapturedContext
+  └─ Outcome<TResult>.GetResultOrRethrow
+
+  ResiliencePipeline<T>.Execute
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.Execute
+     ├─ Guard.NotNull
+     ├─ ResiliencePipeline.GetSyncContext (depth limit)
+     ├─ try
+     │  ├─ ResiliencePipeline.get_Component
+~    │  ├─ PipelineComponent.ExecuteCoreSync (signature changed)
+-    │  │  ├─ try
+-    │  │  │  └─ Outcome.FromResult (depth limit)
+-    │  │  └─ catch (Exception e)
+-    │  │     └─ Outcome.FromException (depth limit)
+-    │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+     └─ finally
+
+  ResiliencePipeline<T>.Execute
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.Execute
+     ├─ Guard.NotNull
+-    ├─ Guard.NotNull
+-    ├─ ResiliencePipeline.InitializeSyncContext (depth limit)
+-    ├─ ResiliencePipeline.get_Component
+-    ├─ PipelineComponent.ExecuteCoreSync (changes below depth limit)
+-    │  ├─ try
+-    │  │  └─ Outcome.FromResult (depth limit)
+-    │  └─ catch (Exception e)
+-    │     └─ Outcome.FromException (depth limit)
+-    ├─ Outcome<TResult>.GetResultOrRethrow (depth limit)
++    └─ ResiliencePipeline.Execute (changes below depth limit)
+
+  ResiliencePipeline<T>.Execute
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.Execute
+     ├─ Guard.NotNull
+     ├─ ResiliencePipeline.GetSyncContext (depth limit)
+     ├─ try
+     │  ├─ ResiliencePipeline.get_Component
+~    │  ├─ PipelineComponent.ExecuteCoreSync (signature changed)
+-    │  │  ├─ try
+-    │  │  │  ├─ ResilienceContext.get_CancellationToken
+-    │  │  │  └─ Outcome.FromResult (depth limit)
+-    │  │  ├─ catch (Exception e)
+-    │  │  │  └─ Outcome.FromException (depth limit)
++    │  │  └─ ResilienceContext.get_CancellationToken
+-    │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+     └─ finally
+
+  ResiliencePipeline<T>.Execute
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.Execute
+     ├─ Guard.NotNull
+     ├─ ResiliencePipeline.GetSyncContext (depth limit)
+     ├─ try
+     │  ├─ ResiliencePipeline.get_Component
+~    │  ├─ PipelineComponent.ExecuteCoreSync (signature changed) ↑ as above
+-    │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+     └─ finally
+
+  ResiliencePipeline<T>.Execute
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.Execute
+     ├─ Guard.NotNull
+     ├─ ResiliencePipeline.GetSyncContext (depth limit)
+     ├─ try
+     │  ├─ ResiliencePipeline.get_Component
+~    │  ├─ PipelineComponent.ExecuteCoreSync (signature changed) ↑ as above
+-    │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+     └─ finally
+
+  ResiliencePipeline<T>.Execute
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.Execute
+     ├─ …
+     ├─ ResiliencePipeline.InitializeSyncContext (depth limit)
+     ├─ ResiliencePipeline.get_Component
+~    ├─ PipelineComponent.ExecuteCoreSync (signature changed) ↑ as above
+-    └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+
+  ResiliencePipeline<T>.ExecuteAsync
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.ExecuteAsync
+     ├─ …
+     ├─ ResiliencePipeline.InitializeAsyncContext (depth limit)
+     ├─ ResiliencePipeline.get_Component
+     ├─ PipelineComponent.ExecuteCore
+~    │  ├─ ⇢ BridgeComponent.ExecuteCore (changes below depth limit)
+~    │  ├─ ⇢ BridgeComponent<T>.ExecuteCore (changes below depth limit)
+~    │  ├─ ⇢ ComponentWithDisposeCallbacks.ExecuteCore (changes below depth limit)
+~    │  ├─ ⇢ CompositeComponent.ExecuteCore (changes below depth limit)
+~    │  ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
+~    │  ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
+~    │  ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
+     │  ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore
+~    │  ├─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
+     │  ├─ try
+     │  └─ catch (Exception e)
+     ├─ ResilienceContext.get_ContinueOnCapturedContext
+     └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+
+  ResiliencePipeline<T>.ExecuteAsync
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.ExecuteAsync
+     ├─ Guard.NotNull
+     ├─ ResiliencePipeline.GetAsyncContext (depth limit)
+     ├─ try
+     │  ├─ ResiliencePipeline.get_Component
+     │  ├─ PipelineComponent.ExecuteCore
+~    │  │  ├─ ⇢ BridgeComponent.ExecuteCore (changes below depth limit)
+~    │  │  ├─ ⇢ BridgeComponent<T>.ExecuteCore (changes below depth limit)
+~    │  │  ├─ ⇢ ComponentWithDisposeCallbacks.ExecuteCore (changes below depth limit)
+~    │  │  ├─ ⇢ CompositeComponent.ExecuteCore (changes below depth limit)
+~    │  │  ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
+~    │  │  ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
+~    │  │  ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
+     │  │  ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore
+~    │  │  ├─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
+     │  │  ├─ try
+     │  │  └─ catch (Exception e)
+     │  ├─ ResilienceContext.get_ContinueOnCapturedContext
+     │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+     └─ finally
+
+  ResiliencePipeline<T>.ExecuteAsync
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.ExecuteAsync
+     ├─ Guard.NotNull
+     ├─ ResiliencePipeline.GetAsyncContext (depth limit)
+     ├─ try
+     │  ├─ ResiliencePipeline.get_Component
+     │  ├─ PipelineComponent.ExecuteCore ↑ as above
+     │  ├─ ResilienceContext.get_ContinueOnCapturedContext
+     │  └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+     └─ finally
+
+  ResiliencePipeline<T>.ExecuteAsync
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.ExecuteAsync
+     ├─ …
+     ├─ ResiliencePipeline.InitializeAsyncContext (depth limit)
+     ├─ ResiliencePipeline.get_Component
+     ├─ PipelineComponent.ExecuteCore ↑ as above
+     ├─ ResilienceContext.get_ContinueOnCapturedContext
+     └─ Outcome<TResult>.GetResultOrRethrow (depth limit)
+
+  ResiliencePipeline<T>.ExecuteOutcomeAsync
+  ├─ ResiliencePipeline<T>.get_Pipeline
+  └─ ResiliencePipeline.ExecuteOutcomeAsync
+     ├─ …
+     ├─ ResiliencePipeline.InitializeAsyncContext (depth limit)
+     ├─ ResiliencePipeline.get_Component
+     └─ PipelineComponent.ExecuteCore
+~       ├─ ⇢ BridgeComponent.ExecuteCore (changes below depth limit)
+~       ├─ ⇢ BridgeComponent<T>.ExecuteCore (changes below depth limit)
+~       ├─ ⇢ ComponentWithDisposeCallbacks.ExecuteCore (changes below depth limit)
+~       ├─ ⇢ CompositeComponent.ExecuteCore (changes below depth limit)
+~       ├─ ⇢ DelegatingComponent.ExecuteCore (changes below depth limit)
+~       ├─ ⇢ ExecutionTrackingComponent.ExecuteCore (changes below depth limit)
+~       ├─ ⇢ ExternalComponent.ExecuteCore (changes below depth limit)
+        ├─ ⇢ PipelineComponent.NullComponent.ExecuteCore
+~       └─ ⇢ ReloadableComponent.ExecuteCore (changes below depth limit)
+
+  new RetryStrategyOptions
+  └─ new RetryStrategyOptions<TResult>
+     ├─ possible initialization of RetryConstants
+     ├─ possible initialization of DefaultPredicates<TArgs, TResult>
+-    ├─ possible initialization of RandomUtil
+-    │  └─ initialization of RandomUtil (changes below depth limit)
+     ├─ callback
+~    │  └─ RandomUtil.NextDouble (signature changed)
+     ├─ new ResilienceStrategyOptions
+     └─ ResilienceStrategyOptions.set_Name
+
+  ChaosBehaviorPipelineBuilderExtensions.AddChaosBehavior
+  ├─ Guard.NotNull
+  ├─ new ChaosBehaviorStrategyOptions
+~ │  ├─ new ChaosStrategyOptions (changes below depth limit)
+  │  └─ ResilienceStrategyOptions.set_Name
+  ├─ ChaosStrategyOptions.set_InjectionRate
+  ├─ callback
+  └─ …
+
+  ChaosFaultPipelineBuilderExtensions.AddChaosFault
+  ├─ Guard.NotNull
+  ├─ new ChaosFaultStrategyOptions
+~ │  ├─ new ChaosStrategyOptions (changes below depth limit)
+  │  └─ ResilienceStrategyOptions.set_Name
+  ├─ ChaosStrategyOptions.set_InjectionRate
+  ├─ ChaosFaultStrategyOptions.set_FaultGenerator
+  └─ …
+
+  ChaosLatencyPipelineBuilderExtensions.AddChaosLatency
+  ├─ Guard.NotNull
+  ├─ new ChaosLatencyStrategyOptions
+  │  ├─ possible initialization of ChaosLatencyConstants
+~ │  ├─ new ChaosStrategyOptions (changes below depth limit)
+  │  └─ ResilienceStrategyOptions.set_Name
+  ├─ ChaosStrategyOptions.set_InjectionRate
+  ├─ ChaosLatencyStrategyOptions.set_Latency
+  └─ …
+
+  ChaosOutcomePipelineBuilderExtensions.AddChaosOutcome
+  ├─ Guard.NotNull
+  ├─ new ChaosOutcomeStrategyOptions<TResult>
+~ │  ├─ new ChaosStrategyOptions (changes below depth limit)
+  │  └─ ResilienceStrategyOptions.set_Name
+  ├─ ChaosStrategyOptions.set_InjectionRate
+  ├─ callback
+  └─ …
+
+  new FaultGenerator
+- ├─ possible initialization of RandomUtil
+- │  └─ initialization of RandomUtil (changes below depth limit)
+  └─ new GeneratorHelper<TResult>
+~    └─ RandomUtil.Next (signature changed)
+
+  new OutcomeGenerator<TResult>
+- ├─ possible initialization of RandomUtil
+- │  └─ initialization of RandomUtil (changes below depth limit)
+- ├─ new OutcomeGenerator<TResult>
+- │  ├─ new GeneratorHelper<TResult>
+- │  └─ RandomUtil.Next
++ └─ new GeneratorHelper<TResult>
++    └─ RandomUtil.Next
+
+- TaskHelper.GetResult
+```
+stderr:
+src/Polly.Core/CircuitBreaker/CircuitBreakerResilienceStrategy.cs:30: generic-context-limit: Generic invocation expansion for CircuitBreakerResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Fallback/FallbackResilienceStrategy.cs:20: generic-context-limit: Generic invocation expansion for FallbackResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Hedging/HedgingResilienceStrategy.cs:34: generic-context-limit: Generic invocation expansion for HedgingResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Retry/RetryResilienceStrategy.cs:46: generic-context-limit: Generic invocation expansion for RetryResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Simmy/Outcomes/ChaosOutcomeStrategy.cs:19: generic-context-limit: Generic invocation expansion for ChaosOutcomeStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/BridgeComponent.cs:11: generic-context-limit: Generic invocation expansion for BridgeComponent.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/BridgeComponent.TResult.cs:13: generic-context-limit: Generic invocation expansion for BridgeComponent<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/ComponentWithDisposeCallbacks.cs:22: generic-context-limit: Generic invocation expansion for ComponentWithDisposeCallbacks.ExecuteCore exceeded 128 type nodes.
+14 additional diagnostics; use --diagnostics full.

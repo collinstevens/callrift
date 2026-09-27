@@ -3252,5 +3252,90 @@
       }
     ],
     "routine": false
+  },
+  {
+    "repository": "https://github.com/App-vNext/Polly.git",
+    "cacheName": "polly",
+    "license": "BSD-3-Clause",
+    "licenseFile": "LICENSE",
+    "id": "polly-async-overhead",
+    "before": "5603fa08e89fa7070c643bb0d90efff6a81a7fdc",
+    "after": "a14508b9d2839efbd9141305bb3e327ca261dbeb",
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "2"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "CircuitBreakerManualControl.Initialize",
+          "--entry",
+          "CircuitStateController<T>.OnActionPreExecuteAsync",
+          "--entry",
+          "ReloadableComponent.Reload",
+          "--entry",
+          "PipelineComponent.ExecuteCoreSync"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "options": [
+          "--depth",
+          "2",
+          "--project",
+          "src/Polly.Core/Polly.Core.csproj",
+          "--framework",
+          "net8.0"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "CircuitBreakerManualControl.Initialize",
+          "--entry",
+          "CircuitStateController<T>.OnActionPreExecuteAsync",
+          "--entry",
+          "ReloadableComponent.Reload",
+          "--entry",
+          "PipelineComponent.ExecuteCoreSync",
+          "--project",
+          "src/Polly.Core/Polly.Core.csproj",
+          "--framework",
+          "net8.0"
+        ]
+      }
+    ],
+    "reason": "Review the broad async refactor through source-wide roots and restored Polly.Core net8.0 roots, with focused manual isolation, half-open scheduling, synchronous callback capture, and reload views. Isolation invokes the newly registered callback; failure handling moves before scheduling; synchronous exception capture moves into PipelineComponent; reload returns its pooled telemetry context before factory invocation and assigns Component through tuple deconstruction. Generated record clone/copy members disappear with the builder record. Source mode combines legacy Polly, Core, extensions, benchmarks and samples, retaining duplicate-type and unresolved-binding diagnostics; restored mode excludes extension and rate-limiter bodies and selects NET branches. Generic expansion remains bounded, dispatch and callbacks are possibilities, and return-only guards, locking, allocation improvements and runtime concurrency guarantees are not proved by these trees.",
+    "tags": [
+      "async",
+      "callbacks",
+      "properties",
+      "generics",
+      "initialization",
+      "record",
+      "exception-flow",
+      "source-msbuild"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "beforeLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+    "afterLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+    "review": "../tests/Callrift.RealWorldCases/PollyAsyncOverheadExpectations.cs"
   }
 ]
