@@ -1852,3 +1852,60 @@ reversed. Sampled CPU was 247.70 / 234.57 s initially and 232.93 / 244.20 s on
 repeat. Median elapsed time was slightly worse and median CPU essentially flat.
 Both code changes were reverted, original binaries rebuilt, and temporary probe
 sources removed. No improvement is claimed from that experiment.
+
+### Callback formats and repeated invalid-declaration coverage
+
+The method-group callback row retains real CLI text, Markdown and JSON commands,
+including exit-code assertions. Its inline-lambda counterpart now analyzes one
+real workspace revision pair and renders the same three formats. The repeated
+callback-location row also reuses a workspace pair; its two exact line-location
+assertions and no-collapse assertion remain unchanged. `QueryTests.Query`'s
+`diff-locs` row independently retains CLI `--locs`, all three formats and the
+reviewed exit-code/output snapshot.
+
+The missing-partial initializer row now uses the existing workspace graph helper.
+It still checks the unavailable initializer, absence of invented sink calls,
+`unresolved-static-initializer` JSON diagnostic, reachability and both readable
+formats. The duplicate-class row retains CLI coverage of that same diagnostic
+code in JSON and text/Markdown stderr. Extern and duplicate-constructor rows
+retain their distinct diagnostic codes and all original CLI assertions. No
+production code, snapshots or test selections changed.
+
+On the same prepared Ubuntu host and SDK, Debug, CPUs 0–3, ten affected workspace
+rows took 39.14 s before and 29.91 / 29.82 s after. Every row passed in every
+sample, with identical TRX case-name multisets. Sampled CPU fell from 80.14 s to
+50.20 / 49.22 s; peak summed RSS rose from 1.62 GiB to 1.81 / 1.83 GiB. CLI
+processes fell from 24 to 15, analysis workers from 32 to 18, and restores from
+11 to seven. Pooled fixture workers increased from one to two. Fixture roots
+were fresh per invocation, SDK/NuGet caches prepared, and no other local build
+or profile overlapped. All 350 fast rows passed in 5.44 s including invocation
+and build startup.
+
+A separate production experiment shared semantic models among each type's
+initializers. The two large source-roots cases passed, but complete elapsed time
+worsened from 80.63 to 82.66 s, CPU from 236.34 to 246.80 s, and peak summed RSS
+from 5.33 to 6.11 GiB. It was reverted without further measurement; no benefit
+is claimed. The temporary reflection probe also showed that Roslyn 5.9's
+nullable-disabled semantic-model API remains experimental. Nullable analysis
+was not disabled, and temporary probe sources were removed.
+
+### Same-source CI repeat at 2916a29
+
+[Run 36291136914](https://github.com/collinstevens/callrift/actions/runs/36291136914)
+passed every required job, using the same production and test source as
+`2fae0fb`. Repository caches hit on all platforms. Complete dotnet command times
+were:
+
+| Suite | Ubuntu | Windows | macOS |
+|---|---:|---:|---:|
+| Scenarios, 305 rows | 277.47 s | 513.38 s | 359.48 s |
+| Workspaces, 26 rows | 196.07 s | 162.30 s | 162.66 s |
+| Routine cases, 25 rows | 264.94 s | 343.64 s | 294.24 s |
+| Broad path including setup | 5m 16s | 10m 21s | 6m 48s |
+
+Initial queue delay was 3 / 3 / 7 s, separate from those paths. Broad jobs used
+52.18 runner-minutes. Ubuntu and macOS scenarios met six minutes in this run;
+Windows scenarios and all workspace/case targets remained unmet. Windows also
+exceeded the broad target by 21 seconds. The earlier all-platform warm result
+therefore is not evidence of stable target compliance. Optimized cold CI and
+further reductions remain necessary.

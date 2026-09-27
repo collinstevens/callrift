@@ -24,14 +24,11 @@ public sealed class CallbackRenderingTests
     [Trait("Layer", "Integration")]
     public async Task WorkspaceDifferentCallbackBodiesAreNotRepeatedExpansions(bool inline)
     {
-        await using var fixture = await GitFixture.CreateAsync(DifferentCallbacks(inline));
-        foreach (var format in new[] { "text", "md", "json" })
-        {
-            string[] restore = format == "text" ? [] : ["--no-restore"];
-            var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--project", "App.csproj", "--format", format, .. restore]);
-            Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
+        await using var fixture = inline
+            ? await AnalysisFixture.CreateAsync(DifferentCallbacks(inline), workspace: true)
+            : await AnalysisFixture.CreateWorkspaceCliAsync(DifferentCallbacks(inline));
+        foreach (var output in (await fixture.DiffFormatsAsync(new DiffOptions())).Values)
             AssertDifferentCallbacks(output);
-        }
     }
 
     [Fact]
@@ -49,14 +46,10 @@ public sealed class CallbackRenderingTests
     [Trait("Layer", "Integration")]
     public async Task WorkspaceLocationsKeepRepeatedCallSitesVisible()
     {
-        await using var fixture = await GitFixture.CreateAsync(CallbackLocations());
+        await using var fixture = await AnalysisFixture.CreateAsync(CallbackLocations(), workspace: true);
+        var outputs = await fixture.DiffFormatsAsync(new DiffOptions { Locations = true });
         foreach (var format in new[] { "text", "md" })
-        {
-            string[] restore = format == "text" ? [] : ["--no-restore"];
-            var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--project", "App.csproj", "--format", format, "--locs", .. restore]);
-            Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
-            AssertLocations(output);
-        }
+            AssertLocations(outputs[format]);
     }
 
     private static void AssertDifferentCallbacks(string output)
