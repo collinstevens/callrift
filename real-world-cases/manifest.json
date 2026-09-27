@@ -201,17 +201,18 @@
     "afterLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
     "before": "dc2252d59922c8b62f8305edabce96fe6211f786",
     "after": "ae9e1e1129b9c22e7ab111381308dcb02f80a8d2",
-    "reason": "Remove eager pipeline construction while a registration is held for an additional service",
+    "reason": "Remove eager pipeline construction while a registration is held for an additional service. Independent pinned-source and compiler review verifies the IsInitializing/IsInitialized getters before the preserved initialization branch, removes the ephemeral guard and its pipeline call, and preserves deferred registration under IsSourceQueued. Getter paths expose the keyed indexer and AsImplementedInterfaces as automatic roots, plus AsSelf in restored mode, while FactoryGenerator loses standalone-root status. Automatic roots are 134 in source mode and 101 in restored net10.0. Factory expression-tree and interface paths are possible calls; runtime event ordering is not proven. Generated delegate/resource declarations were independently regenerated. Source diagnostics include six newly followed unresolved resource calls; restored diagnostics remain empty. Upstream tests were read but not executed.",
     "tags": [
       "branch-guard",
       "interface-dispatch",
       "multi-target",
       "generated-code",
-      "automatic-roots"
+      "automatic-roots",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/source-only-coverage.md",
-    "review": "reviews/autofac-held-pipeline.md",
+    "review": "../tests/Callrift.RealWorldCases/AutofacHeldPipelineExpectations.cs",
     "views": [
       {
         "id": "source-roots",

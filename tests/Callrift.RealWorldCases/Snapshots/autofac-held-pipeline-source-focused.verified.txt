@@ -2,6 +2,7 @@
 exit: 0
 stdout:
   DefaultRegisteredServicesTracker.HoldForAdditionalService
+  ├─ ServiceRegistrationInfo.get_IsInitializing
   ├─ if (!additionalInfo.IsInitializing)
   │  └─ DefaultRegisteredServicesTracker.BeginServiceInfoInitialization
   │     ├─ foreach (var servicePipelineSource in _servicePipelineSources)
@@ -28,13 +29,14 @@ bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind Ben
 bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
-169 additional diagnostics; use --diagnostics full.
+175 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
 stdout:
 ```diff
   DefaultRegisteredServicesTracker.HoldForAdditionalService
+  ├─ ServiceRegistrationInfo.get_IsInitializing
   ├─ if (!additionalInfo.IsInitializing)
   │  └─ DefaultRegisteredServicesTracker.BeginServiceInfoInitialization
   │     ├─ foreach (var servicePipelineSource in _servicePipelineSources)
@@ -62,4 +64,4 @@ bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind Ben
 bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
-169 additional diagnostics; use --diagnostics full.
+175 additional diagnostics; use --diagnostics full.
