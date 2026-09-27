@@ -258,8 +258,8 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         }
     }
 
-    public CallStep ImplicitConstructor(SyntaxNode declaration, IMethodSymbol constructor) => CreateCall(declaration, constructor, []) with
-    { Label = symbols.Label(constructor), SuppressDispatch = true, UsesContainingInstance = true };
+    public CallStep ImplicitConstructor(SyntaxNode declaration, IMethodSymbol constructor) => CreateCall(declaration, constructor, [], label: symbols.Label(constructor)) with
+    { SuppressDispatch = true, UsesContainingInstance = true };
 
     private CallStep CreateConversionCall(SyntaxNode node, IMethodSymbol method, ITypeSymbol? constrainedType)
     {
@@ -272,7 +272,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         };
     }
 
-    private CallStep CreateCall(SyntaxNode node, IMethodSymbol method, IReadOnlyList<CallStep> children, ExpressionSyntax? collection = null)
+    private CallStep CreateCall(SyntaxNode node, IMethodSymbol method, IReadOnlyList<CallStep> children, ExpressionSyntax? collection = null, string? label = null)
     {
         var normalized = SymbolNames.Normalize(method);
         dispatchTypes.Add(method.ContainingType);
@@ -291,8 +291,8 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             || receiver is not null && model.GetTypeInfo(receiver, cancellationToken).Type is INamedTypeSymbol { IsSealed: true }
             || receiver is null && model.GetEnclosingSymbol(node.SpanStart, cancellationToken)?.ContainingType is { IsSealed: true };
         var dispatches = !exactReceiver && (method.ContainingType.TypeKind == TypeKind.Interface || method.IsAbstract || method.IsVirtual || method.IsOverride);
-        return new CallStep("call", symbols.Key(normalized), source || method.MethodKind == MethodKind.Conversion || collection is not null || node is ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax or WithExpressionSyntax
-            ? symbols.Label(normalized) : SymbolNames.SyntaxLabel(node), source, symbols.Location(node), children)
+        return new CallStep("call", symbols.Key(normalized), label ?? (source || method.MethodKind == MethodKind.Conversion || collection is not null || node is ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax or WithExpressionSyntax
+            ? symbols.Label(normalized) : SymbolNames.SyntaxLabel(node)), source, symbols.Location(node), children)
         {
             AlignmentKey = AlignmentKey(node),
             SuppressDispatch = exactReceiver,
