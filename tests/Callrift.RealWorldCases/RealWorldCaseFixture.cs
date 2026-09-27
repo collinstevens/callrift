@@ -61,6 +61,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             AspNetSecurityExpectations.VerifySignOut(result, options.Entries.Count > 0);
         if (entry.Id == "serilog-restricted-optional-interfaces")
             SerilogRestrictedSinkExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "serilog-self-metrics")
+            SerilogMetricsExpectations.Verify(result, options.Entries.Count > 0);
         var diagnostics = string.Concat(result.Diagnostics.Take(8).Select(diagnostic =>
             (diagnostic.Location is null ? "" : $"{diagnostic.Location.Path}:{diagnostic.Location.Line}: ") + $"{diagnostic.Code}: {diagnostic.Message}\n"));
         if (result.Diagnostics.Count > 8)

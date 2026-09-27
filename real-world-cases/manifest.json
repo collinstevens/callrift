@@ -1999,5 +1999,94 @@
         ]
       }
     ]
+  },
+  {
+    "id": "serilog-self-metrics",
+    "repository": "https://github.com/serilog/serilog.git",
+    "cacheName": "serilog",
+    "before": "2ef63645cf0d0edd4b187510b238754249c4348f",
+    "after": "bd7c3b3c8f2275276c09a9bfa929d2c0691f450f",
+    "license": "Apache-2.0",
+    "licenseFile": "LICENSE",
+    "beforeLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "afterLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "reason": "Add a static Meter and four counters for pipeline construction, emitted events, SelfLog writes and default failure reporting. Preserve counter-call order after sink emission and optional SelfLog output, and before the failure listener null-output return. Focused views expose meter construction, nullable version formatting, four generic counter factories, possible initialization and implicit TagList.Add binding. Independent pinned source, declaration, call-binding, root and diagnostic reviews cover both modes; upstream tests were read but not executed. Source mode omits project defines; restored net10.0 includes default-interface bodies and async disposal. The call-free null-output return guard is absent from the graph. Possible dispatch, callbacks and initialization do not establish runtime receiver values, execution counts or actual emitted metrics.",
+    "tags": [
+      "static-initialization",
+      "collection-initializer",
+      "generic-methods",
+      "conditional-access",
+      "interface-dispatch",
+      "callbacks",
+      "automatic-roots",
+      "multi-target"
+    ],
+    "options": [],
+    "review": "../tests/Callrift.RealWorldCases/SerilogMetricsExpectations.cs",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "2",
+          "--externals",
+          "--entry",
+          "Logger.Dispatch",
+          "--entry",
+          "SelfLog.WriteLine",
+          "--entry",
+          "SelfLogFailureListener.OnLoggingFailed",
+          "--entry",
+          "LoggerConfiguration.CreateLogger",
+          "--entry",
+          "Serilog.Debugging.SelfMetrics..cctor()"
+        ]
+      },
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "2",
+          "--project",
+          "src/Serilog/Serilog.csproj",
+          "--framework",
+          "net10.0",
+          "--externals",
+          "--entry",
+          "Logger.Dispatch",
+          "--entry",
+          "SelfLog.WriteLine",
+          "--entry",
+          "SelfLogFailureListener.OnLoggingFailed",
+          "--entry",
+          "LoggerConfiguration.CreateLogger",
+          "--entry",
+          "Serilog.Debugging.SelfMetrics..cctor()"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1",
+          "--project",
+          "src/Serilog/Serilog.csproj",
+          "--framework",
+          "net10.0"
+        ]
+      }
+    ]
   }
 ]
