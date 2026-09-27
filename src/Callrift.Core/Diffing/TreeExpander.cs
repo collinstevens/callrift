@@ -261,8 +261,9 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
             if (skipInitialization && call.IsInitialization) continue;
             if (call.Kind == "call")
             {
-                yield return call.Key;
-                foreach (var target in resolvedGraph.Targets(call, cancellationToken)) yield return target;
+                var targets = resolvedGraph.Targets(call, cancellationToken);
+                if (targets.Count == 0) yield return call.Key;
+                else foreach (var target in targets) yield return target;
             }
             foreach (var target in ReachabilityTargets(call.Children, skipInitialization)) yield return target;
         }
@@ -281,8 +282,9 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
                 if (call.IsInitialization && call.Children.FirstOrDefault() is { } initializer && initialized.Contains(initializer.Key)) continue;
                 if (call.Kind == "call")
                 {
-                    if (FindUninitializedChange(call.Key, initialized, visited)) return true;
-                    foreach (var target in resolvedGraph.Targets(call, cancellationToken))
+                    var targets = resolvedGraph.Targets(call, cancellationToken);
+                    if (targets.Count == 0 && FindUninitializedChange(call.Key, initialized, visited)) return true;
+                    foreach (var target in targets)
                         if (FindUninitializedChange(target, initialized, visited)) return true;
                 }
                 if (CallsReachChange(call.Children)) return true;
