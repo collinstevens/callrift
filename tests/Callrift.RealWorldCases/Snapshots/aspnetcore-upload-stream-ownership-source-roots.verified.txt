@@ -5022,7 +5022,9 @@ stdout:
 ~    │     ├─ ⇢ DefaultControllerActivator.Release (changes below depth limit)
      │     └─ ⇢ ServiceBasedControllerActivator.Release
      └─ callback
-~       └─ IControllerActivator.ReleaseAsync → DefaultControllerActivator.ReleaseAsync (changes below depth limit)
+        └─ IControllerActivator.ReleaseAsync
+~          ├─ ⇢ DefaultControllerActivator.ReleaseAsync (changes below depth limit)
+           └─ ⇢ IControllerActivator.ReleaseAsync (depth limit)
 
   new ControllerFactoryProvider
   └─ if (controllerFactory.GetType() != typeof(DefaultControllerFactory))
@@ -8589,17 +8591,23 @@ stdout:
   JSRuntimeExtensions.GetValueAsync
   └─ IJSRuntime.GetValueAsync
      ├─ ⇢ UnsupportedJavaScriptRuntime.GetValueAsync
-~    └─ ⇢ JSRuntime.GetValueAsync ×6 (changes below depth limit)
+~    ├─ ⇢ JSRuntime.GetValueAsync ×2 (changes below depth limit)
+     ├─ ⇢ JSRuntime.GetValueAsync ×2 (depth limit)
+     └─ …
 
   JSRuntimeExtensions.InvokeAsync
   └─ IJSRuntime.InvokeAsync
      ├─ ⇢ UnsupportedJavaScriptRuntime.InvokeAsync
-~    └─ ⇢ JSRuntime.InvokeAsync ×6 (changes below depth limit)
+~    ├─ ⇢ JSRuntime.InvokeAsync ×2 (changes below depth limit)
+     ├─ ⇢ JSRuntime.InvokeAsync ×2 (depth limit)
+     └─ …
 
   JSRuntimeExtensions.InvokeConstructorAsync
   └─ IJSRuntime.InvokeConstructorAsync
      ├─ ⇢ UnsupportedJavaScriptRuntime.InvokeConstructorAsync
-~    └─ ⇢ JSRuntime.InvokeConstructorAsync ×6 (changes below depth limit)
+~    ├─ ⇢ JSRuntime.InvokeConstructorAsync ×2 (changes below depth limit)
+     ├─ ⇢ JSRuntime.InvokeConstructorAsync ×2 (depth limit)
+     └─ …
 
   JSRuntimeExtensions.InvokeConstructorAsync
   └─ IJSRuntime.InvokeConstructorAsync ↑ as above
@@ -8607,7 +8615,9 @@ stdout:
   JSRuntimeExtensions.InvokeConstructorAsync
   └─ IJSRuntime.InvokeConstructorAsync
      ├─ ⇢ UnsupportedJavaScriptRuntime.InvokeConstructorAsync
-~    └─ ⇢ JSRuntime.InvokeConstructorAsync ×6 (changes below depth limit)
+~    ├─ ⇢ JSRuntime.InvokeConstructorAsync ×2 (changes below depth limit)
+     ├─ ⇢ JSRuntime.InvokeConstructorAsync ×2 (depth limit)
+     └─ …
 
   JSRuntimeExtensions.InvokeVoidAsync
   └─ IJSRuntime.InvokeAsync ↑ as above
@@ -8615,7 +8625,9 @@ stdout:
   JSRuntimeExtensions.SetValueAsync
   └─ IJSRuntime.SetValueAsync
      ├─ ⇢ UnsupportedJavaScriptRuntime.SetValueAsync
-~    └─ ⇢ JSRuntime.SetValueAsync ×6 (changes below depth limit)
+~    ├─ ⇢ JSRuntime.SetValueAsync ×2 (changes below depth limit)
+     ├─ ⇢ JSRuntime.SetValueAsync ×2 (depth limit)
+     └─ …
 
   HttpHeaderParser<T>.ToString
   └─ value.ToString ↑ as above
@@ -15154,7 +15166,9 @@ stdout:
 ~    │     ├─ ⇢ DefaultControllerActivator.Release (changes below depth limit)
      │     └─ ⇢ ServiceBasedControllerActivator.Release
      └─ callback
-~       └─ IControllerActivator.ReleaseAsync → DefaultControllerActivator.ReleaseAsync (changes below depth limit)
+        └─ IControllerActivator.ReleaseAsync
+~          ├─ ⇢ DefaultControllerActivator.ReleaseAsync (changes below depth limit)
+           └─ ⇢ IControllerActivator.ReleaseAsync (depth limit)
 
   new ControllerFactoryProvider
   └─ if (controllerFactory.GetType() != typeof(DefaultControllerFactory))
@@ -18721,17 +18735,23 @@ stdout:
   JSRuntimeExtensions.GetValueAsync
   └─ IJSRuntime.GetValueAsync
      ├─ ⇢ UnsupportedJavaScriptRuntime.GetValueAsync
-~    └─ ⇢ JSRuntime.GetValueAsync ×6 (changes below depth limit)
+~    ├─ ⇢ JSRuntime.GetValueAsync ×2 (changes below depth limit)
+     ├─ ⇢ JSRuntime.GetValueAsync ×2 (depth limit)
+     └─ …
 
   JSRuntimeExtensions.InvokeAsync
   └─ IJSRuntime.InvokeAsync
      ├─ ⇢ UnsupportedJavaScriptRuntime.InvokeAsync
-~    └─ ⇢ JSRuntime.InvokeAsync ×6 (changes below depth limit)
+~    ├─ ⇢ JSRuntime.InvokeAsync ×2 (changes below depth limit)
+     ├─ ⇢ JSRuntime.InvokeAsync ×2 (depth limit)
+     └─ …
 
   JSRuntimeExtensions.InvokeConstructorAsync
   └─ IJSRuntime.InvokeConstructorAsync
      ├─ ⇢ UnsupportedJavaScriptRuntime.InvokeConstructorAsync
-~    └─ ⇢ JSRuntime.InvokeConstructorAsync ×6 (changes below depth limit)
+~    ├─ ⇢ JSRuntime.InvokeConstructorAsync ×2 (changes below depth limit)
+     ├─ ⇢ JSRuntime.InvokeConstructorAsync ×2 (depth limit)
+     └─ …
 
   JSRuntimeExtensions.InvokeConstructorAsync
   └─ IJSRuntime.InvokeConstructorAsync ↑ as above
@@ -18739,7 +18759,9 @@ stdout:
   JSRuntimeExtensions.InvokeConstructorAsync
   └─ IJSRuntime.InvokeConstructorAsync
      ├─ ⇢ UnsupportedJavaScriptRuntime.InvokeConstructorAsync
-~    └─ ⇢ JSRuntime.InvokeConstructorAsync ×6 (changes below depth limit)
+~    ├─ ⇢ JSRuntime.InvokeConstructorAsync ×2 (changes below depth limit)
+     ├─ ⇢ JSRuntime.InvokeConstructorAsync ×2 (depth limit)
+     └─ …
 
   JSRuntimeExtensions.InvokeVoidAsync
   └─ IJSRuntime.InvokeAsync ↑ as above
@@ -18747,7 +18769,9 @@ stdout:
   JSRuntimeExtensions.SetValueAsync
   └─ IJSRuntime.SetValueAsync
      ├─ ⇢ UnsupportedJavaScriptRuntime.SetValueAsync
-~    └─ ⇢ JSRuntime.SetValueAsync ×6 (changes below depth limit)
+~    ├─ ⇢ JSRuntime.SetValueAsync ×2 (changes below depth limit)
+     ├─ ⇢ JSRuntime.SetValueAsync ×2 (depth limit)
+     └─ …
 
   HttpHeaderParser<T>.ToString
   └─ value.ToString ↑ as above

@@ -4838,7 +4838,9 @@ stdout:
 ~    │     ├─ ⇢ DefaultControllerActivator.Release (changes below depth limit)
      │     └─ ⇢ ServiceBasedControllerActivator.Release
      └─ callback
-~       └─ IControllerActivator.ReleaseAsync → DefaultControllerActivator.ReleaseAsync (changes below depth limit)
+        └─ IControllerActivator.ReleaseAsync
+~          ├─ ⇢ DefaultControllerActivator.ReleaseAsync (changes below depth limit)
+           └─ ⇢ IControllerActivator.ReleaseAsync (depth limit)
 
   new ControllerFactoryProvider
   └─ if (controllerFactory.GetType() != typeof(DefaultControllerFactory))
@@ -14507,7 +14509,9 @@ stdout:
 ~    │     ├─ ⇢ DefaultControllerActivator.Release (changes below depth limit)
      │     └─ ⇢ ServiceBasedControllerActivator.Release
      └─ callback
-~       └─ IControllerActivator.ReleaseAsync → DefaultControllerActivator.ReleaseAsync (changes below depth limit)
+        └─ IControllerActivator.ReleaseAsync
+~          ├─ ⇢ DefaultControllerActivator.ReleaseAsync (changes below depth limit)
+           └─ ⇢ IControllerActivator.ReleaseAsync (depth limit)
 
   new ControllerFactoryProvider
   └─ if (controllerFactory.GetType() != typeof(DefaultControllerFactory))
