@@ -285,6 +285,38 @@ stdout:
               "id": "n3",
               "kind": "call",
               "change": "added",
+              "label": "Type.get_Assembly",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "metadata:System.Runtime::System.Type.get_Assembly()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::System.Type.get_Assembly()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Polly.Extensions/Telemetry/TelemetrySource.cs",
+                    "startLine": 22,
+                    "startColumn": 36,
+                    "endLine": 22,
+                    "endColumn": 68
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n4",
+              "kind": "call",
+              "change": "added",
               "label": "typeof(TelemetrySource).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>",
               "detail": null,
               "before": null,
@@ -314,7 +346,70 @@ stdout:
               "omission": null
             },
             {
-              "id": "n4",
+              "id": "n5",
+              "kind": "branch",
+              "change": "added",
+              "label": "if (typeof(TelemetrySource).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>() …",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Polly.Extensions/Telemetry/TelemetrySource.cs",
+                    "startLine": 22,
+                    "startColumn": 36,
+                    "endLine": 22,
+                    "endColumn": 150
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n6",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "AssemblyInformationalVersionAttribute.get_InformationalVersion",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "metadata:System.Runtime::System.Reflection.AssemblyInformationalVersionAttribute.get_InformationalVersion()",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Runtime::System.Reflection.AssemblyInformationalVersionAttribute.get_InformationalVersion()"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Polly.Extensions/Telemetry/TelemetrySource.cs",
+                        "startLine": 22,
+                        "startColumn": 129,
+                        "endLine": 22,
+                        "endColumn": 150
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n7",
               "kind": "call",
               "change": "added",
               "label": "informationalVersion!.IndexOf",
@@ -346,7 +441,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n5",
+              "id": "n8",
               "kind": "branch",
               "change": "added",
               "label": "if (index > 0)",
@@ -374,7 +469,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n6",
+                  "id": "n9",
                   "kind": "call",
                   "change": "added",
                   "label": "informationalVersion.Substring",
@@ -409,7 +504,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n7",
+              "id": "n10",
               "kind": "call",
               "change": "added",
               "label": "informationalVersion!.IndexOf",
@@ -441,7 +536,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n8",
+              "id": "n11",
               "kind": "branch",
               "change": "added",
               "label": "if (index > 0)",
@@ -469,7 +564,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n9",
+                  "id": "n12",
                   "kind": "call",
                   "change": "added",
                   "label": "informationalVersion.Substring",
@@ -507,7 +602,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n10",
+          "id": "n13",
           "kind": "call",
           "change": "added",
           "label": "new",

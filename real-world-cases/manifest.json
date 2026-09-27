@@ -674,15 +674,16 @@
     "after": "b87f20347af528b6f7c6ff1f9e6c1bc02f97856c",
     "beforeLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
     "afterLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
-    "reason": "Share versioned telemetry resources and refactor pipeline construction across projects",
+    "reason": "Share versioned telemetry resources and refactor pipeline construction across projects. Independent pinned source and compiler-binding review preserves automatic callers of telemetry initialization, ContextPool reads after component construction, and sample option setters. Focused version lookup reads Type.Assembly before reflection and, in restored net8.0, guards the informational-version getter before trimming Git and prerelease suffixes. The long null-guard label is truncated. Source mode leaves reflection/string calls unresolved and merges legacy/Core declarations. Bounded expansion, possible dispatch and incomplete collection lowering do not prove runtime singleton identity or version values.",
     "tags": [
       "multi-project",
       "primary-constructor",
-      "static-initialization"
+      "static-initialization",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/polly-coverage.md",
-    "review": "reviews/polly-telemetry-source.md",
+    "review": "../tests/Callrift.RealWorldCases/PollyTelemetryExpectations.cs",
     "views": [
       {
         "id": "source-roots",

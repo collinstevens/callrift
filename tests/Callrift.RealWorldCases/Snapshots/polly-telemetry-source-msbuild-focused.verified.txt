@@ -4,7 +4,10 @@ stdout:
 + new TelemetrySource
 + ├─ new Object
 + ├─ TelemetrySource.GetVersion
++ │  ├─ Type.get_Assembly
 + │  ├─ typeof(TelemetrySource).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>
++ │  ├─ if (typeof(TelemetrySource).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>() …
++ │  │  └─ AssemblyInformationalVersionAttribute.get_InformationalVersion
 + │  ├─ informationalVersion!.IndexOf
 + │  ├─ if (index > 0)
 + │  │  └─ informationalVersion.Substring
@@ -30,7 +33,10 @@ stdout:
 + new TelemetrySource
 + ├─ new Object
 + ├─ TelemetrySource.GetVersion
++ │  ├─ Type.get_Assembly
 + │  ├─ typeof(TelemetrySource).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>
++ │  ├─ if (typeof(TelemetrySource).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>() …
++ │  │  └─ AssemblyInformationalVersionAttribute.get_InformationalVersion
 + │  ├─ informationalVersion!.IndexOf
 + │  ├─ if (index > 0)
 + │  │  └─ informationalVersion.Substring

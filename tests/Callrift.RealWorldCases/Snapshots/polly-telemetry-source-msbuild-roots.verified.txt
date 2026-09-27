@@ -13,10 +13,12 @@ stdout:
 
   ResiliencePipelineBuilder.Build
 ~ ├─ ResiliencePipelineBuilderBase.BuildPipelineComponent (changes below depth limit)
+  ├─ ResiliencePipelineBuilderBase.get_ContextPool
   └─ new ResiliencePipeline (depth limit)
 
   ResiliencePipelineBuilder<TResult>.Build
 ~ ├─ ResiliencePipelineBuilderBase.BuildPipelineComponent (changes below depth limit)
+  ├─ ResiliencePipelineBuilderBase.get_ContextPool
   └─ new ResiliencePipeline<T> (depth limit)
 
   PollyServiceCollectionExtensions.AddResiliencePipeline
@@ -33,8 +35,8 @@ stdout:
 
   TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry
   ├─ …
-  ├─ Guard.NotNull
   ├─ new TelemetryOptions
+  ├─ TelemetryOptions.set_LoggerFactory
 ~ └─ TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry (changes below depth limit)
 stderr:
 src/Polly.Core/CircuitBreaker/CircuitBreakerResilienceStrategy.cs:30: generic-context-limit: Generic invocation expansion for CircuitBreakerResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
@@ -63,10 +65,12 @@ stdout:
 
   ResiliencePipelineBuilder.Build
 ~ ├─ ResiliencePipelineBuilderBase.BuildPipelineComponent (changes below depth limit)
+  ├─ ResiliencePipelineBuilderBase.get_ContextPool
   └─ new ResiliencePipeline (depth limit)
 
   ResiliencePipelineBuilder<TResult>.Build
 ~ ├─ ResiliencePipelineBuilderBase.BuildPipelineComponent (changes below depth limit)
+  ├─ ResiliencePipelineBuilderBase.get_ContextPool
   └─ new ResiliencePipeline<T> (depth limit)
 
   PollyServiceCollectionExtensions.AddResiliencePipeline
@@ -83,8 +87,8 @@ stdout:
 
   TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry
   ├─ …
-  ├─ Guard.NotNull
   ├─ new TelemetryOptions
+  ├─ TelemetryOptions.set_LoggerFactory
 ~ └─ TelemetryResiliencePipelineBuilderExtensions.ConfigureTelemetry (changes below depth limit)
 ```
 stderr:
