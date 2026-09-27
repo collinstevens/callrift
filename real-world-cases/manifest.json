@@ -1743,5 +1743,74 @@
         ]
       }
     ]
+  },
+  {
+    "id": "aspnetcore-upload-stream-ownership",
+    "repository": "https://github.com/dotnet/aspnetcore.git",
+    "cacheName": "aspnetcore",
+    "before": "96b7ae9999a954147cabc0245063f87cf2a0029b",
+    "after": "7638d7114ad4a74465ad10e6d61d0915067b80c3",
+    "license": "MIT",
+    "licenseFile": "LICENSE.txt",
+    "beforeLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
+    "afterLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
+    "reason": "Reject duplicate SignalR upload stream IDs through TryAdd and HubException, allocate an invocation owner lazily, thread ownership through dispatch and cleanup signatures, and dispose argument-binding cancellation sources on failure. Pinned source and upstream tests reviewed; upstream tests were not executed. Automatic roots, rendered bindings, declarations, diagnostics, and text/Markdown/JSON reviewed independently. Call-free owner-mismatch and failed-removal guards are omitted; visible cleanup calls do not prove ownership value flow. Possible dispatch does not prove runtime execution. Source mode lacks project references, defines, generators, and runtime/reflection edges. Restored trial exits 2 because the pinned tree includes unsupported src/submodules/MessagePack-CSharp; no restored-mode claim.",
+    "tags": [
+      "duplicate-registration",
+      "branch-guard",
+      "exception-path",
+      "async",
+      "resource-cleanup",
+      "signature-change",
+      "cross-project",
+      "automatic-roots"
+    ],
+    "options": [],
+    "knownIssue": "issues/aspnetcore-source-coverage.md",
+    "review": "../tests/Callrift.RealWorldCases/AspNetUploadStreamExpectations.cs",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "3",
+          "--externals",
+          "--entry",
+          "StreamTracker.GetNextStreamOwner",
+          "--entry",
+          "StreamTracker.AddStream",
+          "--entry",
+          "Microsoft.AspNetCore.SignalR.StreamTracker.TryComplete(global::Microsoft.AspNetCore.SignalR.Protocol.CompletionMessage)",
+          "--entry",
+          "Microsoft.AspNetCore.SignalR.StreamTracker.TryComplete(string,long)",
+          "--entry",
+          "StreamTracker.TryProcessItem",
+          "--entry",
+          "StreamTracker.GetStreamItemType",
+          "--entry",
+          "StreamTracker.CompleteAll",
+          "--entry",
+          "DefaultHubDispatcher<THub>.Invoke",
+          "--entry",
+          "DefaultHubDispatcher<THub>.Invoke.ExecuteInvocation",
+          "--entry",
+          "DefaultHubDispatcher<THub>.CleanupInvocation",
+          "--entry",
+          "DefaultHubDispatcher<THub>.StreamAsync",
+          "--entry",
+          "DefaultHubDispatcher<THub>.ReplaceArguments"
+        ]
+      }
+    ]
   }
 ]

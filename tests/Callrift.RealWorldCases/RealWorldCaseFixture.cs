@@ -53,6 +53,8 @@ public sealed class RealWorldCaseFixture : IDisposable
         var result = CallriftService.Compare(cached.Before, cached.After, options, timeout.Token) with { From = cached.From, To = cached.To };
         if (entry.Id == "orchardcore-esmodule-localization")
             OrchardEsModuleExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "aspnetcore-upload-stream-ownership")
+            AspNetUploadStreamExpectations.Verify(result, options.Entries.Count > 0);
         var diagnostics = string.Concat(result.Diagnostics.Take(8).Select(diagnostic =>
             (diagnostic.Location is null ? "" : $"{diagnostic.Location.Path}:{diagnostic.Location.Line}: ") + $"{diagnostic.Code}: {diagnostic.Message}\n"));
         if (result.Diagnostics.Count > 8)
