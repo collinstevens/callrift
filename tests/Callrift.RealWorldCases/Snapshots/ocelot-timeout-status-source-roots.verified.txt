@@ -4,17 +4,18 @@ stdout:
   HttpRequesterMiddleware.Invoke
 ~ ├─ IHttpRequester.GetResponse → MessageInvokerHttpRequester.GetResponse (changes below depth limit)
   ├─ HttpRequesterMiddleware.CreateLogBasedOnResponse (depth limit)
-  ├─ if (response.IsError)
+  ├─ Response.get_IsError (depth limit)
   └─ …
 
   samples/Metadata/Program.cs::<top-level>
   ├─ …
-  ├─ new OcelotPipelineConfiguration
   ├─ callback
+  ├─ OcelotPipelineConfiguration.set_PreErrorResponderMiddleware
   ├─ callback
 ~ │  └─ MyMiddlewares.ResponderMiddleware (changes below depth limit)
+  ├─ OcelotPipelineConfiguration.set_ResponderMiddleware
   ├─ ? app.UseOcelot
-  └─ ? app.RunAsync
+  └─ …
 stderr:
 manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.
 manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
@@ -33,17 +34,18 @@ stdout:
   HttpRequesterMiddleware.Invoke
 ~ ├─ IHttpRequester.GetResponse → MessageInvokerHttpRequester.GetResponse (changes below depth limit)
   ├─ HttpRequesterMiddleware.CreateLogBasedOnResponse (depth limit)
-  ├─ if (response.IsError)
+  ├─ Response.get_IsError (depth limit)
   └─ …
 
   samples/Metadata/Program.cs::<top-level>
   ├─ …
-  ├─ new OcelotPipelineConfiguration
   ├─ callback
+  ├─ OcelotPipelineConfiguration.set_PreErrorResponderMiddleware
   ├─ callback
 ~ │  └─ MyMiddlewares.ResponderMiddleware (changes below depth limit)
+  ├─ OcelotPipelineConfiguration.set_ResponderMiddleware
   ├─ ? app.UseOcelot
-  └─ ? app.RunAsync
+  └─ …
 ```
 stderr:
 manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.

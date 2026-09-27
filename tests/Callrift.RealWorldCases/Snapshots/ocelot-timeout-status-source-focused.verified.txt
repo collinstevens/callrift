@@ -3,20 +3,22 @@ exit: 0
 stdout:
   HttpExceptionToErrorMapper.Map
   ├─ …
-  ├─ if (_mappers != null)
   ├─ if (_mappers != null && _mappers.TryGetValue(type, out var mapper))
-- ├─ if (type == typeof(TimeoutException))
-- │  └─ new RequestTimedOutError
-- │     └─ ? : base($"Timeout making http request, exception: {exception}", OcelotErrorCode.RequestTimedOutError, StatusCodes.Status503ServiceUnavailable)
+  ├─ Type.op_Equality
+  ├─ if (type == typeof(TimeoutException))
+- │  ├─ new RequestTimedOutError
+- │  │  └─ ? : base($"Timeout making http request, exception: {exception}", OcelotErrorCode.RequestTimedOutError, StatusCodes.Status503ServiceUnavailable)
++ │  └─ Exception.get_InnerException
 + ├─ if (type == typeof(TimeoutException) && exception.InnerException is null)
 + │  └─ new RequestTimedOutError
 + │     └─ ? Error($"Timeout making http request, exception: {exception}", OcelotErrorCode.RequestTimedOutError, StatusCodes.Status504GatewayTimeout)
+  ├─ Type.op_Equality
   ├─ if (!(type == typeof(OperationCanceledException)))
-  ├─ if (type == typeof(OperationCanceledException) || type.IsSubclassOf(typeof(OperationCanceledExcep…
   └─ …
 
 ~ ErrorsToHttpStatusCodeMapper.Map (body changed; visible calls unchanged)
-  ├─ errors.Any ×2
+  ├─ errors.Any
+  ├─ errors.Any
   └─ …
 stderr:
 manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.
@@ -35,20 +37,22 @@ stdout:
 ```diff
   HttpExceptionToErrorMapper.Map
   ├─ …
-  ├─ if (_mappers != null)
   ├─ if (_mappers != null && _mappers.TryGetValue(type, out var mapper))
-- ├─ if (type == typeof(TimeoutException))
-- │  └─ new RequestTimedOutError
-- │     └─ ? : base($"Timeout making http request, exception: {exception}", OcelotErrorCode.RequestTimedOutError, StatusCodes.Status503ServiceUnavailable)
+  ├─ Type.op_Equality
+  ├─ if (type == typeof(TimeoutException))
+- │  ├─ new RequestTimedOutError
+- │  │  └─ ? : base($"Timeout making http request, exception: {exception}", OcelotErrorCode.RequestTimedOutError, StatusCodes.Status503ServiceUnavailable)
++ │  └─ Exception.get_InnerException
 + ├─ if (type == typeof(TimeoutException) && exception.InnerException is null)
 + │  └─ new RequestTimedOutError
 + │     └─ ? Error($"Timeout making http request, exception: {exception}", OcelotErrorCode.RequestTimedOutError, StatusCodes.Status504GatewayTimeout)
+  ├─ Type.op_Equality
   ├─ if (!(type == typeof(OperationCanceledException)))
-  ├─ if (type == typeof(OperationCanceledException) || type.IsSubclassOf(typeof(OperationCanceledExcep…
   └─ …
 
 ~ ErrorsToHttpStatusCodeMapper.Map (body changed; visible calls unchanged)
-  ├─ errors.Any ×2
+  ├─ errors.Any
+  ├─ errors.Any
   └─ …
 ```
 stderr:

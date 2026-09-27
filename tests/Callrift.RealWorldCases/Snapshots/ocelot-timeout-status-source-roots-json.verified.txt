@@ -12573,6 +12573,75 @@ stdout:
         },
         {
           "id": "n3",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Response.get_IsError",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "source::Ocelot.Responses.Response.get_IsError()",
+            "signature": "public Ocelot.Responses.Response.get_IsError() -> bool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Ocelot.Responses.Response.get_IsError()"
+            ],
+            "definition": {
+              "path": "src/Responses/Response.cs",
+              "startLine": 19,
+              "startColumn": 5,
+              "endLine": 19,
+              "endColumn": 45
+            },
+            "callSites": [
+              {
+                "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                "startLine": 27,
+                "startColumn": 13,
+                "endLine": 27,
+                "endColumn": 29
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Ocelot.Responses.Response.get_IsError()",
+            "signature": "public Ocelot.Responses.Response.get_IsError() -> bool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Ocelot.Responses.Response.get_IsError()"
+            ],
+            "definition": {
+              "path": "src/Responses/Response.cs",
+              "startLine": 19,
+              "startColumn": 5,
+              "endLine": 19,
+              "endColumn": 45
+            },
+            "callSites": [
+              {
+                "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                "startLine": 27,
+                "startColumn": 13,
+                "endLine": 27,
+                "endColumn": 29
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n4",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (response.IsError)",
@@ -12619,7 +12688,72 @@ stdout:
           },
           "children": [
             {
-              "id": "n4",
+              "id": "n5",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "OcelotMiddleware.get_Logger",
+              "detail": null,
+              "before": {
+                "symbolId": "source::Ocelot.Middleware.OcelotMiddleware.get_Logger()",
+                "signature": "public Ocelot.Middleware.OcelotMiddleware.get_Logger() -> Ocelot.Logging.IOcelotLogger",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.Middleware.OcelotMiddleware.get_Logger()"
+                ],
+                "definition": {
+                  "path": "src/Middleware/OcelotMiddleware.cs",
+                  "startLine": 13,
+                  "startColumn": 35,
+                  "endLine": 13,
+                  "endColumn": 39
+                },
+                "callSites": [
+                  {
+                    "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                    "startLine": 29,
+                    "startColumn": 13,
+                    "endLine": 29,
+                    "endColumn": 19
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "source::Ocelot.Middleware.OcelotMiddleware.get_Logger()",
+                "signature": "public Ocelot.Middleware.OcelotMiddleware.get_Logger() -> Ocelot.Logging.IOcelotLogger",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.Middleware.OcelotMiddleware.get_Logger()"
+                ],
+                "definition": {
+                  "path": "src/Middleware/OcelotMiddleware.cs",
+                  "startLine": 13,
+                  "startColumn": 35,
+                  "endLine": 13,
+                  "endColumn": 39
+                },
+                "callSites": [
+                  {
+                    "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                    "startLine": 29,
+                    "startColumn": 13,
+                    "endLine": 29,
+                    "endColumn": 19
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n6",
               "kind": "call",
               "change": "unchanged",
               "label": "IOcelotLogger.LogDebug → OcelotLogger.LogDebug",
@@ -12688,7 +12822,72 @@ stdout:
               }
             },
             {
-              "id": "n5",
+              "id": "n7",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Response.get_Errors",
+              "detail": null,
+              "before": {
+                "symbolId": "source::Ocelot.Responses.Response.get_Errors()",
+                "signature": "public Ocelot.Responses.Response.get_Errors() -> System.Collections.Generic.List<Ocelot.Errors.Error>",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.Responses.Response.get_Errors()"
+                ],
+                "definition": {
+                  "path": "src/Responses/Response.cs",
+                  "startLine": 17,
+                  "startColumn": 33,
+                  "endLine": 17,
+                  "endColumn": 37
+                },
+                "callSites": [
+                  {
+                    "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                    "startLine": 31,
+                    "startColumn": 44,
+                    "endLine": 31,
+                    "endColumn": 59
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "source::Ocelot.Responses.Response.get_Errors()",
+                "signature": "public Ocelot.Responses.Response.get_Errors() -> System.Collections.Generic.List<Ocelot.Errors.Error>",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.Responses.Response.get_Errors()"
+                ],
+                "definition": {
+                  "path": "src/Responses/Response.cs",
+                  "startLine": 17,
+                  "startColumn": 33,
+                  "endLine": 17,
+                  "endColumn": 37
+                },
+                "callSites": [
+                  {
+                    "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                    "startLine": 31,
+                    "startColumn": 44,
+                    "endLine": 31,
+                    "endColumn": 59
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n8",
               "kind": "call",
               "change": "unchanged",
               "label": "? httpContext.Items.UpsertErrors",
@@ -12740,7 +12939,72 @@ stdout:
           "omission": null
         },
         {
-          "id": "n6",
+          "id": "n9",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "OcelotMiddleware.get_Logger",
+          "detail": null,
+          "before": {
+            "symbolId": "source::Ocelot.Middleware.OcelotMiddleware.get_Logger()",
+            "signature": "public Ocelot.Middleware.OcelotMiddleware.get_Logger() -> Ocelot.Logging.IOcelotLogger",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Ocelot.Middleware.OcelotMiddleware.get_Logger()"
+            ],
+            "definition": {
+              "path": "src/Middleware/OcelotMiddleware.cs",
+              "startLine": 13,
+              "startColumn": 35,
+              "endLine": 13,
+              "endColumn": 39
+            },
+            "callSites": [
+              {
+                "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                "startLine": 35,
+                "startColumn": 9,
+                "endLine": 35,
+                "endColumn": 15
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Ocelot.Middleware.OcelotMiddleware.get_Logger()",
+            "signature": "public Ocelot.Middleware.OcelotMiddleware.get_Logger() -> Ocelot.Logging.IOcelotLogger",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Ocelot.Middleware.OcelotMiddleware.get_Logger()"
+            ],
+            "definition": {
+              "path": "src/Middleware/OcelotMiddleware.cs",
+              "startLine": 13,
+              "startColumn": 35,
+              "endLine": 13,
+              "endColumn": 39
+            },
+            "callSites": [
+              {
+                "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                "startLine": 35,
+                "startColumn": 9,
+                "endLine": 35,
+                "endColumn": 15
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n10",
           "kind": "call",
           "change": "unchanged",
           "label": "IOcelotLogger.LogDebug → OcelotLogger.LogDebug",
@@ -12809,7 +13073,72 @@ stdout:
           }
         },
         {
-          "id": "n7",
+          "id": "n11",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Response<T>.get_Data",
+          "detail": null,
+          "before": {
+            "symbolId": "source::Ocelot.Responses.Response<T>.get_Data()",
+            "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Ocelot.Responses.Response<T>.get_Data()"
+            ],
+            "definition": {
+              "path": "src/Responses/Response.cs",
+              "startLine": 32,
+              "startColumn": 21,
+              "endLine": 32,
+              "endColumn": 25
+            },
+            "callSites": [
+              {
+                "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                "startLine": 36,
+                "startColumn": 75,
+                "endLine": 36,
+                "endColumn": 88
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Ocelot.Responses.Response<T>.get_Data()",
+            "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Ocelot.Responses.Response<T>.get_Data()"
+            ],
+            "definition": {
+              "path": "src/Responses/Response.cs",
+              "startLine": 32,
+              "startColumn": 21,
+              "endLine": 32,
+              "endColumn": 25
+            },
+            "callSites": [
+              {
+                "path": "src/Requester/Middleware/HttpRequesterMiddleware.cs",
+                "startLine": 36,
+                "startColumn": 75,
+                "endLine": 36,
+                "endColumn": 88
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n12",
           "kind": "call",
           "change": "unchanged",
           "label": "new DownstreamResponse",
@@ -12878,7 +13207,7 @@ stdout:
           }
         },
         {
-          "id": "n8",
+          "id": "n13",
           "kind": "call",
           "change": "unchanged",
           "label": "? httpContext.Items.UpsertDownstreamResponse",
@@ -12927,7 +13256,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n9",
+          "id": "n14",
           "kind": "call",
           "change": "unchanged",
           "label": "? _next.Invoke",
@@ -12979,7 +13308,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n10",
+      "id": "n15",
       "kind": "member",
       "change": "unchanged",
       "label": "samples/Metadata/Program.cs::<top-level>",
@@ -13026,7 +13355,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n11",
+          "id": "n16",
           "kind": "call",
           "change": "unchanged",
           "label": "? WebApplication.CreateBuilder",
@@ -13075,7 +13404,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n12",
+          "id": "n17",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Configuration.SetBasePath",
@@ -13124,7 +13453,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n13",
+          "id": "n18",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot",
@@ -13173,7 +13502,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n14",
+          "id": "n19",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Services.AddOcelot",
@@ -13222,7 +13551,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n15",
+          "id": "n20",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Services.AddOcelot(builder.Configuration).Services.RemoveAll<IHttpResponder>",
@@ -13271,7 +13600,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n16",
+          "id": "n21",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Environment.IsDevelopment",
@@ -13320,7 +13649,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n17",
+          "id": "n22",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (builder.Environment.IsDevelopment())",
@@ -13367,7 +13696,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n18",
+              "id": "n23",
               "kind": "call",
               "change": "unchanged",
               "label": "? builder.Logging.AddConsole",
@@ -13419,7 +13748,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n19",
+          "id": "n24",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Build",
@@ -13468,7 +13797,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n20",
+          "id": "n25",
           "kind": "call",
           "change": "unchanged",
           "label": "new OcelotPipelineConfiguration",
@@ -13533,7 +13862,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n21",
+          "id": "n26",
           "kind": "branch",
           "change": "unchanged",
           "label": "callback",
@@ -13580,7 +13909,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n22",
+              "id": "n27",
               "kind": "call",
               "change": "unchanged",
               "label": "MyMiddlewares.PreErrorResponderMiddleware",
@@ -13652,7 +13981,72 @@ stdout:
           "omission": null
         },
         {
-          "id": "n23",
+          "id": "n28",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "OcelotPipelineConfiguration.set_PreErrorResponderMiddleware",
+          "detail": null,
+          "before": {
+            "symbolId": "source::Ocelot.Middleware.OcelotPipelineConfiguration.set_PreErrorResponderMiddleware(global::System.Func<HttpContext, global::System.Func<global::System.Threading.Tasks.Task>, global::System.Threading.Tasks.Task>)",
+            "signature": "public Ocelot.Middleware.OcelotPipelineConfiguration.set_PreErrorResponderMiddleware(System.Func<HttpContext, System.Func<System.Threading.Tasks.Task>, System.Threading.Tasks.Task> value) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Ocelot.Middleware.OcelotPipelineConfiguration.set_PreErrorResponderMiddleware(global::System.Func<HttpContext, global::System.Func<global::System.Threading.Tasks.Task>, global::System.Threading.Tasks.Task>)"
+            ],
+            "definition": {
+              "path": "src/Middleware/OcelotPipelineConfiguration.cs",
+              "startLine": 14,
+              "startColumn": 83,
+              "endLine": 14,
+              "endColumn": 87
+            },
+            "callSites": [
+              {
+                "path": "samples/Metadata/Program.cs",
+                "startLine": 25,
+                "startColumn": 5,
+                "endLine": 25,
+                "endColumn": 32
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Ocelot.Middleware.OcelotPipelineConfiguration.set_PreErrorResponderMiddleware(global::System.Func<HttpContext, global::System.Func<global::System.Threading.Tasks.Task>, global::System.Threading.Tasks.Task>)",
+            "signature": "public Ocelot.Middleware.OcelotPipelineConfiguration.set_PreErrorResponderMiddleware(System.Func<HttpContext, System.Func<System.Threading.Tasks.Task>, System.Threading.Tasks.Task> value) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Ocelot.Middleware.OcelotPipelineConfiguration.set_PreErrorResponderMiddleware(global::System.Func<HttpContext, global::System.Func<global::System.Threading.Tasks.Task>, global::System.Threading.Tasks.Task>)"
+            ],
+            "definition": {
+              "path": "src/Middleware/OcelotPipelineConfiguration.cs",
+              "startLine": 14,
+              "startColumn": 83,
+              "endLine": 14,
+              "endColumn": 87
+            },
+            "callSites": [
+              {
+                "path": "samples/Metadata/Program.cs",
+                "startLine": 25,
+                "startColumn": 5,
+                "endLine": 25,
+                "endColumn": 32
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n29",
           "kind": "branch",
           "change": "unchanged",
           "label": "callback",
@@ -13699,7 +14093,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n24",
+              "id": "n30",
               "kind": "call",
               "change": "modified",
               "label": "MyMiddlewares.ResponderMiddleware",
@@ -13771,7 +14165,72 @@ stdout:
           "omission": null
         },
         {
-          "id": "n25",
+          "id": "n31",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "OcelotPipelineConfiguration.set_ResponderMiddleware",
+          "detail": null,
+          "before": {
+            "symbolId": "source::Ocelot.Middleware.OcelotPipelineConfiguration.set_ResponderMiddleware(global::System.Func<HttpContext, global::System.Func<global::System.Threading.Tasks.Task>, global::System.Threading.Tasks.Task>)",
+            "signature": "public Ocelot.Middleware.OcelotPipelineConfiguration.set_ResponderMiddleware(System.Func<HttpContext, System.Func<System.Threading.Tasks.Task>, System.Threading.Tasks.Task> value) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Ocelot.Middleware.OcelotPipelineConfiguration.set_ResponderMiddleware(global::System.Func<HttpContext, global::System.Func<global::System.Threading.Tasks.Task>, global::System.Threading.Tasks.Task>)"
+            ],
+            "definition": {
+              "path": "src/Middleware/OcelotPipelineConfiguration.cs",
+              "startLine": 18,
+              "startColumn": 75,
+              "endLine": 18,
+              "endColumn": 79
+            },
+            "callSites": [
+              {
+                "path": "samples/Metadata/Program.cs",
+                "startLine": 26,
+                "startColumn": 5,
+                "endLine": 26,
+                "endColumn": 24
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Ocelot.Middleware.OcelotPipelineConfiguration.set_ResponderMiddleware(global::System.Func<HttpContext, global::System.Func<global::System.Threading.Tasks.Task>, global::System.Threading.Tasks.Task>)",
+            "signature": "public Ocelot.Middleware.OcelotPipelineConfiguration.set_ResponderMiddleware(System.Func<HttpContext, System.Func<System.Threading.Tasks.Task>, System.Threading.Tasks.Task> value) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Ocelot.Middleware.OcelotPipelineConfiguration.set_ResponderMiddleware(global::System.Func<HttpContext, global::System.Func<global::System.Threading.Tasks.Task>, global::System.Threading.Tasks.Task>)"
+            ],
+            "definition": {
+              "path": "src/Middleware/OcelotPipelineConfiguration.cs",
+              "startLine": 18,
+              "startColumn": 75,
+              "endLine": 18,
+              "endColumn": 79
+            },
+            "callSites": [
+              {
+                "path": "samples/Metadata/Program.cs",
+                "startLine": 26,
+                "startColumn": 5,
+                "endLine": 26,
+                "endColumn": 24
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n32",
           "kind": "call",
           "change": "unchanged",
           "label": "? app.UseOcelot",
@@ -13820,7 +14279,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n26",
+          "id": "n33",
           "kind": "call",
           "change": "unchanged",
           "label": "? app.RunAsync",

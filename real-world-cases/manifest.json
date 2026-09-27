@@ -939,7 +939,7 @@
     "licenseFile": "LICENSE.md",
     "before": "65686d488475163cc357b7f5876e3d346e23630e",
     "after": "8646f482fc8c4aead02b6769762b6eeef73e9e6d",
-    "reason": "#1687 Return 504 Gateway Timeout for downstream request timeouts according to RFC 9110 (#2420)",
+    "reason": "Narrow timeout mapping to exceptions without an inner exception and change the timeout status to 504. The InnerException getter appears under the short-circuit type guard, and the timeout constructor moves under the full null condition. Property getters and configuration setters retain pinned source and compiler binding checks in both modes. Automatic requester/responder roots, diagnostics, locations and all twelve CLI outputs were independently reviewed and repeated. Constant return values and concrete runtime dispatch remain unmodeled; the status mapper reports a body change with unchanged calls.",
     "tags": [
       "guards",
       "exception-paths",
@@ -948,7 +948,7 @@
     ],
     "options": [],
     "knownIssue": "issues/ocelot-coverage.md",
-    "review": "reviews/ocelot-timeout-status.md",
+    "review": "../tests/Callrift.RealWorldCases/OcelotTimeoutExpectations.cs",
     "beforeLicenseBlob": "7a0788f9c32c526f1de1cf2e8ba0ae5a260c6c62",
     "afterLicenseBlob": "7a0788f9c32c526f1de1cf2e8ba0ae5a260c6c62",
     "routine": false,
