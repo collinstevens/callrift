@@ -2,6 +2,7 @@
 exit: 0
 stdout:
   AdminController.IndexInfo
++ ├─ ControllerBase.get_User
 + ├─ possible initialization of ElasticsearchPermissions
 + │  └─ initialization of ElasticsearchPermissions
 + │     ├─ possible initialization of IndexingPermissions
@@ -13,9 +14,12 @@ stdout:
 + │     │  └─ Task.FromResult
 + │     ├─ new PermissionRequirement (depth limit)
 + │     ├─ service.AuthorizeAsync
++ │     ├─ Task.get_IsCompletedSuccessfully
 + │     ├─ if (task.IsCompletedSuccessfully)
++ │     │  ├─ Task<TResult>.get_Result
++ │     │  ├─ AuthorizationResult.get_Succeeded
 + │     │  └─ Task.FromResult
-+ │     └─ AuthorizationServiceExtensions.AuthorizeAsync.Awaited
++ │     └─ AuthorizationServiceExtensions.AuthorizeAsync.Awaited (depth limit)
 + ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
 + │  └─ Forbid
   ├─ IIndexProfileStore.FindByIdAsync → DefaultIndexProfileStore.FindByIdAsync
@@ -23,6 +27,7 @@ stdout:
   └─ …
 
   AdminController.QueryIndex
++ ├─ ControllerBase.get_User
 + ├─ possible initialization of ElasticsearchPermissions
 + │  └─ initialization of ElasticsearchPermissions ↑ as above
 + ├─ AuthorizationServiceExtensions.AuthorizeAsync ↑ as above
@@ -31,9 +36,10 @@ stdout:
   ├─ IIndexProfileStore.FindByNameAsync → DefaultIndexProfileStore.FindByNameAsync
   ├─ if (index is null)
   ├─ …
-  ├─ string.IsNullOrWhiteSpace
-  ├─ else (!(string.IsNullOrWhiteSpace(query)))
+  ├─ AdminQueryViewModel.set_DecodedQuery
+  ├─ AdminQueryViewModel.set_Parameters
   └─ AdminController.Query
+     ├─ ControllerBase.get_User
 -    ├─ possible initialization of ElasticsearchPermissions
 -    │  └─ initialization of ElasticsearchPermissions (depth limit)
      ├─ AuthorizationServiceExtensions.AuthorizeAsync
@@ -46,6 +52,7 @@ exit: 0
 stdout:
 ```diff
   AdminController.IndexInfo
++ ├─ ControllerBase.get_User
 + ├─ possible initialization of ElasticsearchPermissions
 + │  └─ initialization of ElasticsearchPermissions
 + │     ├─ possible initialization of IndexingPermissions
@@ -57,9 +64,12 @@ stdout:
 + │     │  └─ Task.FromResult
 + │     ├─ new PermissionRequirement (depth limit)
 + │     ├─ service.AuthorizeAsync
++ │     ├─ Task.get_IsCompletedSuccessfully
 + │     ├─ if (task.IsCompletedSuccessfully)
++ │     │  ├─ Task<TResult>.get_Result
++ │     │  ├─ AuthorizationResult.get_Succeeded
 + │     │  └─ Task.FromResult
-+ │     └─ AuthorizationServiceExtensions.AuthorizeAsync.Awaited
++ │     └─ AuthorizationServiceExtensions.AuthorizeAsync.Awaited (depth limit)
 + ├─ if (!await _authorizationService.AuthorizeAsync(User, ElasticsearchPermissions.ManageElasticIndex…
 + │  └─ Forbid
   ├─ IIndexProfileStore.FindByIdAsync → DefaultIndexProfileStore.FindByIdAsync
@@ -67,6 +77,7 @@ stdout:
   └─ …
 
   AdminController.QueryIndex
++ ├─ ControllerBase.get_User
 + ├─ possible initialization of ElasticsearchPermissions
 + │  └─ initialization of ElasticsearchPermissions ↑ as above
 + ├─ AuthorizationServiceExtensions.AuthorizeAsync ↑ as above
@@ -75,9 +86,10 @@ stdout:
   ├─ IIndexProfileStore.FindByNameAsync → DefaultIndexProfileStore.FindByNameAsync
   ├─ if (index is null)
   ├─ …
-  ├─ string.IsNullOrWhiteSpace
-  ├─ else (!(string.IsNullOrWhiteSpace(query)))
+  ├─ AdminQueryViewModel.set_DecodedQuery
+  ├─ AdminQueryViewModel.set_Parameters
   └─ AdminController.Query
+     ├─ ControllerBase.get_User
 -    ├─ possible initialization of ElasticsearchPermissions
 -    │  └─ initialization of ElasticsearchPermissions (depth limit)
      ├─ AuthorizationServiceExtensions.AuthorizeAsync

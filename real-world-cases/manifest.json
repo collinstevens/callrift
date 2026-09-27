@@ -1517,16 +1517,17 @@
     "beforeLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
     "afterLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
     "cacheName": "orchardcore",
-    "reason": "Add authorization guards to Elasticsearch index endpoints",
+    "reason": "Require ManageElasticIndexes before either Elasticsearch admin lookup. Independent pinned-source and compiler review checks the added authorization guards, restored User getter and Task completion-property order, preserved IndexProfile getters and view-model setters, configuration short-circuit reads, and Elasticsearch response/indexer access. Both automatic views retain two changed roots. Source authorization remains unresolved; restored automatic output without externals omits the Forbid guard, while focused output includes it. Source diagnostics total 17180, including 451 additional unresolved calls and 4 duplicate accessors from equal Facebook namespaces in separate projects; restored diagnostics are empty. All 12 CLI formats repeat exactly. Upstream tests were not executed. Possible initialization and dispatch do not prove runtime execution or deployed authorization.",
     "tags": [
       "branch-guard",
       "authorization",
       "cross-project",
-      "automatic-roots"
+      "automatic-roots",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/orchardcore-coverage.md",
-    "review": "reviews/orchardcore-elasticsearch-authorization.md",
+    "review": "../tests/Callrift.RealWorldCases/OrchardElasticsearchExpectations.cs",
     "routine": false,
     "views": [
       {
