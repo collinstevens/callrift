@@ -657,6 +657,48 @@ stdout:
                 },
                 {
                   "id": "n16",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "Response.get_IsError",
+                  "detail": "depth limit",
+                  "before": null,
+                  "after": {
+                    "symbolId": "project:src/Ocelot/Ocelot.csproj@net10.0::Ocelot.Responses.Response.get_IsError()",
+                    "signature": "public Ocelot.Responses.Response.get_IsError() -> bool",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Ocelot/Ocelot.csproj@net10.0::Ocelot.Responses.Response.get_IsError()"
+                    ],
+                    "definition": {
+                      "path": "src/Ocelot/Responses/Response.cs",
+                      "startLine": 19,
+                      "startColumn": 5,
+                      "endLine": 19,
+                      "endColumn": 45
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Ocelot/Configuration/Repository/FileConfigurationPoller.cs",
+                        "startLine": 142,
+                        "startColumn": 22,
+                        "endLine": 142,
+                        "endColumn": 36
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n17",
                   "kind": "branch",
                   "change": "added",
                   "label": "if (!config.IsError)",
@@ -684,7 +726,45 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n17",
+                      "id": "n18",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "Response<T>.get_Data",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "project:src/Ocelot/Ocelot.csproj@net10.0::Ocelot.Responses.Response<T>.get_Data()",
+                        "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Ocelot/Ocelot.csproj@net10.0::Ocelot.Responses.Response<T>.get_Data()"
+                        ],
+                        "definition": {
+                          "path": "src/Ocelot/Responses/Response.cs",
+                          "startLine": 32,
+                          "startColumn": 21,
+                          "endLine": 32,
+                          "endColumn": 25
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Ocelot/Configuration/Repository/FileConfigurationPoller.cs",
+                            "startLine": 143,
+                            "startColumn": 54,
+                            "endLine": 143,
+                            "endColumn": 65
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n19",
                       "kind": "call",
                       "change": "added",
                       "label": "IInternalConfigurationRepository.AddOrReplace → InMemoryInternalConfigurationRepository.AddOrReplace",
@@ -732,7 +812,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n18",
+              "id": "n20",
               "kind": "call",
               "change": "added",
               "label": "IOcelotLogger.LogInformation → OcelotLogger.LogInformation",
@@ -777,7 +857,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n19",
+          "id": "n21",
           "kind": "branch",
           "change": "removed",
           "label": "catch (Exception e)",
@@ -805,7 +885,7 @@ stdout:
           "after": null,
           "children": [
             {
-              "id": "n20",
+              "id": "n22",
               "kind": "call",
               "change": "removed",
               "label": "IOcelotLogger.LogWarning → OcelotLogger.LogWarning",
@@ -850,7 +930,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n21",
+          "id": "n23",
           "kind": "branch",
           "change": "removed",
           "label": "if (configuration is null)",
@@ -878,7 +958,7 @@ stdout:
           "after": null,
           "children": [
             {
-              "id": "n22",
+              "id": "n24",
               "kind": "call",
               "change": "removed",
               "label": "IOcelotLogger.LogWarning → OcelotLogger.LogWarning",
@@ -923,7 +1003,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n23",
+          "id": "n25",
           "kind": "call",
           "change": "removed",
           "label": "FileConfigurationPoller.ToJson",
@@ -961,7 +1041,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n24",
+          "id": "n26",
           "kind": "branch",
           "change": "removed",
           "label": "if (asJson != _previousAsJson)",
@@ -989,7 +1069,7 @@ stdout:
           "after": null,
           "children": [
             {
-              "id": "n25",
+              "id": "n27",
               "kind": "call",
               "change": "removed",
               "label": "IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create",
@@ -1031,7 +1111,49 @@ stdout:
               }
             },
             {
-              "id": "n26",
+              "id": "n28",
+              "kind": "call",
+              "change": "removed",
+              "label": "Response.get_IsError",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net10.0::Ocelot.Responses.Response.get_IsError()",
+                "signature": "public Ocelot.Responses.Response.get_IsError() -> bool",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net10.0::Ocelot.Responses.Response.get_IsError()"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Responses/Response.cs",
+                  "startLine": 19,
+                  "startColumn": 5,
+                  "endLine": 19,
+                  "endColumn": 45
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/Configuration/Repository/FileConfigurationPoller.cs",
+                    "startLine": 146,
+                    "startColumn": 18,
+                    "endLine": 146,
+                    "endColumn": 32
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": null,
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            },
+            {
+              "id": "n29",
               "kind": "branch",
               "change": "removed",
               "label": "if (!config.IsError)",
@@ -1059,7 +1181,45 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n27",
+                  "id": "n30",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "Response<T>.get_Data",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "project:src/Ocelot/Ocelot.csproj@net10.0::Ocelot.Responses.Response<T>.get_Data()",
+                    "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Ocelot/Ocelot.csproj@net10.0::Ocelot.Responses.Response<T>.get_Data()"
+                    ],
+                    "definition": {
+                      "path": "src/Ocelot/Responses/Response.cs",
+                      "startLine": 32,
+                      "startColumn": 21,
+                      "endLine": 32,
+                      "endColumn": 25
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Ocelot/Configuration/Repository/FileConfigurationPoller.cs",
+                        "startLine": 147,
+                        "startColumn": 50,
+                        "endLine": 147,
+                        "endColumn": 61
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n31",
                   "kind": "call",
                   "change": "removed",
                   "label": "IInternalConfigurationRepository.AddOrReplace → InMemoryInternalConfigurationRepository.AddOrReplace",
@@ -1107,7 +1267,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n28",
+          "id": "n32",
           "kind": "call",
           "change": "removed",
           "label": "IOcelotLogger.LogInformation → OcelotLogger.LogInformation",
@@ -1149,7 +1309,7 @@ stdout:
           }
         },
         {
-          "id": "n29",
+          "id": "n33",
           "kind": "branch",
           "change": "added",
           "label": "finally",
@@ -1177,7 +1337,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n30",
+              "id": "n34",
               "kind": "call",
               "change": "added",
               "label": "FileConfigurationPoller.ExitPolling",
@@ -1221,7 +1381,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n31",
+      "id": "n35",
       "kind": "member",
       "change": "unchanged",
       "label": "FileConfigurationPoller.StartAsync",
@@ -1268,7 +1428,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n32",
+          "id": "n36",
           "kind": "call",
           "change": "unchanged",
           "label": "IOcelotLogger.LogInformation → OcelotLogger.LogInformation",
@@ -1337,7 +1497,7 @@ stdout:
           }
         },
         {
-          "id": "n33",
+          "id": "n37",
           "kind": "call",
           "change": "unchanged",
           "label": "IFileConfigurationPollerOptions.DelayAsync",
@@ -1402,7 +1562,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n34",
+              "id": "n38",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ InMemoryFileConfigurationPollerOptions.DelayAsync",
@@ -1455,7 +1615,7 @@ stdout:
               }
             },
             {
-              "id": "n35",
+              "id": "n39",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ ServiceDiscoveryFileConfigurationPollerOptions.DelayAsync",
@@ -1511,7 +1671,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n36",
+          "id": "n40",
           "kind": "call",
           "change": "unchanged",
           "label": "new",
@@ -1562,7 +1722,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n37",
+              "id": "n41",
               "kind": "call",
               "change": "modified",
               "label": "FileConfigurationPoller.OnTimer",
@@ -1637,7 +1797,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n38",
+      "id": "n42",
       "kind": "member",
       "change": "modified",
       "label": "FileConfigurationPoller.StopAsync",
@@ -1684,7 +1844,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n39",
+          "id": "n43",
           "kind": "call",
           "change": "unchanged",
           "label": "IOcelotLogger.LogInformation → OcelotLogger.LogInformation",

@@ -12537,6 +12537,48 @@ stdout:
                 },
                 {
                   "id": "n15",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "Response.get_IsError",
+                  "detail": "depth limit",
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::Ocelot.Responses.Response.get_IsError()",
+                    "signature": "public Ocelot.Responses.Response.get_IsError() -> bool",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Ocelot.Responses.Response.get_IsError()"
+                    ],
+                    "definition": {
+                      "path": "src/Ocelot/Responses/Response.cs",
+                      "startLine": 19,
+                      "startColumn": 5,
+                      "endLine": 19,
+                      "endColumn": 45
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Ocelot/Configuration/Repository/FileConfigurationPoller.cs",
+                        "startLine": 142,
+                        "startColumn": 22,
+                        "endLine": 142,
+                        "endColumn": 36
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n16",
                   "kind": "branch",
                   "change": "added",
                   "label": "if (!config.IsError)",
@@ -12564,7 +12606,45 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n16",
+                      "id": "n17",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "Response<T>.get_Data",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "source::Ocelot.Responses.Response<T>.get_Data()",
+                        "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "source::Ocelot.Responses.Response<T>.get_Data()"
+                        ],
+                        "definition": {
+                          "path": "src/Ocelot/Responses/Response.cs",
+                          "startLine": 32,
+                          "startColumn": 21,
+                          "endLine": 32,
+                          "endColumn": 25
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Ocelot/Configuration/Repository/FileConfigurationPoller.cs",
+                            "startLine": 143,
+                            "startColumn": 54,
+                            "endLine": 143,
+                            "endColumn": 65
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n18",
                       "kind": "call",
                       "change": "added",
                       "label": "IInternalConfigurationRepository.AddOrReplace → InMemoryInternalConfigurationRepository.AddOrReplace",
@@ -12612,7 +12692,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n17",
+              "id": "n19",
               "kind": "call",
               "change": "added",
               "label": "IOcelotLogger.LogInformation → OcelotLogger.LogInformation",
@@ -12657,7 +12737,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n18",
+          "id": "n20",
           "kind": "branch",
           "change": "removed",
           "label": "catch (Exception e)",
@@ -12685,7 +12765,7 @@ stdout:
           "after": null,
           "children": [
             {
-              "id": "n19",
+              "id": "n21",
               "kind": "call",
               "change": "removed",
               "label": "IOcelotLogger.LogWarning → OcelotLogger.LogWarning",
@@ -12730,7 +12810,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n20",
+          "id": "n22",
           "kind": "branch",
           "change": "removed",
           "label": "if (configuration is null)",
@@ -12758,7 +12838,7 @@ stdout:
           "after": null,
           "children": [
             {
-              "id": "n21",
+              "id": "n23",
               "kind": "call",
               "change": "removed",
               "label": "IOcelotLogger.LogWarning → OcelotLogger.LogWarning",
@@ -12803,7 +12883,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n22",
+          "id": "n24",
           "kind": "call",
           "change": "removed",
           "label": "FileConfigurationPoller.ToJson",
@@ -12845,7 +12925,7 @@ stdout:
           }
         },
         {
-          "id": "n23",
+          "id": "n25",
           "kind": "branch",
           "change": "removed",
           "label": "if (asJson != _previousAsJson)",
@@ -12873,7 +12953,7 @@ stdout:
           "after": null,
           "children": [
             {
-              "id": "n24",
+              "id": "n26",
               "kind": "call",
               "change": "removed",
               "label": "IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create",
@@ -12915,7 +12995,49 @@ stdout:
               }
             },
             {
-              "id": "n25",
+              "id": "n27",
+              "kind": "call",
+              "change": "removed",
+              "label": "Response.get_IsError",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "source::Ocelot.Responses.Response.get_IsError()",
+                "signature": "public Ocelot.Responses.Response.get_IsError() -> bool",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.Responses.Response.get_IsError()"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Responses/Response.cs",
+                  "startLine": 19,
+                  "startColumn": 5,
+                  "endLine": 19,
+                  "endColumn": 45
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/Configuration/Repository/FileConfigurationPoller.cs",
+                    "startLine": 146,
+                    "startColumn": 18,
+                    "endLine": 146,
+                    "endColumn": 32
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": null,
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            },
+            {
+              "id": "n28",
               "kind": "branch",
               "change": "removed",
               "label": "if (!config.IsError)",
@@ -12943,7 +13065,45 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n26",
+                  "id": "n29",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "Response<T>.get_Data",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "source::Ocelot.Responses.Response<T>.get_Data()",
+                    "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Ocelot.Responses.Response<T>.get_Data()"
+                    ],
+                    "definition": {
+                      "path": "src/Ocelot/Responses/Response.cs",
+                      "startLine": 32,
+                      "startColumn": 21,
+                      "endLine": 32,
+                      "endColumn": 25
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Ocelot/Configuration/Repository/FileConfigurationPoller.cs",
+                        "startLine": 147,
+                        "startColumn": 50,
+                        "endLine": 147,
+                        "endColumn": 61
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n30",
                   "kind": "call",
                   "change": "removed",
                   "label": "IInternalConfigurationRepository.AddOrReplace → InMemoryInternalConfigurationRepository.AddOrReplace",
@@ -12991,7 +13151,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n27",
+          "id": "n31",
           "kind": "call",
           "change": "removed",
           "label": "IOcelotLogger.LogInformation → OcelotLogger.LogInformation",
@@ -13033,7 +13193,7 @@ stdout:
           }
         },
         {
-          "id": "n28",
+          "id": "n32",
           "kind": "branch",
           "change": "added",
           "label": "finally",
@@ -13061,7 +13221,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n29",
+              "id": "n33",
               "kind": "call",
               "change": "added",
               "label": "FileConfigurationPoller.ExitPolling",
@@ -13105,7 +13265,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n30",
+      "id": "n34",
       "kind": "member",
       "change": "unchanged",
       "label": "FileConfigurationPoller.StartAsync",
@@ -13152,7 +13312,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n31",
+          "id": "n35",
           "kind": "call",
           "change": "unchanged",
           "label": "IOcelotLogger.LogInformation → OcelotLogger.LogInformation",
@@ -13221,7 +13381,7 @@ stdout:
           }
         },
         {
-          "id": "n32",
+          "id": "n36",
           "kind": "call",
           "change": "unchanged",
           "label": "IFileConfigurationPollerOptions.DelayAsync",
@@ -13286,7 +13446,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n33",
+              "id": "n37",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ InMemoryFileConfigurationPollerOptions.DelayAsync",
@@ -13339,7 +13499,7 @@ stdout:
               }
             },
             {
-              "id": "n34",
+              "id": "n38",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ ServiceDiscoveryFileConfigurationPollerOptions.DelayAsync",
@@ -13395,7 +13555,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n35",
+          "id": "n39",
           "kind": "call",
           "change": "unchanged",
           "label": "new",
@@ -13446,7 +13606,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n36",
+              "id": "n40",
               "kind": "call",
               "change": "modified",
               "label": "FileConfigurationPoller.OnTimer",
@@ -13521,7 +13681,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n37",
+      "id": "n41",
       "kind": "member",
       "change": "modified",
       "label": "FileConfigurationPoller.StopAsync",
@@ -13568,7 +13728,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n38",
+          "id": "n42",
           "kind": "call",
           "change": "unchanged",
           "label": "IOcelotLogger.LogInformation → OcelotLogger.LogInformation",
@@ -13640,7 +13800,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n39",
+      "id": "n43",
       "kind": "member",
       "change": "unchanged",
       "label": "WatchKube.Dispose",
@@ -13687,7 +13847,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n40",
+          "id": "n44",
           "kind": "call",
           "change": "unchanged",
           "label": "_subscription.Dispose",
@@ -13768,7 +13928,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n41",
+              "id": "n45",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ OcelotConfigurationChangeToken.CallbackWrapper.Dispose",
@@ -13817,7 +13977,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n42",
+              "id": "n46",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ DiskFileConfigurationRepository.Dispose",
@@ -13866,7 +14026,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n43",
+              "id": "n47",
               "kind": "dispatchTarget",
               "change": "modified",
               "label": "⇢ FileConfigurationPoller.Dispose",
@@ -13915,7 +14075,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n44",
+              "id": "n48",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ OcelotLogger.Dispose",
@@ -13968,7 +14128,7 @@ stdout:
               }
             },
             {
-              "id": "n45",
+              "id": "n49",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ OcelotLoggerFactory.Dispose",
@@ -14021,7 +14181,7 @@ stdout:
               }
             },
             {
-              "id": "n46",
+              "id": "n50",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ DownstreamResponse.Dispose",
@@ -14074,7 +14234,7 @@ stdout:
               }
             },
             {
-              "id": "n47",
+              "id": "n51",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ Kube.Dispose",
@@ -14127,7 +14287,7 @@ stdout:
               }
             },
             {
-              "id": "n48",
+              "id": "n52",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ PollKube.Dispose",
@@ -14180,7 +14340,7 @@ stdout:
               }
             },
             {
-              "id": "n49",
+              "id": "n53",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ WatchKube.Dispose",
@@ -14229,11 +14389,11 @@ stdout:
               "omission": {
                 "reason": "cycle",
                 "symbolId": "source::Ocelot.Provider.Kubernetes.WatchKube.Dispose()",
-                "referenceId": "n39"
+                "referenceId": "n43"
               }
             },
             {
-              "id": "n50",
+              "id": "n54",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ QualityOfServiceFactory.Dispose",
@@ -14286,219 +14446,219 @@ stdout:
               }
             },
             {
-              "id": "n51",
-              "kind": "dispatchTarget",
-              "change": "unchanged",
-              "label": "⇢ AcceptanceSteps.Dispose",
-              "detail": "depth limit",
-              "before": {
-                "symbolId": "source::Ocelot.Testing.AcceptanceSteps.Dispose()",
-                "signature": "public virtual Ocelot.Testing.AcceptanceSteps.Dispose() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "source::Ocelot.Testing.AcceptanceSteps.Dispose()"
-                ],
-                "definition": {
-                  "path": "testing/AcceptanceSteps.cs",
-                  "startLine": 521,
-                  "startColumn": 5,
-                  "endLine": 525,
-                  "endColumn": 6
-                },
-                "callSites": [],
-                "relation": "definition",
-                "candidates": null,
-                "origin": "source"
-              },
-              "after": {
-                "symbolId": "source::Ocelot.Testing.AcceptanceSteps.Dispose()",
-                "signature": "public virtual Ocelot.Testing.AcceptanceSteps.Dispose() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "source::Ocelot.Testing.AcceptanceSteps.Dispose()"
-                ],
-                "definition": {
-                  "path": "testing/AcceptanceSteps.cs",
-                  "startLine": 521,
-                  "startColumn": 5,
-                  "endLine": 525,
-                  "endColumn": 6
-                },
-                "callSites": [],
-                "relation": "definition",
-                "candidates": null,
-                "origin": "source"
-              },
-              "children": [],
-              "omission": {
-                "reason": "depth-limit",
-                "symbolId": null,
-                "referenceId": null
-              }
-            },
-            {
-              "id": "n52",
-              "kind": "dispatchTarget",
-              "change": "unchanged",
-              "label": "⇢ AcceptanceSteps.Dispose",
-              "detail": "depth limit",
-              "before": {
-                "symbolId": "source::Ocelot.Testing.AcceptanceSteps.Dispose()",
-                "signature": "public virtual Ocelot.Testing.AcceptanceSteps.Dispose() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "source::Ocelot.Testing.AcceptanceSteps.Dispose()"
-                ],
-                "definition": {
-                  "path": "testing/AcceptanceSteps.cs",
-                  "startLine": 521,
-                  "startColumn": 5,
-                  "endLine": 525,
-                  "endColumn": 6
-                },
-                "callSites": [],
-                "relation": "definition",
-                "candidates": null,
-                "origin": "source"
-              },
-              "after": {
-                "symbolId": "source::Ocelot.Testing.AcceptanceSteps.Dispose()",
-                "signature": "public virtual Ocelot.Testing.AcceptanceSteps.Dispose() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "source::Ocelot.Testing.AcceptanceSteps.Dispose()"
-                ],
-                "definition": {
-                  "path": "testing/AcceptanceSteps.cs",
-                  "startLine": 521,
-                  "startColumn": 5,
-                  "endLine": 525,
-                  "endColumn": 6
-                },
-                "callSites": [],
-                "relation": "definition",
-                "candidates": null,
-                "origin": "source"
-              },
-              "children": [],
-              "omission": {
-                "reason": "depth-limit",
-                "symbolId": null,
-                "referenceId": null
-              }
-            },
-            {
-              "id": "n53",
-              "kind": "dispatchTarget",
-              "change": "unchanged",
-              "label": "⇢ AcceptanceSteps.Dispose",
-              "detail": "depth limit",
-              "before": {
-                "symbolId": "source::Ocelot.Testing.AcceptanceSteps.Dispose()",
-                "signature": "public virtual Ocelot.Testing.AcceptanceSteps.Dispose() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "source::Ocelot.Testing.AcceptanceSteps.Dispose()"
-                ],
-                "definition": {
-                  "path": "testing/AcceptanceSteps.cs",
-                  "startLine": 521,
-                  "startColumn": 5,
-                  "endLine": 525,
-                  "endColumn": 6
-                },
-                "callSites": [],
-                "relation": "definition",
-                "candidates": null,
-                "origin": "source"
-              },
-              "after": {
-                "symbolId": "source::Ocelot.Testing.AcceptanceSteps.Dispose()",
-                "signature": "public virtual Ocelot.Testing.AcceptanceSteps.Dispose() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "source::Ocelot.Testing.AcceptanceSteps.Dispose()"
-                ],
-                "definition": {
-                  "path": "testing/AcceptanceSteps.cs",
-                  "startLine": 521,
-                  "startColumn": 5,
-                  "endLine": 525,
-                  "endColumn": 6
-                },
-                "callSites": [],
-                "relation": "definition",
-                "candidates": null,
-                "origin": "source"
-              },
-              "children": [],
-              "omission": {
-                "reason": "depth-limit",
-                "symbolId": null,
-                "referenceId": null
-              }
-            },
-            {
-              "id": "n54",
-              "kind": "dispatchTarget",
-              "change": "unchanged",
-              "label": "⇢ AcceptanceSteps.Dispose",
-              "detail": "depth limit",
-              "before": {
-                "symbolId": "source::Ocelot.Testing.AcceptanceSteps.Dispose()",
-                "signature": "public virtual Ocelot.Testing.AcceptanceSteps.Dispose() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "source::Ocelot.Testing.AcceptanceSteps.Dispose()"
-                ],
-                "definition": {
-                  "path": "testing/AcceptanceSteps.cs",
-                  "startLine": 521,
-                  "startColumn": 5,
-                  "endLine": 525,
-                  "endColumn": 6
-                },
-                "callSites": [],
-                "relation": "definition",
-                "candidates": null,
-                "origin": "source"
-              },
-              "after": {
-                "symbolId": "source::Ocelot.Testing.AcceptanceSteps.Dispose()",
-                "signature": "public virtual Ocelot.Testing.AcceptanceSteps.Dispose() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "source::Ocelot.Testing.AcceptanceSteps.Dispose()"
-                ],
-                "definition": {
-                  "path": "testing/AcceptanceSteps.cs",
-                  "startLine": 521,
-                  "startColumn": 5,
-                  "endLine": 525,
-                  "endColumn": 6
-                },
-                "callSites": [],
-                "relation": "definition",
-                "candidates": null,
-                "origin": "source"
-              },
-              "children": [],
-              "omission": {
-                "reason": "depth-limit",
-                "symbolId": null,
-                "referenceId": null
-              }
-            },
-            {
               "id": "n55",
+              "kind": "dispatchTarget",
+              "change": "unchanged",
+              "label": "⇢ AcceptanceSteps.Dispose",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "source::Ocelot.Testing.AcceptanceSteps.Dispose()",
+                "signature": "public virtual Ocelot.Testing.AcceptanceSteps.Dispose() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.Testing.AcceptanceSteps.Dispose()"
+                ],
+                "definition": {
+                  "path": "testing/AcceptanceSteps.cs",
+                  "startLine": 521,
+                  "startColumn": 5,
+                  "endLine": 525,
+                  "endColumn": 6
+                },
+                "callSites": [],
+                "relation": "definition",
+                "candidates": null,
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "source::Ocelot.Testing.AcceptanceSteps.Dispose()",
+                "signature": "public virtual Ocelot.Testing.AcceptanceSteps.Dispose() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.Testing.AcceptanceSteps.Dispose()"
+                ],
+                "definition": {
+                  "path": "testing/AcceptanceSteps.cs",
+                  "startLine": 521,
+                  "startColumn": 5,
+                  "endLine": 525,
+                  "endColumn": 6
+                },
+                "callSites": [],
+                "relation": "definition",
+                "candidates": null,
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            },
+            {
+              "id": "n56",
+              "kind": "dispatchTarget",
+              "change": "unchanged",
+              "label": "⇢ AcceptanceSteps.Dispose",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "source::Ocelot.Testing.AcceptanceSteps.Dispose()",
+                "signature": "public virtual Ocelot.Testing.AcceptanceSteps.Dispose() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.Testing.AcceptanceSteps.Dispose()"
+                ],
+                "definition": {
+                  "path": "testing/AcceptanceSteps.cs",
+                  "startLine": 521,
+                  "startColumn": 5,
+                  "endLine": 525,
+                  "endColumn": 6
+                },
+                "callSites": [],
+                "relation": "definition",
+                "candidates": null,
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "source::Ocelot.Testing.AcceptanceSteps.Dispose()",
+                "signature": "public virtual Ocelot.Testing.AcceptanceSteps.Dispose() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.Testing.AcceptanceSteps.Dispose()"
+                ],
+                "definition": {
+                  "path": "testing/AcceptanceSteps.cs",
+                  "startLine": 521,
+                  "startColumn": 5,
+                  "endLine": 525,
+                  "endColumn": 6
+                },
+                "callSites": [],
+                "relation": "definition",
+                "candidates": null,
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            },
+            {
+              "id": "n57",
+              "kind": "dispatchTarget",
+              "change": "unchanged",
+              "label": "⇢ AcceptanceSteps.Dispose",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "source::Ocelot.Testing.AcceptanceSteps.Dispose()",
+                "signature": "public virtual Ocelot.Testing.AcceptanceSteps.Dispose() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.Testing.AcceptanceSteps.Dispose()"
+                ],
+                "definition": {
+                  "path": "testing/AcceptanceSteps.cs",
+                  "startLine": 521,
+                  "startColumn": 5,
+                  "endLine": 525,
+                  "endColumn": 6
+                },
+                "callSites": [],
+                "relation": "definition",
+                "candidates": null,
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "source::Ocelot.Testing.AcceptanceSteps.Dispose()",
+                "signature": "public virtual Ocelot.Testing.AcceptanceSteps.Dispose() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.Testing.AcceptanceSteps.Dispose()"
+                ],
+                "definition": {
+                  "path": "testing/AcceptanceSteps.cs",
+                  "startLine": 521,
+                  "startColumn": 5,
+                  "endLine": 525,
+                  "endColumn": 6
+                },
+                "callSites": [],
+                "relation": "definition",
+                "candidates": null,
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            },
+            {
+              "id": "n58",
+              "kind": "dispatchTarget",
+              "change": "unchanged",
+              "label": "⇢ AcceptanceSteps.Dispose",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "source::Ocelot.Testing.AcceptanceSteps.Dispose()",
+                "signature": "public virtual Ocelot.Testing.AcceptanceSteps.Dispose() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.Testing.AcceptanceSteps.Dispose()"
+                ],
+                "definition": {
+                  "path": "testing/AcceptanceSteps.cs",
+                  "startLine": 521,
+                  "startColumn": 5,
+                  "endLine": 525,
+                  "endColumn": 6
+                },
+                "callSites": [],
+                "relation": "definition",
+                "candidates": null,
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "source::Ocelot.Testing.AcceptanceSteps.Dispose()",
+                "signature": "public virtual Ocelot.Testing.AcceptanceSteps.Dispose() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.Testing.AcceptanceSteps.Dispose()"
+                ],
+                "definition": {
+                  "path": "testing/AcceptanceSteps.cs",
+                  "startLine": 521,
+                  "startColumn": 5,
+                  "endLine": 525,
+                  "endColumn": 6
+                },
+                "callSites": [],
+                "relation": "definition",
+                "candidates": null,
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            },
+            {
+              "id": "n59",
               "kind": "dispatchTarget",
               "change": "modified",
               "label": "⇢ AuthenticationSteps.Dispose",
@@ -14551,7 +14711,7 @@ stdout:
               }
             },
             {
-              "id": "n56",
+              "id": "n60",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ FileUnit.Dispose",
@@ -14604,7 +14764,7 @@ stdout:
               }
             },
             {
-              "id": "n57",
+              "id": "n61",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ ServiceHandler.Dispose",
@@ -14657,7 +14817,7 @@ stdout:
               }
             },
             {
-              "id": "n58",
+              "id": "n62",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ ConcurrentSteps.Dispose",
@@ -14710,7 +14870,7 @@ stdout:
               }
             },
             {
-              "id": "n59",
+              "id": "n63",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ ConcurrentSteps.Dispose",
@@ -14763,7 +14923,7 @@ stdout:
               }
             },
             {
-              "id": "n60",
+              "id": "n64",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ ClientWebSocketProxy.Dispose",

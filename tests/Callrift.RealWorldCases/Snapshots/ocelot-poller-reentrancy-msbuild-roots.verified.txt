@@ -18,7 +18,9 @@ stdout:
 + │  ├─ FileConfigurationPoller.ToJson
 + │  ├─ if (asJson != _previousAsJson)
 + │  │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create (depth limit)
++ │  │  ├─ Response.get_IsError (depth limit)
 + │  │  └─ if (!config.IsError)
++ │  │     ├─ Response<T>.get_Data
 + │  │     └─ IInternalConfigurationRepository.AddOrReplace → InMemoryInternalConfigurationRepository.AddOrReplace (depth limit)
 + │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
 - ├─ catch (Exception e)
@@ -28,7 +30,9 @@ stdout:
 - ├─ FileConfigurationPoller.ToJson
 - ├─ if (asJson != _previousAsJson)
 - │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create (depth limit)
+- │  ├─ Response.get_IsError (depth limit)
 - │  └─ if (!config.IsError)
+- │     ├─ Response<T>.get_Data
 - │     └─ IInternalConfigurationRepository.AddOrReplace → InMemoryInternalConfigurationRepository.AddOrReplace (depth limit)
 - ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
 + └─ finally
@@ -65,7 +69,9 @@ stdout:
 + │  ├─ FileConfigurationPoller.ToJson
 + │  ├─ if (asJson != _previousAsJson)
 + │  │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create (depth limit)
++ │  │  ├─ Response.get_IsError (depth limit)
 + │  │  └─ if (!config.IsError)
++ │  │     ├─ Response<T>.get_Data
 + │  │     └─ IInternalConfigurationRepository.AddOrReplace → InMemoryInternalConfigurationRepository.AddOrReplace (depth limit)
 + │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
 - ├─ catch (Exception e)
@@ -75,7 +81,9 @@ stdout:
 - ├─ FileConfigurationPoller.ToJson
 - ├─ if (asJson != _previousAsJson)
 - │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create (depth limit)
+- │  ├─ Response.get_IsError (depth limit)
 - │  └─ if (!config.IsError)
+- │     ├─ Response<T>.get_Data
 - │     └─ IInternalConfigurationRepository.AddOrReplace → InMemoryInternalConfigurationRepository.AddOrReplace (depth limit)
 - ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
 + └─ finally
