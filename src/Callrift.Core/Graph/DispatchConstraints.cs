@@ -24,7 +24,9 @@ public sealed record DispatchConstraints(bool ReferenceType, bool ValueType, boo
             foreach (var required in constraints.Types)
                 if (!Assignable(actual, required.Resolve(bindings, side, []), definitions, [])) return false;
         }
-        return template.Arguments.All(argument => Allow(argument, bindings, side, definitions));
+        for (var index = 0; index < template.Arguments.Count; index++)
+            if (!Allow(template.Arguments[index], bindings, side, definitions)) return false;
+        return true;
     }
 
     private static bool Assignable(DispatchType source, DispatchType target, IReadOnlyDictionary<string, DispatchTypeDefinition>? definitions, HashSet<string> active)
