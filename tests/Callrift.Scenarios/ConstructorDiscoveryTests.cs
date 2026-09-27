@@ -31,7 +31,7 @@ public sealed class ConstructorDiscoveryTests
             var added = root.GetProperty("label").GetString() == "new Added";
             Assert.Equal(added ? "added" : "removed", root.GetProperty("change").GetString());
             var side = root.GetProperty(added ? "after" : "before");
-            Assert.Equal(added ? "Added.Added() -> void" : "Removed.Removed() -> void", side.GetProperty("signature").GetString());
+            Assert.Equal(added ? "public Added.Added() -> void" : "public Removed.Removed() -> void", side.GetProperty("signature").GetString());
             Assert.Equal("Flow.cs", side.GetProperty("definition").GetProperty("path").GetString());
             var baseCall = Assert.Single(root.GetProperty("children").EnumerateArray());
             Assert.Equal("new Object", baseCall.GetProperty("label").GetString());

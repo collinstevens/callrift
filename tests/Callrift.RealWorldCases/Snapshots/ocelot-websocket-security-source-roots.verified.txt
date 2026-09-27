@@ -16,12 +16,12 @@ stdout:
 + new SecurityError
 + └─ new Error
 
-  new SecurityMiddleware
+~ new SecurityMiddleware (signature changed)
   ├─ IOcelotLoggerFactory.CreateLogger → OcelotLoggerFactory.CreateLogger (depth limit)
   ├─ new OcelotMiddleware
 + └─ ? ArgumentNullException.ThrowIfNull
 
-  SecurityMiddleware.Invoke
+~ SecurityMiddleware.Invoke (signature changed)
 - ├─ ? httpContext.Items.DownstreamRoute
 - ├─ if (_securityPolicies != null)
 - │  └─ foreach (var policy in _securityPolicies)
@@ -73,12 +73,12 @@ stdout:
 + new SecurityError
 + └─ new Error
 
-  new SecurityMiddleware
+~ new SecurityMiddleware (signature changed)
   ├─ IOcelotLoggerFactory.CreateLogger → OcelotLoggerFactory.CreateLogger (depth limit)
   ├─ new OcelotMiddleware
 + └─ ? ArgumentNullException.ThrowIfNull
 
-  SecurityMiddleware.Invoke
+~ SecurityMiddleware.Invoke (signature changed)
 - ├─ ? httpContext.Items.DownstreamRoute
 - ├─ if (_securityPolicies != null)
 - │  └─ foreach (var policy in _securityPolicies)

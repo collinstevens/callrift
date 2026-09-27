@@ -24693,7 +24693,7 @@ stdout:
       "detail": null,
       "before": {
         "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.InitializeAsync`1(global::Polly.Hedging.Utils.HedgedTaskType,global::Polly.ResilienceContext,global::System.Func<global::Polly.ResilienceContext, TState, global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<T>>>,TState,int)",
-        "signature": "Polly.Hedging.Controller.TaskExecution<T>.InitializeAsync<TState>(Polly.Hedging.Utils.HedgedTaskType, Polly.ResilienceContext, System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>>, TState, int) -> System.Threading.Tasks.ValueTask<bool>",
+        "signature": "public async Polly.Hedging.Controller.TaskExecution<T>.InitializeAsync<TState>(Polly.Hedging.Utils.HedgedTaskType type, Polly.ResilienceContext primaryContext, System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>> primaryCallback, TState state, int attemptNumber) -> System.Threading.Tasks.ValueTask<bool>",
         "binding": "resolved",
         "dispatch": "direct",
         "targetIds": [
@@ -24713,7 +24713,7 @@ stdout:
       },
       "after": {
         "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.InitializeAsync`1(global::Polly.Hedging.Utils.HedgedTaskType,global::Polly.ResilienceContext,global::System.Func<global::Polly.ResilienceContext, TState, global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<T>>>,TState,int)",
-        "signature": "Polly.Hedging.Controller.TaskExecution<T>.InitializeAsync<TState>(Polly.Hedging.Utils.HedgedTaskType, Polly.ResilienceContext, System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>>, TState, int) -> System.Threading.Tasks.ValueTask<bool>",
+        "signature": "public async Polly.Hedging.Controller.TaskExecution<T>.InitializeAsync<TState>(Polly.Hedging.Utils.HedgedTaskType type, Polly.ResilienceContext primaryContext, System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>> primaryCallback, TState state, int attemptNumber) -> System.Threading.Tasks.ValueTask<bool>",
         "binding": "resolved",
         "dispatch": "direct",
         "targetIds": [
@@ -24842,7 +24842,7 @@ stdout:
           "detail": null,
           "before": {
             "symbolId": "source::Polly.ResilienceContext.InitializeFrom(global::Polly.ResilienceContext,global::System.Threading.CancellationToken)",
-            "signature": "Polly.ResilienceContext.InitializeFrom(Polly.ResilienceContext, System.Threading.CancellationToken) -> void",
+            "signature": "internal Polly.ResilienceContext.InitializeFrom(Polly.ResilienceContext context, System.Threading.CancellationToken cancellationToken) -> void",
             "binding": "resolved",
             "dispatch": "direct",
             "targetIds": [
@@ -24870,7 +24870,7 @@ stdout:
           },
           "after": {
             "symbolId": "source::Polly.ResilienceContext.InitializeFrom(global::Polly.ResilienceContext,global::System.Threading.CancellationToken)",
-            "signature": "Polly.ResilienceContext.InitializeFrom(Polly.ResilienceContext, System.Threading.CancellationToken) -> void",
+            "signature": "internal Polly.ResilienceContext.InitializeFrom(Polly.ResilienceContext context, System.Threading.CancellationToken cancellationToken) -> void",
             "binding": "resolved",
             "dispatch": "direct",
             "targetIds": [
@@ -24905,7 +24905,7 @@ stdout:
               "detail": null,
               "before": {
                 "symbolId": "source::Polly.ResilienceProperties.AddOrReplaceProperties(global::Polly.ResilienceProperties)",
-                "signature": "Polly.ResilienceProperties.AddOrReplaceProperties(Polly.ResilienceProperties) -> void",
+                "signature": "internal Polly.ResilienceProperties.AddOrReplaceProperties(Polly.ResilienceProperties other) -> void",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
@@ -24933,7 +24933,7 @@ stdout:
               },
               "after": {
                 "symbolId": "source::Polly.ResilienceProperties.AddOrReplaceProperties(global::Polly.ResilienceProperties)",
-                "signature": "Polly.ResilienceProperties.AddOrReplaceProperties(Polly.ResilienceProperties) -> void",
+                "signature": "internal Polly.ResilienceProperties.AddOrReplaceProperties(Polly.ResilienceProperties other) -> void",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
@@ -25183,7 +25183,7 @@ stdout:
                       "detail": "depth limit",
                       "before": {
                         "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.CreateArguments`1(global::System.Func<global::Polly.ResilienceContext, TState, global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<T>>>,global::Polly.ResilienceContext,TState,int)",
-                        "signature": "Polly.Hedging.Controller.TaskExecution<T>.CreateArguments<TState>(System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>>, Polly.ResilienceContext, TState, int) -> Polly.Hedging.HedgingActionGeneratorArguments<T>",
+                        "signature": "private Polly.Hedging.Controller.TaskExecution<T>.CreateArguments<TState>(System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>> primaryCallback, Polly.ResilienceContext primaryContext, TState state, int attempt) -> Polly.Hedging.HedgingActionGeneratorArguments<T>",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -25285,7 +25285,7 @@ stdout:
                           "detail": "depth limit",
                           "before": {
                             "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.ResetAsync()",
-                            "signature": "Polly.Hedging.Controller.TaskExecution<T>.ResetAsync() -> System.Threading.Tasks.ValueTask",
+                            "signature": "public async Polly.Hedging.Controller.TaskExecution<T>.ResetAsync() -> System.Threading.Tasks.ValueTask",
                             "binding": "resolved",
                             "dispatch": "direct",
                             "targetIds": [
@@ -25425,7 +25425,7 @@ stdout:
                       "detail": "depth limit",
                       "before": {
                         "symbolId": "source::Polly.Outcome<TResult>..ctor(global::System.Exception)",
-                        "signature": "Polly.Outcome<TResult>.Outcome(System.Exception) -> void",
+                        "signature": "internal Polly.Outcome<TResult>.Outcome(System.Exception exception) -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -25467,7 +25467,7 @@ stdout:
                       "detail": "depth limit",
                       "before": {
                         "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.UpdateOutcomeAsync(global::Polly.Outcome<T>)",
-                        "signature": "Polly.Hedging.Controller.TaskExecution<T>.UpdateOutcomeAsync(Polly.Outcome<T>) -> System.Threading.Tasks.Task",
+                        "signature": "private async Polly.Hedging.Controller.TaskExecution<T>.UpdateOutcomeAsync(Polly.Outcome<T> outcome) -> System.Threading.Tasks.Task",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -25516,7 +25516,7 @@ stdout:
               "before": null,
               "after": {
                 "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.TryCreateSecondaryActionAsync`1(global::System.Func<global::Polly.ResilienceContext, TState, global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<T>>>,global::Polly.ResilienceContext,TState,int)",
-                "signature": "Polly.Hedging.Controller.TaskExecution<T>.TryCreateSecondaryActionAsync<TState>(System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>>, Polly.ResilienceContext, TState, int) -> System.Threading.Tasks.ValueTask<(bool? EarlyReturn, System.Func<System.Threading.Tasks.ValueTask<Polly.Outcome<T>>>? Action)>",
+                "signature": "private async Polly.Hedging.Controller.TaskExecution<T>.TryCreateSecondaryActionAsync<TState>(System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>> primaryCallback, Polly.ResilienceContext primaryContext, TState state, int attemptNumber) -> System.Threading.Tasks.ValueTask<(bool? EarlyReturn, System.Func<System.Threading.Tasks.ValueTask<Polly.Outcome<T>>>? Action)>",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
@@ -25580,7 +25580,7 @@ stdout:
                       "before": null,
                       "after": {
                         "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.CreateArguments`1(global::System.Func<global::Polly.ResilienceContext, TState, global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<T>>>,global::Polly.ResilienceContext,TState,int)",
-                        "signature": "Polly.Hedging.Controller.TaskExecution<T>.CreateArguments<TState>(System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>>, Polly.ResilienceContext, TState, int) -> Polly.Hedging.HedgingActionGeneratorArguments<T>",
+                        "signature": "private Polly.Hedging.Controller.TaskExecution<T>.CreateArguments<TState>(System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>> primaryCallback, Polly.ResilienceContext primaryContext, TState state, int attempt) -> Polly.Hedging.HedgingActionGeneratorArguments<T>",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -25682,7 +25682,7 @@ stdout:
                           "before": null,
                           "after": {
                             "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.ResetAsync()",
-                            "signature": "Polly.Hedging.Controller.TaskExecution<T>.ResetAsync() -> System.Threading.Tasks.ValueTask",
+                            "signature": "public async Polly.Hedging.Controller.TaskExecution<T>.ResetAsync() -> System.Threading.Tasks.ValueTask",
                             "binding": "resolved",
                             "dispatch": "direct",
                             "targetIds": [
@@ -25822,7 +25822,7 @@ stdout:
                       "before": null,
                       "after": {
                         "symbolId": "source::Polly.Outcome<TResult>..ctor(global::System.Exception)",
-                        "signature": "Polly.Outcome<TResult>.Outcome(System.Exception) -> void",
+                        "signature": "internal Polly.Outcome<TResult>.Outcome(System.Exception exception) -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -25864,7 +25864,7 @@ stdout:
                       "before": null,
                       "after": {
                         "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.UpdateOutcomeAsync(global::Polly.Outcome<T>)",
-                        "signature": "Polly.Hedging.Controller.TaskExecution<T>.UpdateOutcomeAsync(Polly.Outcome<T>) -> System.Threading.Tasks.Task",
+                        "signature": "private async Polly.Hedging.Controller.TaskExecution<T>.UpdateOutcomeAsync(Polly.Outcome<T> outcome) -> System.Threading.Tasks.Task",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -25943,7 +25943,7 @@ stdout:
               "detail": null,
               "before": {
                 "symbolId": "source::Polly.Hedging.OnHedgingArguments<TResult>..ctor(global::Polly.ResilienceContext,global::Polly.ResilienceContext,int)",
-                "signature": "Polly.Hedging.OnHedgingArguments<TResult>.OnHedgingArguments(Polly.ResilienceContext, Polly.ResilienceContext, int) -> void",
+                "signature": "public Polly.Hedging.OnHedgingArguments<TResult>.OnHedgingArguments(Polly.ResilienceContext primaryContext, Polly.ResilienceContext actionContext, int attemptNumber) -> void",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
@@ -25971,7 +25971,7 @@ stdout:
               },
               "after": {
                 "symbolId": "source::Polly.Hedging.OnHedgingArguments<TResult>..ctor(global::Polly.ResilienceContext,global::Polly.ResilienceContext,int)",
-                "signature": "Polly.Hedging.OnHedgingArguments<TResult>.OnHedgingArguments(Polly.ResilienceContext, Polly.ResilienceContext, int) -> void",
+                "signature": "public Polly.Hedging.OnHedgingArguments<TResult>.OnHedgingArguments(Polly.ResilienceContext primaryContext, Polly.ResilienceContext actionContext, int attemptNumber) -> void",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
@@ -26008,7 +26008,7 @@ stdout:
               "detail": null,
               "before": {
                 "symbolId": "source::Polly.Telemetry.ResilienceEvent..ctor(global::Polly.Telemetry.ResilienceEventSeverity,string)",
-                "signature": "Polly.Telemetry.ResilienceEvent.ResilienceEvent(Polly.Telemetry.ResilienceEventSeverity, string) -> void",
+                "signature": "public Polly.Telemetry.ResilienceEvent.ResilienceEvent(Polly.Telemetry.ResilienceEventSeverity severity, string eventName) -> void",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
@@ -26036,7 +26036,7 @@ stdout:
               },
               "after": {
                 "symbolId": "source::Polly.Telemetry.ResilienceEvent..ctor(global::Polly.Telemetry.ResilienceEventSeverity,string)",
-                "signature": "Polly.Telemetry.ResilienceEvent.ResilienceEvent(Polly.Telemetry.ResilienceEventSeverity, string) -> void",
+                "signature": "public Polly.Telemetry.ResilienceEvent.ResilienceEvent(Polly.Telemetry.ResilienceEventSeverity severity, string eventName) -> void",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
@@ -26073,7 +26073,7 @@ stdout:
               "detail": null,
               "before": {
                 "symbolId": "source::Polly.Telemetry.ResilienceStrategyTelemetry.Report`1(global::Polly.Telemetry.ResilienceEvent,global::Polly.ResilienceContext,TArgs)",
-                "signature": "Polly.Telemetry.ResilienceStrategyTelemetry.Report<TArgs>(Polly.Telemetry.ResilienceEvent, Polly.ResilienceContext, TArgs) -> void",
+                "signature": "public Polly.Telemetry.ResilienceStrategyTelemetry.Report<TArgs>(Polly.Telemetry.ResilienceEvent resilienceEvent, Polly.ResilienceContext context, TArgs args) -> void",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
@@ -26101,7 +26101,7 @@ stdout:
               },
               "after": {
                 "symbolId": "source::Polly.Telemetry.ResilienceStrategyTelemetry.Report`1(global::Polly.Telemetry.ResilienceEvent,global::Polly.ResilienceContext,TArgs)",
-                "signature": "Polly.Telemetry.ResilienceStrategyTelemetry.Report<TArgs>(Polly.Telemetry.ResilienceEvent, Polly.ResilienceContext, TArgs) -> void",
+                "signature": "public Polly.Telemetry.ResilienceStrategyTelemetry.Report<TArgs>(Polly.Telemetry.ResilienceEvent resilienceEvent, Polly.ResilienceContext context, TArgs args) -> void",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
@@ -26185,7 +26185,7 @@ stdout:
                   "detail": null,
                   "before": {
                     "symbolId": "source::Polly.Telemetry.TelemetryEventArguments<TResult, TArgs>..ctor(global::Polly.Telemetry.ResilienceTelemetrySource,global::Polly.Telemetry.ResilienceEvent,global::Polly.ResilienceContext,TArgs,global::Polly.Outcome<TResult>?)",
-                    "signature": "Polly.Telemetry.TelemetryEventArguments<TResult, TArgs>.TelemetryEventArguments(Polly.Telemetry.ResilienceTelemetrySource, Polly.Telemetry.ResilienceEvent, Polly.ResilienceContext, TArgs, Polly.Outcome<TResult>?) -> void",
+                    "signature": "public Polly.Telemetry.TelemetryEventArguments<TResult, TArgs>.TelemetryEventArguments(Polly.Telemetry.ResilienceTelemetrySource source, Polly.Telemetry.ResilienceEvent resilienceEvent, Polly.ResilienceContext context, TArgs args, Polly.Outcome<TResult>? outcome) -> void",
                     "binding": "resolved",
                     "dispatch": "direct",
                     "targetIds": [
@@ -26213,7 +26213,7 @@ stdout:
                   },
                   "after": {
                     "symbolId": "source::Polly.Telemetry.TelemetryEventArguments<TResult, TArgs>..ctor(global::Polly.Telemetry.ResilienceTelemetrySource,global::Polly.Telemetry.ResilienceEvent,global::Polly.ResilienceContext,TArgs,global::Polly.Outcome<TResult>?)",
-                    "signature": "Polly.Telemetry.TelemetryEventArguments<TResult, TArgs>.TelemetryEventArguments(Polly.Telemetry.ResilienceTelemetrySource, Polly.Telemetry.ResilienceEvent, Polly.ResilienceContext, TArgs, Polly.Outcome<TResult>?) -> void",
+                    "signature": "public Polly.Telemetry.TelemetryEventArguments<TResult, TArgs>.TelemetryEventArguments(Polly.Telemetry.ResilienceTelemetrySource source, Polly.Telemetry.ResilienceEvent resilienceEvent, Polly.ResilienceContext context, TArgs args, Polly.Outcome<TResult>? outcome) -> void",
                     "binding": "resolved",
                     "dispatch": "direct",
                     "targetIds": [
@@ -26250,7 +26250,7 @@ stdout:
                   "detail": null,
                   "before": {
                     "symbolId": "source::Polly.Telemetry.TelemetryListener.Write`2(in global::Polly.Telemetry.TelemetryEventArguments<TResult, TArgs>)",
-                    "signature": "Polly.Telemetry.TelemetryListener.Write<TResult, TArgs>(in Polly.Telemetry.TelemetryEventArguments<TResult, TArgs>) -> void",
+                    "signature": "public abstract Polly.Telemetry.TelemetryListener.Write<TResult, TArgs>(in Polly.Telemetry.TelemetryEventArguments<TResult, TArgs> args) -> void",
                     "binding": "resolved",
                     "dispatch": "possible",
                     "targetIds": [
@@ -26279,7 +26279,7 @@ stdout:
                   },
                   "after": {
                     "symbolId": "source::Polly.Telemetry.TelemetryListener.Write`2(in global::Polly.Telemetry.TelemetryEventArguments<TResult, TArgs>)",
-                    "signature": "Polly.Telemetry.TelemetryListener.Write<TResult, TArgs>(in Polly.Telemetry.TelemetryEventArguments<TResult, TArgs>) -> void",
+                    "signature": "public abstract Polly.Telemetry.TelemetryListener.Write<TResult, TArgs>(in Polly.Telemetry.TelemetryEventArguments<TResult, TArgs> args) -> void",
                     "binding": "resolved",
                     "dispatch": "possible",
                     "targetIds": [
@@ -26315,7 +26315,7 @@ stdout:
                       "detail": "depth limit",
                       "before": {
                         "symbolId": "source::Polly.Telemetry.TelemetryListenerImpl.Write`2(in global::Polly.Telemetry.TelemetryEventArguments<TResult, TArgs>)",
-                        "signature": "Polly.Telemetry.TelemetryListenerImpl.Write<TResult, TArgs>(in Polly.Telemetry.TelemetryEventArguments<TResult, TArgs>) -> void",
+                        "signature": "public override Polly.Telemetry.TelemetryListenerImpl.Write<TResult, TArgs>(in Polly.Telemetry.TelemetryEventArguments<TResult, TArgs> args) -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -26335,7 +26335,7 @@ stdout:
                       },
                       "after": {
                         "symbolId": "source::Polly.Telemetry.TelemetryListenerImpl.Write`2(in global::Polly.Telemetry.TelemetryEventArguments<TResult, TArgs>)",
-                        "signature": "Polly.Telemetry.TelemetryListenerImpl.Write<TResult, TArgs>(in Polly.Telemetry.TelemetryEventArguments<TResult, TArgs>) -> void",
+                        "signature": "public override Polly.Telemetry.TelemetryListenerImpl.Write<TResult, TArgs>(in Polly.Telemetry.TelemetryEventArguments<TResult, TArgs> args) -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -26368,7 +26368,7 @@ stdout:
                       "detail": "depth limit",
                       "before": {
                         "symbolId": "source::Snippets.Docs.Telemetry.MyTelemetryListener.Write`2(in global::Polly.Telemetry.TelemetryEventArguments<TResult, TArgs>)",
-                        "signature": "Snippets.Docs.Telemetry.MyTelemetryListener.Write<TResult, TArgs>(in Polly.Telemetry.TelemetryEventArguments<TResult, TArgs>) -> void",
+                        "signature": "public override Snippets.Docs.Telemetry.MyTelemetryListener.Write<TResult, TArgs>(in Polly.Telemetry.TelemetryEventArguments<TResult, TArgs> args) -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -26388,7 +26388,7 @@ stdout:
                       },
                       "after": {
                         "symbolId": "source::Snippets.Docs.Telemetry.MyTelemetryListener.Write`2(in global::Polly.Telemetry.TelemetryEventArguments<TResult, TArgs>)",
-                        "signature": "Snippets.Docs.Telemetry.MyTelemetryListener.Write<TResult, TArgs>(in Polly.Telemetry.TelemetryEventArguments<TResult, TArgs>) -> void",
+                        "signature": "public override Snippets.Docs.Telemetry.MyTelemetryListener.Write<TResult, TArgs>(in Polly.Telemetry.TelemetryEventArguments<TResult, TArgs> args) -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -26583,7 +26583,7 @@ stdout:
               "detail": null,
               "before": {
                 "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.ExecuteSecondaryActionAsync`1(global::System.Func<global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<T>>>,global::System.Func<global::Polly.ResilienceContext, TState, global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<T>>>,TState,bool)",
-                "signature": "Polly.Hedging.Controller.TaskExecution<T>.ExecuteSecondaryActionAsync<TState>(System.Func<System.Threading.Tasks.ValueTask<Polly.Outcome<T>>>?, System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>>, TState, bool) -> System.Threading.Tasks.Task",
+                "signature": "private async Polly.Hedging.Controller.TaskExecution<T>.ExecuteSecondaryActionAsync<TState>(System.Func<System.Threading.Tasks.ValueTask<Polly.Outcome<T>>>? action, System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>> primaryCallback, TState state, bool isSynchronous) -> System.Threading.Tasks.Task",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
@@ -26611,7 +26611,7 @@ stdout:
               },
               "after": {
                 "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.ExecuteSecondaryActionAsync`1(global::System.Func<global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<T>>>,global::System.Func<global::Polly.ResilienceContext, TState, global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<T>>>,TState,bool)",
-                "signature": "Polly.Hedging.Controller.TaskExecution<T>.ExecuteSecondaryActionAsync<TState>(System.Func<System.Threading.Tasks.ValueTask<Polly.Outcome<T>>>?, System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>>, TState, bool) -> System.Threading.Tasks.Task",
+                "signature": "private async Polly.Hedging.Controller.TaskExecution<T>.ExecuteSecondaryActionAsync<TState>(System.Func<System.Threading.Tasks.ValueTask<Polly.Outcome<T>>>? action, System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>> primaryCallback, TState state, bool isSynchronous) -> System.Threading.Tasks.Task",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
@@ -26890,7 +26890,7 @@ stdout:
                               "detail": "depth limit",
                               "before": {
                                 "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.ExecuteSecondaryActionSync`1(global::System.Func<global::Polly.ResilienceContext, TState, global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<T>>>,TState)",
-                                "signature": "Polly.Hedging.Controller.TaskExecution<T>.ExecuteSecondaryActionSync<TState>(System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>>, TState) -> System.Threading.Tasks.ValueTask<Polly.Outcome<T>>",
+                                "signature": "private Polly.Hedging.Controller.TaskExecution<T>.ExecuteSecondaryActionSync<TState>(System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>> primaryCallback, TState state) -> System.Threading.Tasks.ValueTask<Polly.Outcome<T>>",
                                 "binding": "resolved",
                                 "dispatch": "direct",
                                 "targetIds": [
@@ -26918,7 +26918,7 @@ stdout:
                               },
                               "after": {
                                 "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.ExecuteSecondaryActionSync`1(global::System.Func<global::Polly.ResilienceContext, TState, global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<T>>>,TState)",
-                                "signature": "Polly.Hedging.Controller.TaskExecution<T>.ExecuteSecondaryActionSync<TState>(System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>>, TState) -> System.Threading.Tasks.ValueTask<Polly.Outcome<T>>",
+                                "signature": "private Polly.Hedging.Controller.TaskExecution<T>.ExecuteSecondaryActionSync<TState>(System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>> primaryCallback, TState state) -> System.Threading.Tasks.ValueTask<Polly.Outcome<T>>",
                                 "binding": "resolved",
                                 "dispatch": "direct",
                                 "targetIds": [
@@ -27171,7 +27171,7 @@ stdout:
                       "detail": "depth limit",
                       "before": {
                         "symbolId": "source::Polly.Outcome<TResult>..ctor(global::System.Exception)",
-                        "signature": "Polly.Outcome<TResult>.Outcome(System.Exception) -> void",
+                        "signature": "internal Polly.Outcome<TResult>.Outcome(System.Exception exception) -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -27199,7 +27199,7 @@ stdout:
                       },
                       "after": {
                         "symbolId": "source::Polly.Outcome<TResult>..ctor(global::System.Exception)",
-                        "signature": "Polly.Outcome<TResult>.Outcome(System.Exception) -> void",
+                        "signature": "internal Polly.Outcome<TResult>.Outcome(System.Exception exception) -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -27296,7 +27296,7 @@ stdout:
                   "detail": null,
                   "before": {
                     "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.UpdateOutcomeAsync(global::Polly.Outcome<T>)",
-                    "signature": "Polly.Hedging.Controller.TaskExecution<T>.UpdateOutcomeAsync(Polly.Outcome<T>) -> System.Threading.Tasks.Task",
+                    "signature": "private async Polly.Hedging.Controller.TaskExecution<T>.UpdateOutcomeAsync(Polly.Outcome<T> outcome) -> System.Threading.Tasks.Task",
                     "binding": "resolved",
                     "dispatch": "direct",
                     "targetIds": [
@@ -27324,7 +27324,7 @@ stdout:
                   },
                   "after": {
                     "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.UpdateOutcomeAsync(global::Polly.Outcome<T>)",
-                    "signature": "Polly.Hedging.Controller.TaskExecution<T>.UpdateOutcomeAsync(Polly.Outcome<T>) -> System.Threading.Tasks.Task",
+                    "signature": "private async Polly.Hedging.Controller.TaskExecution<T>.UpdateOutcomeAsync(Polly.Outcome<T> outcome) -> System.Threading.Tasks.Task",
                     "binding": "resolved",
                     "dispatch": "direct",
                     "targetIds": [
@@ -27359,7 +27359,7 @@ stdout:
                       "detail": "depth limit",
                       "before": {
                         "symbolId": "source::Polly.Hedging.HedgingPredicateArguments<TResult>..ctor(global::Polly.ResilienceContext,global::Polly.Outcome<TResult>,int)",
-                        "signature": "Polly.Hedging.HedgingPredicateArguments<TResult>.HedgingPredicateArguments(Polly.ResilienceContext, Polly.Outcome<TResult>, int) -> void",
+                        "signature": "public Polly.Hedging.HedgingPredicateArguments<TResult>.HedgingPredicateArguments(Polly.ResilienceContext context, Polly.Outcome<TResult> outcome, int attemptNumber) -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -27387,7 +27387,7 @@ stdout:
                       },
                       "after": {
                         "symbolId": "source::Polly.Hedging.HedgingPredicateArguments<TResult>..ctor(global::Polly.ResilienceContext,global::Polly.Outcome<TResult>,int)",
-                        "signature": "Polly.Hedging.HedgingPredicateArguments<TResult>.HedgingPredicateArguments(Polly.ResilienceContext, Polly.Outcome<TResult>, int) -> void",
+                        "signature": "public Polly.Hedging.HedgingPredicateArguments<TResult>.HedgingPredicateArguments(Polly.ResilienceContext context, Polly.Outcome<TResult> outcome, int attemptNumber) -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -27534,7 +27534,7 @@ stdout:
                       "detail": "depth limit",
                       "before": {
                         "symbolId": "source::Polly.Telemetry.TelemetryUtil.ReportExecutionAttempt`1(global::Polly.Telemetry.ResilienceStrategyTelemetry,global::Polly.ResilienceContext,global::Polly.Outcome<TResult>,int,global::System.TimeSpan,bool)",
-                        "signature": "Polly.Telemetry.TelemetryUtil.ReportExecutionAttempt<TResult>(Polly.Telemetry.ResilienceStrategyTelemetry, Polly.ResilienceContext, Polly.Outcome<TResult>, int, System.TimeSpan, bool) -> void",
+                        "signature": "public static Polly.Telemetry.TelemetryUtil.ReportExecutionAttempt<TResult>(Polly.Telemetry.ResilienceStrategyTelemetry telemetry, Polly.ResilienceContext context, Polly.Outcome<TResult> outcome, int attempt, System.TimeSpan executionTime, bool handled) -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -27562,7 +27562,7 @@ stdout:
                       },
                       "after": {
                         "symbolId": "source::Polly.Telemetry.TelemetryUtil.ReportExecutionAttempt`1(global::Polly.Telemetry.ResilienceStrategyTelemetry,global::Polly.ResilienceContext,global::Polly.Outcome<TResult>,int,global::System.TimeSpan,bool)",
-                        "signature": "Polly.Telemetry.TelemetryUtil.ReportExecutionAttempt<TResult>(Polly.Telemetry.ResilienceStrategyTelemetry, Polly.ResilienceContext, Polly.Outcome<TResult>, int, System.TimeSpan, bool) -> void",
+                        "signature": "public static Polly.Telemetry.TelemetryUtil.ReportExecutionAttempt<TResult>(Polly.Telemetry.ResilienceStrategyTelemetry telemetry, Polly.ResilienceContext context, Polly.Outcome<TResult> outcome, int attempt, System.TimeSpan executionTime, bool handled) -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -27712,7 +27712,7 @@ stdout:
               "detail": null,
               "before": {
                 "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.ExecutePrimaryActionAsync`1(global::System.Func<global::Polly.ResilienceContext, TState, global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<T>>>,TState)",
-                "signature": "Polly.Hedging.Controller.TaskExecution<T>.ExecutePrimaryActionAsync<TState>(System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>>, TState) -> System.Threading.Tasks.Task",
+                "signature": "private async Polly.Hedging.Controller.TaskExecution<T>.ExecutePrimaryActionAsync<TState>(System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>> primaryCallback, TState state) -> System.Threading.Tasks.Task",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
@@ -27740,7 +27740,7 @@ stdout:
               },
               "after": {
                 "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.ExecutePrimaryActionAsync`1(global::System.Func<global::Polly.ResilienceContext, TState, global::System.Threading.Tasks.ValueTask<global::Polly.Outcome<T>>>,TState)",
-                "signature": "Polly.Hedging.Controller.TaskExecution<T>.ExecutePrimaryActionAsync<TState>(System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>>, TState) -> System.Threading.Tasks.Task",
+                "signature": "private async Polly.Hedging.Controller.TaskExecution<T>.ExecutePrimaryActionAsync<TState>(System.Func<Polly.ResilienceContext, TState, System.Threading.Tasks.ValueTask<Polly.Outcome<T>>> primaryCallback, TState state) -> System.Threading.Tasks.Task",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
@@ -27978,7 +27978,7 @@ stdout:
                       "detail": "depth limit",
                       "before": {
                         "symbolId": "source::Polly.Outcome<TResult>..ctor(global::System.Exception)",
-                        "signature": "Polly.Outcome<TResult>.Outcome(System.Exception) -> void",
+                        "signature": "internal Polly.Outcome<TResult>.Outcome(System.Exception exception) -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -28006,7 +28006,7 @@ stdout:
                       },
                       "after": {
                         "symbolId": "source::Polly.Outcome<TResult>..ctor(global::System.Exception)",
-                        "signature": "Polly.Outcome<TResult>.Outcome(System.Exception) -> void",
+                        "signature": "internal Polly.Outcome<TResult>.Outcome(System.Exception exception) -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -28103,7 +28103,7 @@ stdout:
                   "detail": null,
                   "before": {
                     "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.UpdateOutcomeAsync(global::Polly.Outcome<T>)",
-                    "signature": "Polly.Hedging.Controller.TaskExecution<T>.UpdateOutcomeAsync(Polly.Outcome<T>) -> System.Threading.Tasks.Task",
+                    "signature": "private async Polly.Hedging.Controller.TaskExecution<T>.UpdateOutcomeAsync(Polly.Outcome<T> outcome) -> System.Threading.Tasks.Task",
                     "binding": "resolved",
                     "dispatch": "direct",
                     "targetIds": [
@@ -28131,7 +28131,7 @@ stdout:
                   },
                   "after": {
                     "symbolId": "source::Polly.Hedging.Controller.TaskExecution<T>.UpdateOutcomeAsync(global::Polly.Outcome<T>)",
-                    "signature": "Polly.Hedging.Controller.TaskExecution<T>.UpdateOutcomeAsync(Polly.Outcome<T>) -> System.Threading.Tasks.Task",
+                    "signature": "private async Polly.Hedging.Controller.TaskExecution<T>.UpdateOutcomeAsync(Polly.Outcome<T> outcome) -> System.Threading.Tasks.Task",
                     "binding": "resolved",
                     "dispatch": "direct",
                     "targetIds": [
@@ -28166,7 +28166,7 @@ stdout:
                       "detail": "depth limit",
                       "before": {
                         "symbolId": "source::Polly.Hedging.HedgingPredicateArguments<TResult>..ctor(global::Polly.ResilienceContext,global::Polly.Outcome<TResult>,int)",
-                        "signature": "Polly.Hedging.HedgingPredicateArguments<TResult>.HedgingPredicateArguments(Polly.ResilienceContext, Polly.Outcome<TResult>, int) -> void",
+                        "signature": "public Polly.Hedging.HedgingPredicateArguments<TResult>.HedgingPredicateArguments(Polly.ResilienceContext context, Polly.Outcome<TResult> outcome, int attemptNumber) -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -28194,7 +28194,7 @@ stdout:
                       },
                       "after": {
                         "symbolId": "source::Polly.Hedging.HedgingPredicateArguments<TResult>..ctor(global::Polly.ResilienceContext,global::Polly.Outcome<TResult>,int)",
-                        "signature": "Polly.Hedging.HedgingPredicateArguments<TResult>.HedgingPredicateArguments(Polly.ResilienceContext, Polly.Outcome<TResult>, int) -> void",
+                        "signature": "public Polly.Hedging.HedgingPredicateArguments<TResult>.HedgingPredicateArguments(Polly.ResilienceContext context, Polly.Outcome<TResult> outcome, int attemptNumber) -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -28341,7 +28341,7 @@ stdout:
                       "detail": "depth limit",
                       "before": {
                         "symbolId": "source::Polly.Telemetry.TelemetryUtil.ReportExecutionAttempt`1(global::Polly.Telemetry.ResilienceStrategyTelemetry,global::Polly.ResilienceContext,global::Polly.Outcome<TResult>,int,global::System.TimeSpan,bool)",
-                        "signature": "Polly.Telemetry.TelemetryUtil.ReportExecutionAttempt<TResult>(Polly.Telemetry.ResilienceStrategyTelemetry, Polly.ResilienceContext, Polly.Outcome<TResult>, int, System.TimeSpan, bool) -> void",
+                        "signature": "public static Polly.Telemetry.TelemetryUtil.ReportExecutionAttempt<TResult>(Polly.Telemetry.ResilienceStrategyTelemetry telemetry, Polly.ResilienceContext context, Polly.Outcome<TResult> outcome, int attempt, System.TimeSpan executionTime, bool handled) -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
@@ -28369,7 +28369,7 @@ stdout:
                       },
                       "after": {
                         "symbolId": "source::Polly.Telemetry.TelemetryUtil.ReportExecutionAttempt`1(global::Polly.Telemetry.ResilienceStrategyTelemetry,global::Polly.ResilienceContext,global::Polly.Outcome<TResult>,int,global::System.TimeSpan,bool)",
-                        "signature": "Polly.Telemetry.TelemetryUtil.ReportExecutionAttempt<TResult>(Polly.Telemetry.ResilienceStrategyTelemetry, Polly.ResilienceContext, Polly.Outcome<TResult>, int, System.TimeSpan, bool) -> void",
+                        "signature": "public static Polly.Telemetry.TelemetryUtil.ReportExecutionAttempt<TResult>(Polly.Telemetry.ResilienceStrategyTelemetry telemetry, Polly.ResilienceContext context, Polly.Outcome<TResult> outcome, int attempt, System.TimeSpan executionTime, bool handled) -> void",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [

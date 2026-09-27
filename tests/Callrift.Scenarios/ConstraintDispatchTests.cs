@@ -119,7 +119,15 @@ public sealed class ConstraintDispatchTests
             new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = remove ? source : valueConstraint }, []), workspace);
         using var diff = JsonDocument.Parse(await fixture.DiffAsync());
         Assert.Empty(diff.RootElement.GetProperty("diagnostics").EnumerateArray());
-        Assert.Equal("Flow.Run", Assert.Single(diff.RootElement.GetProperty("trees").EnumerateArray()).GetProperty("label").GetString());
+        var roots = diff.RootElement.GetProperty("trees").EnumerateArray().ToArray();
+        Assert.Equal(["Constrained<T>.Run", "Flow.Run", "new Constrained<T>"],
+            roots.Select(root => root.GetProperty("label").GetString()).Order(StringComparer.Ordinal));
+        foreach (var declaration in roots.Where(root => root.GetProperty("label").GetString() != "Flow.Run"))
+        {
+            Assert.Equal("signature changed", declaration.GetProperty("detail").GetString());
+            Assert.EndsWith("[Constrained<T> where T : " + (remove ? "struct" : "class") + "]", declaration.GetProperty("before").GetProperty("signature").GetString());
+            Assert.EndsWith("[Constrained<T> where T : " + (remove ? "class" : "struct") + "]", declaration.GetProperty("after").GetProperty("signature").GetString());
+        }
         foreach (var before in new[] { true, false })
         {
             using var reach = JsonDocument.Parse(await fixture.QueryAsync(new DiffOptions { Entries = ["Flow.Run"] }, before: before, target: "Sink.Unchanged"));

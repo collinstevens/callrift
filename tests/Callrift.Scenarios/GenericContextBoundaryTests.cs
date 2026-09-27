@@ -78,7 +78,19 @@ public sealed class GenericContextBoundaryTests
             static class Sink { public static void Call() {} }
             """;
         var result = CallriftService.Compare(await Analyze(source), await Analyze(source.Replace("class Handler<T> : IHandler<T>", "class Handler<T> : IHandler<T> where T : class", StringComparison.Ordinal)), new DiffOptions());
-        Require(result.Trees.Count == 1 && result.Trees[0].Label == "Entry.Number", "constraint edit affected compatible text caller: " + string.Join(",", result.Trees.Select(t => t.Label)));
+        Assert.Equal(["Entry.Number", "Entry.Text", "new Handler<T>"], result.Trees.Select(tree => tree.Label).Order(StringComparer.Ordinal));
+        var number = result.Trees.Single(tree => tree.Label == "Entry.Number");
+        var removed = Assert.Single(Flatten([number]), node => node.Kind == "dispatchTarget");
+        Assert.Equal('-', removed.Mark);
+        Assert.Contains("Handler<T>.Run", removed.Label);
+        var text = result.Trees.Single(tree => tree.Label == "Entry.Text");
+        var retained = Assert.Single(Flatten([text]), node => node.Kind == "dispatchTarget");
+        Assert.Equal('~', retained.Mark);
+        Assert.Equal("signature changed", retained.Detail);
+        Assert.Equal(retained.Before?.SymbolId, retained.After?.SymbolId);
+        Assert.Equal("public Handler<T>.Run() -> void", retained.Before?.Signature);
+        Assert.Equal("public Handler<T>.Run() -> void [Handler<T> where T : class]", retained.After?.Signature);
+        Assert.Equal(' ', Assert.Single(retained.Children).Mark);
     }
 
     [Fact]

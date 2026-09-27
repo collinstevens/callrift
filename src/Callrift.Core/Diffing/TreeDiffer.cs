@@ -36,7 +36,9 @@ public static class TreeDiffer
             {
                 var left = before[oldIndex++];
                 var right = after[newIndex++];
-                if ((left.Label != right.Label || left.ExpandedDispatch != right.ExpandedDispatch)
+                var implementationSignatureChanged = left.Signature != right.Signature && !left.ExpandedDispatch && !right.ExpandedDispatch
+                    && (left.Side?.Dispatch == "possible" || right.Side?.Dispatch == "possible");
+                if ((left.Label != right.Label || left.ExpandedDispatch != right.ExpandedDispatch || implementationSignatureChanged)
                     && left.DispatchLabel is not null && left.DispatchLabel == right.DispatchLabel)
                 {
                     left = left.ExpandDispatch?.Invoke() ?? left;
@@ -45,7 +47,7 @@ public static class TreeDiffer
                 var sameContext = (left.SemanticKey ?? left.Key) == (right.SemanticKey ?? right.Key);
                 var contextLimited = sameContext && (left.Omission?.Reason == "generic-context-limit" || right.Omission?.Reason == "generic-context-limit");
                 var children = contextLimited ? [] : Compare(left.Children, right.Children, cancellationToken);
-                var signatureChanged = left.Side?.SymbolId != right.Side?.SymbolId || left.Signature != right.Signature;
+                var signatureChanged = left.Side?.SymbolId != right.Side?.SymbolId || left.Side?.Signature != right.Side?.Signature || left.Signature != right.Signature;
                 var contextChanged = !signatureChanged && (left.InvocationKey ?? left.Key) != (right.InvocationKey ?? right.Key);
                 var hiddenBodyChange = (left.BodyChanged || right.BodyChanged) && !children.Any(c => c.HasChanges);
                 result.Add(new DiffNode(right.Key, right.Label, signatureChanged || contextChanged || hiddenBodyChange ? '~' : ' ', children,
