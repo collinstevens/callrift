@@ -58,7 +58,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 return;
             case AssignmentExpressionSyntax assignment when assignment.IsKind(SyntaxKind.CoalesceAssignmentExpression):
                 Walk(assignment.Left, result);
-                Branch("if (" + SymbolNames.Compact(assignment.Left) + " is null)", assignment, [assignment.Right], result);
+                Branch(assignment, [assignment.Right], result, static node => "if (" + SymbolNames.Compact(node.Left) + " is null)");
                 return;
             case AssignmentExpressionSyntax assignment when StaticMember(model.GetSymbolInfo(assignment.Left, cancellationToken).Symbol) is { } assignedMember:
                 var readBeforeAssignment = !assignment.IsKind(SyntaxKind.SimpleAssignmentExpression) && assignedMember is not IEventSymbol;
@@ -108,69 +108,68 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 return;
             case IfStatementSyntax conditional:
                 Walk(conditional.Condition, result);
-                Branch("if (" + SymbolNames.Compact(conditional.Condition) + ")", conditional, [conditional.Statement], result);
+                Branch(conditional, [conditional.Statement], result, static node => "if (" + SymbolNames.Compact(node.Condition) + ")");
                 if (conditional.Else is not null)
-                    Branch("else (!(" + SymbolNames.Compact(conditional.Condition) + "))", conditional.Else, [conditional.Else.Statement], result);
+                    Branch(conditional, [conditional.Else.Statement], result, static node => "else (!(" + SymbolNames.Compact(node.Condition) + "))", conditional.Else);
                 return;
             case SwitchStatementSyntax selection:
                 Walk(selection.Expression, result);
                 foreach (var section in selection.Sections)
-                    Branch(string.Join(" ", section.Labels.Select(SymbolNames.Compact)), section,
-                        section.Labels.OfType<CasePatternSwitchLabelSyntax>().Select(l => l.WhenClause).OfType<SyntaxNode>().Concat(section.Statements), result);
+                    Branch(section, section.Labels.OfType<CasePatternSwitchLabelSyntax>().Select(l => l.WhenClause).OfType<SyntaxNode>().Concat(section.Statements), result,
+                        static node => string.Join(" ", node.Labels.Select(SymbolNames.Compact)));
                 return;
             case SwitchExpressionSyntax selection:
                 Walk(selection.GoverningExpression, result);
                 foreach (var arm in selection.Arms)
-                    Branch("case " + SymbolNames.Compact(arm.Pattern) + (arm.WhenClause is null ? "" : " " + SymbolNames.Compact(arm.WhenClause)), arm,
-                        arm.WhenClause is null ? [arm.Expression] : [arm.WhenClause, arm.Expression], result);
+                    Branch(arm, arm.WhenClause is null ? [arm.Expression] : [arm.WhenClause, arm.Expression], result,
+                        static node => "case " + SymbolNames.Compact(node.Pattern) + (node.WhenClause is null ? "" : " " + SymbolNames.Compact(node.WhenClause)));
                 return;
             case TryStatementSyntax attempt:
-                Branch("try", attempt.Block, [attempt.Block], result);
+                Branch(attempt.Block, [attempt.Block], result, static _ => "try");
                 foreach (var handler in attempt.Catches)
-                    Branch("catch" + (handler.Declaration is null ? "" : " " + SymbolNames.Compact(handler.Declaration))
-                        + (handler.Filter is null ? "" : " " + SymbolNames.Compact(handler.Filter)), handler,
-                        handler.Filter is null ? [handler.Block] : [handler.Filter, handler.Block], result);
+                    Branch(handler, handler.Filter is null ? [handler.Block] : [handler.Filter, handler.Block], result,
+                        static node => "catch" + (node.Declaration is null ? "" : " " + SymbolNames.Compact(node.Declaration))
+                            + (node.Filter is null ? "" : " " + SymbolNames.Compact(node.Filter)));
                 if (attempt.Finally is not null)
-                    Branch("finally", attempt.Finally, [attempt.Finally.Block], result);
+                    Branch(attempt.Finally, [attempt.Finally.Block], result, static _ => "finally");
                 return;
             case ForEachStatementSyntax loop:
                 Walk(loop.Expression, result);
-                Branch($"foreach ({SymbolNames.Compact(loop.Type)} {loop.Identifier} in {SymbolNames.Compact(loop.Expression)})", loop, [loop.Statement], result);
+                Branch(loop, [loop.Statement], result, static node => $"foreach ({SymbolNames.Compact(node.Type)} {node.Identifier} in {SymbolNames.Compact(node.Expression)})");
                 return;
             case ForEachVariableStatementSyntax loop:
                 Walk(loop.Expression, result);
-                Branch($"foreach ({SymbolNames.Compact(loop.Variable)} in {SymbolNames.Compact(loop.Expression)})", loop, [loop.Statement], result);
+                Branch(loop, [loop.Statement], result, static node => $"foreach ({SymbolNames.Compact(node.Variable)} in {SymbolNames.Compact(node.Expression)})");
                 return;
             case ForStatementSyntax loop:
                 Walk(loop.Declaration, result);
                 foreach (var initial in loop.Initializers) Walk(initial, result);
-                Branch("for (" + (loop.Condition is null ? "" : SymbolNames.Compact(loop.Condition)) + ")", loop,
-                    new SyntaxNode?[] { loop.Condition, loop.Statement }.Where(n => n is not null).Cast<SyntaxNode>().Concat(loop.Incrementors), result);
+                Branch(loop, new SyntaxNode?[] { loop.Condition, loop.Statement }.Where(n => n is not null).Cast<SyntaxNode>().Concat(loop.Incrementors), result,
+                    static node => "for (" + (node.Condition is null ? "" : SymbolNames.Compact(node.Condition)) + ")");
                 return;
             case WhileStatementSyntax loop:
-                Branch("while (" + SymbolNames.Compact(loop.Condition) + ")", loop, [loop.Condition, loop.Statement], result);
+                Branch(loop, [loop.Condition, loop.Statement], result, static node => "while (" + SymbolNames.Compact(node.Condition) + ")");
                 return;
             case DoStatementSyntax loop:
-                Branch("do / while (" + SymbolNames.Compact(loop.Condition) + ")", loop, [loop.Statement, loop.Condition], result);
+                Branch(loop, [loop.Statement, loop.Condition], result, static node => "do / while (" + SymbolNames.Compact(node.Condition) + ")");
                 return;
             case ConditionalExpressionSyntax conditional:
                 Walk(conditional.Condition, result);
-                Branch("if (" + SymbolNames.Compact(conditional.Condition) + ")", conditional.WhenTrue, [conditional.WhenTrue], result);
-                Branch("else (!(" + SymbolNames.Compact(conditional.Condition) + "))", conditional.WhenFalse, [conditional.WhenFalse], result);
+                Branch(conditional, [conditional.WhenTrue], result, static node => "if (" + SymbolNames.Compact(node.Condition) + ")", conditional.WhenTrue);
+                Branch(conditional, [conditional.WhenFalse], result, static node => "else (!(" + SymbolNames.Compact(node.Condition) + "))", conditional.WhenFalse);
                 return;
             case ConditionalAccessExpressionSyntax access:
                 Walk(access.Expression, result);
-                Branch("if (" + SymbolNames.Compact(access.Expression) + " is not null)", access, [access.WhenNotNull], result);
+                Branch(access, [access.WhenNotNull], result, static node => "if (" + SymbolNames.Compact(node.Expression) + " is not null)");
                 return;
             case BinaryExpressionSyntax binary when binary.IsKind(SyntaxKind.LogicalAndExpression) || binary.IsKind(SyntaxKind.LogicalOrExpression) || binary.IsKind(SyntaxKind.CoalesceExpression):
                 Walk(binary.Left, result);
-                var predicate = binary.Kind() switch
+                Branch(binary, [binary.Right], result, static node => "if (" + (node.Kind() switch
                 {
-                    SyntaxKind.LogicalAndExpression => SymbolNames.Compact(binary.Left),
-                    SyntaxKind.LogicalOrExpression => "!(" + SymbolNames.Compact(binary.Left) + ")",
-                    _ => SymbolNames.Compact(binary.Left) + " is null"
-                };
-                Branch("if (" + predicate + ")", binary, [binary.Right], result);
+                    SyntaxKind.LogicalAndExpression => SymbolNames.Compact(node.Left),
+                    SyntaxKind.LogicalOrExpression => "!(" + SymbolNames.Compact(node.Left) + ")",
+                    _ => SymbolNames.Compact(node.Left) + " is null"
+                }) + ")");
                 return;
         }
         foreach (var child in node.ChildNodesAndTokens())
@@ -381,12 +380,13 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         return DispatchType.From(type);
     }
 
-    private void Branch(string label, SyntaxNode node, IEnumerable<SyntaxNode> bodies, List<CallStep> result)
+    private void Branch<TNode>(TNode node, IEnumerable<SyntaxNode> bodies, List<CallStep> result, Func<TNode, string> formatLabel, SyntaxNode? location = null) where TNode : SyntaxNode
     {
         var calls = new List<CallStep>();
         foreach (var body in bodies)
             Walk(body, calls);
-        if (calls.Count > 0)
-            result.Add(new CallStep("branch", "branch:" + label, label.Length > 100 ? label[..97] + "…" : label, true, symbols.Location(node), calls));
+        if (calls.Count == 0) return;
+        var label = formatLabel(node);
+        result.Add(new CallStep("branch", "branch:" + label, label.Length > 100 ? label[..97] + "…" : label, true, symbols.Location(location ?? node), calls));
     }
 }
