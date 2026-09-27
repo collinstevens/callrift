@@ -1,4 +1,143 @@
-﻿              {
+﻿                        "path": "src/Servers/IIS/IIS/test/testassets/InProcessWebSite/Startup.cs",
+                        "startLine": 498,
+                        "startColumn": 24,
+                        "endLine": 498,
+                        "endColumn": 102
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Microsoft.AspNetCore.Http.HttpResponseWritingExtensions.WriteAsync(global::Microsoft.AspNetCore.Http.HttpResponse,string,global::System.Threading.CancellationToken)",
+                    "signature": "public static Microsoft.AspNetCore.Http.HttpResponseWritingExtensions.WriteAsync(this Microsoft.AspNetCore.Http.HttpResponse response, string text, [System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)]) -> System.Threading.Tasks.Task",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Microsoft.AspNetCore.Http.HttpResponseWritingExtensions.WriteAsync(global::Microsoft.AspNetCore.Http.HttpResponse,string,global::System.Threading.CancellationToken)"
+                    ],
+                    "definition": {
+                      "path": "src/Http/Http.Abstractions/src/Extensions/HttpResponseWritingExtensions.cs",
+                      "startLine": 25,
+                      "startColumn": 5,
+                      "endLine": 32,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Servers/IIS/IIS/test/testassets/InProcessWebSite/Startup.cs",
+                        "startLine": 498,
+                        "startColumn": 24,
+                        "endLine": 498,
+                        "endColumn": 102
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n41395",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "HttpContext.get_Request → DefaultHttpContext.get_Request",
+          "detail": null,
+          "before": {
+            "symbolId": "source::Microsoft.AspNetCore.Http.HttpContext.get_Request()",
+            "signature": "public abstract Microsoft.AspNetCore.Http.HttpContext.get_Request() -> Microsoft.AspNetCore.Http.HttpRequest",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "source::Microsoft.AspNetCore.Http.DefaultHttpContext.get_Request()"
+            ],
+            "definition": {
+              "path": "src/Http/Http.Abstractions/src/HttpContext.cs",
+              "startLine": 27,
+              "startColumn": 43,
+              "endLine": 27,
+              "endColumn": 47
+            },
+            "callSites": [
+              {
+                "path": "src/Servers/IIS/IIS/test/testassets/InProcessWebSite/Startup.cs",
+                "startLine": 503,
+                "startColumn": 23,
+                "endLine": 503,
+                "endColumn": 34
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Microsoft.AspNetCore.Http.HttpContext.get_Request()",
+            "signature": "public abstract Microsoft.AspNetCore.Http.HttpContext.get_Request() -> Microsoft.AspNetCore.Http.HttpRequest",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "source::Microsoft.AspNetCore.Http.DefaultHttpContext.get_Request()"
+            ],
+            "definition": {
+              "path": "src/Http/Http.Abstractions/src/HttpContext.cs",
+              "startLine": 27,
+              "startColumn": 43,
+              "endLine": 27,
+              "endColumn": 47
+            },
+            "callSites": [
+              {
+                "path": "src/Servers/IIS/IIS/test/testassets/InProcessWebSite/Startup.cs",
+                "startLine": 503,
+                "startColumn": 23,
+                "endLine": 503,
+                "endColumn": 34
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n41396",
+          "kind": "call",
+          "change": "modified",
+          "label": "HttpRequest.get_Headers → DefaultHttpRequest.get_Headers",
+          "detail": "changes below depth limit",
+          "before": {
+            "symbolId": "source::Microsoft.AspNetCore.Http.HttpRequest.get_Headers()",
+            "signature": "public abstract Microsoft.AspNetCore.Http.HttpRequest.get_Headers() -> Microsoft.AspNetCore.Http.IHeaderDictionary",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "source::Microsoft.AspNetCore.Http.DefaultHttpRequest.get_Headers()"
+            ],
+            "definition": {
+              "path": "src/Http/Http.Abstractions/src/HttpRequest.cs",
+              "startLine": 87,
+              "startColumn": 49,
+              "endLine": 87,
+              "endColumn": 53
+            },
+            "callSites": [
+              {
                 "path": "src/Servers/IIS/IIS/test/testassets/InProcessWebSite/Startup.cs",
                 "startLine": 503,
                 "startColumn": 23,
@@ -75217,4 +75356,4 @@ eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot 
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot bind new Argument<string>.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind collection initializer Add.
-23402 additional diagnostics; use --diagnostics full.
+23424 additional diagnostics; use --diagnostics full.

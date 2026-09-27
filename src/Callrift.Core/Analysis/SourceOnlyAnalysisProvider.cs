@@ -172,7 +172,12 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                 { Body = SyntaxFactory.Block(unit.Members.OfType<GlobalStatementSyntax>().Select(s => s.Statement)) });
             }
             foreach (var error in tree.GetDiagnostics(cancellationToken).Where(d => d.Severity == DiagnosticSeverity.Error))
-                diagnostics.Add(new AnalysisDiagnostic(error.Id, error.GetMessage(System.Globalization.CultureInfo.InvariantCulture), new SourceLocation(symbols.Path(tree.FilePath), error.Location.GetLineSpan().StartLinePosition.Line + 1, 1)));
+            {
+                var span = error.Location.GetLineSpan();
+                diagnostics.Add(new AnalysisDiagnostic(error.Id, error.GetMessage(System.Globalization.CultureInfo.InvariantCulture),
+                    new SourceLocation(symbols.Path(span.Path), span.StartLinePosition.Line + 1, span.StartLinePosition.Character + 1,
+                        span.EndLinePosition.Line + 1, span.EndLinePosition.Character + 1)));
+            }
         });
         var indexed = new Dictionary<string, Member>(StringComparer.Ordinal);
         foreach (var group in members.OrderBy(m => m.Location.Path, StringComparer.Ordinal).ThenBy(m => m.Location.Line).GroupBy(m => m.Key))
