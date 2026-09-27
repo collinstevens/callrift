@@ -7,15 +7,18 @@
     "licenseFile": "LICENSE",
     "before": "49b5339ce85385dc52d4d8e8f2b8308becf23506",
     "after": "bebc7719004f76187ae72e64ce138ec2540f2070",
-    "reason": "Guard int.MinValue before alignment processing",
+    "reason": "Guard int.MinValue before alignment processing; the unchanged PropertyName read in the PropertyToken constructor is included in JSON while the default text context stays unchanged.",
     "tags": [
-      "branch-guard"
+      "branch-guard",
+      "properties"
     ],
     "options": [
       "--entry",
       "MessageTemplateParser.ParsePropertyToken"
     ],
-    "knownIssue": "issues/source-only-coverage.md"
+    "knownIssue": "issues/source-only-coverage.md",
+    "beforeLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "afterLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8"
   },
   {
     "id": "serilog-null-key",
@@ -25,15 +28,19 @@
     "licenseFile": "LICENSE",
     "before": "60935b4d7abad71cf6157b45a10f5c3c65ead527",
     "after": "6c3fbcf636b0671bbd6f5032b61a2254937d8408",
-    "reason": "Move key serialization under a non-null branch",
+    "reason": "Move key serialization under a non-null branch after the dictionary Elements and scalar Value getters. ToString targets remain conservative possibilities, including recursive value rendering; external writes are filtered in this view.",
     "tags": [
-      "branch-guard"
+      "branch-guard",
+      "properties"
     ],
     "options": [
       "--entry",
       "JsonValueFormatter.VisitDictionaryValue"
     ],
-    "knownIssue": "issues/source-only-coverage.md"
+    "knownIssue": "issues/source-only-coverage.md",
+    "beforeLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "afterLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "review": "../tests/Callrift.RealWorldCases/SerilogAccessorExpectations.cs"
   },
   {
     "id": "serilog-extra-arguments",
@@ -43,15 +50,19 @@
     "licenseFile": "LICENSE",
     "before": "0597ddfbd4ec594d9c42edd745fe728a2198bad9",
     "after": "60935b4d7abad71cf6157b45a10f5c3c65ead527",
-    "reason": "Add SelfLog call for surplus template arguments",
+    "reason": "Add SelfLog call for surplus template arguments; the NamedProperties getter precedes the null-property and surplus-argument guards.",
     "tags": [
-      "branch-guard"
+      "branch-guard",
+      "properties"
     ],
     "options": [
       "--entry",
       "PropertyBinder.ConstructNamedProperties"
     ],
-    "knownIssue": "issues/source-only-coverage.md"
+    "knownIssue": "issues/source-only-coverage.md",
+    "beforeLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "afterLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "review": "../tests/Callrift.RealWorldCases/SerilogAccessorExpectations.cs"
   },
   {
     "id": "serilog-allocation",

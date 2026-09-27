@@ -93,6 +93,71 @@ stdout:
       "children": [
         {
           "id": "n1",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "MessageTemplate.get_NamedProperties",
+          "detail": null,
+          "before": {
+            "symbolId": "source::Serilog.Events.MessageTemplate.get_NamedProperties()",
+            "signature": "internal Serilog.Events.MessageTemplate.get_NamedProperties() -> Serilog.Parsing.PropertyToken[]?",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Serilog.Events.MessageTemplate.get_NamedProperties()"
+            ],
+            "definition": {
+              "path": "src/Serilog/Events/MessageTemplate.cs",
+              "startLine": 115,
+              "startColumn": 49,
+              "endLine": 115,
+              "endColumn": 53
+            },
+            "callSites": [
+              {
+                "path": "src/Serilog/Capturing/PropertyBinder.cs",
+                "startLine": 100,
+                "startColumn": 31,
+                "endLine": 100,
+                "endColumn": 55
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Serilog.Events.MessageTemplate.get_NamedProperties()",
+            "signature": "internal Serilog.Events.MessageTemplate.get_NamedProperties() -> Serilog.Parsing.PropertyToken[]?",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Serilog.Events.MessageTemplate.get_NamedProperties()"
+            ],
+            "definition": {
+              "path": "src/Serilog/Events/MessageTemplate.cs",
+              "startLine": 115,
+              "startColumn": 49,
+              "endLine": 115,
+              "endColumn": 53
+            },
+            "callSites": [
+              {
+                "path": "src/Serilog/Capturing/PropertyBinder.cs",
+                "startLine": 100,
+                "startColumn": 31,
+                "endLine": 100,
+                "endColumn": 55
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n2",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (namedProperties == null)",
@@ -139,7 +204,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n2",
+              "id": "n3",
               "kind": "branch",
               "change": "added",
               "label": "if (messageTemplateParameters.Length > 0)",
@@ -167,7 +232,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n3",
+                  "id": "n4",
                   "kind": "call",
                   "change": "added",
                   "label": "SelfLog.WriteLine",
@@ -203,7 +268,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n4",
+                      "id": "n5",
                       "kind": "branch",
                       "change": "added",
                       "label": "possible initialization of SelfLog",
@@ -231,7 +296,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n5",
+                          "id": "n6",
                           "kind": "call",
                           "change": "added",
                           "label": "initialization of SelfLog",
@@ -267,7 +332,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n6",
+                              "id": "n7",
                               "kind": "call",
                               "change": "added",
                               "label": "new SelfLog.SelfLogFailureListener",
@@ -317,7 +382,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n7",
+              "id": "n8",
               "kind": "branch",
               "change": "unchanged",
               "label": "possible initialization of PropertyBinder",
@@ -364,7 +429,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n8",
+                  "id": "n9",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "initialization of PropertyBinder",
@@ -435,7 +500,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n9",
+          "id": "n10",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (namedProperties.Length != messageTemplateParameters.Length)",
@@ -482,7 +547,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n10",
+              "id": "n11",
               "kind": "call",
               "change": "unchanged",
               "label": "SelfLog.WriteLine",
@@ -545,7 +610,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n11",
+                  "id": "n12",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "possible initialization of SelfLog",
@@ -592,7 +657,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n12",
+                      "id": "n13",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "initialization of SelfLog",
@@ -655,7 +720,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n13",
+                          "id": "n14",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "new SelfLog.SelfLogFailureListener",
@@ -732,7 +797,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n14",
+          "id": "n15",
           "kind": "branch",
           "change": "unchanged",
           "label": "for (i < matchedRun)",
@@ -779,7 +844,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n15",
+              "id": "n16",
               "kind": "call",
               "change": "unchanged",
               "label": "PropertyBinder.ConstructProperty",
@@ -842,7 +907,137 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n16",
+                  "id": "n17",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "PropertyToken.get_PropertyName",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "source::Serilog.Parsing.PropertyToken.get_PropertyName()",
+                    "signature": "public Serilog.Parsing.PropertyToken.get_PropertyName() -> string",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Parsing.PropertyToken.get_PropertyName()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Parsing/PropertyToken.cs",
+                      "startLine": 73,
+                      "startColumn": 34,
+                      "endLine": 73,
+                      "endColumn": 38
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Capturing/PropertyBinder.cs",
+                        "startLine": 130,
+                        "startColumn": 13,
+                        "endLine": 130,
+                        "endColumn": 39
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Parsing.PropertyToken.get_PropertyName()",
+                    "signature": "public Serilog.Parsing.PropertyToken.get_PropertyName() -> string",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Parsing.PropertyToken.get_PropertyName()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Parsing/PropertyToken.cs",
+                      "startLine": 73,
+                      "startColumn": 34,
+                      "endLine": 73,
+                      "endColumn": 38
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Capturing/PropertyBinder.cs",
+                        "startLine": 135,
+                        "startColumn": 13,
+                        "endLine": 135,
+                        "endColumn": 39
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n18",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "PropertyToken.get_Destructuring",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "source::Serilog.Parsing.PropertyToken.get_Destructuring()",
+                    "signature": "public Serilog.Parsing.PropertyToken.get_Destructuring() -> Serilog.Parsing.Destructuring",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Parsing.PropertyToken.get_Destructuring()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Parsing/PropertyToken.cs",
+                      "startLine": 78,
+                      "startColumn": 42,
+                      "endLine": 78,
+                      "endColumn": 46
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Capturing/PropertyBinder.cs",
+                        "startLine": 131,
+                        "startColumn": 56,
+                        "endLine": 131,
+                        "endColumn": 83
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "source::Serilog.Parsing.PropertyToken.get_Destructuring()",
+                    "signature": "public Serilog.Parsing.PropertyToken.get_Destructuring() -> Serilog.Parsing.Destructuring",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Serilog.Parsing.PropertyToken.get_Destructuring()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Parsing/PropertyToken.cs",
+                      "startLine": 78,
+                      "startColumn": 42,
+                      "endLine": 78,
+                      "endColumn": 46
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Capturing/PropertyBinder.cs",
+                        "startLine": 136,
+                        "startColumn": 56,
+                        "endLine": 136,
+                        "endColumn": 83
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n19",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "PropertyValueConverter.CreatePropertyValue",
@@ -905,7 +1100,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n17",
+                      "id": "n20",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "try",
@@ -952,7 +1147,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n18",
+                          "id": "n21",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "PropertyValueConverter.CreatePropertyValue",
@@ -1015,7 +1210,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n19",
+                              "id": "n22",
                               "kind": "branch",
                               "change": "unchanged",
                               "label": "if (value == null)",
@@ -1062,18 +1257,26 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n20",
-                                  "kind": "branch",
+                                  "id": "n23",
+                                  "kind": "call",
                                   "change": "unchanged",
-                                  "label": "possible initialization of ScalarValue",
-                                  "detail": null,
+                                  "label": "ScalarValue.get_Null",
+                                  "detail": "depth limit",
                                   "before": {
-                                    "symbolId": null,
-                                    "signature": null,
-                                    "binding": "structural",
-                                    "dispatch": "none",
-                                    "targetIds": [],
-                                    "definition": null,
+                                    "symbolId": "source::Serilog.Events.ScalarValue.get_Null()",
+                                    "signature": "public static Serilog.Events.ScalarValue.get_Null() -> Serilog.Events.ScalarValue",
+                                    "binding": "resolved",
+                                    "dispatch": "direct",
+                                    "targetIds": [
+                                      "source::Serilog.Events.ScalarValue.get_Null()"
+                                    ],
+                                    "definition": {
+                                      "path": "src/Serilog/Events/ScalarValue.cs",
+                                      "startLine": 25,
+                                      "startColumn": 38,
+                                      "endLine": 25,
+                                      "endColumn": 42
+                                    },
                                     "callSites": [
                                       {
                                         "path": "src/Serilog/Capturing/PropertyValueConverter.cs",
@@ -1083,17 +1286,25 @@ stdout:
                                         "endColumn": 36
                                       }
                                     ],
-                                    "relation": "branch",
-                                    "candidates": null,
-                                    "origin": "structural"
+                                    "relation": "call",
+                                    "candidates": [],
+                                    "origin": "source"
                                   },
                                   "after": {
-                                    "symbolId": null,
-                                    "signature": null,
-                                    "binding": "structural",
-                                    "dispatch": "none",
-                                    "targetIds": [],
-                                    "definition": null,
+                                    "symbolId": "source::Serilog.Events.ScalarValue.get_Null()",
+                                    "signature": "public static Serilog.Events.ScalarValue.get_Null() -> Serilog.Events.ScalarValue",
+                                    "binding": "resolved",
+                                    "dispatch": "direct",
+                                    "targetIds": [
+                                      "source::Serilog.Events.ScalarValue.get_Null()"
+                                    ],
+                                    "definition": {
+                                      "path": "src/Serilog/Events/ScalarValue.cs",
+                                      "startLine": 25,
+                                      "startColumn": 38,
+                                      "endLine": 25,
+                                      "endColumn": 42
+                                    },
                                     "callSites": [
                                       {
                                         "path": "src/Serilog/Capturing/PropertyValueConverter.cs",
@@ -1103,88 +1314,22 @@ stdout:
                                         "endColumn": 36
                                       }
                                     ],
-                                    "relation": "branch",
-                                    "candidates": null,
-                                    "origin": "structural"
+                                    "relation": "call",
+                                    "candidates": [],
+                                    "origin": "source"
                                   },
-                                  "children": [
-                                    {
-                                      "id": "n21",
-                                      "kind": "call",
-                                      "change": "unchanged",
-                                      "label": "initialization of ScalarValue",
-                                      "detail": "depth limit",
-                                      "before": {
-                                        "symbolId": "source::Serilog.Events.ScalarValue..cctor()",
-                                        "signature": "static Serilog.Events.ScalarValue.ScalarValue() -> void",
-                                        "binding": "resolved",
-                                        "dispatch": "direct",
-                                        "targetIds": [
-                                          "source::Serilog.Events.ScalarValue..cctor()"
-                                        ],
-                                        "definition": {
-                                          "path": "src/Serilog/Events/ScalarValue.cs",
-                                          "startLine": 20,
-                                          "startColumn": 1,
-                                          "endLine": 154,
-                                          "endColumn": 2
-                                        },
-                                        "callSites": [
-                                          {
-                                            "path": "src/Serilog/Capturing/PropertyValueConverter.cs",
-                                            "startLine": 124,
-                                            "startColumn": 20,
-                                            "endLine": 124,
-                                            "endColumn": 36
-                                          }
-                                        ],
-                                        "relation": "call",
-                                        "candidates": [],
-                                        "origin": "source"
-                                      },
-                                      "after": {
-                                        "symbolId": "source::Serilog.Events.ScalarValue..cctor()",
-                                        "signature": "static Serilog.Events.ScalarValue.ScalarValue() -> void",
-                                        "binding": "resolved",
-                                        "dispatch": "direct",
-                                        "targetIds": [
-                                          "source::Serilog.Events.ScalarValue..cctor()"
-                                        ],
-                                        "definition": {
-                                          "path": "src/Serilog/Events/ScalarValue.cs",
-                                          "startLine": 20,
-                                          "startColumn": 1,
-                                          "endLine": 154,
-                                          "endColumn": 2
-                                        },
-                                        "callSites": [
-                                          {
-                                            "path": "src/Serilog/Capturing/PropertyValueConverter.cs",
-                                            "startLine": 124,
-                                            "startColumn": 20,
-                                            "endLine": 124,
-                                            "endColumn": 36
-                                          }
-                                        ],
-                                        "relation": "call",
-                                        "candidates": [],
-                                        "origin": "source"
-                                      },
-                                      "children": [],
-                                      "omission": {
-                                        "reason": "depth-limit",
-                                        "symbolId": null,
-                                        "referenceId": null
-                                      }
-                                    }
-                                  ],
-                                  "omission": null
+                                  "children": [],
+                                  "omission": {
+                                    "reason": "depth-limit",
+                                    "symbolId": null,
+                                    "referenceId": null
+                                  }
                                 }
                               ],
                               "omission": null
                             },
                             {
-                              "id": "n22",
+                              "id": "n24",
                               "kind": "branch",
                               "change": "unchanged",
                               "label": "if (destructuring == Destructuring.Stringify)",
@@ -1231,7 +1376,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n23",
+                                  "id": "n25",
                                   "kind": "call",
                                   "change": "unchanged",
                                   "label": "PropertyValueConverter.Stringify",
@@ -1303,7 +1448,7 @@ stdout:
                               "omission": null
                             },
                             {
-                              "id": "n24",
+                              "id": "n26",
                               "kind": "branch",
                               "change": "unchanged",
                               "label": "if (destructuring == Destructuring.Destructure)",
@@ -1350,7 +1495,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n25",
+                                  "id": "n27",
                                   "kind": "branch",
                                   "change": "unchanged",
                                   "label": "if (value is string stringValue)",
@@ -1397,7 +1542,7 @@ stdout:
                                   },
                                   "children": [
                                     {
-                                      "id": "n26",
+                                      "id": "n28",
                                       "kind": "call",
                                       "change": "unchanged",
                                       "label": "PropertyValueConverter.TruncateIfNecessary",
@@ -1468,7 +1613,7 @@ stdout:
                               "omission": null
                             },
                             {
-                              "id": "n27",
+                              "id": "n29",
                               "kind": "branch",
                               "change": "unchanged",
                               "label": "if (value is string)",
@@ -1515,7 +1660,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n28",
+                                  "id": "n30",
                                   "kind": "call",
                                   "change": "unchanged",
                                   "label": "new ScalarValue",
@@ -1587,7 +1732,7 @@ stdout:
                               "omission": null
                             },
                             {
-                              "id": "n29",
+                              "id": "n31",
                               "kind": "branch",
                               "change": "unchanged",
                               "label": "foreach (var scalarConversionPolicy in _scalarConversionPolicies)",
@@ -1634,7 +1779,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n30",
+                                  "id": "n32",
                                   "kind": "call",
                                   "change": "unchanged",
                                   "label": "IScalarConversionPolicy.TryConvertToScalar",
@@ -1703,7 +1848,7 @@ stdout:
                                   },
                                   "children": [
                                     {
-                                      "id": "n31",
+                                      "id": "n33",
                                       "kind": "dispatchTarget",
                                       "change": "unchanged",
                                       "label": "⇢ ByteArrayScalarConversionPolicy.TryConvertToScalar",
@@ -1756,7 +1901,7 @@ stdout:
                                       }
                                     },
                                     {
-                                      "id": "n32",
+                                      "id": "n34",
                                       "kind": "dispatchTarget",
                                       "change": "unchanged",
                                       "label": "⇢ EnumScalarConversionPolicy.TryConvertToScalar",
@@ -1809,7 +1954,7 @@ stdout:
                                       }
                                     },
                                     {
-                                      "id": "n33",
+                                      "id": "n35",
                                       "kind": "dispatchTarget",
                                       "change": "unchanged",
                                       "label": "⇢ PrimitiveScalarConversionPolicy.TryConvertToScalar",
@@ -1862,7 +2007,7 @@ stdout:
                                       }
                                     },
                                     {
-                                      "id": "n34",
+                                      "id": "n36",
                                       "kind": "dispatchTarget",
                                       "change": "unchanged",
                                       "label": "⇢ SimpleScalarConversionPolicy.TryConvertToScalar",
@@ -1921,7 +2066,7 @@ stdout:
                               "omission": null
                             },
                             {
-                              "id": "n35",
+                              "id": "n37",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "PropertyValueConverter.DepthLimiter.SetCurrentDepth",
@@ -1986,7 +2131,7 @@ stdout:
                               "omission": null
                             },
                             {
-                              "id": "n36",
+                              "id": "n38",
                               "kind": "branch",
                               "change": "unchanged",
                               "label": "if (destructuring == Destructuring.Destructure)",
@@ -2033,7 +2178,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n37",
+                                  "id": "n39",
                                   "kind": "branch",
                                   "change": "unchanged",
                                   "label": "foreach (var destructuringPolicy in _destructuringPolicies)",
@@ -2080,7 +2225,7 @@ stdout:
                                   },
                                   "children": [
                                     {
-                                      "id": "n38",
+                                      "id": "n40",
                                       "kind": "call",
                                       "change": "unchanged",
                                       "label": "IDestructuringPolicy.TryDestructure",
@@ -2147,7 +2292,7 @@ stdout:
                                       },
                                       "children": [
                                         {
-                                          "id": "n39",
+                                          "id": "n41",
                                           "kind": "dispatchTarget",
                                           "change": "unchanged",
                                           "label": "⇢ DelegateDestructuringPolicy.TryDestructure",
@@ -2200,7 +2345,7 @@ stdout:
                                           }
                                         },
                                         {
-                                          "id": "n40",
+                                          "id": "n42",
                                           "kind": "dispatchTarget",
                                           "change": "unchanged",
                                           "label": "⇢ ProjectedDestructuringPolicy.TryDestructure",
@@ -2253,7 +2398,7 @@ stdout:
                                           }
                                         },
                                         {
-                                          "id": "n41",
+                                          "id": "n43",
                                           "kind": "dispatchTarget",
                                           "change": "unchanged",
                                           "label": "⇢ ReflectionTypesScalarDestructuringPolicy.TryDestructure",
@@ -2315,7 +2460,7 @@ stdout:
                               "omission": null
                             },
                             {
-                              "id": "n42",
+                              "id": "n44",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "PropertyValueConverter.TryConvertEnumerable",
@@ -2384,7 +2529,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n43",
+                              "id": "n45",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "PropertyValueConverter.TryConvertValueTuple",
@@ -2453,7 +2598,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n44",
+                              "id": "n46",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "PropertyValueConverter.TryConvertStructure",
@@ -2522,7 +2667,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n45",
+                              "id": "n47",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "value.ToString",
@@ -2578,112 +2723,6 @@ stdout:
                                 "origin": "metadata"
                               },
                               "children": [
-                                {
-                                  "id": "n46",
-                                  "kind": "dispatchTarget",
-                                  "change": "unchanged",
-                                  "label": "⇢ LogEventPropertyValue.ToString",
-                                  "detail": "depth limit",
-                                  "before": {
-                                    "symbolId": "source::Serilog.Events.LogEventPropertyValue.ToString()",
-                                    "signature": "public override Serilog.Events.LogEventPropertyValue.ToString() -> string",
-                                    "binding": "resolved",
-                                    "dispatch": "direct",
-                                    "targetIds": [
-                                      "source::Serilog.Events.LogEventPropertyValue.ToString()"
-                                    ],
-                                    "definition": {
-                                      "path": "src/Serilog/Events/LogEventPropertyValue.cs",
-                                      "startLine": 39,
-                                      "startColumn": 5,
-                                      "endLine": 39,
-                                      "endColumn": 63
-                                    },
-                                    "callSites": [],
-                                    "relation": "definition",
-                                    "candidates": null,
-                                    "origin": "source"
-                                  },
-                                  "after": {
-                                    "symbolId": "source::Serilog.Events.LogEventPropertyValue.ToString()",
-                                    "signature": "public override Serilog.Events.LogEventPropertyValue.ToString() -> string",
-                                    "binding": "resolved",
-                                    "dispatch": "direct",
-                                    "targetIds": [
-                                      "source::Serilog.Events.LogEventPropertyValue.ToString()"
-                                    ],
-                                    "definition": {
-                                      "path": "src/Serilog/Events/LogEventPropertyValue.cs",
-                                      "startLine": 39,
-                                      "startColumn": 5,
-                                      "endLine": 39,
-                                      "endColumn": 63
-                                    },
-                                    "callSites": [],
-                                    "relation": "definition",
-                                    "candidates": null,
-                                    "origin": "source"
-                                  },
-                                  "children": [],
-                                  "omission": {
-                                    "reason": "depth-limit",
-                                    "symbolId": null,
-                                    "referenceId": null
-                                  }
-                                },
-                                {
-                                  "id": "n47",
-                                  "kind": "dispatchTarget",
-                                  "change": "unchanged",
-                                  "label": "⇢ LogEventPropertyValue.ToString",
-                                  "detail": "depth limit",
-                                  "before": {
-                                    "symbolId": "source::Serilog.Events.LogEventPropertyValue.ToString()",
-                                    "signature": "public override Serilog.Events.LogEventPropertyValue.ToString() -> string",
-                                    "binding": "resolved",
-                                    "dispatch": "direct",
-                                    "targetIds": [
-                                      "source::Serilog.Events.LogEventPropertyValue.ToString()"
-                                    ],
-                                    "definition": {
-                                      "path": "src/Serilog/Events/LogEventPropertyValue.cs",
-                                      "startLine": 39,
-                                      "startColumn": 5,
-                                      "endLine": 39,
-                                      "endColumn": 63
-                                    },
-                                    "callSites": [],
-                                    "relation": "definition",
-                                    "candidates": null,
-                                    "origin": "source"
-                                  },
-                                  "after": {
-                                    "symbolId": "source::Serilog.Events.LogEventPropertyValue.ToString()",
-                                    "signature": "public override Serilog.Events.LogEventPropertyValue.ToString() -> string",
-                                    "binding": "resolved",
-                                    "dispatch": "direct",
-                                    "targetIds": [
-                                      "source::Serilog.Events.LogEventPropertyValue.ToString()"
-                                    ],
-                                    "definition": {
-                                      "path": "src/Serilog/Events/LogEventPropertyValue.cs",
-                                      "startLine": 39,
-                                      "startColumn": 5,
-                                      "endLine": 39,
-                                      "endColumn": 63
-                                    },
-                                    "callSites": [],
-                                    "relation": "definition",
-                                    "candidates": null,
-                                    "origin": "source"
-                                  },
-                                  "children": [],
-                                  "omission": {
-                                    "reason": "depth-limit",
-                                    "symbolId": null,
-                                    "referenceId": null
-                                  }
-                                },
                                 {
                                   "id": "n48",
                                   "kind": "dispatchTarget",
@@ -2794,22 +2833,22 @@ stdout:
                                   "id": "n50",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
-                                  "label": "⇢ MessageTemplate.ToString",
-                                  "detail": null,
+                                  "label": "⇢ LogEventPropertyValue.ToString",
+                                  "detail": "depth limit",
                                   "before": {
-                                    "symbolId": "source::Serilog.Events.MessageTemplate.ToString()",
-                                    "signature": "public override Serilog.Events.MessageTemplate.ToString() -> string",
+                                    "symbolId": "source::Serilog.Events.LogEventPropertyValue.ToString()",
+                                    "signature": "public override Serilog.Events.LogEventPropertyValue.ToString() -> string",
                                     "binding": "resolved",
                                     "dispatch": "direct",
                                     "targetIds": [
-                                      "source::Serilog.Events.MessageTemplate.ToString()"
+                                      "source::Serilog.Events.LogEventPropertyValue.ToString()"
                                     ],
                                     "definition": {
-                                      "path": "src/Serilog/Events/MessageTemplate.cs",
-                                      "startLine": 106,
+                                      "path": "src/Serilog/Events/LogEventPropertyValue.cs",
+                                      "startLine": 39,
                                       "startColumn": 5,
-                                      "endLine": 106,
-                                      "endColumn": 47
+                                      "endLine": 39,
+                                      "endColumn": 63
                                     },
                                     "callSites": [],
                                     "relation": "definition",
@@ -2817,19 +2856,19 @@ stdout:
                                     "origin": "source"
                                   },
                                   "after": {
-                                    "symbolId": "source::Serilog.Events.MessageTemplate.ToString()",
-                                    "signature": "public override Serilog.Events.MessageTemplate.ToString() -> string",
+                                    "symbolId": "source::Serilog.Events.LogEventPropertyValue.ToString()",
+                                    "signature": "public override Serilog.Events.LogEventPropertyValue.ToString() -> string",
                                     "binding": "resolved",
                                     "dispatch": "direct",
                                     "targetIds": [
-                                      "source::Serilog.Events.MessageTemplate.ToString()"
+                                      "source::Serilog.Events.LogEventPropertyValue.ToString()"
                                     ],
                                     "definition": {
-                                      "path": "src/Serilog/Events/MessageTemplate.cs",
-                                      "startLine": 106,
+                                      "path": "src/Serilog/Events/LogEventPropertyValue.cs",
+                                      "startLine": 39,
                                       "startColumn": 5,
-                                      "endLine": 106,
-                                      "endColumn": 47
+                                      "endLine": 39,
+                                      "endColumn": 63
                                     },
                                     "callSites": [],
                                     "relation": "definition",
@@ -2837,28 +2876,32 @@ stdout:
                                     "origin": "source"
                                   },
                                   "children": [],
-                                  "omission": null
+                                  "omission": {
+                                    "reason": "depth-limit",
+                                    "symbolId": null,
+                                    "referenceId": null
+                                  }
                                 },
                                 {
                                   "id": "n51",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
-                                  "label": "⇢ PropertyToken.ToString",
-                                  "detail": null,
+                                  "label": "⇢ LogEventPropertyValue.ToString",
+                                  "detail": "depth limit",
                                   "before": {
-                                    "symbolId": "source::Serilog.Parsing.PropertyToken.ToString()",
-                                    "signature": "public override Serilog.Parsing.PropertyToken.ToString() -> string",
+                                    "symbolId": "source::Serilog.Events.LogEventPropertyValue.ToString()",
+                                    "signature": "public override Serilog.Events.LogEventPropertyValue.ToString() -> string",
                                     "binding": "resolved",
                                     "dispatch": "direct",
                                     "targetIds": [
-                                      "source::Serilog.Parsing.PropertyToken.ToString()"
+                                      "source::Serilog.Events.LogEventPropertyValue.ToString()"
                                     ],
                                     "definition": {
-                                      "path": "src/Serilog/Parsing/PropertyToken.cs",
-                                      "startLine": 146,
+                                      "path": "src/Serilog/Events/LogEventPropertyValue.cs",
+                                      "startLine": 39,
                                       "startColumn": 5,
-                                      "endLine": 146,
-                                      "endColumn": 50
+                                      "endLine": 39,
+                                      "endColumn": 63
                                     },
                                     "callSites": [],
                                     "relation": "definition",
@@ -2866,19 +2909,19 @@ stdout:
                                     "origin": "source"
                                   },
                                   "after": {
-                                    "symbolId": "source::Serilog.Parsing.PropertyToken.ToString()",
-                                    "signature": "public override Serilog.Parsing.PropertyToken.ToString() -> string",
+                                    "symbolId": "source::Serilog.Events.LogEventPropertyValue.ToString()",
+                                    "signature": "public override Serilog.Events.LogEventPropertyValue.ToString() -> string",
                                     "binding": "resolved",
                                     "dispatch": "direct",
                                     "targetIds": [
-                                      "source::Serilog.Parsing.PropertyToken.ToString()"
+                                      "source::Serilog.Events.LogEventPropertyValue.ToString()"
                                     ],
                                     "definition": {
-                                      "path": "src/Serilog/Parsing/PropertyToken.cs",
-                                      "startLine": 146,
+                                      "path": "src/Serilog/Events/LogEventPropertyValue.cs",
+                                      "startLine": 39,
                                       "startColumn": 5,
-                                      "endLine": 146,
-                                      "endColumn": 50
+                                      "endLine": 39,
+                                      "endColumn": 63
                                     },
                                     "callSites": [],
                                     "relation": "definition",
@@ -2886,14 +2929,124 @@ stdout:
                                     "origin": "source"
                                   },
                                   "children": [],
-                                  "omission": null
+                                  "omission": {
+                                    "reason": "depth-limit",
+                                    "symbolId": null,
+                                    "referenceId": null
+                                  }
                                 },
                                 {
                                   "id": "n52",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
+                                  "label": "⇢ MessageTemplate.ToString",
+                                  "detail": "depth limit",
+                                  "before": {
+                                    "symbolId": "source::Serilog.Events.MessageTemplate.ToString()",
+                                    "signature": "public override Serilog.Events.MessageTemplate.ToString() -> string",
+                                    "binding": "resolved",
+                                    "dispatch": "direct",
+                                    "targetIds": [
+                                      "source::Serilog.Events.MessageTemplate.ToString()"
+                                    ],
+                                    "definition": {
+                                      "path": "src/Serilog/Events/MessageTemplate.cs",
+                                      "startLine": 106,
+                                      "startColumn": 5,
+                                      "endLine": 106,
+                                      "endColumn": 47
+                                    },
+                                    "callSites": [],
+                                    "relation": "definition",
+                                    "candidates": null,
+                                    "origin": "source"
+                                  },
+                                  "after": {
+                                    "symbolId": "source::Serilog.Events.MessageTemplate.ToString()",
+                                    "signature": "public override Serilog.Events.MessageTemplate.ToString() -> string",
+                                    "binding": "resolved",
+                                    "dispatch": "direct",
+                                    "targetIds": [
+                                      "source::Serilog.Events.MessageTemplate.ToString()"
+                                    ],
+                                    "definition": {
+                                      "path": "src/Serilog/Events/MessageTemplate.cs",
+                                      "startLine": 106,
+                                      "startColumn": 5,
+                                      "endLine": 106,
+                                      "endColumn": 47
+                                    },
+                                    "callSites": [],
+                                    "relation": "definition",
+                                    "candidates": null,
+                                    "origin": "source"
+                                  },
+                                  "children": [],
+                                  "omission": {
+                                    "reason": "depth-limit",
+                                    "symbolId": null,
+                                    "referenceId": null
+                                  }
+                                },
+                                {
+                                  "id": "n53",
+                                  "kind": "dispatchTarget",
+                                  "change": "unchanged",
+                                  "label": "⇢ PropertyToken.ToString",
+                                  "detail": "depth limit",
+                                  "before": {
+                                    "symbolId": "source::Serilog.Parsing.PropertyToken.ToString()",
+                                    "signature": "public override Serilog.Parsing.PropertyToken.ToString() -> string",
+                                    "binding": "resolved",
+                                    "dispatch": "direct",
+                                    "targetIds": [
+                                      "source::Serilog.Parsing.PropertyToken.ToString()"
+                                    ],
+                                    "definition": {
+                                      "path": "src/Serilog/Parsing/PropertyToken.cs",
+                                      "startLine": 146,
+                                      "startColumn": 5,
+                                      "endLine": 146,
+                                      "endColumn": 50
+                                    },
+                                    "callSites": [],
+                                    "relation": "definition",
+                                    "candidates": null,
+                                    "origin": "source"
+                                  },
+                                  "after": {
+                                    "symbolId": "source::Serilog.Parsing.PropertyToken.ToString()",
+                                    "signature": "public override Serilog.Parsing.PropertyToken.ToString() -> string",
+                                    "binding": "resolved",
+                                    "dispatch": "direct",
+                                    "targetIds": [
+                                      "source::Serilog.Parsing.PropertyToken.ToString()"
+                                    ],
+                                    "definition": {
+                                      "path": "src/Serilog/Parsing/PropertyToken.cs",
+                                      "startLine": 146,
+                                      "startColumn": 5,
+                                      "endLine": 146,
+                                      "endColumn": 50
+                                    },
+                                    "callSites": [],
+                                    "relation": "definition",
+                                    "candidates": null,
+                                    "origin": "source"
+                                  },
+                                  "children": [],
+                                  "omission": {
+                                    "reason": "depth-limit",
+                                    "symbolId": null,
+                                    "referenceId": null
+                                  }
+                                },
+                                {
+                                  "id": "n54",
+                                  "kind": "dispatchTarget",
+                                  "change": "unchanged",
                                   "label": "⇢ TextToken.ToString",
-                                  "detail": null,
+                                  "detail": "depth limit",
                                   "before": {
                                     "symbolId": "source::Serilog.Parsing.TextToken.ToString()",
                                     "signature": "public override Serilog.Parsing.TextToken.ToString() -> string",
@@ -2935,13 +3088,17 @@ stdout:
                                     "origin": "source"
                                   },
                                   "children": [],
-                                  "omission": null
+                                  "omission": {
+                                    "reason": "depth-limit",
+                                    "symbolId": null,
+                                    "referenceId": null
+                                  }
                                 }
                               ],
                               "omission": null
                             },
                             {
-                              "id": "n53",
+                              "id": "n55",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "new ScalarValue",
@@ -3016,7 +3173,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n54",
+                      "id": "n56",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "catch (Exception ex)",
@@ -3063,7 +3220,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n55",
+                          "id": "n57",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "SelfLog.WriteLine",
@@ -3126,7 +3283,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n56",
+                              "id": "n58",
                               "kind": "branch",
                               "change": "unchanged",
                               "label": "possible initialization of SelfLog",
@@ -3173,7 +3330,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n57",
+                                  "id": "n59",
                                   "kind": "call",
                                   "change": "unchanged",
                                   "label": "initialization of SelfLog",
@@ -3248,7 +3405,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n58",
+                          "id": "n60",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "new ScalarValue",
@@ -3311,7 +3468,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n59",
+                              "id": "n61",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "new LogEventPropertyValue",
@@ -3385,7 +3542,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n60",
+                  "id": "n62",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new EventProperty",
@@ -3448,7 +3605,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n61",
+                      "id": "n63",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "Guard.AgainstNull",
@@ -3513,7 +3670,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n62",
+                      "id": "n64",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "LogEventProperty.EnsureValidName",
@@ -3576,7 +3733,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n63",
+                          "id": "n65",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "Guard.AgainstNull",
@@ -3641,7 +3798,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n64",
+                          "id": "n66",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "LogEventProperty.IsValidName",
@@ -3718,7 +3875,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n65",
+          "id": "n67",
           "kind": "branch",
           "change": "unchanged",
           "label": "for (i < messageTemplateParameters.Length)",
@@ -3765,7 +3922,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n66",
+              "id": "n68",
               "kind": "call",
               "change": "unchanged",
               "label": "PropertyValueConverter.CreatePropertyValue",
@@ -3828,7 +3985,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n67",
+                  "id": "n69",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "PropertyValueConverter.CreatePropertyValue",
@@ -3891,7 +4048,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n68",
+                      "id": "n70",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "PropertyValueConverter.CreatePropertyValue",
@@ -3954,7 +4111,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n69",
+                          "id": "n71",
                           "kind": "branch",
                           "change": "unchanged",
                           "label": "if (value == null)",
@@ -4001,18 +4158,26 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n70",
-                              "kind": "branch",
+                              "id": "n72",
+                              "kind": "call",
                               "change": "unchanged",
-                              "label": "possible initialization of ScalarValue",
-                              "detail": null,
+                              "label": "ScalarValue.get_Null",
+                              "detail": "depth limit",
                               "before": {
-                                "symbolId": null,
-                                "signature": null,
-                                "binding": "structural",
-                                "dispatch": "none",
-                                "targetIds": [],
-                                "definition": null,
+                                "symbolId": "source::Serilog.Events.ScalarValue.get_Null()",
+                                "signature": "public static Serilog.Events.ScalarValue.get_Null() -> Serilog.Events.ScalarValue",
+                                "binding": "resolved",
+                                "dispatch": "direct",
+                                "targetIds": [
+                                  "source::Serilog.Events.ScalarValue.get_Null()"
+                                ],
+                                "definition": {
+                                  "path": "src/Serilog/Events/ScalarValue.cs",
+                                  "startLine": 25,
+                                  "startColumn": 38,
+                                  "endLine": 25,
+                                  "endColumn": 42
+                                },
                                 "callSites": [
                                   {
                                     "path": "src/Serilog/Capturing/PropertyValueConverter.cs",
@@ -4022,17 +4187,25 @@ stdout:
                                     "endColumn": 36
                                   }
                                 ],
-                                "relation": "branch",
-                                "candidates": null,
-                                "origin": "structural"
+                                "relation": "call",
+                                "candidates": [],
+                                "origin": "source"
                               },
                               "after": {
-                                "symbolId": null,
-                                "signature": null,
-                                "binding": "structural",
-                                "dispatch": "none",
-                                "targetIds": [],
-                                "definition": null,
+                                "symbolId": "source::Serilog.Events.ScalarValue.get_Null()",
+                                "signature": "public static Serilog.Events.ScalarValue.get_Null() -> Serilog.Events.ScalarValue",
+                                "binding": "resolved",
+                                "dispatch": "direct",
+                                "targetIds": [
+                                  "source::Serilog.Events.ScalarValue.get_Null()"
+                                ],
+                                "definition": {
+                                  "path": "src/Serilog/Events/ScalarValue.cs",
+                                  "startLine": 25,
+                                  "startColumn": 38,
+                                  "endLine": 25,
+                                  "endColumn": 42
+                                },
                                 "callSites": [
                                   {
                                     "path": "src/Serilog/Capturing/PropertyValueConverter.cs",
@@ -4042,88 +4215,22 @@ stdout:
                                     "endColumn": 36
                                   }
                                 ],
-                                "relation": "branch",
-                                "candidates": null,
-                                "origin": "structural"
+                                "relation": "call",
+                                "candidates": [],
+                                "origin": "source"
                               },
-                              "children": [
-                                {
-                                  "id": "n71",
-                                  "kind": "call",
-                                  "change": "unchanged",
-                                  "label": "initialization of ScalarValue",
-                                  "detail": "depth limit",
-                                  "before": {
-                                    "symbolId": "source::Serilog.Events.ScalarValue..cctor()",
-                                    "signature": "static Serilog.Events.ScalarValue.ScalarValue() -> void",
-                                    "binding": "resolved",
-                                    "dispatch": "direct",
-                                    "targetIds": [
-                                      "source::Serilog.Events.ScalarValue..cctor()"
-                                    ],
-                                    "definition": {
-                                      "path": "src/Serilog/Events/ScalarValue.cs",
-                                      "startLine": 20,
-                                      "startColumn": 1,
-                                      "endLine": 154,
-                                      "endColumn": 2
-                                    },
-                                    "callSites": [
-                                      {
-                                        "path": "src/Serilog/Capturing/PropertyValueConverter.cs",
-                                        "startLine": 124,
-                                        "startColumn": 20,
-                                        "endLine": 124,
-                                        "endColumn": 36
-                                      }
-                                    ],
-                                    "relation": "call",
-                                    "candidates": [],
-                                    "origin": "source"
-                                  },
-                                  "after": {
-                                    "symbolId": "source::Serilog.Events.ScalarValue..cctor()",
-                                    "signature": "static Serilog.Events.ScalarValue.ScalarValue() -> void",
-                                    "binding": "resolved",
-                                    "dispatch": "direct",
-                                    "targetIds": [
-                                      "source::Serilog.Events.ScalarValue..cctor()"
-                                    ],
-                                    "definition": {
-                                      "path": "src/Serilog/Events/ScalarValue.cs",
-                                      "startLine": 20,
-                                      "startColumn": 1,
-                                      "endLine": 154,
-                                      "endColumn": 2
-                                    },
-                                    "callSites": [
-                                      {
-                                        "path": "src/Serilog/Capturing/PropertyValueConverter.cs",
-                                        "startLine": 124,
-                                        "startColumn": 20,
-                                        "endLine": 124,
-                                        "endColumn": 36
-                                      }
-                                    ],
-                                    "relation": "call",
-                                    "candidates": [],
-                                    "origin": "source"
-                                  },
-                                  "children": [],
-                                  "omission": {
-                                    "reason": "depth-limit",
-                                    "symbolId": null,
-                                    "referenceId": null
-                                  }
-                                }
-                              ],
-                              "omission": null
+                              "children": [],
+                              "omission": {
+                                "reason": "depth-limit",
+                                "symbolId": null,
+                                "referenceId": null
+                              }
                             }
                           ],
                           "omission": null
                         },
                         {
-                          "id": "n72",
+                          "id": "n73",
                           "kind": "branch",
                           "change": "unchanged",
                           "label": "if (destructuring == Destructuring.Stringify)",
@@ -4170,7 +4277,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n73",
+                              "id": "n74",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "PropertyValueConverter.Stringify",
@@ -4242,7 +4349,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n74",
+                          "id": "n75",
                           "kind": "branch",
                           "change": "unchanged",
                           "label": "if (destructuring == Destructuring.Destructure)",
@@ -4289,7 +4396,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n75",
+                              "id": "n76",
                               "kind": "branch",
                               "change": "unchanged",
                               "label": "if (value is string stringValue)",
@@ -4336,7 +4443,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n76",
+                                  "id": "n77",
                                   "kind": "call",
                                   "change": "unchanged",
                                   "label": "PropertyValueConverter.TruncateIfNecessary",
@@ -4407,7 +4514,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n77",
+                          "id": "n78",
                           "kind": "branch",
                           "change": "unchanged",
                           "label": "if (value is string)",
@@ -4454,7 +4561,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n78",
+                              "id": "n79",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "new ScalarValue",
@@ -4526,7 +4633,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n79",
+                          "id": "n80",
                           "kind": "branch",
                           "change": "unchanged",
                           "label": "foreach (var scalarConversionPolicy in _scalarConversionPolicies)",
@@ -4573,7 +4680,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n80",
+                              "id": "n81",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "IScalarConversionPolicy.TryConvertToScalar",
@@ -4642,7 +4749,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n81",
+                                  "id": "n82",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
                                   "label": "⇢ ByteArrayScalarConversionPolicy.TryConvertToScalar",
@@ -4695,7 +4802,7 @@ stdout:
                                   }
                                 },
                                 {
-                                  "id": "n82",
+                                  "id": "n83",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
                                   "label": "⇢ EnumScalarConversionPolicy.TryConvertToScalar",
@@ -4748,7 +4855,7 @@ stdout:
                                   }
                                 },
                                 {
-                                  "id": "n83",
+                                  "id": "n84",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
                                   "label": "⇢ PrimitiveScalarConversionPolicy.TryConvertToScalar",
@@ -4801,7 +4908,7 @@ stdout:
                                   }
                                 },
                                 {
-                                  "id": "n84",
+                                  "id": "n85",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
                                   "label": "⇢ SimpleScalarConversionPolicy.TryConvertToScalar",
@@ -4860,7 +4967,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n85",
+                          "id": "n86",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "PropertyValueConverter.DepthLimiter.SetCurrentDepth",
@@ -4925,7 +5032,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n86",
+                          "id": "n87",
                           "kind": "branch",
                           "change": "unchanged",
                           "label": "if (destructuring == Destructuring.Destructure)",
@@ -4972,7 +5079,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n87",
+                              "id": "n88",
                               "kind": "branch",
                               "change": "unchanged",
                               "label": "foreach (var destructuringPolicy in _destructuringPolicies)",
@@ -5019,7 +5126,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n88",
+                                  "id": "n89",
                                   "kind": "call",
                                   "change": "unchanged",
                                   "label": "IDestructuringPolicy.TryDestructure",
@@ -5086,7 +5193,7 @@ stdout:
                                   },
                                   "children": [
                                     {
-                                      "id": "n89",
+                                      "id": "n90",
                                       "kind": "dispatchTarget",
                                       "change": "unchanged",
                                       "label": "⇢ DelegateDestructuringPolicy.TryDestructure",
@@ -5139,7 +5246,7 @@ stdout:
                                       }
                                     },
                                     {
-                                      "id": "n90",
+                                      "id": "n91",
                                       "kind": "dispatchTarget",
                                       "change": "unchanged",
                                       "label": "⇢ ProjectedDestructuringPolicy.TryDestructure",
@@ -5192,7 +5299,7 @@ stdout:
                                       }
                                     },
                                     {
-                                      "id": "n91",
+                                      "id": "n92",
                                       "kind": "dispatchTarget",
                                       "change": "unchanged",
                                       "label": "⇢ ReflectionTypesScalarDestructuringPolicy.TryDestructure",
@@ -5254,7 +5361,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n92",
+                          "id": "n93",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "PropertyValueConverter.TryConvertEnumerable",
@@ -5317,7 +5424,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n93",
+                              "id": "n94",
                               "kind": "branch",
                               "change": "unchanged",
                               "label": "if (value is IEnumerable enumerable)",
@@ -5364,7 +5471,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n94",
+                                  "id": "n95",
                                   "kind": "call",
                                   "change": "unchanged",
                                   "label": "PropertyValueConverter.TryGetDictionary",
@@ -5433,7 +5540,7 @@ stdout:
                                   }
                                 },
                                 {
-                                  "id": "n95",
+                                  "id": "n96",
                                   "kind": "branch",
                                   "change": "unchanged",
                                   "label": "if (TryGetDictionary(value, type, out var dictionary))",
@@ -5480,7 +5587,7 @@ stdout:
                                   },
                                   "children": [
                                     {
-                                      "id": "n96",
+                                      "id": "n97",
                                       "kind": "call",
                                       "change": "unchanged",
                                       "label": "PropertyValueConverter.TryConvertEnumerable.MapToDictionaryElements",
@@ -5549,7 +5656,7 @@ stdout:
                                       }
                                     },
                                     {
-                                      "id": "n97",
+                                      "id": "n98",
                                       "kind": "call",
                                       "change": "unchanged",
                                       "label": "new DictionaryValue",
@@ -5621,7 +5728,7 @@ stdout:
                                   "omission": null
                                 },
                                 {
-                                  "id": "n98",
+                                  "id": "n99",
                                   "kind": "branch",
                                   "change": "unchanged",
                                   "label": "if (value is Array { Rank: > 1 } array)",
@@ -5668,7 +5775,7 @@ stdout:
                                   },
                                   "children": [
                                     {
-                                      "id": "n99",
+                                      "id": "n100",
                                       "kind": "call",
                                       "change": "unchanged",
                                       "label": "PropertyValueConverter.BuildArrayValue",
@@ -5740,7 +5847,7 @@ stdout:
                                   "omission": null
                                 },
                                 {
-                                  "id": "n100",
+                                  "id": "n101",
                                   "kind": "branch",
                                   "change": "unchanged",
                                   "label": "if (enumerable is IList list && list.Count <= _maximumCollectionCount)",
@@ -5787,7 +5894,7 @@ stdout:
                                   },
                                   "children": [
                                     {
-                                      "id": "n101",
+                                      "id": "n102",
                                       "kind": "branch",
                                       "change": "unchanged",
                                       "label": "if (list.Count == 0)",
@@ -5834,18 +5941,26 @@ stdout:
                                       },
                                       "children": [
                                         {
-                                          "id": "n102",
-                                          "kind": "branch",
+                                          "id": "n103",
+                                          "kind": "call",
                                           "change": "unchanged",
-                                          "label": "possible initialization of SequenceValue",
-                                          "detail": null,
+                                          "label": "SequenceValue.get_Empty",
+                                          "detail": "depth limit",
                                           "before": {
-                                            "symbolId": null,
-                                            "signature": null,
-                                            "binding": "structural",
-                                            "dispatch": "none",
-                                            "targetIds": [],
-                                            "definition": null,
+                                            "symbolId": "source::Serilog.Events.SequenceValue.get_Empty()",
+                                            "signature": "public static Serilog.Events.SequenceValue.get_Empty() -> Serilog.Events.SequenceValue",
+                                            "binding": "resolved",
+                                            "dispatch": "direct",
+                                            "targetIds": [
+                                              "source::Serilog.Events.SequenceValue.get_Empty()"
+                                            ],
+                                            "definition": {
+                                              "path": "src/Serilog/Events/SequenceValue.cs",
+                                              "startLine": 27,
+                                              "startColumn": 41,
+                                              "endLine": 27,
+                                              "endColumn": 45
+                                            },
                                             "callSites": [
                                               {
                                                 "path": "src/Serilog/Capturing/PropertyValueConverter.cs",
@@ -5855,17 +5970,25 @@ stdout:
                                                 "endColumn": 49
                                               }
                                             ],
-                                            "relation": "branch",
-                                            "candidates": null,
-                                            "origin": "structural"
+                                            "relation": "call",
+                                            "candidates": [],
+                                            "origin": "source"
                                           },
                                           "after": {
-                                            "symbolId": null,
-                                            "signature": null,
-                                            "binding": "structural",
-                                            "dispatch": "none",
-                                            "targetIds": [],
-                                            "definition": null,
+                                            "symbolId": "source::Serilog.Events.SequenceValue.get_Empty()",
+                                            "signature": "public static Serilog.Events.SequenceValue.get_Empty() -> Serilog.Events.SequenceValue",
+                                            "binding": "resolved",
+                                            "dispatch": "direct",
+                                            "targetIds": [
+                                              "source::Serilog.Events.SequenceValue.get_Empty()"
+                                            ],
+                                            "definition": {
+                                              "path": "src/Serilog/Events/SequenceValue.cs",
+                                              "startLine": 27,
+                                              "startColumn": 41,
+                                              "endLine": 27,
+                                              "endColumn": 45
+                                            },
                                             "callSites": [
                                               {
                                                 "path": "src/Serilog/Capturing/PropertyValueConverter.cs",
@@ -5875,82 +5998,16 @@ stdout:
                                                 "endColumn": 49
                                               }
                                             ],
-                                            "relation": "branch",
-                                            "candidates": null,
-                                            "origin": "structural"
+                                            "relation": "call",
+                                            "candidates": [],
+                                            "origin": "source"
                                           },
-                                          "children": [
-                                            {
-                                              "id": "n103",
-                                              "kind": "call",
-                                              "change": "unchanged",
-                                              "label": "initialization of SequenceValue",
-                                              "detail": "depth limit",
-                                              "before": {
-                                                "symbolId": "source::Serilog.Events.SequenceValue..cctor()",
-                                                "signature": "static Serilog.Events.SequenceValue.SequenceValue() -> void",
-                                                "binding": "resolved",
-                                                "dispatch": "direct",
-                                                "targetIds": [
-                                                  "source::Serilog.Events.SequenceValue..cctor()"
-                                                ],
-                                                "definition": {
-                                                  "path": "src/Serilog/Events/SequenceValue.cs",
-                                                  "startLine": 20,
-                                                  "startColumn": 1,
-                                                  "endLine": 78,
-                                                  "endColumn": 2
-                                                },
-                                                "callSites": [
-                                                  {
-                                                    "path": "src/Serilog/Capturing/PropertyValueConverter.cs",
-                                                    "startLine": 222,
-                                                    "startColumn": 30,
-                                                    "endLine": 222,
-                                                    "endColumn": 49
-                                                  }
-                                                ],
-                                                "relation": "call",
-                                                "candidates": [],
-                                                "origin": "source"
-                                              },
-                                              "after": {
-                                                "symbolId": "source::Serilog.Events.SequenceValue..cctor()",
-                                                "signature": "static Serilog.Events.SequenceValue.SequenceValue() -> void",
-                                                "binding": "resolved",
-                                                "dispatch": "direct",
-                                                "targetIds": [
-                                                  "source::Serilog.Events.SequenceValue..cctor()"
-                                                ],
-                                                "definition": {
-                                                  "path": "src/Serilog/Events/SequenceValue.cs",
-                                                  "startLine": 20,
-                                                  "startColumn": 1,
-                                                  "endLine": 78,
-                                                  "endColumn": 2
-                                                },
-                                                "callSites": [
-                                                  {
-                                                    "path": "src/Serilog/Capturing/PropertyValueConverter.cs",
-                                                    "startLine": 222,
-                                                    "startColumn": 30,
-                                                    "endLine": 222,
-                                                    "endColumn": 49
-                                                  }
-                                                ],
-                                                "relation": "call",
-                                                "candidates": [],
-                                                "origin": "source"
-                                              },
-                                              "children": [],
-                                              "omission": {
-                                                "reason": "depth-limit",
-                                                "symbolId": null,
-                                                "referenceId": null
-                                              }
-                                            }
-                                          ],
-                                          "omission": null
+                                          "children": [],
+                                          "omission": {
+                                            "reason": "depth-limit",
+                                            "symbolId": null,
+                                            "referenceId": null
+                                          }
                                         }
                                       ],
                                       "omission": null
@@ -6806,17 +6863,25 @@ stdout:
                               "children": [
                                 {
                                   "id": "n118",
-                                  "kind": "branch",
+                                  "kind": "call",
                                   "change": "unchanged",
-                                  "label": "possible initialization of TrimConfiguration",
-                                  "detail": null,
+                                  "label": "TrimConfiguration.get_IsStructureValueSupported",
+                                  "detail": "depth limit",
                                   "before": {
-                                    "symbolId": null,
-                                    "signature": null,
-                                    "binding": "structural",
-                                    "dispatch": "none",
-                                    "targetIds": [],
-                                    "definition": null,
+                                    "symbolId": "source::Serilog.Capturing.TrimConfiguration.get_IsStructureValueSupported()",
+                                    "signature": "public static Serilog.Capturing.TrimConfiguration.get_IsStructureValueSupported() -> bool",
+                                    "binding": "resolved",
+                                    "dispatch": "direct",
+                                    "targetIds": [
+                                      "source::Serilog.Capturing.TrimConfiguration.get_IsStructureValueSupported()"
+                                    ],
+                                    "definition": {
+                                      "path": "src/Serilog/Capturing/TrimConfiguration.cs",
+                                      "startLine": 12,
+                                      "startColumn": 52,
+                                      "endLine": 12,
+                                      "endColumn": 56
+                                    },
                                     "callSites": [
                                       {
                                         "path": "src/Serilog/Capturing/PropertyValueConverter.cs",
@@ -6826,17 +6891,25 @@ stdout:
                                         "endColumn": 60
                                       }
                                     ],
-                                    "relation": "branch",
-                                    "candidates": null,
-                                    "origin": "structural"
+                                    "relation": "call",
+                                    "candidates": [],
+                                    "origin": "source"
                                   },
                                   "after": {
-                                    "symbolId": null,
-                                    "signature": null,
-                                    "binding": "structural",
-                                    "dispatch": "none",
-                                    "targetIds": [],
-                                    "definition": null,
+                                    "symbolId": "source::Serilog.Capturing.TrimConfiguration.get_IsStructureValueSupported()",
+                                    "signature": "public static Serilog.Capturing.TrimConfiguration.get_IsStructureValueSupported() -> bool",
+                                    "binding": "resolved",
+                                    "dispatch": "direct",
+                                    "targetIds": [
+                                      "source::Serilog.Capturing.TrimConfiguration.get_IsStructureValueSupported()"
+                                    ],
+                                    "definition": {
+                                      "path": "src/Serilog/Capturing/TrimConfiguration.cs",
+                                      "startLine": 12,
+                                      "startColumn": 52,
+                                      "endLine": 12,
+                                      "endColumn": 56
+                                    },
                                     "callSites": [
                                       {
                                         "path": "src/Serilog/Capturing/PropertyValueConverter.cs",
@@ -6846,81 +6919,19 @@ stdout:
                                         "endColumn": 60
                                       }
                                     ],
-                                    "relation": "branch",
-                                    "candidates": null,
-                                    "origin": "structural"
+                                    "relation": "call",
+                                    "candidates": [],
+                                    "origin": "source"
                                   },
-                                  "children": [
-                                    {
-                                      "id": "n119",
-                                      "kind": "call",
-                                      "change": "unchanged",
-                                      "label": "initialization of TrimConfiguration",
-                                      "detail": null,
-                                      "before": {
-                                        "symbolId": "source::Serilog.Capturing.TrimConfiguration..cctor()",
-                                        "signature": "static Serilog.Capturing.TrimConfiguration.TrimConfiguration() -> void",
-                                        "binding": "resolved",
-                                        "dispatch": "direct",
-                                        "targetIds": [
-                                          "source::Serilog.Capturing.TrimConfiguration..cctor()"
-                                        ],
-                                        "definition": {
-                                          "path": "src/Serilog/Capturing/TrimConfiguration.cs",
-                                          "startLine": 4,
-                                          "startColumn": 1,
-                                          "endLine": 14,
-                                          "endColumn": 2
-                                        },
-                                        "callSites": [
-                                          {
-                                            "path": "src/Serilog/Capturing/PropertyValueConverter.cs",
-                                            "startLine": 362,
-                                            "startColumn": 17,
-                                            "endLine": 362,
-                                            "endColumn": 60
-                                          }
-                                        ],
-                                        "relation": "call",
-                                        "candidates": [],
-                                        "origin": "source"
-                                      },
-                                      "after": {
-                                        "symbolId": "source::Serilog.Capturing.TrimConfiguration..cctor()",
-                                        "signature": "static Serilog.Capturing.TrimConfiguration.TrimConfiguration() -> void",
-                                        "binding": "resolved",
-                                        "dispatch": "direct",
-                                        "targetIds": [
-                                          "source::Serilog.Capturing.TrimConfiguration..cctor()"
-                                        ],
-                                        "definition": {
-                                          "path": "src/Serilog/Capturing/TrimConfiguration.cs",
-                                          "startLine": 4,
-                                          "startColumn": 1,
-                                          "endLine": 14,
-                                          "endColumn": 2
-                                        },
-                                        "callSites": [
-                                          {
-                                            "path": "src/Serilog/Capturing/PropertyValueConverter.cs",
-                                            "startLine": 362,
-                                            "startColumn": 17,
-                                            "endLine": 362,
-                                            "endColumn": 60
-                                          }
-                                        ],
-                                        "relation": "call",
-                                        "candidates": [],
-                                        "origin": "source"
-                                      },
-                                      "children": [],
-                                      "omission": null
-                                    }
-                                  ],
-                                  "omission": null
+                                  "children": [],
+                                  "omission": {
+                                    "reason": "depth-limit",
+                                    "symbolId": null,
+                                    "referenceId": null
+                                  }
                                 },
                                 {
-                                  "id": "n120",
+                                  "id": "n119",
                                   "kind": "branch",
                                   "change": "unchanged",
                                   "label": "if (TrimConfiguration.IsStructureValueSupported)",
@@ -6967,7 +6978,7 @@ stdout:
                                   },
                                   "children": [
                                     {
-                                      "id": "n121",
+                                      "id": "n120",
                                       "kind": "call",
                                       "change": "unchanged",
                                       "label": "PropertyValueConverter.IsCompilerGeneratedType",
@@ -7032,7 +7043,7 @@ stdout:
                                       "omission": null
                                     },
                                     {
-                                      "id": "n122",
+                                      "id": "n121",
                                       "kind": "call",
                                       "change": "unchanged",
                                       "label": "PropertyValueConverter.CreateStructureValue",
@@ -7110,7 +7121,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n123",
+                          "id": "n122",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "value.ToString",
@@ -7166,6 +7177,59 @@ stdout:
                             "origin": "metadata"
                           },
                           "children": [
+                            {
+                              "id": "n123",
+                              "kind": "dispatchTarget",
+                              "change": "unchanged",
+                              "label": "⇢ LogEventPropertyValue.ToString",
+                              "detail": "depth limit",
+                              "before": {
+                                "symbolId": "source::Serilog.Events.LogEventPropertyValue.ToString()",
+                                "signature": "public override Serilog.Events.LogEventPropertyValue.ToString() -> string",
+                                "binding": "resolved",
+                                "dispatch": "direct",
+                                "targetIds": [
+                                  "source::Serilog.Events.LogEventPropertyValue.ToString()"
+                                ],
+                                "definition": {
+                                  "path": "src/Serilog/Events/LogEventPropertyValue.cs",
+                                  "startLine": 39,
+                                  "startColumn": 5,
+                                  "endLine": 39,
+                                  "endColumn": 63
+                                },
+                                "callSites": [],
+                                "relation": "definition",
+                                "candidates": null,
+                                "origin": "source"
+                              },
+                              "after": {
+                                "symbolId": "source::Serilog.Events.LogEventPropertyValue.ToString()",
+                                "signature": "public override Serilog.Events.LogEventPropertyValue.ToString() -> string",
+                                "binding": "resolved",
+                                "dispatch": "direct",
+                                "targetIds": [
+                                  "source::Serilog.Events.LogEventPropertyValue.ToString()"
+                                ],
+                                "definition": {
+                                  "path": "src/Serilog/Events/LogEventPropertyValue.cs",
+                                  "startLine": 39,
+                                  "startColumn": 5,
+                                  "endLine": 39,
+                                  "endColumn": 63
+                                },
+                                "callSites": [],
+                                "relation": "definition",
+                                "candidates": null,
+                                "origin": "source"
+                              },
+                              "children": [],
+                              "omission": {
+                                "reason": "depth-limit",
+                                "symbolId": null,
+                                "referenceId": null
+                              }
+                            },
                             {
                               "id": "n124",
                               "kind": "dispatchTarget",
@@ -7329,22 +7393,22 @@ stdout:
                               "id": "n127",
                               "kind": "dispatchTarget",
                               "change": "unchanged",
-                              "label": "⇢ LogEventPropertyValue.ToString",
+                              "label": "⇢ MessageTemplate.ToString",
                               "detail": "depth limit",
                               "before": {
-                                "symbolId": "source::Serilog.Events.LogEventPropertyValue.ToString()",
-                                "signature": "public override Serilog.Events.LogEventPropertyValue.ToString() -> string",
+                                "symbolId": "source::Serilog.Events.MessageTemplate.ToString()",
+                                "signature": "public override Serilog.Events.MessageTemplate.ToString() -> string",
                                 "binding": "resolved",
                                 "dispatch": "direct",
                                 "targetIds": [
-                                  "source::Serilog.Events.LogEventPropertyValue.ToString()"
+                                  "source::Serilog.Events.MessageTemplate.ToString()"
                                 ],
                                 "definition": {
-                                  "path": "src/Serilog/Events/LogEventPropertyValue.cs",
-                                  "startLine": 39,
+                                  "path": "src/Serilog/Events/MessageTemplate.cs",
+                                  "startLine": 106,
                                   "startColumn": 5,
-                                  "endLine": 39,
-                                  "endColumn": 63
+                                  "endLine": 106,
+                                  "endColumn": 47
                                 },
                                 "callSites": [],
                                 "relation": "definition",
@@ -7352,19 +7416,19 @@ stdout:
                                 "origin": "source"
                               },
                               "after": {
-                                "symbolId": "source::Serilog.Events.LogEventPropertyValue.ToString()",
-                                "signature": "public override Serilog.Events.LogEventPropertyValue.ToString() -> string",
+                                "symbolId": "source::Serilog.Events.MessageTemplate.ToString()",
+                                "signature": "public override Serilog.Events.MessageTemplate.ToString() -> string",
                                 "binding": "resolved",
                                 "dispatch": "direct",
                                 "targetIds": [
-                                  "source::Serilog.Events.LogEventPropertyValue.ToString()"
+                                  "source::Serilog.Events.MessageTemplate.ToString()"
                                 ],
                                 "definition": {
-                                  "path": "src/Serilog/Events/LogEventPropertyValue.cs",
-                                  "startLine": 39,
+                                  "path": "src/Serilog/Events/MessageTemplate.cs",
+                                  "startLine": 106,
                                   "startColumn": 5,
-                                  "endLine": 39,
-                                  "endColumn": 63
+                                  "endLine": 106,
+                                  "endColumn": 47
                                 },
                                 "callSites": [],
                                 "relation": "definition",
@@ -7382,22 +7446,22 @@ stdout:
                               "id": "n128",
                               "kind": "dispatchTarget",
                               "change": "unchanged",
-                              "label": "⇢ MessageTemplate.ToString",
-                              "detail": null,
+                              "label": "⇢ PropertyToken.ToString",
+                              "detail": "depth limit",
                               "before": {
-                                "symbolId": "source::Serilog.Events.MessageTemplate.ToString()",
-                                "signature": "public override Serilog.Events.MessageTemplate.ToString() -> string",
+                                "symbolId": "source::Serilog.Parsing.PropertyToken.ToString()",
+                                "signature": "public override Serilog.Parsing.PropertyToken.ToString() -> string",
                                 "binding": "resolved",
                                 "dispatch": "direct",
                                 "targetIds": [
-                                  "source::Serilog.Events.MessageTemplate.ToString()"
+                                  "source::Serilog.Parsing.PropertyToken.ToString()"
                                 ],
                                 "definition": {
-                                  "path": "src/Serilog/Events/MessageTemplate.cs",
-                                  "startLine": 106,
+                                  "path": "src/Serilog/Parsing/PropertyToken.cs",
+                                  "startLine": 146,
                                   "startColumn": 5,
-                                  "endLine": 106,
-                                  "endColumn": 47
+                                  "endLine": 146,
+                                  "endColumn": 50
                                 },
                                 "callSites": [],
                                 "relation": "definition",
@@ -7405,19 +7469,19 @@ stdout:
                                 "origin": "source"
                               },
                               "after": {
-                                "symbolId": "source::Serilog.Events.MessageTemplate.ToString()",
-                                "signature": "public override Serilog.Events.MessageTemplate.ToString() -> string",
+                                "symbolId": "source::Serilog.Parsing.PropertyToken.ToString()",
+                                "signature": "public override Serilog.Parsing.PropertyToken.ToString() -> string",
                                 "binding": "resolved",
                                 "dispatch": "direct",
                                 "targetIds": [
-                                  "source::Serilog.Events.MessageTemplate.ToString()"
+                                  "source::Serilog.Parsing.PropertyToken.ToString()"
                                 ],
                                 "definition": {
-                                  "path": "src/Serilog/Events/MessageTemplate.cs",
-                                  "startLine": 106,
+                                  "path": "src/Serilog/Parsing/PropertyToken.cs",
+                                  "startLine": 146,
                                   "startColumn": 5,
-                                  "endLine": 106,
-                                  "endColumn": 47
+                                  "endLine": 146,
+                                  "endColumn": 50
                                 },
                                 "callSites": [],
                                 "relation": "definition",
@@ -7425,63 +7489,18 @@ stdout:
                                 "origin": "source"
                               },
                               "children": [],
-                              "omission": null
+                              "omission": {
+                                "reason": "depth-limit",
+                                "symbolId": null,
+                                "referenceId": null
+                              }
                             },
                             {
                               "id": "n129",
                               "kind": "dispatchTarget",
                               "change": "unchanged",
-                              "label": "⇢ PropertyToken.ToString",
-                              "detail": null,
-                              "before": {
-                                "symbolId": "source::Serilog.Parsing.PropertyToken.ToString()",
-                                "signature": "public override Serilog.Parsing.PropertyToken.ToString() -> string",
-                                "binding": "resolved",
-                                "dispatch": "direct",
-                                "targetIds": [
-                                  "source::Serilog.Parsing.PropertyToken.ToString()"
-                                ],
-                                "definition": {
-                                  "path": "src/Serilog/Parsing/PropertyToken.cs",
-                                  "startLine": 146,
-                                  "startColumn": 5,
-                                  "endLine": 146,
-                                  "endColumn": 50
-                                },
-                                "callSites": [],
-                                "relation": "definition",
-                                "candidates": null,
-                                "origin": "source"
-                              },
-                              "after": {
-                                "symbolId": "source::Serilog.Parsing.PropertyToken.ToString()",
-                                "signature": "public override Serilog.Parsing.PropertyToken.ToString() -> string",
-                                "binding": "resolved",
-                                "dispatch": "direct",
-                                "targetIds": [
-                                  "source::Serilog.Parsing.PropertyToken.ToString()"
-                                ],
-                                "definition": {
-                                  "path": "src/Serilog/Parsing/PropertyToken.cs",
-                                  "startLine": 146,
-                                  "startColumn": 5,
-                                  "endLine": 146,
-                                  "endColumn": 50
-                                },
-                                "callSites": [],
-                                "relation": "definition",
-                                "candidates": null,
-                                "origin": "source"
-                              },
-                              "children": [],
-                              "omission": null
-                            },
-                            {
-                              "id": "n130",
-                              "kind": "dispatchTarget",
-                              "change": "unchanged",
                               "label": "⇢ TextToken.ToString",
-                              "detail": null,
+                              "detail": "depth limit",
                               "before": {
                                 "symbolId": "source::Serilog.Parsing.TextToken.ToString()",
                                 "signature": "public override Serilog.Parsing.TextToken.ToString() -> string",
@@ -7523,13 +7542,17 @@ stdout:
                                 "origin": "source"
                               },
                               "children": [],
-                              "omission": null
+                              "omission": {
+                                "reason": "depth-limit",
+                                "symbolId": null,
+                                "referenceId": null
+                              }
                             }
                           ],
                           "omission": null
                         },
                         {
-                          "id": "n131",
+                          "id": "n130",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "new ScalarValue",
@@ -7592,7 +7615,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n132",
+                              "id": "n131",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "new LogEventPropertyValue",
@@ -7669,7 +7692,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n133",
+              "id": "n132",
               "kind": "call",
               "change": "unchanged",
               "label": "new EventProperty",
@@ -7732,7 +7755,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n134",
+                  "id": "n133",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "Guard.AgainstNull",
@@ -7797,7 +7820,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n135",
+                  "id": "n134",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "LogEventProperty.EnsureValidName",
@@ -7860,7 +7883,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n136",
+                      "id": "n135",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "Guard.AgainstNull",
@@ -7925,7 +7948,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n137",
+                      "id": "n136",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "LogEventProperty.IsValidName",

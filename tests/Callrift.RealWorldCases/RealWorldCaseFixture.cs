@@ -67,6 +67,10 @@ public sealed class RealWorldCaseFixture : IDisposable
             SerilogSequencingExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "serilog-exception-format")
             SerilogAccessorExpectations.VerifyExceptionFormatting(result);
+        if (entry.Id == "serilog-extra-arguments")
+            SerilogAccessorExpectations.VerifyExtraArguments(result);
+        if (entry.Id == "serilog-null-key")
+            SerilogAccessorExpectations.VerifyNullKey(result);
         if (entry.Id == "polly-fault-null-outcome")
             PollyFaultExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "polly-retry-cancellation")

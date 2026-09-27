@@ -5,6 +5,31 @@ namespace Callrift.RealWorldCases;
 
 internal static class SerilogAccessorExpectations
 {
+    public static void VerifyExtraArguments(DiffResult result)
+    {
+        var binder = Assert.Single(result.Trees);
+        Assert.Equal("MessageTemplate.get_NamedProperties", binder.Children[0].Label);
+        var missing = Assert.Single(binder.Children, node => node.Label == "if (namedProperties == null)");
+        var surplus = Assert.Single(missing.Children, node => node.Label == "if (messageTemplateParameters.Length > 0)");
+        Assert.Equal('+', surplus.Mark);
+        Assert.Equal("SelfLog.WriteLine", Assert.Single(surplus.Children).Label);
+    }
+
+    public static void VerifyNullKey(DiffResult result)
+    {
+        var formatter = Assert.Single(result.Trees);
+        Assert.Equal("DictionaryValue.get_Elements", formatter.Children[0].Label);
+        var loop = Assert.Single(formatter.Children, node => node.Label == "foreach (var element in dictionary.Elements)");
+        Assert.Equal("ScalarValue.get_Value", loop.Children[0].Label);
+        var nonNull = Assert.Single(loop.Children, node => node.Label == "else (!(key is null))");
+        Assert.Equal('+', nonNull.Mark);
+        Assert.Equal(["key.ToString", "JsonValueFormatter.WriteQuotedJsonString"], nonNull.Children.Select(node => node.Label));
+        Assert.Equal("possible", nonNull.Children[0].After!.Dispatch);
+        Assert.Equal(4, nonNull.Children[0].After!.TargetIds.Count);
+        Assert.Equal(7, nonNull.Children[0].Children.Count);
+        Assert.Equal('-', Assert.Single(loop.Children, node => node.Label == "JsonValueFormatter.WriteQuotedJsonString").Mark);
+    }
+
     public static void VerifyExceptionFormatting(DiffResult result)
     {
         Assert.Equal("test-project-inferred", Assert.Single(result.Diagnostics).Code);
