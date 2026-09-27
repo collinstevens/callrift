@@ -1634,3 +1634,38 @@ an active reference-build `Exec` child and preservation of failing-target
 diagnostics. Probe sources were removed before committing. The solution built
 without warnings or errors, and all 350 fast rows passed in 4.49 s including
 complete invocation startup. Supported-platform CI for this change is pending.
+
+### Reusing semantic graphs in the remaining CLI-heavy scenarios
+
+Constructor equivalence keeps all seven workspace rows and all four
+focused/unfocused, forward/reverse comparisons. Six rows now analyze each
+revision once through the eligible real MSBuild fixture and reuse that graph pair.
+The explicit-base row retains all four real CLI diffs, their exit-code checks and
+JSON assertions. All seven fast counterparts remain unchanged.
+
+Static initializer declarations retain all seven workspace rows. The four rows
+with expected diagnostic codes retain their original CLI tree, reach, text and
+Markdown commands, including diagnostic output checks. The three other rows now
+reuse the existing semantic helper with real workspace analysis. Initializer and
+sink labels, reachability, diagnostic expectations and both rendered formats are
+still checked. Fast counterparts still use source analysis. No reviewed snapshot
+or test selection changed.
+
+Matched prepared Debug samples used CPUs 0–3, SDK
+`11.0.100-rc.1.26425.128`, production revision `1710791`, fresh fixture-owned roots,
+and the same 14 integration rows. TRX case-name multisets match exactly.
+
+| Harness | Complete invocation seconds | Sampled CPU seconds | Peak summed RSS GiB |
+|---|---:|---:|---:|
+| Original repeated CLI analysis | 65.04 | 186.81 | 1.46 |
+| Reused graph pairs | 38.43 | 62.03 | 1.90 |
+| Reused graph pairs, repeat | 38.17 | 60.38 | 1.88 |
+
+All rows passed in each run. Separate analysis workers fell from 84 to 24,
+with two reusable fixture workers added; restores fell from 21 to eight and CLI
+invocations from 56 to 20. The repeated candidate reduced elapsed time about 41%
+and sampled CPU about 67%, with higher retained memory. These are focused local
+measurements, not a claim that hosted suite targets are met.
+All 350 fast rows passed through `mise run test:fast` in 5.37 s for the complete
+invocation, including its incremental build and startup. The scenario project
+also built without warnings or errors.

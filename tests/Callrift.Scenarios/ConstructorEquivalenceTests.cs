@@ -31,21 +31,17 @@ public sealed class ConstructorEquivalenceTests
     [Trait("Layer", "Integration")]
     public async Task WorkspaceConstructorSyntaxPreservesTheCallGraph(string name)
     {
-        await using var fixture = await GitFixture.CreateAsync(CreateScenario(name));
-        var restored = false;
+        await using var fixture = name == "explicit-base"
+            ? await AnalysisFixture.CreateWorkspaceCliAsync(CreateScenario(name))
+            : await AnalysisFixture.CreateAsync(CreateScenario(name), workspace: true);
         foreach (var focused in new[] { false, true })
             foreach (var reverse in new[] { false, true })
             {
-                string[] selection = focused ? ["--entry", "Entry.Run"] : [];
-                string[] restore = restored ? ["--no-restore"] : [];
-                var output = await fixture.RunAsync(["diff", reverse ? fixture.After : fixture.Before, reverse ? fixture.Before : fixture.After,
-                    "--format", "json", "--depth", "14", "--externals", .. selection, "--project", "App.csproj", .. restore]);
-                Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
-                using var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+                var options = new DiffOptions { MaxDepth = 14, IncludeExternals = true, Entries = focused ? ["Entry.Run"] : [] };
+                using var document = JsonDocument.Parse(await fixture.DiffAsync(options, reverse));
                 Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
                 Assert.False(document.RootElement.GetProperty("hasChanges").GetBoolean());
                 Assert.Empty(document.RootElement.GetProperty("trees").EnumerateArray());
-                restored = true;
             }
     }
 

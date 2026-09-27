@@ -30,6 +30,11 @@ public sealed class StaticInitializationDeclarationTests
     public async Task WorkspaceKeepsUnavailableInitializationVisible(string name)
     {
         var example = Fixtures.Single(fixture => fixture.Name == name);
+        if (example.Diagnostic is null)
+        {
+            await VerifyKeepsUnavailableInitializationVisible(name, workspace: true);
+            return;
+        }
         var source = example.Source + " static class Sink { public static int Before() => 1; public static int After() => 2; } static class Entry { public static void Run() { State.Touch(); } }";
         var before = new Dictionary<string, string>
         {
@@ -60,7 +65,7 @@ public sealed class StaticInitializationDeclarationTests
         }
     }
 
-    private static async Task VerifyKeepsUnavailableInitializationVisible(string name)
+    private static async Task VerifyKeepsUnavailableInitializationVisible(string name, bool workspace = false)
     {
         var example = Fixtures.Single(fixture => fixture.Name == name);
         var source = example.Source + " static class Sink { public static int Before() => 1; public static int After() => 2; } static class Entry { public static void Run() { State.Touch(); } }";
@@ -73,7 +78,7 @@ public sealed class StaticInitializationDeclarationTests
         {
             ["Flow.cs"] = source.Replace("Sink.Before()", "Sink.After()", StringComparison.Ordinal).Replace("Before() => 1", "Before() => 3", StringComparison.Ordinal)
         };
-        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("static-declaration-" + name, "Unavailable initializer bodies remain visible without inventing calls through invalid declarations.", before, after, []), workspace: false);
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("static-declaration-" + name, "Unavailable initializer bodies remain visible without inventing calls through invalid declarations.", before, after, []), workspace);
         var options = new DiffOptions { Entries = ["Entry.Run"], MaxDepth = 15 };
         var outputs = await fixture.QueryFormatsAsync(options, before: true);
         using var tree = Parse(outputs["json"]);
