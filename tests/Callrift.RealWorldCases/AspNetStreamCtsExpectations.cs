@@ -15,6 +15,7 @@ internal static class AspNetStreamCtsExpectations
         Assert.Equal(179, result.Diagnostics.Count(diagnostic => diagnostic.Code == "duplicate-member"));
         if (!focused)
         {
+            AspNetGuardExpectations.VerifyDebugView(result);
             Assert.Equal(2325, result.Trees.Count);
             return;
         }

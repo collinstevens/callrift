@@ -4830,20 +4830,20 @@ stdout:
   │  ├─ WebApplication.get_DataSources
   │  ├─ ICollection<T>.get_Count → CopyOnWriteList<T>.get_Count (depth limit)
   │  ├─ if (compositeEndpointDataSource.DataSources.Intersect(_webApplication.DataSources).Count() == _we…
-  │  │  └─ EndpointDataSource.get_Endpoints
-~ │  │     ├─ ⇢ RazorComponentEndpointDataSource<TRootComponent>.get_Endpoints (changes below depth limit)
-~ │  │     ├─ ⇢ ActionEndpointDataSourceBase.get_Endpoints ×2 (changes below depth limit)
-  │  │     ├─ ⇢ BenchmarkEndpointDataSource.get_Endpoints
-~ │  │     ├─ ⇢ CompositeEndpointDataSource.get_Endpoints (changes below depth limit)
-  │  │     ├─ ⇢ DefaultEndpointDataSource.get_Endpoints
-~ │  │     ├─ ⇢ RouteEndpointDataSource.get_Endpoints (changes below depth limit)
-~ │  │     ├─ ⇢ RouteGroupBuilder.GroupEndpointDataSource.get_Endpoints (changes below depth limit)
-~ │  │     └─ ⇢ StaticAssetsEndpointDataSource.get_Endpoints (changes below depth limit)
+~ │  │  └─ EndpointDataSource.get_Endpoints → CompositeEndpointDataSource.get_Endpoints (changes below depth limit)
   │  └─ else (!(compositeEndpointDataSource.DataSources.Intersect(_webApplication.DataSources).Count() ==…
   │     ├─ WebApplication.get_DataSources
   │     ├─ new CompositeEndpointDataSource (depth limit)
 ~ │     └─ CompositeEndpointDataSource.get_Endpoints (changes below depth limit)
-  └─ EndpointDataSource.get_Endpoints ↑ as above
+  └─ EndpointDataSource.get_Endpoints
+~    ├─ ⇢ RazorComponentEndpointDataSource<TRootComponent>.get_Endpoints (changes below depth limit)
+~    ├─ ⇢ ActionEndpointDataSourceBase.get_Endpoints ×2 (changes below depth limit)
+     ├─ ⇢ BenchmarkEndpointDataSource.get_Endpoints
+~    ├─ ⇢ CompositeEndpointDataSource.get_Endpoints (changes below depth limit)
+     ├─ ⇢ DefaultEndpointDataSource.get_Endpoints
+~    ├─ ⇢ RouteEndpointDataSource.get_Endpoints (changes below depth limit)
+~    ├─ ⇢ RouteGroupBuilder.GroupEndpointDataSource.get_Endpoints (changes below depth limit)
+~    └─ ⇢ StaticAssetsEndpointDataSource.get_Endpoints (changes below depth limit)
 
   WebApplication.WebApplicationDebugView.get_Middleware
   ├─ WebApplication.get_Properties (depth limit)
@@ -27448,20 +27448,20 @@ stdout:
   │  ├─ WebApplication.get_DataSources
   │  ├─ ICollection<T>.get_Count → CopyOnWriteList<T>.get_Count (depth limit)
   │  ├─ if (compositeEndpointDataSource.DataSources.Intersect(_webApplication.DataSources).Count() == _we…
-  │  │  └─ EndpointDataSource.get_Endpoints
-~ │  │     ├─ ⇢ RazorComponentEndpointDataSource<TRootComponent>.get_Endpoints (changes below depth limit)
-~ │  │     ├─ ⇢ ActionEndpointDataSourceBase.get_Endpoints ×2 (changes below depth limit)
-  │  │     ├─ ⇢ BenchmarkEndpointDataSource.get_Endpoints
-~ │  │     ├─ ⇢ CompositeEndpointDataSource.get_Endpoints (changes below depth limit)
-  │  │     ├─ ⇢ DefaultEndpointDataSource.get_Endpoints
-~ │  │     ├─ ⇢ RouteEndpointDataSource.get_Endpoints (changes below depth limit)
-~ │  │     ├─ ⇢ RouteGroupBuilder.GroupEndpointDataSource.get_Endpoints (changes below depth limit)
-~ │  │     └─ ⇢ StaticAssetsEndpointDataSource.get_Endpoints (changes below depth limit)
+~ │  │  └─ EndpointDataSource.get_Endpoints → CompositeEndpointDataSource.get_Endpoints (changes below depth limit)
   │  └─ else (!(compositeEndpointDataSource.DataSources.Intersect(_webApplication.DataSources).Count() ==…
   │     ├─ WebApplication.get_DataSources
   │     ├─ new CompositeEndpointDataSource (depth limit)
 ~ │     └─ CompositeEndpointDataSource.get_Endpoints (changes below depth limit)
-  └─ EndpointDataSource.get_Endpoints ↑ as above
+  └─ EndpointDataSource.get_Endpoints
+~    ├─ ⇢ RazorComponentEndpointDataSource<TRootComponent>.get_Endpoints (changes below depth limit)
+~    ├─ ⇢ ActionEndpointDataSourceBase.get_Endpoints ×2 (changes below depth limit)
+     ├─ ⇢ BenchmarkEndpointDataSource.get_Endpoints
+~    ├─ ⇢ CompositeEndpointDataSource.get_Endpoints (changes below depth limit)
+     ├─ ⇢ DefaultEndpointDataSource.get_Endpoints
+~    ├─ ⇢ RouteEndpointDataSource.get_Endpoints (changes below depth limit)
+~    ├─ ⇢ RouteGroupBuilder.GroupEndpointDataSource.get_Endpoints (changes below depth limit)
+~    └─ ⇢ StaticAssetsEndpointDataSource.get_Endpoints (changes below depth limit)
 
   WebApplication.WebApplicationDebugView.get_Middleware
   ├─ WebApplication.get_Properties (depth limit)

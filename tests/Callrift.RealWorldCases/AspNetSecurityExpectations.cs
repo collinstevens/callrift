@@ -10,6 +10,7 @@ internal static class AspNetSecurityExpectations
         VerifyCoverage(result);
         if (!focused)
         {
+            AspNetGuardExpectations.VerifyDebugView(result);
             Assert.True(result.Truncated);
             Assert.Equal(2322, result.Trees.Count);
             Assert.Equal(3, result.Trees.Count(node => node.Label == "AuthorizationServiceExtensions.AuthorizeAsync"));

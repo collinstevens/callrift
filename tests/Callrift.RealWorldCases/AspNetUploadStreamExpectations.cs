@@ -19,6 +19,7 @@ internal static class AspNetUploadStreamExpectations
             location => location?.Path.StartsWith("src/SignalR/server/SignalR/test/", StringComparison.Ordinal) == true);
         if (!focused)
         {
+            AspNetGuardExpectations.VerifyDebugView(result);
             var certificate = Assert.Single(nodes, node => node.After?.CallSites.Any(location =>
                 location.Path == "src/Servers/Kestrel/samples/WebTransportSampleApp/Program.cs" && location.Line == 17) == true
                 && node.Label.Contains("GenerateManualCertificate", StringComparison.Ordinal));
