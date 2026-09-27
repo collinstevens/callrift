@@ -62,6 +62,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             OrchardElasticsearchExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "orchardcore-workflow-startup")
             OrchardWorkflowExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "orchardcore-role-submission")
+            OrchardRoleExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "aspnetcore-upload-stream-ownership")
             AspNetUploadStreamExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "aspnetcore-authorization-failure-reasons")
