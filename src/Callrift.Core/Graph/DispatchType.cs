@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 using Microsoft.CodeAnalysis;
 
@@ -115,6 +116,9 @@ public sealed record DispatchType(string Name, IReadOnlyList<DispatchType> Argum
 
 public sealed record DispatchContract(string Target, DispatchType Type, IReadOnlyList<DispatchType>? ReceiverTypes = null)
 {
+    private static readonly IReadOnlyDictionary<string, (DispatchType Type, string Side)>[] UnboundMatch =
+        [ImmutableDictionary<string, (DispatchType Type, string Side)>.Empty];
+
     public DispatchType? ImplementationType { get; init; }
     public bool ImplementationTypeExact { get; init; }
     public IReadOnlyDictionary<string, DispatchType> GenericArguments { get; init; } = new Dictionary<string, DispatchType>();
@@ -126,16 +130,26 @@ public sealed record DispatchContract(string Target, DispatchType Type, IReadOnl
         if (Type.Name != contract.Name || Type.Arguments.Count != contract.Arguments.Count) return [];
         if (receiver is not null && !receiver.IsParameter && ReceiverTypes is not null)
         {
+            var matches = 0;
+            var unbound = Type.Arguments.Count == 0 && Type.Constraints is null && receiver.Arguments.Count == 0;
             for (var index = 0; index < ReceiverTypes.Count; index++)
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 var type = ReceiverTypes[index];
-                if (type.Name == receiver.Name && type.Arguments.Count == receiver.Arguments.Count)
+                if (type.Name != receiver.Name || type.Arguments.Count != receiver.Arguments.Count) continue;
+                if (!unbound || type.Constraints is not null)
                     return BindMatchingTypes(contract, receiver, definitions, cancellationToken);
+                matches++;
             }
-            return [];
+            return matches switch
+            {
+                0 => [],
+                1 => UnboundMatch,
+                _ => Enumerable.Repeat(UnboundMatch[0], matches)
+            };
         }
-        return BindMatchingTypes(contract, receiver, definitions, cancellationToken);
+        return Type.Arguments.Count == 0 && Type.Constraints is null ? UnboundMatch
+            : BindMatchingTypes(contract, receiver, definitions, cancellationToken);
     }
 
     private IEnumerable<IReadOnlyDictionary<string, (DispatchType Type, string Side)>> BindMatchingTypes(DispatchType contract, DispatchType? receiver,

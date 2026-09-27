@@ -305,9 +305,17 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         };
     }
 
-    private static string? AlignmentKey(SyntaxNode node) => node is ExpressionSyntax or ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax
-        ? Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(string.Join("\0", node.DescendantTokens().Select(token => token.RawKind + ":" + token.Text)))))
-        : null;
+    private static string? AlignmentKey(SyntaxNode node)
+    {
+        if (node is not (ExpressionSyntax or ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax)) return null;
+        var text = new StringBuilder();
+        foreach (var token in node.DescendantTokens())
+        {
+            if (text.Length != 0) text.Append('\0');
+            text.Append(token.RawKind).Append(':').Append(token.Text);
+        }
+        return Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(text.ToString())));
+    }
 
     private DispatchType? ReceiverConstraint(ExpressionSyntax? receiver, int position)
     {
