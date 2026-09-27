@@ -3733,6 +3733,71 @@ stdout:
           "id": "n103",
           "kind": "call",
           "change": "unchanged",
+          "label": "LogEvent.get_Level",
+          "detail": null,
+          "before": {
+            "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.LogEvent.get_Level()",
+            "signature": "public Serilog.Events.LogEvent.get_Level() -> Serilog.Events.LogEventLevel",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.LogEvent.get_Level()"
+            ],
+            "definition": {
+              "path": "src/Serilog/Events/LogEvent.cs",
+              "startLine": 99,
+              "startColumn": 34,
+              "endLine": 99,
+              "endColumn": 38
+            },
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 455,
+                "startColumn": 24,
+                "endLine": 455,
+                "endColumn": 38
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.LogEvent.get_Level()",
+            "signature": "public Serilog.Events.LogEvent.get_Level() -> Serilog.Events.LogEventLevel",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.LogEvent.get_Level()"
+            ],
+            "definition": {
+              "path": "src/Serilog/Events/LogEvent.cs",
+              "startLine": 99,
+              "startColumn": 34,
+              "endLine": 99,
+              "endColumn": 38
+            },
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 457,
+                "startColumn": 24,
+                "endLine": 457,
+                "endColumn": 38
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n104",
+          "kind": "call",
+          "change": "unchanged",
           "label": "Logger.IsEnabled",
           "detail": null,
           "before": {
@@ -3791,11 +3856,127 @@ stdout:
             "candidates": [],
             "origin": "source"
           },
-          "children": [],
+          "children": [
+            {
+              "id": "n105",
+              "kind": "branch",
+              "change": "unchanged",
+              "label": "if (!(_levelSwitch == null))",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Logger.cs",
+                    "startLine": 303,
+                    "startColumn": 16,
+                    "endLine": 304,
+                    "endColumn": 50
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Logger.cs",
+                    "startLine": 303,
+                    "startColumn": 16,
+                    "endLine": 304,
+                    "endColumn": 50
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n106",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "LoggingLevelSwitch.get_MinimumLevel",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.LoggingLevelSwitch.get_MinimumLevel()",
+                    "signature": "public Serilog.Core.LoggingLevelSwitch.get_MinimumLevel() -> Serilog.Events.LogEventLevel",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.LoggingLevelSwitch.get_MinimumLevel()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/LoggingLevelSwitch.cs",
+                      "startLine": 49,
+                      "startColumn": 9,
+                      "endLine": 49,
+                      "endColumn": 38
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Core/Logger.cs",
+                        "startLine": 304,
+                        "startColumn": 25,
+                        "endLine": 304,
+                        "endColumn": 50
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.LoggingLevelSwitch.get_MinimumLevel()",
+                    "signature": "public Serilog.Core.LoggingLevelSwitch.get_MinimumLevel() -> Serilog.Events.LogEventLevel",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.LoggingLevelSwitch.get_MinimumLevel()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/LoggingLevelSwitch.cs",
+                      "startLine": 49,
+                      "startColumn": 9,
+                      "endLine": 49,
+                      "endColumn": 38
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Core/Logger.cs",
+                        "startLine": 304,
+                        "startColumn": 25,
+                        "endLine": 304,
+                        "endColumn": 50
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
           "omission": null
         },
         {
-          "id": "n104",
+          "id": "n107",
           "kind": "call",
           "change": "removed",
           "label": "Logger.Dispatch",
@@ -3831,7 +4012,7 @@ stdout:
           "after": null,
           "children": [
             {
-              "id": "n105",
+              "id": "n108",
               "kind": "branch",
               "change": "removed",
               "label": "try",
@@ -3859,7 +4040,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n106",
+                  "id": "n109",
                   "kind": "call",
                   "change": "removed",
                   "label": "ILogEventEnricher.Enrich",
@@ -3900,7 +4081,7 @@ stdout:
                   "after": null,
                   "children": [
                     {
-                      "id": "n107",
+                      "id": "n110",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ LogContextEnricher.Enrich",
@@ -3934,7 +4115,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n108",
+                      "id": "n111",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ ConditionalEnricher.Enrich",
@@ -3968,7 +4149,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n109",
+                      "id": "n112",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ EmptyEnricher.Enrich",
@@ -3998,7 +4179,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n110",
+                      "id": "n113",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ FixedPropertyEnricher.Enrich",
@@ -4032,7 +4213,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n111",
+                      "id": "n114",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ PropertyEnricher.Enrich",
@@ -4066,7 +4247,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n112",
+                      "id": "n115",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ SafeAggregateEnricher.Enrich",
@@ -4106,7 +4287,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n113",
+              "id": "n116",
               "kind": "branch",
               "change": "removed",
               "label": "catch (Exception ex)",
@@ -4134,7 +4315,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n114",
+                  "id": "n117",
                   "kind": "call",
                   "change": "removed",
                   "label": "SelfLog.WriteLine",
@@ -4179,7 +4360,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n115",
+              "id": "n118",
               "kind": "call",
               "change": "removed",
               "label": "ILogEventSink.Emit",
@@ -4225,7 +4406,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n116",
+                  "id": "n119",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ Logger.Serilog.Core.ILogEventSink.Emit",
@@ -4259,7 +4440,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n117",
+                  "id": "n120",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ AggregateSink.Emit",
@@ -4293,7 +4474,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n118",
+                  "id": "n121",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ BatchingSink.Emit",
@@ -4327,7 +4508,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n119",
+                  "id": "n122",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ ConditionalSink.Emit",
@@ -4361,7 +4542,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n120",
+                  "id": "n123",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ DisposingAggregateSink.Emit",
@@ -4395,7 +4576,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n121",
+                  "id": "n124",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ FailureListenerSink.Emit",
@@ -4429,7 +4610,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n122",
+                  "id": "n125",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ FilteringSink.Emit",
@@ -4463,7 +4644,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n123",
+                  "id": "n126",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ OptionalInterfaceForwardingSink.Emit",
@@ -4497,7 +4678,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n124",
+                  "id": "n127",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ RestrictedSink.Emit",
@@ -4531,7 +4712,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n125",
+                  "id": "n128",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ SafeAggregateSink.Emit",
@@ -4565,7 +4746,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n126",
+                  "id": "n129",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ SecondaryLoggerSink.Emit",
@@ -4602,7 +4783,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n127",
+              "id": "n130",
               "kind": "branch",
               "change": "removed",
               "label": "possible initialization of SelfMetrics",
@@ -4630,7 +4811,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n128",
+                  "id": "n131",
                   "kind": "call",
                   "change": "removed",
                   "label": "initialization of SelfMetrics",
@@ -4675,7 +4856,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n129",
+              "id": "n132",
               "kind": "call",
               "change": "removed",
               "label": "SelfMetrics.PipelineEventEmitted.Add",
@@ -4710,7 +4891,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n130",
+          "id": "n133",
           "kind": "call",
           "change": "added",
           "label": "Logger.PostLevelCheckEmit",
@@ -4746,7 +4927,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n131",
+              "id": "n134",
               "kind": "branch",
               "change": "added",
               "label": "try",
@@ -4774,7 +4955,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n132",
+                  "id": "n135",
                   "kind": "call",
                   "change": "added",
                   "label": "ILogEventEnricher.Enrich",
@@ -4815,7 +4996,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n133",
+                      "id": "n136",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ LogContextEnricher.Enrich",
@@ -4849,7 +5030,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n134",
+                      "id": "n137",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ ConditionalEnricher.Enrich",
@@ -4883,7 +5064,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n135",
+                      "id": "n138",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ EmptyEnricher.Enrich",
@@ -4913,7 +5094,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n136",
+                      "id": "n139",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ FixedPropertyEnricher.Enrich",
@@ -4947,7 +5128,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n137",
+                      "id": "n140",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ PropertyEnricher.Enrich",
@@ -4981,7 +5162,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n138",
+                      "id": "n141",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ SafeAggregateEnricher.Enrich",
@@ -5021,7 +5202,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n139",
+              "id": "n142",
               "kind": "branch",
               "change": "added",
               "label": "catch (Exception ex)",
@@ -5049,7 +5230,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n140",
+                  "id": "n143",
                   "kind": "call",
                   "change": "added",
                   "label": "SelfLog.WriteLine",
@@ -5094,7 +5275,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n141",
+              "id": "n144",
               "kind": "call",
               "change": "added",
               "label": "ILogEventSink.Emit",
@@ -5140,7 +5321,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n142",
+                  "id": "n145",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ Logger.Serilog.Core.ILogEventSink.Emit",
@@ -5174,7 +5355,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n143",
+                  "id": "n146",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ AggregateSink.Emit",
@@ -5208,7 +5389,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n144",
+                  "id": "n147",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ BatchingSink.Emit",
@@ -5242,7 +5423,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n145",
+                  "id": "n148",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ ConditionalSink.Emit",
@@ -5276,7 +5457,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n146",
+                  "id": "n149",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ DisposingAggregateSink.Emit",
@@ -5310,7 +5491,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n147",
+                  "id": "n150",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ FailureListenerSink.Emit",
@@ -5344,7 +5525,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n148",
+                  "id": "n151",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ FilteringSink.Emit",
@@ -5378,7 +5559,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n149",
+                  "id": "n152",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ OptionalInterfaceForwardingSink.Emit",
@@ -5412,7 +5593,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n150",
+                  "id": "n153",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ RestrictedSink.Emit",
@@ -5446,7 +5627,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n151",
+                  "id": "n154",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ SafeAggregateSink.Emit",
@@ -5480,7 +5661,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n152",
+                  "id": "n155",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ SecondaryLoggerSink.Emit",
@@ -5520,7 +5701,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n153",
+          "id": "n156",
           "kind": "branch",
           "change": "added",
           "label": "possible initialization of SelfMetrics",
@@ -5548,7 +5729,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n154",
+              "id": "n157",
               "kind": "call",
               "change": "added",
               "label": "initialization of SelfMetrics",
@@ -5593,7 +5774,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n155",
+          "id": "n158",
           "kind": "call",
           "change": "added",
           "label": "SelfMetrics.PipelineEventEmitted.Add",
@@ -5628,7 +5809,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n156",
+      "id": "n159",
       "kind": "member",
       "change": "unchanged",
       "label": "Logger.Write",
@@ -5675,7 +5856,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n157",
+          "id": "n160",
           "kind": "call",
           "change": "unchanged",
           "label": "Logger.IsEnabled",
@@ -5736,11 +5917,180 @@ stdout:
             "candidates": [],
             "origin": "source"
           },
+          "children": [
+            {
+              "id": "n161",
+              "kind": "branch",
+              "change": "unchanged",
+              "label": "if (!(_levelSwitch == null))",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Logger.cs",
+                    "startLine": 303,
+                    "startColumn": 16,
+                    "endLine": 304,
+                    "endColumn": 50
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Logger.cs",
+                    "startLine": 303,
+                    "startColumn": 16,
+                    "endLine": 304,
+                    "endColumn": 50
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n162",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "LoggingLevelSwitch.get_MinimumLevel",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.LoggingLevelSwitch.get_MinimumLevel()",
+                    "signature": "public Serilog.Core.LoggingLevelSwitch.get_MinimumLevel() -> Serilog.Events.LogEventLevel",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.LoggingLevelSwitch.get_MinimumLevel()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/LoggingLevelSwitch.cs",
+                      "startLine": 49,
+                      "startColumn": 9,
+                      "endLine": 49,
+                      "endColumn": 38
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Core/Logger.cs",
+                        "startLine": 304,
+                        "startColumn": 25,
+                        "endLine": 304,
+                        "endColumn": 50
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.LoggingLevelSwitch.get_MinimumLevel()",
+                    "signature": "public Serilog.Core.LoggingLevelSwitch.get_MinimumLevel() -> Serilog.Events.LogEventLevel",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.LoggingLevelSwitch.get_MinimumLevel()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/LoggingLevelSwitch.cs",
+                      "startLine": 49,
+                      "startColumn": 9,
+                      "endLine": 49,
+                      "endColumn": 38
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Core/Logger.cs",
+                        "startLine": 304,
+                        "startColumn": 25,
+                        "endLine": 304,
+                        "endColumn": 50
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n163",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "DateTimeOffset.get_Now",
+          "detail": null,
+          "before": {
+            "symbolId": "metadata:System.Runtime::System.DateTimeOffset.get_Now()",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Runtime::System.DateTimeOffset.get_Now()"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 439,
+                "startColumn": 28,
+                "endLine": 439,
+                "endColumn": 46
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "after": {
+            "symbolId": "metadata:System.Runtime::System.DateTimeOffset.get_Now()",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Runtime::System.DateTimeOffset.get_Now()"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 440,
+                "startColumn": 28,
+                "endLine": 440,
+                "endColumn": 46
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
           "children": [],
           "omission": null
         },
         {
-          "id": "n158",
+          "id": "n164",
           "kind": "call",
           "change": "unchanged",
           "label": "MessageTemplateProcessor.Process",
@@ -5803,7 +6153,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n159",
+              "id": "n165",
               "kind": "call",
               "change": "unchanged",
               "label": "MessageTemplateCache.Parse",
@@ -5872,7 +6222,7 @@ stdout:
               }
             },
             {
-              "id": "n160",
+              "id": "n166",
               "kind": "call",
               "change": "unchanged",
               "label": "PropertyBinder.ConstructProperties",
@@ -5944,7 +6294,266 @@ stdout:
           "omission": null
         },
         {
-          "id": "n161",
+          "id": "n167",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Activity.get_Current",
+          "detail": null,
+          "before": {
+            "symbolId": "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_Current()",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_Current()"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 442,
+                "startColumn": 31,
+                "endLine": 442,
+                "endColumn": 47
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "after": {
+            "symbolId": "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_Current()",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_Current()"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 443,
+                "startColumn": 31,
+                "endLine": 443,
+                "endColumn": 47
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n168",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (currentActivity is not null)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 443,
+                "startColumn": 102,
+                "endLine": 443,
+                "endColumn": 126
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 444,
+                "startColumn": 102,
+                "endLine": 444,
+                "endColumn": 126
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n169",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Activity.get_TraceId",
+              "detail": null,
+              "before": {
+                "symbolId": "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_TraceId()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_TraceId()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Logger.cs",
+                    "startLine": 443,
+                    "startColumn": 118,
+                    "endLine": 443,
+                    "endColumn": 126
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_TraceId()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_TraceId()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Logger.cs",
+                    "startLine": 444,
+                    "startColumn": 118,
+                    "endLine": 444,
+                    "endColumn": 126
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n170",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (currentActivity is not null)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 443,
+                "startColumn": 139,
+                "endLine": 443,
+                "endColumn": 162
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 444,
+                "startColumn": 139,
+                "endLine": 444,
+                "endColumn": 162
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n171",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Activity.get_SpanId",
+              "detail": null,
+              "before": {
+                "symbolId": "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_SpanId()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_SpanId()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Logger.cs",
+                    "startLine": 443,
+                    "startColumn": 155,
+                    "endLine": 443,
+                    "endColumn": 162
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_SpanId()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_SpanId()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Logger.cs",
+                    "startLine": 444,
+                    "startColumn": 155,
+                    "endLine": 444,
+                    "endColumn": 162
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n172",
           "kind": "call",
           "change": "unchanged",
           "label": "new LogEvent",
@@ -6007,7 +6616,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n162",
+              "id": "n173",
               "kind": "call",
               "change": "unchanged",
               "label": "Guard.AgainstNull",
@@ -6076,7 +6685,60 @@ stdout:
               }
             },
             {
-              "id": "n163",
+              "id": "n174",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Array.get_Length",
+              "detail": null,
+              "before": {
+                "symbolId": "metadata:System.Runtime::System.Array.get_Length()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::System.Array.get_Length()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Events/LogEvent.cs",
+                    "startLine": 85,
+                    "startColumn": 108,
+                    "endLine": 85,
+                    "endColumn": 144
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "metadata:System.Runtime::System.Array.get_Length()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::System.Array.get_Length()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Events/LogEvent.cs",
+                    "startLine": 85,
+                    "startColumn": 108,
+                    "endLine": 85,
+                    "endColumn": 144
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n175",
               "kind": "call",
               "change": "unchanged",
               "label": "new Dictionary<string, LogEventPropertyValue>",
@@ -6129,7 +6791,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n164",
+              "id": "n176",
               "kind": "call",
               "change": "unchanged",
               "label": "new LogEvent",
@@ -6196,12 +6858,298 @@ stdout:
                 "symbolId": null,
                 "referenceId": null
               }
+            },
+            {
+              "id": "n177",
+              "kind": "branch",
+              "change": "unchanged",
+              "label": "for (i < properties.Length)",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Events/LogEvent.cs",
+                    "startLine": 87,
+                    "startColumn": 9,
+                    "endLine": 88,
+                    "endColumn": 67
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Events/LogEvent.cs",
+                    "startLine": 87,
+                    "startColumn": 9,
+                    "endLine": 88,
+                    "endColumn": 67
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n178",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "Array.get_Length",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "metadata:System.Runtime::System.Array.get_Length()",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Runtime::System.Array.get_Length()"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Events/LogEvent.cs",
+                        "startLine": 87,
+                        "startColumn": 29,
+                        "endLine": 87,
+                        "endColumn": 46
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "after": {
+                    "symbolId": "metadata:System.Runtime::System.Array.get_Length()",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Runtime::System.Array.get_Length()"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Events/LogEvent.cs",
+                        "startLine": 87,
+                        "startColumn": 29,
+                        "endLine": 87,
+                        "endColumn": 46
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n179",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "EventProperty.get_Name",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.EventProperty.get_Name()",
+                    "signature": "public readonly Serilog.Events.EventProperty.get_Name() -> string",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.EventProperty.get_Name()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Events/EventProperty.cs",
+                      "startLine": 32,
+                      "startColumn": 26,
+                      "endLine": 32,
+                      "endColumn": 30
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Events/LogEvent.cs",
+                        "startLine": 88,
+                        "startColumn": 25,
+                        "endLine": 88,
+                        "endColumn": 43
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.EventProperty.get_Name()",
+                    "signature": "public readonly Serilog.Events.EventProperty.get_Name() -> string",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.EventProperty.get_Name()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Events/EventProperty.cs",
+                      "startLine": 32,
+                      "startColumn": 26,
+                      "endLine": 32,
+                      "endColumn": 30
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Events/LogEvent.cs",
+                        "startLine": 88,
+                        "startColumn": 25,
+                        "endLine": 88,
+                        "endColumn": 43
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n180",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "EventProperty.get_Value",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.EventProperty.get_Value()",
+                    "signature": "public readonly Serilog.Events.EventProperty.get_Value() -> Serilog.Events.LogEventPropertyValue",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.EventProperty.get_Value()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Events/EventProperty.cs",
+                      "startLine": 37,
+                      "startColumn": 42,
+                      "endLine": 37,
+                      "endColumn": 46
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Events/LogEvent.cs",
+                        "startLine": 88,
+                        "startColumn": 47,
+                        "endLine": 88,
+                        "endColumn": 66
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.EventProperty.get_Value()",
+                    "signature": "public readonly Serilog.Events.EventProperty.get_Value() -> Serilog.Events.LogEventPropertyValue",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.EventProperty.get_Value()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Events/EventProperty.cs",
+                      "startLine": 37,
+                      "startColumn": 42,
+                      "endLine": 37,
+                      "endColumn": 46
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Events/LogEvent.cs",
+                        "startLine": 88,
+                        "startColumn": 47,
+                        "endLine": 88,
+                        "endColumn": 66
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n181",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "Dictionary<TKey, TValue>.set_Item",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "metadata:System.Collections::System.Collections.Generic.Dictionary<TKey, TValue>.set_Item(TKey,TValue)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Collections::System.Collections.Generic.Dictionary<TKey, TValue>.set_Item(TKey,TValue)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Events/LogEvent.cs",
+                        "startLine": 88,
+                        "startColumn": 13,
+                        "endLine": 88,
+                        "endColumn": 44
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "after": {
+                    "symbolId": "metadata:System.Collections::System.Collections.Generic.Dictionary<TKey, TValue>.set_Item(TKey,TValue)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Collections::System.Collections.Generic.Dictionary<TKey, TValue>.set_Item(TKey,TValue)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Events/LogEvent.cs",
+                        "startLine": 88,
+                        "startColumn": 13,
+                        "endLine": 88,
+                        "endColumn": 44
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
             }
           ],
           "omission": null
         },
         {
-          "id": "n165",
+          "id": "n182",
           "kind": "call",
           "change": "removed",
           "label": "Logger.Dispatch",
@@ -6237,7 +7185,7 @@ stdout:
           "after": null,
           "children": [
             {
-              "id": "n166",
+              "id": "n183",
               "kind": "branch",
               "change": "removed",
               "label": "try",
@@ -6265,7 +7213,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n167",
+                  "id": "n184",
                   "kind": "call",
                   "change": "removed",
                   "label": "ILogEventEnricher.Enrich",
@@ -6306,7 +7254,7 @@ stdout:
                   "after": null,
                   "children": [
                     {
-                      "id": "n168",
+                      "id": "n185",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ LogContextEnricher.Enrich",
@@ -6340,7 +7288,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n169",
+                      "id": "n186",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ ConditionalEnricher.Enrich",
@@ -6374,7 +7322,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n170",
+                      "id": "n187",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ EmptyEnricher.Enrich",
@@ -6404,7 +7352,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n171",
+                      "id": "n188",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ FixedPropertyEnricher.Enrich",
@@ -6438,7 +7386,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n172",
+                      "id": "n189",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ PropertyEnricher.Enrich",
@@ -6472,7 +7420,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n173",
+                      "id": "n190",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ SafeAggregateEnricher.Enrich",
@@ -6512,7 +7460,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n174",
+              "id": "n191",
               "kind": "branch",
               "change": "removed",
               "label": "catch (Exception ex)",
@@ -6540,7 +7488,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n175",
+                  "id": "n192",
                   "kind": "call",
                   "change": "removed",
                   "label": "SelfLog.WriteLine",
@@ -6585,7 +7533,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n176",
+              "id": "n193",
               "kind": "call",
               "change": "removed",
               "label": "ILogEventSink.Emit",
@@ -6631,7 +7579,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n177",
+                  "id": "n194",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ Logger.Serilog.Core.ILogEventSink.Emit",
@@ -6665,7 +7613,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n178",
+                  "id": "n195",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ AggregateSink.Emit",
@@ -6699,7 +7647,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n179",
+                  "id": "n196",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ BatchingSink.Emit",
@@ -6733,7 +7681,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n180",
+                  "id": "n197",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ ConditionalSink.Emit",
@@ -6767,7 +7715,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n181",
+                  "id": "n198",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ DisposingAggregateSink.Emit",
@@ -6801,7 +7749,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n182",
+                  "id": "n199",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ FailureListenerSink.Emit",
@@ -6835,7 +7783,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n183",
+                  "id": "n200",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ FilteringSink.Emit",
@@ -6869,7 +7817,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n184",
+                  "id": "n201",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ OptionalInterfaceForwardingSink.Emit",
@@ -6903,7 +7851,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n185",
+                  "id": "n202",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ RestrictedSink.Emit",
@@ -6937,7 +7885,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n186",
+                  "id": "n203",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ SafeAggregateSink.Emit",
@@ -6971,7 +7919,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n187",
+                  "id": "n204",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ SecondaryLoggerSink.Emit",
@@ -7008,7 +7956,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n188",
+              "id": "n205",
               "kind": "branch",
               "change": "removed",
               "label": "possible initialization of SelfMetrics",
@@ -7036,7 +7984,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n189",
+                  "id": "n206",
                   "kind": "call",
                   "change": "removed",
                   "label": "initialization of SelfMetrics",
@@ -7081,7 +8029,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n190",
+              "id": "n207",
               "kind": "call",
               "change": "removed",
               "label": "SelfMetrics.PipelineEventEmitted.Add",
@@ -7116,7 +8064,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n191",
+          "id": "n208",
           "kind": "call",
           "change": "added",
           "label": "Logger.PostLevelCheckEmit",
@@ -7152,7 +8100,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n192",
+              "id": "n209",
               "kind": "branch",
               "change": "added",
               "label": "try",
@@ -7180,7 +8128,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n193",
+                  "id": "n210",
                   "kind": "call",
                   "change": "added",
                   "label": "ILogEventEnricher.Enrich",
@@ -7221,7 +8169,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n194",
+                      "id": "n211",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ LogContextEnricher.Enrich",
@@ -7255,7 +8203,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n195",
+                      "id": "n212",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ ConditionalEnricher.Enrich",
@@ -7289,7 +8237,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n196",
+                      "id": "n213",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ EmptyEnricher.Enrich",
@@ -7319,7 +8267,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n197",
+                      "id": "n214",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ FixedPropertyEnricher.Enrich",
@@ -7353,7 +8301,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n198",
+                      "id": "n215",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ PropertyEnricher.Enrich",
@@ -7387,7 +8335,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n199",
+                      "id": "n216",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ SafeAggregateEnricher.Enrich",
@@ -7427,7 +8375,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n200",
+              "id": "n217",
               "kind": "branch",
               "change": "added",
               "label": "catch (Exception ex)",
@@ -7455,7 +8403,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n201",
+                  "id": "n218",
                   "kind": "call",
                   "change": "added",
                   "label": "SelfLog.WriteLine",
@@ -7500,7 +8448,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n202",
+              "id": "n219",
               "kind": "call",
               "change": "added",
               "label": "ILogEventSink.Emit",
@@ -7546,7 +8494,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n203",
+                  "id": "n220",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ Logger.Serilog.Core.ILogEventSink.Emit",
@@ -7580,7 +8528,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n204",
+                  "id": "n221",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ AggregateSink.Emit",
@@ -7614,7 +8562,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n205",
+                  "id": "n222",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ BatchingSink.Emit",
@@ -7648,7 +8596,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n206",
+                  "id": "n223",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ ConditionalSink.Emit",
@@ -7682,7 +8630,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n207",
+                  "id": "n224",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ DisposingAggregateSink.Emit",
@@ -7716,7 +8664,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n208",
+                  "id": "n225",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ FailureListenerSink.Emit",
@@ -7750,7 +8698,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n209",
+                  "id": "n226",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ FilteringSink.Emit",
@@ -7784,7 +8732,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n210",
+                  "id": "n227",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ OptionalInterfaceForwardingSink.Emit",
@@ -7818,7 +8766,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n211",
+                  "id": "n228",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ RestrictedSink.Emit",
@@ -7852,7 +8800,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n212",
+                  "id": "n229",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ SafeAggregateSink.Emit",
@@ -7886,7 +8834,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n213",
+                  "id": "n230",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ SecondaryLoggerSink.Emit",
@@ -7926,7 +8874,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n214",
+          "id": "n231",
           "kind": "branch",
           "change": "added",
           "label": "possible initialization of SelfMetrics",
@@ -7954,7 +8902,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n215",
+              "id": "n232",
               "kind": "call",
               "change": "added",
               "label": "initialization of SelfMetrics",
@@ -7999,7 +8947,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n216",
+          "id": "n233",
           "kind": "call",
           "change": "added",
           "label": "SelfMetrics.PipelineEventEmitted.Add",
@@ -8034,7 +8982,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n217",
+      "id": "n234",
       "kind": "member",
       "change": "unchanged",
       "label": "Logger.Write",
@@ -8081,7 +9029,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n218",
+          "id": "n235",
           "kind": "call",
           "change": "unchanged",
           "label": "Logger.IsEnabled",
@@ -8142,11 +9090,127 @@ stdout:
             "candidates": [],
             "origin": "source"
           },
-          "children": [],
+          "children": [
+            {
+              "id": "n236",
+              "kind": "branch",
+              "change": "unchanged",
+              "label": "if (!(_levelSwitch == null))",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Logger.cs",
+                    "startLine": 303,
+                    "startColumn": 16,
+                    "endLine": 304,
+                    "endColumn": 50
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Logger.cs",
+                    "startLine": 303,
+                    "startColumn": 16,
+                    "endLine": 304,
+                    "endColumn": 50
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n237",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "LoggingLevelSwitch.get_MinimumLevel",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.LoggingLevelSwitch.get_MinimumLevel()",
+                    "signature": "public Serilog.Core.LoggingLevelSwitch.get_MinimumLevel() -> Serilog.Events.LogEventLevel",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.LoggingLevelSwitch.get_MinimumLevel()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/LoggingLevelSwitch.cs",
+                      "startLine": 49,
+                      "startColumn": 9,
+                      "endLine": 49,
+                      "endColumn": 38
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Core/Logger.cs",
+                        "startLine": 304,
+                        "startColumn": 25,
+                        "endLine": 304,
+                        "endColumn": 50
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.LoggingLevelSwitch.get_MinimumLevel()",
+                    "signature": "public Serilog.Core.LoggingLevelSwitch.get_MinimumLevel() -> Serilog.Events.LogEventLevel",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.LoggingLevelSwitch.get_MinimumLevel()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Core/LoggingLevelSwitch.cs",
+                      "startLine": 49,
+                      "startColumn": 9,
+                      "endLine": 49,
+                      "endColumn": 38
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Core/Logger.cs",
+                        "startLine": 304,
+                        "startColumn": 25,
+                        "endLine": 304,
+                        "endColumn": 50
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            }
+          ],
           "omission": null
         },
         {
-          "id": "n219",
+          "id": "n238",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (propertyValues != null)",
@@ -8193,7 +9257,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n220",
+              "id": "n239",
               "kind": "call",
               "change": "unchanged",
               "label": "propertyValues.GetType",
@@ -8246,7 +9310,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n221",
+              "id": "n240",
               "kind": "call",
               "change": "unchanged",
               "label": "Type.op_Inequality",
@@ -8302,7 +9366,163 @@ stdout:
           "omission": null
         },
         {
-          "id": "n222",
+          "id": "n241",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "DateTimeOffset.get_Now",
+          "detail": null,
+          "before": {
+            "symbolId": "metadata:System.Runtime::System.DateTimeOffset.get_Now()",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Runtime::System.DateTimeOffset.get_Now()"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 419,
+                "startColumn": 28,
+                "endLine": 419,
+                "endColumn": 46
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "after": {
+            "symbolId": "metadata:System.Runtime::System.DateTimeOffset.get_Now()",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Runtime::System.DateTimeOffset.get_Now()"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 419,
+                "startColumn": 28,
+                "endLine": 419,
+                "endColumn": 46
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n242",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (propertyValues == null)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 421,
+                "startColumn": 55,
+                "endLine": 421,
+                "endColumn": 74
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 421,
+                "startColumn": 55,
+                "endLine": 421,
+                "endColumn": 74
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n243",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Span<T>.get_Empty",
+              "detail": null,
+              "before": {
+                "symbolId": "metadata:System.Runtime::System.Span<T>.get_Empty()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::System.Span<T>.get_Empty()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Logger.cs",
+                    "startLine": 421,
+                    "startColumn": 55,
+                    "endLine": 421,
+                    "endColumn": 74
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "metadata:System.Runtime::System.Span<T>.get_Empty()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::System.Span<T>.get_Empty()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Logger.cs",
+                    "startLine": 421,
+                    "startColumn": 55,
+                    "endLine": 421,
+                    "endColumn": 74
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n244",
           "kind": "branch",
           "change": "unchanged",
           "label": "else (!(propertyValues == null))",
@@ -8349,7 +9569,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n223",
+              "id": "n245",
               "kind": "call",
               "change": "unchanged",
               "label": "propertyValues.AsSpan",
@@ -8405,7 +9625,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n224",
+          "id": "n246",
           "kind": "call",
           "change": "unchanged",
           "label": "MessageTemplateProcessor.Process",
@@ -8468,7 +9688,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n225",
+              "id": "n247",
               "kind": "call",
               "change": "unchanged",
               "label": "MessageTemplateCache.Parse",
@@ -8537,7 +9757,7 @@ stdout:
               }
             },
             {
-              "id": "n226",
+              "id": "n248",
               "kind": "call",
               "change": "unchanged",
               "label": "PropertyBinder.ConstructProperties",
@@ -8609,7 +9829,266 @@ stdout:
           "omission": null
         },
         {
-          "id": "n227",
+          "id": "n249",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Activity.get_Current",
+          "detail": null,
+          "before": {
+            "symbolId": "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_Current()",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_Current()"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 427,
+                "startColumn": 31,
+                "endLine": 427,
+                "endColumn": 47
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "after": {
+            "symbolId": "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_Current()",
+            "signature": null,
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_Current()"
+            ],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 427,
+                "startColumn": 31,
+                "endLine": 427,
+                "endColumn": 47
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "metadata"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n250",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (currentActivity is not null)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 428,
+                "startColumn": 102,
+                "endLine": 428,
+                "endColumn": 126
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 428,
+                "startColumn": 102,
+                "endLine": 428,
+                "endColumn": 126
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n251",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Activity.get_TraceId",
+              "detail": null,
+              "before": {
+                "symbolId": "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_TraceId()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_TraceId()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Logger.cs",
+                    "startLine": 428,
+                    "startColumn": 118,
+                    "endLine": 428,
+                    "endColumn": 126
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_TraceId()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_TraceId()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Logger.cs",
+                    "startLine": 428,
+                    "startColumn": 118,
+                    "endLine": 428,
+                    "endColumn": 126
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n252",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (currentActivity is not null)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 428,
+                "startColumn": 139,
+                "endLine": 428,
+                "endColumn": 162
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Serilog/Core/Logger.cs",
+                "startLine": 428,
+                "startColumn": 139,
+                "endLine": 428,
+                "endColumn": 162
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n253",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Activity.get_SpanId",
+              "detail": null,
+              "before": {
+                "symbolId": "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_SpanId()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_SpanId()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Logger.cs",
+                    "startLine": 428,
+                    "startColumn": 155,
+                    "endLine": 428,
+                    "endColumn": 162
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_SpanId()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Diagnostics.DiagnosticSource::System.Diagnostics.Activity.get_SpanId()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Core/Logger.cs",
+                    "startLine": 428,
+                    "startColumn": 155,
+                    "endLine": 428,
+                    "endColumn": 162
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n254",
           "kind": "call",
           "change": "unchanged",
           "label": "new LogEvent",
@@ -8672,7 +10151,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n228",
+              "id": "n255",
               "kind": "call",
               "change": "unchanged",
               "label": "Guard.AgainstNull",
@@ -8741,7 +10220,60 @@ stdout:
               }
             },
             {
-              "id": "n229",
+              "id": "n256",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Array.get_Length",
+              "detail": null,
+              "before": {
+                "symbolId": "metadata:System.Runtime::System.Array.get_Length()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::System.Array.get_Length()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Events/LogEvent.cs",
+                    "startLine": 85,
+                    "startColumn": 108,
+                    "endLine": 85,
+                    "endColumn": 144
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "metadata:System.Runtime::System.Array.get_Length()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::System.Array.get_Length()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Events/LogEvent.cs",
+                    "startLine": 85,
+                    "startColumn": 108,
+                    "endLine": 85,
+                    "endColumn": 144
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n257",
               "kind": "call",
               "change": "unchanged",
               "label": "new Dictionary<string, LogEventPropertyValue>",
@@ -8794,7 +10326,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n230",
+              "id": "n258",
               "kind": "call",
               "change": "unchanged",
               "label": "new LogEvent",
@@ -8861,12 +10393,298 @@ stdout:
                 "symbolId": null,
                 "referenceId": null
               }
+            },
+            {
+              "id": "n259",
+              "kind": "branch",
+              "change": "unchanged",
+              "label": "for (i < properties.Length)",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Events/LogEvent.cs",
+                    "startLine": 87,
+                    "startColumn": 9,
+                    "endLine": 88,
+                    "endColumn": 67
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Serilog/Events/LogEvent.cs",
+                    "startLine": 87,
+                    "startColumn": 9,
+                    "endLine": 88,
+                    "endColumn": 67
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n260",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "Array.get_Length",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "metadata:System.Runtime::System.Array.get_Length()",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Runtime::System.Array.get_Length()"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Events/LogEvent.cs",
+                        "startLine": 87,
+                        "startColumn": 29,
+                        "endLine": 87,
+                        "endColumn": 46
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "after": {
+                    "symbolId": "metadata:System.Runtime::System.Array.get_Length()",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Runtime::System.Array.get_Length()"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Events/LogEvent.cs",
+                        "startLine": 87,
+                        "startColumn": 29,
+                        "endLine": 87,
+                        "endColumn": 46
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n261",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "EventProperty.get_Name",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.EventProperty.get_Name()",
+                    "signature": "public readonly Serilog.Events.EventProperty.get_Name() -> string",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.EventProperty.get_Name()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Events/EventProperty.cs",
+                      "startLine": 32,
+                      "startColumn": 26,
+                      "endLine": 32,
+                      "endColumn": 30
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Events/LogEvent.cs",
+                        "startLine": 88,
+                        "startColumn": 25,
+                        "endLine": 88,
+                        "endColumn": 43
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.EventProperty.get_Name()",
+                    "signature": "public readonly Serilog.Events.EventProperty.get_Name() -> string",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.EventProperty.get_Name()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Events/EventProperty.cs",
+                      "startLine": 32,
+                      "startColumn": 26,
+                      "endLine": 32,
+                      "endColumn": 30
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Events/LogEvent.cs",
+                        "startLine": 88,
+                        "startColumn": 25,
+                        "endLine": 88,
+                        "endColumn": 43
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n262",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "EventProperty.get_Value",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.EventProperty.get_Value()",
+                    "signature": "public readonly Serilog.Events.EventProperty.get_Value() -> Serilog.Events.LogEventPropertyValue",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.EventProperty.get_Value()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Events/EventProperty.cs",
+                      "startLine": 37,
+                      "startColumn": 42,
+                      "endLine": 37,
+                      "endColumn": 46
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Events/LogEvent.cs",
+                        "startLine": 88,
+                        "startColumn": 47,
+                        "endLine": 88,
+                        "endColumn": 66
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": {
+                    "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.EventProperty.get_Value()",
+                    "signature": "public readonly Serilog.Events.EventProperty.get_Value() -> Serilog.Events.LogEventPropertyValue",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Events.EventProperty.get_Value()"
+                    ],
+                    "definition": {
+                      "path": "src/Serilog/Events/EventProperty.cs",
+                      "startLine": 37,
+                      "startColumn": 42,
+                      "endLine": 37,
+                      "endColumn": 46
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Events/LogEvent.cs",
+                        "startLine": 88,
+                        "startColumn": 47,
+                        "endLine": 88,
+                        "endColumn": 66
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n263",
+                  "kind": "call",
+                  "change": "unchanged",
+                  "label": "Dictionary<TKey, TValue>.set_Item",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "metadata:System.Collections::System.Collections.Generic.Dictionary<TKey, TValue>.set_Item(TKey,TValue)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Collections::System.Collections.Generic.Dictionary<TKey, TValue>.set_Item(TKey,TValue)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Events/LogEvent.cs",
+                        "startLine": 88,
+                        "startColumn": 13,
+                        "endLine": 88,
+                        "endColumn": 44
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "after": {
+                    "symbolId": "metadata:System.Collections::System.Collections.Generic.Dictionary<TKey, TValue>.set_Item(TKey,TValue)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Collections::System.Collections.Generic.Dictionary<TKey, TValue>.set_Item(TKey,TValue)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Serilog/Events/LogEvent.cs",
+                        "startLine": 88,
+                        "startColumn": 13,
+                        "endLine": 88,
+                        "endColumn": 44
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
             }
           ],
           "omission": null
         },
         {
-          "id": "n231",
+          "id": "n264",
           "kind": "call",
           "change": "removed",
           "label": "Logger.Dispatch",
@@ -8902,7 +10720,7 @@ stdout:
           "after": null,
           "children": [
             {
-              "id": "n232",
+              "id": "n265",
               "kind": "branch",
               "change": "removed",
               "label": "try",
@@ -8930,7 +10748,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n233",
+                  "id": "n266",
                   "kind": "call",
                   "change": "removed",
                   "label": "ILogEventEnricher.Enrich",
@@ -8971,7 +10789,7 @@ stdout:
                   "after": null,
                   "children": [
                     {
-                      "id": "n234",
+                      "id": "n267",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ LogContextEnricher.Enrich",
@@ -9005,7 +10823,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n235",
+                      "id": "n268",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ ConditionalEnricher.Enrich",
@@ -9039,7 +10857,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n236",
+                      "id": "n269",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ EmptyEnricher.Enrich",
@@ -9069,7 +10887,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n237",
+                      "id": "n270",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ FixedPropertyEnricher.Enrich",
@@ -9103,7 +10921,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n238",
+                      "id": "n271",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ PropertyEnricher.Enrich",
@@ -9137,7 +10955,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n239",
+                      "id": "n272",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ SafeAggregateEnricher.Enrich",
@@ -9177,7 +10995,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n240",
+              "id": "n273",
               "kind": "branch",
               "change": "removed",
               "label": "catch (Exception ex)",
@@ -9205,7 +11023,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n241",
+                  "id": "n274",
                   "kind": "call",
                   "change": "removed",
                   "label": "SelfLog.WriteLine",
@@ -9250,7 +11068,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n242",
+              "id": "n275",
               "kind": "call",
               "change": "removed",
               "label": "ILogEventSink.Emit",
@@ -9296,7 +11114,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n243",
+                  "id": "n276",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ Logger.Serilog.Core.ILogEventSink.Emit",
@@ -9330,7 +11148,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n244",
+                  "id": "n277",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ AggregateSink.Emit",
@@ -9364,7 +11182,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n245",
+                  "id": "n278",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ BatchingSink.Emit",
@@ -9398,7 +11216,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n246",
+                  "id": "n279",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ ConditionalSink.Emit",
@@ -9432,7 +11250,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n247",
+                  "id": "n280",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ DisposingAggregateSink.Emit",
@@ -9466,7 +11284,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n248",
+                  "id": "n281",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ FailureListenerSink.Emit",
@@ -9500,7 +11318,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n249",
+                  "id": "n282",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ FilteringSink.Emit",
@@ -9534,7 +11352,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n250",
+                  "id": "n283",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ OptionalInterfaceForwardingSink.Emit",
@@ -9568,7 +11386,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n251",
+                  "id": "n284",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ RestrictedSink.Emit",
@@ -9602,7 +11420,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n252",
+                  "id": "n285",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ SafeAggregateSink.Emit",
@@ -9636,7 +11454,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n253",
+                  "id": "n286",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ SecondaryLoggerSink.Emit",
@@ -9673,7 +11491,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n254",
+              "id": "n287",
               "kind": "branch",
               "change": "removed",
               "label": "possible initialization of SelfMetrics",
@@ -9701,7 +11519,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n255",
+                  "id": "n288",
                   "kind": "call",
                   "change": "removed",
                   "label": "initialization of SelfMetrics",
@@ -9746,7 +11564,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n256",
+              "id": "n289",
               "kind": "call",
               "change": "removed",
               "label": "SelfMetrics.PipelineEventEmitted.Add",
@@ -9781,7 +11599,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n257",
+          "id": "n290",
           "kind": "call",
           "change": "added",
           "label": "Logger.PostLevelCheckEmit",
@@ -9817,7 +11635,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n258",
+              "id": "n291",
               "kind": "branch",
               "change": "added",
               "label": "try",
@@ -9845,7 +11663,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n259",
+                  "id": "n292",
                   "kind": "call",
                   "change": "added",
                   "label": "ILogEventEnricher.Enrich",
@@ -9886,7 +11704,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n260",
+                      "id": "n293",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ LogContextEnricher.Enrich",
@@ -9920,7 +11738,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n261",
+                      "id": "n294",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ ConditionalEnricher.Enrich",
@@ -9954,7 +11772,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n262",
+                      "id": "n295",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ EmptyEnricher.Enrich",
@@ -9984,7 +11802,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n263",
+                      "id": "n296",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ FixedPropertyEnricher.Enrich",
@@ -10018,7 +11836,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n264",
+                      "id": "n297",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ PropertyEnricher.Enrich",
@@ -10052,7 +11870,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n265",
+                      "id": "n298",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ SafeAggregateEnricher.Enrich",
@@ -10092,7 +11910,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n266",
+              "id": "n299",
               "kind": "branch",
               "change": "added",
               "label": "catch (Exception ex)",
@@ -10120,7 +11938,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n267",
+                  "id": "n300",
                   "kind": "call",
                   "change": "added",
                   "label": "SelfLog.WriteLine",
@@ -10165,7 +11983,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n268",
+              "id": "n301",
               "kind": "call",
               "change": "added",
               "label": "ILogEventSink.Emit",
@@ -10211,7 +12029,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n269",
+                  "id": "n302",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ Logger.Serilog.Core.ILogEventSink.Emit",
@@ -10245,7 +12063,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n270",
+                  "id": "n303",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ AggregateSink.Emit",
@@ -10279,7 +12097,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n271",
+                  "id": "n304",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ BatchingSink.Emit",
@@ -10313,7 +12131,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n272",
+                  "id": "n305",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ ConditionalSink.Emit",
@@ -10347,7 +12165,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n273",
+                  "id": "n306",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ DisposingAggregateSink.Emit",
@@ -10381,7 +12199,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n274",
+                  "id": "n307",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ FailureListenerSink.Emit",
@@ -10415,7 +12233,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n275",
+                  "id": "n308",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ FilteringSink.Emit",
@@ -10449,7 +12267,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n276",
+                  "id": "n309",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ OptionalInterfaceForwardingSink.Emit",
@@ -10483,7 +12301,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n277",
+                  "id": "n310",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ RestrictedSink.Emit",
@@ -10517,7 +12335,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n278",
+                  "id": "n311",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ SafeAggregateSink.Emit",
@@ -10551,7 +12369,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n279",
+                  "id": "n312",
                   "kind": "dispatchTarget",
                   "change": "added",
                   "label": "⇢ SecondaryLoggerSink.Emit",
@@ -10591,7 +12409,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n280",
+          "id": "n313",
           "kind": "branch",
           "change": "added",
           "label": "possible initialization of SelfMetrics",
@@ -10619,7 +12437,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n281",
+              "id": "n314",
               "kind": "call",
               "change": "added",
               "label": "initialization of SelfMetrics",
@@ -10664,7 +12482,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n282",
+          "id": "n315",
           "kind": "call",
           "change": "added",
           "label": "SelfMetrics.PipelineEventEmitted.Add",

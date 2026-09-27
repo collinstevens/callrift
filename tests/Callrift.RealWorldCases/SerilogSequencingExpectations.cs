@@ -50,6 +50,14 @@ internal static class SerilogSequencingExpectations
         {
             Assert.Equal(write.Before!.SymbolId, write.After!.SymbolId);
             Assert.Equal(write.Before.Signature, write.After.Signature);
+            if (write.After.SymbolId!.EndsWith("(global::Serilog.Events.LogEvent)", StringComparison.Ordinal))
+                Assert.Equal(["LogEvent.get_Level", "Logger.IsEnabled"], write.Children.Take(2).Select(node => node.Label));
+            else
+            {
+                Assert.Contains(write.Children, node => node.Label == "Activity.get_Current");
+                var activity = write.Children.Where(node => node.Label == "if (currentActivity is not null)").ToArray();
+                Assert.Equal(["Activity.get_TraceId", "Activity.get_SpanId"], activity.Select(node => Assert.Single(node.Children).Label));
+            }
             var suffix = write.Children.TakeLast(3).ToArray();
             Assert.Equal(["Logger.PostLevelCheckEmit", "possible initialization of SelfMetrics", "SelfMetrics.PipelineEventEmitted.Add"],
                 suffix.Select(node => node.Label));

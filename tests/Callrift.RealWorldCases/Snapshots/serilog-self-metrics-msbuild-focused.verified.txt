@@ -36,7 +36,7 @@ stdout:
 + │  └─ initialization of SelfMetrics (changes below depth limit)
 + ├─ SelfMetrics.DiagnosticsDefaultFailureListenerLoggingFailures.Add
   ├─ possible initialization of SelfLog
-  ├─ if (exception != null)
+  ├─ if (events is not null)
   └─ …
 
   SelfLog.WriteLine
@@ -47,7 +47,9 @@ stdout:
 + └─ SelfMetrics.DiagnosticsSelfLogWrites.Add
 
 + initialization of SelfMetrics
++ ├─ Type.get_Assembly
 + ├─ typeof(Log).Assembly.GetName
++ ├─ AssemblyName.get_Version
 + ├─ if (typeof(Log).Assembly.GetName().Version is not null)
 + │  └─ .ToString
 + ├─ new
@@ -105,7 +107,7 @@ stdout:
 + │  └─ initialization of SelfMetrics (changes below depth limit)
 + ├─ SelfMetrics.DiagnosticsDefaultFailureListenerLoggingFailures.Add
   ├─ possible initialization of SelfLog
-  ├─ if (exception != null)
+  ├─ if (events is not null)
   └─ …
 
   SelfLog.WriteLine
@@ -116,7 +118,9 @@ stdout:
 + └─ SelfMetrics.DiagnosticsSelfLogWrites.Add
 
 + initialization of SelfMetrics
++ ├─ Type.get_Assembly
 + ├─ typeof(Log).Assembly.GetName
++ ├─ AssemblyName.get_Version
 + ├─ if (typeof(Log).Assembly.GetName().Version is not null)
 + │  └─ .ToString
 + ├─ new

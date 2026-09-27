@@ -93,6 +93,7 @@ stdout:
 +       └─ ⇢ SecondaryLoggerSink.Emit (changes below depth limit)
 
   Logger.Write
+  ├─ LogEvent.get_Level
   ├─ Logger.IsEnabled
 - ├─ Logger.Dispatch ↑ as above
 + ├─ Logger.PostLevelCheckEmit ↑ as above
@@ -102,7 +103,11 @@ stdout:
 
   Logger.Write
   ├─ Logger.IsEnabled
+  ├─ DateTimeOffset.get_Now
   ├─ MessageTemplateProcessor.Process
+  ├─ Activity.get_Current
+  ├─ if (currentActivity is not null)
+  ├─ if (currentActivity is not null)
   ├─ new LogEvent
 - ├─ Logger.Dispatch ↑ as above
 + ├─ Logger.PostLevelCheckEmit ↑ as above
@@ -113,8 +118,13 @@ stdout:
   Logger.Write
   ├─ Logger.IsEnabled
   ├─ if (propertyValues != null)
+  ├─ DateTimeOffset.get_Now
+  ├─ if (propertyValues == null)
   ├─ else (!(propertyValues == null))
   ├─ MessageTemplateProcessor.Process
+  ├─ Activity.get_Current
+  ├─ if (currentActivity is not null)
+  ├─ if (currentActivity is not null)
   ├─ new LogEvent
 - ├─ Logger.Dispatch ↑ as above
 + ├─ Logger.PostLevelCheckEmit ↑ as above
@@ -219,6 +229,7 @@ stdout:
 +       └─ ⇢ SecondaryLoggerSink.Emit (changes below depth limit)
 
   Logger.Write
+  ├─ LogEvent.get_Level
   ├─ Logger.IsEnabled
 - ├─ Logger.Dispatch ↑ as above
 + ├─ Logger.PostLevelCheckEmit ↑ as above
@@ -228,7 +239,11 @@ stdout:
 
   Logger.Write
   ├─ Logger.IsEnabled
+  ├─ DateTimeOffset.get_Now
   ├─ MessageTemplateProcessor.Process
+  ├─ Activity.get_Current
+  ├─ if (currentActivity is not null)
+  ├─ if (currentActivity is not null)
   ├─ new LogEvent
 - ├─ Logger.Dispatch ↑ as above
 + ├─ Logger.PostLevelCheckEmit ↑ as above
@@ -239,8 +254,13 @@ stdout:
   Logger.Write
   ├─ Logger.IsEnabled
   ├─ if (propertyValues != null)
+  ├─ DateTimeOffset.get_Now
+  ├─ if (propertyValues == null)
   ├─ else (!(propertyValues == null))
   ├─ MessageTemplateProcessor.Process
+  ├─ Activity.get_Current
+  ├─ if (currentActivity is not null)
+  ├─ if (currentActivity is not null)
   ├─ new LogEvent
 - ├─ Logger.Dispatch ↑ as above
 + ├─ Logger.PostLevelCheckEmit ↑ as above

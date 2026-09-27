@@ -18,6 +18,9 @@ internal static class SerilogMetricsExpectations
             Assert.Equal(workspace ? 184 : 135, result.Trees.Count);
             Assert.Equal(workspace ? 48 : 0, result.Trees.Count(node => node.Label.StartsWith("ILogger.", StringComparison.Ordinal)));
             Assert.Equal(workspace, result.Trees.Any(node => node.Label == "Log.CloseAndFlushAsync"));
+            var empty = Assert.Single(result.Trees, node => node.Label == "MessageTemplate.get_Empty");
+            Assert.Equal("possible initialization of MessageTemplate", Assert.Single(empty.Children).Label);
+            Assert.DoesNotContain(result.Trees, node => node.Label == "initialization of MessageTemplate");
             return;
         }
         Assert.Equal(5, result.Trees.Count);
@@ -25,6 +28,8 @@ internal static class SerilogMetricsExpectations
         Assert.Equal('+', initialization.Mark);
         Assert.Null(initialization.Before);
         Assert.Equal("src/Serilog/Debugging/SelfMetrics.cs", initialization.After!.Definition!.Path);
+        Assert.Equal(["Type.get_Assembly", "typeof(Log).Assembly.GetName", "AssemblyName.get_Version"],
+            initialization.Children.Take(3).Select(node => node.Label));
         var creation = Assert.Single(initialization.Children, node => node.After?.SymbolId?.Contains(".Meter..ctor(string,string)", StringComparison.Ordinal) == true);
         Assert.Equal(7, Assert.Single(creation.After!.CallSites).Line);
         var counters = initialization.Children.Where(node => node.Label == "Meter.CreateCounter<long>").ToArray();
@@ -37,6 +42,8 @@ internal static class SerilogMetricsExpectations
         AssertBefore(dispatch, "ILogEventSink.Emit", "SelfMetrics.PipelineEventEmitted.Add");
         AssertCounter(dispatch, "SelfMetrics.PipelineEventEmitted.Add", 483, false);
         var selfLog = Assert.Single(result.Trees, node => node.Label == "SelfLog.WriteLine");
+        var output = Assert.Single(selfLog.Children, node => node.Label == "if (o is not null)");
+        Assert.Equal("DateTime.get_UtcNow", output.Children[0].Label);
         AssertBefore(selfLog, "if (o is not null)", "SelfMetrics.DiagnosticsSelfLogWrites.Add");
         AssertCounter(selfLog, "SelfMetrics.DiagnosticsSelfLogWrites.Add", 81, false);
         var failure = Assert.Single(result.Trees, node => node.Label == "SelfLog.SelfLogFailureListener.OnLoggingFailed");

@@ -17,11 +17,13 @@ stdout:
 
   LoggerEnrichmentConfiguration.AtLevel
   ├─ Guard.AgainstNull
-~ └─ LoggerEnrichmentConfiguration.Wrap (changes below depth limit) ↑ as above
+~ └─ LoggerEnrichmentConfiguration.Wrap (changes below depth limit)
+     └─ new ConditionalEnricher (depth limit)
 
   LoggerEnrichmentConfiguration.When
   ├─ Guard.AgainstNull ×2
-~ └─ LoggerEnrichmentConfiguration.Wrap (changes below depth limit) ↑ as above
+~ └─ LoggerEnrichmentConfiguration.Wrap (changes below depth limit)
+     └─ new ConditionalEnricher (depth limit)
 
   LoggerSettingsConfiguration.KeyValuePairs
   ├─ Guard.AgainstNull
@@ -211,8 +213,9 @@ stdout:
   Logger.Warning
 ~ └─ Logger.Write (changes below depth limit)
 
-  initialization of MessageTemplate
-~ └─ new MessageTemplate (changes below depth limit)
+  MessageTemplate.get_Empty
+  └─ possible initialization of MessageTemplate
+~    └─ initialization of MessageTemplate (changes below depth limit)
 
   new MessageTemplateTextFormatter
   ├─ Guard.AgainstNull
@@ -220,20 +223,20 @@ stdout:
 ~ └─ MessageTemplateParser.Parse (changes below depth limit)
 
   Log.BindMessageTemplate
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.BindMessageTemplate
 ~    ├─ ⇢ Logger.BindMessageTemplate (changes below depth limit)
      └─ ⇢ SilentLogger.BindMessageTemplate
 
   Log.BindProperty
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.BindProperty
 ~    ├─ ⇢ Logger.BindProperty (changes below depth limit)
      └─ ⇢ SilentLogger.BindProperty
 
   Log.CloseAndFlush
   ├─ possible initialization of Log
-  ├─ possible initialization of Logger
+  ├─ Logger.get_None (depth limit)
   └─ if ((logger as IDisposable) is not null)
      └─ .Dispose
         ├─ ⇢ EnricherStack.Enumerator.Dispose
@@ -250,7 +253,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Debug
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Debug
 ~    ├─ ⇢ Logger.Debug (changes below depth limit)
      └─ ⇢ SilentLogger.Debug
@@ -259,7 +262,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Debug
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Debug
 ~    ├─ ⇢ Logger.Debug (changes below depth limit)
      └─ ⇢ SilentLogger.Debug
@@ -286,7 +289,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Error
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Error
 ~    ├─ ⇢ Logger.Error (changes below depth limit)
      └─ ⇢ SilentLogger.Error
@@ -295,7 +298,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Error
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Error
 ~    ├─ ⇢ Logger.Error (changes below depth limit)
      └─ ⇢ SilentLogger.Error
@@ -322,7 +325,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Fatal
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Fatal
 ~    ├─ ⇢ Logger.Fatal (changes below depth limit)
      └─ ⇢ SilentLogger.Fatal
@@ -331,7 +334,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Fatal
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Fatal
 ~    ├─ ⇢ Logger.Fatal (changes below depth limit)
      └─ ⇢ SilentLogger.Fatal
@@ -355,19 +358,19 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.ForContext
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.ForContext
 ~    ├─ ⇢ Logger.ForContext (changes below depth limit)
      └─ ⇢ SilentLogger.ForContext
 
   Log.ForContext
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.ForContext
 ~    ├─ ⇢ Logger.ForContext (changes below depth limit)
      └─ ⇢ SilentLogger.ForContext
 
   Log.ForContext
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.ForContext
 ~    ├─ ⇢ Logger.ForContext (changes below depth limit)
      └─ ⇢ SilentLogger.ForContext
@@ -376,7 +379,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Information
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Information
 ~    ├─ ⇢ Logger.Information (changes below depth limit)
      └─ ⇢ SilentLogger.Information
@@ -385,7 +388,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Information
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Information
 ~    ├─ ⇢ Logger.Information (changes below depth limit)
      └─ ⇢ SilentLogger.Information
@@ -412,7 +415,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Verbose
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Verbose
 ~    ├─ ⇢ Logger.Verbose (changes below depth limit)
      └─ ⇢ SilentLogger.Verbose
@@ -421,7 +424,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Verbose
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Verbose
 ~    ├─ ⇢ Logger.Verbose (changes below depth limit)
      └─ ⇢ SilentLogger.Verbose
@@ -448,7 +451,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Warning
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Warning
 ~    ├─ ⇢ Logger.Warning (changes below depth limit)
      └─ ⇢ SilentLogger.Warning
@@ -457,7 +460,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Warning
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Warning
 ~    ├─ ⇢ Logger.Warning (changes below depth limit)
      └─ ⇢ SilentLogger.Warning
@@ -481,19 +484,19 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Write
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Write
 ~    ├─ ⇢ Logger.Write (changes below depth limit)
      └─ ⇢ SilentLogger.Write
 
   Log.Write
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Write
 ~    ├─ ⇢ Logger.Write (changes below depth limit)
      └─ ⇢ SilentLogger.Write
 
   Log.Write
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Write
 ~    ├─ ⇢ Logger.Write (changes below depth limit)
      └─ ⇢ SilentLogger.Write
@@ -532,11 +535,13 @@ stdout:
 
   LoggerEnrichmentConfiguration.AtLevel
   ├─ Guard.AgainstNull
-~ └─ LoggerEnrichmentConfiguration.Wrap (changes below depth limit) ↑ as above
+~ └─ LoggerEnrichmentConfiguration.Wrap (changes below depth limit)
+     └─ new ConditionalEnricher (depth limit)
 
   LoggerEnrichmentConfiguration.When
   ├─ Guard.AgainstNull ×2
-~ └─ LoggerEnrichmentConfiguration.Wrap (changes below depth limit) ↑ as above
+~ └─ LoggerEnrichmentConfiguration.Wrap (changes below depth limit)
+     └─ new ConditionalEnricher (depth limit)
 
   LoggerSettingsConfiguration.KeyValuePairs
   ├─ Guard.AgainstNull
@@ -726,8 +731,9 @@ stdout:
   Logger.Warning
 ~ └─ Logger.Write (changes below depth limit)
 
-  initialization of MessageTemplate
-~ └─ new MessageTemplate (changes below depth limit)
+  MessageTemplate.get_Empty
+  └─ possible initialization of MessageTemplate
+~    └─ initialization of MessageTemplate (changes below depth limit)
 
   new MessageTemplateTextFormatter
   ├─ Guard.AgainstNull
@@ -735,20 +741,20 @@ stdout:
 ~ └─ MessageTemplateParser.Parse (changes below depth limit)
 
   Log.BindMessageTemplate
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.BindMessageTemplate
 ~    ├─ ⇢ Logger.BindMessageTemplate (changes below depth limit)
      └─ ⇢ SilentLogger.BindMessageTemplate
 
   Log.BindProperty
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.BindProperty
 ~    ├─ ⇢ Logger.BindProperty (changes below depth limit)
      └─ ⇢ SilentLogger.BindProperty
 
   Log.CloseAndFlush
   ├─ possible initialization of Log
-  ├─ possible initialization of Logger
+  ├─ Logger.get_None (depth limit)
   └─ if ((logger as IDisposable) is not null)
      └─ .Dispose
         ├─ ⇢ EnricherStack.Enumerator.Dispose
@@ -765,7 +771,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Debug
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Debug
 ~    ├─ ⇢ Logger.Debug (changes below depth limit)
      └─ ⇢ SilentLogger.Debug
@@ -774,7 +780,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Debug
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Debug
 ~    ├─ ⇢ Logger.Debug (changes below depth limit)
      └─ ⇢ SilentLogger.Debug
@@ -801,7 +807,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Error
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Error
 ~    ├─ ⇢ Logger.Error (changes below depth limit)
      └─ ⇢ SilentLogger.Error
@@ -810,7 +816,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Error
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Error
 ~    ├─ ⇢ Logger.Error (changes below depth limit)
      └─ ⇢ SilentLogger.Error
@@ -837,7 +843,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Fatal
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Fatal
 ~    ├─ ⇢ Logger.Fatal (changes below depth limit)
      └─ ⇢ SilentLogger.Fatal
@@ -846,7 +852,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Fatal
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Fatal
 ~    ├─ ⇢ Logger.Fatal (changes below depth limit)
      └─ ⇢ SilentLogger.Fatal
@@ -870,19 +876,19 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.ForContext
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.ForContext
 ~    ├─ ⇢ Logger.ForContext (changes below depth limit)
      └─ ⇢ SilentLogger.ForContext
 
   Log.ForContext
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.ForContext
 ~    ├─ ⇢ Logger.ForContext (changes below depth limit)
      └─ ⇢ SilentLogger.ForContext
 
   Log.ForContext
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.ForContext
 ~    ├─ ⇢ Logger.ForContext (changes below depth limit)
      └─ ⇢ SilentLogger.ForContext
@@ -891,7 +897,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Information
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Information
 ~    ├─ ⇢ Logger.Information (changes below depth limit)
      └─ ⇢ SilentLogger.Information
@@ -900,7 +906,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Information
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Information
 ~    ├─ ⇢ Logger.Information (changes below depth limit)
      └─ ⇢ SilentLogger.Information
@@ -927,7 +933,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Verbose
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Verbose
 ~    ├─ ⇢ Logger.Verbose (changes below depth limit)
      └─ ⇢ SilentLogger.Verbose
@@ -936,7 +942,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Verbose
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Verbose
 ~    ├─ ⇢ Logger.Verbose (changes below depth limit)
      └─ ⇢ SilentLogger.Verbose
@@ -963,7 +969,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Warning
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Warning
 ~    ├─ ⇢ Logger.Warning (changes below depth limit)
      └─ ⇢ SilentLogger.Warning
@@ -972,7 +978,7 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Warning
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Warning
 ~    ├─ ⇢ Logger.Warning (changes below depth limit)
      └─ ⇢ SilentLogger.Warning
@@ -996,19 +1002,19 @@ stdout:
 ~ └─ Log.Write (changes below depth limit)
 
   Log.Write
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Write
 ~    ├─ ⇢ Logger.Write (changes below depth limit)
      └─ ⇢ SilentLogger.Write
 
   Log.Write
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Write
 ~    ├─ ⇢ Logger.Write (changes below depth limit)
      └─ ⇢ SilentLogger.Write
 
   Log.Write
-  ├─ possible initialization of Log
+  ├─ Log.get_Logger (depth limit)
   └─ ILogger.Write
 ~    ├─ ⇢ Logger.Write (changes below depth limit)
      └─ ⇢ SilentLogger.Write

@@ -2036,7 +2036,7 @@
     "licenseFile": "LICENSE",
     "beforeLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
     "afterLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
-    "reason": "Add a static Meter and four counters for pipeline construction, emitted events, SelfLog writes and default failure reporting. Preserve counter-call order after sink emission and optional SelfLog output, and before the failure listener null-output return. Focused views expose meter construction, nullable version formatting, four generic counter factories, possible initialization and implicit TagList.Add binding. Independent pinned source, declaration, call-binding, root and diagnostic reviews cover both modes; upstream tests were read but not executed. Source mode omits project defines; restored net10.0 includes default-interface bodies and async disposal. The call-free null-output return guard is absent from the graph. Possible dispatch, callbacks and initialization do not establish runtime receiver values, execution counts or actual emitted metrics.",
+    "reason": "Add a static Meter and four counters for pipeline construction, emitted events, SelfLog writes and default failure reporting. Preserve counter-call order after sink emission and optional SelfLog output, and before the failure listener null-output return. Focused views expose meter construction, nullable version formatting, four generic counter factories, possible initialization and implicit TagList.Add binding. Independent pinned source, declaration, call-binding, root and diagnostic reviews cover both modes; upstream tests were read but not executed. Source mode omits project defines; restored net10.0 includes default-interface bodies and async disposal. The call-free null-output return guard is absent from the graph. Possible dispatch, callbacks and initialization do not establish runtime receiver values, execution counts or actual emitted metrics. Accessor review exposes assembly/version evaluation before meter creation, UTC time within the optional-output guard, and the MessageTemplate.Empty getter as the automatic root leading to its static initialization.",
     "tags": [
       "static-initialization",
       "collection-initializer",
@@ -2045,7 +2045,8 @@
       "interface-dispatch",
       "callbacks",
       "automatic-roots",
-      "multi-target"
+      "multi-target",
+      "properties"
     ],
     "options": [],
     "review": "../tests/Callrift.RealWorldCases/SerilogMetricsExpectations.cs",
@@ -2540,7 +2541,7 @@
     "options": [],
     "review": "../tests/Callrift.RealWorldCases/SerilogSequencingExpectations.cs",
     "routine": false,
-    "reason": "Move emitted-event counting from the shared emission helper to the public Write overloads and the span overload, preventing nested sink calls from counting the same event again. Rename Dispatch to PostLevelCheckEmit while preserving enrichment, exception logging and sink emission. Independent pinned source, declarations, bindings, dispatch, root connectivity, diagnostics and location checks cover automatic and focused views in both modes. Source mode omits project defines; restored net10.0 includes the span overload and default interface bodies. Call-free null and disabled-level return guards are absent; property access and collection-expression lowering remain unmodeled. Possible dispatch and initialization do not prove runtime receiver values, recursion or actual event counts.",
+    "reason": "Move emitted-event counting from the shared emission helper to the public Write overloads and the span overload, preventing nested sink calls from counting the same event again. Rename Dispatch to PostLevelCheckEmit while preserving enrichment, exception logging and sink emission. Independent pinned source, declarations, bindings, dispatch, root connectivity, diagnostics and location checks cover automatic and focused views in both modes. Source mode omits project defines; restored net10.0 includes the span overload and default interface bodies. Call-free null and disabled-level return guards are absent; collection-expression lowering remains unmodeled. Possible dispatch and initialization do not prove runtime receiver values, recursion or actual event counts. Accessor review preserves automatic roots and follows event-level reads before IsEnabled, Activity.Current before nullable TraceId/SpanId getters, and shared logger reads before possible dispatch.",
     "tags": [
       "call-order",
       "renames",
@@ -2550,7 +2551,8 @@
       "static-initialization",
       "exceptions",
       "automatic-roots",
-      "multi-target"
+      "multi-target",
+      "properties"
     ],
     "views": [
       {
