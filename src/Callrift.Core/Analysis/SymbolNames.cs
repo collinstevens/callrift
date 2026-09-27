@@ -128,8 +128,12 @@ internal sealed class SymbolNames(Func<IMethodSymbol, string>? scope = null, Fun
 
     public string? InitializationScope(INamedTypeSymbol type)
     {
-        var method = type.StaticConstructors.FirstOrDefault() ?? type.GetMembers().OfType<IMethodSymbol>().FirstOrDefault();
-        var identity = typeScope?.Invoke(type) ?? (scope is null ? "source" : method is null ? null : scope(method));
+        var identity = typeScope?.Invoke(type) ?? (scope is null ? "source" : null);
+        if (identity is null)
+        {
+            var method = type.StaticConstructors.FirstOrDefault() ?? type.GetMembers().OfType<IMethodSymbol>().FirstOrDefault();
+            identity = method is null ? null : scope?.Invoke(method);
+        }
         if (identity is null) return null;
         for (var current = type; current is not null; current = current.ContainingType)
             if (current.IsFileLocal && current.DeclaringSyntaxReferences.FirstOrDefault() is { } declaration)
@@ -168,9 +172,14 @@ internal sealed class SymbolNames(Func<IMethodSymbol, string>? scope = null, Fun
             span.EndLinePosition.Line + 1, span.EndLinePosition.Character + 1);
     }
 
-    public static string Compact(SyntaxNode node) => node is IdentifierNameSyntax name ? name.Identifier.Text
-        : node.ReplaceTrivia(node.DescendantTrivia(), static (_, _) => default)
-        .NormalizeWhitespace(indentation: "", eol: " ", elasticTrivia: false).ToFullString();
+    public static string Compact(SyntaxNode node) => node switch
+    {
+        IdentifierNameSyntax name => name.Identifier.Text,
+        MemberAccessExpressionSyntax { Expression: IdentifierNameSyntax receiver, Name: IdentifierNameSyntax member } access when access.IsKind(SyntaxKind.SimpleMemberAccessExpression) && !access.ContainsDiagnostics
+            => receiver.Identifier.Text + access.OperatorToken.Text + member.Identifier.Text,
+        _ => node.ReplaceTrivia(node.DescendantTrivia(), static (_, _) => default)
+            .NormalizeWhitespace(indentation: "", eol: " ", elasticTrivia: false).ToFullString()
+    };
 
     public static string SyntaxLabel(SyntaxNode node) => node switch
     {

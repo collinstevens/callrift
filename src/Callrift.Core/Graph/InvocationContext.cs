@@ -162,7 +162,7 @@ internal sealed class InvocationContext(string Key, IReadOnlyDictionary<string, 
         }
     }
 
-    public CallStep Resolve(CallStep call) => call with
+    public CallStep Resolve(CallStep call) => Arguments.Count == 0 && (!call.UsesContainingInstance || Receiver is null) ? call : call with
     {
         DispatchType = call.DispatchType is { } contract ? DispatchTypeCatalog.Substitute(contract, Arguments) : null,
         ReceiverType = call.UsesContainingInstance && Receiver is not null ? Receiver

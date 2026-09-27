@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -31,6 +32,8 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
 
     private void WalkCore(SyntaxNode node, List<CallStep> result)
     {
+        var symbol = node is IdentifierNameSyntax or GenericNameSyntax or MemberAccessExpressionSyntax
+            ? model.GetSymbolInfo(node, cancellationToken).Symbol : null;
         switch (node)
         {
             case LocalFunctionStatementSyntax or BaseTypeDeclarationSyntax or MethodDeclarationSyntax:
@@ -46,7 +49,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                     result.Add(CreateConversionCall(cast, conversionMethod, conversion.ConstrainedToType));
                 return;
             case ExpressionSyntax expression when expression is IdentifierNameSyntax or GenericNameSyntax or MemberAccessExpressionSyntax
-                && model.GetSymbolInfo(expression, cancellationToken).Symbol is IMethodSymbol method
+                && symbol is IMethodSymbol method
                 && (model.GetTypeInfo(expression, cancellationToken).ConvertedType?.TypeKind == TypeKind.Delegate
                     || model.GetOperation(expression, cancellationToken) is IMethodReferenceOperation):
                 if (expression is MemberAccessExpressionSyntax methodAccess)
@@ -57,18 +60,18 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 Walk(assignment.Left, result);
                 Branch("if (" + SymbolNames.Compact(assignment.Left) + " is null)", assignment, [assignment.Right], result);
                 return;
-            case AssignmentExpressionSyntax assignment when StaticMember(assignment.Left) is { } assignedMember:
+            case AssignmentExpressionSyntax assignment when StaticMember(model.GetSymbolInfo(assignment.Left, cancellationToken).Symbol) is { } assignedMember:
                 var readBeforeAssignment = !assignment.IsKind(SyntaxKind.SimpleAssignmentExpression) && assignedMember is not IEventSymbol;
                 if (readBeforeAssignment) Walk(assignment.Left, result);
                 Walk(assignment.Right, result);
-                if (!readBeforeAssignment) AddStaticMember(assignment.Left, result);
+                if (!readBeforeAssignment) AddStaticMember(assignment.Left, assignedMember, result);
                 return;
             case MemberAccessExpressionSyntax access:
                 Walk(access.Expression, result);
-                AddStaticMember(access, result);
+                AddStaticMember(access, symbol, result);
                 return;
             case IdentifierNameSyntax identifier:
-                AddStaticMember(identifier, result);
+                AddStaticMember(identifier, symbol, result);
                 return;
             case InvocationExpressionSyntax invocation:
                 if (invocation.Expression is IdentifierNameSyntax { Identifier.ValueText: "nameof" } && model.GetConstantValue(invocation, cancellationToken).HasValue)
@@ -174,7 +177,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             Walk(child, result);
     }
 
-    private ISymbol? StaticMember(SyntaxNode node) => model.GetSymbolInfo(node, cancellationToken).Symbol switch
+    private static ISymbol? StaticMember(ISymbol? symbol) => symbol switch
     {
         IFieldSymbol { IsStatic: true, IsConst: false } field => field,
         IPropertySymbol { IsStatic: true } property => property,
@@ -182,9 +185,10 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         _ => null
     };
 
-    private void AddStaticMember(SyntaxNode node, List<CallStep> result)
+    private void AddStaticMember(SyntaxNode node, ISymbol? symbol, List<CallStep> result)
     {
-        if (StaticMember(node) is not { } member) return;
+        cancellationToken.ThrowIfCancellationRequested();
+        if (StaticMember(symbol) is not { } member) return;
         if (member.ContainingType.Locations.Any(location => location.IsInSource) && member.ContainingType.StaticConstructors.Length == 0) return;
         var type = DescribeType(member.ContainingType);
         result.Add(new CallStep("initialize", "initialize:" + type.Name, "initialization", true, symbols.Location(node), [])
@@ -308,13 +312,24 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
     private static string? AlignmentKey(SyntaxNode node)
     {
         if (node is not (ExpressionSyntax or ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax)) return null;
-        var text = new StringBuilder();
-        foreach (var token in node.DescendantTokens())
+        var text = new DefaultInterpolatedStringHandler(0, 0, null, stackalloc char[256]);
+        try
         {
-            if (text.Length != 0) text.Append('\0');
-            text.Append(token.RawKind).Append(':').Append(token.Text);
+            var first = true;
+            foreach (var token in node.DescendantTokens())
+            {
+                if (!first) text.AppendLiteral("\0");
+                first = false;
+                text.AppendFormatted(token.RawKind);
+                text.AppendLiteral(":");
+                text.AppendLiteral(token.Text);
+            }
+            return Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(text.ToString())));
         }
-        return Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(text.ToString())));
+        finally
+        {
+            text.Clear();
+        }
     }
 
     private DispatchType? ReceiverConstraint(ExpressionSyntax? receiver, int position)
