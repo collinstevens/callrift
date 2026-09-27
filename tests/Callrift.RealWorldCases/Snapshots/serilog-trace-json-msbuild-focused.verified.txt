@@ -1,0 +1,173 @@
+﻿format: text
+exit: 0
+stdout:
+  JsonFormatter.Format
+  ├─ Guard.AgainstNull ×2
+  ├─ output.Write
+  ├─ LogEvent.get_Timestamp
+  ├─ logEvent.Timestamp.ToString
+  ├─ output.Write ×2
+  ├─ LogEvent.get_Level
+  ├─ output.Write
+  ├─ output.Write
+  ├─ LogEvent.get_MessageTemplate
+  ├─ MessageTemplate.get_Text
+  ├─ JsonValueFormatter.WriteQuotedJsonString
+  ├─ if (_renderMessage)
+  ├─ LogEvent.get_TraceId
+  ├─ ActivityTraceId.op_Inequality
+  ├─ if (logEvent.TraceId != null)
+  │  ├─ output.Write
++ │  ├─ output.Write
+  │  ├─ LogEvent.get_TraceId
+  │  ├─ logEvent.TraceId.ToString
+- │  ├─ JsonValueFormatter.WriteQuotedJsonString
+- │  │  ├─ output.Write
+- │  │  ├─ for (i < str.Length)
+- │  │  │  ├─ String.get_Length
+- │  │  │  ├─ String.get_Chars
+- │  │  │  └─ if (c is < (char)32 or '\\' or '"')
+- │  │  │     ├─ str.AsSpan
+- │  │  │     ├─ str.AsSpan().Slice
+- │  │  │     ├─ output.Write → ReusableStringWriter.Write (depth limit)
+- │  │  │     ├─ case '"':
+- │  │  │     │  └─ output.Write
+- │  │  │     ├─ case '\\':
+- │  │  │     │  └─ output.Write
+- │  │  │     ├─ case '\n':
+- │  │  │     │  └─ output.Write
+- │  │  │     ├─ case '\r':
+- │  │  │     │  └─ output.Write
+- │  │  │     ├─ case '\f':
+- │  │  │     │  └─ output.Write
+- │  │  │     ├─ case '\t':
+- │  │  │     │  └─ output.Write
+- │  │  │     └─ default:
+- │  │  │        ├─ output.Write
+- │  │  │        ├─ ((int)c).ToString
+- │  │  │        └─ output.Write
+- │  │  ├─ if (anyEscaped)
+- │  │  │  ├─ String.get_Length
+- │  │  │  └─ if (cleanSegmentStart != str.Length)
+- │  │  │     ├─ str.AsSpan
+- │  │  │     ├─ str.AsSpan().Slice
+- │  │  │     └─ output.Write → ReusableStringWriter.Write (depth limit)
+- │  │  ├─ else (!(anyEscaped))
+- │  │  │  └─ output.Write
+- │  │  └─ output.Write
++ │  ├─ output.Write
++ │  └─ output.Write
+  ├─ LogEvent.get_SpanId
+  ├─ ActivitySpanId.op_Inequality
+  ├─ if (logEvent.SpanId != null)
+  │  ├─ output.Write
++ │  ├─ output.Write
+  │  ├─ LogEvent.get_SpanId
+  │  ├─ logEvent.SpanId.ToString
+- │  ├─ JsonValueFormatter.WriteQuotedJsonString ↑ as above
++ │  ├─ output.Write
++ │  └─ output.Write
+  ├─ LogEvent.get_Exception
+  ├─ if (logEvent.Exception != null)
+  ├─ LogEvent.get_Properties
+  ├─ IReadOnlyCollection<T>.get_Count
+  ├─ if (logEvent.Properties.Count != 0)
+  ├─ LogEvent.get_MessageTemplate
+  ├─ MessageTemplate.get_TokenArray
+  ├─ logEvent.MessageTemplate.TokenArray.OfType<PropertyToken>
+  ├─ logEvent.MessageTemplate.TokenArray.OfType<PropertyToken>().Where
+  ├─ logEvent.MessageTemplate.TokenArray.OfType<PropertyToken>().Where(pt => pt.Format != null).GroupBy
+  ├─ logEvent.MessageTemplate.TokenArray.OfType<PropertyToken>().Where(pt => pt.Format != null).GroupBy(pt => pt.PropertyName).ToArray
+  ├─ Array.get_Length
+  ├─ if (tokensWithFormat.Length != 0)
+  ├─ output.Write
+  └─ output.Write
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  JsonFormatter.Format
+  ├─ Guard.AgainstNull ×2
+  ├─ output.Write
+  ├─ LogEvent.get_Timestamp
+  ├─ logEvent.Timestamp.ToString
+  ├─ output.Write ×2
+  ├─ LogEvent.get_Level
+  ├─ output.Write
+  ├─ output.Write
+  ├─ LogEvent.get_MessageTemplate
+  ├─ MessageTemplate.get_Text
+  ├─ JsonValueFormatter.WriteQuotedJsonString
+  ├─ if (_renderMessage)
+  ├─ LogEvent.get_TraceId
+  ├─ ActivityTraceId.op_Inequality
+  ├─ if (logEvent.TraceId != null)
+  │  ├─ output.Write
++ │  ├─ output.Write
+  │  ├─ LogEvent.get_TraceId
+  │  ├─ logEvent.TraceId.ToString
+- │  ├─ JsonValueFormatter.WriteQuotedJsonString
+- │  │  ├─ output.Write
+- │  │  ├─ for (i < str.Length)
+- │  │  │  ├─ String.get_Length
+- │  │  │  ├─ String.get_Chars
+- │  │  │  └─ if (c is < (char)32 or '\\' or '"')
+- │  │  │     ├─ str.AsSpan
+- │  │  │     ├─ str.AsSpan().Slice
+- │  │  │     ├─ output.Write → ReusableStringWriter.Write (depth limit)
+- │  │  │     ├─ case '"':
+- │  │  │     │  └─ output.Write
+- │  │  │     ├─ case '\\':
+- │  │  │     │  └─ output.Write
+- │  │  │     ├─ case '\n':
+- │  │  │     │  └─ output.Write
+- │  │  │     ├─ case '\r':
+- │  │  │     │  └─ output.Write
+- │  │  │     ├─ case '\f':
+- │  │  │     │  └─ output.Write
+- │  │  │     ├─ case '\t':
+- │  │  │     │  └─ output.Write
+- │  │  │     └─ default:
+- │  │  │        ├─ output.Write
+- │  │  │        ├─ ((int)c).ToString
+- │  │  │        └─ output.Write
+- │  │  ├─ if (anyEscaped)
+- │  │  │  ├─ String.get_Length
+- │  │  │  └─ if (cleanSegmentStart != str.Length)
+- │  │  │     ├─ str.AsSpan
+- │  │  │     ├─ str.AsSpan().Slice
+- │  │  │     └─ output.Write → ReusableStringWriter.Write (depth limit)
+- │  │  ├─ else (!(anyEscaped))
+- │  │  │  └─ output.Write
+- │  │  └─ output.Write
++ │  ├─ output.Write
++ │  └─ output.Write
+  ├─ LogEvent.get_SpanId
+  ├─ ActivitySpanId.op_Inequality
+  ├─ if (logEvent.SpanId != null)
+  │  ├─ output.Write
++ │  ├─ output.Write
+  │  ├─ LogEvent.get_SpanId
+  │  ├─ logEvent.SpanId.ToString
+- │  ├─ JsonValueFormatter.WriteQuotedJsonString ↑ as above
++ │  ├─ output.Write
++ │  └─ output.Write
+  ├─ LogEvent.get_Exception
+  ├─ if (logEvent.Exception != null)
+  ├─ LogEvent.get_Properties
+  ├─ IReadOnlyCollection<T>.get_Count
+  ├─ if (logEvent.Properties.Count != 0)
+  ├─ LogEvent.get_MessageTemplate
+  ├─ MessageTemplate.get_TokenArray
+  ├─ logEvent.MessageTemplate.TokenArray.OfType<PropertyToken>
+  ├─ logEvent.MessageTemplate.TokenArray.OfType<PropertyToken>().Where
+  ├─ logEvent.MessageTemplate.TokenArray.OfType<PropertyToken>().Where(pt => pt.Format != null).GroupBy
+  ├─ logEvent.MessageTemplate.TokenArray.OfType<PropertyToken>().Where(pt => pt.Format != null).GroupBy(pt => pt.PropertyName).ToArray
+  ├─ Array.get_Length
+  ├─ if (tokensWithFormat.Length != 0)
+  ├─ output.Write
+  └─ output.Write
+```
+stderr:

@@ -3412,5 +3412,76 @@
     "beforeLicenseBlob": "a3f141b4656d0e2906fb9f4d20bd364af8c3fee3",
     "afterLicenseBlob": "a3f141b4656d0e2906fb9f4d20bd364af8c3fee3",
     "review": "../tests/Callrift.RealWorldCases/PollyNullPropertyExpectations.cs"
+  },
+  {
+    "repository": "https://github.com/serilog/serilog.git",
+    "cacheName": "serilog",
+    "license": "Apache-2.0",
+    "licenseFile": "LICENSE",
+    "id": "serilog-trace-json",
+    "before": "ab020cc48186e36c8f8d989be1bb88f841ba43a8",
+    "after": "dc529798b07de14d74393f33e388a51be9c610b2",
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "2"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "JsonFormatter.Format"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "options": [
+          "--depth",
+          "2",
+          "--project",
+          "src/Serilog/Serilog.csproj",
+          "--framework",
+          "net8.0"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "JsonFormatter.Format",
+          "--project",
+          "src/Serilog/Serilog.csproj",
+          "--framework",
+          "net8.0"
+        ]
+      }
+    ],
+    "reason": "Review direct trace/span ID JSON writes through source and restored Serilog net8.0 roots and focused views. Each existing null guard retains its property read and nullable ToString call, removes WriteQuotedJsonString and adds char/string/char TextWriter writes in source order. Message template, exception and property escaping remain. Restored FEATURE_SPAN escaping uses AsSpan/Slice and possible ReusableStringWriter dispatch; source mode uses Substring. Metadata-hidden root views expose only removed source calls, while focused external-inclusive views expose the replacement writes. Depth limits remain explicit; snapshots establish call structure, not output validity, allocation savings or runtime speedup.",
+    "tags": [
+      "formatting",
+      "properties",
+      "operators",
+      "metadata",
+      "conditional-compilation",
+      "source-msbuild"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "beforeLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "afterLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "review": "../tests/Callrift.RealWorldCases/SerilogTraceJsonExpectations.cs"
   }
 ]

@@ -1,0 +1,41 @@
+﻿format: text
+exit: 0
+stdout:
+  JsonFormatter.Format
+  ├─ …
+  ├─ if (_renderMessage)
+  ├─ LogEvent.get_TraceId
+  ├─ if (logEvent.TraceId != null)
+  │  ├─ LogEvent.get_TraceId
+- │  └─ JsonValueFormatter.WriteQuotedJsonString
+  ├─ LogEvent.get_SpanId
+  ├─ if (logEvent.SpanId != null)
+  │  ├─ LogEvent.get_SpanId
+- │  └─ JsonValueFormatter.WriteQuotedJsonString
+  ├─ LogEvent.get_Exception
+  ├─ if (logEvent.Exception != null)
+  └─ …
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
+
+format: md
+exit: 0
+stdout:
+```diff
+  JsonFormatter.Format
+  ├─ …
+  ├─ if (_renderMessage)
+  ├─ LogEvent.get_TraceId
+  ├─ if (logEvent.TraceId != null)
+  │  ├─ LogEvent.get_TraceId
+- │  └─ JsonValueFormatter.WriteQuotedJsonString
+  ├─ LogEvent.get_SpanId
+  ├─ if (logEvent.SpanId != null)
+  │  ├─ LogEvent.get_SpanId
+- │  └─ JsonValueFormatter.WriteQuotedJsonString
+  ├─ LogEvent.get_Exception
+  ├─ if (logEvent.Exception != null)
+  └─ …
+```
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
