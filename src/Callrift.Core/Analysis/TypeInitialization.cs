@@ -34,15 +34,16 @@ internal static class TypeInitialization
             return new CallStep("branch", "branch:initialization:" + target.Key, "possible " + target.Label, true, location, [call])
             { IsInitialization = true };
         }
-        IReadOnlyList<CallStep> Calls(IEnumerable<CallStep> calls)
+        IReadOnlyList<CallStep> Calls(IReadOnlyList<CallStep> calls)
         {
+            if (calls.Count == 0) return calls;
             var result = new List<CallStep>();
             foreach (var call in calls)
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 if (Trigger(call.InitializationTriggerType, call.InitializationTriggerIsField, call.Location, call.InitializationScope) is { } trigger)
                     result.Add(trigger with { Relation = call.Relation, CallbackGroup = call.CallbackGroup });
-                if (call.Kind != "initialize") result.Add(call with { Children = Calls(call.Children) });
+                if (call.Kind != "initialize") result.Add(call.Children.Count == 0 ? call : call with { Children = Calls(call.Children) });
             }
             return result;
         }
@@ -52,7 +53,7 @@ internal static class TypeInitialization
             var member = pair.Value;
             var calls = Calls(member.Calls);
             if (Trigger(member.InitializationTriggerType, false, member.Location, member.InitializationScope) is { } trigger) calls = new[] { trigger }.Concat(calls).ToArray();
-            return member with { Calls = calls };
+            return ReferenceEquals(calls, member.Calls) ? member : member with { Calls = calls };
         }, StringComparer.Ordinal);
         return graph with
         {
