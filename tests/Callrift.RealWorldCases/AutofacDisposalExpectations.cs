@@ -15,7 +15,7 @@ internal static class AutofacDisposalExpectations
         if (workspace) Assert.Empty(result.Diagnostics);
         else
         {
-            Assert.Equal(174, result.Diagnostics.Count(diagnostic => diagnostic.Code == "unresolved-call"));
+            Assert.Equal(180, result.Diagnostics.Count(diagnostic => diagnostic.Code == "unresolved-call"));
             Assert.Equal(2, result.Diagnostics.Count(diagnostic => diagnostic.Code == "test-project-inferred"));
         }
         if (!focused)
@@ -40,10 +40,11 @@ internal static class AutofacDisposalExpectations
         Assert.Equal(2, startup.Children.Count);
         var guard = startup.Children[0];
         Assert.Equal("if ((options & ContainerBuildOptions.IgnoreStartableComponents) == ContainerBuildOptions.None)", guard.Label);
-        var startables = Assert.Single(guard.Children);
+        Assert.Equal(["ContainerBuilder.get_Properties", "StartableManager.StartStartableComponents"], guard.Children.Select(node => node.Label));
+        var startables = guard.Children[1];
         Assert.Equal("StartableManager.StartStartableComponents", startables.Label);
         var previousGuard = Assert.Single(root.Children, node => node.Label == guard.Label && node.Mark == '-');
-        Assert.Equal(Assert.Single(previousGuard.Children).Before!.SymbolId, startables.After!.SymbolId);
+        Assert.Equal(previousGuard.Children.Select(node => node.Before!.SymbolId), guard.Children.Select(node => node.After!.SymbolId));
         var callbacks = startup.Children[1];
         Assert.Equal("BuildCallbackManager.RunBuildCallbacks", callbacks.Label);
         var previousCallbacks = Assert.Single(root.Children, node => node.Label == callbacks.Label && node.Mark == '-');
@@ -62,6 +63,14 @@ internal static class AutofacDisposalExpectations
         Assert.Equal("depth limit", dispatch.Detail);
         Assert.DoesNotContain(Descendants(dispose.Children), node => node.Label == "if (wasDisposed == DisposedFlag)");
         Assert.DoesNotContain(Descendants(failure.Children), node => node.Label.Contains("throw", StringComparison.Ordinal));
+        Assert.True(labels.IndexOf("catch") < labels.IndexOf("ReflectionCacheSet.get_Shared"));
+        Assert.True(labels.IndexOf("ReflectionCacheSet.get_Shared") < labels.IndexOf("ReflectionCacheSet.OnContainerBuildClearCaches"));
+        Assert.Equal("ContainerBuilder.get_Properties", root.Children[0].Label);
+        var optionsSetter = root.Children[1];
+        Assert.Contains("IDictionary<TKey, TValue>.set_Item", optionsSetter.Label);
+        Assert.Equal("metadata", optionsSetter.After!.Origin);
+        Assert.Equal("possible", optionsSetter.After.Dispatch);
+        Assert.EndsWith("::Autofac.Util.FallbackDictionary<TKey, TValue>.set_Item(TKey,TValue)", Assert.Single(optionsSetter.After.TargetIds));
         Assert.Equal(' ', Assert.Single(root.Children, node => node.Label == "ReflectionCacheSet.OnContainerBuildClearCaches").Mark);
     }
 

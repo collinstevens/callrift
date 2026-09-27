@@ -2366,13 +2366,14 @@
     "after": "6caf2405e25257e01417c6c2d5a292838328d36a",
     "beforeLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
     "afterLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
-    "reason": "Dispose the newly built container when startup or build callbacks fail, preserving successful-path ordering and possible virtual cleanup dispatch; rethrow and call-free disposal guards remain unrendered",
+    "reason": "Dispose the newly built container when startup or build callbacks fail. Independent pinned source and compiler-binding review verifies getter-before-indexer ordering, Properties reads moving with startup into the try, preserved callback ordering, and shared-cache lookup before successful cleanup. Both modes expose possible FallbackDictionary indexer dispatch and a conservative cycle, which do not prove runtime receiver identity or recursion. Virtual cleanup targets Container; rethrow and call-free disposal guards remain unrendered. Automatic roots remain 28 in source mode, including 24 benchmark roots, and 4 in restored net8.0. Source has six additional unresolved calls in newly followed accessors because generated resources are unavailable; restored resources were independently regenerated and its diagnostics remain empty. Upstream disposal test additions were read but not executed.",
     "tags": [
       "exception-cleanup",
       "virtual-dispatch",
       "moved-calls",
       "startup",
-      "callback"
+      "callback",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/source-only-coverage.md",

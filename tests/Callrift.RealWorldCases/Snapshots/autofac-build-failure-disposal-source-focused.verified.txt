@@ -2,76 +2,116 @@
 exit: 0
 stdout:
   ContainerBuilder.Build
+  ├─ ContainerBuilder.get_Properties
+  ├─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item
+  ├─ ContainerBuilder.get_ComponentRegistryBuilder
   ├─ new SelfComponentRegistration
   ├─ IComponentRegistryBuilder.Register → ComponentRegistryBuilder.Register
+  ├─ ContainerBuilder.get_ComponentRegistryBuilder
   ├─ ContainerBuilder.Build
+  ├─ ContainerBuilder.get_ComponentRegistryBuilder
   ├─ IComponentRegistryBuilder.Build → ComponentRegistryBuilder.Build
   ├─ new Container
 - ├─ if ((options & ContainerBuildOptions.IgnoreStartableComponents) == ContainerBuildOptions.None)
+- │  ├─ ContainerBuilder.get_Properties
 - │  └─ StartableManager.StartStartableComponents
+- │     ├─ IComponentContext.get_ComponentRegistry
+- │     │  ├─ ⇢ Container.get_ComponentRegistry
+- │     │  ├─ ⇢ LifetimeScope.get_ComponentRegistry
+- │     │  ├─ ⇢ DefaultResolveRequestContext.get_ComponentRegistry (depth limit)
+- │     │  └─ ⇢ DecoratorContext.get_ComponentRegistry (depth limit)
 - │     ├─ try
+- │     │  ├─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item (depth limit)
 - │     │  ├─ new TypedService (depth limit)
 - │     │  ├─ IComponentRegistry.ServiceRegistrationsFor → ComponentRegistry.ServiceRegistrationsFor (depth limit)
 - │     │  ├─ componentRegistry.ServiceRegistrationsFor(startableService).Where
+- │     │  │  ├─ ServiceRegistration.get_Metadata (depth limit)
 - │     │  │  └─ r.Metadata.ContainsKey → FallbackDictionary<TKey, TValue>.ContainsKey (depth limit)
 - │     │  ├─ foreach (var registration in componentRegistry.ServiceRegistrationsFor(startableService).Where(r …
-- │     │  │  └─ try
-- │     │  │     ├─ Enumerable.Empty<Parameter>
-- │     │  │     ├─ new ResolveRequest
-- │     │  │     └─ IComponentContext.ResolveComponent
-- │     │  │        ├─ ⇢ Container.ResolveComponent (depth limit)
-- │     │  │        ├─ ⇢ LifetimeScope.ResolveComponent (depth limit)
-- │     │  │        ├─ ⇢ DefaultResolveRequestContext.ResolveComponent (depth limit)
-- │     │  │        └─ ⇢ DecoratorContext.ResolveComponent (depth limit)
+- │     │  │  ├─ try
+- │     │  │  │  ├─ Enumerable.Empty<Parameter>
+- │     │  │  │  ├─ new ResolveRequest (depth limit)
+- │     │  │  │  └─ IComponentContext.ResolveComponent
+- │     │  │  │     ├─ ⇢ Container.ResolveComponent (depth limit)
+- │     │  │  │     ├─ ⇢ LifetimeScope.ResolveComponent (depth limit)
+- │     │  │  │     ├─ ⇢ DefaultResolveRequestContext.ResolveComponent (depth limit)
+- │     │  │  │     └─ ⇢ DecoratorContext.ResolveComponent (depth limit)
+- │     │  │  └─ finally
+- │     │  │     ├─ ServiceRegistration.get_Metadata (depth limit)
+- │     │  │     └─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item (depth limit)
 - │     │  ├─ new AutoActivateService (depth limit)
 - │     │  ├─ IComponentRegistry.ServiceRegistrationsFor → ComponentRegistry.ServiceRegistrationsFor (depth limit)
 - │     │  ├─ componentRegistry.ServiceRegistrationsFor(autoActivateService).Where
+- │     │  │  ├─ ServiceRegistration.get_Metadata (depth limit)
 - │     │  │  └─ r.Metadata.ContainsKey → FallbackDictionary<TKey, TValue>.ContainsKey (depth limit)
 - │     │  └─ foreach (var registration in componentRegistry.ServiceRegistrationsFor(autoActivateService).Where…
 - │     │     ├─ try
 - │     │     │  ├─ Enumerable.Empty<Parameter>
-- │     │     │  ├─ new ResolveRequest
+- │     │     │  ├─ new ResolveRequest (depth limit)
 - │     │     │  └─ IComponentContext.ResolveComponent ↑ as above
-- │     │     └─ catch (DependencyResolutionException ex)
-- │     │        ├─ ? string.Format
-- │     │        └─ new DependencyResolutionException (depth limit)
+- │     │     ├─ catch (DependencyResolutionException ex)
+- │     │     │  ├─ CultureInfo.get_CurrentCulture
+- │     │     │  ├─ ? string.Format
+- │     │     │  └─ new DependencyResolutionException (depth limit)
+- │     │     └─ finally
+- │     │        ├─ ServiceRegistration.get_Metadata (depth limit)
+- │     │        └─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item (depth limit)
 - │     └─ finally
 - │        └─ properties.Remove → FallbackDictionary<TKey, TValue>.Remove (depth limit)
 - ├─ BuildCallbackManager.RunBuildCallbacks
+- │  ├─ IComponentContext.get_ComponentRegistry
+- │  │  ├─ ⇢ Container.get_ComponentRegistry
+- │  │  └─ ⇢ LifetimeScope.get_ComponentRegistry
 - │  ├─ possible initialization of BuildCallbackManager
 - │  │  └─ initialization of BuildCallbackManager (depth limit)
 - │  ├─ IComponentRegistry.ServiceRegistrationsFor → ComponentRegistry.ServiceRegistrationsFor
 - │  │  └─ IRegisteredServicesTracker.ServiceRegistrationsFor
 - │  │     └─ ⇢ DefaultRegisteredServicesTracker.ServiceRegistrationsFor ×2 (depth limit)
 - │  └─ foreach (var srv in buildCallbackServices)
+- │     ├─ ServiceRegistration.get_Metadata (depth limit)
 - │     ├─ srv.Metadata.ContainsKey → FallbackDictionary<TKey, TValue>.ContainsKey (depth limit)
 - │     ├─ Enumerable.Empty<Parameter>
-- │     ├─ new ResolveRequest
+- │     ├─ new ResolveRequest (depth limit)
 - │     ├─ IComponentContext.ResolveComponent
 - │     │  ├─ ⇢ Container.ResolveComponent (depth limit)
 - │     │  └─ ⇢ LifetimeScope.ResolveComponent (depth limit)
+- │     ├─ ServiceRegistration.get_Registration
+- │     ├─ IComponentRegistration.get_Metadata
+- │     │  ├─ ⇢ ComponentRegistration.get_Metadata
+- │     │  └─ ⇢ ComponentRegistrationLifetimeDecorator.get_Metadata (depth limit)
+- │     ├─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item (depth limit)
 - │     └─ BuildCallbackService.Execute (depth limit)
 + ├─ try
 + │  ├─ if ((options & ContainerBuildOptions.IgnoreStartableComponents) == ContainerBuildOptions.None)
++ │  │  ├─ ContainerBuilder.get_Properties
 + │  │  └─ StartableManager.StartStartableComponents (depth limit)
 + │  └─ BuildCallbackManager.RunBuildCallbacks
++ │     ├─ IComponentContext.get_ComponentRegistry
++ │     │  ├─ ⇢ Container.get_ComponentRegistry
++ │     │  └─ ⇢ LifetimeScope.get_ComponentRegistry
 + │     ├─ possible initialization of BuildCallbackManager
 + │     │  └─ initialization of BuildCallbackManager (depth limit)
 + │     ├─ IComponentRegistry.ServiceRegistrationsFor → ComponentRegistry.ServiceRegistrationsFor (depth limit)
 + │     └─ foreach (var srv in buildCallbackServices)
++ │        ├─ ServiceRegistration.get_Metadata (depth limit)
 + │        ├─ srv.Metadata.ContainsKey → FallbackDictionary<TKey, TValue>.ContainsKey (depth limit)
 + │        ├─ Enumerable.Empty<Parameter>
-+ │        ├─ new ResolveRequest
++ │        ├─ new ResolveRequest (depth limit)
 + │        ├─ IComponentContext.ResolveComponent
 + │        │  ├─ ⇢ Container.ResolveComponent (depth limit)
 + │        │  └─ ⇢ LifetimeScope.ResolveComponent (depth limit)
++ │        ├─ ServiceRegistration.get_Registration
++ │        ├─ IComponentRegistration.get_Metadata
++ │        │  ├─ ⇢ ComponentRegistration.get_Metadata
++ │        │  └─ ⇢ ComponentRegistrationLifetimeDecorator.get_Metadata (depth limit)
++ │        ├─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item (depth limit)
 + │        └─ BuildCallbackService.Execute (depth limit)
 + ├─ catch
 + │  └─ Disposable.Dispose
 + │     ├─ Interlocked.Exchange
 + │     ├─ Disposable.Dispose → Container.Dispose (depth limit)
 + │     └─ GC.SuppressFinalize
-  ├─ possible initialization of ReflectionCacheSet
+  ├─ ReflectionCacheSet.get_Shared
   └─ ReflectionCacheSet.OnContainerBuildClearCaches
 stderr:
 bench/Autofac.BenchmarkProfiling/Program.cs:35: unresolved-call: Cannot bind BenchmarkConverter.TypeToBenchmarks.
@@ -82,83 +122,123 @@ bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind Ben
 bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
-168 additional diagnostics; use --diagnostics full.
+174 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
 stdout:
 ```diff
   ContainerBuilder.Build
+  ├─ ContainerBuilder.get_Properties
+  ├─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item
+  ├─ ContainerBuilder.get_ComponentRegistryBuilder
   ├─ new SelfComponentRegistration
   ├─ IComponentRegistryBuilder.Register → ComponentRegistryBuilder.Register
+  ├─ ContainerBuilder.get_ComponentRegistryBuilder
   ├─ ContainerBuilder.Build
+  ├─ ContainerBuilder.get_ComponentRegistryBuilder
   ├─ IComponentRegistryBuilder.Build → ComponentRegistryBuilder.Build
   ├─ new Container
 - ├─ if ((options & ContainerBuildOptions.IgnoreStartableComponents) == ContainerBuildOptions.None)
+- │  ├─ ContainerBuilder.get_Properties
 - │  └─ StartableManager.StartStartableComponents
+- │     ├─ IComponentContext.get_ComponentRegistry
+- │     │  ├─ ⇢ Container.get_ComponentRegistry
+- │     │  ├─ ⇢ LifetimeScope.get_ComponentRegistry
+- │     │  ├─ ⇢ DefaultResolveRequestContext.get_ComponentRegistry (depth limit)
+- │     │  └─ ⇢ DecoratorContext.get_ComponentRegistry (depth limit)
 - │     ├─ try
+- │     │  ├─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item (depth limit)
 - │     │  ├─ new TypedService (depth limit)
 - │     │  ├─ IComponentRegistry.ServiceRegistrationsFor → ComponentRegistry.ServiceRegistrationsFor (depth limit)
 - │     │  ├─ componentRegistry.ServiceRegistrationsFor(startableService).Where
+- │     │  │  ├─ ServiceRegistration.get_Metadata (depth limit)
 - │     │  │  └─ r.Metadata.ContainsKey → FallbackDictionary<TKey, TValue>.ContainsKey (depth limit)
 - │     │  ├─ foreach (var registration in componentRegistry.ServiceRegistrationsFor(startableService).Where(r …
-- │     │  │  └─ try
-- │     │  │     ├─ Enumerable.Empty<Parameter>
-- │     │  │     ├─ new ResolveRequest
-- │     │  │     └─ IComponentContext.ResolveComponent
-- │     │  │        ├─ ⇢ Container.ResolveComponent (depth limit)
-- │     │  │        ├─ ⇢ LifetimeScope.ResolveComponent (depth limit)
-- │     │  │        ├─ ⇢ DefaultResolveRequestContext.ResolveComponent (depth limit)
-- │     │  │        └─ ⇢ DecoratorContext.ResolveComponent (depth limit)
+- │     │  │  ├─ try
+- │     │  │  │  ├─ Enumerable.Empty<Parameter>
+- │     │  │  │  ├─ new ResolveRequest (depth limit)
+- │     │  │  │  └─ IComponentContext.ResolveComponent
+- │     │  │  │     ├─ ⇢ Container.ResolveComponent (depth limit)
+- │     │  │  │     ├─ ⇢ LifetimeScope.ResolveComponent (depth limit)
+- │     │  │  │     ├─ ⇢ DefaultResolveRequestContext.ResolveComponent (depth limit)
+- │     │  │  │     └─ ⇢ DecoratorContext.ResolveComponent (depth limit)
+- │     │  │  └─ finally
+- │     │  │     ├─ ServiceRegistration.get_Metadata (depth limit)
+- │     │  │     └─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item (depth limit)
 - │     │  ├─ new AutoActivateService (depth limit)
 - │     │  ├─ IComponentRegistry.ServiceRegistrationsFor → ComponentRegistry.ServiceRegistrationsFor (depth limit)
 - │     │  ├─ componentRegistry.ServiceRegistrationsFor(autoActivateService).Where
+- │     │  │  ├─ ServiceRegistration.get_Metadata (depth limit)
 - │     │  │  └─ r.Metadata.ContainsKey → FallbackDictionary<TKey, TValue>.ContainsKey (depth limit)
 - │     │  └─ foreach (var registration in componentRegistry.ServiceRegistrationsFor(autoActivateService).Where…
 - │     │     ├─ try
 - │     │     │  ├─ Enumerable.Empty<Parameter>
-- │     │     │  ├─ new ResolveRequest
+- │     │     │  ├─ new ResolveRequest (depth limit)
 - │     │     │  └─ IComponentContext.ResolveComponent ↑ as above
-- │     │     └─ catch (DependencyResolutionException ex)
-- │     │        ├─ ? string.Format
-- │     │        └─ new DependencyResolutionException (depth limit)
+- │     │     ├─ catch (DependencyResolutionException ex)
+- │     │     │  ├─ CultureInfo.get_CurrentCulture
+- │     │     │  ├─ ? string.Format
+- │     │     │  └─ new DependencyResolutionException (depth limit)
+- │     │     └─ finally
+- │     │        ├─ ServiceRegistration.get_Metadata (depth limit)
+- │     │        └─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item (depth limit)
 - │     └─ finally
 - │        └─ properties.Remove → FallbackDictionary<TKey, TValue>.Remove (depth limit)
 - ├─ BuildCallbackManager.RunBuildCallbacks
+- │  ├─ IComponentContext.get_ComponentRegistry
+- │  │  ├─ ⇢ Container.get_ComponentRegistry
+- │  │  └─ ⇢ LifetimeScope.get_ComponentRegistry
 - │  ├─ possible initialization of BuildCallbackManager
 - │  │  └─ initialization of BuildCallbackManager (depth limit)
 - │  ├─ IComponentRegistry.ServiceRegistrationsFor → ComponentRegistry.ServiceRegistrationsFor
 - │  │  └─ IRegisteredServicesTracker.ServiceRegistrationsFor
 - │  │     └─ ⇢ DefaultRegisteredServicesTracker.ServiceRegistrationsFor ×2 (depth limit)
 - │  └─ foreach (var srv in buildCallbackServices)
+- │     ├─ ServiceRegistration.get_Metadata (depth limit)
 - │     ├─ srv.Metadata.ContainsKey → FallbackDictionary<TKey, TValue>.ContainsKey (depth limit)
 - │     ├─ Enumerable.Empty<Parameter>
-- │     ├─ new ResolveRequest
+- │     ├─ new ResolveRequest (depth limit)
 - │     ├─ IComponentContext.ResolveComponent
 - │     │  ├─ ⇢ Container.ResolveComponent (depth limit)
 - │     │  └─ ⇢ LifetimeScope.ResolveComponent (depth limit)
+- │     ├─ ServiceRegistration.get_Registration
+- │     ├─ IComponentRegistration.get_Metadata
+- │     │  ├─ ⇢ ComponentRegistration.get_Metadata
+- │     │  └─ ⇢ ComponentRegistrationLifetimeDecorator.get_Metadata (depth limit)
+- │     ├─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item (depth limit)
 - │     └─ BuildCallbackService.Execute (depth limit)
 + ├─ try
 + │  ├─ if ((options & ContainerBuildOptions.IgnoreStartableComponents) == ContainerBuildOptions.None)
++ │  │  ├─ ContainerBuilder.get_Properties
 + │  │  └─ StartableManager.StartStartableComponents (depth limit)
 + │  └─ BuildCallbackManager.RunBuildCallbacks
++ │     ├─ IComponentContext.get_ComponentRegistry
++ │     │  ├─ ⇢ Container.get_ComponentRegistry
++ │     │  └─ ⇢ LifetimeScope.get_ComponentRegistry
 + │     ├─ possible initialization of BuildCallbackManager
 + │     │  └─ initialization of BuildCallbackManager (depth limit)
 + │     ├─ IComponentRegistry.ServiceRegistrationsFor → ComponentRegistry.ServiceRegistrationsFor (depth limit)
 + │     └─ foreach (var srv in buildCallbackServices)
++ │        ├─ ServiceRegistration.get_Metadata (depth limit)
 + │        ├─ srv.Metadata.ContainsKey → FallbackDictionary<TKey, TValue>.ContainsKey (depth limit)
 + │        ├─ Enumerable.Empty<Parameter>
-+ │        ├─ new ResolveRequest
++ │        ├─ new ResolveRequest (depth limit)
 + │        ├─ IComponentContext.ResolveComponent
 + │        │  ├─ ⇢ Container.ResolveComponent (depth limit)
 + │        │  └─ ⇢ LifetimeScope.ResolveComponent (depth limit)
++ │        ├─ ServiceRegistration.get_Registration
++ │        ├─ IComponentRegistration.get_Metadata
++ │        │  ├─ ⇢ ComponentRegistration.get_Metadata
++ │        │  └─ ⇢ ComponentRegistrationLifetimeDecorator.get_Metadata (depth limit)
++ │        ├─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item (depth limit)
 + │        └─ BuildCallbackService.Execute (depth limit)
 + ├─ catch
 + │  └─ Disposable.Dispose
 + │     ├─ Interlocked.Exchange
 + │     ├─ Disposable.Dispose → Container.Dispose (depth limit)
 + │     └─ GC.SuppressFinalize
-  ├─ possible initialization of ReflectionCacheSet
+  ├─ ReflectionCacheSet.get_Shared
   └─ ReflectionCacheSet.OnContainerBuildClearCaches
 ```
 stderr:
@@ -170,4 +250,4 @@ bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind Ben
 bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
-168 additional diagnostics; use --diagnostics full.
+174 additional diagnostics; use --diagnostics full.

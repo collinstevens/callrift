@@ -22,77 +22,90 @@ stdout:
   ├─ …
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.Keyed → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.Keyed (depth limit)
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeyedGenericBenchmark.Setup
   ├─ …
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.Named → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.Named (depth limit)
   ├─ RegistrationExtensions.RegisterGenericDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeyedNestedBenchmark.Setup
   ├─ …
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeyedSimpleBenchmark.Setup
   ├─ …
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.Named → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.Named (depth limit)
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeylessGenericBenchmark.Setup
   ├─ …
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
   ├─ RegistrationExtensions.RegisterGenericDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeylessNestedBenchmark.Setup
   ├─ …
   ├─ RegistrationExtensions.RegisterDecorator ×2 (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeylessNestedLambdaBenchmark.Setup
   ├─ …
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeylessNestedSharedInstanceBenchmark.Setup
   ├─ …
   ├─ RegistrationExtensions.RegisterDecorator ×2 (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeylessNestedSharedInstanceLambdaBenchmark.Setup
   ├─ …
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeylessSimpleBenchmark.Setup
   ├─ …
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeylessSimpleLambdaBenchmark.Setup
   ├─ …
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeylessSimpleSharedInstanceBenchmark.Setup
   ├─ …
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeylessSimpleSharedInstanceLambdaBenchmark.Setup
   ├─ …
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   DeepGraphResolveBenchmark.Setup
   ├─ …
@@ -107,7 +120,7 @@ stdout:
 
   LambdaResolveBenchmark.Setup
   ├─ …
-  ├─ RegistrationExtensions.WithParameter
+  ├─ RegistrationExtensions.WithParameter (depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
@@ -161,7 +174,7 @@ bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind Ben
 bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
-168 additional diagnostics; use --diagnostics full.
+174 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -188,77 +201,90 @@ stdout:
   ├─ …
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.Keyed → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.Keyed (depth limit)
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeyedGenericBenchmark.Setup
   ├─ …
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.Named → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.Named (depth limit)
   ├─ RegistrationExtensions.RegisterGenericDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeyedNestedBenchmark.Setup
   ├─ …
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeyedSimpleBenchmark.Setup
   ├─ …
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.Named → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.Named (depth limit)
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeylessGenericBenchmark.Setup
   ├─ …
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
   ├─ RegistrationExtensions.RegisterGenericDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeylessNestedBenchmark.Setup
   ├─ …
   ├─ RegistrationExtensions.RegisterDecorator ×2 (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeylessNestedLambdaBenchmark.Setup
   ├─ …
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeylessNestedSharedInstanceBenchmark.Setup
   ├─ …
   ├─ RegistrationExtensions.RegisterDecorator ×2 (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeylessNestedSharedInstanceLambdaBenchmark.Setup
   ├─ …
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeylessSimpleBenchmark.Setup
   ├─ …
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeylessSimpleLambdaBenchmark.Setup
   ├─ …
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeylessSimpleSharedInstanceBenchmark.Setup
   ├─ …
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   KeylessSimpleSharedInstanceLambdaBenchmark.Setup
   ├─ …
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope (depth limit)
   ├─ RegistrationExtensions.RegisterDecorator (depth limit)
-~ └─ ContainerBuilder.Build (changes below depth limit)
+~ ├─ ContainerBuilder.Build (changes below depth limit)
+  └─ DecoratorBenchmarkBase<TCommandHandler>.set_Container
 
   DeepGraphResolveBenchmark.Setup
   ├─ …
@@ -273,7 +299,7 @@ stdout:
 
   LambdaResolveBenchmark.Setup
   ├─ …
-  ├─ RegistrationExtensions.WithParameter
+  ├─ RegistrationExtensions.WithParameter (depth limit)
   ├─ IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As (depth limit)
 ~ └─ ContainerBuilder.Build (changes below depth limit)
 
@@ -328,4 +354,4 @@ bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind Ben
 bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
-168 additional diagnostics; use --diagnostics full.
+174 additional diagnostics; use --diagnostics full.
