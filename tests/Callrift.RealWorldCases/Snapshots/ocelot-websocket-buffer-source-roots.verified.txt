@@ -1,0 +1,261 @@
+﻿format: text
+exit: 0
+stdout:
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+  └─ OcelotMiddlewareExtensions.UseOcelot
+     ├─ OcelotMiddlewareExtensions.CreateConfiguration (depth limit)
+     ├─ OcelotMiddlewareExtensions.ConfigureDiagnosticListener (depth limit)
+~    └─ OcelotMiddlewareExtensions.CreateOcelotPipeline (changes below depth limit)
+
++ OcelotPipelineExtensions.ConfigureWebSockets
++ ├─ ? app.UseMiddleware<DownstreamRouteFinderMiddleware>
++ ├─ ? app.UseMiddleware<MultiplexingMiddleware>
++ ├─ ? app.UseMiddleware<DownstreamRequestInitialiserMiddleware>
++ ├─ ? app.UseMiddleware<LoadBalancingMiddleware>
++ ├─ ? app.UseMiddleware<DownstreamUrlCreatorMiddleware>
++ ├─ OcelotPipelineConfiguration.get_WebSocketsMiddlewareType
++ ├─ OcelotPipelineExtensions.UseIfNotNull
++ │  └─ ? builder.UseMiddleware
++ ├─ OcelotPipelineConfiguration.get_WebSocketsMiddleware
++ ├─ OcelotPipelineConfiguration.get_WebSocketsMiddlewareType
++ └─ OcelotPipelineExtensions.UseIfNotNull
++    ├─ if (middleware != null)
++    │  └─ ? builder.Use
++    └─ else (!(middleware != null))
++       └─ if (addDefault)
++          └─ ? builder.UseMiddleware<TMiddleware>
+
++ new MyWebSocketsProxyMiddleware
++ └─ new WebSocketsProxyMiddleware
++    ├─ IOcelotLoggerFactory.CreateLogger → OcelotLoggerFactory.CreateLogger (depth limit)
++    └─ new OcelotMiddleware
+
+  WebSocketsSteps.StartHttp2OcelotWithWebSockets
+  ├─ AcceptanceSteps.DownstreamUrl
+  └─ AcceptanceSteps.GivenOcelotHostIsRunning
+     ├─ …
+     ├─ AcceptanceSteps.DownstreamUrl (depth limit)
+     ├─ TestHostBuilder.CreateHost (depth limit)
+     ├─ if (сonfigureWebHost is null)
+     │  └─ callback
+~    │     └─ AcceptanceSteps.GivenOcelotHostIsRunning.ConfigureWeb (changes below depth limit)
+     ├─ ? TestHostBuilder.CreateHost().ConfigureWebHost
+     ├─ ? TestHostBuilder.CreateHost().ConfigureWebHost(сonfigureWebHost ?? ConfigureWeb).Build
+     ├─ …
+     ├─ AcceptanceSteps.WithBasicConfiguration (depth limit)
+     ├─ AcceptanceSteps.WithAddOcelot (depth limit)
+~    ├─ WebSocketsSteps.WithWebSockets (changes below depth limit)
+     └─ WebSocketsSteps.StartHttp2OcelotWithWebSockets.ConfigureWebHost (depth limit)
+
+  WebSocketsSteps.StartOcelotWithWebSockets
+  └─ WebSocketsSteps.StartOcelotWithWebSockets
+     ├─ AcceptanceSteps.DownstreamUrl
+     ├─ if (configureServices is null)
+     └─ AcceptanceSteps.GivenOcelotHostIsRunning (changes below depth limit)
+        ├─ AcceptanceSteps.WithBasicConfiguration (depth limit)
+~       ├─ WebSocketsSteps.WithWebSockets (changes below depth limit)
+        └─ WebSocketsSteps.StartOcelotWithWebSockets.ConfigureWebHost (depth limit)
+
+- new WebSocketsProxyMiddleware
+- ├─ IOcelotLoggerFactory.CreateLogger → OcelotLoggerFactory.CreateLogger
+- │  └─ new OcelotLogger
+- └─ new OcelotMiddleware
+
++ WebSocketsSteps.StartOcelotWithWebSockets
++ ├─ AcceptanceSteps.DownstreamUrl
++ │  └─ AcceptanceSteps.DownstreamUrl
++ ├─ if (configureServices is null)
++ │  └─ callback
++ │     └─ AcceptanceSteps.WithAddOcelot (depth limit)
++ └─ AcceptanceSteps.GivenOcelotHostIsRunning
++    ├─ PortFinder.GetRandomPort (depth limit)
++    ├─ AcceptanceSteps.DownstreamUrl (depth limit)
++    ├─ TestHostBuilder.CreateHost (depth limit)
++    ├─ if (сonfigureWebHost is null)
++    │  └─ callback
++    │     └─ AcceptanceSteps.GivenOcelotHostIsRunning.ConfigureWeb (changes below depth limit)
++    ├─ ? TestHostBuilder.CreateHost().ConfigureWebHost
++    ├─ ? TestHostBuilder.CreateHost().ConfigureWebHost(сonfigureWebHost ?? ConfigureWeb).Build
++    ├─ ? host.StartAsync
++    ├─ if (ocelotServer is not null)
++    │  └─ ? .CreateClient
++    ├─ AcceptanceSteps.WithBasicConfiguration (depth limit)
++    ├─ WebSocketsSteps.StartOcelotWithWebSockets.WithWebSocketsAndConfig (changes below depth limit)
++    └─ WebSocketsSteps.StartOcelotWithWebSockets.ConfigureWebHost (changes below depth limit)
+
+~ WebSocketsProxyMiddleware.PumpAsync (signature changed)
++ ├─ WebSocketsProxyMiddleware.get_BufferSize ×2
++ │  ├─ ⇢ MyWebSocketsProxyMiddleware.get_BufferSize
++ │  └─ ⇢ WebSocketsProxyMiddleware.get_BufferSize
+  └─ while (true)
+
++ Program.<Main>$.CustomWebSocketsProxyMiddleware.Next
+
++ Program.<Main>$.GetWelcomeHtmlAsync
+
++ samples/WebSocket/Program.cs::<top-level>
++ ├─ ? WebApplication.CreateBuilder
++ ├─ ? builder.Configuration.SetBasePath
++ ├─ ? builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot
++ ├─ ? builder.Services.AddOcelot
++ ├─ ? builder.Environment.IsDevelopment
++ ├─ if (builder.Environment.IsDevelopment())
++ │  └─ ? builder.Logging.AddConsole
++ ├─ ? builder.Build
++ ├─ ? app.UseStaticFiles
++ ├─ ? app.Use
++ │  ├─ if (context.Request.Path == "/" && context.Request.Method == "GET")
++ │  │  ├─ ? GetWelcomeHtmlAsync
++ │  │  └─ ? context.Response.WriteAsync
++ │  └─ else (!(context.Request.Path == "/" && context.Request.Method == "GET"))
++ │     └─ ? next
++ ├─ new OcelotPipelineConfiguration
++ ├─ OcelotPipelineConfiguration.set_WebSocketsMiddlewareType
++ ├─ callback
++ │  └─ Program.<Main>$.CustomWebSocketsProxyMiddleware (changes below depth limit)
++ ├─ OcelotPipelineConfiguration.set_WebSocketsMiddleware
++ ├─ ? app.UseOcelot
++ └─ ? app.RunAsync
+stderr:
+samples/Basic/Program.cs:4: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+samples/Basic/Program.cs:7: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+samples/Basic/Program.cs:7: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+samples/Basic/Program.cs:10: unresolved-call: Cannot bind builder.Services.AddOcelot.
+samples/Basic/Program.cs:14: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+samples/Basic/Program.cs:16: unresolved-call: Cannot bind builder.Logging.AddConsole.
+samples/Basic/Program.cs:20: unresolved-call: Cannot bind builder.Build.
+samples/Basic/Program.cs:21: unresolved-call: Cannot bind app.UseOcelot.
+1110 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+  └─ OcelotMiddlewareExtensions.UseOcelot
+     ├─ OcelotMiddlewareExtensions.CreateConfiguration (depth limit)
+     ├─ OcelotMiddlewareExtensions.ConfigureDiagnosticListener (depth limit)
+~    └─ OcelotMiddlewareExtensions.CreateOcelotPipeline (changes below depth limit)
+
++ OcelotPipelineExtensions.ConfigureWebSockets
++ ├─ ? app.UseMiddleware<DownstreamRouteFinderMiddleware>
++ ├─ ? app.UseMiddleware<MultiplexingMiddleware>
++ ├─ ? app.UseMiddleware<DownstreamRequestInitialiserMiddleware>
++ ├─ ? app.UseMiddleware<LoadBalancingMiddleware>
++ ├─ ? app.UseMiddleware<DownstreamUrlCreatorMiddleware>
++ ├─ OcelotPipelineConfiguration.get_WebSocketsMiddlewareType
++ ├─ OcelotPipelineExtensions.UseIfNotNull
++ │  └─ ? builder.UseMiddleware
++ ├─ OcelotPipelineConfiguration.get_WebSocketsMiddleware
++ ├─ OcelotPipelineConfiguration.get_WebSocketsMiddlewareType
++ └─ OcelotPipelineExtensions.UseIfNotNull
++    ├─ if (middleware != null)
++    │  └─ ? builder.Use
++    └─ else (!(middleware != null))
++       └─ if (addDefault)
++          └─ ? builder.UseMiddleware<TMiddleware>
+
++ new MyWebSocketsProxyMiddleware
++ └─ new WebSocketsProxyMiddleware
++    ├─ IOcelotLoggerFactory.CreateLogger → OcelotLoggerFactory.CreateLogger (depth limit)
++    └─ new OcelotMiddleware
+
+  WebSocketsSteps.StartHttp2OcelotWithWebSockets
+  ├─ AcceptanceSteps.DownstreamUrl
+  └─ AcceptanceSteps.GivenOcelotHostIsRunning
+     ├─ …
+     ├─ AcceptanceSteps.DownstreamUrl (depth limit)
+     ├─ TestHostBuilder.CreateHost (depth limit)
+     ├─ if (сonfigureWebHost is null)
+     │  └─ callback
+~    │     └─ AcceptanceSteps.GivenOcelotHostIsRunning.ConfigureWeb (changes below depth limit)
+     ├─ ? TestHostBuilder.CreateHost().ConfigureWebHost
+     ├─ ? TestHostBuilder.CreateHost().ConfigureWebHost(сonfigureWebHost ?? ConfigureWeb).Build
+     ├─ …
+     ├─ AcceptanceSteps.WithBasicConfiguration (depth limit)
+     ├─ AcceptanceSteps.WithAddOcelot (depth limit)
+~    ├─ WebSocketsSteps.WithWebSockets (changes below depth limit)
+     └─ WebSocketsSteps.StartHttp2OcelotWithWebSockets.ConfigureWebHost (depth limit)
+
+  WebSocketsSteps.StartOcelotWithWebSockets
+  └─ WebSocketsSteps.StartOcelotWithWebSockets
+     ├─ AcceptanceSteps.DownstreamUrl
+     ├─ if (configureServices is null)
+     └─ AcceptanceSteps.GivenOcelotHostIsRunning (changes below depth limit)
+        ├─ AcceptanceSteps.WithBasicConfiguration (depth limit)
+~       ├─ WebSocketsSteps.WithWebSockets (changes below depth limit)
+        └─ WebSocketsSteps.StartOcelotWithWebSockets.ConfigureWebHost (depth limit)
+
+- new WebSocketsProxyMiddleware
+- ├─ IOcelotLoggerFactory.CreateLogger → OcelotLoggerFactory.CreateLogger
+- │  └─ new OcelotLogger
+- └─ new OcelotMiddleware
+
++ WebSocketsSteps.StartOcelotWithWebSockets
++ ├─ AcceptanceSteps.DownstreamUrl
++ │  └─ AcceptanceSteps.DownstreamUrl
++ ├─ if (configureServices is null)
++ │  └─ callback
++ │     └─ AcceptanceSteps.WithAddOcelot (depth limit)
++ └─ AcceptanceSteps.GivenOcelotHostIsRunning
++    ├─ PortFinder.GetRandomPort (depth limit)
++    ├─ AcceptanceSteps.DownstreamUrl (depth limit)
++    ├─ TestHostBuilder.CreateHost (depth limit)
++    ├─ if (сonfigureWebHost is null)
++    │  └─ callback
++    │     └─ AcceptanceSteps.GivenOcelotHostIsRunning.ConfigureWeb (changes below depth limit)
++    ├─ ? TestHostBuilder.CreateHost().ConfigureWebHost
++    ├─ ? TestHostBuilder.CreateHost().ConfigureWebHost(сonfigureWebHost ?? ConfigureWeb).Build
++    ├─ ? host.StartAsync
++    ├─ if (ocelotServer is not null)
++    │  └─ ? .CreateClient
++    ├─ AcceptanceSteps.WithBasicConfiguration (depth limit)
++    ├─ WebSocketsSteps.StartOcelotWithWebSockets.WithWebSocketsAndConfig (changes below depth limit)
++    └─ WebSocketsSteps.StartOcelotWithWebSockets.ConfigureWebHost (changes below depth limit)
+
+~ WebSocketsProxyMiddleware.PumpAsync (signature changed)
++ ├─ WebSocketsProxyMiddleware.get_BufferSize ×2
++ │  ├─ ⇢ MyWebSocketsProxyMiddleware.get_BufferSize
++ │  └─ ⇢ WebSocketsProxyMiddleware.get_BufferSize
+  └─ while (true)
+
++ Program.<Main>$.CustomWebSocketsProxyMiddleware.Next
+
++ Program.<Main>$.GetWelcomeHtmlAsync
+
++ samples/WebSocket/Program.cs::<top-level>
++ ├─ ? WebApplication.CreateBuilder
++ ├─ ? builder.Configuration.SetBasePath
++ ├─ ? builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot
++ ├─ ? builder.Services.AddOcelot
++ ├─ ? builder.Environment.IsDevelopment
++ ├─ if (builder.Environment.IsDevelopment())
++ │  └─ ? builder.Logging.AddConsole
++ ├─ ? builder.Build
++ ├─ ? app.UseStaticFiles
++ ├─ ? app.Use
++ │  ├─ if (context.Request.Path == "/" && context.Request.Method == "GET")
++ │  │  ├─ ? GetWelcomeHtmlAsync
++ │  │  └─ ? context.Response.WriteAsync
++ │  └─ else (!(context.Request.Path == "/" && context.Request.Method == "GET"))
++ │     └─ ? next
++ ├─ new OcelotPipelineConfiguration
++ ├─ OcelotPipelineConfiguration.set_WebSocketsMiddlewareType
++ ├─ callback
++ │  └─ Program.<Main>$.CustomWebSocketsProxyMiddleware (changes below depth limit)
++ ├─ OcelotPipelineConfiguration.set_WebSocketsMiddleware
++ ├─ ? app.UseOcelot
++ └─ ? app.RunAsync
+```
+stderr:
+samples/Basic/Program.cs:4: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+samples/Basic/Program.cs:7: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+samples/Basic/Program.cs:7: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+samples/Basic/Program.cs:10: unresolved-call: Cannot bind builder.Services.AddOcelot.
+samples/Basic/Program.cs:14: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+samples/Basic/Program.cs:16: unresolved-call: Cannot bind builder.Logging.AddConsole.
+samples/Basic/Program.cs:20: unresolved-call: Cannot bind builder.Build.
+samples/Basic/Program.cs:21: unresolved-call: Cannot bind app.UseOcelot.
+1110 additional diagnostics; use --diagnostics full.

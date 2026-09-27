@@ -1,0 +1,73 @@
+﻿format: text
+exit: 0
+stdout:
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+  └─ OcelotMiddlewareExtensions.UseOcelot
+     ├─ OcelotMiddlewareExtensions.CreateConfiguration (depth limit)
+     ├─ OcelotMiddlewareExtensions.ConfigureDiagnosticListener
+~    └─ OcelotMiddlewareExtensions.CreateOcelotPipeline (changes below depth limit)
+
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+  └─ OcelotMiddlewareExtensions.UseOcelot ↑ as above
+
++ OcelotPipelineConfiguration.set_WebSocketsMiddleware
+
++ OcelotPipelineConfiguration.set_WebSocketsMiddlewareType
+
+~ new WebSocketsProxyMiddleware (signature changed)
+  ├─ IOcelotLoggerFactory.CreateLogger → OcelotLoggerFactory.CreateLogger
+  └─ new OcelotMiddleware
+
+  WebSocketsProxyMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRequest
+  ├─ HttpItemsExtensions.DownstreamRoute
+  └─ WebSocketsProxyMiddleware.Proxy
+     ├─ …
+     ├─ IClientWebSocket.get_SubProtocol → ClientWebSocketProxy.get_SubProtocol (depth limit)
+     ├─ IClientWebSocketConnector.ToWebSocket → ClientWebSocketProxy.ToWebSocket
+-    ├─ WebSocketsProxyMiddleware.PumpAsync (changes below depth limit)
++    ├─ WebSocketsProxyMiddleware.PumpAsync (changes below depth limit)
+     ├─ IClientWebSocketConnector.ToWebSocket → ClientWebSocketProxy.ToWebSocket
+-    ├─ WebSocketsProxyMiddleware.PumpAsync (changes below depth limit)
++    └─ WebSocketsProxyMiddleware.PumpAsync (changes below depth limit)
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+  └─ OcelotMiddlewareExtensions.UseOcelot
+     ├─ OcelotMiddlewareExtensions.CreateConfiguration (depth limit)
+     ├─ OcelotMiddlewareExtensions.ConfigureDiagnosticListener
+~    └─ OcelotMiddlewareExtensions.CreateOcelotPipeline (changes below depth limit)
+
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+  └─ OcelotMiddlewareExtensions.UseOcelot ↑ as above
+
++ OcelotPipelineConfiguration.set_WebSocketsMiddleware
+
++ OcelotPipelineConfiguration.set_WebSocketsMiddlewareType
+
+~ new WebSocketsProxyMiddleware (signature changed)
+  ├─ IOcelotLoggerFactory.CreateLogger → OcelotLoggerFactory.CreateLogger
+  └─ new OcelotMiddleware
+
+  WebSocketsProxyMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRequest
+  ├─ HttpItemsExtensions.DownstreamRoute
+  └─ WebSocketsProxyMiddleware.Proxy
+     ├─ …
+     ├─ IClientWebSocket.get_SubProtocol → ClientWebSocketProxy.get_SubProtocol (depth limit)
+     ├─ IClientWebSocketConnector.ToWebSocket → ClientWebSocketProxy.ToWebSocket
+-    ├─ WebSocketsProxyMiddleware.PumpAsync (changes below depth limit)
++    ├─ WebSocketsProxyMiddleware.PumpAsync (changes below depth limit)
+     ├─ IClientWebSocketConnector.ToWebSocket → ClientWebSocketProxy.ToWebSocket
+-    ├─ WebSocketsProxyMiddleware.PumpAsync (changes below depth limit)
++    └─ WebSocketsProxyMiddleware.PumpAsync (changes below depth limit)
+```
+stderr:

@@ -1,0 +1,217 @@
+﻿format: text
+exit: 0
+stdout:
+  OcelotPipelineExtensions.BuildOcelotPipeline
+  ├─ ? app.UseMiddleware<ConfigurationMiddleware>
+  ├─ ? app.UseMiddleware<ExceptionHandlerMiddleware>
++ ├─ ? app.UseWebSockets
+  ├─ ? app.MapWhen
+- │  ├─ ? ws.UseMiddleware<DownstreamRouteFinderMiddleware>
+- │  ├─ ? ws.UseMiddleware<MultiplexingMiddleware>
+- │  ├─ ? ws.UseMiddleware<DownstreamRequestInitialiserMiddleware>
+- │  ├─ ? ws.UseMiddleware<LoadBalancingMiddleware>
+- │  ├─ ? ws.UseMiddleware<DownstreamUrlCreatorMiddleware>
+- │  ├─ ? ws.UseMiddleware<WebSocketsProxyMiddleware>
++ │  └─ ? app.ConfigureWebSockets
+  ├─ OcelotPipelineConfiguration.get_PreErrorResponderMiddleware
+~ ├─ OcelotPipelineExtensions.UseIfNotNull (signature changed)
+  │  └─ if (middleware != null)
+  ├─ OcelotPipelineConfiguration.get_ResponderMiddleware
+- ├─ OcelotPipelineExtensions.UseIfNotNull
+- │  ├─ if (middleware != null)
+- │  │  └─ ? builder.Use
+- │  └─ else (!(middleware != null))
+- │     └─ ? builder.UseMiddleware<TMiddleware>
++ ├─ OcelotPipelineExtensions.UseIfNotNull
++ │  ├─ if (middleware != null)
++ │  │  └─ ? builder.Use
++ │  └─ else (!(middleware != null))
++ │     └─ if (addDefault)
++ │        └─ ? builder.UseMiddleware<TMiddleware>
+  ├─ ? app.UseMiddleware<DownstreamRouteFinderMiddleware>
+  ├─ ? app.UseMiddleware<MultiplexingMiddleware>
+  ├─ ? app.UseMiddleware<SecurityMiddleware>
+  ├─ OcelotPipelineConfiguration.get_MapWhenOcelotPipeline
+- ├─ if (configuration.MapWhenOcelotPipeline != null)
+- │  ├─ OcelotPipelineConfiguration.get_MapWhenOcelotPipeline
+- │  └─ foreach (var pipeline in configuration.MapWhenOcelotPipeline)
+- │     ├─ KeyValuePair<TKey, TValue>.get_Key
+- │     ├─ KeyValuePair<TKey, TValue>.get_Value
+- │     └─ ? app.MapWhen
++ ├─ foreach (var branch in configuration.MapWhenOcelotPipeline)
++ │  ├─ KeyValuePair<TKey, TValue>.get_Key
++ │  ├─ KeyValuePair<TKey, TValue>.get_Value
++ │  └─ ? app.MapWhen
+  ├─ ? app.UseMiddleware<HttpHeadersTransformationMiddleware>
+  ├─ ? app.UseMiddleware<DownstreamRequestInitialiserMiddleware>
+  ├─ ? app.UseMiddleware<RateLimitingMiddleware>
+  ├─ ? app.UseMiddleware<RequestIdMiddleware>
+  ├─ OcelotPipelineConfiguration.get_PreAuthenticationMiddleware
+~ ├─ OcelotPipelineExtensions.UseIfNotNull (signature changed) ↑ as above
+  ├─ OcelotPipelineConfiguration.get_AuthenticationMiddleware
+- ├─ OcelotPipelineExtensions.UseIfNotNull ↑ as above
++ ├─ OcelotPipelineExtensions.UseIfNotNull ↑ as above
+  ├─ ? app.UseMiddleware<ClaimsToClaimsMiddleware>
+  ├─ OcelotPipelineConfiguration.get_PreAuthorizationMiddleware
+~ ├─ OcelotPipelineExtensions.UseIfNotNull (signature changed) ↑ as above
+  ├─ OcelotPipelineConfiguration.get_AuthorizationMiddleware
+- ├─ OcelotPipelineExtensions.UseIfNotNull ↑ as above
++ ├─ OcelotPipelineExtensions.UseIfNotNull ↑ as above
+  ├─ OcelotPipelineConfiguration.get_ClaimsToHeadersMiddleware
+- ├─ OcelotPipelineExtensions.UseIfNotNull ↑ as above
++ ├─ OcelotPipelineExtensions.UseIfNotNull ↑ as above
+  ├─ OcelotPipelineConfiguration.get_PreQueryStringBuilderMiddleware
+~ ├─ OcelotPipelineExtensions.UseIfNotNull (signature changed) ↑ as above
+  ├─ ? app.UseMiddleware<ClaimsToQueryStringMiddleware>
+  ├─ ? app.UseMiddleware<ClaimsToDownstreamPathMiddleware>
+  ├─ ? app.UseMiddleware<LoadBalancingMiddleware>
+  ├─ ? app.UseMiddleware<DownstreamUrlCreatorMiddleware>
+  ├─ ? app.UseMiddleware<OutputCacheMiddleware>
+  ├─ ? app.UseMiddleware<HttpRequesterMiddleware>
+  └─ ? app.Build
+
++ OcelotPipelineExtensions.ConfigureWebSockets
++ ├─ ? app.UseMiddleware<DownstreamRouteFinderMiddleware>
++ ├─ ? app.UseMiddleware<MultiplexingMiddleware>
++ ├─ ? app.UseMiddleware<DownstreamRequestInitialiserMiddleware>
++ ├─ ? app.UseMiddleware<LoadBalancingMiddleware>
++ ├─ ? app.UseMiddleware<DownstreamUrlCreatorMiddleware>
++ ├─ OcelotPipelineConfiguration.get_WebSocketsMiddlewareType
++ ├─ OcelotPipelineExtensions.UseIfNotNull
++ │  ├─ Type.get_BaseType
++ │  ├─ middlewareType.BaseType.Equals
++ │  ├─ if (!middlewareType.BaseType.Equals(typeof(TMiddlewareBase)))
++ │  │  ├─ Type.get_FullName ×2
++ │  │  └─ new Exception
++ │  └─ ? builder.UseMiddleware
++ ├─ OcelotPipelineConfiguration.get_WebSocketsMiddleware
++ ├─ OcelotPipelineConfiguration.get_WebSocketsMiddlewareType
++ └─ OcelotPipelineExtensions.UseIfNotNull ↑ as above
+
+~ WebSocketsProxyMiddleware.PumpAsync (signature changed)
++ ├─ WebSocketsProxyMiddleware.get_BufferSize
++ │  ├─ ⇢ MyWebSocketsProxyMiddleware.get_BufferSize
++ │  └─ ⇢ WebSocketsProxyMiddleware.get_BufferSize
+  ├─ ArgumentOutOfRangeException.ThrowIfNegativeOrZero
++ ├─ WebSocketsProxyMiddleware.get_BufferSize ↑ as above
+  └─ while (true)
+stderr:
+samples/Basic/Program.cs:4: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+samples/Basic/Program.cs:7: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+samples/Basic/Program.cs:7: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+samples/Basic/Program.cs:10: unresolved-call: Cannot bind builder.Services.AddOcelot.
+samples/Basic/Program.cs:14: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+samples/Basic/Program.cs:16: unresolved-call: Cannot bind builder.Logging.AddConsole.
+samples/Basic/Program.cs:20: unresolved-call: Cannot bind builder.Build.
+samples/Basic/Program.cs:21: unresolved-call: Cannot bind app.UseOcelot.
+1110 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  OcelotPipelineExtensions.BuildOcelotPipeline
+  ├─ ? app.UseMiddleware<ConfigurationMiddleware>
+  ├─ ? app.UseMiddleware<ExceptionHandlerMiddleware>
++ ├─ ? app.UseWebSockets
+  ├─ ? app.MapWhen
+- │  ├─ ? ws.UseMiddleware<DownstreamRouteFinderMiddleware>
+- │  ├─ ? ws.UseMiddleware<MultiplexingMiddleware>
+- │  ├─ ? ws.UseMiddleware<DownstreamRequestInitialiserMiddleware>
+- │  ├─ ? ws.UseMiddleware<LoadBalancingMiddleware>
+- │  ├─ ? ws.UseMiddleware<DownstreamUrlCreatorMiddleware>
+- │  ├─ ? ws.UseMiddleware<WebSocketsProxyMiddleware>
++ │  └─ ? app.ConfigureWebSockets
+  ├─ OcelotPipelineConfiguration.get_PreErrorResponderMiddleware
+~ ├─ OcelotPipelineExtensions.UseIfNotNull (signature changed)
+  │  └─ if (middleware != null)
+  ├─ OcelotPipelineConfiguration.get_ResponderMiddleware
+- ├─ OcelotPipelineExtensions.UseIfNotNull
+- │  ├─ if (middleware != null)
+- │  │  └─ ? builder.Use
+- │  └─ else (!(middleware != null))
+- │     └─ ? builder.UseMiddleware<TMiddleware>
++ ├─ OcelotPipelineExtensions.UseIfNotNull
++ │  ├─ if (middleware != null)
++ │  │  └─ ? builder.Use
++ │  └─ else (!(middleware != null))
++ │     └─ if (addDefault)
++ │        └─ ? builder.UseMiddleware<TMiddleware>
+  ├─ ? app.UseMiddleware<DownstreamRouteFinderMiddleware>
+  ├─ ? app.UseMiddleware<MultiplexingMiddleware>
+  ├─ ? app.UseMiddleware<SecurityMiddleware>
+  ├─ OcelotPipelineConfiguration.get_MapWhenOcelotPipeline
+- ├─ if (configuration.MapWhenOcelotPipeline != null)
+- │  ├─ OcelotPipelineConfiguration.get_MapWhenOcelotPipeline
+- │  └─ foreach (var pipeline in configuration.MapWhenOcelotPipeline)
+- │     ├─ KeyValuePair<TKey, TValue>.get_Key
+- │     ├─ KeyValuePair<TKey, TValue>.get_Value
+- │     └─ ? app.MapWhen
++ ├─ foreach (var branch in configuration.MapWhenOcelotPipeline)
++ │  ├─ KeyValuePair<TKey, TValue>.get_Key
++ │  ├─ KeyValuePair<TKey, TValue>.get_Value
++ │  └─ ? app.MapWhen
+  ├─ ? app.UseMiddleware<HttpHeadersTransformationMiddleware>
+  ├─ ? app.UseMiddleware<DownstreamRequestInitialiserMiddleware>
+  ├─ ? app.UseMiddleware<RateLimitingMiddleware>
+  ├─ ? app.UseMiddleware<RequestIdMiddleware>
+  ├─ OcelotPipelineConfiguration.get_PreAuthenticationMiddleware
+~ ├─ OcelotPipelineExtensions.UseIfNotNull (signature changed) ↑ as above
+  ├─ OcelotPipelineConfiguration.get_AuthenticationMiddleware
+- ├─ OcelotPipelineExtensions.UseIfNotNull ↑ as above
++ ├─ OcelotPipelineExtensions.UseIfNotNull ↑ as above
+  ├─ ? app.UseMiddleware<ClaimsToClaimsMiddleware>
+  ├─ OcelotPipelineConfiguration.get_PreAuthorizationMiddleware
+~ ├─ OcelotPipelineExtensions.UseIfNotNull (signature changed) ↑ as above
+  ├─ OcelotPipelineConfiguration.get_AuthorizationMiddleware
+- ├─ OcelotPipelineExtensions.UseIfNotNull ↑ as above
++ ├─ OcelotPipelineExtensions.UseIfNotNull ↑ as above
+  ├─ OcelotPipelineConfiguration.get_ClaimsToHeadersMiddleware
+- ├─ OcelotPipelineExtensions.UseIfNotNull ↑ as above
++ ├─ OcelotPipelineExtensions.UseIfNotNull ↑ as above
+  ├─ OcelotPipelineConfiguration.get_PreQueryStringBuilderMiddleware
+~ ├─ OcelotPipelineExtensions.UseIfNotNull (signature changed) ↑ as above
+  ├─ ? app.UseMiddleware<ClaimsToQueryStringMiddleware>
+  ├─ ? app.UseMiddleware<ClaimsToDownstreamPathMiddleware>
+  ├─ ? app.UseMiddleware<LoadBalancingMiddleware>
+  ├─ ? app.UseMiddleware<DownstreamUrlCreatorMiddleware>
+  ├─ ? app.UseMiddleware<OutputCacheMiddleware>
+  ├─ ? app.UseMiddleware<HttpRequesterMiddleware>
+  └─ ? app.Build
+
++ OcelotPipelineExtensions.ConfigureWebSockets
++ ├─ ? app.UseMiddleware<DownstreamRouteFinderMiddleware>
++ ├─ ? app.UseMiddleware<MultiplexingMiddleware>
++ ├─ ? app.UseMiddleware<DownstreamRequestInitialiserMiddleware>
++ ├─ ? app.UseMiddleware<LoadBalancingMiddleware>
++ ├─ ? app.UseMiddleware<DownstreamUrlCreatorMiddleware>
++ ├─ OcelotPipelineConfiguration.get_WebSocketsMiddlewareType
++ ├─ OcelotPipelineExtensions.UseIfNotNull
++ │  ├─ Type.get_BaseType
++ │  ├─ middlewareType.BaseType.Equals
++ │  ├─ if (!middlewareType.BaseType.Equals(typeof(TMiddlewareBase)))
++ │  │  ├─ Type.get_FullName ×2
++ │  │  └─ new Exception
++ │  └─ ? builder.UseMiddleware
++ ├─ OcelotPipelineConfiguration.get_WebSocketsMiddleware
++ ├─ OcelotPipelineConfiguration.get_WebSocketsMiddlewareType
++ └─ OcelotPipelineExtensions.UseIfNotNull ↑ as above
+
+~ WebSocketsProxyMiddleware.PumpAsync (signature changed)
++ ├─ WebSocketsProxyMiddleware.get_BufferSize
++ │  ├─ ⇢ MyWebSocketsProxyMiddleware.get_BufferSize
++ │  └─ ⇢ WebSocketsProxyMiddleware.get_BufferSize
+  ├─ ArgumentOutOfRangeException.ThrowIfNegativeOrZero
++ ├─ WebSocketsProxyMiddleware.get_BufferSize ↑ as above
+  └─ while (true)
+```
+stderr:
+samples/Basic/Program.cs:4: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+samples/Basic/Program.cs:7: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+samples/Basic/Program.cs:7: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+samples/Basic/Program.cs:10: unresolved-call: Cannot bind builder.Services.AddOcelot.
+samples/Basic/Program.cs:14: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+samples/Basic/Program.cs:16: unresolved-call: Cannot bind builder.Logging.AddConsole.
+samples/Basic/Program.cs:20: unresolved-call: Cannot bind builder.Build.
+samples/Basic/Program.cs:21: unresolved-call: Cannot bind app.UseOcelot.
+1110 additional diagnostics; use --diagnostics full.

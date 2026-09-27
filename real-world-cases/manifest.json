@@ -3062,5 +3062,91 @@
         ]
       }
     ]
+  },
+  {
+    "id": "ocelot-websocket-buffer",
+    "repository": "https://github.com/ThreeMammals/Ocelot.git",
+    "cacheName": "ocelot",
+    "license": "MIT",
+    "licenseFile": "LICENSE.md",
+    "before": "e324bba0efad29d37478658f7261f23dcae9d9ac",
+    "after": "fe00b04e71615d38522cd3474daa6e1a52e068de",
+    "reason": "Replace a buffer-size parameter with two virtual getter reads and add type/delegate WebSocket middleware customization. Both options register when supplied; addDefault only controls fallback registration. The pipeline gains UseWebSockets and moves registration into a callback while removing the MapWhen dictionary null guard. Source mode includes the sample override and testing support library but leaves ASP.NET and some sample local calls unresolved; restored library scope excludes sample consumers. All declarations, call bindings, root witnesses, locations, diagnostics and all twelve repeated CLI outputs were independently reviewed. Registration does not prove runtime invocation; return-only null guards, argument values and receiver narrowing remain unmodeled. Proxy cycles are conservative possibilities, and unchanged loop bodies remain in JSON despite text collapsing them.",
+    "tags": [
+      "property-accessors",
+      "virtual-dispatch",
+      "overloads",
+      "callbacks",
+      "middleware",
+      "guards",
+      "exceptions",
+      "application-entry-point"
+    ],
+    "options": [],
+    "knownIssue": "issues/ocelot-coverage.md",
+    "review": "../tests/Callrift.RealWorldCases/OcelotWebSocketBufferExpectations.cs",
+    "beforeLicenseBlob": "058bbbcec4d6137a36c5cc6a46a599f93bb10c42",
+    "afterLicenseBlob": "058bbbcec4d6137a36c5cc6a46a599f93bb10c42",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "2"
+        ],
+        "routine": false
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "OcelotPipelineExtensions.BuildOcelotPipeline",
+          "--entry",
+          "WebSocketsProxyMiddleware.PumpAsync",
+          "--entry",
+          "OcelotPipelineExtensions.ConfigureWebSockets"
+        ],
+        "routine": false
+      },
+      {
+        "id": "msbuild-roots",
+        "options": [
+          "--depth",
+          "2",
+          "--project",
+          "src/Ocelot/Ocelot.csproj",
+          "--framework",
+          "net10.0"
+        ],
+        "routine": false
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "OcelotPipelineExtensions.BuildOcelotPipeline",
+          "--entry",
+          "WebSocketsProxyMiddleware.PumpAsync",
+          "--entry",
+          "OcelotPipelineExtensions.ConfigureWebSockets",
+          "--project",
+          "src/Ocelot/Ocelot.csproj",
+          "--framework",
+          "net10.0"
+        ],
+        "routine": false
+      }
+    ]
   }
 ]

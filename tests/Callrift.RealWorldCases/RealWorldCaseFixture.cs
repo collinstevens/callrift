@@ -135,6 +135,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             OcelotRouteClaimsExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "ocelot-websocket-security")
             OcelotWebSocketExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "ocelot-websocket-buffer")
+            OcelotWebSocketBufferExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "ocelot-poller-reentrancy")
             OcelotPollerExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "ocelot-custom-json-merge")
