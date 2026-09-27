@@ -1,0 +1,81 @@
+﻿format: text
+exit: 0
+stdout:
+  new FailureListenerSink
+  ├─ new Object
+  └─ if (inner is ISetLoggingFailureListener sfl)
+     └─ ISetLoggingFailureListener.SetFailureListener
+        ├─ ⇢ BatchingSink.SetFailureListener
+        ├─ ⇢ OptionalInterfaceForwardingSink.SetFailureListener
+        │  ├─ if ((_sink as ISetLoggingFailureListener) is not null)
+        │  │  └─ ISetLoggingFailureListener.SetFailureListener
+        │  │     ├─ ⇢ BatchingSink.SetFailureListener (depth limit)
+        │  │     ├─ ⇢ OptionalInterfaceForwardingSink.SetFailureListener (↺ cycle)
++       │  │     └─ ⇢ RestrictedSink.SetFailureListener (changes below depth limit)
+        │  └─ if ((_receiver as ISetLoggingFailureListener) is not null)
+        │     └─ ISetLoggingFailureListener.SetFailureListener ↑ as above
++       └─ ⇢ RestrictedSink.SetFailureListener
++          └─ if (_sink is ISetLoggingFailureListener sfl)
++             └─ ISetLoggingFailureListener.SetFailureListener
++                ├─ ⇢ BatchingSink.SetFailureListener (depth limit)
++                ├─ ⇢ OptionalInterfaceForwardingSink.SetFailureListener (changes below depth limit)
++                └─ ⇢ RestrictedSink.SetFailureListener (↺ cycle)
+
++ RestrictedSink.SetFailureListener
++ └─ if (_sink is ISetLoggingFailureListener sfl)
++    └─ ISetLoggingFailureListener.SetFailureListener
++       ├─ ⇢ BatchingSink.SetFailureListener
++       │  └─ Guard.AgainstNull (depth limit)
++       ├─ ⇢ OptionalInterfaceForwardingSink.SetFailureListener
++       │  ├─ if ((_sink as ISetLoggingFailureListener) is not null)
++       │  │  └─ ISetLoggingFailureListener.SetFailureListener
++       │  │     ├─ ⇢ BatchingSink.SetFailureListener (depth limit)
++       │  │     ├─ ⇢ OptionalInterfaceForwardingSink.SetFailureListener (↺ cycle)
++       │  │     └─ ⇢ RestrictedSink.SetFailureListener (↺ cycle)
++       │  └─ if ((_receiver as ISetLoggingFailureListener) is not null)
++       │     └─ ISetLoggingFailureListener.SetFailureListener ↑ as above
++       └─ ⇢ RestrictedSink.SetFailureListener (↺ cycle)
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
+
+format: md
+exit: 0
+stdout:
+```diff
+  new FailureListenerSink
+  ├─ new Object
+  └─ if (inner is ISetLoggingFailureListener sfl)
+     └─ ISetLoggingFailureListener.SetFailureListener
+        ├─ ⇢ BatchingSink.SetFailureListener
+        ├─ ⇢ OptionalInterfaceForwardingSink.SetFailureListener
+        │  ├─ if ((_sink as ISetLoggingFailureListener) is not null)
+        │  │  └─ ISetLoggingFailureListener.SetFailureListener
+        │  │     ├─ ⇢ BatchingSink.SetFailureListener (depth limit)
+        │  │     ├─ ⇢ OptionalInterfaceForwardingSink.SetFailureListener (↺ cycle)
++       │  │     └─ ⇢ RestrictedSink.SetFailureListener (changes below depth limit)
+        │  └─ if ((_receiver as ISetLoggingFailureListener) is not null)
+        │     └─ ISetLoggingFailureListener.SetFailureListener ↑ as above
++       └─ ⇢ RestrictedSink.SetFailureListener
++          └─ if (_sink is ISetLoggingFailureListener sfl)
++             └─ ISetLoggingFailureListener.SetFailureListener
++                ├─ ⇢ BatchingSink.SetFailureListener (depth limit)
++                ├─ ⇢ OptionalInterfaceForwardingSink.SetFailureListener (changes below depth limit)
++                └─ ⇢ RestrictedSink.SetFailureListener (↺ cycle)
+
++ RestrictedSink.SetFailureListener
++ └─ if (_sink is ISetLoggingFailureListener sfl)
++    └─ ISetLoggingFailureListener.SetFailureListener
++       ├─ ⇢ BatchingSink.SetFailureListener
++       │  └─ Guard.AgainstNull (depth limit)
++       ├─ ⇢ OptionalInterfaceForwardingSink.SetFailureListener
++       │  ├─ if ((_sink as ISetLoggingFailureListener) is not null)
++       │  │  └─ ISetLoggingFailureListener.SetFailureListener
++       │  │     ├─ ⇢ BatchingSink.SetFailureListener (depth limit)
++       │  │     ├─ ⇢ OptionalInterfaceForwardingSink.SetFailureListener (↺ cycle)
++       │  │     └─ ⇢ RestrictedSink.SetFailureListener (↺ cycle)
++       │  └─ if ((_receiver as ISetLoggingFailureListener) is not null)
++       │     └─ ISetLoggingFailureListener.SetFailureListener ↑ as above
++       └─ ⇢ RestrictedSink.SetFailureListener (↺ cycle)
+```
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.

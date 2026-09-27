@@ -1,0 +1,51 @@
+﻿format: text
+exit: 0
+stdout:
+  LoggerSinkConfiguration.FallbackChain
+  ├─ …
+  ├─ Guard.AgainstNull
+  ├─ LoggerSinkConfiguration.CreateSink
+  ├─ foreach (var next in chain[1..])
+  │  ├─ new DelegatingLoggingFailureListener
+  │  ├─ LoggerSinkConfiguration.Wrap (depth limit)
+~ │  │  └─ new FailureListenerSink (changes below depth limit)
+  │  ├─ OptionalInterfaceForwardingSink.SupportsAny
+  │  └─ if (OptionalInterfaceForwardingSink.SupportsAny(final))
+  └─ LoggerSinkConfiguration.Sink
+
+  LoggerSinkConfiguration.Fallible
+  ├─ Guard.AgainstNull ×2
+  ├─ LoggerSinkConfiguration.Wrap
+  │  ├─ …
+  │  ├─ if (!OptionalInterfaceForwardingSink.SupportsAll(wrapper))
+  │  ├─ if (!OptionalInterfaceForwardingSink.SupportsAll(wrapper) && OptionalInterfaceForwardingSink.Supp…
+~ │  └─ new FailureListenerSink (changes below depth limit)
+  └─ LoggerSinkConfiguration.Sink
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  LoggerSinkConfiguration.FallbackChain
+  ├─ …
+  ├─ Guard.AgainstNull
+  ├─ LoggerSinkConfiguration.CreateSink
+  ├─ foreach (var next in chain[1..])
+  │  ├─ new DelegatingLoggingFailureListener
+  │  ├─ LoggerSinkConfiguration.Wrap (depth limit)
+~ │  │  └─ new FailureListenerSink (changes below depth limit)
+  │  ├─ OptionalInterfaceForwardingSink.SupportsAny
+  │  └─ if (OptionalInterfaceForwardingSink.SupportsAny(final))
+  └─ LoggerSinkConfiguration.Sink
+
+  LoggerSinkConfiguration.Fallible
+  ├─ Guard.AgainstNull ×2
+  ├─ LoggerSinkConfiguration.Wrap
+  │  ├─ …
+  │  ├─ if (!OptionalInterfaceForwardingSink.SupportsAll(wrapper))
+  │  ├─ if (!OptionalInterfaceForwardingSink.SupportsAll(wrapper) && OptionalInterfaceForwardingSink.Supp…
+~ │  └─ new FailureListenerSink (changes below depth limit)
+  └─ LoggerSinkConfiguration.Sink
+```
+stderr:

@@ -3483,5 +3483,80 @@
     "beforeLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
     "afterLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
     "review": "../tests/Callrift.RealWorldCases/SerilogTraceJsonExpectations.cs"
+  },
+  {
+    "repository": "https://github.com/serilog/serilog.git",
+    "cacheName": "serilog",
+    "license": "Apache-2.0",
+    "licenseFile": "LICENSE",
+    "id": "serilog-restricted-listener",
+    "before": "63f1da33b80672e69d067acf32405b62eaedb110",
+    "after": "c53eb147ceafe5b88cc57f95f78e8116b86cf620",
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "2"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "RestrictedSink.SetFailureListener",
+          "--entry",
+          "new FailureListenerSink"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "options": [
+          "--depth",
+          "2",
+          "--project",
+          "src/Serilog/Serilog.csproj",
+          "--framework",
+          "net8.0"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "RestrictedSink.SetFailureListener",
+          "--entry",
+          "new FailureListenerSink",
+          "--project",
+          "src/Serilog/Serilog.csproj",
+          "--framework",
+          "net8.0"
+        ]
+      }
+    ],
+    "reason": "Review failure-listener forwarding through restricted sinks in source and restored Serilog net8.0 modes. RestrictedSink gains ISetLoggingFailureListener and forwards under a matching inner-sink type guard. Automatic roots expose FallbackChain and Fallible reaching the changed dispatch through FailureListenerSink construction. Focused views add RestrictedSink to the constructor forwarding call targets and expose guarded forwarding into BatchingSink, OptionalInterfaceForwardingSink and RestrictedSink, with ancestor cycle references and depth omissions. Interface targets are possibilities, not evidence that every sink executes or that runtime fallback delivery succeeds.",
+    "tags": [
+      "interfaces",
+      "possible-dispatch",
+      "type-guards",
+      "cycles",
+      "callbacks",
+      "source-msbuild"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "beforeLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "afterLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "review": "../tests/Callrift.RealWorldCases/SerilogRestrictedListenerExpectations.cs"
   }
 ]
