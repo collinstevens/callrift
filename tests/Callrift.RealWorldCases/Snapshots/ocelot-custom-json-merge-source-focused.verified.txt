@@ -8,6 +8,7 @@ stdout:
 +    ├─ ExceptionExtensions.ToShortString
 +    │  └─ else (!(ex is null))
 +    │     ├─ ex.GetType
++    │     ├─ MemberInfo.get_Name
 +    │     └─ ExceptionExtensions.GetMessages (changes below depth limit)
      └─ ? BadRequest
 
@@ -16,30 +17,53 @@ stdout:
   ├─ new DirectoryInfo(folder).EnumerateFiles().Where(fi => reg.IsMatch(fi.Name) && !fi.Name.Equals(environmentFileInfo.Name, StringComparison.OrdinalIgnoreCase) && !fi.FullName.Equals(environmentFileInfo.FullName, StringComparison.OrdinalIgnoreCase)).ToArray
   ├─ if (fileConfiguration is null)
 + ├─ ConfigurationBuilderExtensions.GuardSchema
++ │  ├─ FileConfiguration.get_Aggregates
++ │  ├─ if (configuration.Aggregates is null)
++ │  │  └─ FileConfiguration.set_Aggregates
++ │  ├─ FileConfiguration.get_Routes
++ │  ├─ if (configuration.Routes is null)
++ │  │  └─ FileConfiguration.set_Routes
++ │  ├─ FileConfiguration.get_DynamicRoutes
++ │  ├─ if (configuration.DynamicRoutes is null)
++ │  │  └─ FileConfiguration.set_DynamicRoutes
++ │  ├─ FileConfiguration.get_GlobalConfiguration
 + │  └─ if (configuration.GlobalConfiguration is null)
-+ │     └─ new FileGlobalConfiguration (depth limit)
++ │     ├─ new FileGlobalConfiguration (depth limit)
++ │     └─ FileConfiguration.set_GlobalConfiguration
 + ├─ ? JObject.FromObject
   ├─ if (primaryFile is null)
   ├─ if (globalFile is null)
   ├─ new FileInfo ×2
   ├─ foreach (var file in files)
   │  ├─ …
-  │  ├─ if (files.Length > 1 && file.Name.Equals(primaryFileInfo.Name, StringComparison.OrdinalIgnoreCase))
+  │  ├─ FileSystemInfo.get_FullName
   │  ├─ File.ReadAllText
 - │  ├─ ? JsonConvert.DeserializeObject<FileConfiguration>
 + │  ├─ ? JToken.Parse
+  │  ├─ FileInfo.get_Name ×2
   │  ├─ file.Name.Equals
   │  ├─ if (file.Name.Equals(globalFileInfo.Name, StringComparison.OrdinalIgnoreCase))
+- │  ├─ if (file.Name.Equals(globalFileInfo.Name, StringComparison.OrdinalIgnoreCase) && file.FullName.Eq…
+- │  │  └─ FileConfiguration.set_GlobalConfiguration
+- │  ├─ FileConfiguration.get_Aggregates
 - │  ├─ ? fileConfiguration.Aggregates.AddRange
+- │  ├─ FileConfiguration.get_Routes
 - │  ├─ ? fileConfiguration.Routes.AddRange
 + │  └─ ConfigurationBuilderExtensions.OcelotMergeConfiguration
 + │     ├─ if (isGlobal)
 + │     │  └─ ConfigurationBuilderExtensions.OcelotJMergeSection (changes below depth limit)
 + │     └─ ConfigurationBuilderExtensions.OcelotJMergeSection ×3 (changes below depth limit)
 - ├─ ? JsonConvert.SerializeObject
++ ├─ IConfigurationBuilder.get_Properties
 + ├─ possible initialization of ConfigurationBuilderExtensions
 + │  └─ initialization of ConfigurationBuilderExtensions
-+ └─ ? jobj.ToString
++ │     └─ Type.get_FullName ×2
++ ├─ ConfigurationBuilderExtensions.set_MergedConfigJObject
++ ├─ IDictionary<TKey, TValue>.set_Item
++ ├─ ? jobj.ToString
++ ├─ IConfigurationBuilder.get_Properties
++ ├─ ConfigurationBuilderExtensions.set_MergedConfigJson
++ └─ IDictionary<TKey, TValue>.set_Item
 
 + ConfigurationBuilderExtensions.OcelotMergeConfiguration
 + ├─ if (isGlobal)
@@ -83,6 +107,7 @@ stdout:
 +    ├─ ExceptionExtensions.ToShortString
 +    │  └─ else (!(ex is null))
 +    │     ├─ ex.GetType
++    │     ├─ MemberInfo.get_Name
 +    │     └─ ExceptionExtensions.GetMessages (changes below depth limit)
      └─ ? BadRequest
 
@@ -91,30 +116,53 @@ stdout:
   ├─ new DirectoryInfo(folder).EnumerateFiles().Where(fi => reg.IsMatch(fi.Name) && !fi.Name.Equals(environmentFileInfo.Name, StringComparison.OrdinalIgnoreCase) && !fi.FullName.Equals(environmentFileInfo.FullName, StringComparison.OrdinalIgnoreCase)).ToArray
   ├─ if (fileConfiguration is null)
 + ├─ ConfigurationBuilderExtensions.GuardSchema
++ │  ├─ FileConfiguration.get_Aggregates
++ │  ├─ if (configuration.Aggregates is null)
++ │  │  └─ FileConfiguration.set_Aggregates
++ │  ├─ FileConfiguration.get_Routes
++ │  ├─ if (configuration.Routes is null)
++ │  │  └─ FileConfiguration.set_Routes
++ │  ├─ FileConfiguration.get_DynamicRoutes
++ │  ├─ if (configuration.DynamicRoutes is null)
++ │  │  └─ FileConfiguration.set_DynamicRoutes
++ │  ├─ FileConfiguration.get_GlobalConfiguration
 + │  └─ if (configuration.GlobalConfiguration is null)
-+ │     └─ new FileGlobalConfiguration (depth limit)
++ │     ├─ new FileGlobalConfiguration (depth limit)
++ │     └─ FileConfiguration.set_GlobalConfiguration
 + ├─ ? JObject.FromObject
   ├─ if (primaryFile is null)
   ├─ if (globalFile is null)
   ├─ new FileInfo ×2
   ├─ foreach (var file in files)
   │  ├─ …
-  │  ├─ if (files.Length > 1 && file.Name.Equals(primaryFileInfo.Name, StringComparison.OrdinalIgnoreCase))
+  │  ├─ FileSystemInfo.get_FullName
   │  ├─ File.ReadAllText
 - │  ├─ ? JsonConvert.DeserializeObject<FileConfiguration>
 + │  ├─ ? JToken.Parse
+  │  ├─ FileInfo.get_Name ×2
   │  ├─ file.Name.Equals
   │  ├─ if (file.Name.Equals(globalFileInfo.Name, StringComparison.OrdinalIgnoreCase))
+- │  ├─ if (file.Name.Equals(globalFileInfo.Name, StringComparison.OrdinalIgnoreCase) && file.FullName.Eq…
+- │  │  └─ FileConfiguration.set_GlobalConfiguration
+- │  ├─ FileConfiguration.get_Aggregates
 - │  ├─ ? fileConfiguration.Aggregates.AddRange
+- │  ├─ FileConfiguration.get_Routes
 - │  ├─ ? fileConfiguration.Routes.AddRange
 + │  └─ ConfigurationBuilderExtensions.OcelotMergeConfiguration
 + │     ├─ if (isGlobal)
 + │     │  └─ ConfigurationBuilderExtensions.OcelotJMergeSection (changes below depth limit)
 + │     └─ ConfigurationBuilderExtensions.OcelotJMergeSection ×3 (changes below depth limit)
 - ├─ ? JsonConvert.SerializeObject
++ ├─ IConfigurationBuilder.get_Properties
 + ├─ possible initialization of ConfigurationBuilderExtensions
 + │  └─ initialization of ConfigurationBuilderExtensions
-+ └─ ? jobj.ToString
++ │     └─ Type.get_FullName ×2
++ ├─ ConfigurationBuilderExtensions.set_MergedConfigJObject
++ ├─ IDictionary<TKey, TValue>.set_Item
++ ├─ ? jobj.ToString
++ ├─ IConfigurationBuilder.get_Properties
++ ├─ ConfigurationBuilderExtensions.set_MergedConfigJson
++ └─ IDictionary<TKey, TValue>.set_Item
 
 + ConfigurationBuilderExtensions.OcelotMergeConfiguration
 + ├─ if (isGlobal)

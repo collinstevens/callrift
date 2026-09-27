@@ -15273,18 +15273,26 @@ stdout:
           "children": [
             {
               "id": "n63",
-              "kind": "branch",
+              "kind": "call",
               "change": "added",
-              "label": "possible initialization of ConfigurationBuilderExtensions",
-              "detail": null,
+              "label": "ConfigurationBuilderExtensions.get_MergedConfigJObject",
+              "detail": "changes below depth limit",
               "before": null,
               "after": {
-                "symbolId": null,
-                "signature": null,
-                "binding": "structural",
-                "dispatch": "none",
-                "targetIds": [],
-                "definition": null,
+                "symbolId": "source::Ocelot.DependencyInjection.ConfigurationBuilderExtensions.get_MergedConfigJObject()",
+                "signature": "internal static Ocelot.DependencyInjection.ConfigurationBuilderExtensions.get_MergedConfigJObject() -> JObject",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.DependencyInjection.ConfigurationBuilderExtensions.get_MergedConfigJObject()"
+                ],
+                "definition": {
+                  "path": "src/DependencyInjection/ConfigurationBuilderExtensions.cs",
+                  "startLine": 359,
+                  "startColumn": 51,
+                  "endLine": 359,
+                  "endColumn": 55
+                },
                 "callSites": [
                   {
                     "path": "src/DependencyInjection/ConfigurationBuilderExtensions.cs",
@@ -15294,54 +15302,19 @@ stdout:
                     "endColumn": 52
                   }
                 ],
-                "relation": "branch",
-                "candidates": null,
-                "origin": "structural"
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
               },
-              "children": [
-                {
-                  "id": "n64",
-                  "kind": "call",
-                  "change": "added",
-                  "label": "initialization of ConfigurationBuilderExtensions",
-                  "detail": null,
-                  "before": null,
-                  "after": {
-                    "symbolId": "source::Ocelot.DependencyInjection.ConfigurationBuilderExtensions..cctor()",
-                    "signature": "static Ocelot.DependencyInjection.ConfigurationBuilderExtensions.ConfigurationBuilderExtensions() -> void",
-                    "binding": "resolved",
-                    "dispatch": "direct",
-                    "targetIds": [
-                      "source::Ocelot.DependencyInjection.ConfigurationBuilderExtensions..cctor()"
-                    ],
-                    "definition": {
-                      "path": "src/DependencyInjection/ConfigurationBuilderExtensions.cs",
-                      "startLine": 14,
-                      "startColumn": 1,
-                      "endLine": 523,
-                      "endColumn": 2
-                    },
-                    "callSites": [
-                      {
-                        "path": "src/DependencyInjection/ConfigurationBuilderExtensions.cs",
-                        "startLine": 513,
-                        "startColumn": 33,
-                        "endLine": 513,
-                        "endColumn": 52
-                      }
-                    ],
-                    "relation": "call",
-                    "candidates": [],
-                    "origin": "source"
-                  },
-                  "children": [],
-                  "omission": null
-                }
-              ],
-              "omission": null
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
             },
             {
-              "id": "n65",
+              "id": "n64",
               "kind": "call",
               "change": "added",
               "label": "? MergedConfigJObject.OcelotJSection",
@@ -15374,7 +15347,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n66",
+          "id": "n65",
           "kind": "branch",
           "change": "added",
           "label": "if (route is not null)",
@@ -15402,7 +15375,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n67",
+              "id": "n66",
               "kind": "call",
               "change": "added",
               "label": "? .SelectToken",
@@ -15435,7 +15408,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n68",
+          "id": "n67",
           "kind": "branch",
           "change": "added",
           "label": "if (globalConfiguration is not null)",
@@ -15463,7 +15436,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n69",
+              "id": "n68",
               "kind": "call",
               "change": "added",
               "label": "? .SelectToken",
@@ -15496,7 +15469,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n70",
+          "id": "n69",
           "kind": "branch",
           "change": "added",
           "label": "if (prop is not null && prop.Type != JTokenType.Null)",
@@ -15524,7 +15497,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n71",
+              "id": "n70",
               "kind": "call",
               "change": "added",
               "label": "? prop.ToObject<T>",
@@ -15557,7 +15530,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n72",
+          "id": "n71",
           "kind": "branch",
           "change": "added",
           "label": "if (glob is not null && glob.Type != JTokenType.Null)",
@@ -15585,7 +15558,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n73",
+              "id": "n72",
               "kind": "call",
               "change": "added",
               "label": "? glob.ToObject<T>",
@@ -15621,7 +15594,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n74",
+      "id": "n73",
       "kind": "member",
       "change": "added",
       "label": "ConfigurationBuilderExtensions.OcelotJProperty",
@@ -15649,7 +15622,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n75",
+          "id": "n74",
           "kind": "call",
           "change": "added",
           "label": "ConfigurationBuilderExtensions.OcelotJRoute",
@@ -15691,7 +15664,7 @@ stdout:
           }
         },
         {
-          "id": "n76",
+          "id": "n75",
           "kind": "branch",
           "change": "added",
           "label": "if (route is not null)",
@@ -15719,7 +15692,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n77",
+              "id": "n76",
               "kind": "call",
               "change": "added",
               "label": "? .SelectToken",
@@ -15752,7 +15725,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n78",
+          "id": "n77",
           "kind": "branch",
           "change": "added",
           "label": "if (prop is not null && prop.Type != JTokenType.Null)",
@@ -15780,7 +15753,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n79",
+              "id": "n78",
               "kind": "call",
               "change": "added",
               "label": "? prop.ToObject<T>",
@@ -15813,7 +15786,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n80",
+          "id": "n79",
           "kind": "branch",
           "change": "added",
           "label": "else (!(prop is not null && prop.Type != JTokenType.Null))",
@@ -15841,7 +15814,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n81",
+              "id": "n80",
               "kind": "call",
               "change": "added",
               "label": "ConfigurationBuilderExtensions.OcelotJGlobalProperty",
@@ -15889,7 +15862,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n82",
+      "id": "n81",
       "kind": "member",
       "change": "added",
       "label": "ConfigurationBuilderExtensions.OcelotJson",
@@ -15917,7 +15890,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n83",
+          "id": "n82",
           "kind": "branch",
           "change": "added",
           "label": "possible initialization of ConfigurationBuilderExtensions",
@@ -15945,7 +15918,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n84",
+              "id": "n83",
               "kind": "call",
               "change": "added",
               "label": "initialization of ConfigurationBuilderExtensions",
@@ -15989,7 +15962,107 @@ stdout:
       "omission": null
     },
     {
-      "id": "n85",
+      "id": "n84",
+      "kind": "member",
+      "change": "added",
+      "label": "ConfigurationBuilderExtensions.get_MergedConfigJson",
+      "detail": null,
+      "before": null,
+      "after": {
+        "symbolId": "source::Ocelot.DependencyInjection.ConfigurationBuilderExtensions.get_MergedConfigJson()",
+        "signature": "internal static Ocelot.DependencyInjection.ConfigurationBuilderExtensions.get_MergedConfigJson() -> string",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Ocelot.DependencyInjection.ConfigurationBuilderExtensions.get_MergedConfigJson()"
+        ],
+        "definition": {
+          "path": "src/DependencyInjection/ConfigurationBuilderExtensions.cs",
+          "startLine": 354,
+          "startColumn": 47,
+          "endLine": 354,
+          "endColumn": 51
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [
+        {
+          "id": "n85",
+          "kind": "branch",
+          "change": "added",
+          "label": "possible initialization of ConfigurationBuilderExtensions",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/DependencyInjection/ConfigurationBuilderExtensions.cs",
+                "startLine": 354,
+                "startColumn": 47,
+                "endLine": 354,
+                "endColumn": 51
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n86",
+              "kind": "call",
+              "change": "added",
+              "label": "initialization of ConfigurationBuilderExtensions",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::Ocelot.DependencyInjection.ConfigurationBuilderExtensions..cctor()",
+                "signature": "static Ocelot.DependencyInjection.ConfigurationBuilderExtensions.ConfigurationBuilderExtensions() -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.DependencyInjection.ConfigurationBuilderExtensions..cctor()"
+                ],
+                "definition": {
+                  "path": "src/DependencyInjection/ConfigurationBuilderExtensions.cs",
+                  "startLine": 14,
+                  "startColumn": 1,
+                  "endLine": 523,
+                  "endColumn": 2
+                },
+                "callSites": [
+                  {
+                    "path": "src/DependencyInjection/ConfigurationBuilderExtensions.cs",
+                    "startLine": 354,
+                    "startColumn": 47,
+                    "endLine": 354,
+                    "endColumn": 51
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        }
+      ],
+      "omission": null
+    },
+    {
+      "id": "n87",
       "kind": "member",
       "change": "added",
       "label": "ConfigurationExtensions.OcelotAggregate",
@@ -16017,7 +16090,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n86",
+          "id": "n88",
           "kind": "call",
           "change": "added",
           "label": "ConfigurationExtensions.OcelotAggregates",
@@ -16058,7 +16131,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n87",
+      "id": "n89",
       "kind": "member",
       "change": "added",
       "label": "ConfigurationExtensions.OcelotDynamicRoute",
@@ -16086,7 +16159,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n88",
+          "id": "n90",
           "kind": "call",
           "change": "added",
           "label": "ConfigurationExtensions.OcelotDynamicRoutes",
@@ -16124,7 +16197,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n89",
+          "id": "n91",
           "kind": "call",
           "change": "added",
           "label": "routes.GetChildren().FirstOrDefault",
@@ -16154,7 +16227,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n90",
+              "id": "n92",
               "kind": "call",
               "change": "added",
               "label": "StringExtensions.IsEmpty",
@@ -16192,7 +16265,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n91",
+              "id": "n93",
               "kind": "branch",
               "change": "added",
               "label": "if (!((serviceNamespace.IsEmpty() && serviceName.Equals(r[nameof(FileDynamicRoute.ServiceName)], …",
@@ -16220,7 +16293,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n92",
+                  "id": "n94",
                   "kind": "call",
                   "change": "added",
                   "label": "StringExtensions.IsNotEmpty",
@@ -16267,7 +16340,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n93",
+      "id": "n95",
       "kind": "member",
       "change": "added",
       "label": "ConfigurationExtensions.OcelotGlobalProperty",
@@ -16295,7 +16368,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n94",
+          "id": "n96",
           "kind": "call",
           "change": "added",
           "label": "ConfigurationExtensions.OcelotGlobalSection",
@@ -16337,7 +16410,7 @@ stdout:
           }
         },
         {
-          "id": "n95",
+          "id": "n97",
           "kind": "call",
           "change": "added",
           "label": "? OcelotGlobalSection(configuration, propertyName).Get<T>",
@@ -16370,7 +16443,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n96",
+      "id": "n98",
       "kind": "member",
       "change": "added",
       "label": "ConfigurationExtensions.OcelotProperty",
@@ -16398,7 +16471,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n97",
+          "id": "n99",
           "kind": "branch",
           "change": "added",
           "label": "if (current is null)",
@@ -16426,7 +16499,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n98",
+              "id": "n100",
               "kind": "call",
               "change": "added",
               "label": "ConfigurationExtensions.OcelotRoutes",
@@ -16467,7 +16540,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n99",
+          "id": "n101",
           "kind": "call",
           "change": "added",
           "label": "ConfigurationExtensions.OcelotSection",
@@ -16509,7 +16582,7 @@ stdout:
           }
         },
         {
-          "id": "n100",
+          "id": "n102",
           "kind": "branch",
           "change": "added",
           "label": "if (property is not null)",
@@ -16537,7 +16610,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n101",
+              "id": "n103",
               "kind": "call",
               "change": "added",
               "label": "? property.Get<T>",
@@ -16573,7 +16646,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n102",
+      "id": "n104",
       "kind": "member",
       "change": "added",
       "label": "ConfigurationExtensions.OcelotRoot",
@@ -16603,7 +16676,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n103",
+      "id": "n105",
       "kind": "member",
       "change": "added",
       "label": "ConfigurationExtensions.OcelotRoute",
@@ -16631,7 +16704,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n104",
+          "id": "n106",
           "kind": "call",
           "change": "added",
           "label": "ConfigurationExtensions.OcelotRoutes",
@@ -16672,7 +16745,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n105",
+      "id": "n107",
       "kind": "member",
       "change": "unchanged",
       "label": "ServiceCollectionExtensions.AddOcelot",
@@ -16719,7 +16792,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n106",
+          "id": "n108",
           "kind": "call",
           "change": "modified",
           "label": "new OcelotBuilder",
@@ -16791,7 +16864,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n107",
+      "id": "n109",
       "kind": "member",
       "change": "unchanged",
       "label": "ServiceCollectionExtensions.AddOcelotUsingBuilder",
@@ -16838,7 +16911,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n108",
+          "id": "n110",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (configuration is null)",
@@ -16885,7 +16958,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n109",
+              "id": "n111",
               "kind": "call",
               "change": "unchanged",
               "label": "ServiceCollectionExtensions.FindConfiguration",
@@ -16957,7 +17030,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n110",
+          "id": "n112",
           "kind": "call",
           "change": "modified",
           "label": "new OcelotBuilder",
@@ -17029,7 +17102,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n111",
+      "id": "n113",
       "kind": "member",
       "change": "unchanged",
       "label": "ServiceCollectionExtensions.AddOcelotUsingBuilder",
@@ -17076,7 +17149,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n112",
+          "id": "n114",
           "kind": "call",
           "change": "unchanged",
           "label": "ServiceCollectionExtensions.FindConfiguration",
@@ -17145,7 +17218,7 @@ stdout:
           }
         },
         {
-          "id": "n113",
+          "id": "n115",
           "kind": "call",
           "change": "modified",
           "label": "new OcelotBuilder",
@@ -17217,7 +17290,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n114",
+      "id": "n116",
       "kind": "member",
       "change": "modified",
       "label": "new Error",
@@ -17266,7 +17339,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n115",
+      "id": "n117",
       "kind": "member",
       "change": "added",
       "label": "new UnknownError",
@@ -17294,7 +17367,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n116",
+          "id": "n118",
           "kind": "call",
           "change": "added",
           "label": "? : base(string.Empty, OcelotErrorCode.UnknownError, StatusCodes.Status500InternalServerError)",
@@ -17330,7 +17403,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n117",
+      "id": "n119",
       "kind": "member",
       "change": "added",
       "label": "new UnknownError",
@@ -17358,7 +17431,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n118",
+          "id": "n120",
           "kind": "call",
           "change": "added",
           "label": "? : base(exception, OcelotErrorCode.UnknownError, StatusCodes.Status500InternalServerError)",
@@ -17394,7 +17467,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n119",
+      "id": "n121",
       "kind": "member",
       "change": "unchanged",
       "label": "new UnknownError",
@@ -17441,7 +17514,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n120",
+          "id": "n122",
           "kind": "call",
           "change": "removed",
           "label": "new Error",
@@ -17479,7 +17552,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n121",
+          "id": "n123",
           "kind": "call",
           "change": "added",
           "label": "? : base(message, OcelotErrorCode.UnknownError, StatusCodes.Status500InternalServerError)",
@@ -17515,7 +17588,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n122",
+      "id": "n124",
       "kind": "member",
       "change": "added",
       "label": "new DefaultInfo",
@@ -17545,7 +17618,187 @@ stdout:
       "omission": null
     },
     {
-      "id": "n123",
+      "id": "n125",
+      "kind": "member",
+      "change": "added",
+      "label": "DefaultInfo.get_City",
+      "detail": null,
+      "before": null,
+      "after": {
+        "symbolId": "source::Ocelot.Samples.Configuration.DefaultInfo.get_City()",
+        "signature": "public Ocelot.Samples.Configuration.DefaultInfo.get_City() -> string",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Ocelot.Samples.Configuration.DefaultInfo.get_City()"
+        ],
+        "definition": {
+          "path": "samples/Configuration/DefaultInfo.cs",
+          "startLine": 6,
+          "startColumn": 26,
+          "endLine": 6,
+          "endColumn": 30
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [],
+      "omission": null
+    },
+    {
+      "id": "n126",
+      "kind": "member",
+      "change": "added",
+      "label": "DefaultInfo.get_Country",
+      "detail": null,
+      "before": null,
+      "after": {
+        "symbolId": "source::Ocelot.Samples.Configuration.DefaultInfo.get_Country()",
+        "signature": "public Ocelot.Samples.Configuration.DefaultInfo.get_Country() -> string",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Ocelot.Samples.Configuration.DefaultInfo.get_Country()"
+        ],
+        "definition": {
+          "path": "samples/Configuration/DefaultInfo.cs",
+          "startLine": 5,
+          "startColumn": 29,
+          "endLine": 5,
+          "endColumn": 33
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [],
+      "omission": null
+    },
+    {
+      "id": "n127",
+      "kind": "member",
+      "change": "added",
+      "label": "DefaultInfo.get_HighTemp",
+      "detail": null,
+      "before": null,
+      "after": {
+        "symbolId": "source::Ocelot.Samples.Configuration.DefaultInfo.get_HighTemp()",
+        "signature": "public Ocelot.Samples.Configuration.DefaultInfo.get_HighTemp() -> int",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Ocelot.Samples.Configuration.DefaultInfo.get_HighTemp()"
+        ],
+        "definition": {
+          "path": "samples/Configuration/DefaultInfo.cs",
+          "startLine": 7,
+          "startColumn": 27,
+          "endLine": 7,
+          "endColumn": 31
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [],
+      "omission": null
+    },
+    {
+      "id": "n128",
+      "kind": "member",
+      "change": "added",
+      "label": "DefaultInfo.set_City",
+      "detail": null,
+      "before": null,
+      "after": {
+        "symbolId": "source::Ocelot.Samples.Configuration.DefaultInfo.set_City(string)",
+        "signature": "public Ocelot.Samples.Configuration.DefaultInfo.set_City(string value) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Ocelot.Samples.Configuration.DefaultInfo.set_City(string)"
+        ],
+        "definition": {
+          "path": "samples/Configuration/DefaultInfo.cs",
+          "startLine": 6,
+          "startColumn": 31,
+          "endLine": 6,
+          "endColumn": 35
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [],
+      "omission": null
+    },
+    {
+      "id": "n129",
+      "kind": "member",
+      "change": "added",
+      "label": "DefaultInfo.set_Country",
+      "detail": null,
+      "before": null,
+      "after": {
+        "symbolId": "source::Ocelot.Samples.Configuration.DefaultInfo.set_Country(string)",
+        "signature": "public Ocelot.Samples.Configuration.DefaultInfo.set_Country(string value) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Ocelot.Samples.Configuration.DefaultInfo.set_Country(string)"
+        ],
+        "definition": {
+          "path": "samples/Configuration/DefaultInfo.cs",
+          "startLine": 5,
+          "startColumn": 34,
+          "endLine": 5,
+          "endColumn": 38
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [],
+      "omission": null
+    },
+    {
+      "id": "n130",
+      "kind": "member",
+      "change": "added",
+      "label": "DefaultInfo.set_HighTemp",
+      "detail": null,
+      "before": null,
+      "after": {
+        "symbolId": "source::Ocelot.Samples.Configuration.DefaultInfo.set_HighTemp(int)",
+        "signature": "public Ocelot.Samples.Configuration.DefaultInfo.set_HighTemp(int value) -> void",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::Ocelot.Samples.Configuration.DefaultInfo.set_HighTemp(int)"
+        ],
+        "definition": {
+          "path": "samples/Configuration/DefaultInfo.cs",
+          "startLine": 7,
+          "startColumn": 32,
+          "endLine": 7,
+          "endColumn": 36
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [],
+      "omission": null
+    },
+    {
+      "id": "n131",
       "kind": "member",
       "change": "unchanged",
       "label": "AuthenticationSteps.WithJwtBearerAuthentication",
@@ -17592,7 +17845,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n124",
+          "id": "n132",
           "kind": "call",
           "change": "modified",
           "label": "AuthenticationSteps.WithJwtBearerAuthentication",
@@ -17664,7 +17917,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n125",
+      "id": "n133",
       "kind": "member",
       "change": "unchanged",
       "label": "DiscoverySteps.WithDiscovery",
@@ -17711,7 +17964,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n126",
+          "id": "n134",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of DiscoverySteps",
@@ -17758,7 +18011,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n127",
+              "id": "n135",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of DiscoverySteps",
@@ -17830,7 +18083,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n128",
+          "id": "n136",
           "kind": "call",
           "change": "modified",
           "label": "ServiceCollectionExtensions.AddOcelot",
@@ -17902,7 +18155,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n129",
+      "id": "n137",
       "kind": "member",
       "change": "unchanged",
       "label": "WebSocketsSteps.StartHttp2OcelotWithWebSockets",
@@ -17949,7 +18202,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n130",
+          "id": "n138",
           "kind": "call",
           "change": "unchanged",
           "label": "AcceptanceSteps.DownstreamUrl",
@@ -18014,7 +18267,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n131",
+          "id": "n139",
           "kind": "call",
           "change": "unchanged",
           "label": "AcceptanceSteps.GivenOcelotHostIsRunning",
@@ -18077,7 +18330,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n132",
+              "id": "n140",
               "kind": "call",
               "change": "unchanged",
               "label": "AcceptanceSteps.WithBasicConfiguration",
@@ -18146,7 +18399,7 @@ stdout:
               }
             },
             {
-              "id": "n133",
+              "id": "n141",
               "kind": "call",
               "change": "modified",
               "label": "AcceptanceSteps.WithAddOcelot",
@@ -18215,7 +18468,7 @@ stdout:
               }
             },
             {
-              "id": "n134",
+              "id": "n142",
               "kind": "call",
               "change": "unchanged",
               "label": "WebSocketsSteps.WithWebSockets",
@@ -18284,7 +18537,7 @@ stdout:
               }
             },
             {
-              "id": "n135",
+              "id": "n143",
               "kind": "call",
               "change": "unchanged",
               "label": "WebSocketsSteps.StartHttp2OcelotWithWebSockets.ConfigureWebHost",
@@ -18363,7 +18616,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n136",
+      "id": "n144",
       "kind": "member",
       "change": "unchanged",
       "label": "WebSocketsSteps.StartOcelotWithWebSockets",
@@ -18410,7 +18663,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n137",
+          "id": "n145",
           "kind": "call",
           "change": "modified",
           "label": "WebSocketsSteps.StartOcelotWithWebSockets",
@@ -18482,7 +18735,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n138",
+      "id": "n146",
       "kind": "member",
       "change": "unchanged",
       "label": "WebSocketsSteps.StartOcelotWithWebSockets",
@@ -18529,7 +18782,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n139",
+          "id": "n147",
           "kind": "call",
           "change": "unchanged",
           "label": "AcceptanceSteps.DownstreamUrl",
@@ -18598,7 +18851,7 @@ stdout:
           }
         },
         {
-          "id": "n140",
+          "id": "n148",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (configureServices is null)",
@@ -18645,7 +18898,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n141",
+              "id": "n149",
               "kind": "branch",
               "change": "unchanged",
               "label": "callback",
@@ -18692,7 +18945,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n142",
+                  "id": "n150",
                   "kind": "call",
                   "change": "modified",
                   "label": "AcceptanceSteps.WithAddOcelot",
@@ -18767,7 +19020,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n143",
+          "id": "n151",
           "kind": "call",
           "change": "modified",
           "label": "AcceptanceSteps.GivenOcelotHostIsRunning",
@@ -18830,7 +19083,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n144",
+              "id": "n152",
               "kind": "call",
               "change": "unchanged",
               "label": "AcceptanceSteps.WithBasicConfiguration",
@@ -18899,7 +19152,7 @@ stdout:
               }
             },
             {
-              "id": "n145",
+              "id": "n153",
               "kind": "call",
               "change": "unchanged",
               "label": "WebSocketsSteps.StartOcelotWithWebSockets.WithWebSocketsAndConfig",
@@ -18968,7 +19221,7 @@ stdout:
               }
             },
             {
-              "id": "n146",
+              "id": "n154",
               "kind": "call",
               "change": "unchanged",
               "label": "WebSocketsSteps.StartOcelotWithWebSockets.ConfigureWebHost",
@@ -19047,7 +19300,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n147",
+      "id": "n155",
       "kind": "member",
       "change": "unchanged",
       "label": "samples/Configuration/Program.cs::<top-level>",
@@ -19094,7 +19347,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n148",
+          "id": "n156",
           "kind": "call",
           "change": "unchanged",
           "label": "? WebApplication.CreateBuilder",
@@ -19143,7 +19396,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n149",
+          "id": "n157",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Configuration.SetBasePath",
@@ -19192,7 +19445,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n150",
+          "id": "n158",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot",
@@ -19241,7 +19494,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n151",
+          "id": "n159",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotRoot",
@@ -19271,7 +19524,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n152",
+          "id": "n160",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotRoutes",
@@ -19301,7 +19554,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n153",
+          "id": "n161",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotGlobalConfiguration",
@@ -19331,7 +19584,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n154",
+          "id": "n162",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotGlobalSection",
@@ -19361,7 +19614,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n155",
+          "id": "n163",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotGlobalProperty<string>",
@@ -19391,7 +19644,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n156",
+          "id": "n164",
           "kind": "call",
           "change": "added",
           "label": "Program.<Main>$.GlobalPath",
@@ -19429,7 +19682,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n157",
+          "id": "n165",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotGlobalSection",
@@ -19459,7 +19712,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n158",
+          "id": "n166",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotGlobalSection(\"DefaultCountry\").Get<string>",
@@ -19489,7 +19742,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n159",
+          "id": "n167",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotGlobalProperty<string>",
@@ -19519,7 +19772,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n160",
+          "id": "n168",
           "kind": "call",
           "change": "added",
           "label": "Program.<Main>$.GlobalPath",
@@ -19557,7 +19810,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n161",
+          "id": "n169",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotGlobalSection",
@@ -19587,7 +19840,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n162",
+          "id": "n170",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotGlobalSection(\"DefaultCities\").Get<string[]>",
@@ -19617,7 +19870,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n163",
+          "id": "n171",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotGlobalProperty<string[]>",
@@ -19647,7 +19900,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n164",
+          "id": "n172",
           "kind": "call",
           "change": "added",
           "label": "Program.<Main>$.GlobalPath",
@@ -19685,7 +19938,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n165",
+          "id": "n173",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotGlobalSection",
@@ -19715,7 +19968,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n166",
+          "id": "n174",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotGlobalSection(\"Defaults\").Get<DefaultInfo>",
@@ -19745,7 +19998,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n167",
+          "id": "n175",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotGlobalProperty<DefaultInfo>",
@@ -19775,7 +20028,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n168",
+          "id": "n176",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotRoute",
@@ -19805,7 +20058,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n169",
+          "id": "n177",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotProperty<string>",
@@ -19835,7 +20088,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n170",
+          "id": "n178",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotProperty<string>",
@@ -19865,7 +20118,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n171",
+          "id": "n179",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotRoute",
@@ -19895,7 +20148,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n172",
+          "id": "n180",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotProperty<string>",
@@ -19925,7 +20178,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n173",
+          "id": "n181",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotJson",
@@ -19955,7 +20208,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n174",
+          "id": "n182",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotJObject",
@@ -19985,7 +20238,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n175",
+          "id": "n183",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotJRoutes",
@@ -20015,7 +20268,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n176",
+          "id": "n184",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotJGlobalConfiguration",
@@ -20045,7 +20298,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n177",
+          "id": "n185",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotJGlobalConfiguration",
@@ -20075,7 +20328,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n178",
+          "id": "n186",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotJGlobalConfiguration()[nameof(FileGlobalConfiguration.BaseUrl)].Value<string>",
@@ -20105,7 +20358,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n179",
+          "id": "n187",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotJGlobalProperty<string>",
@@ -20135,7 +20388,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n180",
+          "id": "n188",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotJGlobalProperty<string>",
@@ -20165,7 +20418,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n181",
+          "id": "n189",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotJGlobalProperty<string[]>",
@@ -20195,7 +20448,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n182",
+          "id": "n190",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotJGlobalProperty<DefaultInfo>",
@@ -20225,7 +20478,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n183",
+          "id": "n191",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotJRoute",
@@ -20255,7 +20508,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n184",
+          "id": "n192",
           "kind": "call",
           "change": "added",
           "label": "? jWeather[\"DefaultCity\"].Value<string>",
@@ -20285,7 +20538,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n185",
+          "id": "n193",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotJProperty<string>",
@@ -20315,7 +20568,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n186",
+          "id": "n194",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotJProperty<string>",
@@ -20345,7 +20598,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n187",
+          "id": "n195",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotJRoute",
@@ -20375,7 +20628,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n188",
+          "id": "n196",
           "kind": "call",
           "change": "added",
           "label": "? configuration.OcelotJProperty<string>",
@@ -20405,7 +20658,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n189",
+          "id": "n197",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Services.AddOcelot",
@@ -20454,7 +20707,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n190",
+          "id": "n198",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Environment.IsDevelopment",
@@ -20503,7 +20756,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n191",
+          "id": "n199",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (builder.Environment.IsDevelopment())",
@@ -20550,7 +20803,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n192",
+              "id": "n200",
               "kind": "call",
               "change": "unchanged",
               "label": "? builder.Logging.AddConsole",
@@ -20602,7 +20855,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n193",
+          "id": "n201",
           "kind": "call",
           "change": "added",
           "label": "? jRoutes.Children",
@@ -20632,7 +20885,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n194",
+          "id": "n202",
           "kind": "call",
           "change": "added",
           "label": "? jRoutes.Children().Count",
@@ -20662,7 +20915,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n195",
+          "id": "n203",
           "kind": "call",
           "change": "added",
           "label": "TextWriterExtensions.Welcome",
@@ -20700,7 +20953,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n196",
+          "id": "n204",
           "kind": "call",
           "change": "added",
           "label": "TextWriterExtensions.Print",
@@ -20738,7 +20991,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n197",
+          "id": "n205",
           "kind": "branch",
           "change": "added",
           "label": "foreach (JToken jRt in jRoutes)",
@@ -20766,7 +21019,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n198",
+              "id": "n206",
               "kind": "call",
               "change": "added",
               "label": "? jRoutes.IndexOf",
@@ -20796,7 +21049,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n199",
+              "id": "n207",
               "kind": "call",
               "change": "added",
               "label": "TextWriterExtensions.Print",
@@ -20837,7 +21090,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n200",
+          "id": "n208",
           "kind": "call",
           "change": "added",
           "label": "TextWriterExtensions.PageBreak",
@@ -20875,7 +21128,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n201",
+          "id": "n209",
           "kind": "call",
           "change": "added",
           "label": "TextWriterExtensions.Print",
@@ -20913,7 +21166,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n202",
+          "id": "n210",
           "kind": "branch",
           "change": "added",
           "label": "for (i < totalRoutes)",
@@ -20941,7 +21194,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n203",
+              "id": "n211",
               "kind": "call",
               "change": "added",
               "label": "Helpers.OcelotCustomProperties",
@@ -20983,7 +21236,7 @@ stdout:
               }
             },
             {
-              "id": "n204",
+              "id": "n212",
               "kind": "call",
               "change": "added",
               "label": "? Console.Out.Print",
@@ -21015,7 +21268,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n205",
+              "id": "n213",
               "kind": "branch",
               "change": "added",
               "label": "foreach (JProperty jp in customProps)",
@@ -21043,7 +21296,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n206",
+                  "id": "n214",
                   "kind": "call",
                   "change": "added",
                   "label": "TextWriterExtensions.Print",
@@ -21087,7 +21340,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n207",
+          "id": "n215",
           "kind": "call",
           "change": "added",
           "label": "TextWriterExtensions.PageBreak",
@@ -21125,7 +21378,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n208",
+          "id": "n216",
           "kind": "call",
           "change": "added",
           "label": "TextWriterExtensions.Print",
@@ -21163,7 +21416,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n209",
+          "id": "n217",
           "kind": "call",
           "change": "added",
           "label": "Helpers.OcelotCustomProperties",
@@ -21205,7 +21458,7 @@ stdout:
           }
         },
         {
-          "id": "n210",
+          "id": "n218",
           "kind": "call",
           "change": "added",
           "label": "TextWriterExtensions.Print",
@@ -21243,7 +21496,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n211",
+          "id": "n219",
           "kind": "branch",
           "change": "added",
           "label": "foreach (JProperty jp in customGlobal)",
@@ -21271,7 +21524,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n212",
+              "id": "n220",
               "kind": "call",
               "change": "added",
               "label": "? jp.Value.ToString",
@@ -21301,7 +21554,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n213",
+              "id": "n221",
               "kind": "call",
               "change": "added",
               "label": "TextWriterExtensions.Print",
@@ -21342,7 +21595,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n214",
+          "id": "n222",
           "kind": "call",
           "change": "added",
           "label": "TextWriterExtensions.PageBreak",
@@ -21380,7 +21633,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n215",
+          "id": "n223",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Build",
@@ -21429,7 +21682,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n216",
+          "id": "n224",
           "kind": "call",
           "change": "unchanged",
           "label": "? app.UseOcelot",
@@ -21478,7 +21731,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n217",
+          "id": "n225",
           "kind": "call",
           "change": "unchanged",
           "label": "? app.RunAsync",

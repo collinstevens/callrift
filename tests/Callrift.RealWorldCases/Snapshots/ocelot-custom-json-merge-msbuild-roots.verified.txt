@@ -44,11 +44,14 @@ stdout:
 
 + ConfigurationBuilderExtensions.OcelotJProperty
 + └─ if (globalConfiguration is null)
-+    ├─ possible initialization of ConfigurationBuilderExtensions
-+    │  └─ initialization of ConfigurationBuilderExtensions
++    ├─ ConfigurationBuilderExtensions.get_MergedConfigJObject (changes below depth limit)
 +    └─ ConfigurationBuilderExtensions.OcelotJSection
 
 + ConfigurationBuilderExtensions.OcelotJson
++ └─ possible initialization of ConfigurationBuilderExtensions
++    └─ initialization of ConfigurationBuilderExtensions
+
++ ConfigurationBuilderExtensions.get_MergedConfigJson
 + └─ possible initialization of ConfigurationBuilderExtensions
 +    └─ initialization of ConfigurationBuilderExtensions
 
@@ -95,6 +98,7 @@ stdout:
   ├─ try
   │  ├─ HttpItemsExtensions.IInternalConfiguration (depth limit)
 ~ │  ├─ ExceptionHandlerMiddleware.TrySetGlobalRequestId (changes below depth limit)
+  │  ├─ OcelotMiddleware.get_Logger
   │  └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (depth limit)
   ├─ catch (OperationCanceledException e) when (context.RequestAborted.IsCancellationRequested)
   ├─ catch (Exception e)
@@ -119,7 +123,7 @@ stdout:
   HttpRequesterMiddleware.Invoke
 ~ ├─ IHttpRequester.GetResponse → MessageInvokerHttpRequester.GetResponse (changes below depth limit)
   ├─ HttpRequesterMiddleware.CreateLogBasedOnResponse (depth limit)
-  ├─ if (response.IsError)
+  ├─ Response.get_IsError (depth limit)
   └─ …
 stderr:
 
@@ -170,11 +174,14 @@ stdout:
 
 + ConfigurationBuilderExtensions.OcelotJProperty
 + └─ if (globalConfiguration is null)
-+    ├─ possible initialization of ConfigurationBuilderExtensions
-+    │  └─ initialization of ConfigurationBuilderExtensions
++    ├─ ConfigurationBuilderExtensions.get_MergedConfigJObject (changes below depth limit)
 +    └─ ConfigurationBuilderExtensions.OcelotJSection
 
 + ConfigurationBuilderExtensions.OcelotJson
++ └─ possible initialization of ConfigurationBuilderExtensions
++    └─ initialization of ConfigurationBuilderExtensions
+
++ ConfigurationBuilderExtensions.get_MergedConfigJson
 + └─ possible initialization of ConfigurationBuilderExtensions
 +    └─ initialization of ConfigurationBuilderExtensions
 
@@ -221,6 +228,7 @@ stdout:
   ├─ try
   │  ├─ HttpItemsExtensions.IInternalConfiguration (depth limit)
 ~ │  ├─ ExceptionHandlerMiddleware.TrySetGlobalRequestId (changes below depth limit)
+  │  ├─ OcelotMiddleware.get_Logger
   │  └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (depth limit)
   ├─ catch (OperationCanceledException e) when (context.RequestAborted.IsCancellationRequested)
   ├─ catch (Exception e)
@@ -245,7 +253,7 @@ stdout:
   HttpRequesterMiddleware.Invoke
 ~ ├─ IHttpRequester.GetResponse → MessageInvokerHttpRequester.GetResponse (changes below depth limit)
   ├─ HttpRequesterMiddleware.CreateLogBasedOnResponse (depth limit)
-  ├─ if (response.IsError)
+  ├─ Response.get_IsError (depth limit)
   └─ …
 ```
 stderr:
