@@ -12,6 +12,7 @@ stdout:
   ResponderMiddleware.Invoke
   ├─ HttpItemsExtensions.Errors (depth limit)
   ├─ if (errors.Count > 0)
+  │  ├─ OcelotMiddleware.get_Logger
   │  ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (depth limit)
 ~ │  └─ ResponderMiddleware.SetErrorResponse (changes below depth limit)
   ├─ HttpItemsExtensions.DownstreamResponse (depth limit)
@@ -34,11 +35,16 @@ stdout:
 - ├─ if (_securityPolicies != null)
 - │  └─ foreach (var policy in _securityPolicies)
 - │     ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
+- │     ├─ Response.get_IsError (depth limit)
+- │     ├─ Response.get_Errors
 - │     └─ HttpItemsExtensions.UpsertErrors (depth limit)
 + └─ foreach (var policy in _policies)
 +    ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
++    ├─ Response.get_IsError (depth limit)
 +    └─ if (result.IsError)
++       ├─ Response.get_Errors
 +       ├─ HttpItemsExtensions.UpsertErrors (depth limit)
++       ├─ Response.get_Errors
 +       └─ SecurityMiddleware.HandleWebSocketErrors
 stderr:
 
@@ -57,6 +63,7 @@ stdout:
   ResponderMiddleware.Invoke
   ├─ HttpItemsExtensions.Errors (depth limit)
   ├─ if (errors.Count > 0)
+  │  ├─ OcelotMiddleware.get_Logger
   │  ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (depth limit)
 ~ │  └─ ResponderMiddleware.SetErrorResponse (changes below depth limit)
   ├─ HttpItemsExtensions.DownstreamResponse (depth limit)
@@ -79,11 +86,16 @@ stdout:
 - ├─ if (_securityPolicies != null)
 - │  └─ foreach (var policy in _securityPolicies)
 - │     ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
+- │     ├─ Response.get_IsError (depth limit)
+- │     ├─ Response.get_Errors
 - │     └─ HttpItemsExtensions.UpsertErrors (depth limit)
 + └─ foreach (var policy in _policies)
 +    ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
++    ├─ Response.get_IsError (depth limit)
 +    └─ if (result.IsError)
++       ├─ Response.get_Errors
 +       ├─ HttpItemsExtensions.UpsertErrors (depth limit)
++       ├─ Response.get_Errors
 +       └─ SecurityMiddleware.HandleWebSocketErrors
 ```
 stderr:

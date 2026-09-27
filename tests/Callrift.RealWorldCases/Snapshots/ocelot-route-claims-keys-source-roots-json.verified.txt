@@ -12550,6 +12550,113 @@ stdout:
           "id": "n1",
           "kind": "call",
           "change": "added",
+          "label": "FileConfiguration.get_Routes",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": "source::Ocelot.Configuration.File.FileConfiguration.get_Routes()",
+            "signature": "public Ocelot.Configuration.File.FileConfiguration.get_Routes() -> System.Collections.Generic.List<Ocelot.Configuration.File.FileRoute>",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Ocelot.Configuration.File.FileConfiguration.get_Routes()"
+            ],
+            "definition": {
+              "path": "src/Configuration/File/FileConfiguration.cs",
+              "startLine": 13,
+              "startColumn": 37,
+              "endLine": 13,
+              "endColumn": 41
+            },
+            "callSites": [
+              {
+                "path": "src/Authorization/RouteClaimsRequirementPostConfigureOptions.cs",
+                "startLine": 22,
+                "startColumn": 9,
+                "endLine": 22,
+                "endColumn": 23
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n2",
+          "kind": "branch",
+          "change": "added",
+          "label": "if (options.Routes is null)",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Authorization/RouteClaimsRequirementPostConfigureOptions.cs",
+                "startLine": 22,
+                "startColumn": 9,
+                "endLine": 22,
+                "endColumn": 30
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n3",
+              "kind": "call",
+              "change": "added",
+              "label": "FileConfiguration.set_Routes",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::Ocelot.Configuration.File.FileConfiguration.set_Routes(global::System.Collections.Generic.List<global::Ocelot.Configuration.File.FileRoute>)",
+                "signature": "public Ocelot.Configuration.File.FileConfiguration.set_Routes(System.Collections.Generic.List<Ocelot.Configuration.File.FileRoute> value) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.Configuration.File.FileConfiguration.set_Routes(global::System.Collections.Generic.List<global::Ocelot.Configuration.File.FileRoute>)"
+                ],
+                "definition": {
+                  "path": "src/Configuration/File/FileConfiguration.cs",
+                  "startLine": 13,
+                  "startColumn": 42,
+                  "endLine": 13,
+                  "endColumn": 46
+                },
+                "callSites": [
+                  {
+                    "path": "src/Authorization/RouteClaimsRequirementPostConfigureOptions.cs",
+                    "startLine": 22,
+                    "startColumn": 9,
+                    "endLine": 22,
+                    "endColumn": 23
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n4",
+          "kind": "call",
+          "change": "added",
           "label": "ConfigurationExtensions.OcelotRoutes",
           "detail": null,
           "before": null,
@@ -12585,7 +12692,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n2",
+          "id": "n5",
           "kind": "branch",
           "change": "added",
           "label": "for (i < options.Routes.Count)",
@@ -12613,7 +12720,45 @@ stdout:
           },
           "children": [
             {
-              "id": "n3",
+              "id": "n6",
+              "kind": "call",
+              "change": "added",
+              "label": "FileConfiguration.get_Routes",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::Ocelot.Configuration.File.FileConfiguration.get_Routes()",
+                "signature": "public Ocelot.Configuration.File.FileConfiguration.get_Routes() -> System.Collections.Generic.List<Ocelot.Configuration.File.FileRoute>",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Ocelot.Configuration.File.FileConfiguration.get_Routes()"
+                ],
+                "definition": {
+                  "path": "src/Configuration/File/FileConfiguration.cs",
+                  "startLine": 13,
+                  "startColumn": 37,
+                  "endLine": 13,
+                  "endColumn": 41
+                },
+                "callSites": [
+                  {
+                    "path": "src/Authorization/RouteClaimsRequirementPostConfigureOptions.cs",
+                    "startLine": 24,
+                    "startColumn": 29,
+                    "endLine": 24,
+                    "endColumn": 43
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n7",
               "kind": "call",
               "change": "added",
               "label": "RouteClaimsRequirementPostConfigureOptions.ReadRequirements",
@@ -12653,6 +12798,113 @@ stdout:
                 "symbolId": null,
                 "referenceId": null
               }
+            },
+            {
+              "id": "n8",
+              "kind": "branch",
+              "change": "added",
+              "label": "if (requirements.Count > 0)",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Authorization/RouteClaimsRequirementPostConfigureOptions.cs",
+                    "startLine": 28,
+                    "startColumn": 13,
+                    "endLine": 32,
+                    "endColumn": 14
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "children": [
+                {
+                  "id": "n9",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "FileConfiguration.get_Routes",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::Ocelot.Configuration.File.FileConfiguration.get_Routes()",
+                    "signature": "public Ocelot.Configuration.File.FileConfiguration.get_Routes() -> System.Collections.Generic.List<Ocelot.Configuration.File.FileRoute>",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Ocelot.Configuration.File.FileConfiguration.get_Routes()"
+                    ],
+                    "definition": {
+                      "path": "src/Configuration/File/FileConfiguration.cs",
+                      "startLine": 13,
+                      "startColumn": 37,
+                      "endLine": 13,
+                      "endColumn": 41
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Authorization/RouteClaimsRequirementPostConfigureOptions.cs",
+                        "startLine": 30,
+                        "startColumn": 29,
+                        "endLine": 30,
+                        "endColumn": 43
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n10",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "FileRoute.set_RouteClaimsRequirement",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::Ocelot.Configuration.File.FileRoute.set_RouteClaimsRequirement(global::System.Collections.Generic.Dictionary<string, string>)",
+                    "signature": "public Ocelot.Configuration.File.FileRoute.set_RouteClaimsRequirement(System.Collections.Generic.Dictionary<string, string> value) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Ocelot.Configuration.File.FileRoute.set_RouteClaimsRequirement(global::System.Collections.Generic.Dictionary<string, string>)"
+                    ],
+                    "definition": {
+                      "path": "src/Configuration/File/FileRoute.cs",
+                      "startLine": 44,
+                      "startColumn": 69,
+                      "endLine": 44,
+                      "endColumn": 73
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Authorization/RouteClaimsRequirementPostConfigureOptions.cs",
+                        "startLine": 31,
+                        "startColumn": 17,
+                        "endLine": 31,
+                        "endColumn": 45
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
             }
           ],
           "omission": null
@@ -12661,7 +12913,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n4",
+      "id": "n11",
       "kind": "member",
       "change": "unchanged",
       "label": "ServiceCollectionExtensions.AddOcelot",
@@ -12708,7 +12960,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n5",
+          "id": "n12",
           "kind": "call",
           "change": "modified",
           "label": "new OcelotBuilder",
@@ -12780,7 +13032,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n6",
+      "id": "n13",
       "kind": "member",
       "change": "unchanged",
       "label": "ServiceCollectionExtensions.AddOcelotUsingBuilder",
@@ -12827,7 +13079,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n7",
+          "id": "n14",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (configuration is null)",
@@ -12874,7 +13126,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n8",
+              "id": "n15",
               "kind": "call",
               "change": "unchanged",
               "label": "ServiceCollectionExtensions.FindConfiguration",
@@ -12946,7 +13198,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n9",
+          "id": "n16",
           "kind": "call",
           "change": "modified",
           "label": "new OcelotBuilder",
@@ -13018,7 +13270,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n10",
+      "id": "n17",
       "kind": "member",
       "change": "unchanged",
       "label": "ServiceCollectionExtensions.AddOcelotUsingBuilder",
@@ -13065,7 +13317,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n11",
+          "id": "n18",
           "kind": "call",
           "change": "unchanged",
           "label": "ServiceCollectionExtensions.FindConfiguration",
@@ -13134,7 +13386,7 @@ stdout:
           }
         },
         {
-          "id": "n12",
+          "id": "n19",
           "kind": "call",
           "change": "modified",
           "label": "new OcelotBuilder",
@@ -13206,7 +13458,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n13",
+      "id": "n20",
       "kind": "member",
       "change": "unchanged",
       "label": "AuthenticationSteps.WithJwtBearerAuthentication",
@@ -13253,7 +13505,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n14",
+          "id": "n21",
           "kind": "call",
           "change": "modified",
           "label": "AuthenticationSteps.WithJwtBearerAuthentication",
@@ -13325,7 +13577,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n15",
+      "id": "n22",
       "kind": "member",
       "change": "unchanged",
       "label": "DiscoverySteps.WithDiscovery",
@@ -13372,7 +13624,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n16",
+          "id": "n23",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of DiscoverySteps",
@@ -13419,7 +13671,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n17",
+              "id": "n24",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of DiscoverySteps",
@@ -13491,7 +13743,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n18",
+          "id": "n25",
           "kind": "call",
           "change": "modified",
           "label": "ServiceCollectionExtensions.AddOcelot",
@@ -13563,7 +13815,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n19",
+      "id": "n26",
       "kind": "member",
       "change": "unchanged",
       "label": "WebSocketsSteps.StartHttp2OcelotWithWebSockets",
@@ -13610,7 +13862,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n20",
+          "id": "n27",
           "kind": "call",
           "change": "unchanged",
           "label": "AcceptanceSteps.DownstreamUrl",
@@ -13675,7 +13927,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n21",
+          "id": "n28",
           "kind": "call",
           "change": "unchanged",
           "label": "AcceptanceSteps.GivenOcelotHostIsRunning",
@@ -13738,7 +13990,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n22",
+              "id": "n29",
               "kind": "call",
               "change": "unchanged",
               "label": "AcceptanceSteps.WithBasicConfiguration",
@@ -13807,7 +14059,7 @@ stdout:
               }
             },
             {
-              "id": "n23",
+              "id": "n30",
               "kind": "call",
               "change": "modified",
               "label": "AcceptanceSteps.WithAddOcelot",
@@ -13876,7 +14128,7 @@ stdout:
               }
             },
             {
-              "id": "n24",
+              "id": "n31",
               "kind": "call",
               "change": "unchanged",
               "label": "WebSocketsSteps.WithWebSockets",
@@ -13945,7 +14197,7 @@ stdout:
               }
             },
             {
-              "id": "n25",
+              "id": "n32",
               "kind": "call",
               "change": "unchanged",
               "label": "WebSocketsSteps.StartHttp2OcelotWithWebSockets.ConfigureWebHost",
@@ -14024,7 +14276,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n26",
+      "id": "n33",
       "kind": "member",
       "change": "unchanged",
       "label": "WebSocketsSteps.StartOcelotWithWebSockets",
@@ -14071,7 +14323,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n27",
+          "id": "n34",
           "kind": "call",
           "change": "modified",
           "label": "WebSocketsSteps.StartOcelotWithWebSockets",
@@ -14143,7 +14395,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n28",
+      "id": "n35",
       "kind": "member",
       "change": "unchanged",
       "label": "WebSocketsSteps.StartOcelotWithWebSockets",
@@ -14190,7 +14442,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n29",
+          "id": "n36",
           "kind": "call",
           "change": "unchanged",
           "label": "AcceptanceSteps.DownstreamUrl",
@@ -14259,7 +14511,7 @@ stdout:
           }
         },
         {
-          "id": "n30",
+          "id": "n37",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (configureServices is null)",
@@ -14306,7 +14558,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n31",
+              "id": "n38",
               "kind": "branch",
               "change": "unchanged",
               "label": "callback",
@@ -14353,7 +14605,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n32",
+                  "id": "n39",
                   "kind": "call",
                   "change": "modified",
                   "label": "AcceptanceSteps.WithAddOcelot",
@@ -14428,7 +14680,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n33",
+          "id": "n40",
           "kind": "call",
           "change": "modified",
           "label": "AcceptanceSteps.GivenOcelotHostIsRunning",
@@ -14491,7 +14743,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n34",
+              "id": "n41",
               "kind": "call",
               "change": "unchanged",
               "label": "AcceptanceSteps.WithBasicConfiguration",
@@ -14560,7 +14812,7 @@ stdout:
               }
             },
             {
-              "id": "n35",
+              "id": "n42",
               "kind": "call",
               "change": "unchanged",
               "label": "WebSocketsSteps.StartOcelotWithWebSockets.WithWebSocketsAndConfig",
@@ -14629,7 +14881,7 @@ stdout:
               }
             },
             {
-              "id": "n36",
+              "id": "n43",
               "kind": "call",
               "change": "unchanged",
               "label": "WebSocketsSteps.StartOcelotWithWebSockets.ConfigureWebHost",

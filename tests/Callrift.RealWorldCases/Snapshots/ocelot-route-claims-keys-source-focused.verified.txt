@@ -2,15 +2,26 @@
 exit: 0
 stdout:
 + RouteClaimsRequirementPostConfigureOptions.PostConfigure
++ ├─ FileConfiguration.get_Routes
++ ├─ if (options.Routes is null)
++ │  └─ FileConfiguration.set_Routes
 + ├─ ConfigurationExtensions.OcelotRoutes
 + │  └─ configuration.GetSection
 + └─ for (i < options.Routes.Count)
++    ├─ FileConfiguration.get_Routes
++    ├─ List<T>.get_Count
 +    ├─ routes.GetSection
-+    └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements
-+       ├─ new Dictionary<string, string>
-+       ├─ section.GetChildren
-+       └─ foreach (var child in section.GetChildren())
-+          └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements (changes below depth limit)
++    ├─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements
++    │  ├─ new Dictionary<string, string>
++    │  ├─ section.GetChildren
++    │  └─ foreach (var child in section.GetChildren())
++    │     ├─ IConfigurationSection.get_Key
++    │     └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements (changes below depth limit)
++    ├─ Dictionary<TKey, TValue>.get_Count
++    └─ if (requirements.Count > 0)
++       ├─ FileConfiguration.get_Routes
++       ├─ List<T>.get_Item
++       └─ FileRoute.set_RouteClaimsRequirement
 
 + Features.AddOcelotAuthorization
 + ├─ ? builder.AddAuthorization
@@ -23,33 +34,40 @@ stdout:
   new OcelotBuilder
   ├─ new Object
 + ├─ typeof(FileConfigurationController).GetTypeInfo
++ ├─ Type.get_Assembly
 + ├─ if (customBuilder is null)
 + │  └─ callback
 + │     └─ OcelotBuilder.AddDefaultAspNetServices (changes below depth limit)
 + ├─ ? services.AddMvcCore
 + ├─ ? customBuilder.Invoke
+  ├─ OcelotBuilder.get_Services
   ├─ ? Services.Configure<FileConfiguration>
-  ├─ configurationRoot.GetSection
   ├─ …
-  ├─ Services.TryAddSingleton<IRemoveOutputHeaders, RemoveOutputHeaders>
   ├─ Services.TryAddSingleton<IClaimToThingConfigurationParser, ClaimToThingConfigurationParser>
+  ├─ OcelotBuilder.get_Services
 - ├─ Services.TryAddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>
+- ├─ OcelotBuilder.get_Services
 - ├─ Services.TryAddSingleton<IScopesAuthorizer, ScopesAuthorizer>
+- ├─ OcelotBuilder.get_Services
   ├─ Services.TryAddSingleton<IAddClaimsToRequest, AddClaimsToRequest>
-  ├─ Services.TryAddSingleton<IAddHeadersToRequest, AddHeadersToRequest>
+  ├─ OcelotBuilder.get_Services
   ├─ …
-  ├─ Services.TryAddSingleton<ISecurityOptionsCreator, SecurityOptionsCreator>
   ├─ Services.TryAddSingleton<ISecurityPolicy, IPSecurityPolicy>
+  ├─ OcelotBuilder.get_Services
++ ├─ OcelotBuilder.get_MvcCoreBuilder
 + ├─ Features.AddOcelotAuthorization ↑ as above
++ ├─ OcelotBuilder.get_Services
   ├─ Features.AddOcelotCache
-  ├─ Features.AddOcelotConfigurationRepository
+  ├─ OcelotBuilder.get_Services
   ├─ …
-  ├─ Features.AddOcelotQualityOfService
+  ├─ OcelotBuilder.get_Services
   ├─ Features.AddOcelotRateLimiting
 - ├─ typeof(FileConfigurationController).GetTypeInfo
+- ├─ Type.get_Assembly
 - ├─ if (customBuilder is null)
 - │  └─ callback
 - │     └─ OcelotBuilder.AddDefaultAspNetServices (changes below depth limit)
+- ├─ OcelotBuilder.get_Services
 - ├─ ? Services.AddMvcCore
 - └─ ? (customBuilder ?? AddDefaultAspNetServices).Invoke
 stderr:
@@ -68,15 +86,26 @@ exit: 0
 stdout:
 ```diff
 + RouteClaimsRequirementPostConfigureOptions.PostConfigure
++ ├─ FileConfiguration.get_Routes
++ ├─ if (options.Routes is null)
++ │  └─ FileConfiguration.set_Routes
 + ├─ ConfigurationExtensions.OcelotRoutes
 + │  └─ configuration.GetSection
 + └─ for (i < options.Routes.Count)
++    ├─ FileConfiguration.get_Routes
++    ├─ List<T>.get_Count
 +    ├─ routes.GetSection
-+    └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements
-+       ├─ new Dictionary<string, string>
-+       ├─ section.GetChildren
-+       └─ foreach (var child in section.GetChildren())
-+          └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements (changes below depth limit)
++    ├─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements
++    │  ├─ new Dictionary<string, string>
++    │  ├─ section.GetChildren
++    │  └─ foreach (var child in section.GetChildren())
++    │     ├─ IConfigurationSection.get_Key
++    │     └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements (changes below depth limit)
++    ├─ Dictionary<TKey, TValue>.get_Count
++    └─ if (requirements.Count > 0)
++       ├─ FileConfiguration.get_Routes
++       ├─ List<T>.get_Item
++       └─ FileRoute.set_RouteClaimsRequirement
 
 + Features.AddOcelotAuthorization
 + ├─ ? builder.AddAuthorization
@@ -89,33 +118,40 @@ stdout:
   new OcelotBuilder
   ├─ new Object
 + ├─ typeof(FileConfigurationController).GetTypeInfo
++ ├─ Type.get_Assembly
 + ├─ if (customBuilder is null)
 + │  └─ callback
 + │     └─ OcelotBuilder.AddDefaultAspNetServices (changes below depth limit)
 + ├─ ? services.AddMvcCore
 + ├─ ? customBuilder.Invoke
+  ├─ OcelotBuilder.get_Services
   ├─ ? Services.Configure<FileConfiguration>
-  ├─ configurationRoot.GetSection
   ├─ …
-  ├─ Services.TryAddSingleton<IRemoveOutputHeaders, RemoveOutputHeaders>
   ├─ Services.TryAddSingleton<IClaimToThingConfigurationParser, ClaimToThingConfigurationParser>
+  ├─ OcelotBuilder.get_Services
 - ├─ Services.TryAddSingleton<IClaimsAuthorizer, ClaimsAuthorizer>
+- ├─ OcelotBuilder.get_Services
 - ├─ Services.TryAddSingleton<IScopesAuthorizer, ScopesAuthorizer>
+- ├─ OcelotBuilder.get_Services
   ├─ Services.TryAddSingleton<IAddClaimsToRequest, AddClaimsToRequest>
-  ├─ Services.TryAddSingleton<IAddHeadersToRequest, AddHeadersToRequest>
+  ├─ OcelotBuilder.get_Services
   ├─ …
-  ├─ Services.TryAddSingleton<ISecurityOptionsCreator, SecurityOptionsCreator>
   ├─ Services.TryAddSingleton<ISecurityPolicy, IPSecurityPolicy>
+  ├─ OcelotBuilder.get_Services
++ ├─ OcelotBuilder.get_MvcCoreBuilder
 + ├─ Features.AddOcelotAuthorization ↑ as above
++ ├─ OcelotBuilder.get_Services
   ├─ Features.AddOcelotCache
-  ├─ Features.AddOcelotConfigurationRepository
+  ├─ OcelotBuilder.get_Services
   ├─ …
-  ├─ Features.AddOcelotQualityOfService
+  ├─ OcelotBuilder.get_Services
   ├─ Features.AddOcelotRateLimiting
 - ├─ typeof(FileConfigurationController).GetTypeInfo
+- ├─ Type.get_Assembly
 - ├─ if (customBuilder is null)
 - │  └─ callback
 - │     └─ OcelotBuilder.AddDefaultAspNetServices (changes below depth limit)
+- ├─ OcelotBuilder.get_Services
 - ├─ ? Services.AddMvcCore
 - └─ ? (customBuilder ?? AddDefaultAspNetServices).Invoke
 ```

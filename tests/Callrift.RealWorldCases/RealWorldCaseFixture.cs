@@ -87,6 +87,10 @@ public sealed class RealWorldCaseFixture : IDisposable
             OcelotConsulExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "ocelot-timeout-status")
             OcelotTimeoutExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "ocelot-route-claims-keys")
+            OcelotRouteClaimsExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "ocelot-websocket-security")
+            OcelotWebSocketExpectations.Verify(result, options.Entries.Count > 0);
         var diagnostics = string.Concat(result.Diagnostics.Take(8).Select(diagnostic =>
             (diagnostic.Location is null ? "" : $"{diagnostic.Location.Path}:{diagnostic.Location.Line}: ") + $"{diagnostic.Code}: {diagnostic.Message}\n"));
         if (result.Diagnostics.Count > 8)

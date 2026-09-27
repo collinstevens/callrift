@@ -2,9 +2,16 @@
 exit: 0
 stdout:
 + RouteClaimsRequirementPostConfigureOptions.PostConfigure
++ ├─ FileConfiguration.get_Routes
++ ├─ if (options.Routes is null)
++ │  └─ FileConfiguration.set_Routes
 + ├─ ConfigurationExtensions.OcelotRoutes
 + └─ for (i < options.Routes.Count)
-+    └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements (changes below depth limit)
++    ├─ FileConfiguration.get_Routes
++    ├─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements (changes below depth limit)
++    └─ if (requirements.Count > 0)
++       ├─ FileConfiguration.get_Routes
++       └─ FileRoute.set_RouteClaimsRequirement
 
   ServiceCollectionExtensions.AddOcelot
   ├─ ServiceCollectionExtensions.FindConfiguration (depth limit)
@@ -27,9 +34,16 @@ exit: 0
 stdout:
 ```diff
 + RouteClaimsRequirementPostConfigureOptions.PostConfigure
++ ├─ FileConfiguration.get_Routes
++ ├─ if (options.Routes is null)
++ │  └─ FileConfiguration.set_Routes
 + ├─ ConfigurationExtensions.OcelotRoutes
 + └─ for (i < options.Routes.Count)
-+    └─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements (changes below depth limit)
++    ├─ FileConfiguration.get_Routes
++    ├─ RouteClaimsRequirementPostConfigureOptions.ReadRequirements (changes below depth limit)
++    └─ if (requirements.Count > 0)
++       ├─ FileConfiguration.get_Routes
++       └─ FileRoute.set_RouteClaimsRequirement
 
   ServiceCollectionExtensions.AddOcelot
   ├─ ServiceCollectionExtensions.FindConfiguration (depth limit)

@@ -26,23 +26,29 @@ stdout:
 - ├─ if (_securityPolicies != null)
 - │  └─ foreach (var policy in _securityPolicies)
 - │     ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
+- │     ├─ Response.get_IsError (depth limit)
+- │     ├─ Response.get_Errors
 - │     └─ ? httpContext.Items.UpsertErrors
 + ├─ ? context.Items.DownstreamRoute
 + ├─ foreach (var policy in _policies)
 + │  ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
++ │  ├─ Response.get_IsError (depth limit)
 + │  └─ if (result.IsError)
++ │     ├─ Response.get_Errors
 + │     ├─ ? context.Items.UpsertErrors
++ │     ├─ Response.get_Errors
 + │     └─ SecurityMiddleware.HandleWebSocketErrors
   └─ ? _next.Invoke
 
   samples/Metadata/Program.cs::<top-level>
   ├─ …
-  ├─ new OcelotPipelineConfiguration
   ├─ callback
+  ├─ OcelotPipelineConfiguration.set_PreErrorResponderMiddleware
   ├─ callback
 ~ │  └─ MyMiddlewares.ResponderMiddleware (changes below depth limit)
+  ├─ OcelotPipelineConfiguration.set_ResponderMiddleware
   ├─ ? app.UseOcelot
-  └─ ? app.RunAsync
+  └─ …
 stderr:
 manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.
 manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
@@ -83,23 +89,29 @@ stdout:
 - ├─ if (_securityPolicies != null)
 - │  └─ foreach (var policy in _securityPolicies)
 - │     ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
+- │     ├─ Response.get_IsError (depth limit)
+- │     ├─ Response.get_Errors
 - │     └─ ? httpContext.Items.UpsertErrors
 + ├─ ? context.Items.DownstreamRoute
 + ├─ foreach (var policy in _policies)
 + │  ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
++ │  ├─ Response.get_IsError (depth limit)
 + │  └─ if (result.IsError)
++ │     ├─ Response.get_Errors
 + │     ├─ ? context.Items.UpsertErrors
++ │     ├─ Response.get_Errors
 + │     └─ SecurityMiddleware.HandleWebSocketErrors
   └─ ? _next.Invoke
 
   samples/Metadata/Program.cs::<top-level>
   ├─ …
-  ├─ new OcelotPipelineConfiguration
   ├─ callback
+  ├─ OcelotPipelineConfiguration.set_PreErrorResponderMiddleware
   ├─ callback
 ~ │  └─ MyMiddlewares.ResponderMiddleware (changes below depth limit)
+  ├─ OcelotPipelineConfiguration.set_ResponderMiddleware
   ├─ ? app.UseOcelot
-  └─ ? app.RunAsync
+  └─ …
 ```
 stderr:
 manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.

@@ -861,8 +861,10 @@
     "licenseFile": "LICENSE.md",
     "before": "8646f482fc8c4aead02b6769762b6eeef73e9e6d",
     "after": "d1f22d930430410bfd0233f5e9e4f92980cf7df0",
-    "reason": "#679 Preserve URL-shaped keys in RouteClaimsRequirement authorization option (#2414)",
+    "reason": "Reconstruct colon-separated configuration keys for route claims and register the post-configurer through the authorization feature. Property calls expose the null-coalescing routes setter, list indexer and guarded claims setter, together with builder getter reads around moved service setup. Pinned source, signatures, compiler bindings, locations, unchanged automatic roots and diagnostics were reviewed; all twelve CLI outputs repeated exactly. DI registration does not imply framework invocation of PostConfigure. The call-free null-options return, collection-expression lowering, concrete values and runtime receiver selection remain unmodeled; recursive configuration reading reaches the depth bound.",
     "tags": [
+      "property-accessors",
+      "indexers",
       "configuration",
       "guards",
       "di-registration",
@@ -870,7 +872,7 @@
     ],
     "options": [],
     "knownIssue": "issues/ocelot-coverage.md",
-    "review": "reviews/ocelot-route-claims-keys.md",
+    "review": "../tests/Callrift.RealWorldCases/OcelotRouteClaimsExpectations.cs",
     "beforeLicenseBlob": "7a0788f9c32c526f1de1cf2e8ba0ae5a260c6c62",
     "afterLicenseBlob": "7a0788f9c32c526f1de1cf2e8ba0ae5a260c6c62",
     "routine": false,
@@ -941,6 +943,7 @@
     "after": "8646f482fc8c4aead02b6769762b6eeef73e9e6d",
     "reason": "Narrow timeout mapping to exceptions without an inner exception and change the timeout status to 504. The InnerException getter appears under the short-circuit type guard, and the timeout constructor moves under the full null condition. Property getters and configuration setters retain pinned source and compiler binding checks in both modes. Automatic requester/responder roots, diagnostics, locations and all twelve CLI outputs were independently reviewed and repeated. Constant return values and concrete runtime dispatch remain unmodeled; the status mapper reports a body change with unchanged calls.",
     "tags": [
+      "property-accessors",
       "guards",
       "exception-paths",
       "primary-constructors",
@@ -1093,8 +1096,9 @@
     "licenseFile": "LICENSE.md",
     "before": "6062d5a5ab3bc1baa929d0965e5a28e3cbf2d1fd",
     "after": "f156fd4017ca25025fffdad8ec56c1d657dfb402",
-    "reason": "#2403 Add `SecurityOptions` support to the WebSocket pipeline (#2406)",
+    "reason": "Register security middleware in the WebSocket pipeline, reorganize policy guards and set an error response status for WebSocket requests. Focused views now select HandleWebSocketErrors directly: restored mode exposes the websocket guard getters and response setter, while source mode lacks ASP.NET bindings and leaves that helper body empty. Pinned source, declarations, compiler bindings, locations, unchanged automatic roots and diagnostics were reviewed; all twelve CLI formats repeated exactly. Registration does not prove framework invocation. Early-return propagation, setter argument values and concrete runtime receiver selection remain unmodeled; depth limits and possible callbacks remain explicit.",
     "tags": [
+      "property-accessors",
       "middleware",
       "guards",
       "callbacks",
@@ -1103,7 +1107,7 @@
     ],
     "options": [],
     "knownIssue": "issues/ocelot-coverage.md",
-    "review": "reviews/ocelot-websocket-security.md",
+    "review": "../tests/Callrift.RealWorldCases/OcelotWebSocketExpectations.cs",
     "beforeLicenseBlob": "058bbbcec4d6137a36c5cc6a46a599f93bb10c42",
     "afterLicenseBlob": "058bbbcec4d6137a36c5cc6a46a599f93bb10c42",
     "routine": false,
@@ -1127,7 +1131,9 @@
           "--entry",
           "IPSecurityPolicy.SecurityAsync",
           "--entry",
-          "OcelotPipelineExtensions.ConfigureWebSockets"
+          "OcelotPipelineExtensions.ConfigureWebSockets",
+          "--entry",
+          "SecurityMiddleware.HandleWebSocketErrors"
         ],
         "routine": false
       },
@@ -1155,6 +1161,8 @@
           "IPSecurityPolicy.SecurityAsync",
           "--entry",
           "OcelotPipelineExtensions.ConfigureWebSockets",
+          "--entry",
+          "SecurityMiddleware.HandleWebSocketErrors",
           "--project",
           "src/Ocelot.csproj",
           "--framework",
@@ -2865,6 +2873,7 @@
     "afterLicenseBlob": "058bbbcec4d6137a36c5cc6a46a599f93bb10c42",
     "reason": "Prioritize the Consul service instance address before node address and node name. Review the added null-or-empty check through unchanged virtual service builders and cross-project load-balancer discovery. Independently reviewed pinned source, declarations, source/metadata bindings, automatic-root connectivity, locations and all source diagnostics; all twelve CLI formats repeated exactly. Restored net8.0 mode binds Consul package types and discovers LoadBalancingMiddleware.Invoke as the automatic root. Source-only mode lacks project imports and packages, leaves the string check and target-typed host constructor unresolved, and stops at Consul.BuildServices. Restored property getters expose the preferred-address and null-coalescing fallback branches. The graph does not model address values, so it cannot prove runtime fallback selection. The path through CookieStickySessionsCreator is a possible method-group callback and interface dispatch, not proof of runtime configuration. Possible logging callbacks and depth truncation remain explicit. Upstream address-priority tests were read but not executed.",
     "tags": [
+      "property-accessors",
       "service-discovery",
       "null-guard",
       "conditional-access",

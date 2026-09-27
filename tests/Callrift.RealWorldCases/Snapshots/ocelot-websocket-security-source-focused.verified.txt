@@ -12,26 +12,39 @@ stdout:
   IPSecurityPolicy.SecurityAsync
   └─ ? Task.Run
      └─ IPSecurityPolicy.Security
+        ├─ …
         ├─ if (options == null || clientIp == null)
+        ├─ SecurityOptions.get_IPBlockedList
+-       ├─ if (options.IPBlockedList is not null)
+-       │  └─ ICollection<T>.get_Count
 -       ├─ if (options.IPBlockedList?.Count > 0)
+-       │  ├─ SecurityOptions.get_IPBlockedList
 -       │  ├─ ? clientIp.ToString
 -       │  ├─ ? options.IPBlockedList.Contains
 -       │  └─ if (options.IPBlockedList.Contains(clientIp.ToString()))
 -       │     ├─ new UnauthenticatedError (depth limit)
 -       │     └─ new ErrorResponse (depth limit)
--       ├─ if (options.IPAllowedList?.Count > 0)
--       │  ├─ ? clientIp.ToString
--       │  ├─ ? options.IPAllowedList.Contains
--       │  └─ if (!options.IPAllowedList.Contains(clientIp.ToString()))
--       │     ├─ new UnauthenticatedError (depth limit)
--       │     └─ new ErrorResponse (depth limit)
++       ├─ ICollection<T>.get_Count
 +       ├─ if (options.IPBlockedList.Count > 0)
++       │  ├─ SecurityOptions.get_IPBlockedList
 +       │  ├─ ? clientIp.ToString
 +       │  └─ ? options.IPBlockedList.Contains
 +       ├─ if (options.IPBlockedList.Count > 0 && options.IPBlockedList.Contains(clientIp.ToString()))
 +       │  ├─ new SecurityError (changes below depth limit)
 +       │  └─ new ErrorResponse (depth limit)
+        ├─ SecurityOptions.get_IPAllowedList
+-       ├─ if (options.IPAllowedList is not null)
+-       │  └─ ICollection<T>.get_Count
+-       ├─ if (options.IPAllowedList?.Count > 0)
+-       │  ├─ SecurityOptions.get_IPAllowedList
+-       │  ├─ ? clientIp.ToString
+-       │  ├─ ? options.IPAllowedList.Contains
+-       │  └─ if (!options.IPAllowedList.Contains(clientIp.ToString()))
+-       │     ├─ new UnauthenticatedError (depth limit)
+-       │     └─ new ErrorResponse (depth limit)
++       ├─ ICollection<T>.get_Count
 +       ├─ if (options.IPAllowedList.Count > 0)
++       │  ├─ SecurityOptions.get_IPAllowedList
 +       │  ├─ ? clientIp.ToString
 +       │  └─ ? options.IPAllowedList.Contains
 +       ├─ if (options.IPAllowedList.Count > 0 && !options.IPAllowedList.Contains(clientIp.ToString()))
@@ -39,32 +52,48 @@ stdout:
 +       │  └─ new ErrorResponse (depth limit)
         └─ new OkResponse (depth limit)
 
++ SecurityMiddleware.HandleWebSocketErrors
+
 ~ SecurityMiddleware.Invoke (signature changed)
 - ├─ ? httpContext.Items.DownstreamRoute
 - ├─ if (_securityPolicies != null)
 - │  └─ foreach (var policy in _securityPolicies)
 - │     ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
+- │     ├─ Response.get_IsError (depth limit)
+- │     ├─ Response.get_Errors
 - │     └─ ? httpContext.Items.UpsertErrors
 + ├─ ? context.Items.DownstreamRoute
 + ├─ foreach (var policy in _policies)
 + │  ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security
++ │  │  ├─ DownstreamRoute.get_SecurityOptions
 + │  │  ├─ if (options == null || clientIp == null)
 + │  │  │  └─ new OkResponse (depth limit)
++ │  │  ├─ SecurityOptions.get_IPBlockedList
++ │  │  ├─ ICollection<T>.get_Count
 + │  │  ├─ if (options.IPBlockedList.Count > 0)
++ │  │  │  ├─ SecurityOptions.get_IPBlockedList
 + │  │  │  ├─ ? clientIp.ToString
 + │  │  │  └─ ? options.IPBlockedList.Contains
 + │  │  ├─ if (options.IPBlockedList.Count > 0 && options.IPBlockedList.Contains(clientIp.ToString()))
 + │  │  │  ├─ new SecurityError (changes below depth limit)
 + │  │  │  └─ new ErrorResponse (depth limit)
++ │  │  ├─ SecurityOptions.get_IPAllowedList
++ │  │  ├─ ICollection<T>.get_Count
 + │  │  ├─ if (options.IPAllowedList.Count > 0)
++ │  │  │  ├─ SecurityOptions.get_IPAllowedList
 + │  │  │  ├─ ? clientIp.ToString
 + │  │  │  └─ ? options.IPAllowedList.Contains
 + │  │  ├─ if (options.IPAllowedList.Count > 0 && !options.IPAllowedList.Contains(clientIp.ToString()))
 + │  │  │  ├─ new SecurityError (changes below depth limit)
 + │  │  │  └─ new ErrorResponse (depth limit)
 + │  │  └─ new OkResponse (depth limit)
++ │  ├─ Response.get_IsError
++ │  │  ├─ Response.get_Errors
++ │  │  └─ List<T>.get_Count
 + │  └─ if (result.IsError)
++ │     ├─ Response.get_Errors
 + │     ├─ ? context.Items.UpsertErrors
++ │     ├─ Response.get_Errors
 + │     └─ SecurityMiddleware.HandleWebSocketErrors
   └─ ? _next.Invoke
 stderr:
@@ -93,26 +122,39 @@ stdout:
   IPSecurityPolicy.SecurityAsync
   └─ ? Task.Run
      └─ IPSecurityPolicy.Security
+        ├─ …
         ├─ if (options == null || clientIp == null)
+        ├─ SecurityOptions.get_IPBlockedList
+-       ├─ if (options.IPBlockedList is not null)
+-       │  └─ ICollection<T>.get_Count
 -       ├─ if (options.IPBlockedList?.Count > 0)
+-       │  ├─ SecurityOptions.get_IPBlockedList
 -       │  ├─ ? clientIp.ToString
 -       │  ├─ ? options.IPBlockedList.Contains
 -       │  └─ if (options.IPBlockedList.Contains(clientIp.ToString()))
 -       │     ├─ new UnauthenticatedError (depth limit)
 -       │     └─ new ErrorResponse (depth limit)
--       ├─ if (options.IPAllowedList?.Count > 0)
--       │  ├─ ? clientIp.ToString
--       │  ├─ ? options.IPAllowedList.Contains
--       │  └─ if (!options.IPAllowedList.Contains(clientIp.ToString()))
--       │     ├─ new UnauthenticatedError (depth limit)
--       │     └─ new ErrorResponse (depth limit)
++       ├─ ICollection<T>.get_Count
 +       ├─ if (options.IPBlockedList.Count > 0)
++       │  ├─ SecurityOptions.get_IPBlockedList
 +       │  ├─ ? clientIp.ToString
 +       │  └─ ? options.IPBlockedList.Contains
 +       ├─ if (options.IPBlockedList.Count > 0 && options.IPBlockedList.Contains(clientIp.ToString()))
 +       │  ├─ new SecurityError (changes below depth limit)
 +       │  └─ new ErrorResponse (depth limit)
+        ├─ SecurityOptions.get_IPAllowedList
+-       ├─ if (options.IPAllowedList is not null)
+-       │  └─ ICollection<T>.get_Count
+-       ├─ if (options.IPAllowedList?.Count > 0)
+-       │  ├─ SecurityOptions.get_IPAllowedList
+-       │  ├─ ? clientIp.ToString
+-       │  ├─ ? options.IPAllowedList.Contains
+-       │  └─ if (!options.IPAllowedList.Contains(clientIp.ToString()))
+-       │     ├─ new UnauthenticatedError (depth limit)
+-       │     └─ new ErrorResponse (depth limit)
++       ├─ ICollection<T>.get_Count
 +       ├─ if (options.IPAllowedList.Count > 0)
++       │  ├─ SecurityOptions.get_IPAllowedList
 +       │  ├─ ? clientIp.ToString
 +       │  └─ ? options.IPAllowedList.Contains
 +       ├─ if (options.IPAllowedList.Count > 0 && !options.IPAllowedList.Contains(clientIp.ToString()))
@@ -120,32 +162,48 @@ stdout:
 +       │  └─ new ErrorResponse (depth limit)
         └─ new OkResponse (depth limit)
 
++ SecurityMiddleware.HandleWebSocketErrors
+
 ~ SecurityMiddleware.Invoke (signature changed)
 - ├─ ? httpContext.Items.DownstreamRoute
 - ├─ if (_securityPolicies != null)
 - │  └─ foreach (var policy in _securityPolicies)
 - │     ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
+- │     ├─ Response.get_IsError (depth limit)
+- │     ├─ Response.get_Errors
 - │     └─ ? httpContext.Items.UpsertErrors
 + ├─ ? context.Items.DownstreamRoute
 + ├─ foreach (var policy in _policies)
 + │  ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security
++ │  │  ├─ DownstreamRoute.get_SecurityOptions
 + │  │  ├─ if (options == null || clientIp == null)
 + │  │  │  └─ new OkResponse (depth limit)
++ │  │  ├─ SecurityOptions.get_IPBlockedList
++ │  │  ├─ ICollection<T>.get_Count
 + │  │  ├─ if (options.IPBlockedList.Count > 0)
++ │  │  │  ├─ SecurityOptions.get_IPBlockedList
 + │  │  │  ├─ ? clientIp.ToString
 + │  │  │  └─ ? options.IPBlockedList.Contains
 + │  │  ├─ if (options.IPBlockedList.Count > 0 && options.IPBlockedList.Contains(clientIp.ToString()))
 + │  │  │  ├─ new SecurityError (changes below depth limit)
 + │  │  │  └─ new ErrorResponse (depth limit)
++ │  │  ├─ SecurityOptions.get_IPAllowedList
++ │  │  ├─ ICollection<T>.get_Count
 + │  │  ├─ if (options.IPAllowedList.Count > 0)
++ │  │  │  ├─ SecurityOptions.get_IPAllowedList
 + │  │  │  ├─ ? clientIp.ToString
 + │  │  │  └─ ? options.IPAllowedList.Contains
 + │  │  ├─ if (options.IPAllowedList.Count > 0 && !options.IPAllowedList.Contains(clientIp.ToString()))
 + │  │  │  ├─ new SecurityError (changes below depth limit)
 + │  │  │  └─ new ErrorResponse (depth limit)
 + │  │  └─ new OkResponse (depth limit)
++ │  ├─ Response.get_IsError
++ │  │  ├─ Response.get_Errors
++ │  │  └─ List<T>.get_Count
 + │  └─ if (result.IsError)
++ │     ├─ Response.get_Errors
 + │     ├─ ? context.Items.UpsertErrors
++ │     ├─ Response.get_Errors
 + │     └─ SecurityMiddleware.HandleWebSocketErrors
   └─ ? _next.Invoke
 ```
