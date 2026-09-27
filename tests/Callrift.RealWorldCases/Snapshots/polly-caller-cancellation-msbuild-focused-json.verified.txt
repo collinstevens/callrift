@@ -228,6 +228,69 @@ stdout:
           "id": "n1",
           "kind": "branch",
           "change": "added",
+          "label": "if (callerToken.IsCancellationRequested && outcome.Exception is OperationCanceledException oce)",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Polly.Core/Utils/OutcomeUtilities.cs",
+                "startLine": 25,
+                "startColumn": 13,
+                "endLine": 25,
+                "endColumn": 143
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n2",
+              "kind": "call",
+              "change": "added",
+              "label": "CancellationToken.op_Inequality",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "metadata:System.Runtime::System.Threading.CancellationToken.op_Inequality(global::System.Threading.CancellationToken,global::System.Threading.CancellationToken)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::System.Threading.CancellationToken.op_Inequality(global::System.Threading.CancellationToken,global::System.Threading.CancellationToken)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Polly.Core/Utils/OutcomeUtilities.cs",
+                    "startLine": 25,
+                    "startColumn": 107,
+                    "endLine": 25,
+                    "endColumn": 143
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n3",
+          "kind": "branch",
+          "change": "added",
           "label": "if (callerToken.IsCancellationRequested && outcome.Exception is OperationCanceledException oce &&…",
           "detail": null,
           "before": null,
@@ -253,7 +316,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n2",
+              "id": "n4",
               "kind": "call",
               "change": "added",
               "label": "new OperationCanceledException",
@@ -285,7 +348,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n3",
+              "id": "n5",
               "kind": "call",
               "change": "added",
               "label": "ExceptionUtilities.TrySetStackTrace",
@@ -321,7 +384,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n4",
+                  "id": "n6",
                   "kind": "call",
                   "change": "added",
                   "label": "string.IsNullOrWhiteSpace",
@@ -353,7 +416,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n5",
+                  "id": "n7",
                   "kind": "call",
                   "change": "added",
                   "label": "System.Runtime.ExceptionServices.ExceptionDispatchInfo.SetCurrentStackTrace",
@@ -388,7 +451,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n6",
+              "id": "n8",
               "kind": "call",
               "change": "added",
               "label": "Outcome.FromException",
@@ -424,7 +487,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n7",
+                  "id": "n9",
                   "kind": "call",
                   "change": "added",
                   "label": "Guard.NotNull",
@@ -460,7 +523,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n8",
+                      "id": "n10",
                       "kind": "call",
                       "change": "added",
                       "label": "ArgumentNullException.ThrowIfNull",
@@ -495,7 +558,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n9",
+                  "id": "n11",
                   "kind": "call",
                   "change": "added",
                   "label": "new Outcome<TResult>",
@@ -531,7 +594,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n10",
+                      "id": "n12",
                       "kind": "call",
                       "change": "added",
                       "label": "new Outcome<TResult>",
@@ -569,7 +632,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n11",
+                      "id": "n13",
                       "kind": "call",
                       "change": "added",
                       "label": "Guard.NotNull",
@@ -611,7 +674,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n12",
+                      "id": "n14",
                       "kind": "call",
                       "change": "added",
                       "label": "ExceptionDispatchInfo.Capture",

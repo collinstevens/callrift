@@ -2,6 +2,8 @@
 exit: 0
 stdout:
 + OutcomeUtilities.WithCallerCancellationToken
++ ├─ if (callerToken.IsCancellationRequested && outcome.Exception is OperationCanceledException oce)
++ │  └─ CancellationToken.op_Inequality
 + └─ if (callerToken.IsCancellationRequested && outcome.Exception is OperationCanceledException oce &&…
 +    ├─ new OperationCanceledException
 +    ├─ ExceptionUtilities.TrySetStackTrace
@@ -34,6 +36,8 @@ exit: 0
 stdout:
 ```diff
 + OutcomeUtilities.WithCallerCancellationToken
++ ├─ if (callerToken.IsCancellationRequested && outcome.Exception is OperationCanceledException oce)
++ │  └─ CancellationToken.op_Inequality
 + └─ if (callerToken.IsCancellationRequested && outcome.Exception is OperationCanceledException oce &&…
 +    ├─ new OperationCanceledException
 +    ├─ ExceptionUtilities.TrySetStackTrace

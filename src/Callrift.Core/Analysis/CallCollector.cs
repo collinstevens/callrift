@@ -11,6 +11,8 @@ namespace Callrift.Core;
 internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, ConcurrentBag<AnalysisDiagnostic> diagnostics,
     ConcurrentBag<ITypeSymbol> dispatchTypes, CancellationToken cancellationToken)
 {
+    private ConditionalOperatorBindings? conditionalOperators;
+
     public IReadOnlyList<CallStep> Collect(SyntaxNode node)
     {
         var result = new List<CallStep>();
@@ -26,7 +28,13 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         WalkCore(node, result);
         if (node is ExpressionSyntax and not ParenthesizedExpressionSyntax && model.GetConversion(node, cancellationToken) is { IsUserDefined: true, MethodSymbol: { } method } conversion
             && model.GetOperation(node, cancellationToken) is not null)
-            result.Add(CreateConversionCall(node, method, conversion.ConstrainedToType));
+            result.Add(CreateOperatorCall(node, method, conversion.ConstrainedToType));
+        if (node is ExpressionSyntax condition && IsCondition(condition) && model.GetOperation(condition, cancellationToken) is { } operation)
+        {
+            while (operation.Parent is IConversionOperation { IsImplicit: true } parent) operation = parent;
+            if (operation.Parent is IUnaryOperation { IsImplicit: true, OperatorMethod: { } truth } unary)
+                result.Add(CreateOperatorCall(condition, truth, unary.ConstrainedToType));
+        }
     }
 
     private void WalkCore(SyntaxNode node, List<CallStep> result)
@@ -43,7 +51,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             case CastExpressionSyntax cast:
                 Walk(cast.Expression, result);
                 if (model.GetOperation(cast, cancellationToken) is IConversionOperation { OperatorMethod: { } conversionMethod } conversion)
-                    result.Add(CreateConversionCall(cast, conversionMethod, conversion.ConstrainedToType));
+                    result.Add(CreateOperatorCall(cast, conversionMethod, conversion.ConstrainedToType));
                 return;
             case ExpressionSyntax expression when expression is IdentifierNameSyntax or GenericNameSyntax or MemberAccessExpressionSyntax
                 && model.GetSymbolInfo(expression, cancellationToken).Symbol is IMethodSymbol method
@@ -56,6 +64,17 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             case AssignmentExpressionSyntax assignment when assignment.IsKind(SyntaxKind.CoalesceAssignmentExpression):
                 Walk(assignment.Left, result);
                 Branch("if (" + SymbolNames.Compact(assignment.Left) + " is null)", assignment, [assignment.Right], result);
+                return;
+            case AssignmentExpressionSyntax assignment when !assignment.IsKind(SyntaxKind.SimpleAssignmentExpression)
+                && model.GetOperation(assignment, cancellationToken) is ICompoundAssignmentOperation compound:
+                Walk(assignment.Left, result);
+                if (compound.InConversion is { IsUserDefined: true, MethodSymbol: { } input })
+                    result.Add(CreateOperatorCall(assignment.Left, input, compound.InConversion.ConstrainedToType));
+                Walk(assignment.Right, result);
+                if (compound.OperatorMethod is { } assignmentOperator)
+                    result.Add(CreateOperatorCall(assignment, assignmentOperator, compound.ConstrainedToType, assignment.Left));
+                if (compound.OutConversion is { IsUserDefined: true, MethodSymbol: { } output })
+                    result.Add(CreateOperatorCall(assignment, output, compound.OutConversion.ConstrainedToType));
                 return;
             case AssignmentExpressionSyntax assignment when StaticMember(assignment.Left) is { } assignedMember:
                 var readBeforeAssignment = !assignment.IsKind(SyntaxKind.SimpleAssignmentExpression) && assignedMember is not IEventSymbol;
@@ -161,6 +180,19 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 return;
             case BinaryExpressionSyntax binary when binary.IsKind(SyntaxKind.LogicalAndExpression) || binary.IsKind(SyntaxKind.LogicalOrExpression) || binary.IsKind(SyntaxKind.CoalesceExpression):
                 Walk(binary.Left, result);
+                if (model.GetOperation(binary, cancellationToken) is IBinaryOperation { OperatorMethod: { } binaryOperator } logical)
+                {
+                    var truth = (conditionalOperators ??= new ConditionalOperatorBindings(cancellationToken)).Find(logical);
+                    if (truth?.OperatorMethod is { } truthOperator)
+                        result.Add(CreateOperatorCall(binary.Left, truthOperator, truth.ConstrainedToType));
+                    else
+                        diagnostics.Add(new AnalysisDiagnostic("unresolved-operator", "Cannot bind short-circuit truth operator for " + SymbolNames.Compact(binary), symbols.Location(binary)));
+                    var right = new List<CallStep>();
+                    Walk(binary.Right, right);
+                    right.Add(CreateOperatorCall(binary, binaryOperator, logical.ConstrainedToType));
+                    AddBranch("if (!" + (truth?.OperatorMethod is { } boundTruth ? symbols.Label(boundTruth) : "truth operator") + "(" + SymbolNames.Compact(binary.Left) + "))", binary, right, result);
+                    return;
+                }
                 var predicate = binary.Kind() switch
                 {
                     SyntaxKind.LogicalAndExpression => SymbolNames.Compact(binary.Left),
@@ -169,9 +201,53 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 };
                 Branch("if (" + predicate + ")", binary, [binary.Right], result);
                 return;
+            case BinaryExpressionSyntax binary:
+                Walk(binary.Left, result);
+                Walk(binary.Right, result);
+                if (model.GetOperation(binary, cancellationToken) is IBinaryOperation { OperatorMethod: { } binaryMethod } operation)
+                    result.Add(CreateOperatorCall(binary, binaryMethod, operation.ConstrainedToType));
+                return;
+            case PrefixUnaryExpressionSyntax prefix:
+                Walk(prefix.Operand, result);
+                AddUnaryOperator(prefix, prefix.Operand, result);
+                return;
+            case PostfixUnaryExpressionSyntax postfix:
+                Walk(postfix.Operand, result);
+                AddUnaryOperator(postfix, postfix.Operand, result);
+                return;
         }
         foreach (var child in node.ChildNodes())
             Walk(child, result);
+    }
+
+    private void AddUnaryOperator(ExpressionSyntax expression, ExpressionSyntax operand, List<CallStep> result)
+    {
+        switch (model.GetOperation(expression, cancellationToken))
+        {
+            case IUnaryOperation { OperatorMethod: { } method } unary:
+                result.Add(CreateOperatorCall(expression, method, unary.ConstrainedToType));
+                break;
+            case IIncrementOrDecrementOperation { OperatorMethod: { } method } increment:
+                result.Add(CreateOperatorCall(expression, method, increment.ConstrainedToType, operand));
+                break;
+        }
+    }
+
+    private static bool IsCondition(ExpressionSyntax expression)
+    {
+        SyntaxNode node = expression;
+        while (node.Parent is ParenthesizedExpressionSyntax or CheckedExpressionSyntax
+            || node.Parent is PostfixUnaryExpressionSyntax suppression && suppression.IsKind(SyntaxKind.SuppressNullableWarningExpression)) node = node.Parent;
+        return node.Parent switch
+        {
+            IfStatementSyntax statement => statement.Condition == node,
+            WhileStatementSyntax statement => statement.Condition == node,
+            DoStatementSyntax statement => statement.Condition == node,
+            ForStatementSyntax statement => statement.Condition == node,
+            ConditionalExpressionSyntax conditional => conditional.Condition == node,
+            WhenClauseSyntax clause => clause.Condition == node,
+            _ => false
+        };
     }
 
     private ISymbol? StaticMember(SyntaxNode node) => model.GetSymbolInfo(node, cancellationToken).Symbol switch
@@ -257,9 +333,9 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
     public CallStep ImplicitConstructor(SyntaxNode declaration, IMethodSymbol constructor) => CreateCall(declaration, constructor, []) with
     { Label = symbols.Label(constructor), SuppressDispatch = true, UsesContainingInstance = true };
 
-    private CallStep CreateConversionCall(SyntaxNode node, IMethodSymbol method, ITypeSymbol? constrainedType)
+    private CallStep CreateOperatorCall(SyntaxNode node, IMethodSymbol method, ITypeSymbol? constrainedType, ExpressionSyntax? receiver = null)
     {
-        var call = CreateCall(node, method, []);
+        var call = CreateCall(node, method, [], method.IsStatic ? null : receiver);
         return constrainedType is null ? call : call with
         {
             SuppressDispatch = false,
@@ -287,7 +363,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             || receiver is not null && model.GetTypeInfo(receiver, cancellationToken).Type is INamedTypeSymbol { IsSealed: true }
             || receiver is null && model.GetEnclosingSymbol(node.SpanStart, cancellationToken)?.ContainingType is { IsSealed: true };
         var dispatches = !exactReceiver && (method.ContainingType.TypeKind == TypeKind.Interface || method.IsAbstract || method.IsVirtual || method.IsOverride);
-        return new CallStep("call", symbols.Key(normalized), source || method.MethodKind == MethodKind.Conversion || collection is not null || node is ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax or WithExpressionSyntax
+        return new CallStep("call", symbols.Key(normalized), source || method.MethodKind is MethodKind.Conversion or MethodKind.UserDefinedOperator || collection is not null || node is ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax or WithExpressionSyntax
             ? symbols.Label(normalized) : SymbolNames.SyntaxLabel(node), source, symbols.Location(node), children)
         {
             AlignmentKey = AlignmentKey(node),
@@ -363,6 +439,11 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         var calls = new List<CallStep>();
         foreach (var body in bodies)
             Walk(body, calls);
+        AddBranch(label, node, calls, result);
+    }
+
+    private void AddBranch(string label, SyntaxNode node, IReadOnlyList<CallStep> calls, List<CallStep> result)
+    {
         if (calls.Count > 0)
             result.Add(new CallStep("branch", "branch:" + label, label.Length > 100 ? label[..97] + "…" : label, true, symbols.Location(node), calls));
     }

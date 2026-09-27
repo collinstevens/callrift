@@ -76,6 +76,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                     MethodDeclarationSyntax method => model.GetDeclaredSymbol(method, cancellationToken),
                     ConstructorDeclarationSyntax constructor => model.GetDeclaredSymbol(constructor, cancellationToken),
                     ConversionOperatorDeclarationSyntax conversion => model.GetDeclaredSymbol(conversion, cancellationToken),
+                    OperatorDeclarationSyntax operation => model.GetDeclaredSymbol(operation, cancellationToken),
                     LocalFunctionStatementSyntax local => model.GetDeclaredSymbol(local, cancellationToken),
                     _ => null
                 };
@@ -86,6 +87,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                     MethodDeclarationSyntax method => (SyntaxNode?)method.Body ?? method.ExpressionBody,
                     ConstructorDeclarationSyntax constructor => (SyntaxNode?)constructor.Body ?? constructor.ExpressionBody,
                     ConversionOperatorDeclarationSyntax conversion => (SyntaxNode?)conversion.Body ?? conversion.ExpressionBody,
+                    OperatorDeclarationSyntax operation => (SyntaxNode?)operation.Body ?? operation.ExpressionBody,
                     LocalFunctionStatementSyntax local => (SyntaxNode?)local.Body ?? local.ExpressionBody,
                     _ => null
                 };
