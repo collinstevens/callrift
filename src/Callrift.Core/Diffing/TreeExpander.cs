@@ -7,6 +7,7 @@ public sealed record CallTree(string Key, string Label, string MatchName, string
     public Omission? Omission { get; init; }
     internal string? SemanticKey { get; init; }
     internal string? InvocationKey { get; init; }
+    internal string? AlignmentKey { get; init; }
     internal string? DispatchLabel { get; init; }
     internal bool ExpandedDispatch { get; init; }
     internal Func<CallTree>? ExpandDispatch { get; init; }
@@ -33,6 +34,7 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
                 DispatchLabel = member.Label,
                 ExpandDispatch = () => direct with
                 {
+                    Signature = key,
                     Children = member.HasBody ? [ExpandMember(key, [], 1) with { Label = "⇢ " + member.Label, Kind = "dispatchTarget" }] : [],
                     BodyChanged = changed.Contains(key),
                     Detail = null,
@@ -47,7 +49,6 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
         {
             Kind = "member",
             MatchName = member.MatchName,
-            Signature = member.Signature,
             BodyChanged = value.BodyChanged || changed.Contains(key),
             Side = value.Side! with { Relation = "definition", CallSites = [] },
             ExpandDispatch = value.ExpandDispatch is { } expand ? () => AsRoot(expand()) : null
@@ -157,6 +158,7 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
             tree = tree with
             {
                 Kind = "call",
+                AlignmentKey = call.AlignmentKey,
                 Side = side,
                 Children = tree.Children.Concat(children).ToArray(),
                 InvocationKey = InvocationContext.Create(resolvedGraph, call.DefinitionKey ?? call.Key, call.GenericArguments).Identity,

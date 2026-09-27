@@ -69,7 +69,7 @@ stdout:
       "detail": null,
       "before": {
         "symbolId": "project:App.csproj@net10.0::OrdersController.Place(global::OrderRequest)",
-        "signature": "OrdersController.Place(OrderRequest) -> System.Threading.Tasks.Task<Order>",
+        "signature": "public OrdersController.Place(OrderRequest request) -> System.Threading.Tasks.Task<Order>",
         "binding": "resolved",
         "dispatch": "direct",
         "targetIds": [
@@ -89,7 +89,7 @@ stdout:
       },
       "after": {
         "symbolId": "project:App.csproj@net10.0::OrdersController.Place(global::OrderRequest)",
-        "signature": "OrdersController.Place(OrderRequest) -> System.Threading.Tasks.Task<Order>",
+        "signature": "public OrdersController.Place(OrderRequest request) -> System.Threading.Tasks.Task<Order>",
         "binding": "resolved",
         "dispatch": "direct",
         "targetIds": [
@@ -116,7 +116,7 @@ stdout:
           "detail": null,
           "before": {
             "symbolId": "project:App.csproj@net10.0::IOrderService.PlaceAsync(global::OrderRequest)",
-            "signature": "IOrderService.PlaceAsync(OrderRequest) -> System.Threading.Tasks.Task<Order>",
+            "signature": "public abstract IOrderService.PlaceAsync(OrderRequest request) -> System.Threading.Tasks.Task<Order>",
             "binding": "resolved",
             "dispatch": "possible",
             "targetIds": [
@@ -144,7 +144,7 @@ stdout:
           },
           "after": {
             "symbolId": "project:App.csproj@net10.0::IOrderService.PlaceAsync(global::OrderRequest)",
-            "signature": "IOrderService.PlaceAsync(OrderRequest) -> System.Threading.Tasks.Task<Order>",
+            "signature": "public abstract IOrderService.PlaceAsync(OrderRequest request) -> System.Threading.Tasks.Task<Order>",
             "binding": "resolved",
             "dispatch": "possible",
             "targetIds": [
@@ -179,7 +179,7 @@ stdout:
               "detail": null,
               "before": {
                 "symbolId": "project:App.csproj@net10.0::OrderService.Validate(global::OrderRequest)",
-                "signature": "OrderService.Validate(OrderRequest) -> void",
+                "signature": "private OrderService.Validate(OrderRequest request) -> void",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
@@ -207,7 +207,7 @@ stdout:
               },
               "after": {
                 "symbolId": "project:App.csproj@net10.0::OrderService.Validate(global::OrderRequest)",
-                "signature": "OrderService.Validate(OrderRequest) -> void",
+                "signature": "private OrderService.Validate(OrderRequest request) -> void",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
@@ -244,7 +244,7 @@ stdout:
               "detail": null,
               "before": {
                 "symbolId": "project:App.csproj@net10.0::IPricingClient.GetPriceAsync(string)",
-                "signature": "IPricingClient.GetPriceAsync(string) -> System.Threading.Tasks.Task<decimal>",
+                "signature": "public abstract IPricingClient.GetPriceAsync(string sku) -> System.Threading.Tasks.Task<decimal>",
                 "binding": "resolved",
                 "dispatch": "possible",
                 "targetIds": [
@@ -283,7 +283,7 @@ stdout:
               "before": null,
               "after": {
                 "symbolId": "project:App.csproj@net10.0::IAuditLog.RecordAsync(global::OrderRequest)",
-                "signature": "IAuditLog.RecordAsync(OrderRequest) -> System.Threading.Tasks.Task",
+                "signature": "public abstract IAuditLog.RecordAsync(OrderRequest request) -> System.Threading.Tasks.Task",
                 "binding": "resolved",
                 "dispatch": "possible",
                 "targetIds": [
@@ -321,7 +321,7 @@ stdout:
               "before": null,
               "after": {
                 "symbolId": "project:App.csproj@net10.0::OrderService.WithTimeout`1(global::System.Func<global::System.Threading.Tasks.Task<T>>)",
-                "signature": "OrderService.WithTimeout<T>(System.Func<System.Threading.Tasks.Task<T>>) -> System.Threading.Tasks.Task<T>",
+                "signature": "private OrderService.WithTimeout<T>(System.Func<System.Threading.Tasks.Task<T>> action) -> System.Threading.Tasks.Task<T>",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
@@ -357,7 +357,7 @@ stdout:
                   "before": null,
                   "after": {
                     "symbolId": "project:App.csproj@net10.0::IPricingClient.GetPriceAsync(string)",
-                    "signature": "IPricingClient.GetPriceAsync(string) -> System.Threading.Tasks.Task<decimal>",
+                    "signature": "public abstract IPricingClient.GetPriceAsync(string sku) -> System.Threading.Tasks.Task<decimal>",
                     "binding": "resolved",
                     "dispatch": "possible",
                     "targetIds": [
@@ -397,7 +397,7 @@ stdout:
               "detail": null,
               "before": {
                 "symbolId": "project:App.csproj@net10.0::Order..ctor(global::OrderRequest,decimal)",
-                "signature": "Order.Order(OrderRequest, decimal) -> void",
+                "signature": "public Order.Order(OrderRequest Request, decimal Price) -> void",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
@@ -425,7 +425,7 @@ stdout:
               },
               "after": {
                 "symbolId": "project:App.csproj@net10.0::Order..ctor(global::OrderRequest,decimal)",
-                "signature": "Order.Order(OrderRequest, decimal) -> void",
+                "signature": "public Order.Order(OrderRequest Request, decimal Price) -> void",
                 "binding": "resolved",
                 "dispatch": "direct",
                 "targetIds": [
@@ -462,7 +462,7 @@ stdout:
               "detail": null,
               "before": {
                 "symbolId": "project:App.csproj@net10.0::IOrderRepository.SaveAsync(global::Order)",
-                "signature": "IOrderRepository.SaveAsync(Order) -> System.Threading.Tasks.Task",
+                "signature": "public abstract IOrderRepository.SaveAsync(Order order) -> System.Threading.Tasks.Task",
                 "binding": "resolved",
                 "dispatch": "possible",
                 "targetIds": [
@@ -490,7 +490,7 @@ stdout:
               },
               "after": {
                 "symbolId": "project:App.csproj@net10.0::IOrderRepository.SaveAsync(global::Order)",
-                "signature": "IOrderRepository.SaveAsync(Order) -> System.Threading.Tasks.Task",
+                "signature": "public abstract IOrderRepository.SaveAsync(Order order) -> System.Threading.Tasks.Task",
                 "binding": "resolved",
                 "dispatch": "possible",
                 "targetIds": [

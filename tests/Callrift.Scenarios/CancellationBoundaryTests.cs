@@ -4,6 +4,7 @@ using Xunit;
 
 namespace Callrift.Scenarios;
 
+[Trait("Layer", "Fast")]
 public sealed class CancellationBoundaryTests
 {
     [Theory]

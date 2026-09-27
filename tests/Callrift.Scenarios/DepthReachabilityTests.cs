@@ -27,10 +27,15 @@ public sealed class DepthReachabilityTests
         }
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task ChangesRemainVisibleFromBothEntriesIntoACycle(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task ChangesRemainVisibleFromBothEntriesIntoACycle() => VerifyChangesRemainVisibleFromBothEntriesIntoACycle(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceChangesRemainVisibleFromBothEntriesIntoACycle() => VerifyChangesRemainVisibleFromBothEntriesIntoACycle(true);
+
+    private static async Task VerifyChangesRemainVisibleFromBothEntriesIntoACycle(bool workspace)
     {
         const string source = """
             static class Entry
@@ -50,19 +55,18 @@ public sealed class DepthReachabilityTests
             static class Sink { public static void Before() {} public static void After() {} }
             """;
         const string project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>";
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("depth-reachability-cycle", "Both entries into the cycle can reach the changed sibling call.",
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("depth-reachability-cycle", "Both entries into the cycle can reach the changed sibling call.",
             new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = source },
-            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = source.Replace("Sink.Before();", "Sink.After();", StringComparison.Ordinal) }, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
+            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = source.Replace("Sink.Before();", "Sink.After();", StringComparison.Ordinal) }, []), workspace);
+        var outputs = await fixture.DiffFormatsAsync(new DiffOptions { MaxDepth = 1 });
         foreach (var format in new[] { "text", "md", "json" })
         {
-            var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--depth", "1", "--format", format, .. mode]);
-            Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
+            var output = outputs[format];
             Assert.Contains("Entry.First", output);
             Assert.Contains("Entry.Second", output);
             Assert.DoesNotContain("Entry.Unchanged", output);
             if (format != "json") continue;
-            using var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+            using var document = JsonDocument.Parse(output);
             Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
             Assert.True(document.RootElement.GetProperty("truncated").GetBoolean());
             var roots = document.RootElement.GetProperty("trees").EnumerateArray().ToArray();

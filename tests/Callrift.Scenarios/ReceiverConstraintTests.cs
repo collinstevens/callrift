@@ -1,28 +1,32 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
 
 public sealed class ReceiverConstraintTests
 {
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task ReferenceCastKeepsReceiverConstraint(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task ReferenceCastKeepsReceiverConstraint() => VerifyReferenceCastKeepsReceiverConstraint(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceReferenceCastKeepsReceiverConstraint() => VerifyReferenceCastKeepsReceiverConstraint(true);
+
+    private static async Task VerifyReferenceCastKeepsReceiverConstraint(bool workspace)
     {
         const string source = """
             interface IService { void Run(); }
             class Actual : IService { public void Run() { Before(); } void Before() {} void After() {} }
             class Adapter : IService { readonly Actual inner = new(); public void Run() => ((IService)inner).Run(); }
             """;
-        await using var fixture = await CreateAsync(source, source.Replace("Before();", "After();", StringComparison.Ordinal));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
+        await using var fixture = await CreateAsync(source, source.Replace("Before();", "After();", StringComparison.Ordinal), workspace);
         foreach (var command in new[] { "diff", "tree", "reach" })
         {
-            string[] revisions = command == "diff" ? [fixture.Before, fixture.After] : [fixture.After];
-            string[] entry = command == "diff" ? [] : ["--entry", "Adapter.Run"];
-            string[] target = command == "reach" ? ["--to", "Actual.After"] : [];
-            var output = await fixture.RunAsync([command, .. revisions, .. entry, .. target, .. mode, "--format", "json"]);
+            var options = new DiffOptions { Entries = command == "diff" ? [] : ["Adapter.Run"] };
+            var output = command == "diff" ? await fixture.DiffAsync(options)
+                : await fixture.QueryAsync(options, target: command == "reach" ? "Actual.After" : null);
             using var document = Parse(output);
             Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
             Assert.False(document.RootElement.GetProperty("truncated").GetBoolean());
@@ -35,10 +39,15 @@ public sealed class ReceiverConstraintTests
         }
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task StaticReceiverExcludesSiblingOverrides(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task StaticReceiverExcludesSiblingOverrides() => VerifyStaticReceiverExcludesSiblingOverrides(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceStaticReceiverExcludesSiblingOverrides() => VerifyStaticReceiverExcludesSiblingOverrides(true);
+
+    private static async Task VerifyStaticReceiverExcludesSiblingOverrides(bool workspace)
     {
         const string source = """
             class Worker { public virtual void Run() {} }
@@ -46,22 +55,26 @@ public sealed class ReceiverConstraintTests
             class Right : Worker { public override void Run() { Before(); } void Before() {} void After() {} }
             class Flow { public void Handle(Left worker) => worker.Run(); }
             """;
-        await using var fixture = await CreateAsync(source, source.Replace("Before();", "After();", StringComparison.Ordinal));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. mode, "--format", "json"]);
+        await using var fixture = await CreateAsync(source, source.Replace("Before();", "After();", StringComparison.Ordinal), workspace);
+        var output = await fixture.DiffAsync();
         using var document = Parse(output);
         Assert.Equal("Right.Run", Assert.Single(document.RootElement.GetProperty("trees").EnumerateArray()).GetProperty("label").GetString());
-        var tree = await fixture.RunAsync(["tree", fixture.After, "--entry", "Flow.Handle", .. mode, "--format", "json"]);
+        var tree = await fixture.QueryAsync(new DiffOptions { Entries = ["Flow.Handle"] });
         using var treeDocument = Parse(tree);
         Assert.Empty(treeDocument.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.DoesNotContain("Right", tree);
         Assert.Contains("Worker.Run", tree);
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task UserConversionDoesNotConstrainTheResultToItsInput(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task UserConversionDoesNotConstrainTheResultToItsInput() => VerifyUserConversionDoesNotConstrainTheResultToItsInput(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceUserConversionDoesNotConstrainTheResultToItsInput() => VerifyUserConversionDoesNotConstrainTheResultToItsInput(true);
+
+    private static async Task VerifyUserConversionDoesNotConstrainTheResultToItsInput(bool workspace)
     {
         const string source = """
             interface IService { void Run(); }
@@ -69,9 +82,8 @@ public sealed class ReceiverConstraintTests
             class Actual : IService { public void Run() { Before(); } void Before() {} void After() {} }
             class Flow { public void Run(Original source) => ((IService)(Actual)source).Run(); }
             """;
-        await using var fixture = await CreateAsync(source, source.Replace("Before();", "After();", StringComparison.Ordinal));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. mode, "--format", "json"]);
+        await using var fixture = await CreateAsync(source, source.Replace("Before();", "After();", StringComparison.Ordinal), workspace);
+        var output = await fixture.DiffAsync();
         using var document = Parse(output);
         Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
         var root = Assert.Single(document.RootElement.GetProperty("trees").EnumerateArray());
@@ -80,55 +92,62 @@ public sealed class ReceiverConstraintTests
         Assert.DoesNotContain("Original.Run", output);
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task ContractAndReceiverShareGenericSubstitutions(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task ContractAndReceiverShareGenericSubstitutions() => VerifyContractAndReceiverShareGenericSubstitutions(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceContractAndReceiverShareGenericSubstitutions() => VerifyContractAndReceiverShareGenericSubstitutions(true);
+
+    private static async Task VerifyContractAndReceiverShareGenericSubstitutions(bool workspace)
     {
         const string source = """
             interface IConsumer<T> { void Consume(T value); }
             class Box<T> : IConsumer<T> { public void Consume(T value) { Before(); } void Before() {} void After() {} }
             class Flow { public void Run(Box<string> box) => ((IConsumer<int>)(object)box).Consume(1); }
             """;
-        await using var fixture = await CreateAsync(source, source.Replace("Before();", "After();", StringComparison.Ordinal));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. mode, "--format", "json"]);
+        await using var fixture = await CreateAsync(source, source.Replace("Before();", "After();", StringComparison.Ordinal), workspace);
+        var output = await fixture.DiffAsync();
         using var document = Parse(output);
         Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.Equal("Box<T>.Consume", Assert.Single(document.RootElement.GetProperty("trees").EnumerateArray()).GetProperty("label").GetString());
         Assert.DoesNotContain("Flow.Run", output);
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task TupleArgumentsRemainValidReceiverConstraints(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task TupleArgumentsRemainValidReceiverConstraints() => VerifyTupleArgumentsRemainValidReceiverConstraints(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceTupleArgumentsRemainValidReceiverConstraints() => VerifyTupleArgumentsRemainValidReceiverConstraints(true);
+
+    private static async Task VerifyTupleArgumentsRemainValidReceiverConstraints(bool workspace)
     {
         const string source = """
             abstract class Worker<T> { public abstract void Run(); }
             class Actual : Worker<(string, int)> { public override void Run() { Before(); } void Before() {} void After() {} }
             class Flow { public void Run(Worker<System.ValueTuple<string, int>> worker) => worker.Run(); }
             """;
-        await using var fixture = await CreateAsync(source, source.Replace("Before();", "After();", StringComparison.Ordinal));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. mode, "--format", "json"]);
+        await using var fixture = await CreateAsync(source, source.Replace("Before();", "After();", StringComparison.Ordinal), workspace);
+        var output = await fixture.DiffAsync();
         using var document = Parse(output);
         Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.Equal("Flow.Run", Assert.Single(document.RootElement.GetProperty("trees").EnumerateArray()).GetProperty("label").GetString());
         Assert.Contains("Actual.After", output);
     }
 
-    private static Task<GitFixture> CreateAsync(string before, string after)
+    private static Task<AnalysisFixture> CreateAsync(string before, string after, bool workspace)
     {
         const string project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net10.0</TargetFramework></PropertyGroup></Project>";
-        return GitFixture.CreateAsync(new Scenario("receiver-constraints", "Static receiver types constrain possible dispatch through ordinary reference casts.",
+        return AnalysisFixture.CreateAsync(new Scenario("receiver-constraints", "Static receiver types constrain possible dispatch through ordinary reference casts.",
             new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = before },
-            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = after }, []));
+            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = after }, []), workspace);
     }
 
     private static JsonDocument Parse(string output)
     {
-        Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
-        return JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+        return JsonDocument.Parse(output);
     }
 }

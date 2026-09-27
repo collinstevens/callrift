@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -6,41 +7,50 @@ namespace Callrift.Scenarios;
 public sealed class DispatchCardinalityTests
 {
     [Theory]
-    [InlineData("single", false)]
-    [InlineData("single", true)]
-    [InlineData("empty", false)]
-    [InlineData("empty", true)]
-    [InlineData("virtual", false)]
-    [InlineData("virtual", true)]
-    [InlineData("replacement", false)]
-    [InlineData("replacement", true)]
-    [InlineData("contract-root", false)]
-    [InlineData("contract-root", true)]
-    [InlineData("empty-root", false)]
-    [InlineData("empty-root", true)]
-    [InlineData("generic", false)]
-    [InlineData("generic", true)]
-    [InlineData("conditional", false)]
-    [InlineData("conditional", true)]
-    [InlineData("cycle", false)]
-    [InlineData("cycle", true)]
-    [InlineData("depth", false)]
-    [InlineData("depth", true)]
-    public async Task PreservesTheContractAndExistingImplementations(string name, bool workspace)
+    [InlineData("single")]
+    [InlineData("empty")]
+    [InlineData("virtual")]
+    [InlineData("replacement")]
+    [InlineData("contract-root")]
+    [InlineData("empty-root")]
+    [InlineData("generic")]
+    [InlineData("conditional")]
+    [InlineData("cycle")]
+    [InlineData("depth")]
+    [Trait("Layer", "Fast")]
+    public Task PreservesTheContractAndExistingImplementations(string name) => VerifyPreservesTheContractAndExistingImplementations(name, false);
+
+    [Theory]
+    [InlineData("single")]
+    [InlineData("empty")]
+    [InlineData("virtual")]
+    [InlineData("replacement")]
+    [InlineData("contract-root")]
+    [InlineData("empty-root")]
+    [InlineData("generic")]
+    [InlineData("conditional")]
+    [InlineData("cycle")]
+    [InlineData("depth")]
+    [Trait("Layer", "Integration")]
+    public Task WorkspacePreservesTheContractAndExistingImplementations(string name) => VerifyPreservesTheContractAndExistingImplementations(name, true);
+
+    private static async Task VerifyPreservesTheContractAndExistingImplementations(string name, bool workspace)
     {
         var change = Change(name);
         const string project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>";
         var before = new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = change.Before };
         var after = new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = change.After };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("dispatch-" + name, "Preserve existing calls when possible implementation sets change.", before, after, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        string[] entry = name.EndsWith("root", StringComparison.Ordinal) ? ["--entry", "IWorker.Run"] : [];
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("dispatch-" + name, "Preserve existing calls when possible implementation sets change.", before, after, []), workspace);
+        var options = new DiffOptions
+        {
+            Entries = name.EndsWith("root", StringComparison.Ordinal) ? ["IWorker.Run"] : [],
+            MaxDepth = name == "depth" ? 2 : 10,
+            IncludeExternals = true
+        };
         foreach (var reverse in new[] { false, true })
         {
-            var output = await fixture.RunAsync(["diff", reverse ? fixture.After : fixture.Before, reverse ? fixture.Before : fixture.After,
-                "--depth", name == "depth" ? "2" : "10", "--externals", .. entry, .. mode, "--format", "json"]);
-            Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
-            using var result = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+            var output = await fixture.DiffAsync(options, reverse);
+            using var result = JsonDocument.Parse(output);
             Assert.Empty(result.RootElement.GetProperty("diagnostics").EnumerateArray());
             var roots = result.RootElement.GetProperty("trees").EnumerateArray().ToArray();
             var root = Assert.Single(roots, node => node.GetProperty("label").GetString() == (name.EndsWith("root", StringComparison.Ordinal) ? change.Contract : "Entry.Run"));

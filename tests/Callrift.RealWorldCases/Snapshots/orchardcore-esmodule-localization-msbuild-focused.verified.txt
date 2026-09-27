@@ -1,0 +1,275 @@
+﻿format: text
+exit: 0
+stdout:
+  initialization of LocalizationSettings
++ └─ string.IsNullOrEmpty
+
+  initialization of LocalizationService
++ ├─ string.IsNullOrEmpty
+  └─ CultureInfo.GetCultureInfo ×2
+
+  GetLocalizationsEndpoint.HandleAsync
+  ├─ cache.GetOrCreate
+  │  ├─ JSLocalizerExtensions.GetMergedLocalizations
+  │  │  ├─ …
+  │  │  ├─ ArgumentNullException.ThrowIfNull
+  │  │  ├─ new Dictionary<string, string>
+  │  │  └─ foreach (var group in groups)
+  │  │     └─ foreach (var jsLocalizer in jsLocalizers)
+  │  │        └─ IJSLocalizer.GetLocalizations
++ │  │           ├─ ⇢ AdminMenuJSLocalizer.GetLocalizations (changes below depth limit)
++ │  │           ├─ ⇢ ContentFieldsJSLocalizer.GetLocalizations (changes below depth limit)
++ │  │           ├─ ⇢ CorsJSLocalizer.GetLocalizations (changes below depth limit)
++ │  │           ├─ ⇢ FormsJSLocalizer.GetLocalizations (changes below depth limit)
++ │  │           ├─ ⇢ LocalizationJSLocalizer.GetLocalizations (changes below depth limit)
+  │  │           ├─ ⇢ MediaJSLocalizer.GetLocalizations (depth limit)
++ │  │           ├─ ⇢ MenuJSLocalizer.GetLocalizations (changes below depth limit)
++ │  │           ├─ ⇢ OpenIdJSLocalizer.GetLocalizations (changes below depth limit)
++ │  │           ├─ ⇢ SeoJSLocalizer.GetLocalizations (changes below depth limit)
++ │  │           ├─ ⇢ ShortcodesJSLocalizer.GetLocalizations (changes below depth limit)
++ │  │           └─ ⇢ TaxonomiesJSLocalizer.GetLocalizations (changes below depth limit)
+  │  ├─ JsonSerializer.SerializeToUtf8Bytes
+  │  ├─ SHA256.HashData
+  │  └─ …
+  ├─ httpContext.Response.GetTypedHeaders
+  ├─ new CacheControlHeaderValue
+  └─ …
+
+  ResourceManagementOptionsConfiguration.Configure
+~ ├─ ResourceManagementOptionsConfiguration.BuildManifest (signature changed)
+  │  ├─ …
+  │  ├─ ResourceDefinition.SetVersion
+  │  ├─ ResourceManifest.DefineScript
+- │  ├─ ResourceDefinition.SetDependencies
+- │  │  └─ Dependencies.AddRange
+  │  ├─ ResourceDefinition.SetUrl
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ …
+  │  ├─ ResourceDefinition.SetVersion
+  │  ├─ ResourceManifest.DefineScript
+- │  ├─ ResourceDefinition.SetUrl
+- │  │  └─ ArgumentException.ThrowIfNullOrEmpty
+- │  ├─ ResourceDefinition.SetCdn
+- │  │  └─ ResourceDefinition.SetCdn (depth limit)
+- │  ├─ ResourceDefinition.SetCdnIntegrity
+- │  │  └─ ArgumentException.ThrowIfNullOrEmpty
+- │  ├─ ResourceDefinition.SetVersion
+- │  │  ├─ System.Version.TryParse
+- │  │  └─ if (!System.Version.TryParse(version, out _))
+- │  │     └─ new FormatException
+- │  ├─ ResourceManifest.DefineScript
+- │  │  └─ ResourceManifest.DefineResource (depth limit)
+  │  ├─ ResourceDefinition.SetUrl
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ …
+  │  ├─ ResourceManifest.DefineScript
+  │  ├─ ResourceDefinition.SetDependencies
+- │  ├─ ResourceDefinition.SetUrl
+- │  │  └─ ResourceDefinition.SetUrl (depth limit)
+- │  ├─ ResourceDefinition.SetCdn
+- │  │  └─ ResourceDefinition.SetCdn (depth limit)
+- │  ├─ ResourceDefinition.SetCdnIntegrity
+- │  │  └─ ResourceDefinition.SetCdnIntegrity (depth limit)
+- │  ├─ ResourceDefinition.SetVersion ↑ as above
+- │  ├─ ResourceManifest.DefineScript ↑ as above
+  │  ├─ ResourceDefinition.SetUrl
+- │  ├─ ResourceDefinition.SetDependencies ↑ as above
+- │  ├─ ResourceDefinition.SetVersion ↑ as above
+- │  ├─ ResourceManifest.DefineScript ↑ as above
+- │  ├─ ResourceDefinition.SetDependencies ↑ as above
+- │  ├─ ResourceDefinition.SetUrl ↑ as above
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ ResourceDefinition.SetCdnIntegrity
+  │  ├─ ResourceDefinition.SetVersion
+  │  ├─ ResourceManifest.DefineStyle
+- │  ├─ ResourceDefinition.SetUrl ↑ as above
+- │  ├─ ResourceDefinition.SetCdn ↑ as above
+- │  ├─ ResourceDefinition.SetCdnIntegrity ↑ as above
+- │  ├─ ResourceDefinition.SetVersion ↑ as above
+- │  ├─ ResourceManifest.DefineStyle
+- │  │  └─ ResourceManifest.DefineResource (depth limit)
+  │  ├─ ResourceDefinition.SetUrl
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ …
+  │  ├─ ResourceDefinition.SetVersion
+  │  ├─ ResourceManifest.DefineScript
+- │  ├─ ResourceDefinition.SetDependencies ↑ as above
+  │  ├─ ResourceDefinition.SetUrl
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ …
+  │  ├─ ResourceManifest.DefineScript
+  │  ├─ ResourceDefinition.SetUrl
+- │  ├─ ResourceDefinition.SetCdn ↑ as above
+- │  ├─ ResourceDefinition.SetCdnIntegrity ↑ as above
+  │  ├─ ResourceDefinition.SetVersion
+- │  ├─ ResourceManifest.DefineScript ↑ as above
+- │  ├─ ResourceDefinition.SetUrl ↑ as above
+- │  ├─ ResourceDefinition.SetPosition
+- │  ├─ ResourceDefinition.SetVersion ↑ as above
+- │  ├─ ResourceManifest.DefineScript ↑ as above
+- │  ├─ ResourceDefinition.SetAttribute
++ │  ├─ ResourceManifest.DefineStyle
++ │  │  └─ ResourceManifest.DefineResource (depth limit)
+  │  ├─ ResourceDefinition.SetUrl
+- │  ├─ ResourceDefinition.SetDependencies ↑ as above
+  │  └─ ResourceDefinition.SetVersion
+  ├─ options.ResourceManifests.Add
+  └─ case ResourceDebugMode.FromConfiguration:
+
+  LocalizationOrchardHelperExtensions.GetJSLocalizations
+  ├─ ArgumentNullException.ThrowIfNull
+  ├─ orchardHelper.HttpContext.RequestServices.GetServices<IJSLocalizer>
+  └─ JSLocalizerExtensions.GetMergedLocalizations ↑ as above
+
+  initialization of DefaultLocalizationService
++ ├─ string.IsNullOrEmpty
+  └─ Task.FromResult ×2
+stderr:
+src/OrchardCore.Modules/OrchardCore.Media/Drivers/MediaFieldDisplayDriver.cs:176: unresolved-call: Cannot bind field.Content.ContainsKey.
+src/OrchardCore.Modules/OrchardCore.Media/Drivers/MediaFieldDisplayDriver.cs:178: unresolved-call: Cannot bind field.Content.Remove.
+src/OrchardCore.Modules/OrchardCore.Seo/Handlers/SeoMetaSettingsHandler.cs:115: unresolved-call: Cannot bind socialMetaSettings.DefaultMetaDescription.Text.ToString.
+src/OrchardCore.Modules/OrchardCore.Seo/Handlers/SeoMetaSettingsHandler.cs:120: unresolved-call: Cannot bind socialMetaSettings.OpenGraphType.Text.ToString.
+src/OrchardCore.Modules/OrchardCore.Seo/Handlers/SeoMetaSettingsHandler.cs:125: unresolved-call: Cannot bind socialMetaSettings.DefaultOpenGraphDescription.Text.ToString.
+src/OrchardCore.Modules/OrchardCore.Seo/Handlers/SeoMetaSettingsHandler.cs:130: unresolved-call: Cannot bind socialMetaSettings.OpenGraphSiteName.Text.ToString.
+src/OrchardCore.Modules/OrchardCore.Seo/Handlers/SeoMetaSettingsHandler.cs:135: unresolved-call: Cannot bind socialMetaSettings.OpenGraphAppId.Text.ToString.
+src/OrchardCore.Modules/OrchardCore.Seo/Handlers/SeoMetaSettingsHandler.cs:140: unresolved-call: Cannot bind socialMetaSettings.DefaultTwitterDescription.Text.ToString.
+11 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  initialization of LocalizationSettings
++ └─ string.IsNullOrEmpty
+
+  initialization of LocalizationService
++ ├─ string.IsNullOrEmpty
+  └─ CultureInfo.GetCultureInfo ×2
+
+  GetLocalizationsEndpoint.HandleAsync
+  ├─ cache.GetOrCreate
+  │  ├─ JSLocalizerExtensions.GetMergedLocalizations
+  │  │  ├─ …
+  │  │  ├─ ArgumentNullException.ThrowIfNull
+  │  │  ├─ new Dictionary<string, string>
+  │  │  └─ foreach (var group in groups)
+  │  │     └─ foreach (var jsLocalizer in jsLocalizers)
+  │  │        └─ IJSLocalizer.GetLocalizations
++ │  │           ├─ ⇢ AdminMenuJSLocalizer.GetLocalizations (changes below depth limit)
++ │  │           ├─ ⇢ ContentFieldsJSLocalizer.GetLocalizations (changes below depth limit)
++ │  │           ├─ ⇢ CorsJSLocalizer.GetLocalizations (changes below depth limit)
++ │  │           ├─ ⇢ FormsJSLocalizer.GetLocalizations (changes below depth limit)
++ │  │           ├─ ⇢ LocalizationJSLocalizer.GetLocalizations (changes below depth limit)
+  │  │           ├─ ⇢ MediaJSLocalizer.GetLocalizations (depth limit)
++ │  │           ├─ ⇢ MenuJSLocalizer.GetLocalizations (changes below depth limit)
++ │  │           ├─ ⇢ OpenIdJSLocalizer.GetLocalizations (changes below depth limit)
++ │  │           ├─ ⇢ SeoJSLocalizer.GetLocalizations (changes below depth limit)
++ │  │           ├─ ⇢ ShortcodesJSLocalizer.GetLocalizations (changes below depth limit)
++ │  │           └─ ⇢ TaxonomiesJSLocalizer.GetLocalizations (changes below depth limit)
+  │  ├─ JsonSerializer.SerializeToUtf8Bytes
+  │  ├─ SHA256.HashData
+  │  └─ …
+  ├─ httpContext.Response.GetTypedHeaders
+  ├─ new CacheControlHeaderValue
+  └─ …
+
+  ResourceManagementOptionsConfiguration.Configure
+~ ├─ ResourceManagementOptionsConfiguration.BuildManifest (signature changed)
+  │  ├─ …
+  │  ├─ ResourceDefinition.SetVersion
+  │  ├─ ResourceManifest.DefineScript
+- │  ├─ ResourceDefinition.SetDependencies
+- │  │  └─ Dependencies.AddRange
+  │  ├─ ResourceDefinition.SetUrl
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ …
+  │  ├─ ResourceDefinition.SetVersion
+  │  ├─ ResourceManifest.DefineScript
+- │  ├─ ResourceDefinition.SetUrl
+- │  │  └─ ArgumentException.ThrowIfNullOrEmpty
+- │  ├─ ResourceDefinition.SetCdn
+- │  │  └─ ResourceDefinition.SetCdn (depth limit)
+- │  ├─ ResourceDefinition.SetCdnIntegrity
+- │  │  └─ ArgumentException.ThrowIfNullOrEmpty
+- │  ├─ ResourceDefinition.SetVersion
+- │  │  ├─ System.Version.TryParse
+- │  │  └─ if (!System.Version.TryParse(version, out _))
+- │  │     └─ new FormatException
+- │  ├─ ResourceManifest.DefineScript
+- │  │  └─ ResourceManifest.DefineResource (depth limit)
+  │  ├─ ResourceDefinition.SetUrl
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ …
+  │  ├─ ResourceManifest.DefineScript
+  │  ├─ ResourceDefinition.SetDependencies
+- │  ├─ ResourceDefinition.SetUrl
+- │  │  └─ ResourceDefinition.SetUrl (depth limit)
+- │  ├─ ResourceDefinition.SetCdn
+- │  │  └─ ResourceDefinition.SetCdn (depth limit)
+- │  ├─ ResourceDefinition.SetCdnIntegrity
+- │  │  └─ ResourceDefinition.SetCdnIntegrity (depth limit)
+- │  ├─ ResourceDefinition.SetVersion ↑ as above
+- │  ├─ ResourceManifest.DefineScript ↑ as above
+  │  ├─ ResourceDefinition.SetUrl
+- │  ├─ ResourceDefinition.SetDependencies ↑ as above
+- │  ├─ ResourceDefinition.SetVersion ↑ as above
+- │  ├─ ResourceManifest.DefineScript ↑ as above
+- │  ├─ ResourceDefinition.SetDependencies ↑ as above
+- │  ├─ ResourceDefinition.SetUrl ↑ as above
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ ResourceDefinition.SetCdnIntegrity
+  │  ├─ ResourceDefinition.SetVersion
+  │  ├─ ResourceManifest.DefineStyle
+- │  ├─ ResourceDefinition.SetUrl ↑ as above
+- │  ├─ ResourceDefinition.SetCdn ↑ as above
+- │  ├─ ResourceDefinition.SetCdnIntegrity ↑ as above
+- │  ├─ ResourceDefinition.SetVersion ↑ as above
+- │  ├─ ResourceManifest.DefineStyle
+- │  │  └─ ResourceManifest.DefineResource (depth limit)
+  │  ├─ ResourceDefinition.SetUrl
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ …
+  │  ├─ ResourceDefinition.SetVersion
+  │  ├─ ResourceManifest.DefineScript
+- │  ├─ ResourceDefinition.SetDependencies ↑ as above
+  │  ├─ ResourceDefinition.SetUrl
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ …
+  │  ├─ ResourceManifest.DefineScript
+  │  ├─ ResourceDefinition.SetUrl
+- │  ├─ ResourceDefinition.SetCdn ↑ as above
+- │  ├─ ResourceDefinition.SetCdnIntegrity ↑ as above
+  │  ├─ ResourceDefinition.SetVersion
+- │  ├─ ResourceManifest.DefineScript ↑ as above
+- │  ├─ ResourceDefinition.SetUrl ↑ as above
+- │  ├─ ResourceDefinition.SetPosition
+- │  ├─ ResourceDefinition.SetVersion ↑ as above
+- │  ├─ ResourceManifest.DefineScript ↑ as above
+- │  ├─ ResourceDefinition.SetAttribute
++ │  ├─ ResourceManifest.DefineStyle
++ │  │  └─ ResourceManifest.DefineResource (depth limit)
+  │  ├─ ResourceDefinition.SetUrl
+- │  ├─ ResourceDefinition.SetDependencies ↑ as above
+  │  └─ ResourceDefinition.SetVersion
+  ├─ options.ResourceManifests.Add
+  └─ case ResourceDebugMode.FromConfiguration:
+
+  LocalizationOrchardHelperExtensions.GetJSLocalizations
+  ├─ ArgumentNullException.ThrowIfNull
+  ├─ orchardHelper.HttpContext.RequestServices.GetServices<IJSLocalizer>
+  └─ JSLocalizerExtensions.GetMergedLocalizations ↑ as above
+
+  initialization of DefaultLocalizationService
++ ├─ string.IsNullOrEmpty
+  └─ Task.FromResult ×2
+```
+stderr:
+src/OrchardCore.Modules/OrchardCore.Media/Drivers/MediaFieldDisplayDriver.cs:176: unresolved-call: Cannot bind field.Content.ContainsKey.
+src/OrchardCore.Modules/OrchardCore.Media/Drivers/MediaFieldDisplayDriver.cs:178: unresolved-call: Cannot bind field.Content.Remove.
+src/OrchardCore.Modules/OrchardCore.Seo/Handlers/SeoMetaSettingsHandler.cs:115: unresolved-call: Cannot bind socialMetaSettings.DefaultMetaDescription.Text.ToString.
+src/OrchardCore.Modules/OrchardCore.Seo/Handlers/SeoMetaSettingsHandler.cs:120: unresolved-call: Cannot bind socialMetaSettings.OpenGraphType.Text.ToString.
+src/OrchardCore.Modules/OrchardCore.Seo/Handlers/SeoMetaSettingsHandler.cs:125: unresolved-call: Cannot bind socialMetaSettings.DefaultOpenGraphDescription.Text.ToString.
+src/OrchardCore.Modules/OrchardCore.Seo/Handlers/SeoMetaSettingsHandler.cs:130: unresolved-call: Cannot bind socialMetaSettings.OpenGraphSiteName.Text.ToString.
+src/OrchardCore.Modules/OrchardCore.Seo/Handlers/SeoMetaSettingsHandler.cs:135: unresolved-call: Cannot bind socialMetaSettings.OpenGraphAppId.Text.ToString.
+src/OrchardCore.Modules/OrchardCore.Seo/Handlers/SeoMetaSettingsHandler.cs:140: unresolved-call: Cannot bind socialMetaSettings.DefaultTwitterDescription.Text.ToString.
+11 additional diagnostics; use --diagnostics full.

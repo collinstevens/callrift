@@ -4,10 +4,18 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../tools/Callrift.FixtureWorker/FixtureWorkerRequest.cs" Link="FixtureWorkerRequest.cs" />
     <ProjectReference Include="../../src/Callrift.Cli/Callrift.Cli.csproj" />
+    <ProjectReference Include="../../tools/Callrift.FixtureWorker/Callrift.FixtureWorker.csproj" ReferenceOutputAssembly="false" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
     <PackageReference Include="Verify.Xunit" />
   </ItemGroup>
+  <Target Name="IncludeFixtureWorker" BeforeTargets="GetCopyToOutputDirectoryItems">
+    <ItemGroup>
+      <FixtureWorkerFile Include="../../tools/Callrift.FixtureWorker/bin/$(Configuration)/$(TargetFramework)/**/*" />
+      <ContentWithTargetPath Include="@(FixtureWorkerFile)" CopyToOutputDirectory="PreserveNewest" TargetPath="fixture-worker/%(FixtureWorkerFile.RecursiveDir)%(FixtureWorkerFile.Filename)%(FixtureWorkerFile.Extension)" />
+    </ItemGroup>
+  </Target>
 </Project>

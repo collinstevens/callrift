@@ -1,14 +1,20 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
 
 public sealed class DispatchQueryTests
 {
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task SelectedContractSignatureKeepsItsRoot(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task SelectedContractSignatureKeepsItsRoot() => VerifySelectedContractSignatureKeepsItsRoot(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceSelectedContractSignatureKeepsItsRoot() => VerifySelectedContractSignatureKeepsItsRoot(true);
+
+    private static async Task VerifySelectedContractSignatureKeepsItsRoot(bool workspace)
     {
         var before = new Dictionary<string, string>
         {
@@ -16,16 +22,14 @@ public sealed class DispatchQueryTests
             ["Flow.cs"] = "interface Contract { void Run(int value); } class Worker : Contract { public void Run(int value) {} } class Other : Contract { public void Run(int value) {} }"
         };
         var after = new Dictionary<string, string>(before) { ["Flow.cs"] = before["Flow.cs"].Replace("int value", "long value", StringComparison.Ordinal) };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("contract-signature", "A uniquely paired contract signature retains a single modified root.", before, after, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("contract-signature", "A uniquely paired contract signature retains a single modified root.", before, after, []), workspace);
+        var outputs = await fixture.DiffFormatsAsync(new DiffOptions { Entries = ["Contract.Run"] });
         foreach (var format in new[] { "text", "md", "json" })
         {
-            string[] restore = workspace && format != "text" ? ["--no-restore"] : [];
-            var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--entry", "Contract.Run", .. mode, .. restore, "--format", format]);
-            Assert.StartsWith("exit: 0\n", output);
+            var output = outputs[format];
             Assert.Contains("signature changed", output);
             if (format != "json") continue;
-            using var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+            using var document = JsonDocument.Parse(output);
             var root = Assert.Single(document.RootElement.GetProperty("trees").EnumerateArray());
             Assert.Equal("modified", root.GetProperty("change").GetString());
             Assert.EndsWith("::Contract.Run(int)", root.GetProperty("before").GetProperty("symbolId").GetString());
@@ -34,15 +38,22 @@ public sealed class DispatchQueryTests
     }
 
     [Theory]
-    [InlineData(false, false, false)]
-    [InlineData(false, true, false)]
-    [InlineData(true, false, false)]
-    [InlineData(true, true, false)]
-    [InlineData(false, false, true)]
-    [InlineData(false, true, true)]
-    [InlineData(true, false, true)]
-    [InlineData(true, true, true)]
-    public async Task SelectedContractIncludesPossibleImplementations(bool workspace, bool abstractContract, bool multiple)
+    [InlineData(false, false)]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(true, true)]
+    [Trait("Layer", "Fast")]
+    public Task SelectedContractIncludesPossibleImplementations(bool abstractContract, bool multiple) => VerifySelectedContractIncludesPossibleImplementations(false, abstractContract, multiple);
+
+    [Theory]
+    [InlineData(false, false)]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(true, true)]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceSelectedContractIncludesPossibleImplementations(bool abstractContract, bool multiple) => VerifySelectedContractIncludesPossibleImplementations(true, abstractContract, multiple);
+
+    private static async Task VerifySelectedContractIncludesPossibleImplementations(bool workspace, bool abstractContract, bool multiple)
     {
         var contract = abstractContract ? "abstract class Contract { public abstract void Run(); }" : "interface Contract { void Run(); }";
         var implementation = abstractContract ? "public override void Run()" : "public void Run()";
@@ -53,22 +64,20 @@ public sealed class DispatchQueryTests
         };
         if (multiple) before["Flow.cs"] += " class Other : Contract { " + implementation + " {} }";
         var after = new Dictionary<string, string>(before) { ["Flow.cs"] = before["Flow.cs"].Replace("Before();", "After();", StringComparison.Ordinal) };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("selected-contract", "Selected contracts expose possible source implementations.", before, after, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("selected-contract", "Selected contracts expose possible source implementations.", before, after, []), workspace);
         foreach (var command in new[] { "tree", "reach", "diff" })
         {
-            string[] revisions = command == "diff" ? [fixture.Before, fixture.After] : [fixture.After];
-            string[] target = command == "reach" ? ["--to", "Worker.After"] : [];
+            var options = new DiffOptions { Entries = ["Contract.Run"] };
+            var outputs = command == "diff" ? await fixture.DiffFormatsAsync(options)
+                : await fixture.QueryFormatsAsync(options, target: command == "reach" ? "Worker.After" : null);
             foreach (var format in new[] { "text", "md", "json" })
             {
-                string[] restore = workspace && format != "text" ? ["--no-restore"] : [];
-                var output = await fixture.RunAsync([command, .. revisions, "--entry", "Contract.Run", .. target, .. mode, .. restore, "--format", format]);
-                Assert.StartsWith("exit: 0\n", output);
+                var output = outputs[format];
                 Assert.Contains("Contract.Run", output);
                 Assert.Contains("Worker.After", output);
                 if (command == "diff") Assert.Contains("Worker.Before", output);
                 if (format != "json") continue;
-                using var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+                using var document = JsonDocument.Parse(output);
                 var root = document.RootElement.GetProperty(command == "reach" ? "paths" : "trees")[0];
                 Assert.Equal("member", root.GetProperty("kind").GetString());
                 var side = root.GetProperty("after");

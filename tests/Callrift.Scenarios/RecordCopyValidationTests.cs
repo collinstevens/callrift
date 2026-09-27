@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -19,11 +20,19 @@ public sealed class RecordCopyValidationTests
         ("sealed-control", "sealed record State { public State() {} internal State(State other) { Sink.Run(); } }", true)
     ];
 
-    public static IEnumerable<object[]> Cases => Fixtures.SelectMany(fixture => new[] { new object[] { fixture.Name, false }, new object[] { fixture.Name, true } });
+    public static IEnumerable<object[]> Cases => Fixtures.Select(fixture => new object[] { fixture.Name });
 
     [Theory]
     [MemberData(nameof(Cases))]
-    public async Task InvalidRecordCopiesReportDiagnosticsAndOmitBodies(string name, bool workspace)
+    [Trait("Layer", "Fast")]
+    public Task InvalidRecordCopiesReportDiagnosticsAndOmitBodies(string name) => VerifyRecordCopies(name, false);
+
+    [Theory]
+    [MemberData(nameof(Cases))]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceInvalidRecordCopiesReportDiagnosticsAndOmitBodies(string name) => VerifyRecordCopies(name, true);
+
+    private static async Task VerifyRecordCopies(string name, bool workspace)
     {
         var example = Fixtures.Single(fixture => fixture.Name == name);
         var source = example.Source + " static class Entry { public static void Run(State value) { _ = value with {}; } } static class Sink { public static void Run() {} public static void Other() {} }";
@@ -33,15 +42,13 @@ public sealed class RecordCopyValidationTests
             ["App.csproj"] = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>"
         };
         var after = new Dictionary<string, string>(before) { ["Flow.cs"] = source.Replace("Sink.Run();", "Sink.Other();", StringComparison.Ordinal) };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("record-copy-validation", "Invalid record declarations retain diagnostics without claiming executable copy bodies.", before, after, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("record-copy-validation", "Invalid record declarations retain diagnostics without claiming executable copy bodies.", before, after, []), workspace);
+        var options = new DiffOptions { Entries = ["Entry.Run"], MaxDepth = 16 };
         foreach (var command in new[] { "tree", "reach", "diff" })
         {
-            string[] revisions = command == "diff" ? [fixture.Before, fixture.After] : [fixture.Before];
-            string[] target = command == "reach" ? ["--to", "Sink.Run"] : [];
-            var output = await fixture.RunAsync([command, .. revisions, "--entry", "Entry.Run", .. target, "--depth", "16", "--format", "json", .. mode]);
-            Assert.StartsWith("exit: 0\n", output);
-            using var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+            var output = command == "diff" ? await fixture.DiffAsync(options)
+                : await fixture.QueryAsync(options, before: true, target: command == "reach" ? "Sink.Run" : null);
+            using var document = JsonDocument.Parse(output);
             var diagnostics = document.RootElement.GetProperty("diagnostics").EnumerateArray().ToArray();
             Assert.Equal(!example.Valid, diagnostics.Any(diagnostic => diagnostic.GetProperty("code").GetString() == "unresolved-record-copy"));
             if (example.Valid) Assert.Empty(diagnostics);

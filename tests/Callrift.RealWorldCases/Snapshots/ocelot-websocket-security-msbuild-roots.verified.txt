@@ -25,11 +25,11 @@ stdout:
 + new SecurityError
 + └─ new Error
 
-~ new SecurityMiddleware (body changed; visible calls unchanged)
+~ new SecurityMiddleware (signature changed)
   ├─ IOcelotLoggerFactory.CreateLogger → OcelotLoggerFactory.CreateLogger (depth limit)
   └─ new OcelotMiddleware
 
-  SecurityMiddleware.Invoke
+~ SecurityMiddleware.Invoke (signature changed)
   ├─ HttpItemsExtensions.DownstreamRoute (depth limit)
 - ├─ if (_securityPolicies != null)
 - │  └─ foreach (var policy in _securityPolicies)
@@ -70,11 +70,11 @@ stdout:
 + new SecurityError
 + └─ new Error
 
-~ new SecurityMiddleware (body changed; visible calls unchanged)
+~ new SecurityMiddleware (signature changed)
   ├─ IOcelotLoggerFactory.CreateLogger → OcelotLoggerFactory.CreateLogger (depth limit)
   └─ new OcelotMiddleware
 
-  SecurityMiddleware.Invoke
+~ SecurityMiddleware.Invoke (signature changed)
   ├─ HttpItemsExtensions.DownstreamRoute (depth limit)
 - ├─ if (_securityPolicies != null)
 - │  └─ foreach (var policy in _securityPolicies)

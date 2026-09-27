@@ -25,16 +25,16 @@ description = "Build callrift and its verification tools"
 run = "dotnet build callrift.slnx"
 
 [tasks.test]
-description = "Run the full scenario suite (CI or explicit full run)"
-run = "dotnet test tests/Callrift.Scenarios/Callrift.Scenarios.csproj"
+description = "Run the current fast semantic tier"
+run = "pwsh -NoProfile -File scripts/Run-Tests.ps1 -Suite Fast"
 
 [tasks.cases]
 description = "Run all pinned real-history snapshots (explicit full run)"
-run = "dotnet test tests/Callrift.RealWorldCases/Callrift.RealWorldCases.csproj"
+run = "pwsh -NoProfile -File scripts/Run-Tests.ps1 -Suite Cases"
 
 [tasks.workspaces]
 description = "Run the full workspace suite (CI or explicit full run)"
-run = "dotnet test tests/Callrift.Workspaces/Callrift.Workspaces.csproj"
+run = "pwsh -NoProfile -File scripts/Run-Tests.ps1 -Suite Workspaces"
 
 [tasks."cases:candidates"]
 description = "Propose real-world changes for manual review"
@@ -64,16 +64,30 @@ run = "actionlint"
 description = "Run selected scenario tests; requires a VSTest filter"
 usage = 'arg "<filter>" help="VSTest filter for the affected tests"'
 shell = "pwsh -NoProfile -Command"
-run = 'dotnet test tests/Callrift.Scenarios/Callrift.Scenarios.csproj --filter $env:usage_filter; exit $LASTEXITCODE'
+run = '& ./scripts/Run-Tests.ps1 -Suite Scenarios -Filter $env:usage_filter'
 
 [tasks."cases:focused"]
 description = "Run selected real-world case tests; requires a VSTest filter"
 usage = 'arg "<filter>" help="VSTest filter for the affected tests"'
 shell = "pwsh -NoProfile -Command"
-run = 'dotnet test tests/Callrift.RealWorldCases/Callrift.RealWorldCases.csproj --filter $env:usage_filter; exit $LASTEXITCODE'
+run = '& ./scripts/Run-Tests.ps1 -Suite Cases -Filter $env:usage_filter'
 
 [tasks."workspaces:focused"]
 description = "Run selected workspace tests; requires a VSTest filter"
 usage = 'arg "<filter>" help="VSTest filter for the affected tests"'
 shell = "pwsh -NoProfile -Command"
-run = 'dotnet test tests/Callrift.Workspaces/Callrift.Workspaces.csproj --filter $env:usage_filter; exit $LASTEXITCODE'
+run = '& ./scripts/Run-Tests.ps1 -Suite Workspaces -Filter $env:usage_filter'
+
+[tasks."test:fast"]
+description = "Run the current fast semantic tier"
+run = "pwsh -NoProfile -File scripts/Run-Tests.ps1 -Suite Fast"
+
+[tasks."test:integration"]
+description = "Run selected non-fast scenarios; requires a VSTest filter"
+usage = 'arg "<filter>" help="VSTest filter for the affected integration tests"'
+shell = "pwsh -NoProfile -Command"
+run = '& ./scripts/Run-Tests.ps1 -Suite Integration -Filter $env:usage_filter'
+
+[tasks."test:e2e"]
+description = "Run all slow scenarios, workspaces and pinned real-world cases (explicit full run)"
+run = "pwsh -NoProfile -File scripts/Run-Tests.ps1 -Suite E2E"

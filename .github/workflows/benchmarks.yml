@@ -17,6 +17,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: jdx/mise-action@v3
+        env:
+          MISE_JOBS: '1'
       - uses: actions/cache@v4
         with:
           path: ${{ github.workspace }}/../callrift-real-world-cases

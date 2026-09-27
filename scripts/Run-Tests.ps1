@@ -1,0 +1,179 @@
+param(
+    [ValidateSet('Fast', 'Integration', 'E2E', 'Scenarios', 'Workspaces', 'Cases')]
+    [string]$Suite = 'Fast',
+    [string]$Filter,
+    [ValidateSet('A', 'B', 'C')]
+    [string]$Shard,
+    [switch]$NoBuild
+)
+
+$ErrorActionPreference = 'Stop'
+Set-StrictMode -Version Latest
+
+function Read-TestRunSummary([string]$Path) {
+    $reader = [System.Xml.XmlReader]::Create($Path)
+    $classes = @{}
+    $results = [Collections.Generic.List[object]]::new()
+    $counters = $null
+    $testId = $null
+    try {
+        while (-not $reader.EOF) {
+            if ($reader.NodeType -eq [System.Xml.XmlNodeType]::Element) {
+                switch ($reader.LocalName) {
+                    'UnitTest' { $testId = $reader.GetAttribute('id') }
+                    'TestMethod' {
+                        if ($null -ne $testId) { $classes[$testId] = $reader.GetAttribute('className') }
+                    }
+                    'UnitTestResult' {
+                        $results.Add([pscustomobject]@{
+                            Name = $reader.GetAttribute('testName')
+                            TestId = $reader.GetAttribute('testId')
+                            Duration = $reader.GetAttribute('duration')
+                            Outcome = $reader.GetAttribute('outcome')
+                        })
+                    }
+                    'Counters' {
+                        $counters = [pscustomobject]@{
+                            Executed = [int]$reader.GetAttribute('executed')
+                            Failed = [int]$reader.GetAttribute('failed')
+                        }
+                    }
+                }
+                if ($reader.LocalName -eq 'Output') {
+                    $reader.Skip()
+                    continue
+                }
+            }
+            elseif ($reader.NodeType -eq [System.Xml.XmlNodeType]::EndElement -and $reader.LocalName -eq 'UnitTest') {
+                $testId = $null
+            }
+            $null = $reader.Read()
+        }
+    }
+    finally {
+        $reader.Dispose()
+    }
+    return [pscustomobject]@{ Counters = $counters; Classes = $classes; Results = $results }
+}
+
+if ($PSBoundParameters.ContainsKey('Filter') -and [string]::IsNullOrWhiteSpace($Filter)) {
+    throw 'The test filter must not be empty.'
+}
+if ($Suite -in @('Integration', 'Scenarios') -and [string]::IsNullOrWhiteSpace($Filter)) {
+    throw "$Suite requires an explicit test filter. Use Fast for routine feedback or E2E for the full slow selection."
+}
+if ($Shard -and $Suite -notin @('Scenarios', 'Workspaces', 'Cases')) {
+    throw 'Shards are available only for Scenarios, Workspaces and Cases.'
+}
+
+$shardFilter = $null
+if ($Shard) {
+    $partition = (Get-Content -Raw (Join-Path $PSScriptRoot 'Test-Shards.json') | ConvertFrom-Json -AsHashtable)[$Suite]
+    if (-not $partition.ContainsKey($Shard)) { throw "Shard $Shard is not configured for $Suite." }
+    $complements = @($partition.Keys | Where-Object { $null -eq $partition[$_] })
+    if ($complements.Count -ne 1) { throw "$Suite must have exactly one complementary shard." }
+    $included = $null -ne $partition[$Shard]
+    $classes = if ($included) { @($partition[$Shard]) } else { @($partition.Values | Where-Object { $null -ne $_ } | ForEach-Object { $_ }) }
+    if ($classes.Count -eq 0 -or $classes.Where({ [string]::IsNullOrWhiteSpace($_) }).Count -ne 0) {
+        throw "No shard classes are configured for $Suite."
+    }
+    $shardFilter = if ($included) {
+        ($classes | ForEach-Object { "FullyQualifiedName~$_." }) -join '|'
+    }
+    else {
+        ($classes | ForEach-Object { "FullyQualifiedName!~$_." }) -join '&'
+    }
+}
+
+$repository = Split-Path $PSScriptRoot -Parent
+Push-Location $repository
+try {
+    $revision = git rev-parse HEAD
+    if ($LASTEXITCODE -ne 0) { throw 'Cannot identify the revision under test.' }
+    $worktree = git status --porcelain
+    if ($LASTEXITCODE -ne 0) { throw 'Cannot determine whether the tested worktree is modified.' }
+    if ($worktree) {
+        $revision += ' (working tree modified)'
+        Write-Host ("Working tree changes:`n" + ($worktree -join "`n"))
+    }
+    $projects = switch ($Suite) {
+        'Workspaces' { 'Callrift.Workspaces' }
+        'Cases' { 'Callrift.RealWorldCases' }
+        'E2E' { 'Callrift.Scenarios'; 'Callrift.Workspaces'; 'Callrift.RealWorldCases' }
+        default { 'Callrift.Scenarios' }
+    }
+    foreach ($project in $projects) {
+        $selection = switch ($Suite) {
+            'Fast' { 'Layer=Fast' }
+            'Integration' { 'Layer!=Fast' }
+            'E2E' { if ($project -eq 'Callrift.Scenarios') { 'Layer!=Fast' } }
+        }
+        if (-not [string]::IsNullOrWhiteSpace($Filter)) {
+            $selection = if ($selection) { "($selection)&($Filter)" } else { $Filter }
+        }
+        if ($shardFilter) {
+            $selection = if ($selection) { "($selection)&($shardFilter)" } else { $shardFilter }
+        }
+        $results = Join-Path $repository "tests/$project/TestResults"
+        $resultLabel = if ($Shard) { "$Suite-$Shard" } else { $Suite }
+        $fileName = "$resultLabel-$([Guid]::NewGuid().ToString('N')).trx"
+        $arguments = @('test', "tests/$project/$project.csproj", '--logger', "trx;LogFileName=$fileName", '--results-directory', $results)
+        if ($selection) { $arguments += @('--filter', $selection) }
+        if ($NoBuild) { $arguments += '--no-build' }
+        $reproduce = "mise exec -- pwsh -NoProfile -File scripts/Run-Tests.ps1 -Suite $Suite"
+        if ($Filter) { $reproduce += " -Filter '$($Filter.Replace("'", "''"))'" }
+        if ($Shard) { $reproduce += " -Shard $Shard" }
+        Write-Host "Revision: $revision; project: $project; selection: $selection"
+        Write-Host "Reproduce: $reproduce"
+        $timer = [Diagnostics.Stopwatch]::StartNew()
+        & dotnet @arguments
+        $testExitCode = $LASTEXITCODE
+        $timer.Stop()
+        $resultPath = Join-Path $results $fileName
+        $elapsed = $timer.Elapsed.TotalSeconds.ToString('F2', [Globalization.CultureInfo]::InvariantCulture)
+        if (-not (Test-Path $resultPath)) {
+            throw "$project did not produce test results (exit $testExitCode, ${elapsed}s). Reproduce: $reproduce"
+        }
+        $run = Read-TestRunSummary $resultPath
+        $counters = $run.Counters
+        if ($null -eq $counters) { throw "$project produced no test counters: $resultPath" }
+        $executed = $counters.Executed
+        $failed = $counters.Failed
+        $displayProject = if ($Shard) { "$project shard $Shard" } else { $project }
+        $summary = "$displayProject at ${revision}: $executed executed, $failed failed, ${elapsed}s including dotnet startup and any build/restore."
+        Write-Host $summary
+        if ($Suite -ne 'Fast') {
+            $timings = foreach ($result in $run.Results) {
+                $duration = [TimeSpan]::Zero
+                if (-not [TimeSpan]::TryParse($result.Duration, [Globalization.CultureInfo]::InvariantCulture, [ref]$duration)) { continue }
+                [pscustomobject]@{
+                    Name = $result.Name
+                    Class = $run.Classes[$result.TestId]
+                    Seconds = $duration.TotalSeconds
+                }
+            }
+            $classWork = $timings | Group-Object Class | ForEach-Object {
+                [pscustomobject]@{ Name = $_.Name; Seconds = ($_.Group | Measure-Object Seconds -Sum).Sum }
+            }
+            foreach ($group in ($classWork | Sort-Object Seconds -Descending | Select-Object -First 5)) {
+                $seconds = $group.Seconds.ToString('F2', [Globalization.CultureInfo]::InvariantCulture)
+                Write-Host "Class accumulated case time: ${seconds}s $($group.Name)"
+            }
+            foreach ($case in ($timings | Sort-Object Seconds -Descending | Select-Object -First 5)) {
+                $seconds = $case.Seconds.ToString('F2', [Globalization.CultureInfo]::InvariantCulture)
+                Write-Host "Slow case: ${seconds}s $($case.Name)"
+            }
+        }
+        if ($env:GITHUB_STEP_SUMMARY) {
+            Add-Content $env:GITHUB_STEP_SUMMARY "$summary`n`nReproduce: ``$reproduce```n"
+        }
+        foreach ($failure in $run.Results.Where({ $_.Outcome -eq 'Failed' })) {
+            Write-Host "Failed case: $($failure.Name)"
+        }
+        if ($executed -eq 0) { throw "No tests executed for '$selection' in $project. Check the filter. Reproduce: $reproduce" }
+        if ($testExitCode -ne 0 -or $failed -ne 0) { throw "$project failed (exit $testExitCode). Reproduce: $reproduce" }
+    }
+}
+finally {
+    Pop-Location
+}

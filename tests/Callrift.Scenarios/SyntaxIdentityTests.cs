@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -6,11 +7,18 @@ namespace Callrift.Scenarios;
 public sealed class SyntaxIdentityTests
 {
     [Theory]
-    [InlineData(false, false)]
-    [InlineData(false, true)]
-    [InlineData(true, false)]
-    [InlineData(true, true)]
-    public async Task FormattingDoesNotChangeGuardsOrUnresolvedTargets(bool workspace, bool unresolved)
+    [InlineData(false)]
+    [InlineData(true)]
+    [Trait("Layer", "Fast")]
+    public Task FormattingDoesNotChangeGuardsOrUnresolvedTargets(bool unresolved) => VerifyFormattingDoesNotChangeGuardsOrUnresolvedTargets(false, unresolved);
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceFormattingDoesNotChangeGuardsOrUnresolvedTargets(bool unresolved) => VerifyFormattingDoesNotChangeGuardsOrUnresolvedTargets(true, unresolved);
+
+    private static async Task VerifyFormattingDoesNotChangeGuardsOrUnresolvedTargets(bool workspace, bool unresolved)
     {
         var body = unresolved ? "Missing.Create().Send();" : "if (ready && Check()) Work(); foreach (System.String item in new System.String[0]) Work();";
         var formatted = unresolved ? "Missing . Create() . Send();" : "if (ready&&Check()) Work(); foreach (System . String item in new System.String[0]) Work();";
@@ -21,12 +29,11 @@ public sealed class SyntaxIdentityTests
             ["Flow.cs"] = source
         };
         var after = new Dictionary<string, string>(before) { ["Flow.cs"] = source.Replace(body, formatted, StringComparison.Ordinal) };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("syntax-formatting", "Formatting preserves branch and unresolved target identity.", before, after, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("syntax-formatting", "Formatting preserves branch and unresolved target identity.", before, after, []), workspace);
+        var outputs = await fixture.DiffFormatsAsync(new DiffOptions());
         foreach (var format in new[] { "text", "md", "json" })
         {
-            var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. mode, "--format", format]);
-            Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
+            var output = outputs[format];
             Assert.DoesNotContain("Flow.Run", output);
             if (format != "json") continue;
             using var document = Parse(output);
@@ -35,10 +42,15 @@ public sealed class SyntaxIdentityTests
         }
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task LiteralWhitespaceRemainsVisibleAndSignificant(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task LiteralWhitespaceRemainsVisibleAndSignificant() => VerifyLiteralWhitespaceRemainsVisibleAndSignificant(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceLiteralWhitespaceRemainsVisibleAndSignificant() => VerifyLiteralWhitespaceRemainsVisibleAndSignificant(true);
+
+    private static async Task VerifyLiteralWhitespaceRemainsVisibleAndSignificant(bool workspace)
     {
         var before = new Dictionary<string, string>
         {
@@ -46,12 +58,11 @@ public sealed class SyntaxIdentityTests
             ["Flow.cs"] = "public class Flow { public void Run(string value) { if (value == \"a  b\") Work(); Missing.Choose(\"a  b\").Send(); } void Work() {} }"
         };
         var after = new Dictionary<string, string>(before) { ["Flow.cs"] = before["Flow.cs"].Replace("a  b", "a b", StringComparison.Ordinal) };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("literal-whitespace", "Whitespace inside string literals changes guards and unresolved fluent targets.", before, after, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("literal-whitespace", "Whitespace inside string literals changes guards and unresolved fluent targets.", before, after, []), workspace);
+        var outputs = await fixture.DiffFormatsAsync(new DiffOptions { Context = -1 });
         foreach (var format in new[] { "text", "md", "json" })
         {
-            var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. mode, "--format", format, "--context", "all"]);
-            Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
+            var output = outputs[format];
             Assert.Contains("a  b", output);
             Assert.Contains("a b", output);
             if (format != "json") continue;
@@ -65,5 +76,5 @@ public sealed class SyntaxIdentityTests
         }
     }
 
-    private static JsonDocument Parse(string output) => JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+    private static JsonDocument Parse(string output) => JsonDocument.Parse(output);
 }

@@ -19,6 +19,7 @@ public sealed class ReceiverContextFileLocalTests
 
     [Theory]
     [MemberData(nameof(Sources))]
+    [Trait("Layer", "Fast")]
     public void PhysicalPathsPreserveLogicalContext(string name, string source)
     {
         CallGraph Analyze(string directory)
@@ -36,6 +37,7 @@ public sealed class ReceiverContextFileLocalTests
 
     [Theory]
     [MemberData(nameof(Modes))]
+    [Trait("Layer", "Integration")]
     public async Task RevisionMaterializationPreservesFileLocalContexts(string name, string source, bool workspace)
     {
         var before = new Dictionary<string, string> { ["App.csproj"] = Project, ["Flow.cs"] = source };
@@ -48,10 +50,15 @@ public sealed class ReceiverContextFileLocalTests
         Assert.False(result.RootElement.GetProperty("truncated").GetBoolean());
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task SameBasenameReceiversKeepDistinctPaths(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task SameBasenameReceiversKeepDistinctPaths() => VerifySameBasenameReceivers(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceSameBasenameReceiversKeepDistinctPaths() => VerifySameBasenameReceivers(true);
+
+    private static async Task VerifySameBasenameReceivers(bool workspace)
     {
         var before = new Dictionary<string, string>
         {
@@ -64,15 +71,16 @@ public sealed class ReceiverContextFileLocalTests
         {
             ["Base.cs"] = before["Base.cs"].Replace("void Left() {}", "void Left() { throw new System.InvalidOperationException(); }", StringComparison.Ordinal)
         };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("receiver-file-local-basename", "Same-basename files keep distinct file-local receivers through inherited helpers.", before, after, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        using var first = Parse(await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--entry", "First.Entry", "--depth", "16", .. mode, "--format", "json"]));
+        var scenario = new Scenario("receiver-file-local-basename", "Same-basename files keep distinct file-local receivers through inherited helpers.", before, after, []);
+        await using var fixture = workspace ? await AnalysisFixture.CreateWorkspaceCliAsync(scenario)
+            : await AnalysisFixture.CreateAsync(scenario, workspace: false);
+        using var first = JsonDocument.Parse(await fixture.DiffAsync(new DiffOptions { Entries = ["First.Entry"], MaxDepth = 16 }));
         Assert.Empty(first.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.True(first.RootElement.GetProperty("hasChanges").GetBoolean());
-        using var second = Parse(await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--entry", "Second.Entry", "--depth", "16", .. mode, "--format", "json"]));
+        using var second = JsonDocument.Parse(await fixture.DiffAsync(new DiffOptions { Entries = ["Second.Entry"], MaxDepth = 16 }));
         Assert.Empty(second.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.False(second.RootElement.GetProperty("hasChanges").GetBoolean());
-        using var tree = Parse(await fixture.RunAsync(["tree", fixture.After, "--entry", "Second.Entry", "--depth", "16", .. mode, "--format", "json"]));
+        using var tree = JsonDocument.Parse(await fixture.QueryAsync(new DiffOptions { Entries = ["Second.Entry"], MaxDepth = 16 }));
         Assert.Contains("Sink.Right", tree.RootElement.GetProperty("trees").GetRawText());
         Assert.DoesNotContain("Sink.Left", tree.RootElement.GetProperty("trees").GetRawText());
     }

@@ -1,7 +1,9 @@
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
 
+[Trait("Layer", "Fast")]
 public sealed class XunitExecutableClassificationTests
 {
     [Theory]
@@ -25,17 +27,19 @@ public sealed class XunitExecutableClassificationTests
         {
             ["src/Worker.cs"] = before["src/Worker.cs"].Replace("Before();", "After();", StringComparison.Ordinal)
         };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("xunit-executable", "Executable xUnit packages identify test projects without hiding application entry points.", before, after, []));
+        var scenario = new Scenario("xunit-executable", "Executable xUnit packages identify test projects without hiding application entry points.", before, after, []);
+        await using var fixture = await AnalysisFixture.CreateAsync(scenario, workspace: false);
+        await using var includedFixture = await AnalysisFixture.CreateAsync(scenario, workspace: false, includeTests: true);
+        var outputs = await fixture.DiffFormatsAsync(new DiffOptions());
+        var includedOutputs = await includedFixture.DiffFormatsAsync(new DiffOptions { IncludeTests = true });
         foreach (var format in new[] { "text", "md", "json" })
         {
-            var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--format", format]);
-            Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
+            var output = outputs[format];
             Assert.Contains("Sample.Main", output);
             Assert.DoesNotContain("Checks.Main", output);
             Assert.Contains("Worker.Before", output);
             Assert.Contains("Worker.After", output);
-            var withTests = await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--tests", "--format", format]);
-            Assert.True(withTests.StartsWith("exit: 0\n", StringComparison.Ordinal), withTests);
+            var withTests = includedOutputs[format];
             Assert.Contains("Checks.Main", withTests);
             Assert.Contains("Sample.Main", withTests);
         }

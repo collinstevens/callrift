@@ -5,6 +5,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   title:
     if: github.event_name == 'pull_request'
@@ -20,14 +23,80 @@ jobs:
           [IO.File]::WriteAllText($message, $env:PR_TITLE)
           hk util check-conventional-commit $message
           if ($LASTEXITCODE -ne 0) { throw 'Use a conventional commit title for the squash merge.' }
-  verify:
+  fast:
+    timeout-minutes: 10
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     env:
-      CALLRIFT_CASES_CACHE: ${{ github.workspace }}/../callrift-real-world-cases
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v3
+        env:
+          MISE_JOBS: ${{ runner.os == 'Windows' && '1' || '4' }}
+      - run: dotnet restore tests/Callrift.Scenarios/Callrift.Scenarios.csproj --locked-mode
+      - run: dotnet build tests/Callrift.Scenarios/Callrift.Scenarios.csproj --no-restore
+      - run: ./scripts/Run-Tests.ps1 -Suite Fast -NoBuild
+  integration:
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v3
+        env:
+          MISE_JOBS: ${{ runner.os == 'Windows' && '1' || '4' }}
+      - run: ./.github/scripts/Initialize-TestGit.ps1
+      - run: dotnet restore tests/Callrift.Scenarios/Callrift.Scenarios.csproj --locked-mode
+      - run: dotnet restore tests/Callrift.Workspaces/Callrift.Workspaces.csproj --locked-mode
+      - run: dotnet build tests/Callrift.Scenarios/Callrift.Scenarios.csproj --no-restore
+      - run: dotnet build tests/Callrift.Workspaces/Callrift.Workspaces.csproj --no-restore
+      - run: ./scripts/Run-Tests.ps1 -Suite Integration -Filter "FullyQualifiedName~QueryTests.InvalidQueries|FullyQualifiedName~ScenarioTests.WorkingTreeAndIndex|FullyQualifiedName~PartialCloneTests" -NoBuild
+      - run: ./scripts/Run-Tests.ps1 -Suite Workspaces -Filter "FullyQualifiedName~WorkspaceTests.Projects|FullyQualifiedName~WorkspaceTests.RequiresRestoredCacheAndExplicitFramework|FullyQualifiedName~WorkspaceTests.Generator|(FullyQualifiedName~WorkspaceTests.Parity&DisplayName~guard)" -NoBuild
+      - run: ./scripts/Package-Smoke.ps1
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v3
+      - run: dotnet restore callrift.slnx --locked-mode
+      - run: mise run check
+      - run: mise run workflows
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        suite: [Scenarios, Workspaces, Cases]
+        shard: [A, B, C]
+        exclude:
+          - suite: Scenarios
+            shard: C
+        include:
+          - suite: Scenarios
+            project: Callrift.Scenarios
+          - suite: Workspaces
+            project: Callrift.Workspaces
+          - suite: Cases
+            project: Callrift.RealWorldCases
+    runs-on: ${{ matrix.os }}
+    env:
       CALLRIFT_CASE_SET: routine
       DOTNET_NOLOGO: true
       DOTNET_CLI_TELEMETRY_OPTOUT: true
@@ -37,23 +106,33 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: jdx/mise-action@v3
+        env:
+          MISE_JOBS: ${{ runner.os == 'Windows' && '1' || '4' }}
       - uses: actions/cache@v4
+        if: matrix.suite == 'Cases'
         with:
-          path: ${{ github.workspace }}/../callrift-real-world-cases
-          key: cases-${{ runner.os }}-${{ hashFiles('real-world-cases/manifest.json') }}
+          path: ${{ runner.temp }}/callrift-real-world-cases
+          key: cases-${{ runner.os }}-${{ matrix.shard }}-${{ hashFiles('real-world-cases/manifest.json', 'scripts/Test-Shards.json') }}
+      - uses: actions/cache@v4
+        if: matrix.suite != 'Scenarios'
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ matrix.suite }}-${{ matrix.shard }}-${{ hashFiles('**/packages.lock.json', 'mise.toml', 'real-world-cases/manifest.json', 'scripts/Test-Shards.json', 'tests/**/*.cs') }}
       - run: ./.github/scripts/Initialize-TestGit.ps1
-      - run: dotnet restore callrift.slnx --locked-mode
-      - run: dotnet build callrift.slnx --no-restore
-      - run: dotnet test tests/Callrift.Scenarios/Callrift.Scenarios.csproj --no-build --logger trx
-      - run: dotnet test tests/Callrift.Workspaces/Callrift.Workspaces.csproj --no-build --logger trx
-      - run: dotnet test tests/Callrift.RealWorldCases/Callrift.RealWorldCases.csproj --no-build --logger trx
-      - run: mise run check
-      - run: mise run workflows
-      - run: ./scripts/Package-Smoke.ps1
+      - run: dotnet restore tests/${{ matrix.project }}/${{ matrix.project }}.csproj --locked-mode
+      - run: dotnet build tests/${{ matrix.project }}/${{ matrix.project }}.csproj --no-restore
+      - if: matrix.suite == 'Scenarios'
+        run: ./scripts/Run-Tests.ps1 -Suite Scenarios -Filter "Layer!=Fast" -Shard ${{ matrix.shard }} -NoBuild
+      - if: matrix.suite == 'Workspaces'
+        run: ./scripts/Run-Tests.ps1 -Suite Workspaces -Shard ${{ matrix.shard }} -NoBuild
+      - if: matrix.suite == 'Cases'
+        env:
+          CALLRIFT_CASES_CACHE: ${{ runner.temp }}/callrift-real-world-cases
+        run: ./scripts/Run-Tests.ps1 -Suite Cases -Shard ${{ matrix.shard }} -NoBuild
       - if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: diagnostics-${{ runner.os }}
+          name: diagnostics-${{ runner.os }}-${{ matrix.suite }}-${{ matrix.shard }}
           path: |
             **/TestResults/*.trx
             **/*.received.*

@@ -27,6 +27,7 @@ public sealed record CallStep(
     IReadOnlyList<CallStep> Children)
 {
     public string Relation { get; init; } = "call";
+    public string? AlignmentKey { get; init; }
     public int? CallbackGroup { get; init; }
     public DispatchType? InitializationTriggerType { get; init; }
     public string? InitializationScope { get; init; }

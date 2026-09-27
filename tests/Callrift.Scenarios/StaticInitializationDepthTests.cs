@@ -1,14 +1,20 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
 
 public sealed class StaticInitializationDepthTests
 {
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task CompletedInitializationDoesNotCauseLaterChangeMarkers(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task CompletedInitializationDoesNotCauseLaterChangeMarkers() => VerifyCompletedInitializationDoesNotCauseLaterChangeMarkers(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceCompletedInitializationDoesNotCauseLaterChangeMarkers() => VerifyCompletedInitializationDoesNotCauseLaterChangeMarkers(true);
+
+    private static async Task VerifyCompletedInitializationDoesNotCauseLaterChangeMarkers(bool workspace)
     {
         const string source = "static class State { static State() { Sink.Before(); } public static void Touch() { Sink.Body(); } } static class Other { public static void Run() { State.Touch(); } } static class Entry { public static void Run() { State.Touch(); Other.Run(); } } static class Sink { public static void Before() {} public static void After() {} public static void Body() {} }";
         var before = new Dictionary<string, string>
@@ -17,11 +23,9 @@ public sealed class StaticInitializationDepthTests
             ["App.csproj"] = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>"
         };
         var after = new Dictionary<string, string>(before) { ["Flow.cs"] = source.Replace("Sink.Before();", "Sink.After();", StringComparison.Ordinal) };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("static-depth", "Depth limits preserve initialization changes without attributing them to later calls after initialization.", before, after, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--entry", "Entry.Run", "--depth", "2", "--format", "json", .. mode]);
-        Assert.StartsWith("exit: 0\n", output);
-        using var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("static-depth", "Depth limits preserve initialization changes without attributing them to later calls after initialization.", before, after, []), workspace);
+        var output = await fixture.DiffAsync(new DiffOptions { Entries = ["Entry.Run"], MaxDepth = 2 });
+        using var document = JsonDocument.Parse(output);
         Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.True(document.RootElement.GetProperty("hasChanges").GetBoolean());
         var nodes = Flatten(document.RootElement.GetProperty("trees")).ToArray();

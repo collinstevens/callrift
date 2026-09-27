@@ -1,0 +1,275 @@
+﻿format: text
+exit: 0
+stdout:
+  LocalizationOrchardHelperExtensions.GetJSLocalizations
+  ├─ ArgumentNullException.ThrowIfNull
+  ├─ ? orchardHelper.HttpContext.RequestServices.GetServices<IJSLocalizer>
+  └─ JSLocalizerExtensions.GetMergedLocalizations
+     ├─ …
+     ├─ ArgumentNullException.ThrowIfNull
+     ├─ new Dictionary<string, string>
+     └─ foreach (var group in groups)
+        └─ foreach (var jsLocalizer in jsLocalizers)
+           └─ IJSLocalizer.GetLocalizations
++             ├─ ⇢ AdminMenuJSLocalizer.GetLocalizations (changes below depth limit)
++             ├─ ⇢ ContentFieldsJSLocalizer.GetLocalizations (changes below depth limit)
++             ├─ ⇢ CorsJSLocalizer.GetLocalizations (changes below depth limit)
++             ├─ ⇢ FormsJSLocalizer.GetLocalizations (changes below depth limit)
++             ├─ ⇢ LocalizationJSLocalizer.GetLocalizations (changes below depth limit)
+              ├─ ⇢ MediaJSLocalizer.GetLocalizations (depth limit)
++             ├─ ⇢ MenuJSLocalizer.GetLocalizations (changes below depth limit)
++             ├─ ⇢ OpenIdJSLocalizer.GetLocalizations (changes below depth limit)
++             ├─ ⇢ SeoJSLocalizer.GetLocalizations (changes below depth limit)
++             ├─ ⇢ ShortcodesJSLocalizer.GetLocalizations (changes below depth limit)
++             └─ ⇢ TaxonomiesJSLocalizer.GetLocalizations (changes below depth limit)
+
+  initialization of DefaultLocalizationService
++ ├─ string.IsNullOrEmpty
+  └─ Task.FromResult ×2
+
+  initialization of LocalizationSettings
++ └─ string.IsNullOrEmpty
+
+  initialization of LocalizationService
++ ├─ string.IsNullOrEmpty
+  └─ CultureInfo.GetCultureInfo ×2
+
+  GetLocalizationsEndpoint.HandleAsync
+  ├─ ? cache.GetOrCreate
+  │  ├─ JSLocalizerExtensions.GetMergedLocalizations ↑ as above
+  │  ├─ JsonSerializer.SerializeToUtf8Bytes
+  │  ├─ SHA256.HashData
+  │  └─ …
+  ├─ ? httpContext.Response.GetTypedHeaders
+  ├─ ? new CacheControlHeaderValue
+  └─ …
+
+  ResourceManagementOptionsConfiguration.Configure
+~ ├─ ResourceManagementOptionsConfiguration.BuildManifest (signature changed)
+  │  ├─ …
+  │  ├─ ResourceDefinition.SetVersion
+  │  ├─ ResourceManifest.DefineScript
+- │  ├─ ResourceDefinition.SetDependencies
+- │  │  └─ Dependencies.AddRange
+  │  ├─ ResourceDefinition.SetUrl
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ …
+  │  ├─ ResourceDefinition.SetVersion
+  │  ├─ ResourceManifest.DefineScript
+- │  ├─ ResourceDefinition.SetUrl
+- │  │  └─ ArgumentException.ThrowIfNullOrEmpty
+- │  ├─ ResourceDefinition.SetCdn
+- │  │  └─ ResourceDefinition.SetCdn (depth limit)
+- │  ├─ ResourceDefinition.SetCdnIntegrity
+- │  │  └─ ArgumentException.ThrowIfNullOrEmpty
+- │  ├─ ResourceDefinition.SetVersion
+- │  │  ├─ System.Version.TryParse
+- │  │  └─ if (!System.Version.TryParse(version, out _))
+- │  │     └─ new FormatException
+- │  ├─ ResourceManifest.DefineScript
+- │  │  └─ ResourceManifest.DefineResource (depth limit)
+  │  ├─ ResourceDefinition.SetUrl
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ …
+  │  ├─ ResourceManifest.DefineScript
+  │  ├─ ResourceDefinition.SetDependencies
+- │  ├─ ResourceDefinition.SetUrl
+- │  │  └─ ResourceDefinition.SetUrl (depth limit)
+- │  ├─ ResourceDefinition.SetCdn
+- │  │  └─ ResourceDefinition.SetCdn (depth limit)
+- │  ├─ ResourceDefinition.SetCdnIntegrity
+- │  │  └─ ResourceDefinition.SetCdnIntegrity (depth limit)
+- │  ├─ ResourceDefinition.SetVersion ↑ as above
+- │  ├─ ResourceManifest.DefineScript ↑ as above
+  │  ├─ ResourceDefinition.SetUrl
+- │  ├─ ResourceDefinition.SetDependencies ↑ as above
+- │  ├─ ResourceDefinition.SetVersion ↑ as above
+- │  ├─ ResourceManifest.DefineScript ↑ as above
+- │  ├─ ResourceDefinition.SetDependencies ↑ as above
+- │  ├─ ResourceDefinition.SetUrl ↑ as above
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ ResourceDefinition.SetCdnIntegrity
+  │  ├─ ResourceDefinition.SetVersion
+  │  ├─ ResourceManifest.DefineStyle
+- │  ├─ ResourceDefinition.SetUrl ↑ as above
+- │  ├─ ResourceDefinition.SetCdn ↑ as above
+- │  ├─ ResourceDefinition.SetCdnIntegrity ↑ as above
+- │  ├─ ResourceDefinition.SetVersion ↑ as above
+- │  ├─ ResourceManifest.DefineStyle
+- │  │  └─ ResourceManifest.DefineResource (depth limit)
+  │  ├─ ResourceDefinition.SetUrl
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ …
+  │  ├─ ResourceDefinition.SetVersion
+  │  ├─ ResourceManifest.DefineScript
+- │  ├─ ResourceDefinition.SetDependencies ↑ as above
+  │  ├─ ResourceDefinition.SetUrl
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ …
+  │  ├─ ResourceManifest.DefineScript
+  │  ├─ ResourceDefinition.SetUrl
+- │  ├─ ResourceDefinition.SetCdn ↑ as above
+- │  ├─ ResourceDefinition.SetCdnIntegrity ↑ as above
+  │  ├─ ResourceDefinition.SetVersion
+- │  ├─ ResourceManifest.DefineScript ↑ as above
+- │  ├─ ResourceDefinition.SetUrl ↑ as above
+- │  ├─ ResourceDefinition.SetPosition
+- │  ├─ ResourceDefinition.SetVersion ↑ as above
+- │  ├─ ResourceManifest.DefineScript ↑ as above
+- │  ├─ ? manifest.DefineScript("monaco").SetAttribute
++ │  ├─ ResourceManifest.DefineStyle
++ │  │  └─ ResourceManifest.DefineResource (depth limit)
+  │  ├─ ResourceDefinition.SetUrl
+- │  ├─ ResourceDefinition.SetDependencies ↑ as above
+  │  └─ ResourceDefinition.SetVersion
+  ├─ options.ResourceManifests.Add
+  └─ case ResourceDebugMode.FromConfiguration:
+stderr:
+src/OrchardCore.AspireHost/ClamAV.cs:13: unresolved-call: Cannot bind : base(name).
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag("latest").WithEnvironment("CLAMAV_NO_FRESHCLAMD", "true").WithEndpoint.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag("latest").WithEnvironment.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource.
+src/OrchardCore.AspireHost/ClamAV.cs:46: unresolved-call: Cannot bind builder.WithVolume.
+16771 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  LocalizationOrchardHelperExtensions.GetJSLocalizations
+  ├─ ArgumentNullException.ThrowIfNull
+  ├─ ? orchardHelper.HttpContext.RequestServices.GetServices<IJSLocalizer>
+  └─ JSLocalizerExtensions.GetMergedLocalizations
+     ├─ …
+     ├─ ArgumentNullException.ThrowIfNull
+     ├─ new Dictionary<string, string>
+     └─ foreach (var group in groups)
+        └─ foreach (var jsLocalizer in jsLocalizers)
+           └─ IJSLocalizer.GetLocalizations
++             ├─ ⇢ AdminMenuJSLocalizer.GetLocalizations (changes below depth limit)
++             ├─ ⇢ ContentFieldsJSLocalizer.GetLocalizations (changes below depth limit)
++             ├─ ⇢ CorsJSLocalizer.GetLocalizations (changes below depth limit)
++             ├─ ⇢ FormsJSLocalizer.GetLocalizations (changes below depth limit)
++             ├─ ⇢ LocalizationJSLocalizer.GetLocalizations (changes below depth limit)
+              ├─ ⇢ MediaJSLocalizer.GetLocalizations (depth limit)
++             ├─ ⇢ MenuJSLocalizer.GetLocalizations (changes below depth limit)
++             ├─ ⇢ OpenIdJSLocalizer.GetLocalizations (changes below depth limit)
++             ├─ ⇢ SeoJSLocalizer.GetLocalizations (changes below depth limit)
++             ├─ ⇢ ShortcodesJSLocalizer.GetLocalizations (changes below depth limit)
++             └─ ⇢ TaxonomiesJSLocalizer.GetLocalizations (changes below depth limit)
+
+  initialization of DefaultLocalizationService
++ ├─ string.IsNullOrEmpty
+  └─ Task.FromResult ×2
+
+  initialization of LocalizationSettings
++ └─ string.IsNullOrEmpty
+
+  initialization of LocalizationService
++ ├─ string.IsNullOrEmpty
+  └─ CultureInfo.GetCultureInfo ×2
+
+  GetLocalizationsEndpoint.HandleAsync
+  ├─ ? cache.GetOrCreate
+  │  ├─ JSLocalizerExtensions.GetMergedLocalizations ↑ as above
+  │  ├─ JsonSerializer.SerializeToUtf8Bytes
+  │  ├─ SHA256.HashData
+  │  └─ …
+  ├─ ? httpContext.Response.GetTypedHeaders
+  ├─ ? new CacheControlHeaderValue
+  └─ …
+
+  ResourceManagementOptionsConfiguration.Configure
+~ ├─ ResourceManagementOptionsConfiguration.BuildManifest (signature changed)
+  │  ├─ …
+  │  ├─ ResourceDefinition.SetVersion
+  │  ├─ ResourceManifest.DefineScript
+- │  ├─ ResourceDefinition.SetDependencies
+- │  │  └─ Dependencies.AddRange
+  │  ├─ ResourceDefinition.SetUrl
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ …
+  │  ├─ ResourceDefinition.SetVersion
+  │  ├─ ResourceManifest.DefineScript
+- │  ├─ ResourceDefinition.SetUrl
+- │  │  └─ ArgumentException.ThrowIfNullOrEmpty
+- │  ├─ ResourceDefinition.SetCdn
+- │  │  └─ ResourceDefinition.SetCdn (depth limit)
+- │  ├─ ResourceDefinition.SetCdnIntegrity
+- │  │  └─ ArgumentException.ThrowIfNullOrEmpty
+- │  ├─ ResourceDefinition.SetVersion
+- │  │  ├─ System.Version.TryParse
+- │  │  └─ if (!System.Version.TryParse(version, out _))
+- │  │     └─ new FormatException
+- │  ├─ ResourceManifest.DefineScript
+- │  │  └─ ResourceManifest.DefineResource (depth limit)
+  │  ├─ ResourceDefinition.SetUrl
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ …
+  │  ├─ ResourceManifest.DefineScript
+  │  ├─ ResourceDefinition.SetDependencies
+- │  ├─ ResourceDefinition.SetUrl
+- │  │  └─ ResourceDefinition.SetUrl (depth limit)
+- │  ├─ ResourceDefinition.SetCdn
+- │  │  └─ ResourceDefinition.SetCdn (depth limit)
+- │  ├─ ResourceDefinition.SetCdnIntegrity
+- │  │  └─ ResourceDefinition.SetCdnIntegrity (depth limit)
+- │  ├─ ResourceDefinition.SetVersion ↑ as above
+- │  ├─ ResourceManifest.DefineScript ↑ as above
+  │  ├─ ResourceDefinition.SetUrl
+- │  ├─ ResourceDefinition.SetDependencies ↑ as above
+- │  ├─ ResourceDefinition.SetVersion ↑ as above
+- │  ├─ ResourceManifest.DefineScript ↑ as above
+- │  ├─ ResourceDefinition.SetDependencies ↑ as above
+- │  ├─ ResourceDefinition.SetUrl ↑ as above
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ ResourceDefinition.SetCdnIntegrity
+  │  ├─ ResourceDefinition.SetVersion
+  │  ├─ ResourceManifest.DefineStyle
+- │  ├─ ResourceDefinition.SetUrl ↑ as above
+- │  ├─ ResourceDefinition.SetCdn ↑ as above
+- │  ├─ ResourceDefinition.SetCdnIntegrity ↑ as above
+- │  ├─ ResourceDefinition.SetVersion ↑ as above
+- │  ├─ ResourceManifest.DefineStyle
+- │  │  └─ ResourceManifest.DefineResource (depth limit)
+  │  ├─ ResourceDefinition.SetUrl
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ …
+  │  ├─ ResourceDefinition.SetVersion
+  │  ├─ ResourceManifest.DefineScript
+- │  ├─ ResourceDefinition.SetDependencies ↑ as above
+  │  ├─ ResourceDefinition.SetUrl
+  │  ├─ ResourceDefinition.SetCdn
+  │  ├─ …
+  │  ├─ ResourceManifest.DefineScript
+  │  ├─ ResourceDefinition.SetUrl
+- │  ├─ ResourceDefinition.SetCdn ↑ as above
+- │  ├─ ResourceDefinition.SetCdnIntegrity ↑ as above
+  │  ├─ ResourceDefinition.SetVersion
+- │  ├─ ResourceManifest.DefineScript ↑ as above
+- │  ├─ ResourceDefinition.SetUrl ↑ as above
+- │  ├─ ResourceDefinition.SetPosition
+- │  ├─ ResourceDefinition.SetVersion ↑ as above
+- │  ├─ ResourceManifest.DefineScript ↑ as above
+- │  ├─ ? manifest.DefineScript("monaco").SetAttribute
++ │  ├─ ResourceManifest.DefineStyle
++ │  │  └─ ResourceManifest.DefineResource (depth limit)
+  │  ├─ ResourceDefinition.SetUrl
+- │  ├─ ResourceDefinition.SetDependencies ↑ as above
+  │  └─ ResourceDefinition.SetVersion
+  ├─ options.ResourceManifests.Add
+  └─ case ResourceDebugMode.FromConfiguration:
+```
+stderr:
+src/OrchardCore.AspireHost/ClamAV.cs:13: unresolved-call: Cannot bind : base(name).
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag("latest").WithEnvironment("CLAMAV_NO_FRESHCLAMD", "true").WithEndpoint.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag("latest").WithEnvironment.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage.
+src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource.
+src/OrchardCore.AspireHost/ClamAV.cs:46: unresolved-call: Cannot bind builder.WithVolume.
+16771 additional diagnostics; use --diagnostics full.

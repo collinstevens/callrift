@@ -1,4 +1,6 @@
 using System.Collections.Concurrent;
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -209,14 +211,15 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             var label = SymbolNames.SyntaxLabel(invocation);
             if (invocation is BaseObjectCreationExpressionSyntax && model.GetTypeInfo(invocation, cancellationToken).Type is ITypeParameterSymbol)
             {
-                result.Add(new CallStep("call", "external:" + label, label, false, symbols.Location(invocation), callbacks));
+                result.Add(new CallStep("call", "external:" + label, label, false, symbols.Location(invocation), callbacks)
+                { AlignmentKey = AlignmentKey(invocation) });
                 return;
             }
             var candidates = info.CandidateSymbols.OfType<IMethodSymbol>().Select(symbols.Key).Order(StringComparer.Ordinal).ToArray();
             diagnostics.Add(new AnalysisDiagnostic("unresolved-call", $"Cannot bind {label}" + (candidates.Length == 0 ? "." : "; candidates: " + string.Join(", ", candidates)), symbols.Location(invocation)));
             result.Add(new CallStep("unresolved", "?" + label + string.Join("|", candidates), "? " + label, false, symbols.Location(invocation),
                 callbacks.Select(c => c with { Relation = "callback" }).ToArray())
-            { Candidates = candidates });
+            { Candidates = candidates, AlignmentKey = AlignmentKey(invocation) });
         }
     }
 
@@ -244,6 +247,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         return new CallStep("call", symbols.Key(normalized), source || node is ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax or WithExpressionSyntax
             ? symbols.Label(normalized) : SymbolNames.SyntaxLabel(node), source, symbols.Location(node), children)
         {
+            AlignmentKey = AlignmentKey(node),
             SuppressDispatch = exactReceiver,
             InitializationTriggerType = TypeInitialization.Triggers(method) ? DescribeType(method.ContainingType) : null,
             InitializationScope = TypeInitialization.Triggers(method) ? symbols.InitializationScope(method.ContainingType) : null,
@@ -257,6 +261,10 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             MethodArguments = method.TypeArguments.Select(DispatchType.From).ToArray()
         };
     }
+
+    private static string? AlignmentKey(SyntaxNode node) => node is ExpressionSyntax or ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax
+        ? Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(string.Join("\0", node.DescendantTokens().Select(token => token.RawKind + ":" + token.Text)))))
+        : null;
 
     private DispatchType? ReceiverConstraint(ExpressionSyntax? receiver, int position)
     {

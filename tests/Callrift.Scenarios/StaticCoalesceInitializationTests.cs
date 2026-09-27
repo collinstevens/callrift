@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -15,11 +16,19 @@ public sealed class StaticCoalesceInitializationTests
         ("already-initialized", "", "State.Value", 1)
     ];
 
-    public static IEnumerable<object[]> Cases => Fixtures.SelectMany(fixture => new[] { new object[] { fixture.Name, false }, new object[] { fixture.Name, true } });
+    public static IEnumerable<object[]> Cases => Fixtures.Select(fixture => new object[] { fixture.Name });
 
     [Theory]
     [MemberData(nameof(Cases))]
-    public async Task CoalescingAssignmentsPreserveConditionalInitialization(string name, bool workspace)
+    [Trait("Layer", "Fast")]
+    public Task CoalescingAssignmentsPreserveConditionalInitialization(string name) => VerifyCoalescingAssignmentsPreserveConditionalInitialization(name, false);
+
+    [Theory]
+    [MemberData(nameof(Cases))]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceCoalescingAssignmentsPreserveConditionalInitialization(string name) => VerifyCoalescingAssignmentsPreserveConditionalInitialization(name, true);
+
+    private static async Task VerifyCoalescingAssignmentsPreserveConditionalInitialization(string name, bool workspace)
     {
         var example = Fixtures.Single(fixture => fixture.Name == name);
         var source = """
@@ -47,9 +56,10 @@ public sealed class StaticCoalesceInitializationTests
             ["App.csproj"] = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>"
         };
         var after = new Dictionary<string, string>(before) { ["Flow.cs"] = source.Replace("Sink.Before();", "Sink.After();", StringComparison.Ordinal) };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("coalescing-initialization-" + name, "A skipped coalescing assignment preserves initialization on subsequent calls and evaluates its receiver once.", before, after, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        using var tree = Parse(await fixture.RunAsync(["tree", fixture.Before, "--entry", "Entry.Run", "--depth", "15", "--format", "json", .. mode]));
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("coalescing-initialization-" + name, "A skipped coalescing assignment preserves initialization on subsequent calls and evaluates its receiver once.", before, after, []), workspace);
+        var options = new DiffOptions { Entries = ["Entry.Run"], MaxDepth = 15 };
+        var outputs = await fixture.QueryFormatsAsync(options, before: true);
+        using var tree = Parse(outputs["json"]);
         var root = Assert.Single(tree.RootElement.GetProperty("trees").EnumerateArray());
         var nodes = Descendants(root).ToArray();
         Assert.Equal(example.Initializers, nodes.Count(node => node.GetProperty("label").GetString() == "initialization of State"));
@@ -66,17 +76,16 @@ public sealed class StaticCoalesceInitializationTests
             Assert.Single(nodes, node => node.GetProperty("label").GetString() == "Entry.GetItems");
             Assert.Single(nodes, node => node.GetProperty("label").GetString() == "Entry.GetIndex");
         }
-        using var diff = Parse(await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--entry", "Entry.Run", "--depth", "15", "--format", "json", .. mode]));
+        using var diff = Parse(await fixture.DiffAsync(options));
         Assert.True(diff.RootElement.GetProperty("hasChanges").GetBoolean());
         var changes = Descendants(Assert.Single(diff.RootElement.GetProperty("trees").EnumerateArray())).ToArray();
         Assert.Equal(example.Initializers, changes.Count(node => node.GetProperty("label").GetString() == "Sink.Before" && node.GetProperty("change").GetString() == "removed"));
         Assert.Equal(example.Initializers, changes.Count(node => node.GetProperty("label").GetString() == "Sink.After" && node.GetProperty("change").GetString() == "added"));
-        using var reach = Parse(await fixture.RunAsync(["reach", fixture.Before, "--entry", "Entry.Run", "--to", "Sink.Before", "--depth", "15", "--format", "json", .. mode]));
+        using var reach = Parse(await fixture.QueryAsync(options, before: true, target: "Sink.Before"));
         Assert.NotEmpty(reach.RootElement.GetProperty("paths").EnumerateArray());
         foreach (var format in new[] { "text", "md" })
         {
-            var output = await fixture.RunAsync(["tree", fixture.Before, "--entry", "Entry.Run", "--depth", "15", "--format", format, .. mode]);
-            Assert.StartsWith("exit: 0\n", output);
+            var output = outputs[format];
             Assert.Contains(branchLabel, output);
             Assert.Contains("State.Make", output);
             Assert.Contains("State.Touch", output);
@@ -85,8 +94,7 @@ public sealed class StaticCoalesceInitializationTests
 
     private static JsonDocument Parse(string output)
     {
-        Assert.StartsWith("exit: 0\n", output);
-        var result = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+        var result = JsonDocument.Parse(output);
         Assert.Empty(result.RootElement.GetProperty("diagnostics").EnumerateArray());
         return result;
     }

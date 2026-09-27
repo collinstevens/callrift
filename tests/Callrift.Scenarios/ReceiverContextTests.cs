@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -33,45 +34,59 @@ public sealed class ReceiverContextTests
             ("conversion-boundary", "abstract class Base { public void Shared() => Hook(); protected abstract void Hook(); } sealed class Left : Base { public void Entry() => ((Right)this).Shared(); public static explicit operator Right(Left input) => new Right(); protected override void Hook() => Sink.Left(); } sealed class Right : Base { protected override void Hook() => Sink.Right(); }", "Left.Entry", ["Sink.Right"])
         };
         foreach (var fixture in fixtures)
-            foreach (var workspace in new[] { false, true })
-                yield return [fixture.Name, fixture.Source + sinks, fixture.Entry, fixture.Expected, workspace];
+            yield return [fixture.Name, fixture.Source + sinks, fixture.Entry, fixture.Expected];
     }
 
     [Theory]
     [MemberData(nameof(Cases))]
-    public async Task InheritedCallsRetainReceiver(string name, string source, string entry, string[] expected, bool workspace)
+    [Trait("Layer", "Fast")]
+    public Task InheritedCallsRetainReceiver(string name, string source, string entry, string[] expected) =>
+        VerifyReceiver(name, source, entry, expected, false);
+
+    [Theory]
+    [MemberData(nameof(Cases))]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceInheritedCallsRetainReceiver(string name, string source, string entry, string[] expected) =>
+        VerifyReceiver(name, source, entry, expected, true);
+
+    private static async Task VerifyReceiver(string name, string source, string entry, string[] expected, bool workspace)
     {
         const string project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>";
         var after = source.Replace("public static void Right() {}", "public static void Right() { throw new System.InvalidOperationException(); }", StringComparison.Ordinal);
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("receiver-context-" + name, "Inherited calls preserve the containing receiver and respect separate objects.",
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("receiver-context-" + name, "Inherited calls preserve the containing receiver and respect separate objects.",
             new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = source },
-            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = after }, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        using var tree = Parse(await fixture.RunAsync(["tree", fixture.Before, "--entry", entry, "--depth", "16", .. mode, "--format", "json"]));
+            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = after }, []), workspace);
+
+        using var tree = Parse(await fixture.QueryAsync(new DiffOptions { Entries = [entry], MaxDepth = 16 }, before: true));
         Assert.Empty(tree.RootElement.GetProperty("diagnostics").EnumerateArray());
         var actual = Flatten(tree.RootElement.GetProperty("trees")).Select(node => node.GetProperty("label").GetString()!)
             .Where(label => label.StartsWith("Sink.", StringComparison.Ordinal)).Distinct(StringComparer.Ordinal).Order(StringComparer.Ordinal).ToArray();
         Assert.Equal(expected, actual);
-        using var reach = Parse(await fixture.RunAsync(["reach", fixture.Before, "--entry", entry, "--to", "Sink.Right", "--depth", "16", .. mode, "--format", "json"]));
+        using var reach = Parse(await fixture.QueryAsync(new DiffOptions { Entries = [entry], MaxDepth = 16 }, before: true, target: "Sink.Right"));
         Assert.Empty(reach.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.Equal(expected.Contains("Sink.Right", StringComparer.Ordinal), reach.RootElement.GetProperty("paths").GetArrayLength() > 0);
-        using var diff = Parse(await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--entry", entry, "--depth", "16", .. mode, "--format", "json"]));
+        using var diff = Parse(await fixture.DiffAsync(new DiffOptions { Entries = [entry], MaxDepth = 16 }));
         Assert.Empty(diff.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.Equal(expected.Contains("Sink.Right", StringComparer.Ordinal), diff.RootElement.GetProperty("hasChanges").GetBoolean());
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task GenericReceiverCycleReferencesFirstInvocation(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task GenericReceiverCycleReferencesFirstInvocation() => VerifyCycle(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceGenericReceiverCycleReferencesFirstInvocation() => VerifyCycle(true);
+
+    private static async Task VerifyCycle(bool workspace)
     {
         const string project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>";
         const string source = "class Box<T> { public void Run() => Run(); } class Entry<U> { public static void Start(Box<U> value) => value.Run(); }";
         var files = new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = source };
         var after = new Dictionary<string, string>(files) { ["marker.txt"] = "after" };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("receiver-context-cycle", "An unchanged generic receiver reuses its first active invocation.", files, after, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        using var tree = Parse(await fixture.RunAsync(["tree", fixture.Before, "--entry", "Entry<U>.Start", "--depth", "16", .. mode, "--format", "json"]));
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("receiver-context-cycle", "An unchanged generic receiver reuses its first active invocation.", files, after, []), workspace);
+
+        using var tree = Parse(await fixture.QueryAsync(new DiffOptions { Entries = ["Entry<U>.Start"], MaxDepth = 16 }, before: true));
         Assert.Empty(tree.RootElement.GetProperty("diagnostics").EnumerateArray());
         var first = tree.RootElement.GetProperty("trees")[0].GetProperty("children")[0];
         var repeated = first.GetProperty("children")[0];
@@ -79,22 +94,27 @@ public sealed class ReceiverContextTests
         Assert.Equal(first.GetProperty("id").GetString(), repeated.GetProperty("omission").GetProperty("referenceId").GetString());
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task SiblingOverridePreservesUnchangedSealedReceiver(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task SiblingOverridePreservesUnchangedSealedReceiver() => VerifySiblingOverride(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceSiblingOverridePreservesUnchangedSealedReceiver() => VerifySiblingOverride(true);
+
+    private static async Task VerifySiblingOverride(bool workspace)
     {
         const string project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>";
         const string source = "class Base { protected void Shared() => Hook(); protected virtual void Hook() => Sink.Left(); } sealed class Left : Base { public void Entry() => Shared(); } sealed class Right : Base {} static class Sink { public static void Left() {} public static void Right() {} }";
         var after = source.Replace("sealed class Right : Base {}", "sealed class Right : Base { protected override void Hook() => Sink.Right(); }", StringComparison.Ordinal);
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("receiver-context-sibling-override", "Adding a sibling override preserves the sealed receiver's unchanged call path.",
+        await using var fixture = await AnalysisFixture.CreateAsync(new Scenario("receiver-context-sibling-override", "Adding a sibling override preserves the sealed receiver's unchanged call path.",
             new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = source },
-            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = after }, []));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        using var unaffected = Parse(await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--entry", "Left.Entry", "--depth", "16", .. mode, "--format", "json"]));
+            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = after }, []), workspace);
+
+        using var unaffected = Parse(await fixture.DiffAsync(new DiffOptions { Entries = ["Left.Entry"], MaxDepth = 16 }));
         Assert.Empty(unaffected.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.False(unaffected.RootElement.GetProperty("hasChanges").GetBoolean());
-        using var affected = Parse(await fixture.RunAsync(["diff", fixture.Before, fixture.After, "--entry", "Base.Shared", "--depth", "16", .. mode, "--format", "json"]));
+        using var affected = Parse(await fixture.DiffAsync(new DiffOptions { Entries = ["Base.Shared"], MaxDepth = 16 }));
         Assert.Empty(affected.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.True(affected.RootElement.GetProperty("hasChanges").GetBoolean());
     }
@@ -110,7 +130,6 @@ public sealed class ReceiverContextTests
 
     private static JsonDocument Parse(string output)
     {
-        Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
-        return JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+        return JsonDocument.Parse(output);
     }
 }

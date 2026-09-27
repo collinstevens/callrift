@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Callrift.Core;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -6,11 +7,18 @@ namespace Callrift.Scenarios;
 public sealed class GenericDispatchTests
 {
     [Theory]
-    [InlineData(false, false)]
-    [InlineData(false, true)]
-    [InlineData(true, false)]
-    [InlineData(true, true)]
-    public async Task InvariantContractsExcludeIncompatibleImplementations(bool workspace, bool changeIncompatible)
+    [InlineData(false)]
+    [InlineData(true)]
+    [Trait("Layer", "Fast")]
+    public Task InvariantContractsExcludeIncompatibleImplementations(bool changeIncompatible) => VerifyInvariantContractsExcludeIncompatibleImplementations(false, changeIncompatible);
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceInvariantContractsExcludeIncompatibleImplementations(bool changeIncompatible) => VerifyInvariantContractsExcludeIncompatibleImplementations(true, changeIncompatible);
+
+    private static async Task VerifyInvariantContractsExcludeIncompatibleImplementations(bool workspace, bool changeIncompatible)
     {
         const string source = """
             interface IConsumer<T> { void Consume(T value); }
@@ -23,30 +31,34 @@ public sealed class GenericDispatchTests
             """;
         var after = changeIncompatible ? source.Replace("WrongBefore();", "WrongAfter();", StringComparison.Ordinal)
             : source.Replace("{ Before(); }", "{ After(); }", StringComparison.Ordinal);
-        await using var fixture = await CreateAsync(source, after);
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        var diff = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. mode, "--format", "json"]);
+        await using var fixture = await CreateAsync(source, after, workspace);
+        var diff = await fixture.DiffAsync();
         using var document = Parse(diff);
         Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
         var root = Assert.Single(document.RootElement.GetProperty("trees").EnumerateArray());
         Assert.Equal(changeIncompatible ? "WrappedConsumer<T>.Consume" : "Flow.Run", root.GetProperty("label").GetString());
-        var tree = await fixture.RunAsync(["tree", fixture.After, "--entry", "Flow.Run", .. mode, "--format", "json"]);
+        var tree = await fixture.QueryAsync(new DiffOptions { Entries = ["Flow.Run"] });
         using var treeDocument = Parse(tree);
         var dispatch = treeDocument.RootElement.GetProperty("trees")[0].GetProperty("children")[0];
         Assert.Equal(["OpenConsumer<T>.Consume(T)", "TextConsumer.Consume(string)"],
             dispatch.GetProperty("after").GetProperty("targetIds").EnumerateArray().Select(v => v.GetString()!.Split("::", StringSplitOptions.None)[1]).ToArray());
         Assert.DoesNotContain("WrappedConsumer", tree);
         Assert.DoesNotContain("NumberConsumer", tree);
-        var reach = await fixture.RunAsync(["reach", fixture.After, "--entry", "Flow.Run", "--to", "WrongAfter", .. mode, "--format", "json"]);
+        var reach = await fixture.QueryAsync(new DiffOptions { Entries = ["Flow.Run"] }, target: "WrongAfter");
         using var reachDocument = Parse(reach);
         Assert.Empty(reachDocument.RootElement.GetProperty("paths").EnumerateArray());
         Assert.False(reachDocument.RootElement.GetProperty("truncated").GetBoolean());
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task RepeatedTypeParametersMustHaveConsistentArguments(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task RepeatedTypeParametersMustHaveConsistentArguments() => VerifyRepeatedTypeParametersMustHaveConsistentArguments(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceRepeatedTypeParametersMustHaveConsistentArguments() => VerifyRepeatedTypeParametersMustHaveConsistentArguments(true);
+
+    private static async Task VerifyRepeatedTypeParametersMustHaveConsistentArguments(bool workspace)
     {
         const string source = """
             using System.Collections.Generic;
@@ -55,9 +67,8 @@ public sealed class GenericDispatchTests
             class Different<T, U> : IConsumer<KeyValuePair<T, U>> { public void Consume(KeyValuePair<T, U> value) { Before(); } void Before() {} void After() {} }
             class Flow { public void Run(IConsumer<KeyValuePair<string, int>> consumer) => consumer.Consume(default); }
             """;
-        await using var fixture = await CreateAsync(source, source.Replace("Before();", "After();", StringComparison.Ordinal));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. mode, "--format", "json"]);
+        await using var fixture = await CreateAsync(source, source.Replace("Before();", "After();", StringComparison.Ordinal), workspace);
+        var output = await fixture.DiffAsync();
         using var document = Parse(output);
         Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
         var root = Assert.Single(document.RootElement.GetProperty("trees").EnumerateArray());
@@ -68,10 +79,15 @@ public sealed class GenericDispatchTests
         Assert.DoesNotContain("Same<T>", output);
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task VariantContractsKeepCompatibleImplementations(bool workspace)
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task VariantContractsKeepCompatibleImplementations() => VerifyVariantContractsKeepCompatibleImplementations(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceVariantContractsKeepCompatibleImplementations() => VerifyVariantContractsKeepCompatibleImplementations(true);
+
+    private static async Task VerifyVariantContractsKeepCompatibleImplementations(bool workspace)
     {
         const string source = """
             interface IConsumer<in T> { void Consume(T value); }
@@ -80,9 +96,8 @@ public sealed class GenericDispatchTests
             class TextProducer : IProducer<string> { public string Produce() { Before(); return "value"; } void Before() {} void After() {} }
             class Flow { public void Run(IConsumer<string> consumer, IProducer<object> producer) { consumer.Consume("value"); producer.Produce(); } }
             """;
-        await using var fixture = await CreateAsync(source, source.Replace("Before();", "After();", StringComparison.Ordinal));
-        string[] mode = workspace ? ["--project", "App.csproj"] : [];
-        var output = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. mode, "--format", "json"]);
+        await using var fixture = await CreateAsync(source, source.Replace("Before();", "After();", StringComparison.Ordinal), workspace);
+        var output = await fixture.DiffAsync();
         using var document = Parse(output);
         Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
         Assert.Equal("Flow.Run", Assert.Single(document.RootElement.GetProperty("trees").EnumerateArray()).GetProperty("label").GetString());
@@ -90,17 +105,16 @@ public sealed class GenericDispatchTests
         Assert.Contains("TextProducer.After", output);
     }
 
-    private static Task<GitFixture> CreateAsync(string before, string after)
+    private static Task<AnalysisFixture> CreateAsync(string before, string after, bool workspace)
     {
         const string project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net10.0</TargetFramework></PropertyGroup></Project>";
-        return GitFixture.CreateAsync(new Scenario("generic-dispatch", "Constructed invariant contracts constrain possible source implementations.",
+        return AnalysisFixture.CreateAsync(new Scenario("generic-dispatch", "Constructed invariant contracts constrain possible source implementations.",
             new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = before },
-            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = after }, []));
+            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = after }, []), workspace);
     }
 
     private static JsonDocument Parse(string output)
     {
-        Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
-        return JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+        return JsonDocument.Parse(output);
     }
 }

@@ -1646,5 +1646,171 @@
         ]
       }
     ]
+  },
+  {
+    "id": "orchardcore-esmodule-localization",
+    "repository": "https://github.com/OrchardCMS/OrchardCore.git",
+    "cacheName": "orchardcore",
+    "before": "b304fcd78a70b792c6f63916c0ce6e6957bb1aa0",
+    "after": "4c1d10e68dd443c8bc9fc8d8a02059081fc6be12",
+    "license": "BSD-3-Clause",
+    "licenseFile": "LICENSE",
+    "beforeLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
+    "afterLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
+    "reason": "ES-module and Vue migration adds ten scoped JavaScript localizers, introduces empty-culture fallbacks, renames a startup, and changes resource registration. Pinned production and functional-test diffs, declaration signatures, generated sources, diagnostics, root witnesses, and rendered bindings were independently reviewed; all four JSON views repeat on Linux. Executable expectations preserve possible interface dispatch, static BuildManifest binding, and the removed generated XML cache entry at its original call site. The graph omits JavaScript and Razor execution, culture fallback literal values, call-free guards, accessor effects, and fluent receiver/value identity. Identical DefineScript calls can align to an earlier resource chain, and changed argument values are not rendered. Root views stop at depth one; focused views stop at depth three. Final cross-platform validation remains required.",
+    "tags": [
+      "cross-project",
+      "interface-dispatch",
+      "dependency-injection",
+      "static-initialization",
+      "signature-change",
+      "rename",
+      "source-generators",
+      "interceptors",
+      "repeated-call-alignment",
+      "mixed-language",
+      "automatic-roots"
+    ],
+    "options": [],
+    "knownIssue": "issues/orchardcore-coverage.md",
+    "review": "../tests/Callrift.RealWorldCases/OrchardEsModuleExpectations.cs",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "3",
+          "--externals",
+          "--entry",
+          "LocalizationOrchardHelperExtensions.GetJSLocalizations",
+          "--entry",
+          "GetLocalizationsEndpoint.HandleAsync",
+          "--entry",
+          "initialization of LocalizationSettings",
+          "--entry",
+          "initialization of LocalizationService",
+          "--entry",
+          "initialization of DefaultLocalizationService",
+          "--entry",
+          "OrchardCore.Resources.ResourceManagementOptionsConfiguration.Configure(global::OrchardCore.ResourceManagement.ResourceManagementOptions)"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1",
+          "--project",
+          "src/OrchardCore.Cms.Web/OrchardCore.Cms.Web.csproj",
+          "--framework",
+          "net10.0"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "3",
+          "--externals",
+          "--entry",
+          "LocalizationOrchardHelperExtensions.GetJSLocalizations",
+          "--entry",
+          "GetLocalizationsEndpoint.HandleAsync",
+          "--entry",
+          "initialization of LocalizationSettings",
+          "--entry",
+          "initialization of LocalizationService",
+          "--entry",
+          "initialization of DefaultLocalizationService",
+          "--entry",
+          "OrchardCore.Resources.ResourceManagementOptionsConfiguration.Configure(global::OrchardCore.ResourceManagement.ResourceManagementOptions)",
+          "--project",
+          "src/OrchardCore.Cms.Web/OrchardCore.Cms.Web.csproj",
+          "--framework",
+          "net10.0"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "aspnetcore-upload-stream-ownership",
+    "repository": "https://github.com/dotnet/aspnetcore.git",
+    "cacheName": "aspnetcore",
+    "before": "96b7ae9999a954147cabc0245063f87cf2a0029b",
+    "after": "7638d7114ad4a74465ad10e6d61d0915067b80c3",
+    "license": "MIT",
+    "licenseFile": "LICENSE.txt",
+    "beforeLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
+    "afterLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
+    "reason": "Reject duplicate SignalR upload stream IDs through TryAdd and HubException, allocate an invocation owner lazily, thread ownership through dispatch and cleanup signatures, and dispose argument-binding cancellation sources on failure. Pinned source and upstream tests reviewed; upstream tests were not executed. Automatic roots, rendered bindings, declarations, diagnostics, and text/Markdown/JSON reviewed independently. Call-free owner-mismatch and failed-removal guards are omitted; visible cleanup calls do not prove ownership value flow. Possible dispatch does not prove runtime execution. Source mode lacks project references, defines, generators, and runtime/reflection edges. Restored trial exits 2 because the pinned tree includes unsupported src/submodules/MessagePack-CSharp; no restored-mode claim.",
+    "tags": [
+      "duplicate-registration",
+      "branch-guard",
+      "exception-path",
+      "async",
+      "resource-cleanup",
+      "signature-change",
+      "cross-project",
+      "automatic-roots"
+    ],
+    "options": [],
+    "knownIssue": "issues/aspnetcore-source-coverage.md",
+    "review": "../tests/Callrift.RealWorldCases/AspNetUploadStreamExpectations.cs",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "3",
+          "--externals",
+          "--entry",
+          "StreamTracker.GetNextStreamOwner",
+          "--entry",
+          "StreamTracker.AddStream",
+          "--entry",
+          "Microsoft.AspNetCore.SignalR.StreamTracker.TryComplete(global::Microsoft.AspNetCore.SignalR.Protocol.CompletionMessage)",
+          "--entry",
+          "Microsoft.AspNetCore.SignalR.StreamTracker.TryComplete(string,long)",
+          "--entry",
+          "StreamTracker.TryProcessItem",
+          "--entry",
+          "StreamTracker.GetStreamItemType",
+          "--entry",
+          "StreamTracker.CompleteAll",
+          "--entry",
+          "DefaultHubDispatcher<THub>.Invoke",
+          "--entry",
+          "DefaultHubDispatcher<THub>.Invoke.ExecuteInvocation",
+          "--entry",
+          "DefaultHubDispatcher<THub>.CleanupInvocation",
+          "--entry",
+          "DefaultHubDispatcher<THub>.StreamAsync",
+          "--entry",
+          "DefaultHubDispatcher<THub>.ReplaceArguments"
+        ]
+      }
+    ]
   }
 ]
