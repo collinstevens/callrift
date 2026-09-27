@@ -4,7 +4,8 @@ namespace Callrift.Core;
 
 internal static class TypeInitialization
 {
-    public static bool Triggers(IMethodSymbol method) => method.MethodKind == MethodKind.Ordinary && (method.IsStatic || method.ContainingType.IsValueType)
+    public static bool Triggers(IMethodSymbol method) => !method.IsAbstract && method.MethodKind is MethodKind.Ordinary or MethodKind.UserDefinedOperator or MethodKind.Conversion
+        && (method.IsStatic || method.ContainingType.IsValueType)
         || method.MethodKind == MethodKind.Constructor && !(method.IsImplicitlyDeclared && method.ContainingType.IsValueType);
 
     public static CallGraph Bind(CallGraph graph, CancellationToken cancellationToken)
