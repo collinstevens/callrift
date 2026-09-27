@@ -2734,5 +2734,55 @@
         ]
       }
     ]
+  },
+  {
+    "id": "polly-timeout-exception-value",
+    "repository": "https://github.com/App-vNext/Polly.git",
+    "cacheName": "polly",
+    "before": "50d19ddf10cda7a7e580d1a46d8e84f06bac0e62",
+    "after": "74bf31fff0e0907034994be4df22424aa71818f1",
+    "license": "BSD-3-Clause",
+    "licenseFile": "LICENSE",
+    "beforeLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+    "afterLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+    "reason": "Pass timeout to the TimeoutRejectedException constructor in both legacy timeout engines. Preserve the cancellation guard, timeout callback ordering and base exception constructor while selecting the overload declared in Polly.Core. Independent pinned source, declarations, compiler bindings, automatic-root connections, diagnostics and locations reviewed. The graph does not prove timeout argument values or the constructor property assignment. Implicit using-variable disposal, property access and runtime receiver identity remain unmodeled. Source mode omits project imports, references and defines, leaving SystemClock calls unresolved, merging duplicate TelemetryUtil types and selecting Cancel instead of the NET8_0_OR_GREATER CancelAsync branch. Bounded generic expansion and possible dispatch limit completeness; benchmark roots do not prove the configured runtime policy is a timeout policy. Upstream timeout-value tests were read but not executed. Restored net6.0 trial exits 2 because pinned SDK 9.0.308 with latestMinor roll-forward is unavailable.",
+    "tags": [
+      "constructor-overload",
+      "cross-project",
+      "exceptions",
+      "async",
+      "callback",
+      "conditional-compilation",
+      "automatic-roots"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "review": "../tests/Callrift.RealWorldCases/PollyTimeoutExpectations.cs",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "AsyncTimeoutEngine.ImplementationAsync",
+          "--entry",
+          "TimeoutEngine.Implementation"
+        ]
+      }
+    ]
   }
 ]

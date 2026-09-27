@@ -69,6 +69,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             PollyFaultExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "polly-retry-cancellation")
             PollyRetryExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "polly-timeout-exception-value")
+            PollyTimeoutExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "cleanarchitecture-value-object-operators")
             CleanArchitectureOperatorExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "autofac-module-hook-subscriptions")

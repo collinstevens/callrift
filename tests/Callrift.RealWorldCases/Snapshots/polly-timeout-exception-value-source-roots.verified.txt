@@ -1,0 +1,617 @@
+﻿format: text
+exit: 0
+stdout:
+  AsyncPolicy.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAndCaptureAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAndCaptureAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAndCaptureAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAsync
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAsync
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy<TResult>.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAndCaptureAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy<TResult>.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAndCaptureAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy<TResult>.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy<TResult>.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAndCaptureAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy<TResult>.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy<TResult>.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy<TResult>.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy<TResult>.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAsync
+~ └─ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAsync
+~ └─ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAsync
+~ └─ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+
+  Bulkhead.Bulkhead_Asynchronous_With_Result
+  ├─ possible initialization of Bulkhead
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit)
+     └─ Workloads.FuncAsync
+
+  Bulkhead.Bulkhead_Asynchronous_With_Result_With_CancellationToken
+  ├─ possible initialization of Bulkhead
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit)
+     └─ Workloads.FuncAsync
+
+  Bulkhead.Bulkhead_Synchronous_With_Result
+  ├─ possible initialization of Bulkhead
+~ └─ Policy.Execute (changes below depth limit)
+     └─ Workloads.Func
+
+  Cache.Cache_Asynchronous_Hit
+  ├─ possible initialization of Cache
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit)
+     └─ Cache.GetObjectAsync
+
+  Cache.Cache_Asynchronous_Miss
+  ├─ possible initialization of Cache
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  Cache.Cache_Synchronous_Hit
+  ├─ possible initialization of Cache
+~ └─ Policy.Execute (changes below depth limit)
+     └─ Cache.GetObject
+
+  Cache.Cache_Synchronous_Miss
+  ├─ possible initialization of Cache
+~ └─ Policy.Execute (changes below depth limit) ↑ as above
+
+  Cache.GlobalSetup
+  ├─ possible initialization of Cache
+~ ├─ Policy.Execute (changes below depth limit) ↑ as above
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  CircuitBreaker.CircuitBreaker_Asynchronous_With_Result_Succeeds
+  ├─ possible initialization of CircuitBreaker
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  CircuitBreaker.CircuitBreaker_Synchronous_With_Result_Succeeds
+  ├─ possible initialization of CircuitBreaker
+~ └─ Policy.Execute (changes below depth limit) ↑ as above
+
+  Fallback.Fallback_Asynchronous_Succeeds
+  ├─ possible initialization of Fallback
+~ └─ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+     └─ Workloads.FuncAsync
+
+  Fallback.Fallback_Asynchronous_Throws
+  ├─ possible initialization of Fallback
+~ └─ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+     └─ Workloads.FuncThrowsAsync
+
+  Fallback.Fallback_Synchronous_Succeeds
+  ├─ possible initialization of Fallback
+~ └─ Policy<TResult>.Execute (changes below depth limit)
+     └─ Workloads.Func
+
+  Fallback.Fallback_Synchronous_Throws
+  ├─ possible initialization of Fallback
+~ └─ Policy<TResult>.Execute (changes below depth limit)
+     └─ Workloads.FuncThrows
+
+  NoOp.NoOp_Asynchronous_With_Result
+  ├─ possible initialization of NoOp
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  NoOp.NoOp_Synchronous_With_Result
+  ├─ possible initialization of NoOp
+~ └─ Policy.Execute (changes below depth limit) ↑ as above
+
+  PolicyWrap.PolicyWrap_Asynchronous_With_Result
+  ├─ possible initialization of PolicyWrap
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  PolicyWrap.PolicyWrap_Synchronous_With_Result
+  ├─ possible initialization of PolicyWrap
+~ └─ Policy.Execute (changes below depth limit) ↑ as above
+
+  RateLimit.RateLimit_Asynchronous_With_Result_Succeeds
+  ├─ possible initialization of RateLimit
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  RateLimit.RateLimit_Synchronous_With_Result_Succeeds
+  ├─ possible initialization of RateLimit
+~ └─ Policy.Execute (changes below depth limit) ↑ as above
+
+  Retry.Retry_Asynchronous_With_Result_Succeeds
+  ├─ possible initialization of Retry
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  Retry.Retry_Asynchronous_With_Result_Succeeds_With_CancellationToken
+  ├─ possible initialization of Retry
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  Retry.Retry_Synchronous_With_Result_Succeeds
+  ├─ possible initialization of Retry
+~ └─ Policy.Execute (changes below depth limit) ↑ as above
+
+  Timeout.Timeout_Asynchronous_With_Result_Succeeds
+  ├─ possible initialization of Timeout
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  Timeout.Timeout_Asynchronous_With_Result_Succeeds_With_CancellationToken
+  ├─ possible initialization of Timeout
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  Timeout.Timeout_Synchronous_With_Result_Succeeds
+  ├─ possible initialization of Timeout
+~ └─ Policy.Execute (changes below depth limit) ↑ as above
+
+  BridgeBenchmark.NoOpAsync
+  └─ IAsyncPolicy<TResult>.ExecuteAsync
+~    ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+     ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync ×2 (depth limit)
+     ├─ …
+     ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync ×2 (depth limit)
+~    ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+     ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync (depth limit)
+~    └─ ⇢ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+
+  BridgeBenchmark.NullResiliencePipeline
+  └─ IAsyncPolicy<TResult>.ExecuteAsync ↑ as above
+
+  CircuitBreakerOpenedBenchmark.ExecuteAsync_Exception_V7
+  └─ try
+     └─ IAsyncPolicy<TResult>.ExecuteAsync
+~       ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+        ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync ×2 (depth limit)
+        ├─ …
+        ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync ×2 (depth limit)
+~       ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+        ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync (depth limit)
+~       └─ ⇢ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+
+  Helper.ExecuteAsync
+  ├─ case PollyVersion.V7:
+  │  └─ IAsyncPolicy<TResult>.ExecuteAsync ↑ as above
+  └─ case PollyVersion.V8:
+
+  Policy.Execute
+  ├─ new Context (depth limit)
+~ └─ Policy.Execute (changes below depth limit)
+
+  Policy.Execute
+  ├─ new Context (depth limit)
+~ └─ Policy.Execute (changes below depth limit)
+
+  Policy.Execute
+~ └─ Policy.Execute (changes below depth limit)
+
+  Policy.ExecuteAndCapture
+~ └─ Policy.ExecuteAndCapture (changes below depth limit)
+
+  Policy.ExecuteAndCapture
+~ └─ Policy.ExecuteAndCapture (changes below depth limit)
+
+  Policy.ExecuteAndCapture
+  ├─ new Context (depth limit)
+~ └─ Policy.ExecuteAndCapture (changes below depth limit)
+
+  Policy.ExecuteAndCapture
+  ├─ new Context (depth limit)
+~ └─ Policy.ExecuteAndCapture (changes below depth limit)
+
+  Policy.ExecuteAndCapture
+~ └─ Policy.ExecuteAndCapture (changes below depth limit)
+
+  Policy<TResult>.Execute
+~ └─ Policy<TResult>.Execute (changes below depth limit)
+
+  Policy<TResult>.Execute
+  ├─ new Context (depth limit)
+~ └─ Policy<TResult>.Execute (changes below depth limit)
+
+  Policy<TResult>.Execute
+  ├─ new Context (depth limit)
+~ └─ Policy<TResult>.Execute (changes below depth limit)
+
+  Policy<TResult>.Execute
+~ └─ Policy<TResult>.Execute (changes below depth limit)
+
+  Policy<TResult>.ExecuteAndCapture
+~ └─ Policy<TResult>.ExecuteAndCapture (changes below depth limit)
+
+  Policy<TResult>.ExecuteAndCapture
+~ └─ Policy<TResult>.ExecuteAndCapture (changes below depth limit)
+
+  Policy<TResult>.ExecuteAndCapture
+  ├─ new Context (depth limit)
+~ └─ Policy<TResult>.ExecuteAndCapture (changes below depth limit)
+
+  Policy<TResult>.ExecuteAndCapture
+  ├─ new Context (depth limit)
+~ └─ Policy<TResult>.ExecuteAndCapture (changes below depth limit)
+
+  Policy<TResult>.ExecuteAndCapture
+~ └─ Policy<TResult>.ExecuteAndCapture (changes below depth limit)
+stderr:
+bench/Polly.Benchmarks/Cache.cs:8: unresolved-call: Cannot bind new MemoryCacheOptions.
+bench/Polly.Benchmarks/Cache.cs:8: unresolved-call: Cannot bind new.
+bench/Polly.Benchmarks/Cache.cs:9: unresolved-call: Cannot bind new; candidates: source::Polly.Benchmarks.Cache.MemoryCacheProvider..ctor(global::Microsoft.Extensions.Caching.Memory.IMemoryCache)
+bench/Polly.Benchmarks/Cache.cs:11: unresolved-call: Cannot bind Policy.Cache; candidates: source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>)
+bench/Polly.Benchmarks/Cache.cs:12: unresolved-call: Cannot bind Policy.CacheAsync; candidates: source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>)
+bench/Polly.Benchmarks/Cache.cs:14: unresolved-call: Cannot bind Policy.Cache; candidates: source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>)
+bench/Polly.Benchmarks/Cache.cs:15: unresolved-call: Cannot bind Policy.CacheAsync; candidates: source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>)
+bench/Polly.Benchmarks/Cache.cs:52: unresolved-call: Cannot bind implicit base constructor for new Cache.MemoryCacheProvider.
+1892 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  AsyncPolicy.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAndCaptureAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAndCaptureAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAndCaptureAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAsync
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy.ExecuteAsync
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy<TResult>.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAndCaptureAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy<TResult>.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAndCaptureAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy<TResult>.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy<TResult>.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAndCaptureAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy<TResult>.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy<TResult>.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy<TResult>.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAndCaptureAsync
+~ └─ AsyncPolicy<TResult>.ExecuteAndCaptureAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAsync
+~ └─ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAsync
+~ └─ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAsync
+  ├─ new Context (depth limit)
+~ └─ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+
+  AsyncPolicy<TResult>.ExecuteAsync
+~ └─ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+
+  Bulkhead.Bulkhead_Asynchronous_With_Result
+  ├─ possible initialization of Bulkhead
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit)
+     └─ Workloads.FuncAsync
+
+  Bulkhead.Bulkhead_Asynchronous_With_Result_With_CancellationToken
+  ├─ possible initialization of Bulkhead
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit)
+     └─ Workloads.FuncAsync
+
+  Bulkhead.Bulkhead_Synchronous_With_Result
+  ├─ possible initialization of Bulkhead
+~ └─ Policy.Execute (changes below depth limit)
+     └─ Workloads.Func
+
+  Cache.Cache_Asynchronous_Hit
+  ├─ possible initialization of Cache
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit)
+     └─ Cache.GetObjectAsync
+
+  Cache.Cache_Asynchronous_Miss
+  ├─ possible initialization of Cache
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  Cache.Cache_Synchronous_Hit
+  ├─ possible initialization of Cache
+~ └─ Policy.Execute (changes below depth limit)
+     └─ Cache.GetObject
+
+  Cache.Cache_Synchronous_Miss
+  ├─ possible initialization of Cache
+~ └─ Policy.Execute (changes below depth limit) ↑ as above
+
+  Cache.GlobalSetup
+  ├─ possible initialization of Cache
+~ ├─ Policy.Execute (changes below depth limit) ↑ as above
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  CircuitBreaker.CircuitBreaker_Asynchronous_With_Result_Succeeds
+  ├─ possible initialization of CircuitBreaker
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  CircuitBreaker.CircuitBreaker_Synchronous_With_Result_Succeeds
+  ├─ possible initialization of CircuitBreaker
+~ └─ Policy.Execute (changes below depth limit) ↑ as above
+
+  Fallback.Fallback_Asynchronous_Succeeds
+  ├─ possible initialization of Fallback
+~ └─ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+     └─ Workloads.FuncAsync
+
+  Fallback.Fallback_Asynchronous_Throws
+  ├─ possible initialization of Fallback
+~ └─ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+     └─ Workloads.FuncThrowsAsync
+
+  Fallback.Fallback_Synchronous_Succeeds
+  ├─ possible initialization of Fallback
+~ └─ Policy<TResult>.Execute (changes below depth limit)
+     └─ Workloads.Func
+
+  Fallback.Fallback_Synchronous_Throws
+  ├─ possible initialization of Fallback
+~ └─ Policy<TResult>.Execute (changes below depth limit)
+     └─ Workloads.FuncThrows
+
+  NoOp.NoOp_Asynchronous_With_Result
+  ├─ possible initialization of NoOp
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  NoOp.NoOp_Synchronous_With_Result
+  ├─ possible initialization of NoOp
+~ └─ Policy.Execute (changes below depth limit) ↑ as above
+
+  PolicyWrap.PolicyWrap_Asynchronous_With_Result
+  ├─ possible initialization of PolicyWrap
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  PolicyWrap.PolicyWrap_Synchronous_With_Result
+  ├─ possible initialization of PolicyWrap
+~ └─ Policy.Execute (changes below depth limit) ↑ as above
+
+  RateLimit.RateLimit_Asynchronous_With_Result_Succeeds
+  ├─ possible initialization of RateLimit
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  RateLimit.RateLimit_Synchronous_With_Result_Succeeds
+  ├─ possible initialization of RateLimit
+~ └─ Policy.Execute (changes below depth limit) ↑ as above
+
+  Retry.Retry_Asynchronous_With_Result_Succeeds
+  ├─ possible initialization of Retry
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  Retry.Retry_Asynchronous_With_Result_Succeeds_With_CancellationToken
+  ├─ possible initialization of Retry
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  Retry.Retry_Synchronous_With_Result_Succeeds
+  ├─ possible initialization of Retry
+~ └─ Policy.Execute (changes below depth limit) ↑ as above
+
+  Timeout.Timeout_Asynchronous_With_Result_Succeeds
+  ├─ possible initialization of Timeout
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  Timeout.Timeout_Asynchronous_With_Result_Succeeds_With_CancellationToken
+  ├─ possible initialization of Timeout
+~ └─ AsyncPolicy.ExecuteAsync (changes below depth limit) ↑ as above
+
+  Timeout.Timeout_Synchronous_With_Result_Succeeds
+  ├─ possible initialization of Timeout
+~ └─ Policy.Execute (changes below depth limit) ↑ as above
+
+  BridgeBenchmark.NoOpAsync
+  └─ IAsyncPolicy<TResult>.ExecuteAsync
+~    ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+     ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync ×2 (depth limit)
+     ├─ …
+     ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync ×2 (depth limit)
+~    ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+     ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync (depth limit)
+~    └─ ⇢ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+
+  BridgeBenchmark.NullResiliencePipeline
+  └─ IAsyncPolicy<TResult>.ExecuteAsync ↑ as above
+
+  CircuitBreakerOpenedBenchmark.ExecuteAsync_Exception_V7
+  └─ try
+     └─ IAsyncPolicy<TResult>.ExecuteAsync
+~       ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+        ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync ×2 (depth limit)
+        ├─ …
+        ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync ×2 (depth limit)
+~       ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+        ├─ ⇢ AsyncPolicy<TResult>.ExecuteAsync (depth limit)
+~       └─ ⇢ AsyncPolicy<TResult>.ExecuteAsync (changes below depth limit)
+
+  Helper.ExecuteAsync
+  ├─ case PollyVersion.V7:
+  │  └─ IAsyncPolicy<TResult>.ExecuteAsync ↑ as above
+  └─ case PollyVersion.V8:
+
+  Policy.Execute
+  ├─ new Context (depth limit)
+~ └─ Policy.Execute (changes below depth limit)
+
+  Policy.Execute
+  ├─ new Context (depth limit)
+~ └─ Policy.Execute (changes below depth limit)
+
+  Policy.Execute
+~ └─ Policy.Execute (changes below depth limit)
+
+  Policy.ExecuteAndCapture
+~ └─ Policy.ExecuteAndCapture (changes below depth limit)
+
+  Policy.ExecuteAndCapture
+~ └─ Policy.ExecuteAndCapture (changes below depth limit)
+
+  Policy.ExecuteAndCapture
+  ├─ new Context (depth limit)
+~ └─ Policy.ExecuteAndCapture (changes below depth limit)
+
+  Policy.ExecuteAndCapture
+  ├─ new Context (depth limit)
+~ └─ Policy.ExecuteAndCapture (changes below depth limit)
+
+  Policy.ExecuteAndCapture
+~ └─ Policy.ExecuteAndCapture (changes below depth limit)
+
+  Policy<TResult>.Execute
+~ └─ Policy<TResult>.Execute (changes below depth limit)
+
+  Policy<TResult>.Execute
+  ├─ new Context (depth limit)
+~ └─ Policy<TResult>.Execute (changes below depth limit)
+
+  Policy<TResult>.Execute
+  ├─ new Context (depth limit)
+~ └─ Policy<TResult>.Execute (changes below depth limit)
+
+  Policy<TResult>.Execute
+~ └─ Policy<TResult>.Execute (changes below depth limit)
+
+  Policy<TResult>.ExecuteAndCapture
+~ └─ Policy<TResult>.ExecuteAndCapture (changes below depth limit)
+
+  Policy<TResult>.ExecuteAndCapture
+~ └─ Policy<TResult>.ExecuteAndCapture (changes below depth limit)
+
+  Policy<TResult>.ExecuteAndCapture
+  ├─ new Context (depth limit)
+~ └─ Policy<TResult>.ExecuteAndCapture (changes below depth limit)
+
+  Policy<TResult>.ExecuteAndCapture
+  ├─ new Context (depth limit)
+~ └─ Policy<TResult>.ExecuteAndCapture (changes below depth limit)
+
+  Policy<TResult>.ExecuteAndCapture
+~ └─ Policy<TResult>.ExecuteAndCapture (changes below depth limit)
+```
+stderr:
+bench/Polly.Benchmarks/Cache.cs:8: unresolved-call: Cannot bind new MemoryCacheOptions.
+bench/Polly.Benchmarks/Cache.cs:8: unresolved-call: Cannot bind new.
+bench/Polly.Benchmarks/Cache.cs:9: unresolved-call: Cannot bind new; candidates: source::Polly.Benchmarks.Cache.MemoryCacheProvider..ctor(global::Microsoft.Extensions.Caching.Memory.IMemoryCache)
+bench/Polly.Benchmarks/Cache.cs:11: unresolved-call: Cannot bind Policy.Cache; candidates: source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>)
+bench/Polly.Benchmarks/Cache.cs:12: unresolved-call: Cannot bind Policy.CacheAsync; candidates: source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>)
+bench/Polly.Benchmarks/Cache.cs:14: unresolved-call: Cannot bind Policy.Cache; candidates: source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>)
+bench/Polly.Benchmarks/Cache.cs:15: unresolved-call: Cannot bind Policy.CacheAsync; candidates: source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>)
+bench/Polly.Benchmarks/Cache.cs:52: unresolved-call: Cannot bind implicit base constructor for new Cache.MemoryCacheProvider.
+1892 additional diagnostics; use --diagnostics full.
