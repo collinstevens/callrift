@@ -63,6 +63,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             SerilogRestrictedSinkExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "serilog-self-metrics")
             SerilogMetricsExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "polly-fault-null-outcome")
+            PollyFaultExpectations.Verify(result, options.Entries.Count > 0);
         var diagnostics = string.Concat(result.Diagnostics.Take(8).Select(diagnostic =>
             (diagnostic.Location is null ? "" : $"{diagnostic.Location.Path}:{diagnostic.Location.Line}: ") + $"{diagnostic.Code}: {diagnostic.Message}\n"));
         if (result.Diagnostics.Count > 8)
@@ -82,6 +84,7 @@ public sealed class RealWorldCaseFixture : IDisposable
         var entries = new List<string>();
         var files = new List<string>();
         var depth = 6;
+        var context = 2;
         var externals = false;
         string? project = null;
         string? framework = null;
@@ -100,6 +103,9 @@ public sealed class RealWorldCaseFixture : IDisposable
                 case "--entry": entries.Add(value); break;
                 case "--file": files.Add(value); break;
                 case "--depth": depth = int.Parse(value, CultureInfo.InvariantCulture); break;
+                case "--context":
+                    context = value == "all" ? -1 : int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var count) && count >= 0
+                        ? count : throw new ArgumentException("Context must be nonnegative or all.", nameof(arguments)); break;
                 case "--project": project = value; break;
                 case "--framework": framework = value; break;
                 default: throw new ArgumentException($"Unsupported snapshot option: {argument}.", nameof(arguments));
@@ -107,7 +113,7 @@ public sealed class RealWorldCaseFixture : IDisposable
         }
         if (depth is < 1 or > 100) throw new ArgumentException("Depth must be between 1 and 100.", nameof(arguments));
         if (framework is not null && project is null) throw new ArgumentException("A framework requires a project.", nameof(arguments));
-        return (new DiffOptions { Entries = entries, Files = files, MaxDepth = depth, IncludeExternals = externals },
+        return (new DiffOptions { Entries = entries, Files = files, MaxDepth = depth, Context = context, IncludeExternals = externals },
             project is null ? null : new MSBuildOptions(project, framework));
     }
 

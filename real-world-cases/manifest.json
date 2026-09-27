@@ -2088,5 +2088,79 @@
         ]
       }
     ]
+  },
+  {
+    "id": "polly-fault-null-outcome",
+    "repository": "https://github.com/App-vNext/Polly.git",
+    "cacheName": "polly",
+    "license": "BSD-3-Clause",
+    "licenseFile": "LICENSE",
+    "before": "a057350b3a0cbf4f457104ed6981f97db71b94e1",
+    "after": "482bdf824fba19c1188655156e512570c3d7f7af",
+    "beforeLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+    "afterLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+    "reason": "Return null from the converted fault-generator callback when no exception is generated; discover implicit-conversion callers while retaining the explicit limitation that call-free property guards are invisible",
+    "tags": [
+      "implicit-conversion",
+      "nullable-outcome",
+      "callback",
+      "property-initializer",
+      "top-level"
+    ],
+    "options": [],
+    "knownIssue": "issues/polly-coverage.md",
+    "review": "../tests/Callrift.RealWorldCases/PollyFaultExpectations.cs",
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--entry",
+          "FaultGenerator.op_Implicit",
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Polly.Core/Polly.Core.csproj",
+          "--framework",
+          "net8.0",
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Polly.Core/Polly.Core.csproj",
+          "--framework",
+          "net8.0",
+          "--entry",
+          "FaultGenerator.op_Implicit",
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals"
+        ]
+      }
+    ]
   }
 ]
