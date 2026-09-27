@@ -1812,5 +1812,98 @@
         ]
       }
     ]
+  },
+  {
+    "id": "aspnetcore-authorization-failure-reasons",
+    "repository": "https://github.com/dotnet/aspnetcore.git",
+    "cacheName": "aspnetcore",
+    "before": "593368b9d1dd219662efa3f2ecfc544e7afd0444",
+    "after": "47b2e02e0282eb278bc3a46b8fea70c4ac93fa1d",
+    "license": "MIT",
+    "licenseFile": "LICENSE.txt",
+    "beforeLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
+    "afterLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
+    "reason": "Include explicit authorization failure messages while preserving the no-reason and unmet-requirement paths. Add Enumerable.Any and Select with a string.Join overload inside the FailCalled branch. LoggerMessage-generated implementation and property-only lambda body are not expanded; string message contents and call-free fallback are not proven by the call tree. Pinned production diffs and upstream test helpers reviewed; upstream tests were not executed. Source declarations, bindings, root connectivity, diagnostics and all output formats reviewed independently. Source mode lacks project references, defines and generators; possible callbacks and dispatch do not prove runtime execution. Restored trial exits 2 for unsupported src/submodules/MessagePack-CSharp.",
+    "tags": [
+      "branch-guard",
+      "overload",
+      "cross-project",
+      "automatic-roots",
+      "logging",
+      "lambda",
+      "partial-method"
+    ],
+    "options": [],
+    "knownIssue": "issues/aspnetcore-source-coverage.md",
+    "review": "../tests/Callrift.RealWorldCases/AspNetSecurityExpectations.cs",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "3",
+          "--externals",
+          "--entry",
+          "Microsoft.Extensions.Logging.LoggingExtensions.UserAuthorizationFailed(global::Microsoft.Extensions.Logging.ILogger,global::Microsoft.AspNetCore.Authorization.AuthorizationFailure)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "aspnetcore-two-factor-signout-scheme",
+    "repository": "https://github.com/dotnet/aspnetcore.git",
+    "cacheName": "aspnetcore",
+    "before": "1a82e94b1d3b768bfdf1a837a38ef09e06c05af7",
+    "after": "593368b9d1dd219662efa3f2ecfc544e7afd0444",
+    "license": "MIT",
+    "licenseFile": "LICENSE.txt",
+    "beforeLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
+    "afterLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
+    "reason": "Check whether the two-factor remember-me scheme is registered before signing it out after security-stamp rejection. Preserve principal rejection and SignInManager sign-out; add service resolution, possible scheme-provider dispatch, and move HttpContext sign-out under the new non-null guard. Automatic discovery retains the three Identity registration roots. The call tree does not prove runtime registration or value flow. Pinned production diffs and upstream test helpers reviewed; upstream tests were not executed. Source declarations, bindings, root connectivity, diagnostics and all output formats reviewed independently. Source mode lacks project references, defines and generators; possible callbacks and dispatch do not prove runtime execution. Restored trial exits 2 for unsupported src/submodules/MessagePack-CSharp.",
+    "tags": [
+      "branch-guard",
+      "overload",
+      "cross-project",
+      "automatic-roots",
+      "async",
+      "interface-dispatch",
+      "resource-cleanup",
+      "dependency-injection"
+    ],
+    "options": [],
+    "knownIssue": "issues/aspnetcore-source-coverage.md",
+    "review": "../tests/Callrift.RealWorldCases/AspNetSecurityExpectations.cs",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "3",
+          "--externals",
+          "--entry",
+          "SecurityStampValidator<TUser>.ValidateAsync"
+        ]
+      }
+    ]
   }
 ]
