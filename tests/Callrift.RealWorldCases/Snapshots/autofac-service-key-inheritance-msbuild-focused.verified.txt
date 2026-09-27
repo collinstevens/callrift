@@ -5,35 +5,47 @@ stdout:
 - ├─ foreach (var constructor in implementationType.GetConstructors(BindingFlags.Instance | BindingFla…
 - │  └─ foreach (var parameter in constructor.GetParameters())
 - │     └─ ServiceKeyAttributeCache.ParameterHasServiceKey
-- │        ├─ possible initialization of ReflectionCacheSet
-- │        │  └─ initialization of ReflectionCacheSet
+- │        ├─ ReflectionCacheSet.get_Shared (depth limit)
+- │        ├─ ReflectionCacheSet.get_Internal
+- │        ├─ InternalReflectionCaches.get_ServiceKeyParameterAttributes
 - │        └─ ReflectionCacheSet.Shared.Internal.ServiceKeyParameterAttributes.GetOrAdd
 - │           ├─ ReflectionExtensions.TryGetDeclaringProperty (depth limit)
 - │           └─ if (p.TryGetDeclaringProperty(out var property))
-- │              └─ ServiceKeyAttributeCache.PropertyHasServiceKey
+- │              └─ ServiceKeyAttributeCache.PropertyHasServiceKey (depth limit)
 - ├─ foreach (var property in implementationType.GetProperties(BindingFlags.Instance | BindingFlags.Pu…
 - │  └─ if (property.CanWrite)
 - │     └─ ServiceKeyAttributeCache.PropertyHasServiceKey
-- │        └─ possible initialization of ReflectionCacheSet
-- │           └─ initialization of ReflectionCacheSet
+- │        ├─ ReflectionCacheSet.get_Shared (depth limit)
+- │        ├─ ReflectionCacheSet.get_Internal
+- │        └─ InternalReflectionCaches.get_ServiceKeyPropertyAttributes
 + ├─ foreach (var constructor in implementationType.GetConstructors(DeclaredMembers))
 + │  └─ foreach (var parameter in constructor.GetParameters())
 + │     └─ ServiceKeyAttributeCache.ParameterHasServiceKey
-+ │        ├─ possible initialization of ReflectionCacheSet
-+ │        │  └─ initialization of ReflectionCacheSet
++ │        ├─ ReflectionCacheSet.get_Shared (depth limit)
++ │        ├─ ReflectionCacheSet.get_Internal
++ │        ├─ InternalReflectionCaches.get_ServiceKeyParameterAttributes
 + │        └─ ReflectionCacheSet.Shared.Internal.ServiceKeyParameterAttributes.GetOrAdd
 + │           ├─ ReflectionExtensions.TryGetDeclaringProperty (depth limit)
 + │           └─ if (p.TryGetDeclaringProperty(out var property))
-+ │              └─ ServiceKeyAttributeCache.PropertyHasServiceKey
++ │              └─ ServiceKeyAttributeCache.PropertyHasServiceKey (depth limit)
 + ├─ foreach (var property in implementationType.GetProperties(DeclaredMembers))
 + │  └─ if (property.CanWrite)
 + │     └─ ServiceKeyAttributeCache.PropertyHasServiceKey
-+ │        └─ possible initialization of ReflectionCacheSet
-+ │           └─ initialization of ReflectionCacheSet
++ │        ├─ ReflectionCacheSet.get_Shared (depth limit)
++ │        ├─ ReflectionCacheSet.get_Internal
++ │        └─ InternalReflectionCaches.get_ServiceKeyPropertyAttributes
 + └─ if (baseType is not null && baseType != typeof(object))
 +    └─ ReflectionActivator.UsesServiceKeyAttributeCached
-+       ├─ possible initialization of ReflectionCacheSet
-+       │  └─ initialization of ReflectionCacheSet
++       ├─ ReflectionCacheSet.get_Shared
++       │  ├─ ReflectionCacheSet.TryGetSharedCache (depth limit)
++       │  └─ if (!TryGetSharedCache(out var sharedCache))
++       │     ├─ possible initialization of ReflectionCacheSet
++       │     │  └─ initialization of ReflectionCacheSet
++       │     ├─ ReflectionCacheSet.TryGetSharedCache
++       │     └─ if (!TryGetSharedCache(out sharedCache))
++       │        └─ new ReflectionCacheSet (depth limit)
++       ├─ ReflectionCacheSet.get_Internal
++       ├─ InternalReflectionCaches.get_ServiceKeyUsageByType
 +       └─ ReflectionCacheSet.Shared.Internal.ServiceKeyUsageByType.GetOrAdd
 +          └─ ReflectionActivator.UsesServiceKeyAttribute (↺ cycle)
 stderr:
@@ -46,35 +58,47 @@ stdout:
 - ├─ foreach (var constructor in implementationType.GetConstructors(BindingFlags.Instance | BindingFla…
 - │  └─ foreach (var parameter in constructor.GetParameters())
 - │     └─ ServiceKeyAttributeCache.ParameterHasServiceKey
-- │        ├─ possible initialization of ReflectionCacheSet
-- │        │  └─ initialization of ReflectionCacheSet
+- │        ├─ ReflectionCacheSet.get_Shared (depth limit)
+- │        ├─ ReflectionCacheSet.get_Internal
+- │        ├─ InternalReflectionCaches.get_ServiceKeyParameterAttributes
 - │        └─ ReflectionCacheSet.Shared.Internal.ServiceKeyParameterAttributes.GetOrAdd
 - │           ├─ ReflectionExtensions.TryGetDeclaringProperty (depth limit)
 - │           └─ if (p.TryGetDeclaringProperty(out var property))
-- │              └─ ServiceKeyAttributeCache.PropertyHasServiceKey
+- │              └─ ServiceKeyAttributeCache.PropertyHasServiceKey (depth limit)
 - ├─ foreach (var property in implementationType.GetProperties(BindingFlags.Instance | BindingFlags.Pu…
 - │  └─ if (property.CanWrite)
 - │     └─ ServiceKeyAttributeCache.PropertyHasServiceKey
-- │        └─ possible initialization of ReflectionCacheSet
-- │           └─ initialization of ReflectionCacheSet
+- │        ├─ ReflectionCacheSet.get_Shared (depth limit)
+- │        ├─ ReflectionCacheSet.get_Internal
+- │        └─ InternalReflectionCaches.get_ServiceKeyPropertyAttributes
 + ├─ foreach (var constructor in implementationType.GetConstructors(DeclaredMembers))
 + │  └─ foreach (var parameter in constructor.GetParameters())
 + │     └─ ServiceKeyAttributeCache.ParameterHasServiceKey
-+ │        ├─ possible initialization of ReflectionCacheSet
-+ │        │  └─ initialization of ReflectionCacheSet
++ │        ├─ ReflectionCacheSet.get_Shared (depth limit)
++ │        ├─ ReflectionCacheSet.get_Internal
++ │        ├─ InternalReflectionCaches.get_ServiceKeyParameterAttributes
 + │        └─ ReflectionCacheSet.Shared.Internal.ServiceKeyParameterAttributes.GetOrAdd
 + │           ├─ ReflectionExtensions.TryGetDeclaringProperty (depth limit)
 + │           └─ if (p.TryGetDeclaringProperty(out var property))
-+ │              └─ ServiceKeyAttributeCache.PropertyHasServiceKey
++ │              └─ ServiceKeyAttributeCache.PropertyHasServiceKey (depth limit)
 + ├─ foreach (var property in implementationType.GetProperties(DeclaredMembers))
 + │  └─ if (property.CanWrite)
 + │     └─ ServiceKeyAttributeCache.PropertyHasServiceKey
-+ │        └─ possible initialization of ReflectionCacheSet
-+ │           └─ initialization of ReflectionCacheSet
++ │        ├─ ReflectionCacheSet.get_Shared (depth limit)
++ │        ├─ ReflectionCacheSet.get_Internal
++ │        └─ InternalReflectionCaches.get_ServiceKeyPropertyAttributes
 + └─ if (baseType is not null && baseType != typeof(object))
 +    └─ ReflectionActivator.UsesServiceKeyAttributeCached
-+       ├─ possible initialization of ReflectionCacheSet
-+       │  └─ initialization of ReflectionCacheSet
++       ├─ ReflectionCacheSet.get_Shared
++       │  ├─ ReflectionCacheSet.TryGetSharedCache (depth limit)
++       │  └─ if (!TryGetSharedCache(out var sharedCache))
++       │     ├─ possible initialization of ReflectionCacheSet
++       │     │  └─ initialization of ReflectionCacheSet
++       │     ├─ ReflectionCacheSet.TryGetSharedCache
++       │     └─ if (!TryGetSharedCache(out sharedCache))
++       │        └─ new ReflectionCacheSet (depth limit)
++       ├─ ReflectionCacheSet.get_Internal
++       ├─ InternalReflectionCaches.get_ServiceKeyUsageByType
 +       └─ ReflectionCacheSet.Shared.Internal.ServiceKeyUsageByType.GetOrAdd
 +          └─ ReflectionActivator.UsesServiceKeyAttribute (↺ cycle)
 ```

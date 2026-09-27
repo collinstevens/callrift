@@ -170,17 +170,25 @@ stdout:
                   "children": [
                     {
                       "id": "n4",
-                      "kind": "branch",
+                      "kind": "call",
                       "change": "removed",
-                      "label": "possible initialization of ReflectionCacheSet",
-                      "detail": null,
+                      "label": "ReflectionCacheSet.get_Shared",
+                      "detail": "depth limit",
                       "before": {
-                        "symbolId": null,
-                        "signature": null,
-                        "binding": "structural",
-                        "dispatch": "none",
-                        "targetIds": [],
-                        "definition": null,
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Shared()",
+                        "signature": "public static Autofac.Core.ReflectionCacheSet.get_Shared() -> Autofac.Core.ReflectionCacheSet",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Shared()"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                          "startLine": 41,
+                          "startColumn": 9,
+                          "endLine": 57,
+                          "endColumn": 10
+                        },
                         "callSites": [
                           {
                             "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
@@ -190,55 +198,96 @@ stdout:
                             "endColumn": 41
                           }
                         ],
-                        "relation": "branch",
-                        "candidates": null,
-                        "origin": "structural"
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
                       },
                       "after": null,
-                      "children": [
-                        {
-                          "id": "n5",
-                          "kind": "call",
-                          "change": "removed",
-                          "label": "initialization of ReflectionCacheSet",
-                          "detail": null,
-                          "before": {
-                            "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet..cctor()",
-                            "signature": "static Autofac.Core.ReflectionCacheSet.ReflectionCacheSet() -> void",
-                            "binding": "resolved",
-                            "dispatch": "direct",
-                            "targetIds": [
-                              "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet..cctor()"
-                            ],
-                            "definition": {
-                              "path": "src/Autofac/Core/ReflectionCacheSet.cs",
-                              "startLine": 13,
-                              "startColumn": 1,
-                              "endLine": 237,
-                              "endColumn": 2
-                            },
-                            "callSites": [
-                              {
-                                "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
-                                "startLine": 32,
-                                "startColumn": 16,
-                                "endLine": 32,
-                                "endColumn": 41
-                              }
-                            ],
-                            "relation": "call",
-                            "candidates": [],
-                            "origin": "source"
-                          },
-                          "after": null,
-                          "children": [],
-                          "omission": null
-                        }
-                      ],
+                      "children": [],
+                      "omission": {
+                        "reason": "depth-limit",
+                        "symbolId": null,
+                        "referenceId": null
+                      }
+                    },
+                    {
+                      "id": "n5",
+                      "kind": "call",
+                      "change": "removed",
+                      "label": "ReflectionCacheSet.get_Internal",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Internal()",
+                        "signature": "internal Autofac.Core.ReflectionCacheSet.get_Internal() -> Autofac.Core.InternalReflectionCaches",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Internal()"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                          "startLine": 65,
+                          "startColumn": 9,
+                          "endLine": 65,
+                          "endColumn": 13
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                            "startLine": 32,
+                            "startColumn": 16,
+                            "endLine": 32,
+                            "endColumn": 50
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "after": null,
+                      "children": [],
                       "omission": null
                     },
                     {
                       "id": "n6",
+                      "kind": "call",
+                      "change": "removed",
+                      "label": "InternalReflectionCaches.get_ServiceKeyParameterAttributes",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.InternalReflectionCaches.get_ServiceKeyParameterAttributes()",
+                        "signature": "public Autofac.Core.InternalReflectionCaches.get_ServiceKeyParameterAttributes() -> Autofac.Util.Cache.ReflectionCacheParameterDictionary<bool>",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.InternalReflectionCaches.get_ServiceKeyParameterAttributes()"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/InternalReflectionCaches.cs",
+                          "startLine": 161,
+                          "startColumn": 9,
+                          "endLine": 161,
+                          "endColumn": 13
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                            "startLine": 32,
+                            "startColumn": 16,
+                            "endLine": 32,
+                            "endColumn": 80
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "after": null,
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n7",
                       "kind": "call",
                       "change": "removed",
                       "label": "ReflectionCacheSet.Shared.Internal.ServiceKeyParameterAttributes.GetOrAdd",
@@ -268,7 +317,7 @@ stdout:
                       "after": null,
                       "children": [
                         {
-                          "id": "n7",
+                          "id": "n8",
                           "kind": "call",
                           "change": "removed",
                           "label": "ReflectionExtensions.TryGetDeclaringProperty",
@@ -310,7 +359,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n8",
+                          "id": "n9",
                           "kind": "branch",
                           "change": "removed",
                           "label": "if (p.TryGetDeclaringProperty(out var property))",
@@ -338,11 +387,11 @@ stdout:
                           "after": null,
                           "children": [
                             {
-                              "id": "n9",
+                              "id": "n10",
                               "kind": "call",
                               "change": "removed",
                               "label": "ServiceKeyAttributeCache.PropertyHasServiceKey",
-                              "detail": null,
+                              "detail": "depth limit",
                               "before": {
                                 "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ServiceKeyAttributeCache.PropertyHasServiceKey(global::System.Reflection.PropertyInfo)",
                                 "signature": "public static Autofac.Core.ServiceKeyAttributeCache.PropertyHasServiceKey(System.Reflection.PropertyInfo property) -> bool",
@@ -373,7 +422,11 @@ stdout:
                               },
                               "after": null,
                               "children": [],
-                              "omission": null
+                              "omission": {
+                                "reason": "depth-limit",
+                                "symbolId": null,
+                                "referenceId": null
+                              }
                             }
                           ],
                           "omission": null
@@ -391,7 +444,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n10",
+          "id": "n11",
           "kind": "branch",
           "change": "removed",
           "label": "foreach (var property in implementationType.GetProperties(BindingFlags.Instance | BindingFlags.Pu…",
@@ -419,7 +472,7 @@ stdout:
           "after": null,
           "children": [
             {
-              "id": "n11",
+              "id": "n12",
               "kind": "branch",
               "change": "removed",
               "label": "if (property.CanWrite)",
@@ -447,7 +500,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n12",
+                  "id": "n13",
                   "kind": "call",
                   "change": "removed",
                   "label": "ServiceKeyAttributeCache.PropertyHasServiceKey",
@@ -483,18 +536,26 @@ stdout:
                   "after": null,
                   "children": [
                     {
-                      "id": "n13",
-                      "kind": "branch",
+                      "id": "n14",
+                      "kind": "call",
                       "change": "removed",
-                      "label": "possible initialization of ReflectionCacheSet",
-                      "detail": null,
+                      "label": "ReflectionCacheSet.get_Shared",
+                      "detail": "depth limit",
                       "before": {
-                        "symbolId": null,
-                        "signature": null,
-                        "binding": "structural",
-                        "dispatch": "none",
-                        "targetIds": [],
-                        "definition": null,
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Shared()",
+                        "signature": "public static Autofac.Core.ReflectionCacheSet.get_Shared() -> Autofac.Core.ReflectionCacheSet",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Shared()"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                          "startLine": 41,
+                          "startColumn": 9,
+                          "endLine": 57,
+                          "endColumn": 10
+                        },
                         "callSites": [
                           {
                             "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
@@ -504,51 +565,92 @@ stdout:
                             "endColumn": 41
                           }
                         ],
-                        "relation": "branch",
-                        "candidates": null,
-                        "origin": "structural"
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
                       },
                       "after": null,
-                      "children": [
-                        {
-                          "id": "n14",
-                          "kind": "call",
-                          "change": "removed",
-                          "label": "initialization of ReflectionCacheSet",
-                          "detail": null,
-                          "before": {
-                            "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet..cctor()",
-                            "signature": "static Autofac.Core.ReflectionCacheSet.ReflectionCacheSet() -> void",
-                            "binding": "resolved",
-                            "dispatch": "direct",
-                            "targetIds": [
-                              "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet..cctor()"
-                            ],
-                            "definition": {
-                              "path": "src/Autofac/Core/ReflectionCacheSet.cs",
-                              "startLine": 13,
-                              "startColumn": 1,
-                              "endLine": 237,
-                              "endColumn": 2
-                            },
-                            "callSites": [
-                              {
-                                "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
-                                "startLine": 57,
-                                "startColumn": 16,
-                                "endLine": 57,
-                                "endColumn": 41
-                              }
-                            ],
-                            "relation": "call",
-                            "candidates": [],
-                            "origin": "source"
-                          },
-                          "after": null,
-                          "children": [],
-                          "omission": null
-                        }
-                      ],
+                      "children": [],
+                      "omission": {
+                        "reason": "depth-limit",
+                        "symbolId": null,
+                        "referenceId": null
+                      }
+                    },
+                    {
+                      "id": "n15",
+                      "kind": "call",
+                      "change": "removed",
+                      "label": "ReflectionCacheSet.get_Internal",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Internal()",
+                        "signature": "internal Autofac.Core.ReflectionCacheSet.get_Internal() -> Autofac.Core.InternalReflectionCaches",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Internal()"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                          "startLine": 65,
+                          "startColumn": 9,
+                          "endLine": 65,
+                          "endColumn": 13
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                            "startLine": 57,
+                            "startColumn": 16,
+                            "endLine": 57,
+                            "endColumn": 50
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "after": null,
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n16",
+                      "kind": "call",
+                      "change": "removed",
+                      "label": "InternalReflectionCaches.get_ServiceKeyPropertyAttributes",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.InternalReflectionCaches.get_ServiceKeyPropertyAttributes()",
+                        "signature": "public Autofac.Core.InternalReflectionCaches.get_ServiceKeyPropertyAttributes() -> Autofac.Util.Cache.ReflectionCacheDictionary<System.Reflection.PropertyInfo, bool>",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.InternalReflectionCaches.get_ServiceKeyPropertyAttributes()"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/InternalReflectionCaches.cs",
+                          "startLine": 169,
+                          "startColumn": 9,
+                          "endLine": 169,
+                          "endColumn": 13
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                            "startLine": 57,
+                            "startColumn": 16,
+                            "endLine": 57,
+                            "endColumn": 79
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "after": null,
+                      "children": [],
                       "omission": null
                     }
                   ],
@@ -561,7 +663,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n15",
+          "id": "n17",
           "kind": "branch",
           "change": "added",
           "label": "foreach (var constructor in implementationType.GetConstructors(DeclaredMembers))",
@@ -589,7 +691,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n16",
+              "id": "n18",
               "kind": "branch",
               "change": "added",
               "label": "foreach (var parameter in constructor.GetParameters())",
@@ -617,7 +719,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n17",
+                  "id": "n19",
                   "kind": "call",
                   "change": "added",
                   "label": "ServiceKeyAttributeCache.ParameterHasServiceKey",
@@ -653,19 +755,27 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n18",
-                      "kind": "branch",
+                      "id": "n20",
+                      "kind": "call",
                       "change": "added",
-                      "label": "possible initialization of ReflectionCacheSet",
-                      "detail": null,
+                      "label": "ReflectionCacheSet.get_Shared",
+                      "detail": "depth limit",
                       "before": null,
                       "after": {
-                        "symbolId": null,
-                        "signature": null,
-                        "binding": "structural",
-                        "dispatch": "none",
-                        "targetIds": [],
-                        "definition": null,
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Shared()",
+                        "signature": "public static Autofac.Core.ReflectionCacheSet.get_Shared() -> Autofac.Core.ReflectionCacheSet",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Shared()"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                          "startLine": 41,
+                          "startColumn": 9,
+                          "endLine": 57,
+                          "endColumn": 10
+                        },
                         "callSites": [
                           {
                             "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
@@ -675,54 +785,95 @@ stdout:
                             "endColumn": 41
                           }
                         ],
-                        "relation": "branch",
-                        "candidates": null,
-                        "origin": "structural"
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
                       },
-                      "children": [
-                        {
-                          "id": "n19",
-                          "kind": "call",
-                          "change": "added",
-                          "label": "initialization of ReflectionCacheSet",
-                          "detail": null,
-                          "before": null,
-                          "after": {
-                            "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet..cctor()",
-                            "signature": "static Autofac.Core.ReflectionCacheSet.ReflectionCacheSet() -> void",
-                            "binding": "resolved",
-                            "dispatch": "direct",
-                            "targetIds": [
-                              "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet..cctor()"
-                            ],
-                            "definition": {
-                              "path": "src/Autofac/Core/ReflectionCacheSet.cs",
-                              "startLine": 13,
-                              "startColumn": 1,
-                              "endLine": 237,
-                              "endColumn": 2
-                            },
-                            "callSites": [
-                              {
-                                "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
-                                "startLine": 32,
-                                "startColumn": 16,
-                                "endLine": 32,
-                                "endColumn": 41
-                              }
-                            ],
-                            "relation": "call",
-                            "candidates": [],
-                            "origin": "source"
-                          },
-                          "children": [],
-                          "omission": null
-                        }
-                      ],
+                      "children": [],
+                      "omission": {
+                        "reason": "depth-limit",
+                        "symbolId": null,
+                        "referenceId": null
+                      }
+                    },
+                    {
+                      "id": "n21",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "ReflectionCacheSet.get_Internal",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Internal()",
+                        "signature": "internal Autofac.Core.ReflectionCacheSet.get_Internal() -> Autofac.Core.InternalReflectionCaches",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Internal()"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                          "startLine": 65,
+                          "startColumn": 9,
+                          "endLine": 65,
+                          "endColumn": 13
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                            "startLine": 32,
+                            "startColumn": 16,
+                            "endLine": 32,
+                            "endColumn": 50
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
                       "omission": null
                     },
                     {
-                      "id": "n20",
+                      "id": "n22",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "InternalReflectionCaches.get_ServiceKeyParameterAttributes",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.InternalReflectionCaches.get_ServiceKeyParameterAttributes()",
+                        "signature": "public Autofac.Core.InternalReflectionCaches.get_ServiceKeyParameterAttributes() -> Autofac.Util.Cache.ReflectionCacheParameterDictionary<bool>",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.InternalReflectionCaches.get_ServiceKeyParameterAttributes()"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/InternalReflectionCaches.cs",
+                          "startLine": 161,
+                          "startColumn": 9,
+                          "endLine": 161,
+                          "endColumn": 13
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                            "startLine": 32,
+                            "startColumn": 16,
+                            "endLine": 32,
+                            "endColumn": 80
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n23",
                       "kind": "call",
                       "change": "added",
                       "label": "ReflectionCacheSet.Shared.Internal.ServiceKeyParameterAttributes.GetOrAdd",
@@ -752,7 +903,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n21",
+                          "id": "n24",
                           "kind": "call",
                           "change": "added",
                           "label": "ReflectionExtensions.TryGetDeclaringProperty",
@@ -794,7 +945,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n22",
+                          "id": "n25",
                           "kind": "branch",
                           "change": "added",
                           "label": "if (p.TryGetDeclaringProperty(out var property))",
@@ -822,11 +973,11 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n23",
+                              "id": "n26",
                               "kind": "call",
                               "change": "added",
                               "label": "ServiceKeyAttributeCache.PropertyHasServiceKey",
-                              "detail": null,
+                              "detail": "depth limit",
                               "before": null,
                               "after": {
                                 "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ServiceKeyAttributeCache.PropertyHasServiceKey(global::System.Reflection.PropertyInfo)",
@@ -857,7 +1008,11 @@ stdout:
                                 "origin": "source"
                               },
                               "children": [],
-                              "omission": null
+                              "omission": {
+                                "reason": "depth-limit",
+                                "symbolId": null,
+                                "referenceId": null
+                              }
                             }
                           ],
                           "omission": null
@@ -875,7 +1030,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n24",
+          "id": "n27",
           "kind": "branch",
           "change": "added",
           "label": "foreach (var property in implementationType.GetProperties(DeclaredMembers))",
@@ -903,7 +1058,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n25",
+              "id": "n28",
               "kind": "branch",
               "change": "added",
               "label": "if (property.CanWrite)",
@@ -931,7 +1086,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n26",
+                  "id": "n29",
                   "kind": "call",
                   "change": "added",
                   "label": "ServiceKeyAttributeCache.PropertyHasServiceKey",
@@ -967,19 +1122,27 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n27",
-                      "kind": "branch",
+                      "id": "n30",
+                      "kind": "call",
                       "change": "added",
-                      "label": "possible initialization of ReflectionCacheSet",
-                      "detail": null,
+                      "label": "ReflectionCacheSet.get_Shared",
+                      "detail": "depth limit",
                       "before": null,
                       "after": {
-                        "symbolId": null,
-                        "signature": null,
-                        "binding": "structural",
-                        "dispatch": "none",
-                        "targetIds": [],
-                        "definition": null,
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Shared()",
+                        "signature": "public static Autofac.Core.ReflectionCacheSet.get_Shared() -> Autofac.Core.ReflectionCacheSet",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Shared()"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                          "startLine": 41,
+                          "startColumn": 9,
+                          "endLine": 57,
+                          "endColumn": 10
+                        },
                         "callSites": [
                           {
                             "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
@@ -989,50 +1152,91 @@ stdout:
                             "endColumn": 41
                           }
                         ],
-                        "relation": "branch",
-                        "candidates": null,
-                        "origin": "structural"
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
                       },
-                      "children": [
-                        {
-                          "id": "n28",
-                          "kind": "call",
-                          "change": "added",
-                          "label": "initialization of ReflectionCacheSet",
-                          "detail": null,
-                          "before": null,
-                          "after": {
-                            "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet..cctor()",
-                            "signature": "static Autofac.Core.ReflectionCacheSet.ReflectionCacheSet() -> void",
-                            "binding": "resolved",
-                            "dispatch": "direct",
-                            "targetIds": [
-                              "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet..cctor()"
-                            ],
-                            "definition": {
-                              "path": "src/Autofac/Core/ReflectionCacheSet.cs",
-                              "startLine": 13,
-                              "startColumn": 1,
-                              "endLine": 237,
-                              "endColumn": 2
-                            },
-                            "callSites": [
-                              {
-                                "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
-                                "startLine": 57,
-                                "startColumn": 16,
-                                "endLine": 57,
-                                "endColumn": 41
-                              }
-                            ],
-                            "relation": "call",
-                            "candidates": [],
-                            "origin": "source"
-                          },
-                          "children": [],
-                          "omission": null
-                        }
-                      ],
+                      "children": [],
+                      "omission": {
+                        "reason": "depth-limit",
+                        "symbolId": null,
+                        "referenceId": null
+                      }
+                    },
+                    {
+                      "id": "n31",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "ReflectionCacheSet.get_Internal",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Internal()",
+                        "signature": "internal Autofac.Core.ReflectionCacheSet.get_Internal() -> Autofac.Core.InternalReflectionCaches",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Internal()"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                          "startLine": 65,
+                          "startColumn": 9,
+                          "endLine": 65,
+                          "endColumn": 13
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                            "startLine": 57,
+                            "startColumn": 16,
+                            "endLine": 57,
+                            "endColumn": 50
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n32",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "InternalReflectionCaches.get_ServiceKeyPropertyAttributes",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.InternalReflectionCaches.get_ServiceKeyPropertyAttributes()",
+                        "signature": "public Autofac.Core.InternalReflectionCaches.get_ServiceKeyPropertyAttributes() -> Autofac.Util.Cache.ReflectionCacheDictionary<System.Reflection.PropertyInfo, bool>",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.InternalReflectionCaches.get_ServiceKeyPropertyAttributes()"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/InternalReflectionCaches.cs",
+                          "startLine": 169,
+                          "startColumn": 9,
+                          "endLine": 169,
+                          "endColumn": 13
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Core/ServiceKeyAttributeCache.cs",
+                            "startLine": 57,
+                            "startColumn": 16,
+                            "endLine": 57,
+                            "endColumn": 79
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
                       "omission": null
                     }
                   ],
@@ -1045,7 +1249,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n29",
+          "id": "n33",
           "kind": "branch",
           "change": "added",
           "label": "if (baseType is not null && baseType != typeof(object))",
@@ -1073,7 +1277,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n30",
+              "id": "n34",
               "kind": "call",
               "change": "added",
               "label": "ReflectionActivator.UsesServiceKeyAttributeCached",
@@ -1109,19 +1313,27 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n31",
-                  "kind": "branch",
+                  "id": "n35",
+                  "kind": "call",
                   "change": "added",
-                  "label": "possible initialization of ReflectionCacheSet",
+                  "label": "ReflectionCacheSet.get_Shared",
                   "detail": null,
                   "before": null,
                   "after": {
-                    "symbolId": null,
-                    "signature": null,
-                    "binding": "structural",
-                    "dispatch": "none",
-                    "targetIds": [],
-                    "definition": null,
+                    "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Shared()",
+                    "signature": "public static Autofac.Core.ReflectionCacheSet.get_Shared() -> Autofac.Core.ReflectionCacheSet",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Shared()"
+                    ],
+                    "definition": {
+                      "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                      "startLine": 41,
+                      "startColumn": 9,
+                      "endLine": 57,
+                      "endColumn": 10
+                    },
                     "callSites": [
                       {
                         "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
@@ -1131,40 +1343,40 @@ stdout:
                         "endColumn": 37
                       }
                     ],
-                    "relation": "branch",
-                    "candidates": null,
-                    "origin": "structural"
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
                   },
                   "children": [
                     {
-                      "id": "n32",
+                      "id": "n36",
                       "kind": "call",
                       "change": "added",
-                      "label": "initialization of ReflectionCacheSet",
-                      "detail": null,
+                      "label": "ReflectionCacheSet.TryGetSharedCache",
+                      "detail": "depth limit",
                       "before": null,
                       "after": {
-                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet..cctor()",
-                        "signature": "static Autofac.Core.ReflectionCacheSet.ReflectionCacheSet() -> void",
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.TryGetSharedCache(out global::Autofac.Core.ReflectionCacheSet)",
+                        "signature": "private static Autofac.Core.ReflectionCacheSet.TryGetSharedCache(out Autofac.Core.ReflectionCacheSet? sharedCache) -> bool",
                         "binding": "resolved",
                         "dispatch": "direct",
                         "targetIds": [
-                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet..cctor()"
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.TryGetSharedCache(out global::Autofac.Core.ReflectionCacheSet)"
                         ],
                         "definition": {
                           "path": "src/Autofac/Core/ReflectionCacheSet.cs",
-                          "startLine": 13,
-                          "startColumn": 1,
-                          "endLine": 237,
-                          "endColumn": 2
+                          "startLine": 194,
+                          "startColumn": 5,
+                          "endLine": 203,
+                          "endColumn": 6
                         },
                         "callSites": [
                           {
-                            "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
-                            "startLine": 194,
-                            "startColumn": 12,
-                            "endLine": 194,
-                            "endColumn": 37
+                            "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                            "startLine": 43,
+                            "startColumn": 18,
+                            "endLine": 43,
+                            "endColumn": 56
                           }
                         ],
                         "relation": "call",
@@ -1172,13 +1384,304 @@ stdout:
                         "origin": "source"
                       },
                       "children": [],
+                      "omission": {
+                        "reason": "depth-limit",
+                        "symbolId": null,
+                        "referenceId": null
+                      }
+                    },
+                    {
+                      "id": "n37",
+                      "kind": "branch",
+                      "change": "added",
+                      "label": "if (!TryGetSharedCache(out var sharedCache))",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": null,
+                        "signature": null,
+                        "binding": "structural",
+                        "dispatch": "none",
+                        "targetIds": [],
+                        "definition": null,
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                            "startLine": 43,
+                            "startColumn": 13,
+                            "endLine": 54,
+                            "endColumn": 14
+                          }
+                        ],
+                        "relation": "branch",
+                        "candidates": null,
+                        "origin": "structural"
+                      },
+                      "children": [
+                        {
+                          "id": "n38",
+                          "kind": "branch",
+                          "change": "added",
+                          "label": "possible initialization of ReflectionCacheSet",
+                          "detail": null,
+                          "before": null,
+                          "after": {
+                            "symbolId": null,
+                            "signature": null,
+                            "binding": "structural",
+                            "dispatch": "none",
+                            "targetIds": [],
+                            "definition": null,
+                            "callSites": [
+                              {
+                                "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                                "startLine": 45,
+                                "startColumn": 23,
+                                "endLine": 45,
+                                "endColumn": 43
+                              }
+                            ],
+                            "relation": "branch",
+                            "candidates": null,
+                            "origin": "structural"
+                          },
+                          "children": [
+                            {
+                              "id": "n39",
+                              "kind": "call",
+                              "change": "added",
+                              "label": "initialization of ReflectionCacheSet",
+                              "detail": null,
+                              "before": null,
+                              "after": {
+                                "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet..cctor()",
+                                "signature": "static Autofac.Core.ReflectionCacheSet.ReflectionCacheSet() -> void",
+                                "binding": "resolved",
+                                "dispatch": "direct",
+                                "targetIds": [
+                                  "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet..cctor()"
+                                ],
+                                "definition": {
+                                  "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                                  "startLine": 13,
+                                  "startColumn": 1,
+                                  "endLine": 237,
+                                  "endColumn": 2
+                                },
+                                "callSites": [
+                                  {
+                                    "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                                    "startLine": 45,
+                                    "startColumn": 23,
+                                    "endLine": 45,
+                                    "endColumn": 43
+                                  }
+                                ],
+                                "relation": "call",
+                                "candidates": [],
+                                "origin": "source"
+                              },
+                              "children": [],
+                              "omission": null
+                            }
+                          ],
+                          "omission": null
+                        },
+                        {
+                          "id": "n40",
+                          "kind": "call",
+                          "change": "added",
+                          "label": "ReflectionCacheSet.TryGetSharedCache",
+                          "detail": null,
+                          "before": null,
+                          "after": {
+                            "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.TryGetSharedCache(out global::Autofac.Core.ReflectionCacheSet)",
+                            "signature": "private static Autofac.Core.ReflectionCacheSet.TryGetSharedCache(out Autofac.Core.ReflectionCacheSet? sharedCache) -> bool",
+                            "binding": "resolved",
+                            "dispatch": "direct",
+                            "targetIds": [
+                              "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.TryGetSharedCache(out global::Autofac.Core.ReflectionCacheSet)"
+                            ],
+                            "definition": {
+                              "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                              "startLine": 194,
+                              "startColumn": 5,
+                              "endLine": 203,
+                              "endColumn": 6
+                            },
+                            "callSites": [
+                              {
+                                "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                                "startLine": 48,
+                                "startColumn": 26,
+                                "endLine": 48,
+                                "endColumn": 60
+                              }
+                            ],
+                            "relation": "call",
+                            "candidates": [],
+                            "origin": "source"
+                          },
+                          "children": [],
+                          "omission": null
+                        },
+                        {
+                          "id": "n41",
+                          "kind": "branch",
+                          "change": "added",
+                          "label": "if (!TryGetSharedCache(out sharedCache))",
+                          "detail": null,
+                          "before": null,
+                          "after": {
+                            "symbolId": null,
+                            "signature": null,
+                            "binding": "structural",
+                            "dispatch": "none",
+                            "targetIds": [],
+                            "definition": null,
+                            "callSites": [
+                              {
+                                "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                                "startLine": 48,
+                                "startColumn": 21,
+                                "endLine": 52,
+                                "endColumn": 22
+                              }
+                            ],
+                            "relation": "branch",
+                            "candidates": null,
+                            "origin": "structural"
+                          },
+                          "children": [
+                            {
+                              "id": "n42",
+                              "kind": "call",
+                              "change": "added",
+                              "label": "new ReflectionCacheSet",
+                              "detail": "depth limit",
+                              "before": null,
+                              "after": {
+                                "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet..ctor()",
+                                "signature": "public Autofac.Core.ReflectionCacheSet.ReflectionCacheSet() -> void",
+                                "binding": "resolved",
+                                "dispatch": "direct",
+                                "targetIds": [
+                                  "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet..ctor()"
+                                ],
+                                "definition": {
+                                  "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                                  "startLine": 26,
+                                  "startColumn": 5,
+                                  "endLine": 29,
+                                  "endColumn": 6
+                                },
+                                "callSites": [
+                                  {
+                                    "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                                    "startLine": 50,
+                                    "startColumn": 39,
+                                    "endLine": 50,
+                                    "endColumn": 63
+                                  }
+                                ],
+                                "relation": "call",
+                                "candidates": [],
+                                "origin": "source"
+                              },
+                              "children": [],
+                              "omission": {
+                                "reason": "depth-limit",
+                                "symbolId": null,
+                                "referenceId": null
+                              }
+                            }
+                          ],
+                          "omission": null
+                        }
+                      ],
                       "omission": null
                     }
                   ],
                   "omission": null
                 },
                 {
-                  "id": "n33",
+                  "id": "n43",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "ReflectionCacheSet.get_Internal",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Internal()",
+                    "signature": "internal Autofac.Core.ReflectionCacheSet.get_Internal() -> Autofac.Core.InternalReflectionCaches",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.ReflectionCacheSet.get_Internal()"
+                    ],
+                    "definition": {
+                      "path": "src/Autofac/Core/ReflectionCacheSet.cs",
+                      "startLine": 65,
+                      "startColumn": 9,
+                      "endLine": 65,
+                      "endColumn": 13
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                        "startLine": 194,
+                        "startColumn": 12,
+                        "endLine": 194,
+                        "endColumn": 46
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n44",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "InternalReflectionCaches.get_ServiceKeyUsageByType",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.InternalReflectionCaches.get_ServiceKeyUsageByType()",
+                    "signature": "public Autofac.Core.InternalReflectionCaches.get_ServiceKeyUsageByType() -> Autofac.Util.Cache.ReflectionCacheDictionary<System.Type, bool>",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.InternalReflectionCaches.get_ServiceKeyUsageByType()"
+                    ],
+                    "definition": {
+                      "path": "src/Autofac/Core/InternalReflectionCaches.cs",
+                      "startLine": 177,
+                      "startColumn": 9,
+                      "endLine": 177,
+                      "endColumn": 13
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Autofac/Core/Activators/Reflection/ReflectionActivator.cs",
+                        "startLine": 194,
+                        "startColumn": 12,
+                        "endLine": 194,
+                        "endColumn": 68
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n45",
                   "kind": "call",
                   "change": "added",
                   "label": "ReflectionCacheSet.Shared.Internal.ServiceKeyUsageByType.GetOrAdd",
@@ -1208,7 +1711,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n34",
+                      "id": "n46",
                       "kind": "call",
                       "change": "added",
                       "label": "ReflectionActivator.UsesServiceKeyAttribute",

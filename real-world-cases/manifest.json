@@ -337,16 +337,17 @@
     "afterLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
     "before": "cdf6a83b8e85eefb60e02b9056be51fe050a2fef",
     "after": "0f0be581167e22671f73de59e410e8d1552540e0",
-    "reason": "Scan declared members and recurse through cached base-type service-key checks",
+    "reason": "Scan declared members and recurse through cached base-type service-key checks. Independent pinned-source and compiler review verifies preserved attribute checks and Shared/Internal/cache getter ordering, including the new guarded recursive helper. The static cycle follows a possible cache callback with a decreasing base-type argument and does not prove infinite runtime recursion. Source automatic roots include the new benchmark property accessors and setters, totaling 180; restored net10.0 has 101 roots. All paths to changed seeds were checked. Generated declarations were independently regenerated. Source has six additional unresolved resource calls; restored diagnostics remain empty. View options exclude external reflection getters and call-free success branches remain unrendered. Upstream tests were read but not executed.",
     "tags": [
       "recursion",
       "callback",
       "reflection",
-      "helper-extraction"
+      "helper-extraction",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/source-only-coverage.md",
-    "review": "reviews/autofac-service-key-inheritance.md",
+    "review": "../tests/Callrift.RealWorldCases/AutofacServiceKeyExpectations.cs",
     "routine": false,
     "views": [
       {
