@@ -15,8 +15,14 @@
     <PackageReference Include="System.CommandLine" />
   </ItemGroup>
   <Target Name="IncludeWorkspaceWorker" BeforeTargets="GetCopyToOutputDirectoryItems">
+    <MSBuild Projects="../Callrift.MSBuild/Callrift.MSBuild.csproj" Targets="GetTargetPath" Properties="Configuration=$(Configuration);TargetFramework=$(TargetFramework)">
+      <Output TaskParameter="TargetOutputs" ItemName="WorkspaceWorkerAssembly" />
+    </MSBuild>
+    <PropertyGroup>
+      <WorkspaceWorkerDirectory>@(WorkspaceWorkerAssembly->'%(RootDir)%(Directory)')</WorkspaceWorkerDirectory>
+    </PropertyGroup>
     <ItemGroup>
-      <WorkspaceWorkerFile Include="../Callrift.MSBuild/bin/$(Configuration)/$(TargetFramework)/**/*" />
+      <WorkspaceWorkerFile Include="$(WorkspaceWorkerDirectory)**/*" />
       <ContentWithTargetPath Include="@(WorkspaceWorkerFile)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" TargetPath="msbuild/%(WorkspaceWorkerFile.RecursiveDir)%(WorkspaceWorkerFile.Filename)%(WorkspaceWorkerFile.Extension)" />
     </ItemGroup>
   </Target>
