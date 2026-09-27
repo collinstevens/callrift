@@ -13,6 +13,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
     ConcurrentBag<ITypeSymbol> dispatchTypes, CancellationToken cancellationToken)
 {
     private ConditionalOperatorBindings? conditionalOperators;
+    private ReceiverGuardConstraints? receiverGuards;
 
     public IReadOnlyList<CallStep> Collect(SyntaxNode node)
     {
@@ -591,6 +592,8 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 || !(conversion.Conversion.IsReference || conversion.Conversion.IsIdentity)) break;
             receiver = conversion.Operand.Syntax as ExpressionSyntax;
         }
+        if (receiver is not null)
+            constraint = (receiverGuards ??= new ReceiverGuardConstraints(model, cancellationToken)).Narrow(receiver, constraint);
         return constraint is null ? null : DescribeType(constraint);
     }
 

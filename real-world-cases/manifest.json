@@ -28,7 +28,7 @@
     "licenseFile": "LICENSE",
     "before": "60935b4d7abad71cf6157b45a10f5c3c65ead527",
     "after": "6c3fbcf636b0671bbd6f5032b61a2254937d8408",
-    "reason": "Move key serialization under a non-null branch after the dictionary Elements and scalar Value getters. ToString targets remain conservative possibilities, including recursive value rendering; external writes are filtered in this view.",
+    "reason": "Move key serialization under a non-null branch after the dictionary Elements and scalar Value getters. ToString targets remain conservative possibilities, including recursive value rendering; external writes are filtered in this view. The boxed-character guard now excludes reference-type ToString overrides from unchanged JSON context; the metadata call stays hidden without externals.",
     "tags": [
       "branch-guard",
       "properties"

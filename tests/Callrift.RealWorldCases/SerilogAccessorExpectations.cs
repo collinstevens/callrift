@@ -28,6 +28,8 @@ internal static class SerilogAccessorExpectations
         Assert.Equal(4, nonNull.Children[0].After!.TargetIds.Count);
         Assert.Equal(7, nonNull.Children[0].Children.Count);
         Assert.Equal('-', Assert.Single(loop.Children, node => node.Label == "JsonValueFormatter.WriteQuotedJsonString").Mark);
+        var character = Assert.Single(Descendants(formatter.Children), node => node.Label == "if (value is char)");
+        Assert.Equal("JsonValueFormatter.FormatStringValue", Assert.Single(character.Children).Label);
     }
 
     public static void VerifyExceptionFormatting(DiffResult result)
