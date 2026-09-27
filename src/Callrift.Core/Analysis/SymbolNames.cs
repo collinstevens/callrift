@@ -27,7 +27,7 @@ internal sealed class SymbolNames(Func<IMethodSymbol, string>? scope = null, Fun
         if (method.MethodKind == MethodKind.LocalFunction && method.ContainingSymbol is IMethodSymbol owner)
             return Key(owner) + "/" + method.Name + "`" + method.Arity + Parameters(method);
         return (Scope(method) ?? "source") + "::" + method.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat).Replace("global::", "", StringComparison.Ordinal)
-            + "." + method.MetadataName + (method.Arity == 0 ? "" : "`" + method.Arity) + Parameters(method);
+            + "." + method.MetadataName + (method.Arity == 0 ? "" : "`" + method.Arity) + Parameters(method) + ConversionResult(method);
     }
 
     public string MatchName(IMethodSymbol method)
@@ -36,8 +36,11 @@ internal sealed class SymbolNames(Func<IMethodSymbol, string>? scope = null, Fun
         if (interceptors?.TryGetValue(method, out var interceptor) == true) return interceptor.Key;
         return method.MethodKind == MethodKind.LocalFunction && method.ContainingSymbol is IMethodSymbol owner
             ? MatchName(owner) + "/" + method.Name
-            : (Scope(method) is { } identity ? identity + "::" : "") + method.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat) + "." + method.Name;
+            : (Scope(method) is { } identity ? identity + "::" : "") + method.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat) + "." + method.Name + ConversionResult(method);
     }
+
+    private static string ConversionResult(IMethodSymbol method) => method.MethodKind == MethodKind.Conversion
+        ? "->" + method.ReturnType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat) : "";
 
     public string Label(IMethodSymbol method)
     {
