@@ -1,0 +1,103 @@
+﻿format: text
+exit: 0
+stdout:
+  RetryResilienceStrategy<T>.ExecuteCore
+  └─ while (true)
+     ├─ _timeProvider.GetTimestamp
+     ├─ StrategyHelper.ExecuteCallbackSafeAsync
+     ├─ StrategyHelper.ExecuteCallbackSafeAsync(callback, context, state).ConfigureAwait
+     ├─ new RetryPredicateArguments<TResult>
+     ├─ ShouldHandle
+     ├─ ShouldHandle(shouldRetryArgs).ConfigureAwait
+     ├─ _timeProvider.GetElapsedTime
+     ├─ RetryResilienceStrategy<T>.IsLastAttempt
+     ├─ if (isLastAttempt)
+     ├─ else (!(isLastAttempt))
+     ├─ RetryHelper.GetRetryDelay
+     ├─ if (DelayGenerator is not null)
+     ├─ TimeSpan.op_GreaterThanOrEqual
+     ├─ Debug.Assert
+     ├─ new OnRetryArguments<TResult>
+     ├─ new ResilienceEvent
+     ├─ ResilienceStrategyTelemetry.Report
+     ├─ if (OnRetry is not null)
+     ├─ Outcome<TResult>.TryGetResult
+     ├─ if (outcome.TryGetResult(out var resultValue))
+-    ├─ TimeSpan.op_GreaterThan
+-    ├─ if (delay > TimeSpan.Zero)
+-    │  ├─ try
+-    │  │  ├─ TimeProviderExtensions.DelayAsync (depth limit)
+-    │  │  └─ _timeProvider.DelayAsync(delay, context).ConfigureAwait
+-    │  └─ catch (OperationCanceledException e)
+-    │     └─ Outcome.FromException (depth limit)
++    ├─ try
++    │  ├─ context.CancellationToken.ThrowIfCancellationRequested
++    │  ├─ TimeSpan.op_GreaterThan
++    │  └─ if (delay > TimeSpan.Zero)
++    │     ├─ TimeProviderExtensions.DelayAsync (depth limit)
++    │     └─ _timeProvider.DelayAsync(delay, context).ConfigureAwait
++    └─ catch (OperationCanceledException e)
++       └─ Outcome.FromException (depth limit)
+stderr:
+src/Polly.Core/CircuitBreaker/CircuitBreakerResilienceStrategy.cs:30: generic-context-limit: Generic invocation expansion for CircuitBreakerResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Fallback/FallbackResilienceStrategy.cs:20: generic-context-limit: Generic invocation expansion for FallbackResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Hedging/HedgingResilienceStrategy.cs:34: generic-context-limit: Generic invocation expansion for HedgingResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Retry/RetryResilienceStrategy.cs:46: generic-context-limit: Generic invocation expansion for RetryResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Simmy/Outcomes/ChaosOutcomeStrategy.cs:19: generic-context-limit: Generic invocation expansion for ChaosOutcomeStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/BridgeComponent.cs:11: generic-context-limit: Generic invocation expansion for BridgeComponent.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/BridgeComponent.TResult.cs:13: generic-context-limit: Generic invocation expansion for BridgeComponent<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/ComponentWithDisposeCallbacks.cs:22: generic-context-limit: Generic invocation expansion for ComponentWithDisposeCallbacks.ExecuteCore exceeded 128 type nodes.
+7 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  RetryResilienceStrategy<T>.ExecuteCore
+  └─ while (true)
+     ├─ _timeProvider.GetTimestamp
+     ├─ StrategyHelper.ExecuteCallbackSafeAsync
+     ├─ StrategyHelper.ExecuteCallbackSafeAsync(callback, context, state).ConfigureAwait
+     ├─ new RetryPredicateArguments<TResult>
+     ├─ ShouldHandle
+     ├─ ShouldHandle(shouldRetryArgs).ConfigureAwait
+     ├─ _timeProvider.GetElapsedTime
+     ├─ RetryResilienceStrategy<T>.IsLastAttempt
+     ├─ if (isLastAttempt)
+     ├─ else (!(isLastAttempt))
+     ├─ RetryHelper.GetRetryDelay
+     ├─ if (DelayGenerator is not null)
+     ├─ TimeSpan.op_GreaterThanOrEqual
+     ├─ Debug.Assert
+     ├─ new OnRetryArguments<TResult>
+     ├─ new ResilienceEvent
+     ├─ ResilienceStrategyTelemetry.Report
+     ├─ if (OnRetry is not null)
+     ├─ Outcome<TResult>.TryGetResult
+     ├─ if (outcome.TryGetResult(out var resultValue))
+-    ├─ TimeSpan.op_GreaterThan
+-    ├─ if (delay > TimeSpan.Zero)
+-    │  ├─ try
+-    │  │  ├─ TimeProviderExtensions.DelayAsync (depth limit)
+-    │  │  └─ _timeProvider.DelayAsync(delay, context).ConfigureAwait
+-    │  └─ catch (OperationCanceledException e)
+-    │     └─ Outcome.FromException (depth limit)
++    ├─ try
++    │  ├─ context.CancellationToken.ThrowIfCancellationRequested
++    │  ├─ TimeSpan.op_GreaterThan
++    │  └─ if (delay > TimeSpan.Zero)
++    │     ├─ TimeProviderExtensions.DelayAsync (depth limit)
++    │     └─ _timeProvider.DelayAsync(delay, context).ConfigureAwait
++    └─ catch (OperationCanceledException e)
++       └─ Outcome.FromException (depth limit)
+```
+stderr:
+src/Polly.Core/CircuitBreaker/CircuitBreakerResilienceStrategy.cs:30: generic-context-limit: Generic invocation expansion for CircuitBreakerResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Fallback/FallbackResilienceStrategy.cs:20: generic-context-limit: Generic invocation expansion for FallbackResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Hedging/HedgingResilienceStrategy.cs:34: generic-context-limit: Generic invocation expansion for HedgingResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Retry/RetryResilienceStrategy.cs:46: generic-context-limit: Generic invocation expansion for RetryResilienceStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Simmy/Outcomes/ChaosOutcomeStrategy.cs:19: generic-context-limit: Generic invocation expansion for ChaosOutcomeStrategy<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/BridgeComponent.cs:11: generic-context-limit: Generic invocation expansion for BridgeComponent.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/BridgeComponent.TResult.cs:13: generic-context-limit: Generic invocation expansion for BridgeComponent<T>.ExecuteCore exceeded 128 type nodes.
+src/Polly.Core/Utils/Pipeline/ComponentWithDisposeCallbacks.cs:22: generic-context-limit: Generic invocation expansion for ComponentWithDisposeCallbacks.ExecuteCore exceeded 128 type nodes.
+7 additional diagnostics; use --diagnostics full.
