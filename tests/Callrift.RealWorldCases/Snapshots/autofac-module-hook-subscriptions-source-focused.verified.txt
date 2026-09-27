@@ -1,0 +1,123 @@
+﻿format: text
+exit: 0
+stdout:
+  new InternalReflectionCaches
+  ├─ new Object
+  ├─ ReflectionCacheSet.GetOrCreateCache
++ ├─ ReflectionCacheSet.GetOrCreateCache ×2
++ │  ├─ try
++ │  │  └─ _caches.GetOrAdd
++ │  │     └─ factory
++ │  ├─ catch (InvalidCastException)
++ │  │  └─ ? new InvalidOperationException
++ │  └─ new ReflectionCacheDictionary<TKey, TValue>
++ │     └─ new ConcurrentDictionary<TKey, TValue>
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache ×5
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache ×2
+  └─ ReflectionCacheSet.GetOrCreateCache
+
+  Module.AttachToRegistrations
+  ├─ if (componentRegistry == null)
+- ├─ callback
+- │  └─ Module.AttachToComponentRegistration
++ ├─ GetType
++ ├─ possible initialization of ReflectionCacheSet
++ │  └─ initialization of ReflectionCacheSet
++ │     └─ new
++ ├─ cache.GetOrAdd
++ │  ├─ t.GetMethod
++ │  └─ if (method is not null)
++ │     └─ Type.op_Inequality
++ └─ if (overrides)
++    └─ callback
++       └─ Module.AttachToComponentRegistration
+
+  Module.AttachToSources
+  ├─ if (componentRegistry == null)
+- ├─ callback
+- │  └─ Module.AttachToRegistrationSource
++ ├─ GetType
++ ├─ possible initialization of ReflectionCacheSet
++ │  └─ initialization of ReflectionCacheSet ↑ as above
++ ├─ cache.GetOrAdd ↑ as above
++ └─ if (overrides)
++    └─ callback
++       └─ Module.AttachToRegistrationSource
+stderr:
+bench/Autofac.BenchmarkProfiling/Program.cs:35: unresolved-call: Cannot bind BenchmarkConverter.TypeToBenchmarks.
+bench/Autofac.BenchmarkProfiling/Program.cs:62: unresolved-call: Cannot bind PrintCases; candidates: source::Autofac.BenchmarkProfiling.Program.PrintCases(BenchmarkRunInfo)
+bench/Autofac.BenchmarkProfiling/Program.cs:74: unresolved-call: Cannot bind PrintCases; candidates: source::Autofac.BenchmarkProfiling.Program.PrintCases(BenchmarkRunInfo)
+bench/Autofac.BenchmarkProfiling/Program.cs:80: unresolved-call: Cannot bind Activator.CreateInstance; candidates: source::System.Activator.CreateInstance(global::System.Type), source::System.Activator.CreateInstance(global::System.Type,bool), source::System.Activator.CreateInstance(global::System.Type,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo), source::System.Activator.CreateInstance(global::System.Type,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo,object[]), source::System.Activator.CreateInstance(global::System.Type,object[]), source::System.Activator.CreateInstance(global::System.Type,object[],object[]), source::System.Activator.CreateInstance(string,string), source::System.Activator.CreateInstance(string,string,bool,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo,object[]), source::System.Activator.CreateInstance(string,string,object[]), source::System.Activator.CreateInstance`1()
+bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalSetup.
+bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
+bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
+bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
+166 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  new InternalReflectionCaches
+  ├─ new Object
+  ├─ ReflectionCacheSet.GetOrCreateCache
++ ├─ ReflectionCacheSet.GetOrCreateCache ×2
++ │  ├─ try
++ │  │  └─ _caches.GetOrAdd
++ │  │     └─ factory
++ │  ├─ catch (InvalidCastException)
++ │  │  └─ ? new InvalidOperationException
++ │  └─ new ReflectionCacheDictionary<TKey, TValue>
++ │     └─ new ConcurrentDictionary<TKey, TValue>
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache ×5
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache ×2
+  └─ ReflectionCacheSet.GetOrCreateCache
+
+  Module.AttachToRegistrations
+  ├─ if (componentRegistry == null)
+- ├─ callback
+- │  └─ Module.AttachToComponentRegistration
++ ├─ GetType
++ ├─ possible initialization of ReflectionCacheSet
++ │  └─ initialization of ReflectionCacheSet
++ │     └─ new
++ ├─ cache.GetOrAdd
++ │  ├─ t.GetMethod
++ │  └─ if (method is not null)
++ │     └─ Type.op_Inequality
++ └─ if (overrides)
++    └─ callback
++       └─ Module.AttachToComponentRegistration
+
+  Module.AttachToSources
+  ├─ if (componentRegistry == null)
+- ├─ callback
+- │  └─ Module.AttachToRegistrationSource
++ ├─ GetType
++ ├─ possible initialization of ReflectionCacheSet
++ │  └─ initialization of ReflectionCacheSet ↑ as above
++ ├─ cache.GetOrAdd ↑ as above
++ └─ if (overrides)
++    └─ callback
++       └─ Module.AttachToRegistrationSource
+```
+stderr:
+bench/Autofac.BenchmarkProfiling/Program.cs:35: unresolved-call: Cannot bind BenchmarkConverter.TypeToBenchmarks.
+bench/Autofac.BenchmarkProfiling/Program.cs:62: unresolved-call: Cannot bind PrintCases; candidates: source::Autofac.BenchmarkProfiling.Program.PrintCases(BenchmarkRunInfo)
+bench/Autofac.BenchmarkProfiling/Program.cs:74: unresolved-call: Cannot bind PrintCases; candidates: source::Autofac.BenchmarkProfiling.Program.PrintCases(BenchmarkRunInfo)
+bench/Autofac.BenchmarkProfiling/Program.cs:80: unresolved-call: Cannot bind Activator.CreateInstance; candidates: source::System.Activator.CreateInstance(global::System.Type), source::System.Activator.CreateInstance(global::System.Type,bool), source::System.Activator.CreateInstance(global::System.Type,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo), source::System.Activator.CreateInstance(global::System.Type,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo,object[]), source::System.Activator.CreateInstance(global::System.Type,object[]), source::System.Activator.CreateInstance(global::System.Type,object[],object[]), source::System.Activator.CreateInstance(string,string), source::System.Activator.CreateInstance(string,string,bool,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo,object[]), source::System.Activator.CreateInstance(string,string,object[]), source::System.Activator.CreateInstance`1()
+bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalSetup.
+bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
+bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
+bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
+166 additional diagnostics; use --diagnostics full.

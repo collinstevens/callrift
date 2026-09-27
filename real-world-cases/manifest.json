@@ -2240,5 +2240,87 @@
         ]
       }
     ]
+  },
+  {
+    "id": "autofac-module-hook-subscriptions",
+    "repository": "https://github.com/autofac/Autofac.git",
+    "cacheName": "autofac",
+    "license": "MIT",
+    "licenseFile": "LICENSE",
+    "before": "f8d4095df4ca429b948c0f6f7c7b511e65b07988",
+    "after": "434c93c86cad878a60bd7904387eacaef5c25bba",
+    "beforeLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
+    "afterLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
+    "reason": "Cache module-hook override detection and move event callbacks under conditional subscriptions; preserve possible callback semantics and explicit omission of event accessors and shared-cache property getter calls",
+    "tags": [
+      "event-callback",
+      "reflection",
+      "conditional-subscription",
+      "generic-cache",
+      "static-initialization"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "review": "../tests/Callrift.RealWorldCases/AutofacModuleExpectations.cs",
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--entry",
+          "Module.AttachToRegistrations",
+          "--entry",
+          "Module.AttachToSources",
+          "--entry",
+          "new InternalReflectionCaches",
+          "--depth",
+          "3",
+          "--context",
+          "all",
+          "--externals"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Autofac/Autofac.csproj",
+          "--framework",
+          "net8.0",
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "routine": false,
+        "options": [
+          "--project",
+          "src/Autofac/Autofac.csproj",
+          "--framework",
+          "net8.0",
+          "--entry",
+          "Module.AttachToRegistrations",
+          "--entry",
+          "Module.AttachToSources",
+          "--entry",
+          "new InternalReflectionCaches",
+          "--depth",
+          "3",
+          "--context",
+          "all",
+          "--externals"
+        ]
+      }
+    ]
   }
 ]

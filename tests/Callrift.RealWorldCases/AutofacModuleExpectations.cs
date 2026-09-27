@@ -1,0 +1,78 @@
+using Callrift.Core;
+using Xunit;
+
+namespace Callrift.RealWorldCases;
+
+internal static class AutofacModuleExpectations
+{
+    public static void Verify(DiffResult result, bool focused)
+    {
+        var workspace = result.Coverage.Mode == "msbuild";
+        Assert.Equal("partial", result.Coverage.Status);
+        Assert.Contains("callbacks-are-possible-calls", result.Coverage.Limitations);
+        Assert.Contains("unfollowed-accessors-operators-events", result.Coverage.Limitations);
+        Assert.True(result.Truncated);
+        if (workspace) Assert.Empty(result.Diagnostics);
+        else
+        {
+            Assert.Equal(172, result.Diagnostics.Count(diagnostic => diagnostic.Code == "unresolved-call"));
+            Assert.Equal(2, result.Diagnostics.Count(diagnostic => diagnostic.Code == "test-project-inferred"));
+        }
+        if (!focused)
+        {
+            Assert.Equal(7, result.Trees.Count);
+            Assert.Equal(7, result.Trees.Select(node => node.After!.SymbolId).Distinct().Count());
+            var constructor = Assert.Single(result.Trees, node => node.Label == "new ReflectionCacheSet");
+            Assert.Equal("new InternalReflectionCaches", Assert.Single(constructor.Children).Label);
+            Assert.Equal(4, result.Trees.Count(node => node.Label == "ModuleRegistrationExtensions.RegisterAssemblyModules"));
+            Assert.Equal(2, result.Trees.Count(node => node.Label == "ModuleRegistrationExtensions.RegisterModule"));
+            return;
+        }
+        Assert.Equal(["new InternalReflectionCaches", "Module.AttachToRegistrations", "Module.AttachToSources"],
+            result.Trees.Select(node => node.Label));
+        var caches = result.Trees[0];
+        var added = caches.Children.Where(node => node.Mark == '+').ToArray();
+        Assert.Equal(2, added.Length);
+        Assert.Equal([28, 33], added.Select(node => Assert.Single(node.After!.CallSites).Line));
+        Assert.All(added, node =>
+        {
+            Assert.Equal("ReflectionCacheSet.GetOrCreateCache", node.Label);
+            Assert.Null(node.Before);
+            var creation = Assert.Single(node.Children, child => child.Label == "new ReflectionCacheDictionary<TKey, TValue>");
+            Assert.Equal("callback", creation.After!.Relation);
+            Assert.Equal("new ConcurrentDictionary<TKey, TValue>", Assert.Single(creation.Children).Label);
+            var failure = Assert.Single(Descendants(node.Children), child => child.Label.EndsWith("new InvalidOperationException", StringComparison.Ordinal));
+            Assert.Equal(workspace ? "resolved" : "unresolved", failure.After!.Binding);
+        });
+        VerifyHook(result.Trees[1], "Module.AttachToComponentRegistration", 155);
+        VerifyHook(result.Trees[2], "Module.AttachToRegistrationSource", 186);
+    }
+
+    private static void VerifyHook(DiffNode root, string hook, int line)
+    {
+        var guard = Assert.Single(root.Children, node => node.Label == "if (componentRegistry == null)");
+        Assert.Equal(' ', guard.Mark);
+        Assert.Equal("new ArgumentNullException", Assert.Single(guard.Children).Label);
+        var removed = Assert.Single(root.Children, node => node.Label == "callback" && node.Mark == '-');
+        var original = Assert.Single(removed.Children);
+        Assert.Equal(hook, original.Label);
+        var lookup = Assert.Single(root.Children, node => node.Label == "cache.GetOrAdd");
+        Assert.Equal('+', lookup.Mark);
+        Assert.Equal(["t.GetMethod", "if (method is not null)"], lookup.Children.Select(node => node.Label));
+        Assert.Equal("callback", lookup.Children[0].After!.Relation);
+        Assert.Equal("Type.op_Inequality", Assert.Single(lookup.Children[1].Children).Label);
+        var condition = Assert.Single(root.Children, node => node.Label == "if (overrides)");
+        Assert.Equal('+', condition.Mark);
+        var callback = Assert.Single(condition.Children);
+        Assert.Equal("callback", callback.After!.Relation);
+        var moved = Assert.Single(callback.Children);
+        Assert.Equal(hook, moved.Label);
+        Assert.Equal(original.Before!.SymbolId, moved.After!.SymbolId);
+        Assert.Equal(line, Assert.Single(moved.After.CallSites).Line);
+        Assert.DoesNotContain(Descendants(root.Children), node => node.After?.SymbolId?.Contains(".add_", StringComparison.Ordinal) == true
+            || node.After?.SymbolId?.Contains(".get_Shared", StringComparison.Ordinal) == true);
+    }
+
+    private static IEnumerable<DiffNode> Descendants(IEnumerable<DiffNode> nodes) =>
+        nodes.SelectMany(node => new[] { node }.Concat(Descendants(node.Children)));
+}

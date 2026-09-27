@@ -1,0 +1,105 @@
+﻿format: text
+exit: 0
+stdout:
+  new InternalReflectionCaches
+  ├─ new Object
+  ├─ ReflectionCacheSet.GetOrCreateCache
++ ├─ ReflectionCacheSet.GetOrCreateCache ×2
++ │  ├─ try
++ │  │  └─ _caches.GetOrAdd
++ │  │     └─ factory
++ │  ├─ catch (InvalidCastException)
++ │  │  └─ new InvalidOperationException
++ │  └─ new ReflectionCacheDictionary<TKey, TValue>
++ │     └─ new ConcurrentDictionary<TKey, TValue>
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache ×5
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache ×2
+  └─ ReflectionCacheSet.GetOrCreateCache
+
+  Module.AttachToRegistrations
+  ├─ if (componentRegistry == null)
+- ├─ callback
+- │  └─ Module.AttachToComponentRegistration
++ ├─ GetType
++ ├─ possible initialization of ReflectionCacheSet
++ │  └─ initialization of ReflectionCacheSet
++ │     └─ new
++ ├─ cache.GetOrAdd
++ │  ├─ t.GetMethod
++ │  └─ if (method is not null)
++ │     └─ Type.op_Inequality
++ └─ if (overrides)
++    └─ callback
++       └─ Module.AttachToComponentRegistration
+
+  Module.AttachToSources
+  ├─ if (componentRegistry == null)
+- ├─ callback
+- │  └─ Module.AttachToRegistrationSource
++ ├─ GetType
++ ├─ possible initialization of ReflectionCacheSet
++ │  └─ initialization of ReflectionCacheSet ↑ as above
++ ├─ cache.GetOrAdd ↑ as above
++ └─ if (overrides)
++    └─ callback
++       └─ Module.AttachToRegistrationSource
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  new InternalReflectionCaches
+  ├─ new Object
+  ├─ ReflectionCacheSet.GetOrCreateCache
++ ├─ ReflectionCacheSet.GetOrCreateCache ×2
++ │  ├─ try
++ │  │  └─ _caches.GetOrAdd
++ │  │     └─ factory
++ │  ├─ catch (InvalidCastException)
++ │  │  └─ new InvalidOperationException
++ │  └─ new ReflectionCacheDictionary<TKey, TValue>
++ │     └─ new ConcurrentDictionary<TKey, TValue>
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache ×5
+  ├─ ReflectionCacheSet.GetOrCreateCache
+  ├─ ReflectionCacheSet.GetOrCreateCache ×2
+  └─ ReflectionCacheSet.GetOrCreateCache
+
+  Module.AttachToRegistrations
+  ├─ if (componentRegistry == null)
+- ├─ callback
+- │  └─ Module.AttachToComponentRegistration
++ ├─ GetType
++ ├─ possible initialization of ReflectionCacheSet
++ │  └─ initialization of ReflectionCacheSet
++ │     └─ new
++ ├─ cache.GetOrAdd
++ │  ├─ t.GetMethod
++ │  └─ if (method is not null)
++ │     └─ Type.op_Inequality
++ └─ if (overrides)
++    └─ callback
++       └─ Module.AttachToComponentRegistration
+
+  Module.AttachToSources
+  ├─ if (componentRegistry == null)
+- ├─ callback
+- │  └─ Module.AttachToRegistrationSource
++ ├─ GetType
++ ├─ possible initialization of ReflectionCacheSet
++ │  └─ initialization of ReflectionCacheSet ↑ as above
++ ├─ cache.GetOrAdd ↑ as above
++ └─ if (overrides)
++    └─ callback
++       └─ Module.AttachToRegistrationSource
+```
+stderr:
