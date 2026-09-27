@@ -82,7 +82,9 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                     ConstructorDeclarationSyntax constructor => model.GetDeclaredSymbol(constructor, cancellationToken),
                     ConversionOperatorDeclarationSyntax conversion => model.GetDeclaredSymbol(conversion, cancellationToken),
                     OperatorDeclarationSyntax operation => model.GetDeclaredSymbol(operation, cancellationToken),
-                    AccessorDeclarationSyntax { Parent.Parent: EventDeclarationSyntax } accessor => model.GetDeclaredSymbol(accessor, cancellationToken),
+                    AccessorDeclarationSyntax accessor => model.GetDeclaredSymbol(accessor, cancellationToken),
+                    PropertyDeclarationSyntax { ExpressionBody: not null } property => model.GetDeclaredSymbol(property, cancellationToken)?.GetMethod,
+                    IndexerDeclarationSyntax { ExpressionBody: not null } indexer => model.GetDeclaredSymbol(indexer, cancellationToken)?.GetMethod,
                     LocalFunctionStatementSyntax local => model.GetDeclaredSymbol(local, cancellationToken),
                     _ => null
                 };
@@ -95,6 +97,8 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                     ConversionOperatorDeclarationSyntax conversion => (SyntaxNode?)conversion.Body ?? conversion.ExpressionBody,
                     OperatorDeclarationSyntax operation => (SyntaxNode?)operation.Body ?? operation.ExpressionBody,
                     AccessorDeclarationSyntax accessor => (SyntaxNode?)accessor.Body ?? accessor.ExpressionBody,
+                    PropertyDeclarationSyntax property => property.ExpressionBody,
+                    IndexerDeclarationSyntax indexer => indexer.ExpressionBody,
                     LocalFunctionStatementSyntax local => (SyntaxNode?)local.Body ?? local.ExpressionBody,
                     _ => null
                 };
@@ -103,6 +107,11 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                     calls.AddRange(collector.Collect(initializer));
                 if (body is not null)
                     calls.AddRange(collector.Collect(body));
+                var automaticProperty = node is AccessorDeclarationSyntax && body is null && symbol.AssociatedSymbol is IPropertySymbol
+                    && !symbol.IsAbstract && !symbol.IsExtern && !symbol.IsPartialDefinition;
+                if (automaticProperty && symbol.IsStatic)
+                    calls.Add(new CallStep("initialize", "initialize:" + DispatchType.From(symbol.ContainingType).Name, "initialization", true, symbols.Location(node), [])
+                    { InitializationTriggerType = DispatchType.From(symbol.ContainingType), InitializationTriggerIsField = true, InitializationScope = symbols.InitializationScope(symbol.ContainingType) });
                 var comparisonBody = body;
                 if (node is ConstructorDeclarationSyntax { Initializer: { } constructorInitializer })
                 {
@@ -116,7 +125,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                     comparisonBody = SyntaxFactory.Block(statements);
                 }
                 members.Add(new Member(symbols.Key(symbol), symbols.Label(symbol), symbols.MatchName(symbol), symbols.Signature(symbol),
-                    symbols.Location(node), body is not null, calls)
+                    symbols.Location(node), body is not null || automaticProperty, calls)
                 {
                     Body = comparisonBody,
                     InitializationTriggerType = TypeInitialization.Triggers(symbol) ? DispatchType.From(symbol.ContainingType) : null,
@@ -150,6 +159,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                 indexed[group.Key] = bodies.FirstOrDefault() ?? group.First();
         }
         var distinctTypes = types.Distinct<INamedTypeSymbol>(SymbolEqualityComparer.Default).ToArray();
+        AddImplicitPropertyAccessors(distinctTypes, indexed, symbols, cancellationToken);
         AddInitializers(distinctTypes, compilation, indexed, symbols, diagnostics, dispatchTypes, cancellationToken);
         AddRecordClones(distinctTypes, compilation, indexed, symbols, diagnostics, dispatchTypes, cancellationToken);
         AddStaticInitializers(distinctTypes, compilation, indexed, symbols, diagnostics, dispatchTypes, cancellationToken);
@@ -167,6 +177,27 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
         return new CallGraph(indexed, dispatch.Implementations, diagnostics.Distinct().OrderBy(d => d.Location?.Path, StringComparer.Ordinal)
             .ThenBy(d => d.Location?.Line).ThenBy(d => d.Code, StringComparer.Ordinal).ThenBy(d => d.Message, StringComparer.Ordinal).ToArray())
         { DispatchContracts = dispatch.Contracts, TypeDefinitions = dispatch.TypeDefinitions };
+    }
+
+    private static void AddImplicitPropertyAccessors(IEnumerable<INamedTypeSymbol> types, Dictionary<string, Member> members,
+        SymbolNames symbols, CancellationToken cancellationToken)
+    {
+        foreach (var type in types)
+            foreach (var property in type.GetMembers().OfType<IPropertySymbol>())
+                foreach (var accessor in new[] { property.GetMethod, property.SetMethod }.OfType<IMethodSymbol>())
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                    var key = symbols.Key(accessor);
+                    if (!accessor.IsImplicitlyDeclared || members.ContainsKey(key)) continue;
+                    var declaration = property.DeclaringSyntaxReferences.FirstOrDefault() ?? type.DeclaringSyntaxReferences.FirstOrDefault();
+                    if (declaration is null) continue;
+                    members[key] = new Member(key, symbols.Label(accessor), symbols.MatchName(accessor), symbols.Signature(accessor),
+                        symbols.Location(declaration.GetSyntax(cancellationToken)), !accessor.IsAbstract && !accessor.IsExtern, [])
+                    {
+                        InstanceType = GenericBindings.HasContainingInstance(accessor) ? DispatchType.From(type) : null,
+                        GenericParameters = GenericBindings.FromMethod(accessor).Keys.Order(StringComparer.Ordinal).ToArray()
+                    };
+                }
     }
 
     private static void AddStaticInitializers(IEnumerable<INamedTypeSymbol> types, CSharpCompilation compilation, Dictionary<string, Member> members, SymbolNames symbols,

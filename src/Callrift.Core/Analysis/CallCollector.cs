@@ -70,9 +70,28 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 if (accessor is { IsImplicitlyDeclared: true, IsAbstract: false }) AddStaticMember(assignment.Left, result);
                 result.Add(CreateCall(assignment.Left, accessor, []));
                 return;
+            case AssignmentExpressionSyntax assignment when model.GetOperation(assignment, cancellationToken) is IDeconstructionAssignmentOperation:
+                var targets = AssignmentTargets(assignment.Left).ToArray();
+                foreach (var target in targets)
+                    if (model.GetOperation(target, cancellationToken) is IPropertyReferenceOperation { Property.ReturnsByRef: true }) Walk(target, result);
+                    else WalkPropertyInputs(target, result);
+                Walk(assignment.Right, result);
+                foreach (var target in targets)
+                {
+                    AddPropertySetter(target, result);
+                    AddStaticMember(target, result);
+                }
+                return;
+            case AssignmentExpressionSyntax assignment when assignment.Right is InitializerExpressionSyntax nested
+                && model.GetOperation(assignment, cancellationToken) is IMemberInitializerOperation:
+                WalkMemberInitializer(assignment, nested, [], result);
+                return;
             case AssignmentExpressionSyntax assignment when assignment.IsKind(SyntaxKind.CoalesceAssignmentExpression):
                 Walk(assignment.Left, result);
-                Branch("if (" + SymbolNames.Compact(assignment.Left) + " is null)", assignment, [assignment.Right], result);
+                var coalesced = new List<CallStep>();
+                Walk(assignment.Right, coalesced);
+                AddPropertySetter(assignment.Left, coalesced);
+                AddBranch("if (" + SymbolNames.Compact(assignment.Left) + " is null)", assignment, coalesced, result);
                 return;
             case AssignmentExpressionSyntax assignment when !assignment.IsKind(SyntaxKind.SimpleAssignmentExpression)
                 && model.GetOperation(assignment, cancellationToken) is ICompoundAssignmentOperation compound:
@@ -84,6 +103,14 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                     result.Add(CreateOperatorCall(assignment, assignmentOperator, compound.ConstrainedToType, assignment.Left));
                 if (compound.OutConversion is { IsUserDefined: true, MethodSymbol: { } output })
                     result.Add(CreateOperatorCall(assignment, output, compound.OutConversion.ConstrainedToType));
+                AddPropertySetter(assignment.Left, result);
+                return;
+            case AssignmentExpressionSyntax assignment when assignment.IsKind(SyntaxKind.SimpleAssignmentExpression)
+                && PropertyReference(assignment.Left) is { } target:
+                if (target.Property.ReturnsByRef || target.Property.ReturnsByRefReadonly) Walk(assignment.Left, result);
+                else WalkPropertyInputs(assignment.Left, result);
+                Walk(assignment.Right, result);
+                AddPropertySetter(assignment.Left, result);
                 return;
             case AssignmentExpressionSyntax assignment when StaticMember(assignment.Left) is { } assignedMember:
                 var readBeforeAssignment = !assignment.IsKind(SyntaxKind.SimpleAssignmentExpression) && assignedMember is not IEventSymbol;
@@ -91,12 +118,22 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 Walk(assignment.Right, result);
                 if (!readBeforeAssignment) AddStaticMember(assignment.Left, result);
                 return;
+            case ExpressionSyntax expression when expression is IdentifierNameSyntax or MemberAccessExpressionSyntax or MemberBindingExpressionSyntax
+                or ElementAccessExpressionSyntax or ElementBindingExpressionSyntax or ImplicitElementAccessSyntax
+                && model.GetOperation(expression, cancellationToken) is IPropertyReferenceOperation property:
+                WalkPropertyInputs(expression, result);
+                if (property.Property.GetMethod is { } getter)
+                    result.Add(CreateCall(expression, getter, []));
+                return;
             case MemberAccessExpressionSyntax access:
                 Walk(access.Expression, result);
                 AddStaticMember(access, result);
                 return;
             case IdentifierNameSyntax identifier:
                 AddStaticMember(identifier, result);
+                return;
+            case FieldExpressionSyntax field:
+                AddStaticMember(field, result);
                 return;
             case InvocationExpressionSyntax invocation:
                 if (invocation.Expression is IdentifierNameSyntax { Identifier.ValueText: "nameof" } && model.GetConstantValue(invocation, cancellationToken).HasValue)
@@ -137,17 +174,22 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 if (conditional.Else is not null)
                     Branch("else (!(" + SymbolNames.Compact(conditional.Condition) + "))", conditional.Else, [conditional.Else.Statement], result);
                 return;
+            case IsPatternExpressionSyntax pattern:
+                Walk(pattern.Expression, result);
+                Branch("pattern (" + SymbolNames.Compact(pattern.Expression) + " is " + SymbolNames.Compact(pattern.Pattern) + ")", pattern, [pattern.Pattern], result);
+                return;
             case SwitchStatementSyntax selection:
                 Walk(selection.Expression, result);
                 foreach (var section in selection.Sections)
                     Branch(string.Join(" ", section.Labels.Select(SymbolNames.Compact)), section,
-                        section.Labels.OfType<CasePatternSwitchLabelSyntax>().Select(l => l.WhenClause).OfType<SyntaxNode>().Concat(section.Statements), result);
+                        section.Labels.OfType<CasePatternSwitchLabelSyntax>().SelectMany(label => label.WhenClause is null
+                            ? new SyntaxNode[] { label.Pattern } : [label.Pattern, label.WhenClause]).Concat(section.Statements), result);
                 return;
             case SwitchExpressionSyntax selection:
                 Walk(selection.GoverningExpression, result);
                 foreach (var arm in selection.Arms)
                     Branch("case " + SymbolNames.Compact(arm.Pattern) + (arm.WhenClause is null ? "" : " " + SymbolNames.Compact(arm.WhenClause)), arm,
-                        arm.WhenClause is null ? [arm.Expression] : [arm.WhenClause, arm.Expression], result);
+                        arm.WhenClause is null ? [arm.Pattern, arm.Expression] : [arm.Pattern, arm.WhenClause, arm.Expression], result);
                 return;
             case TryStatementSyntax attempt:
                 Branch("try", attempt.Block, [attempt.Block], result);
@@ -219,14 +261,90 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             case PrefixUnaryExpressionSyntax prefix:
                 Walk(prefix.Operand, result);
                 AddUnaryOperator(prefix, prefix.Operand, result);
+                if (prefix.Kind() is SyntaxKind.PreIncrementExpression or SyntaxKind.PreDecrementExpression) AddPropertySetter(prefix.Operand, result);
                 return;
             case PostfixUnaryExpressionSyntax postfix:
                 Walk(postfix.Operand, result);
                 AddUnaryOperator(postfix, postfix.Operand, result);
+                if (postfix.Kind() is SyntaxKind.PostIncrementExpression or SyntaxKind.PostDecrementExpression) AddPropertySetter(postfix.Operand, result);
                 return;
         }
         foreach (var child in node.ChildNodes())
             Walk(child, result);
+    }
+
+    private void WalkPropertyInputs(ExpressionSyntax expression, List<CallStep> result)
+    {
+        switch (expression)
+        {
+            case ParenthesizedExpressionSyntax parenthesized:
+                WalkPropertyInputs(parenthesized.Expression, result);
+                break;
+            case PostfixUnaryExpressionSyntax suppression when suppression.IsKind(SyntaxKind.SuppressNullableWarningExpression):
+                WalkPropertyInputs(suppression.Operand, result);
+                break;
+            case MemberAccessExpressionSyntax access:
+                Walk(access.Expression, result);
+                break;
+            case ElementAccessExpressionSyntax access:
+                Walk(access.Expression, result);
+                foreach (var argument in access.ArgumentList.Arguments) Walk(argument.Expression, result);
+                break;
+            case ElementBindingExpressionSyntax binding:
+                foreach (var argument in binding.ArgumentList.Arguments) Walk(argument.Expression, result);
+                break;
+            case ImplicitElementAccessSyntax access:
+                foreach (var argument in access.ArgumentList.Arguments) Walk(argument.Expression, result);
+                break;
+        }
+    }
+
+    private void WalkMemberInitializer(AssignmentExpressionSyntax assignment, InitializerExpressionSyntax initializer,
+        IReadOnlyList<CallStep> receivers, List<CallStep> result)
+    {
+        WalkPropertyInputs(assignment.Left, result);
+        var accesses = receivers.ToList();
+        if (model.GetOperation(assignment.Left, cancellationToken) is IPropertyReferenceOperation { Property.GetMethod: { } getter })
+            accesses.Add(CreateCall(assignment.Left, getter, []));
+        else AddStaticMember(assignment.Left, accesses);
+        foreach (var element in initializer.Expressions)
+        {
+            if (element is AssignmentExpressionSyntax { Right: InitializerExpressionSyntax nested } member
+                && model.GetOperation(member, cancellationToken) is IMemberInitializerOperation)
+            {
+                WalkMemberInitializer(member, nested, accesses, result);
+                continue;
+            }
+            result.AddRange(accesses);
+            if (initializer.IsKind(SyntaxKind.CollectionInitializerExpression))
+                Emit(element, element is InitializerExpressionSyntax values ? values.Expressions : [element], result,
+                    model.GetCollectionInitializerSymbolInfo(element, cancellationToken), assignment.Left);
+            else Walk(element, result);
+        }
+    }
+
+    private static IEnumerable<ExpressionSyntax> AssignmentTargets(ExpressionSyntax expression) => expression switch
+    {
+        TupleExpressionSyntax tuple => tuple.Arguments.SelectMany(argument => AssignmentTargets(argument.Expression)),
+        ParenthesizedExpressionSyntax parenthesized => AssignmentTargets(parenthesized.Expression),
+        _ => [expression]
+    };
+
+    private void AddPropertySetter(ExpressionSyntax expression, List<CallStep> result)
+    {
+        if (PropertyReference(expression) is
+            { Property: { ReturnsByRef: false, ReturnsByRefReadonly: false, SetMethod: { } setter } })
+            result.Add(CreateCall(expression, setter, []));
+    }
+
+    private IPropertyReferenceOperation? PropertyReference(ExpressionSyntax expression) =>
+        model.GetOperation(UnwrapProperty(expression), cancellationToken) as IPropertyReferenceOperation;
+
+    private static ExpressionSyntax UnwrapProperty(ExpressionSyntax expression)
+    {
+        while (expression is ParenthesizedExpressionSyntax || expression is PostfixUnaryExpressionSyntax suppression && suppression.IsKind(SyntaxKind.SuppressNullableWarningExpression))
+            expression = expression is ParenthesizedExpressionSyntax parenthesized ? parenthesized.Expression : ((PostfixUnaryExpressionSyntax)expression).Operand;
+        return expression;
     }
 
     private void AddUnaryOperator(ExpressionSyntax expression, ExpressionSyntax operand, List<CallStep> result)
@@ -262,7 +380,6 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
     private ISymbol? StaticMember(SyntaxNode node) => model.GetSymbolInfo(node, cancellationToken).Symbol switch
     {
         IFieldSymbol { IsStatic: true, IsConst: false } field => field,
-        IPropertySymbol { IsStatic: true } property => property,
         IEventSymbol { IsStatic: true } eventSymbol => eventSymbol,
         _ => null
     };
@@ -360,19 +477,32 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         foreach (var argument in method.TypeArguments) dispatchTypes.Add(argument);
         var source = method.MethodKind != MethodKind.DelegateInvoke && normalized.ContainingType.Locations.Any(l => l.IsInSource);
         var expression = node is InvocationExpressionSyntax invocation ? invocation.Expression : node;
+        if (method.MethodKind is MethodKind.PropertyGet or MethodKind.PropertySet && expression is ExpressionSyntax propertyExpression)
+            expression = UnwrapProperty(propertyExpression);
         var receiver = collection ?? (expression switch
         {
             MemberAccessExpressionSyntax access => access.Expression,
-            MemberBindingExpressionSyntax => expression.Ancestors().OfType<ConditionalAccessExpressionSyntax>().FirstOrDefault()?.Expression,
+            ElementAccessExpressionSyntax access => access.Expression,
+            MemberBindingExpressionSyntax or ElementBindingExpressionSyntax => expression.Ancestors().OfType<ConditionalAccessExpressionSyntax>().FirstOrDefault()?.Expression,
             WithExpressionSyntax copy => copy.Expression,
             _ => null
         });
+        if (receiver is null && method.MethodKind is MethodKind.PropertyGet or MethodKind.PropertySet
+            && expression.Parent is AssignmentExpressionSyntax { Parent: InitializerExpressionSyntax { Parent: BaseObjectCreationExpressionSyntax initialized } })
+            receiver = initialized;
+        var implicitPropertyReceiver = receiver is null && method.MethodKind is MethodKind.PropertyGet or MethodKind.PropertySet
+            && model.GetOperation(expression, cancellationToken) is IPropertyReferenceOperation { Instance: { IsImplicit: true } instance }
+            ? instance : null;
         var exactReceiver = receiver is BaseExpressionSyntax
             || receiver is BaseObjectCreationExpressionSyntax && model.GetTypeInfo(receiver, cancellationToken).Type is INamedTypeSymbol
             || receiver is not null && model.GetTypeInfo(receiver, cancellationToken).Type is INamedTypeSymbol { IsSealed: true }
-            || receiver is null && model.GetEnclosingSymbol(node.SpanStart, cancellationToken)?.ContainingType is { IsSealed: true };
+            || implicitPropertyReceiver?.Type is INamedTypeSymbol { IsSealed: true }
+            || receiver is null && implicitPropertyReceiver is null && model.GetEnclosingSymbol(node.SpanStart, cancellationToken)?.ContainingType is { IsSealed: true };
         var dispatches = !exactReceiver && (method.ContainingType.TypeKind == TypeKind.Interface || method.IsAbstract || method.IsVirtual || method.IsOverride);
-        return new CallStep("call", symbols.Key(normalized), source || method.MethodKind is MethodKind.Conversion or MethodKind.UserDefinedOperator or MethodKind.EventAdd or MethodKind.EventRemove || collection is not null || node is ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax or WithExpressionSyntax
+        var receiverType = dispatches || GenericBindings.HasContainingInstance(method)
+            ? implicitPropertyReceiver?.Type is { } propertyReceiverType ? DescribeType(propertyReceiverType) : ReceiverConstraint(receiver, node.SpanStart)
+            : null;
+        return new CallStep("call", symbols.Key(normalized), source || method.MethodKind is MethodKind.Conversion or MethodKind.UserDefinedOperator or MethodKind.EventAdd or MethodKind.EventRemove or MethodKind.PropertyGet or MethodKind.PropertySet || collection is not null || node is ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax or WithExpressionSyntax
             ? symbols.Label(normalized) : SymbolNames.SyntaxLabel(node), source, symbols.Location(node), children)
         {
             AlignmentKey = AlignmentKey(node),
@@ -380,10 +510,11 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             InitializationTriggerType = TypeInitialization.Triggers(method) ? DescribeType(method.ContainingType) : null,
             InitializationScope = TypeInitialization.Triggers(method) ? symbols.InitializationScope(method.ContainingType) : null,
             DispatchType = dispatches ? DescribeType(method.ContainingType) : null,
-            ReceiverType = dispatches ? ReceiverConstraint(receiver, node.SpanStart) : null,
+            ReceiverType = dispatches ? receiverType : null,
             InvocationReceiverType = !GenericBindings.HasContainingInstance(method) ? null : method.MethodKind == MethodKind.Constructor
-                ? DescribeType(method.ContainingType) : ReceiverConstraint(receiver, node.SpanStart),
-            UsesContainingInstance = GenericBindings.HasContainingInstance(method) && UsesContainingInstance(node, receiver),
+                ? DescribeType(method.ContainingType) : receiverType,
+            UsesContainingInstance = GenericBindings.HasContainingInstance(method) && (implicitPropertyReceiver is null
+                ? UsesContainingInstance(node, receiver) : implicitPropertyReceiver is IInstanceReferenceOperation { ReferenceKind: InstanceReferenceKind.ContainingTypeInstance }),
             InvocationReceiverExact = GenericBindings.HasContainingInstance(method) && (collection is null && node is BaseObjectCreationExpressionSyntax || ReceiverOperation(receiver) is IObjectCreationOperation),
             GenericArguments = GenericBindings.FromMethod(method),
             MethodArguments = method.TypeArguments.Select(DispatchType.From).ToArray()

@@ -4,7 +4,7 @@ namespace Callrift.Core;
 
 internal static class TypeInitialization
 {
-    public static bool Triggers(IMethodSymbol method) => !method.IsAbstract && method.MethodKind is MethodKind.Ordinary or MethodKind.UserDefinedOperator or MethodKind.Conversion or MethodKind.EventAdd or MethodKind.EventRemove
+    public static bool Triggers(IMethodSymbol method) => !method.IsAbstract && method.MethodKind is MethodKind.Ordinary or MethodKind.UserDefinedOperator or MethodKind.Conversion or MethodKind.EventAdd or MethodKind.EventRemove or MethodKind.PropertyGet or MethodKind.PropertySet
         && (method.IsStatic || method.ContainingType.IsValueType)
         || method.MethodKind == MethodKind.Constructor && !(method.IsImplicitlyDeclared && method.ContainingType.IsValueType);
 

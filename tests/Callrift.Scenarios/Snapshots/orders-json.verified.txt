@@ -211,6 +211,44 @@ stdout:
               "id": "n3",
               "kind": "call",
               "change": "removed",
+              "label": "OrderRequest.get_Sku",
+              "detail": null,
+              "before": {
+                "symbolId": "source::OrderRequest.get_Sku()",
+                "signature": "public OrderRequest.get_Sku() -> string",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::OrderRequest.get_Sku()"
+                ],
+                "definition": {
+                  "path": "Program.cs",
+                  "startLine": 5,
+                  "startColumn": 21,
+                  "endLine": 5,
+                  "endColumn": 31
+                },
+                "callSites": [
+                  {
+                    "path": "Program.cs",
+                    "startLine": 13,
+                    "startColumn": 49,
+                    "endLine": 13,
+                    "endColumn": 60
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": null,
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n4",
+              "kind": "call",
+              "change": "removed",
               "label": "IPricingClient.GetPriceAsync → PricingClient.GetPriceAsync",
               "detail": null,
               "before": {
@@ -246,7 +284,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n4",
+              "id": "n5",
               "kind": "call",
               "change": "added",
               "label": "IAuditLog.RecordAsync → AuditLog.RecordAsync",
@@ -284,7 +322,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n5",
+              "id": "n6",
               "kind": "call",
               "change": "added",
               "label": "OrderService.WithTimeout",
@@ -320,7 +358,45 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n6",
+                  "id": "n7",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "OrderRequest.get_Sku",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::OrderRequest.get_Sku()",
+                    "signature": "public OrderRequest.get_Sku() -> string",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::OrderRequest.get_Sku()"
+                    ],
+                    "definition": {
+                      "path": "Program.cs",
+                      "startLine": 5,
+                      "startColumn": 21,
+                      "endLine": 5,
+                      "endColumn": 31
+                    },
+                    "callSites": [
+                      {
+                        "path": "Program.cs",
+                        "startLine": 13,
+                        "startColumn": 101,
+                        "endLine": 13,
+                        "endColumn": 112
+                      }
+                    ],
+                    "relation": "callback",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n8",
                   "kind": "call",
                   "change": "added",
                   "label": "IPricingClient.GetPriceAsync → PricingClient.GetPriceAsync",
@@ -361,7 +437,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n7",
+              "id": "n9",
               "kind": "call",
               "change": "unchanged",
               "label": "new Order",
@@ -426,7 +502,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n8",
+              "id": "n10",
               "kind": "call",
               "change": "unchanged",
               "label": "IOrderRepository.SaveAsync → SqlOrderRepository.SaveAsync",

@@ -59,7 +59,9 @@ internal sealed class SymbolNames(Func<IMethodSymbol, string>? scope = null, Fun
         method = Normalize(method);
         if (interceptors?.TryGetValue(method, out var interceptor) == true)
             return interceptor.Label + Parameters(method) + " -> " + method.ReturnType.ToDisplayString();
-        var declaration = Modifiers(method) + method.ToDisplayString(DeclarationFormat);
+        var declaration = Modifiers(method) + (method.MethodKind is MethodKind.PropertyGet or MethodKind.PropertySet or MethodKind.EventAdd or MethodKind.EventRemove
+            ? method.ContainingType.ToDisplayString(DeclarationFormat) + "." + method.Name + "(" + string.Join(", ", method.Parameters.Select(parameter => parameter.ToDisplayString(DeclarationFormat))) + ")"
+            : method.ToDisplayString(DeclarationFormat));
         var returnKind = method.ReturnsByRefReadonly ? "ref readonly " : method.ReturnsByRef ? "ref " : "";
         var signature = declaration + " -> " + returnKind + method.ReturnType.ToDisplayString(DeclarationFormat) + Constraints(method.TypeParameters);
         for (var owner = method.ContainingSymbol; owner is not null; owner = owner.ContainingSymbol)
@@ -95,6 +97,7 @@ internal sealed class SymbolNames(Func<IMethodSymbol, string>? scope = null, Fun
         if (method.IsSealed) modifiers.Add("sealed");
         if (method.IsOverride) modifiers.Add("override");
         if (method.IsReadOnly) modifiers.Add("readonly");
+        if (method.IsInitOnly) modifiers.Add("init");
         if (method.IsExtern) modifiers.Add("extern");
         if (method.IsAsync) modifiers.Add("async");
         if (method.IsPartialDefinition || method.PartialDefinitionPart is not null) modifiers.Add("partial");

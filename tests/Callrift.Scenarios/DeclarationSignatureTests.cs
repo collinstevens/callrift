@@ -50,6 +50,10 @@ public sealed class DeclarationSignatureTests
         yield return ["constructor", "class Flow { private Flow(int value = 1) {} }", "class Flow { public Flow(int value = 2) {} }", "new Flow", "private Flow.Flow([int value = 1]) -> void", "public Flow.Flow([int value = 2]) -> void"];
         yield return ["nullable-base-constraint", "class Base {} class Flow { public void Run<T>() where T : Base {} }", "class Base {} class Flow { public void Run<T>() where T : Base? {} }", "Flow.Run", "public Flow.Run<T>() -> void where T : Base", "public Flow.Run<T>() -> void where T : Base?"];
         yield return ["default-constraint", "class Base { public virtual void Run<T>(T value) {} } class Flow : Base { public override void Run<T>(T value) {} }", "class Base { public virtual void Run<T>(T value) {} } class Flow : Base { public override void Run<T>(T value) where T : default {} }", "Flow.Run", "public override Flow.Run<T>(T value) -> void", "public override Flow.Run<T>(T value) -> void where T : default"];
+        yield return ["property-set-nullability", "class Flow { public string Value { set {} } }", "class Flow { public string? Value { set {} } }", "Flow.set_Value", "public Flow.set_Value(string value) -> void", "public Flow.set_Value(string? value) -> void"];
+        yield return ["property-init", "class Flow { public int Value { get; set; } }", "class Flow { public int Value { get; init; } }", "Flow.set_Value", "public Flow.set_Value(int value) -> void", "public init Flow.set_Value(int value) -> void"];
+        yield return ["indexer-default", "class Flow { public int this[int key = 1] => key; }", "class Flow { public int this[int key = 2] => key; }", "Flow.get_Item", "public Flow.get_Item([int key = 1]) -> int", "public Flow.get_Item([int key = 2]) -> int"];
+        yield return ["event-handler-nullability", "class Flow { public event System.Action Changed { add {} remove {} } }", "class Flow { public event System.Action? Changed { add {} remove {} } }", "Flow.add_Changed", "public Flow.add_Changed(System.Action value) -> void", "public Flow.add_Changed(System.Action? value) -> void"];
     }
 
     [Theory]

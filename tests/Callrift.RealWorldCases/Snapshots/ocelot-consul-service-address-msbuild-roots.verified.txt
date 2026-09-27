@@ -2,11 +2,12 @@
 exit: 0
 stdout:
   LoadBalancingMiddleware.Invoke
-  ├─ HttpItemsExtensions.DownstreamRoute (depth limit)
+  ├─ …
   ├─ HttpItemsExtensions.IInternalConfiguration (depth limit)
+  ├─ IInternalConfiguration.get_ServiceProviderConfiguration → InternalConfiguration.get_ServiceProviderConfiguration
 ~ ├─ ILoadBalancerHouse.Get → LoadBalancerHouse.Get (changes below depth limit)
+  ├─ Response.get_IsError (depth limit)
   ├─ if (loadBalancer.IsError)
-  ├─ ILoadBalancer.LeaseAsync
   └─ …
 stderr:
 
@@ -15,11 +16,12 @@ exit: 0
 stdout:
 ```diff
   LoadBalancingMiddleware.Invoke
-  ├─ HttpItemsExtensions.DownstreamRoute (depth limit)
+  ├─ …
   ├─ HttpItemsExtensions.IInternalConfiguration (depth limit)
+  ├─ IInternalConfiguration.get_ServiceProviderConfiguration → InternalConfiguration.get_ServiceProviderConfiguration
 ~ ├─ ILoadBalancerHouse.Get → LoadBalancerHouse.Get (changes below depth limit)
+  ├─ Response.get_IsError (depth limit)
   ├─ if (loadBalancer.IsError)
-  ├─ ILoadBalancer.LeaseAsync
   └─ …
 ```
 stderr:

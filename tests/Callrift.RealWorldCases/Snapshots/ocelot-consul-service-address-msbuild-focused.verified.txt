@@ -3,6 +3,7 @@ exit: 0
 stdout:
   DefaultConsulServiceBuilder.BuildServices
   ├─ ArgumentNullException.ThrowIfNull
+  ├─ Array.get_Length
   ├─ new List<Service>
   └─ foreach (var serviceEntry in entries)
      ├─ DefaultConsulServiceBuilder.IsValid
@@ -12,7 +13,27 @@ stdout:
         │  ├─ DefaultConsulServiceBuilder.GetServiceName
         │  ├─ DefaultConsulServiceBuilder.GetServiceHostAndPort
         │  │  ├─ DefaultConsulServiceBuilder.GetDownstreamHost
-+       │  │  │  └─ string.IsNullOrEmpty
+-       │  │  │  ├─ if (node != null)
+-       │  │  │  │  └─ Node.get_Name
+-       │  │  │  ├─ else (!(node != null))
+-       │  │  │  │  ├─ ServiceEntry.get_Service
+-       │  │  │  │  └─ AgentService.get_Address
++       │  │  │  ├─ if (entry is not null)
++       │  │  │  │  ├─ ServiceEntry.get_Service
++       │  │  │  │  └─ if (.Service is not null)
++       │  │  │  │     └─ AgentService.get_Address
++       │  │  │  ├─ string.IsNullOrEmpty
++       │  │  │  ├─ if (!string.IsNullOrEmpty(entry?.Service?.Address))
++       │  │  │  │  ├─ ServiceEntry.get_Service
++       │  │  │  │  └─ AgentService.get_Address
++       │  │  │  └─ else (!(!string.IsNullOrEmpty(entry?.Service?.Address)))
++       │  │  │     ├─ if (node is not null)
++       │  │  │     │  └─ Node.get_Address
++       │  │  │     └─ if (node?.Address is null)
++       │  │  │        └─ if (node is not null)
++       │  │  │           └─ Node.get_Name
+        │  │  ├─ ServiceEntry.get_Service
+        │  │  ├─ AgentService.get_Port
         │  │  └─ new ServiceHostAndPort
         │  ├─ DefaultConsulServiceBuilder.GetServiceId
         │  ├─ DefaultConsulServiceBuilder.GetServiceVersion
@@ -39,6 +60,7 @@ stdout:
 ```diff
   DefaultConsulServiceBuilder.BuildServices
   ├─ ArgumentNullException.ThrowIfNull
+  ├─ Array.get_Length
   ├─ new List<Service>
   └─ foreach (var serviceEntry in entries)
      ├─ DefaultConsulServiceBuilder.IsValid
@@ -48,7 +70,27 @@ stdout:
         │  ├─ DefaultConsulServiceBuilder.GetServiceName
         │  ├─ DefaultConsulServiceBuilder.GetServiceHostAndPort
         │  │  ├─ DefaultConsulServiceBuilder.GetDownstreamHost
-+       │  │  │  └─ string.IsNullOrEmpty
+-       │  │  │  ├─ if (node != null)
+-       │  │  │  │  └─ Node.get_Name
+-       │  │  │  ├─ else (!(node != null))
+-       │  │  │  │  ├─ ServiceEntry.get_Service
+-       │  │  │  │  └─ AgentService.get_Address
++       │  │  │  ├─ if (entry is not null)
++       │  │  │  │  ├─ ServiceEntry.get_Service
++       │  │  │  │  └─ if (.Service is not null)
++       │  │  │  │     └─ AgentService.get_Address
++       │  │  │  ├─ string.IsNullOrEmpty
++       │  │  │  ├─ if (!string.IsNullOrEmpty(entry?.Service?.Address))
++       │  │  │  │  ├─ ServiceEntry.get_Service
++       │  │  │  │  └─ AgentService.get_Address
++       │  │  │  └─ else (!(!string.IsNullOrEmpty(entry?.Service?.Address)))
++       │  │  │     ├─ if (node is not null)
++       │  │  │     │  └─ Node.get_Address
++       │  │  │     └─ if (node?.Address is null)
++       │  │  │        └─ if (node is not null)
++       │  │  │           └─ Node.get_Name
+        │  │  ├─ ServiceEntry.get_Service
+        │  │  ├─ AgentService.get_Port
         │  │  └─ new ServiceHostAndPort
         │  ├─ DefaultConsulServiceBuilder.GetServiceId
         │  ├─ DefaultConsulServiceBuilder.GetServiceVersion

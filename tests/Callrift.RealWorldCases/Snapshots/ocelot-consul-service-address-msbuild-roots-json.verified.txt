@@ -217,6 +217,71 @@ stdout:
         {
           "id": "n3",
           "kind": "call",
+          "change": "unchanged",
+          "label": "IInternalConfiguration.get_ServiceProviderConfiguration → InternalConfiguration.get_ServiceProviderConfiguration",
+          "detail": null,
+          "before": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Configuration.IInternalConfiguration.get_ServiceProviderConfiguration()",
+            "signature": "public abstract Ocelot.Configuration.IInternalConfiguration.get_ServiceProviderConfiguration() -> Ocelot.Configuration.ServiceProviderConfiguration",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Configuration.InternalConfiguration.get_ServiceProviderConfiguration()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Configuration/IInternalConfiguration.cs",
+              "startLine": 18,
+              "startColumn": 65,
+              "endLine": 18,
+              "endColumn": 69
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 28,
+                "startColumn": 68,
+                "endLine": 28,
+                "endColumn": 118
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Configuration.IInternalConfiguration.get_ServiceProviderConfiguration()",
+            "signature": "public abstract Ocelot.Configuration.IInternalConfiguration.get_ServiceProviderConfiguration() -> Ocelot.Configuration.ServiceProviderConfiguration",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Configuration.InternalConfiguration.get_ServiceProviderConfiguration()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Configuration/IInternalConfiguration.cs",
+              "startLine": 18,
+              "startColumn": 65,
+              "endLine": 18,
+              "endColumn": 69
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 28,
+                "startColumn": 68,
+                "endLine": 28,
+                "endColumn": 118
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n4",
+          "kind": "call",
           "change": "modified",
           "label": "ILoadBalancerHouse.Get → LoadBalancerHouse.Get",
           "detail": "changes below depth limit",
@@ -284,7 +349,76 @@ stdout:
           }
         },
         {
-          "id": "n4",
+          "id": "n5",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Response.get_IsError",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response.get_IsError()",
+            "signature": "public Ocelot.Responses.Response.get_IsError() -> bool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response.get_IsError()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Responses/Response.cs",
+              "startLine": 19,
+              "startColumn": 5,
+              "endLine": 19,
+              "endColumn": 45
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 30,
+                "startColumn": 13,
+                "endLine": 30,
+                "endColumn": 33
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response.get_IsError()",
+            "signature": "public Ocelot.Responses.Response.get_IsError() -> bool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response.get_IsError()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Responses/Response.cs",
+              "startLine": 19,
+              "startColumn": 5,
+              "endLine": 19,
+              "endColumn": 45
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 30,
+                "startColumn": 13,
+                "endLine": 30,
+                "endColumn": 33
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n6",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (loadBalancer.IsError)",
@@ -331,7 +465,72 @@ stdout:
           },
           "children": [
             {
-              "id": "n5",
+              "id": "n7",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Response.get_Errors",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response.get_Errors()",
+                "signature": "public Ocelot.Responses.Response.get_Errors() -> System.Collections.Generic.List<Ocelot.Errors.Error>",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response.get_Errors()"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Responses/Response.cs",
+                  "startLine": 17,
+                  "startColumn": 33,
+                  "endLine": 17,
+                  "endColumn": 37
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 32,
+                    "startColumn": 44,
+                    "endLine": 32,
+                    "endColumn": 63
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response.get_Errors()",
+                "signature": "public Ocelot.Responses.Response.get_Errors() -> System.Collections.Generic.List<Ocelot.Errors.Error>",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response.get_Errors()"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Responses/Response.cs",
+                  "startLine": 17,
+                  "startColumn": 33,
+                  "endLine": 17,
+                  "endColumn": 37
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 32,
+                    "startColumn": 44,
+                    "endLine": 32,
+                    "endColumn": 63
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n8",
               "kind": "call",
               "change": "unchanged",
               "label": "HttpItemsExtensions.UpsertErrors",
@@ -403,7 +602,72 @@ stdout:
           "omission": null
         },
         {
-          "id": "n6",
+          "id": "n9",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Response<T>.get_Data",
+          "detail": null,
+          "before": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()",
+            "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Responses/Response.cs",
+              "startLine": 32,
+              "startColumn": 21,
+              "endLine": 32,
+              "endColumn": 25
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 36,
+                "startColumn": 33,
+                "endLine": 36,
+                "endColumn": 50
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()",
+            "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Responses/Response.cs",
+              "startLine": 32,
+              "startColumn": 21,
+              "endLine": 32,
+              "endColumn": 25
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 36,
+                "startColumn": 33,
+                "endLine": 36,
+                "endColumn": 50
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n10",
           "kind": "call",
           "change": "unchanged",
           "label": "ILoadBalancer.LeaseAsync",
@@ -472,7 +736,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n7",
+              "id": "n11",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ CookieStickySessions.LeaseAsync",
@@ -525,7 +789,7 @@ stdout:
               }
             },
             {
-              "id": "n8",
+              "id": "n12",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ LeastConnection.LeaseAsync",
@@ -578,7 +842,7 @@ stdout:
               }
             },
             {
-              "id": "n9",
+              "id": "n13",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ NoLoadBalancer.LeaseAsync",
@@ -631,7 +895,7 @@ stdout:
               }
             },
             {
-              "id": "n10",
+              "id": "n14",
               "kind": "dispatchTarget",
               "change": "unchanged",
               "label": "⇢ RoundRobin.LeaseAsync",
@@ -687,7 +951,76 @@ stdout:
           "omission": null
         },
         {
-          "id": "n11",
+          "id": "n15",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Response.get_IsError",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response.get_IsError()",
+            "signature": "public Ocelot.Responses.Response.get_IsError() -> bool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response.get_IsError()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Responses/Response.cs",
+              "startLine": 19,
+              "startColumn": 5,
+              "endLine": 19,
+              "endColumn": 45
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 37,
+                "startColumn": 13,
+                "endLine": 37,
+                "endColumn": 32
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response.get_IsError()",
+            "signature": "public Ocelot.Responses.Response.get_IsError() -> bool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response.get_IsError()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Responses/Response.cs",
+              "startLine": 19,
+              "startColumn": 5,
+              "endLine": 19,
+              "endColumn": 45
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 37,
+                "startColumn": 13,
+                "endLine": 37,
+                "endColumn": 32
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n16",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (hostAndPort.IsError)",
@@ -734,7 +1067,72 @@ stdout:
           },
           "children": [
             {
-              "id": "n12",
+              "id": "n17",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Response.get_Errors",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response.get_Errors()",
+                "signature": "public Ocelot.Responses.Response.get_Errors() -> System.Collections.Generic.List<Ocelot.Errors.Error>",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response.get_Errors()"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Responses/Response.cs",
+                  "startLine": 17,
+                  "startColumn": 33,
+                  "endLine": 17,
+                  "endColumn": 37
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 39,
+                    "startColumn": 44,
+                    "endLine": 39,
+                    "endColumn": 62
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response.get_Errors()",
+                "signature": "public Ocelot.Responses.Response.get_Errors() -> System.Collections.Generic.List<Ocelot.Errors.Error>",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response.get_Errors()"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Responses/Response.cs",
+                  "startLine": 17,
+                  "startColumn": 33,
+                  "endLine": 17,
+                  "endColumn": 37
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 39,
+                    "startColumn": 44,
+                    "endLine": 39,
+                    "endColumn": 62
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n18",
               "kind": "call",
               "change": "unchanged",
               "label": "HttpItemsExtensions.UpsertErrors",
@@ -806,7 +1204,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n13",
+          "id": "n19",
           "kind": "call",
           "change": "unchanged",
           "label": "HttpItemsExtensions.DownstreamRequest",
@@ -875,7 +1273,952 @@ stdout:
           }
         },
         {
-          "id": "n14",
+          "id": "n20",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Response<T>.get_Data",
+          "detail": null,
+          "before": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()",
+            "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Responses/Response.cs",
+              "startLine": 32,
+              "startColumn": 21,
+              "endLine": 32,
+              "endColumn": 25
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 46,
+                "startColumn": 34,
+                "endLine": 46,
+                "endColumn": 50
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()",
+            "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Responses/Response.cs",
+              "startLine": 32,
+              "startColumn": 21,
+              "endLine": 32,
+              "endColumn": 25
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 46,
+                "startColumn": 34,
+                "endLine": 46,
+                "endColumn": 50
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n21",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "ServiceHostAndPort.get_DownstreamHost",
+          "detail": null,
+          "before": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_DownstreamHost()",
+            "signature": "public Ocelot.Values.ServiceHostAndPort.get_DownstreamHost() -> string",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_DownstreamHost()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Values/ServiceHostAndPort.cs",
+              "startLine": 21,
+              "startColumn": 36,
+              "endLine": 21,
+              "endColumn": 40
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 46,
+                "startColumn": 34,
+                "endLine": 46,
+                "endColumn": 65
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_DownstreamHost()",
+            "signature": "public Ocelot.Values.ServiceHostAndPort.get_DownstreamHost() -> string",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_DownstreamHost()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Values/ServiceHostAndPort.cs",
+              "startLine": 21,
+              "startColumn": 36,
+              "endLine": 21,
+              "endColumn": 40
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 46,
+                "startColumn": 34,
+                "endLine": 46,
+                "endColumn": 65
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n22",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "DownstreamRequest.set_Host",
+          "detail": null,
+          "before": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Request.Middleware.DownstreamRequest.set_Host(string)",
+            "signature": "public Ocelot.Request.Middleware.DownstreamRequest.set_Host(string value) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Request.Middleware.DownstreamRequest.set_Host(string)"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Request/Middleware/DownstreamRequest.cs",
+              "startLine": 31,
+              "startColumn": 31,
+              "endLine": 31,
+              "endColumn": 35
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 46,
+                "startColumn": 9,
+                "endLine": 46,
+                "endColumn": 31
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Request.Middleware.DownstreamRequest.set_Host(string)",
+            "signature": "public Ocelot.Request.Middleware.DownstreamRequest.set_Host(string value) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Request.Middleware.DownstreamRequest.set_Host(string)"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Request/Middleware/DownstreamRequest.cs",
+              "startLine": 31,
+              "startColumn": 31,
+              "endLine": 31,
+              "endColumn": 35
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 46,
+                "startColumn": 9,
+                "endLine": 46,
+                "endColumn": 31
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n23",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Response<T>.get_Data",
+          "detail": null,
+          "before": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()",
+            "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Responses/Response.cs",
+              "startLine": 32,
+              "startColumn": 21,
+              "endLine": 32,
+              "endColumn": 25
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 48,
+                "startColumn": 13,
+                "endLine": 48,
+                "endColumn": 29
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()",
+            "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Responses/Response.cs",
+              "startLine": 32,
+              "startColumn": 21,
+              "endLine": 32,
+              "endColumn": 25
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 48,
+                "startColumn": 13,
+                "endLine": 48,
+                "endColumn": 29
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n24",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "ServiceHostAndPort.get_DownstreamPort",
+          "detail": null,
+          "before": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_DownstreamPort()",
+            "signature": "public Ocelot.Values.ServiceHostAndPort.get_DownstreamPort() -> int",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_DownstreamPort()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Values/ServiceHostAndPort.cs",
+              "startLine": 22,
+              "startColumn": 33,
+              "endLine": 22,
+              "endColumn": 37
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 48,
+                "startColumn": 13,
+                "endLine": 48,
+                "endColumn": 44
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_DownstreamPort()",
+            "signature": "public Ocelot.Values.ServiceHostAndPort.get_DownstreamPort() -> int",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_DownstreamPort()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Values/ServiceHostAndPort.cs",
+              "startLine": 22,
+              "startColumn": 33,
+              "endLine": 22,
+              "endColumn": 37
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 48,
+                "startColumn": 13,
+                "endLine": 48,
+                "endColumn": 44
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n25",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (hostAndPort.Data.DownstreamPort > 0)",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 48,
+                "startColumn": 9,
+                "endLine": 51,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 48,
+                "startColumn": 9,
+                "endLine": 51,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n26",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Response<T>.get_Data",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()",
+                "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Responses/Response.cs",
+                  "startLine": 32,
+                  "startColumn": 21,
+                  "endLine": 32,
+                  "endColumn": 25
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 50,
+                    "startColumn": 38,
+                    "endLine": 50,
+                    "endColumn": 54
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()",
+                "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Responses/Response.cs",
+                  "startLine": 32,
+                  "startColumn": 21,
+                  "endLine": 32,
+                  "endColumn": 25
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 50,
+                    "startColumn": 38,
+                    "endLine": 50,
+                    "endColumn": 54
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n27",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "ServiceHostAndPort.get_DownstreamPort",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_DownstreamPort()",
+                "signature": "public Ocelot.Values.ServiceHostAndPort.get_DownstreamPort() -> int",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_DownstreamPort()"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Values/ServiceHostAndPort.cs",
+                  "startLine": 22,
+                  "startColumn": 33,
+                  "endLine": 22,
+                  "endColumn": 37
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 50,
+                    "startColumn": 38,
+                    "endLine": 50,
+                    "endColumn": 69
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_DownstreamPort()",
+                "signature": "public Ocelot.Values.ServiceHostAndPort.get_DownstreamPort() -> int",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_DownstreamPort()"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Values/ServiceHostAndPort.cs",
+                  "startLine": 22,
+                  "startColumn": 33,
+                  "endLine": 22,
+                  "endColumn": 37
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 50,
+                    "startColumn": 38,
+                    "endLine": 50,
+                    "endColumn": 69
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n28",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "DownstreamRequest.set_Port",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Request.Middleware.DownstreamRequest.set_Port(int)",
+                "signature": "public Ocelot.Request.Middleware.DownstreamRequest.set_Port(int value) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Request.Middleware.DownstreamRequest.set_Port(int)"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Request/Middleware/DownstreamRequest.cs",
+                  "startLine": 33,
+                  "startColumn": 28,
+                  "endLine": 33,
+                  "endColumn": 32
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 50,
+                    "startColumn": 13,
+                    "endLine": 50,
+                    "endColumn": 35
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Request.Middleware.DownstreamRequest.set_Port(int)",
+                "signature": "public Ocelot.Request.Middleware.DownstreamRequest.set_Port(int value) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Request.Middleware.DownstreamRequest.set_Port(int)"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Request/Middleware/DownstreamRequest.cs",
+                  "startLine": 33,
+                  "startColumn": 28,
+                  "endLine": 33,
+                  "endColumn": 32
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 50,
+                    "startColumn": 13,
+                    "endLine": 50,
+                    "endColumn": 35
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n29",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Response<T>.get_Data",
+          "detail": null,
+          "before": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()",
+            "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Responses/Response.cs",
+              "startLine": 32,
+              "startColumn": 21,
+              "endLine": 32,
+              "endColumn": 25
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 53,
+                "startColumn": 35,
+                "endLine": 53,
+                "endColumn": 51
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()",
+            "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Responses/Response.cs",
+              "startLine": 32,
+              "startColumn": 21,
+              "endLine": 32,
+              "endColumn": 25
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 53,
+                "startColumn": 35,
+                "endLine": 53,
+                "endColumn": 51
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n30",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "ServiceHostAndPort.get_Scheme",
+          "detail": null,
+          "before": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_Scheme()",
+            "signature": "public Ocelot.Values.ServiceHostAndPort.get_Scheme() -> string",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_Scheme()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Values/ServiceHostAndPort.cs",
+              "startLine": 23,
+              "startColumn": 28,
+              "endLine": 23,
+              "endColumn": 32
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 53,
+                "startColumn": 35,
+                "endLine": 53,
+                "endColumn": 58
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_Scheme()",
+            "signature": "public Ocelot.Values.ServiceHostAndPort.get_Scheme() -> string",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_Scheme()"
+            ],
+            "definition": {
+              "path": "src/Ocelot/Values/ServiceHostAndPort.cs",
+              "startLine": 23,
+              "startColumn": 28,
+              "endLine": 23,
+              "endColumn": 32
+            },
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 53,
+                "startColumn": 35,
+                "endLine": 53,
+                "endColumn": 58
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n31",
+          "kind": "branch",
+          "change": "unchanged",
+          "label": "if (!string.IsNullOrEmpty(hostAndPort.Data.Scheme))",
+          "detail": null,
+          "before": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 53,
+                "startColumn": 9,
+                "endLine": 56,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "after": {
+            "symbolId": null,
+            "signature": null,
+            "binding": "structural",
+            "dispatch": "none",
+            "targetIds": [],
+            "definition": null,
+            "callSites": [
+              {
+                "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                "startLine": 53,
+                "startColumn": 9,
+                "endLine": 56,
+                "endColumn": 10
+              }
+            ],
+            "relation": "branch",
+            "candidates": null,
+            "origin": "structural"
+          },
+          "children": [
+            {
+              "id": "n32",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Response<T>.get_Data",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()",
+                "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Responses/Response.cs",
+                  "startLine": 32,
+                  "startColumn": 21,
+                  "endLine": 32,
+                  "endColumn": 25
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 55,
+                    "startColumn": 40,
+                    "endLine": 55,
+                    "endColumn": 56
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()",
+                "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Responses/Response.cs",
+                  "startLine": 32,
+                  "startColumn": 21,
+                  "endLine": 32,
+                  "endColumn": 25
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 55,
+                    "startColumn": 40,
+                    "endLine": 55,
+                    "endColumn": 56
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n33",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "ServiceHostAndPort.get_Scheme",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_Scheme()",
+                "signature": "public Ocelot.Values.ServiceHostAndPort.get_Scheme() -> string",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_Scheme()"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Values/ServiceHostAndPort.cs",
+                  "startLine": 23,
+                  "startColumn": 28,
+                  "endLine": 23,
+                  "endColumn": 32
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 55,
+                    "startColumn": 40,
+                    "endLine": 55,
+                    "endColumn": 63
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_Scheme()",
+                "signature": "public Ocelot.Values.ServiceHostAndPort.get_Scheme() -> string",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Values.ServiceHostAndPort.get_Scheme()"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Values/ServiceHostAndPort.cs",
+                  "startLine": 23,
+                  "startColumn": 28,
+                  "endLine": 23,
+                  "endColumn": 32
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 55,
+                    "startColumn": 40,
+                    "endLine": 55,
+                    "endColumn": 63
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n34",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "DownstreamRequest.set_Scheme",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Request.Middleware.DownstreamRequest.set_Scheme(string)",
+                "signature": "public Ocelot.Request.Middleware.DownstreamRequest.set_Scheme(string value) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Request.Middleware.DownstreamRequest.set_Scheme(string)"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Request/Middleware/DownstreamRequest.cs",
+                  "startLine": 29,
+                  "startColumn": 33,
+                  "endLine": 29,
+                  "endColumn": 37
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 55,
+                    "startColumn": 13,
+                    "endLine": 55,
+                    "endColumn": 37
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Request.Middleware.DownstreamRequest.set_Scheme(string)",
+                "signature": "public Ocelot.Request.Middleware.DownstreamRequest.set_Scheme(string value) -> void",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Request.Middleware.DownstreamRequest.set_Scheme(string)"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Request/Middleware/DownstreamRequest.cs",
+                  "startLine": 29,
+                  "startColumn": 33,
+                  "endLine": 29,
+                  "endColumn": 37
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 55,
+                    "startColumn": 13,
+                    "endLine": 55,
+                    "endColumn": 37
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n35",
           "kind": "branch",
           "change": "unchanged",
           "label": "finally",
@@ -922,7 +2265,137 @@ stdout:
           },
           "children": [
             {
-              "id": "n15",
+              "id": "n36",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Response<T>.get_Data",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()",
+                "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Responses/Response.cs",
+                  "startLine": 32,
+                  "startColumn": 21,
+                  "endLine": 32,
+                  "endColumn": 25
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 65,
+                    "startColumn": 13,
+                    "endLine": 65,
+                    "endColumn": 30
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()",
+                "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Responses/Response.cs",
+                  "startLine": 32,
+                  "startColumn": 21,
+                  "endLine": 32,
+                  "endColumn": 25
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 65,
+                    "startColumn": 13,
+                    "endLine": 65,
+                    "endColumn": 30
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n37",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Response<T>.get_Data",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()",
+                "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Responses/Response.cs",
+                  "startLine": 32,
+                  "startColumn": 21,
+                  "endLine": 32,
+                  "endColumn": 25
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 65,
+                    "startColumn": 39,
+                    "endLine": 65,
+                    "endColumn": 55
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()",
+                "signature": "public Ocelot.Responses.Response<T>.get_Data() -> T",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Ocelot/Ocelot.csproj@net8.0::Ocelot.Responses.Response<T>.get_Data()"
+                ],
+                "definition": {
+                  "path": "src/Ocelot/Responses/Response.cs",
+                  "startLine": 32,
+                  "startColumn": 21,
+                  "endLine": 32,
+                  "endColumn": 25
+                },
+                "callSites": [
+                  {
+                    "path": "src/Ocelot/LoadBalancer/LoadBalancingMiddleware.cs",
+                    "startLine": 65,
+                    "startColumn": 39,
+                    "endLine": 65,
+                    "endColumn": 55
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n38",
               "kind": "call",
               "change": "unchanged",
               "label": "ILoadBalancer.Release",
@@ -991,7 +2464,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n16",
+                  "id": "n39",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ CookieStickySessions.Release",
@@ -1040,7 +2513,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n17",
+                  "id": "n40",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ LeastConnection.Release",
@@ -1093,7 +2566,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n18",
+                  "id": "n41",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ NoLoadBalancer.Release",
@@ -1142,7 +2615,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n19",
+                  "id": "n42",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ RoundRobin.Release",

@@ -5,9 +5,11 @@ stdout:
   OrdersController.Place
   └─ IOrderService.PlaceAsync → OrderService.PlaceAsync
      ├─ OrderService.Validate
+-    ├─ OrderRequest.get_Sku
 -    ├─ IPricingClient.GetPriceAsync → PricingClient.GetPriceAsync
 +    ├─ IAuditLog.RecordAsync → AuditLog.RecordAsync
 +    ├─ OrderService.WithTimeout
++    │  ├─ OrderRequest.get_Sku
 +    │  └─ IPricingClient.GetPriceAsync → PricingClient.GetPriceAsync
      ├─ new Order
      └─ IOrderRepository.SaveAsync → SqlOrderRepository.SaveAsync
@@ -20,9 +22,11 @@ stdout:
   OrdersController.Place
   └─ IOrderService.PlaceAsync → OrderService.PlaceAsync
      ├─ OrderService.Validate
+-    ├─ OrderRequest.get_Sku
 -    ├─ IPricingClient.GetPriceAsync → PricingClient.GetPriceAsync
 +    ├─ IAuditLog.RecordAsync → AuditLog.RecordAsync
 +    ├─ OrderService.WithTimeout
++    │  ├─ OrderRequest.get_Sku
 +    │  └─ IPricingClient.GetPriceAsync → PricingClient.GetPriceAsync
      ├─ new Order
      └─ IOrderRepository.SaveAsync → SqlOrderRepository.SaveAsync
