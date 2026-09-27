@@ -19,7 +19,7 @@ public static class TreeDiffer
             if ((left.Key == right.Key || left.InvocationKey is not null && left.InvocationKey == right.InvocationKey) && (left.Label == right.Label
                 || left.DispatchLabel is not null && left.DispatchLabel == right.DispatchLabel)) return true;
             return left.Label == right.Label && left.MatchName == right.MatchName
-                && before.Count(n => n.Label == left.Label) == 1 && after.Count(n => n.Label == right.Label) == 1;
+                && HasUniqueLabel(before, left.Label) && HasUniqueLabel(after, right.Label);
         }
         var aligned = before.Count == after.Count;
         for (var index = 0; aligned && index < before.Count; index++) aligned = Matches(index, index);
@@ -90,6 +90,18 @@ public static class TreeDiffer
                 result.Add(Mark(after[newIndex++], '+', cancellationToken));
         }
         return result;
+    }
+
+    private static bool HasUniqueLabel(IReadOnlyList<CallTree> trees, string label)
+    {
+        var found = false;
+        for (var index = 0; index < trees.Count; index++)
+        {
+            if (trees[index].Label != label) continue;
+            if (found) return false;
+            found = true;
+        }
+        return found;
     }
 
     public static DiffNode Present(CallTree tree) => Present(tree, default);

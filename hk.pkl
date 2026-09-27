@@ -1,42 +1,31 @@
-amends "package://github.com/jdx/hk/releases/download/v2.1.0/hk@2.1.0#/Config.pkl"
-import "package://github.com/jdx/hk/releases/download/v2.1.0/hk@2.1.0#/Builtins.pkl"
-
-min_hk_version = "2.1.0"
+amends "package://github.com/jdx/hk/releases/download/v2.3.0/hk@2.3.0#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.3.0/hk@2.3.0#/Builtins.pkl"
 
 steps {
-  ["editorconfig"] = Builtins.editorconfig_checker
+  ["check-case-conflict"] = (Builtins.check_case_conflict) {
+    allow_binary = true
+    allow_symlinks = true
+  }
+  ["check-merge-conflict"] = Builtins.check_merge_conflict
   ["dotnet-format"] = (Builtins.dotnet_format) {
-    check = new CommandSpec {
-      command = new Command {
-        argv = List("dotnet", "format", "--no-restore", "--verify-no-changes", "--include", "{{files}}")
+    check {
+      command {
+        argv = List("dotnet", "format", "callrift.slnx", "--no-restore", "--verify-no-changes", "--include", "{{files}}")
       }
-      effect = "write"
     }
-    fix = new CommandSpec {
-      command = new Command {
-        argv = List("dotnet", "format", "--no-restore", "--include", "{{files}}")
+    fix {
+      command {
+        argv = List("dotnet", "format", "callrift.slnx", "--no-restore", "--include", "{{files}}")
       }
-      effect = "write"
     }
   }
+  ["editorconfig-checker"] = Builtins.editorconfig_checker
 }
 
 hooks {
-  ["pre-commit"] {
-    fix = false
-    stage = false
-    stash = "git"
-  }
   ["commit-msg"] {
     steps {
-      ["conventional-commits"] = (Builtins.check_conventional_commit) {
-        check = new CommandSpec {
-          command = new Command {
-            argv = List("hk", "util", "check-conventional-commit", "{{commit_msg_file}}")
-          }
-          effect = "read"
-        }
-      }
+      ["conventional-commit"] = Builtins.check_conventional_commit
     }
   }
 }

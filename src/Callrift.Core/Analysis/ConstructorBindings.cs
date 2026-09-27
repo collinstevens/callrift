@@ -18,7 +18,8 @@ internal static class ConstructorBindings
             cancellationToken.ThrowIfCancellationRequested();
             var model = compilation.GetSemanticModel(tree);
             var root = tree.GetRoot(cancellationToken);
-            var declarations = root.DescendantNodes().OfType<TypeDeclarationSyntax>().ToArray();
+            var declarations = root.DescendantNodes(static node => node is CompilationUnitSyntax or BaseNamespaceDeclarationSyntax or TypeDeclarationSyntax)
+                .OfType<TypeDeclarationSyntax>().ToArray();
             var rewritten = root.ReplaceNodes(declarations, (original, current) =>
             {
                 cancellationToken.ThrowIfCancellationRequested();

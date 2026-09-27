@@ -22,7 +22,8 @@ internal static class InterceptorSymbols
         foreach (var tree in trees)
         {
             var model = compilation.GetSemanticModel(tree);
-            foreach (var declaration in tree.GetRoot(cancellationToken).DescendantNodes().OfType<MethodDeclarationSyntax>().Where(m => m.AttributeLists.Count > 0))
+            foreach (var declaration in tree.GetRoot(cancellationToken).DescendantNodes(static node => node is CompilationUnitSyntax or BaseNamespaceDeclarationSyntax or TypeDeclarationSyntax)
+                .OfType<MethodDeclarationSyntax>().Where(m => m.AttributeLists.Count > 0))
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 if (model.GetDeclaredSymbol(declaration, cancellationToken) is not { ContainingType.IsFileLocal: true } method) continue;

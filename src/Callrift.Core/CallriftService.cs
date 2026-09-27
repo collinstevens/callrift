@@ -40,6 +40,11 @@ public sealed class CallriftService(IAnalysisProvider? provider = null)
     public async Task<DiffResult> DiffAsync(SourceSnapshot before, SourceSnapshot after, DiffOptions options, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        if (provider is SourceOnlyAnalysisProvider sourceOnly)
+        {
+            var graphs = await sourceOnly.AnalyzePairAsync(before, after, new AnalysisOptions(options.IncludeTests), cancellationToken);
+            return Compare(graphs[0], graphs[1], options, cancellationToken);
+        }
         var oldTask = provider.AnalyzeAsync(before, new AnalysisOptions(options.IncludeTests), cancellationToken);
         var newTask = provider.AnalyzeAsync(after, new AnalysisOptions(options.IncludeTests), cancellationToken);
         await Task.WhenAll(oldTask, newTask);

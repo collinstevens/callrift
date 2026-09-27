@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -39,6 +40,8 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
 
     private void WalkCore(SyntaxNode node, List<CallStep> result)
     {
+        var symbol = node is IdentifierNameSyntax or GenericNameSyntax or MemberAccessExpressionSyntax
+            ? model.GetSymbolInfo(node, cancellationToken).Symbol : null;
         switch (node)
         {
             case LocalFunctionStatementSyntax or BaseTypeDeclarationSyntax or MethodDeclarationSyntax:
@@ -54,7 +57,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                     result.Add(CreateOperatorCall(cast, conversionMethod, conversion.ConstrainedToType));
                 return;
             case ExpressionSyntax expression when expression is IdentifierNameSyntax or GenericNameSyntax or MemberAccessExpressionSyntax
-                && model.GetSymbolInfo(expression, cancellationToken).Symbol is IMethodSymbol method
+                && symbol is IMethodSymbol method
                 && (model.GetTypeInfo(expression, cancellationToken).ConvertedType?.TypeKind == TypeKind.Delegate
                     || model.GetOperation(expression, cancellationToken) is IMethodReferenceOperation):
                 if (expression is MemberAccessExpressionSyntax methodAccess)
@@ -91,7 +94,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 var coalesced = new List<CallStep>();
                 Walk(assignment.Right, coalesced);
                 AddPropertySetter(assignment.Left, coalesced);
-                AddBranch("if (" + SymbolNames.Compact(assignment.Left) + " is null)", assignment, coalesced, result);
+                if (coalesced.Count > 0) AddBranch("if (" + SymbolNames.Compact(assignment.Left) + " is null)", assignment, coalesced, result);
                 return;
             case AssignmentExpressionSyntax assignment when !assignment.IsKind(SyntaxKind.SimpleAssignmentExpression)
                 && model.GetOperation(assignment, cancellationToken) is ICompoundAssignmentOperation compound:
@@ -112,11 +115,11 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 Walk(assignment.Right, result);
                 AddPropertySetter(assignment.Left, result);
                 return;
-            case AssignmentExpressionSyntax assignment when StaticMember(assignment.Left) is { } assignedMember:
+            case AssignmentExpressionSyntax assignment when StaticMember(model.GetSymbolInfo(assignment.Left, cancellationToken).Symbol) is { } assignedMember:
                 var readBeforeAssignment = !assignment.IsKind(SyntaxKind.SimpleAssignmentExpression) && assignedMember is not IEventSymbol;
                 if (readBeforeAssignment) Walk(assignment.Left, result);
                 Walk(assignment.Right, result);
-                if (!readBeforeAssignment) AddStaticMember(assignment.Left, result);
+                if (!readBeforeAssignment) AddStaticMember(assignment.Left, assignedMember, result);
                 return;
             case ExpressionSyntax expression when expression is IdentifierNameSyntax or MemberAccessExpressionSyntax or MemberBindingExpressionSyntax
                 or ElementAccessExpressionSyntax or ElementBindingExpressionSyntax or ImplicitElementAccessSyntax
@@ -127,10 +130,10 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 return;
             case MemberAccessExpressionSyntax access:
                 Walk(access.Expression, result);
-                AddStaticMember(access, result);
+                AddStaticMember(access, symbol, result);
                 return;
             case IdentifierNameSyntax identifier:
-                AddStaticMember(identifier, result);
+                AddStaticMember(identifier, symbol, result);
                 return;
             case FieldExpressionSyntax field:
                 AddStaticMember(field, result);
@@ -138,8 +141,15 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             case InvocationExpressionSyntax invocation:
                 if (invocation.Expression is IdentifierNameSyntax { Identifier.ValueText: "nameof" } && model.GetConstantValue(invocation, cancellationToken).HasValue)
                     return;
-                Walk(invocation.Expression, result);
-                Emit(invocation, invocation.ArgumentList.Arguments, result);
+                var invocationBinding = model.GetSymbolInfo(invocation, cancellationToken);
+                if (invocationBinding.Symbol is IMethodSymbol { MethodKind: MethodKind.Ordinary or MethodKind.ReducedExtension or MethodKind.LocalFunction }
+                    && invocation.Expression is IdentifierNameSyntax or GenericNameSyntax or MemberAccessExpressionSyntax)
+                {
+                    if (invocation.Expression is MemberAccessExpressionSyntax invokedMember) Walk(invokedMember.Expression, result);
+                }
+                else
+                    Walk(invocation.Expression, result);
+                Emit(invocation, invocation.ArgumentList.Arguments, result, invocationBinding);
                 return;
             case BaseObjectCreationExpressionSyntax creation:
                 Emit(creation, creation.ArgumentList?.Arguments ?? [], result);
@@ -173,64 +183,64 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 return;
             case IfStatementSyntax conditional:
                 Walk(conditional.Condition, result);
-                Branch("if (" + SymbolNames.Compact(conditional.Condition) + ")", conditional, [conditional.Statement], result);
+                Branch(conditional, [conditional.Statement], result, static node => "if (" + SymbolNames.Compact(node.Condition) + ")");
                 if (conditional.Else is not null)
-                    Branch("else (!(" + SymbolNames.Compact(conditional.Condition) + "))", conditional.Else, [conditional.Else.Statement], result);
+                    Branch(conditional, [conditional.Else.Statement], result, static node => "else (!(" + SymbolNames.Compact(node.Condition) + "))", conditional.Else);
                 return;
             case IsPatternExpressionSyntax pattern:
                 Walk(pattern.Expression, result);
-                Branch("pattern (" + SymbolNames.Compact(pattern.Expression) + " is " + SymbolNames.Compact(pattern.Pattern) + ")", pattern, [pattern.Pattern], result);
+                Branch(pattern, [pattern.Pattern], result, static node => "pattern (" + SymbolNames.Compact(node.Expression) + " is " + SymbolNames.Compact(node.Pattern) + ")");
                 return;
             case SwitchStatementSyntax selection:
                 Walk(selection.Expression, result);
                 foreach (var section in selection.Sections)
-                    Branch(string.Join(" ", section.Labels.Select(SymbolNames.Compact)), section,
-                        section.Labels.OfType<CasePatternSwitchLabelSyntax>().SelectMany(label => label.WhenClause is null
-                            ? new SyntaxNode[] { label.Pattern } : [label.Pattern, label.WhenClause]).Concat(section.Statements), result);
+                    Branch(section, section.Labels.OfType<CasePatternSwitchLabelSyntax>().SelectMany(label => label.WhenClause is null
+                        ? new SyntaxNode[] { label.Pattern } : [label.Pattern, label.WhenClause]).Concat(section.Statements), result,
+                        static node => string.Join(" ", node.Labels.Select(SymbolNames.Compact)));
                 return;
             case SwitchExpressionSyntax selection:
                 Walk(selection.GoverningExpression, result);
                 foreach (var arm in selection.Arms)
-                    Branch("case " + SymbolNames.Compact(arm.Pattern) + (arm.WhenClause is null ? "" : " " + SymbolNames.Compact(arm.WhenClause)), arm,
-                        arm.WhenClause is null ? [arm.Pattern, arm.Expression] : [arm.Pattern, arm.WhenClause, arm.Expression], result);
+                    Branch(arm, arm.WhenClause is null ? [arm.Pattern, arm.Expression] : [arm.Pattern, arm.WhenClause, arm.Expression], result,
+                        static node => "case " + SymbolNames.Compact(node.Pattern) + (node.WhenClause is null ? "" : " " + SymbolNames.Compact(node.WhenClause)));
                 return;
             case TryStatementSyntax attempt:
-                Branch("try", attempt.Block, [attempt.Block], result);
+                Branch(attempt.Block, [attempt.Block], result, static _ => "try");
                 foreach (var handler in attempt.Catches)
-                    Branch("catch" + (handler.Declaration is null ? "" : " " + SymbolNames.Compact(handler.Declaration))
-                        + (handler.Filter is null ? "" : " " + SymbolNames.Compact(handler.Filter)), handler,
-                        handler.Filter is null ? [handler.Block] : [handler.Filter, handler.Block], result);
+                    Branch(handler, handler.Filter is null ? [handler.Block] : [handler.Filter, handler.Block], result,
+                        static node => "catch" + (node.Declaration is null ? "" : " " + SymbolNames.Compact(node.Declaration))
+                            + (node.Filter is null ? "" : " " + SymbolNames.Compact(node.Filter)));
                 if (attempt.Finally is not null)
-                    Branch("finally", attempt.Finally, [attempt.Finally.Block], result);
+                    Branch(attempt.Finally, [attempt.Finally.Block], result, static _ => "finally");
                 return;
             case ForEachStatementSyntax loop:
                 Walk(loop.Expression, result);
-                Branch($"foreach ({SymbolNames.Compact(loop.Type)} {loop.Identifier} in {SymbolNames.Compact(loop.Expression)})", loop, [loop.Statement], result);
+                Branch(loop, [loop.Statement], result, static node => $"foreach ({SymbolNames.Compact(node.Type)} {node.Identifier} in {SymbolNames.Compact(node.Expression)})");
                 return;
             case ForEachVariableStatementSyntax loop:
                 Walk(loop.Expression, result);
-                Branch($"foreach ({SymbolNames.Compact(loop.Variable)} in {SymbolNames.Compact(loop.Expression)})", loop, [loop.Statement], result);
+                Branch(loop, [loop.Statement], result, static node => $"foreach ({SymbolNames.Compact(node.Variable)} in {SymbolNames.Compact(node.Expression)})");
                 return;
             case ForStatementSyntax loop:
                 Walk(loop.Declaration, result);
                 foreach (var initial in loop.Initializers) Walk(initial, result);
-                Branch("for (" + (loop.Condition is null ? "" : SymbolNames.Compact(loop.Condition)) + ")", loop,
-                    new SyntaxNode?[] { loop.Condition, loop.Statement }.Where(n => n is not null).Cast<SyntaxNode>().Concat(loop.Incrementors), result);
+                Branch(loop, new SyntaxNode?[] { loop.Condition, loop.Statement }.Where(n => n is not null).Cast<SyntaxNode>().Concat(loop.Incrementors), result,
+                    static node => "for (" + (node.Condition is null ? "" : SymbolNames.Compact(node.Condition)) + ")");
                 return;
             case WhileStatementSyntax loop:
-                Branch("while (" + SymbolNames.Compact(loop.Condition) + ")", loop, [loop.Condition, loop.Statement], result);
+                Branch(loop, [loop.Condition, loop.Statement], result, static node => "while (" + SymbolNames.Compact(node.Condition) + ")");
                 return;
             case DoStatementSyntax loop:
-                Branch("do / while (" + SymbolNames.Compact(loop.Condition) + ")", loop, [loop.Statement, loop.Condition], result);
+                Branch(loop, [loop.Statement, loop.Condition], result, static node => "do / while (" + SymbolNames.Compact(node.Condition) + ")");
                 return;
             case ConditionalExpressionSyntax conditional:
                 Walk(conditional.Condition, result);
-                Branch("if (" + SymbolNames.Compact(conditional.Condition) + ")", conditional.WhenTrue, [conditional.WhenTrue], result);
-                Branch("else (!(" + SymbolNames.Compact(conditional.Condition) + "))", conditional.WhenFalse, [conditional.WhenFalse], result);
+                Branch(conditional, [conditional.WhenTrue], result, static node => "if (" + SymbolNames.Compact(node.Condition) + ")", conditional.WhenTrue);
+                Branch(conditional, [conditional.WhenFalse], result, static node => "else (!(" + SymbolNames.Compact(node.Condition) + "))", conditional.WhenFalse);
                 return;
             case ConditionalAccessExpressionSyntax access:
                 Walk(access.Expression, result);
-                Branch("if (" + SymbolNames.Compact(access.Expression) + " is not null)", access, [access.WhenNotNull], result);
+                Branch(access, [access.WhenNotNull], result, static node => "if (" + SymbolNames.Compact(node.Expression) + " is not null)");
                 return;
             case BinaryExpressionSyntax binary when binary.IsKind(SyntaxKind.LogicalAndExpression) || binary.IsKind(SyntaxKind.LogicalOrExpression) || binary.IsKind(SyntaxKind.CoalesceExpression):
                 Walk(binary.Left, result);
@@ -247,13 +257,12 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                     AddBranch("if (!" + (truth?.OperatorMethod is { } boundTruth ? symbols.Label(boundTruth) : "truth operator") + "(" + SymbolNames.Compact(binary.Left) + "))", binary, right, result);
                     return;
                 }
-                var predicate = binary.Kind() switch
+                Branch(binary, [binary.Right], result, static node => "if (" + (node.Kind() switch
                 {
-                    SyntaxKind.LogicalAndExpression => SymbolNames.Compact(binary.Left),
-                    SyntaxKind.LogicalOrExpression => "!(" + SymbolNames.Compact(binary.Left) + ")",
-                    _ => SymbolNames.Compact(binary.Left) + " is null"
-                };
-                Branch("if (" + predicate + ")", binary, [binary.Right], result);
+                    SyntaxKind.LogicalAndExpression => SymbolNames.Compact(node.Left),
+                    SyntaxKind.LogicalOrExpression => "!(" + SymbolNames.Compact(node.Left) + ")",
+                    _ => SymbolNames.Compact(node.Left) + " is null"
+                }) + ")");
                 return;
             case BinaryExpressionSyntax binary:
                 Walk(binary.Left, result);
@@ -272,8 +281,8 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 if (postfix.Kind() is SyntaxKind.PostIncrementExpression or SyntaxKind.PostDecrementExpression) AddPropertySetter(postfix.Operand, result);
                 return;
         }
-        foreach (var child in node.ChildNodes())
-            Walk(child, result);
+        foreach (var child in node.ChildNodesAndTokens())
+            if (child.AsNode() is { } childNode) Walk(childNode, result);
     }
 
     private void WalkPropertyInputs(ExpressionSyntax expression, List<CallStep> result)
@@ -380,16 +389,20 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         };
     }
 
-    private ISymbol? StaticMember(SyntaxNode node) => model.GetSymbolInfo(node, cancellationToken).Symbol switch
+    private static ISymbol? StaticMember(ISymbol? symbol) => symbol switch
     {
         IFieldSymbol { IsStatic: true, IsConst: false } field => field,
         IEventSymbol { IsStatic: true } eventSymbol => eventSymbol,
         _ => null
     };
 
-    private void AddStaticMember(SyntaxNode node, List<CallStep> result)
+    private void AddStaticMember(SyntaxNode node, List<CallStep> result) =>
+        AddStaticMember(node, model.GetSymbolInfo(node, cancellationToken).Symbol, result);
+
+    private void AddStaticMember(SyntaxNode node, ISymbol? symbol, List<CallStep> result)
     {
-        if (StaticMember(node) is not { } member) return;
+        cancellationToken.ThrowIfCancellationRequested();
+        if (StaticMember(symbol) is not { } member) return;
         if (member.ContainingType.Locations.Any(location => location.IsInSource) && member.ContainingType.StaticConstructors.Length == 0) return;
         var type = DescribeType(member.ContainingType);
         result.Add(new CallStep("initialize", "initialize:" + type.Name, "initialization", true, symbols.Location(node), [])
@@ -403,11 +416,11 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             { Relation = "callback" });
     }
 
-    private void Emit(SyntaxNode invocation, SeparatedSyntaxList<ArgumentSyntax> arguments, List<CallStep> result) =>
-        Emit(invocation, arguments.Select(argument => argument.Expression), result);
+    private void Emit(SyntaxNode invocation, SeparatedSyntaxList<ArgumentSyntax> arguments, List<CallStep> result, SymbolInfo? invocationBinding = null) =>
+        Emit(invocation, arguments.Select(argument => argument.Expression), result, invocationBinding: invocationBinding);
 
     private void Emit(SyntaxNode invocation, IEnumerable<ExpressionSyntax> arguments, List<CallStep> result,
-        SymbolInfo? initializerBinding = null, ExpressionSyntax? collection = null)
+        SymbolInfo? initializerBinding = null, ExpressionSyntax? collection = null, SymbolInfo? invocationBinding = null)
     {
         var callbacks = new List<CallStep>();
         var argumentIndex = 0;
@@ -433,7 +446,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 callbacks[index] = callbacks[index] with { CallbackGroup = argumentIndex };
             argumentIndex++;
         }
-        var info = initializerBinding ?? model.GetSymbolInfo(invocation, cancellationToken);
+        var info = initializerBinding ?? invocationBinding ?? model.GetSymbolInfo(invocation, cancellationToken);
         var target = initializerBinding is null && invocation is InvocationExpressionSyntax interceptable
             ? InterceptorSymbols.Find(model, interceptable, cancellationToken) ?? info.Symbol as IMethodSymbol
             : info.Symbol as IMethodSymbol;
@@ -459,8 +472,8 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         }
     }
 
-    public CallStep ImplicitConstructor(SyntaxNode declaration, IMethodSymbol constructor) => CreateCall(declaration, constructor, []) with
-    { Label = symbols.Label(constructor), SuppressDispatch = true, UsesContainingInstance = true };
+    public CallStep ImplicitConstructor(SyntaxNode declaration, IMethodSymbol constructor) => CreateCall(declaration, constructor, [], label: symbols.Label(constructor)) with
+    { SuppressDispatch = true, UsesContainingInstance = true };
 
     private CallStep CreateOperatorCall(SyntaxNode node, IMethodSymbol method, ITypeSymbol? constrainedType, ExpressionSyntax? receiver = null)
     {
@@ -473,7 +486,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         };
     }
 
-    private CallStep CreateCall(SyntaxNode node, IMethodSymbol method, IReadOnlyList<CallStep> children, ExpressionSyntax? collection = null)
+    private CallStep CreateCall(SyntaxNode node, IMethodSymbol method, IReadOnlyList<CallStep> children, ExpressionSyntax? collection = null, string? label = null)
     {
         var normalized = SymbolNames.Normalize(method);
         dispatchTypes.Add(method.ContainingType);
@@ -505,8 +518,8 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         var receiverType = dispatches || GenericBindings.HasContainingInstance(method)
             ? implicitPropertyReceiver?.Type is { } propertyReceiverType ? DescribeType(propertyReceiverType) : ReceiverConstraint(receiver, node.SpanStart)
             : null;
-        return new CallStep("call", symbols.Key(normalized), source || method.MethodKind is MethodKind.Conversion or MethodKind.UserDefinedOperator or MethodKind.EventAdd or MethodKind.EventRemove or MethodKind.PropertyGet or MethodKind.PropertySet || collection is not null || node is ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax or WithExpressionSyntax
-            ? symbols.Label(normalized) : SymbolNames.SyntaxLabel(node), source, symbols.Location(node), children)
+        return new CallStep("call", symbols.Key(normalized), label ?? (source || method.MethodKind is MethodKind.Conversion or MethodKind.UserDefinedOperator or MethodKind.EventAdd or MethodKind.EventRemove or MethodKind.PropertyGet or MethodKind.PropertySet || collection is not null || node is ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax or WithExpressionSyntax
+            ? symbols.Label(normalized) : SymbolNames.SyntaxLabel(node)), source, symbols.Location(node), children)
         {
             AlignmentKey = AlignmentKey(node),
             SuppressDispatch = exactReceiver,
@@ -524,9 +537,36 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         };
     }
 
-    private static string? AlignmentKey(SyntaxNode node) => node is ExpressionSyntax or ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax
-        ? Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(string.Join("\0", node.DescendantTokens().Select(token => token.RawKind + ":" + token.Text)))))
-        : null;
+    private static string? AlignmentKey(SyntaxNode node)
+    {
+        if (node is not (ExpressionSyntax or ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax)) return null;
+        var text = new DefaultInterpolatedStringHandler(0, 0, null, stackalloc char[256]);
+        try
+        {
+            var first = true;
+            var lastToken = node.GetLastToken(includeZeroWidth: true);
+            for (var token = node.GetFirstToken(includeZeroWidth: true); token.RawKind != 0; token = token.GetNextToken(includeZeroWidth: true))
+            {
+                if (!first) text.AppendLiteral("\0");
+                first = false;
+                text.AppendFormatted(token.RawKind);
+                text.AppendLiteral(":");
+                text.AppendLiteral(token.Text);
+                if (token == lastToken) break;
+            }
+            var value = text.ToString();
+            var byteCount = Encoding.UTF8.GetByteCount(value);
+            Span<byte> bytes = byteCount <= 512 ? stackalloc byte[byteCount] : new byte[byteCount];
+            Encoding.UTF8.GetBytes(value, bytes);
+            Span<byte> hash = stackalloc byte[SHA256.HashSizeInBytes];
+            SHA256.HashData(bytes, hash);
+            return Convert.ToHexStringLower(hash);
+        }
+        finally
+        {
+            text.Clear();
+        }
+    }
 
     private DispatchType? ReceiverConstraint(ExpressionSyntax? receiver, int position)
     {
@@ -577,12 +617,13 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         return DispatchType.From(type);
     }
 
-    private void Branch(string label, SyntaxNode node, IEnumerable<SyntaxNode> bodies, List<CallStep> result)
+    private void Branch<TNode>(TNode node, IEnumerable<SyntaxNode> bodies, List<CallStep> result, Func<TNode, string> formatLabel, SyntaxNode? location = null) where TNode : SyntaxNode
     {
         var calls = new List<CallStep>();
         foreach (var body in bodies)
             Walk(body, calls);
-        AddBranch(label, node, calls, result);
+        if (calls.Count == 0) return;
+        AddBranch(formatLabel(node), location ?? node, calls, result);
     }
 
     private void AddBranch(string label, SyntaxNode node, IReadOnlyList<CallStep> calls, List<CallStep> result)

@@ -16,15 +16,42 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
     public Task<CallGraph> AnalyzeAsync(SourceSnapshot snapshot, AnalysisOptions options, CancellationToken cancellationToken = default) =>
         Task.Run(() => Analyze(snapshot, options, cancellationToken), cancellationToken);
 
+    internal async Task<CallGraph[]> AnalyzePairAsync(SourceSnapshot before, SourceSnapshot after, AnalysisOptions options, CancellationToken cancellationToken)
+    {
+        var parsedTrees = new ConcurrentDictionary<(string Path, string Content), Lazy<SyntaxTree>>();
+        try
+        {
+            return await Task.WhenAll(
+                Task.Run(() => Analyze(before, options, cancellationToken, parsedTrees), cancellationToken),
+                Task.Run(() => Analyze(after, options, cancellationToken, parsedTrees), cancellationToken));
+        }
+        finally
+        {
+            parsedTrees.Clear();
+        }
+    }
+
     public SyntaxTree[] Parse(SourceSnapshot snapshot, AnalysisOptions options, CancellationToken cancellationToken = default) =>
         Parse(snapshot, options, new ProjectClassifier(snapshot), cancellationToken);
 
-    private static SyntaxTree[] Parse(SourceSnapshot snapshot, AnalysisOptions options, ProjectClassifier classifier, CancellationToken cancellationToken)
+    private static SyntaxTree[] Parse(SourceSnapshot snapshot, AnalysisOptions options, ProjectClassifier classifier, CancellationToken cancellationToken,
+        ConcurrentDictionary<(string Path, string Content), Lazy<SyntaxTree>>? parsedTrees = null)
     {
         var files = snapshot.Files.Where(f => f.Path.EndsWith(".cs", StringComparison.OrdinalIgnoreCase) && (options.IncludeTests || !classifier.IsTest(f.Path))).ToArray();
+        if (parsedTrees is not null)
+        {
+            var paths = new HashSet<string>(StringComparer.Ordinal);
+            if (files.Any(file => !paths.Add(file.Path))) parsedTrees = null;
+        }
         var trees = new SyntaxTree[files.Length];
         Parallel.For(0, files.Length, new ParallelOptions { CancellationToken = cancellationToken, MaxDegreeOfParallelism = Math.Max(1, Environment.ProcessorCount / 2) },
-            i => trees[i] = CSharpSyntaxTree.ParseText(files[i].Content, ParseOptions, files[i].Path, cancellationToken: cancellationToken));
+            i =>
+            {
+                var file = files[i];
+                trees[i] = parsedTrees is null ? CSharpSyntaxTree.ParseText(file.Content, ParseOptions, file.Path, cancellationToken: cancellationToken)
+                    : parsedTrees.GetOrAdd((file.Path, file.Content), static (entry, token) => new Lazy<SyntaxTree>(() =>
+                        CSharpSyntaxTree.ParseText(entry.Content, ParseOptions, entry.Path, cancellationToken: token)), cancellationToken).Value;
+            });
         return trees;
     }
 
@@ -32,10 +59,11 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
         trees.Append(CSharpSyntaxTree.ParseText(GlobalUsings, ParseOptions, "<implicit-usings>")), References.Value,
         new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, concurrentBuild: true));
 
-    private CallGraph Analyze(SourceSnapshot snapshot, AnalysisOptions options, CancellationToken cancellationToken)
+    private CallGraph Analyze(SourceSnapshot snapshot, AnalysisOptions options, CancellationToken cancellationToken,
+        ConcurrentDictionary<(string Path, string Content), Lazy<SyntaxTree>>? parsedTrees = null)
     {
         var classifier = new ProjectClassifier(snapshot);
-        var trees = Parse(snapshot, options, classifier, cancellationToken);
+        var trees = Parse(snapshot, options, classifier, cancellationToken, parsedTrees);
         var compilation = CreateCompilation(trees);
         var graph = AnalyzeCompilation(compilation, trees, cancellationToken: cancellationToken);
         return options.IncludeTests ? graph : graph with
@@ -409,6 +437,13 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
     private static DispatchMap BuildDispatchMap(IEnumerable<INamedTypeSymbol> types, IReadOnlyDictionary<string, Member> members, SymbolNames symbols,
         CancellationToken cancellationToken, IEnumerable<ITypeSymbol>? observedTypes = null)
     {
+        var methodCache = new Dictionary<INamedTypeSymbol, IMethodSymbol[]>(ReferenceEqualityComparer.Instance);
+        IMethodSymbol[] Methods(INamedTypeSymbol type)
+        {
+            if (!methodCache.TryGetValue(type, out var methods))
+                methodCache[type] = methods = type.GetMembers().OfType<IMethodSymbol>().ToArray();
+            return methods;
+        }
         var declaredTypes = types.ToArray();
         var map = new Dictionary<string, SortedSet<string>>(StringComparer.Ordinal);
         var contracts = new Dictionary<string, List<DispatchContract>>(StringComparer.Ordinal);
@@ -433,13 +468,13 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
             var receiverTypes = type.AllInterfaces.Select(DispatchType.From).ToList();
             for (var current = type; current is not null; current = current.BaseType) receiverTypes.Add(DispatchType.From(current));
             foreach (var contract in type.AllInterfaces)
-                foreach (var method in contract.GetMembers().OfType<IMethodSymbol>())
+                foreach (var method in Methods(contract))
                     if (type.FindImplementationForInterfaceMember(method) is IMethodSymbol implementation)
                     {
                         var resolved = implementation;
                         for (var current = type; current is not null; current = current.BaseType)
                         {
-                            var candidate = current.GetMembers().OfType<IMethodSymbol>().FirstOrDefault(m => Overrides(m, implementation));
+                            var candidate = Methods(current).FirstOrDefault(m => Overrides(m, implementation));
                             if (candidate is null) continue;
                             resolved = candidate;
                             break;
@@ -450,7 +485,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                 continue;
             var overridden = new HashSet<ISymbol>(SymbolEqualityComparer.Default);
             for (var current = type; current is not null; current = current.BaseType)
-                foreach (var method in current.GetMembers().OfType<IMethodSymbol>())
+                foreach (var method in Methods(current))
                 {
                     if (overridden.Contains(method)) continue;
                     if (method.IsVirtual || method.IsOverride) Add(method, method, receiverTypes, type, includeSelf: true);
