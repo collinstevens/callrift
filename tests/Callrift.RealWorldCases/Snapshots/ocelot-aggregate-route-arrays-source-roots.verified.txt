@@ -1,0 +1,253 @@
+﻿format: text
+exit: 0
+stdout:
+  FileConfigurationController.Post
+  ├─ try
+~ │  ├─ IFileConfigurationSetter.SetAsync → FileAndInternalConfigurationSetter.SetAsync (changes below depth limit)
+  │  └─ ? Ok
+  └─ catch (Exception e)
+
+~ new AggregateRouteConfig (signature changed)
+
+  FileConfigurationPoller.PollAsync
+  ├─ FileConfigurationPoller.TryEnterPolling
+  ├─ try
+  │  ├─ …
+  │  ├─ if (configuration is null)
+  │  ├─ FileConfigurationPoller.ToJson (depth limit)
+  │  ├─ if (asJson != _previousAsJson)
+~ │  │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create (changes below depth limit)
+  │  │  └─ if (!config.IsError)
+  │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
+  └─ finally
+
+  FileConfigurationPoller.StartAsync
+  ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
+  ├─ IFileConfigurationPollerOptions.DelayAsync
+  └─ new
+~    └─ FileConfigurationPoller.OnTimer (changes below depth limit)
+
+  DownstreamRouteFinder.Get
+  ├─ configuration.Routes.Where
+  ├─ foreach (var route in applicableRoutes)
+  │  ├─ IUrlPathToUrlTemplateMatcher.Match → RegExUrlMatcher.Match (depth limit)
+  │  ├─ IHeadersToHeaderTemplatesMatcher.Match → HeadersToHeaderTemplatesMatcher.Match (depth limit)
+  │  └─ if (urlMatch.Match && headersMatch)
+~ │     └─ DownstreamRouteFinder.GetPlaceholderNamesAndValues (changes below depth limit)
+  ├─ if (downstreamRoutes.Count != 0)
+  ├─ new UnableToFindDownstreamRouteError (depth limit)
+  └─ …
+
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+~ └─ OcelotMiddlewareExtensions.UseOcelot (changes below depth limit)
+
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+~ └─ OcelotMiddlewareExtensions.UseOcelot (changes below depth limit)
+
+~ MultiplexingMiddleware.Invoke (signature changed)
+- ├─ ? httpContext.Items.DownstreamRouteHolder
++ ├─ ? context.Items.DownstreamRouteHolder
+  ├─ MultiplexingMiddleware.ShouldProcessSingleRoute
+- ├─ if (ShouldProcessSingleRoute(httpContext, downstreamRoutes))
+- │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync (depth limit)
++ ├─ if (ShouldProcessSingleRoute(context, downstreamRoutes))
++ │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync (depth limit)
+  ├─ if (routeKeysConfigs == null || routeKeysConfigs.Count == 0)
+~ │  └─ MultiplexingMiddleware.ProcessRoutesAsync (changes below depth limit)
+~ ├─ MultiplexingMiddleware.ProcessMainRouteAsync (signature changed)
+- ├─ ? ProcessRoutesWithRouteKeysAsync
+- ├─ ? MapResponsesAsync
++ ├─ MultiplexingMiddleware.ProcessRoutesWithRouteKeysAsync (changes below depth limit)
++ └─ MultiplexingMiddleware.MapResponsesAsync (changes below depth limit)
+
+~ MultiplexingMiddleware.ProcessRouteWithComplexAggregation (signature changed)
+  ├─ …
+  ├─ ? jObject.SelectTokens(matchAdvancedAgg.JsonPath).Select
+  ├─ ? jObject.SelectTokens(matchAdvancedAgg.JsonPath).Select(s => s.ToString()).Distinct
+  └─ foreach (var value in values)
+-    ├─ ? httpContext.Items.TemplatePlaceholderNameAndValues
+-    ├─ ? new PlaceholderNameAndValue
++    ├─ ? context.Items.TemplatePlaceholderNameAndValues
++    ├─ ? new
+     └─ MultiplexingMiddleware.ProcessRouteAsync (depth limit)
+
+  MultiplexingMiddleware.ProcessRoutesWithRouteKeysAsync
+  ├─ ? mainResponse.Items.DownstreamResponse
+  ├─ ? JToken.Parse
+  └─ foreach (var downstreamRoute in routes.Skip(1))
+     ├─ if (matchAdvancedAgg != null)
+-    ├─ MultiplexingMiddleware.ProcessRouteAsync (depth limit)
++    └─ else (!(matchAdvancedAgg != null))
++       └─ MultiplexingMiddleware.ProcessRouteAsync (depth limit)
+
+  ChangeDownstreamPathTemplate.ChangeDownstreamPath
+  ├─ foreach (var config in claimsToThings)
+  │  ├─ IClaimsParser.GetValue → ClaimsParser.GetValue (depth limit)
+  │  ├─ if (value.IsError)
+- │  ├─ if (!downstreamPathTemplate.Value.Contains(placeholderName))
+- │  │  ├─ new CouldNotFindPlaceholderError (depth limit)
+- │  │  └─ new ErrorResponse (depth limit)
+~ │  ├─ new PlaceholderNameAndValue (signature changed)
++ │  └─ if (!downstreamPathTemplate.Value.Contains(placeholder.Name))
++ │     ├─ new CouldNotFindPlaceholderError (depth limit)
++ │     └─ new ErrorResponse (depth limit)
+  └─ new OkResponse (depth limit)
+
+  WebSocketsSteps.StartHttp2OcelotWithWebSockets
+  ├─ AcceptanceSteps.DownstreamUrl
+  └─ AcceptanceSteps.GivenOcelotHostIsRunning (changes below depth limit)
+     ├─ AcceptanceSteps.WithBasicConfiguration (depth limit)
+     ├─ AcceptanceSteps.WithAddOcelot (depth limit)
+~    ├─ WebSocketsSteps.WithWebSockets (changes below depth limit)
+     └─ WebSocketsSteps.StartHttp2OcelotWithWebSockets.ConfigureWebHost (depth limit)
+
+  WebSocketsSteps.StartOcelotWithWebSockets
+~ └─ WebSocketsSteps.StartOcelotWithWebSockets (changes below depth limit)
+
+  WebSocketsSteps.StartOcelotWithWebSockets
+  ├─ AcceptanceSteps.DownstreamUrl (depth limit)
+  ├─ if (configureServices is null)
+  └─ AcceptanceSteps.GivenOcelotHostIsRunning (changes below depth limit)
+     ├─ AcceptanceSteps.WithBasicConfiguration (depth limit)
+~    ├─ WebSocketsSteps.StartOcelotWithWebSockets.WithWebSocketsAndConfig (changes below depth limit)
+     └─ WebSocketsSteps.StartOcelotWithWebSockets.ConfigureWebHost (depth limit)
+stderr:
+manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+manual/Actions/Basic.cs:16: unresolved-call: Cannot bind builder.Services.AddOcelot.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Configuration.GetSection.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Logging.AddConfiguration.
+manual/Actions/Basic.cs:30: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+manual/Actions/Basic.cs:32: unresolved-call: Cannot bind builder.Logging.AddConsole.
+1062 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  FileConfigurationController.Post
+  ├─ try
+~ │  ├─ IFileConfigurationSetter.SetAsync → FileAndInternalConfigurationSetter.SetAsync (changes below depth limit)
+  │  └─ ? Ok
+  └─ catch (Exception e)
+
+~ new AggregateRouteConfig (signature changed)
+
+  FileConfigurationPoller.PollAsync
+  ├─ FileConfigurationPoller.TryEnterPolling
+  ├─ try
+  │  ├─ …
+  │  ├─ if (configuration is null)
+  │  ├─ FileConfigurationPoller.ToJson (depth limit)
+  │  ├─ if (asJson != _previousAsJson)
+~ │  │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create (changes below depth limit)
+  │  │  └─ if (!config.IsError)
+  │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
+  └─ finally
+
+  FileConfigurationPoller.StartAsync
+  ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
+  ├─ IFileConfigurationPollerOptions.DelayAsync
+  └─ new
+~    └─ FileConfigurationPoller.OnTimer (changes below depth limit)
+
+  DownstreamRouteFinder.Get
+  ├─ configuration.Routes.Where
+  ├─ foreach (var route in applicableRoutes)
+  │  ├─ IUrlPathToUrlTemplateMatcher.Match → RegExUrlMatcher.Match (depth limit)
+  │  ├─ IHeadersToHeaderTemplatesMatcher.Match → HeadersToHeaderTemplatesMatcher.Match (depth limit)
+  │  └─ if (urlMatch.Match && headersMatch)
+~ │     └─ DownstreamRouteFinder.GetPlaceholderNamesAndValues (changes below depth limit)
+  ├─ if (downstreamRoutes.Count != 0)
+  ├─ new UnableToFindDownstreamRouteError (depth limit)
+  └─ …
+
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+~ └─ OcelotMiddlewareExtensions.UseOcelot (changes below depth limit)
+
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+~ └─ OcelotMiddlewareExtensions.UseOcelot (changes below depth limit)
+
+~ MultiplexingMiddleware.Invoke (signature changed)
+- ├─ ? httpContext.Items.DownstreamRouteHolder
++ ├─ ? context.Items.DownstreamRouteHolder
+  ├─ MultiplexingMiddleware.ShouldProcessSingleRoute
+- ├─ if (ShouldProcessSingleRoute(httpContext, downstreamRoutes))
+- │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync (depth limit)
++ ├─ if (ShouldProcessSingleRoute(context, downstreamRoutes))
++ │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync (depth limit)
+  ├─ if (routeKeysConfigs == null || routeKeysConfigs.Count == 0)
+~ │  └─ MultiplexingMiddleware.ProcessRoutesAsync (changes below depth limit)
+~ ├─ MultiplexingMiddleware.ProcessMainRouteAsync (signature changed)
+- ├─ ? ProcessRoutesWithRouteKeysAsync
+- ├─ ? MapResponsesAsync
++ ├─ MultiplexingMiddleware.ProcessRoutesWithRouteKeysAsync (changes below depth limit)
++ └─ MultiplexingMiddleware.MapResponsesAsync (changes below depth limit)
+
+~ MultiplexingMiddleware.ProcessRouteWithComplexAggregation (signature changed)
+  ├─ …
+  ├─ ? jObject.SelectTokens(matchAdvancedAgg.JsonPath).Select
+  ├─ ? jObject.SelectTokens(matchAdvancedAgg.JsonPath).Select(s => s.ToString()).Distinct
+  └─ foreach (var value in values)
+-    ├─ ? httpContext.Items.TemplatePlaceholderNameAndValues
+-    ├─ ? new PlaceholderNameAndValue
++    ├─ ? context.Items.TemplatePlaceholderNameAndValues
++    ├─ ? new
+     └─ MultiplexingMiddleware.ProcessRouteAsync (depth limit)
+
+  MultiplexingMiddleware.ProcessRoutesWithRouteKeysAsync
+  ├─ ? mainResponse.Items.DownstreamResponse
+  ├─ ? JToken.Parse
+  └─ foreach (var downstreamRoute in routes.Skip(1))
+     ├─ if (matchAdvancedAgg != null)
+-    ├─ MultiplexingMiddleware.ProcessRouteAsync (depth limit)
++    └─ else (!(matchAdvancedAgg != null))
++       └─ MultiplexingMiddleware.ProcessRouteAsync (depth limit)
+
+  ChangeDownstreamPathTemplate.ChangeDownstreamPath
+  ├─ foreach (var config in claimsToThings)
+  │  ├─ IClaimsParser.GetValue → ClaimsParser.GetValue (depth limit)
+  │  ├─ if (value.IsError)
+- │  ├─ if (!downstreamPathTemplate.Value.Contains(placeholderName))
+- │  │  ├─ new CouldNotFindPlaceholderError (depth limit)
+- │  │  └─ new ErrorResponse (depth limit)
+~ │  ├─ new PlaceholderNameAndValue (signature changed)
++ │  └─ if (!downstreamPathTemplate.Value.Contains(placeholder.Name))
++ │     ├─ new CouldNotFindPlaceholderError (depth limit)
++ │     └─ new ErrorResponse (depth limit)
+  └─ new OkResponse (depth limit)
+
+  WebSocketsSteps.StartHttp2OcelotWithWebSockets
+  ├─ AcceptanceSteps.DownstreamUrl
+  └─ AcceptanceSteps.GivenOcelotHostIsRunning (changes below depth limit)
+     ├─ AcceptanceSteps.WithBasicConfiguration (depth limit)
+     ├─ AcceptanceSteps.WithAddOcelot (depth limit)
+~    ├─ WebSocketsSteps.WithWebSockets (changes below depth limit)
+     └─ WebSocketsSteps.StartHttp2OcelotWithWebSockets.ConfigureWebHost (depth limit)
+
+  WebSocketsSteps.StartOcelotWithWebSockets
+~ └─ WebSocketsSteps.StartOcelotWithWebSockets (changes below depth limit)
+
+  WebSocketsSteps.StartOcelotWithWebSockets
+  ├─ AcceptanceSteps.DownstreamUrl (depth limit)
+  ├─ if (configureServices is null)
+  └─ AcceptanceSteps.GivenOcelotHostIsRunning (changes below depth limit)
+     ├─ AcceptanceSteps.WithBasicConfiguration (depth limit)
+~    ├─ WebSocketsSteps.StartOcelotWithWebSockets.WithWebSocketsAndConfig (changes below depth limit)
+     └─ WebSocketsSteps.StartOcelotWithWebSockets.ConfigureWebHost (depth limit)
+```
+stderr:
+manual/Actions/Basic.cs:11: unresolved-call: Cannot bind WebApplication.CreateBuilder.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddOcelot.
+manual/Actions/Basic.cs:12: unresolved-call: Cannot bind builder.Configuration.SetBasePath.
+manual/Actions/Basic.cs:16: unresolved-call: Cannot bind builder.Services.AddOcelot.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Configuration.GetSection.
+manual/Actions/Basic.cs:29: unresolved-call: Cannot bind builder.Logging.AddConfiguration.
+manual/Actions/Basic.cs:30: unresolved-call: Cannot bind builder.Environment.IsDevelopment.
+manual/Actions/Basic.cs:32: unresolved-call: Cannot bind builder.Logging.AddConsole.
+1062 additional diagnostics; use --diagnostics full.

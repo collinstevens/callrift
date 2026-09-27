@@ -2396,5 +2396,108 @@
         ]
       }
     ]
+  },
+  {
+    "id": "ocelot-aggregate-route-arrays",
+    "repository": "https://github.com/ThreeMammals/Ocelot.git",
+    "cacheName": "ocelot",
+    "license": "MIT",
+    "licenseFile": "LICENSE.md",
+    "before": "6ceb308bab676942fd7c10d00ea5f9dd0dccca78",
+    "after": "2634264fd6a67e99acc7bd4a10c94287ceae1a23",
+    "reason": "Copy route placeholders per JSONPath result, introduce primary constructors, and move aggregate routing fallback into an explicit else; indexer-based response-key writes remain omitted.",
+    "tags": [
+      "aggregation",
+      "async",
+      "primary-constructors",
+      "collection-initializers",
+      "moved-subtrees",
+      "signature-change",
+      "interface-dispatch",
+      "generated-regex",
+      "indexer-limitation"
+    ],
+    "options": [],
+    "knownIssue": "issues/ocelot-coverage.md",
+    "review": "../tests/Callrift.RealWorldCases/OcelotAggregationExpectations.cs",
+    "beforeLicenseBlob": "7a0788f9c32c526f1de1cf2e8ba0ae5a260c6c62",
+    "afterLicenseBlob": "7a0788f9c32c526f1de1cf2e8ba0ae5a260c6c62",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "1"
+        ],
+        "routine": false
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--depth",
+          "3",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "MultiplexingMiddleware.Invoke",
+          "--entry",
+          "MultiplexingMiddleware.MapAsync",
+          "--entry",
+          "MultiplexingMiddleware.ProcessRouteWithComplexAggregation",
+          "--entry",
+          "AggregatesCreator.Create",
+          "--entry",
+          "ChangeDownstreamPathTemplate.ChangeDownstreamPath",
+          "--entry",
+          "HeaderPlaceholderNameAndValueFinder.Find",
+          "--entry",
+          "UrlPathPlaceholderNameAndValueFinder.Find"
+        ],
+        "routine": false
+      },
+      {
+        "id": "msbuild-roots",
+        "options": [
+          "--depth",
+          "1",
+          "--project",
+          "src/Ocelot.csproj",
+          "--framework",
+          "net10.0"
+        ],
+        "routine": false
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--depth",
+          "3",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "MultiplexingMiddleware.Invoke",
+          "--entry",
+          "MultiplexingMiddleware.MapAsync",
+          "--entry",
+          "MultiplexingMiddleware.ProcessRouteWithComplexAggregation",
+          "--entry",
+          "AggregatesCreator.Create",
+          "--entry",
+          "ChangeDownstreamPathTemplate.ChangeDownstreamPath",
+          "--entry",
+          "HeaderPlaceholderNameAndValueFinder.Find",
+          "--entry",
+          "UrlPathPlaceholderNameAndValueFinder.Find",
+          "--project",
+          "src/Ocelot.csproj",
+          "--framework",
+          "net10.0"
+        ],
+        "routine": false
+      }
+    ]
   }
 ]

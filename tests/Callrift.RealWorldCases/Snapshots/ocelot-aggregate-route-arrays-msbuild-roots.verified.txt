@@ -1,0 +1,145 @@
+﻿format: text
+exit: 0
+stdout:
+  FileConfigurationController.Post
+  └─ try
+~    └─ IFileConfigurationSetter.SetAsync → FileAndInternalConfigurationSetter.SetAsync (changes below depth limit)
+
+~ new AggregateRouteConfig (signature changed)
+
+  FileConfigurationPoller.PollAsync
+  ├─ FileConfigurationPoller.TryEnterPolling
+  ├─ try
+  │  ├─ …
+  │  ├─ if (configuration is null)
+  │  ├─ FileConfigurationPoller.ToJson
+  │  ├─ if (asJson != _previousAsJson)
+~ │  │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create (changes below depth limit)
+  │  │  └─ if (!config.IsError)
+  │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
+  └─ finally
+
+  FileConfigurationPoller.StartAsync
+  ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
+  ├─ IFileConfigurationPollerOptions.DelayAsync
+  └─ new
+~    └─ FileConfigurationPoller.OnTimer (changes below depth limit)
+
+  ClaimsToDownstreamPathMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRoute (depth limit)
+  └─ if (downstreamRoute.ClaimsToPath.Any())
+     ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
+     ├─ HttpItemsExtensions.TemplatePlaceholderNameAndValues (depth limit)
+~    ├─ IChangeDownstreamPathTemplate.ChangeDownstreamPath → ChangeDownstreamPathTemplate.ChangeDownstreamPath (changes below depth limit)
+     └─ if (response.IsError)
+
+  DownstreamRouteFinderMiddleware.Invoke
+  ├─ …
+  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (depth limit)
+  ├─ IDownstreamRouteProviderFactory.Get → DownstreamRouteProviderFactory.Get (depth limit)
+  ├─ IDownstreamRouteProvider.Get
+  │  ├─ ⇢ DiscoveryDownstreamRouteFinder.Get (depth limit)
+~ │  └─ ⇢ DownstreamRouteFinder.Get (changes below depth limit)
+  ├─ if (response.IsError)
+  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (depth limit)
+  └─ …
+
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+~ └─ OcelotMiddlewareExtensions.UseOcelot (changes below depth limit)
+
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+~ └─ OcelotMiddlewareExtensions.UseOcelot (changes below depth limit)
+
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+~ └─ OcelotMiddlewareExtensions.UseOcelot (changes below depth limit)
+
+~ MultiplexingMiddleware.Invoke (signature changed)
+  ├─ HttpItemsExtensions.DownstreamRouteHolder (depth limit)
+  ├─ MultiplexingMiddleware.ShouldProcessSingleRoute
+- ├─ if (ShouldProcessSingleRoute(httpContext, downstreamRoutes))
+- │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync (depth limit)
++ ├─ if (ShouldProcessSingleRoute(context, downstreamRoutes))
++ │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync (depth limit)
+  ├─ if (routeKeysConfigs == null || routeKeysConfigs.Count == 0)
+~ │  └─ MultiplexingMiddleware.ProcessRoutesAsync (changes below depth limit)
+~ ├─ MultiplexingMiddleware.ProcessMainRouteAsync (signature changed)
+~ ├─ MultiplexingMiddleware.ProcessRoutesWithRouteKeysAsync (changes below depth limit)
+~ └─ MultiplexingMiddleware.MapResponsesAsync (changes below depth limit)
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  FileConfigurationController.Post
+  └─ try
+~    └─ IFileConfigurationSetter.SetAsync → FileAndInternalConfigurationSetter.SetAsync (changes below depth limit)
+
+~ new AggregateRouteConfig (signature changed)
+
+  FileConfigurationPoller.PollAsync
+  ├─ FileConfigurationPoller.TryEnterPolling
+  ├─ try
+  │  ├─ …
+  │  ├─ if (configuration is null)
+  │  ├─ FileConfigurationPoller.ToJson
+  │  ├─ if (asJson != _previousAsJson)
+~ │  │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create (changes below depth limit)
+  │  │  └─ if (!config.IsError)
+  │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
+  └─ finally
+
+  FileConfigurationPoller.StartAsync
+  ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
+  ├─ IFileConfigurationPollerOptions.DelayAsync
+  └─ new
+~    └─ FileConfigurationPoller.OnTimer (changes below depth limit)
+
+  ClaimsToDownstreamPathMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRoute (depth limit)
+  └─ if (downstreamRoute.ClaimsToPath.Any())
+     ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
+     ├─ HttpItemsExtensions.TemplatePlaceholderNameAndValues (depth limit)
+~    ├─ IChangeDownstreamPathTemplate.ChangeDownstreamPath → ChangeDownstreamPathTemplate.ChangeDownstreamPath (changes below depth limit)
+     └─ if (response.IsError)
+
+  DownstreamRouteFinderMiddleware.Invoke
+  ├─ …
+  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (depth limit)
+  ├─ IDownstreamRouteProviderFactory.Get → DownstreamRouteProviderFactory.Get (depth limit)
+  ├─ IDownstreamRouteProvider.Get
+  │  ├─ ⇢ DiscoveryDownstreamRouteFinder.Get (depth limit)
+~ │  └─ ⇢ DownstreamRouteFinder.Get (changes below depth limit)
+  ├─ if (response.IsError)
+  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (depth limit)
+  └─ …
+
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+~ └─ OcelotMiddlewareExtensions.UseOcelot (changes below depth limit)
+
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+~ └─ OcelotMiddlewareExtensions.UseOcelot (changes below depth limit)
+
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+~ └─ OcelotMiddlewareExtensions.UseOcelot (changes below depth limit)
+
+~ MultiplexingMiddleware.Invoke (signature changed)
+  ├─ HttpItemsExtensions.DownstreamRouteHolder (depth limit)
+  ├─ MultiplexingMiddleware.ShouldProcessSingleRoute
+- ├─ if (ShouldProcessSingleRoute(httpContext, downstreamRoutes))
+- │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync (depth limit)
++ ├─ if (ShouldProcessSingleRoute(context, downstreamRoutes))
++ │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync (depth limit)
+  ├─ if (routeKeysConfigs == null || routeKeysConfigs.Count == 0)
+~ │  └─ MultiplexingMiddleware.ProcessRoutesAsync (changes below depth limit)
+~ ├─ MultiplexingMiddleware.ProcessMainRouteAsync (signature changed)
+~ ├─ MultiplexingMiddleware.ProcessRoutesWithRouteKeysAsync (changes below depth limit)
+~ └─ MultiplexingMiddleware.MapResponsesAsync (changes below depth limit)
+```
+stderr:

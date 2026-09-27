@@ -1,0 +1,283 @@
+﻿format: text
+exit: 0
+stdout:
+  AggregatesCreator.Create
+  ├─ fileConfiguration.Aggregates.Select
+  │  └─ AggregatesCreator.SetUpAggregateRoute
+  │     ├─ new List<DownstreamRoute>
+  │     ├─ routes.SelectMany
+- │     ├─ aggregateRoute.RouteKeys.Select
+- │     │  └─ allRoutes.FirstOrDefault
+- │     ├─ foreach (var downstreamRoute in downstreamRoutes)
+- │     │  └─ applicableRoutes.Add
++ │     ├─ foreach (var key in aggregateRoute.RouteKeys)
++ │     │  ├─ allRoutes.FirstOrDefault
++ │     │  └─ applicableRoutes.Add
+  │     ├─ IUpstreamTemplatePatternCreator.Create → UpstreamTemplatePatternCreator.Create (depth limit)
+  │     ├─ IUpstreamHeaderTemplatePatternCreator.Create → UpstreamHeaderTemplatePatternCreator.Create (depth limit)
+  │     ├─ IEnumerableExtensions.ToHttpMethods (depth limit)
+  │     └─ new Route (depth limit)
+  ├─ fileConfiguration.Aggregates.Select(aggregate => SetUpAggregateRoute(routes, aggregate, fileConfiguration.GlobalConfiguration)).Where
+  └─ fileConfiguration.Aggregates.Select(aggregate => SetUpAggregateRoute(routes, aggregate, fileConfiguration.GlobalConfiguration)).Where(aggregate => aggregate != null).ToList
+
+  HeaderPlaceholderNameAndValueFinder.Find
+  ├─ new List<PlaceholderNameAndValue>
+  └─ foreach (var templateHeader in templateHeaders)
+     ├─ StringValues.op_Implicit
+     ├─ templateHeader.Value.Pattern.Matches
+     ├─ matches.SelectMany
+     ├─ matches.SelectMany(g => g.Groups as IEnumerable<Group>).Where
+     ├─ matches.SelectMany(g => g.Groups as IEnumerable<Group>).Where(g => g.Name != "0").Select
+-    │  ├─ string.Concat
+~    │  └─ new PlaceholderNameAndValue (signature changed)
+     └─ result.AddRange
+
+  UrlPathPlaceholderNameAndValueFinder.Find
+  ├─ UrlPathPlaceholderNameAndValueFinder.IsCatchAllQuery
+  ├─ if (isCatchAllQuery)
+- │  ├─ new List<PlaceholderNameAndValue>
+~ │  ├─ new PlaceholderNameAndValue (signature changed)
++ │  │  ├─ if (isKey)
++ │  │  │  └─ string.Concat
+  │  │  └─ new Object
+- │  ├─ List<T>.Add
+  │  └─ new OkResponse<T>
+  ├─ UrlPathPlaceholderNameAndValueFinder.FindGroups
+  ├─ FindGroups(path, query, pathTemplate).Select
+~ │  └─ new PlaceholderNameAndValue (signature changed) ↑ as above
+- ├─ FindGroups(path, query, pathTemplate).Select(g => new PlaceholderNameAndValue($"{LeftBrace}{g.Name}{RightBrace}", g.Value)).ToList
++ ├─ FindGroups(path, query, pathTemplate).Select(g => new PlaceholderNameAndValue(g.Name, g.Value, true)).ToList
+  └─ new OkResponse<T>
+
+~ MultiplexingMiddleware.Invoke (signature changed)
+  ├─ HttpItemsExtensions.DownstreamRouteHolder
+  ├─ MultiplexingMiddleware.ShouldProcessSingleRoute
+- ├─ if (ShouldProcessSingleRoute(httpContext, downstreamRoutes))
+- │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync
+- │     ├─ HttpItemsExtensions.UpsertDownstreamRoute (depth limit)
+- │     └─ _next.Invoke
++ ├─ if (ShouldProcessSingleRoute(context, downstreamRoutes))
++ │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync
++ │     ├─ HttpItemsExtensions.UpsertDownstreamRoute (depth limit)
++ │     └─ _next.Invoke
+  ├─ if (routeKeysConfigs == null || routeKeysConfigs.Count == 0)
+  │  └─ MultiplexingMiddleware.ProcessRoutesAsync
+  │     ├─ route.DownstreamRoute.Select
+  │     ├─ route.DownstreamRoute.Select(downstreamRoute => ProcessRouteAsync(context, downstreamRoute)).ToArray
+  │     ├─ Task.WhenAll
+  │     ├─ new
+~ │     └─ MultiplexingMiddleware.MapAsync (signature changed)
+~ ├─ MultiplexingMiddleware.ProcessMainRouteAsync (signature changed)
+  │  ├─ HttpItemsExtensions.UpsertDownstreamRoute
+  │  └─ _next.Invoke
+  ├─ MultiplexingMiddleware.ProcessRoutesWithRouteKeysAsync
+  │  ├─ new List<Task<HttpContext>>
+  │  ├─ HttpItemsExtensions.DownstreamResponse
+  │  ├─ mainResponse.Items.DownstreamResponse().Content.ReadAsStringAsync
+  │  ├─ JToken.Parse
+  │  ├─ routes.Skip
+  │  ├─ foreach (var downstreamRoute in routes.Skip(1))
+  │  │  ├─ routeKeysConfigs.FirstOrDefault
+  │  │  ├─ if (matchAdvancedAgg != null)
+~ │  │  │  ├─ MultiplexingMiddleware.ProcessRouteWithComplexAggregation (signature changed)
+  │  │  │  └─ processing.AddRange
+- │  │  ├─ MultiplexingMiddleware.ProcessRouteAsync (depth limit)
+- │  │  ├─ processing.Add
++ │  │  └─ else (!(matchAdvancedAgg != null))
++ │  │     ├─ MultiplexingMiddleware.ProcessRouteAsync (depth limit)
++ │  │     └─ processing.Add
+  │  └─ Task.WhenAll
+  └─ MultiplexingMiddleware.MapResponsesAsync
+     ├─ new List<HttpContext>
+     ├─ List<T>.Add
+     ├─ contexts.AddRange
+~    └─ MultiplexingMiddleware.MapAsync (signature changed)
+        ├─ IResponseAggregatorFactory.Get → InMemoryResponseAggregatorFactory.Get (depth limit)
+        └─ IResponseAggregator.Aggregate
+
+~ MultiplexingMiddleware.MapAsync (signature changed)
+  ├─ IResponseAggregatorFactory.Get → InMemoryResponseAggregatorFactory.Get
+  └─ IResponseAggregator.Aggregate
+
+~ MultiplexingMiddleware.ProcessRouteWithComplexAggregation (signature changed)
+  ├─ new List<Task<HttpContext>>
+  ├─ jObject.SelectTokens
+  ├─ jObject.SelectTokens(matchAdvancedAgg.JsonPath).Select
+  ├─ jObject.SelectTokens(matchAdvancedAgg.JsonPath).Select(s => s.ToString()).Distinct
+  └─ foreach (var value in values)
+     ├─ HttpItemsExtensions.TemplatePlaceholderNameAndValues
++    ├─ new List<PlaceholderNameAndValue>
+~    ├─ new PlaceholderNameAndValue (signature changed) ↑ as above
+-    ├─ tPnv.Add
++    ├─ List<T>.Add
+     ├─ MultiplexingMiddleware.ProcessRouteAsync
+     └─ processing.Add
+
+  ChangeDownstreamPathTemplate.ChangeDownstreamPath
+  ├─ foreach (var config in claimsToThings)
+  │  ├─ IClaimsParser.GetValue → ClaimsParser.GetValue
+  │  ├─ if (value.IsError)
++ │  ├─ new PlaceholderNameAndValue
++ │  │  ├─ if (isKey)
++ │  │  │  └─ string.Concat
++ │  │  └─ new Object
+  │  ├─ downstreamPathTemplate.Value.Contains
+- │  ├─ if (!downstreamPathTemplate.Value.Contains(placeholderName))
+- │  │  ├─ new CouldNotFindPlaceholderError (depth limit)
+- │  │  └─ new ErrorResponse (depth limit)
++ │  ├─ if (!downstreamPathTemplate.Value.Contains(placeholder.Name))
++ │  │  ├─ new CouldNotFindPlaceholderError (depth limit)
++ │  │  └─ new ErrorResponse (depth limit)
+  │  ├─ placeholders.Any
+- │  ├─ if (placeholders.Any(ph => ph.Name == placeholderName))
+- │  │  └─ placeholders.RemoveAll
+- │  ├─ new PlaceholderNameAndValue
+- │  │  └─ new Object
++ │  ├─ if (placeholders.Any(ph => ph.Name == placeholder.Name))
++ │  │  └─ placeholders.RemoveAll
+  │  └─ placeholders.Add
+  └─ new OkResponse
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  AggregatesCreator.Create
+  ├─ fileConfiguration.Aggregates.Select
+  │  └─ AggregatesCreator.SetUpAggregateRoute
+  │     ├─ new List<DownstreamRoute>
+  │     ├─ routes.SelectMany
+- │     ├─ aggregateRoute.RouteKeys.Select
+- │     │  └─ allRoutes.FirstOrDefault
+- │     ├─ foreach (var downstreamRoute in downstreamRoutes)
+- │     │  └─ applicableRoutes.Add
++ │     ├─ foreach (var key in aggregateRoute.RouteKeys)
++ │     │  ├─ allRoutes.FirstOrDefault
++ │     │  └─ applicableRoutes.Add
+  │     ├─ IUpstreamTemplatePatternCreator.Create → UpstreamTemplatePatternCreator.Create (depth limit)
+  │     ├─ IUpstreamHeaderTemplatePatternCreator.Create → UpstreamHeaderTemplatePatternCreator.Create (depth limit)
+  │     ├─ IEnumerableExtensions.ToHttpMethods (depth limit)
+  │     └─ new Route (depth limit)
+  ├─ fileConfiguration.Aggregates.Select(aggregate => SetUpAggregateRoute(routes, aggregate, fileConfiguration.GlobalConfiguration)).Where
+  └─ fileConfiguration.Aggregates.Select(aggregate => SetUpAggregateRoute(routes, aggregate, fileConfiguration.GlobalConfiguration)).Where(aggregate => aggregate != null).ToList
+
+  HeaderPlaceholderNameAndValueFinder.Find
+  ├─ new List<PlaceholderNameAndValue>
+  └─ foreach (var templateHeader in templateHeaders)
+     ├─ StringValues.op_Implicit
+     ├─ templateHeader.Value.Pattern.Matches
+     ├─ matches.SelectMany
+     ├─ matches.SelectMany(g => g.Groups as IEnumerable<Group>).Where
+     ├─ matches.SelectMany(g => g.Groups as IEnumerable<Group>).Where(g => g.Name != "0").Select
+-    │  ├─ string.Concat
+~    │  └─ new PlaceholderNameAndValue (signature changed)
+     └─ result.AddRange
+
+  UrlPathPlaceholderNameAndValueFinder.Find
+  ├─ UrlPathPlaceholderNameAndValueFinder.IsCatchAllQuery
+  ├─ if (isCatchAllQuery)
+- │  ├─ new List<PlaceholderNameAndValue>
+~ │  ├─ new PlaceholderNameAndValue (signature changed)
++ │  │  ├─ if (isKey)
++ │  │  │  └─ string.Concat
+  │  │  └─ new Object
+- │  ├─ List<T>.Add
+  │  └─ new OkResponse<T>
+  ├─ UrlPathPlaceholderNameAndValueFinder.FindGroups
+  ├─ FindGroups(path, query, pathTemplate).Select
+~ │  └─ new PlaceholderNameAndValue (signature changed) ↑ as above
+- ├─ FindGroups(path, query, pathTemplate).Select(g => new PlaceholderNameAndValue($"{LeftBrace}{g.Name}{RightBrace}", g.Value)).ToList
++ ├─ FindGroups(path, query, pathTemplate).Select(g => new PlaceholderNameAndValue(g.Name, g.Value, true)).ToList
+  └─ new OkResponse<T>
+
+~ MultiplexingMiddleware.Invoke (signature changed)
+  ├─ HttpItemsExtensions.DownstreamRouteHolder
+  ├─ MultiplexingMiddleware.ShouldProcessSingleRoute
+- ├─ if (ShouldProcessSingleRoute(httpContext, downstreamRoutes))
+- │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync
+- │     ├─ HttpItemsExtensions.UpsertDownstreamRoute (depth limit)
+- │     └─ _next.Invoke
++ ├─ if (ShouldProcessSingleRoute(context, downstreamRoutes))
++ │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync
++ │     ├─ HttpItemsExtensions.UpsertDownstreamRoute (depth limit)
++ │     └─ _next.Invoke
+  ├─ if (routeKeysConfigs == null || routeKeysConfigs.Count == 0)
+  │  └─ MultiplexingMiddleware.ProcessRoutesAsync
+  │     ├─ route.DownstreamRoute.Select
+  │     ├─ route.DownstreamRoute.Select(downstreamRoute => ProcessRouteAsync(context, downstreamRoute)).ToArray
+  │     ├─ Task.WhenAll
+  │     ├─ new
+~ │     └─ MultiplexingMiddleware.MapAsync (signature changed)
+~ ├─ MultiplexingMiddleware.ProcessMainRouteAsync (signature changed)
+  │  ├─ HttpItemsExtensions.UpsertDownstreamRoute
+  │  └─ _next.Invoke
+  ├─ MultiplexingMiddleware.ProcessRoutesWithRouteKeysAsync
+  │  ├─ new List<Task<HttpContext>>
+  │  ├─ HttpItemsExtensions.DownstreamResponse
+  │  ├─ mainResponse.Items.DownstreamResponse().Content.ReadAsStringAsync
+  │  ├─ JToken.Parse
+  │  ├─ routes.Skip
+  │  ├─ foreach (var downstreamRoute in routes.Skip(1))
+  │  │  ├─ routeKeysConfigs.FirstOrDefault
+  │  │  ├─ if (matchAdvancedAgg != null)
+~ │  │  │  ├─ MultiplexingMiddleware.ProcessRouteWithComplexAggregation (signature changed)
+  │  │  │  └─ processing.AddRange
+- │  │  ├─ MultiplexingMiddleware.ProcessRouteAsync (depth limit)
+- │  │  ├─ processing.Add
++ │  │  └─ else (!(matchAdvancedAgg != null))
++ │  │     ├─ MultiplexingMiddleware.ProcessRouteAsync (depth limit)
++ │  │     └─ processing.Add
+  │  └─ Task.WhenAll
+  └─ MultiplexingMiddleware.MapResponsesAsync
+     ├─ new List<HttpContext>
+     ├─ List<T>.Add
+     ├─ contexts.AddRange
+~    └─ MultiplexingMiddleware.MapAsync (signature changed)
+        ├─ IResponseAggregatorFactory.Get → InMemoryResponseAggregatorFactory.Get (depth limit)
+        └─ IResponseAggregator.Aggregate
+
+~ MultiplexingMiddleware.MapAsync (signature changed)
+  ├─ IResponseAggregatorFactory.Get → InMemoryResponseAggregatorFactory.Get
+  └─ IResponseAggregator.Aggregate
+
+~ MultiplexingMiddleware.ProcessRouteWithComplexAggregation (signature changed)
+  ├─ new List<Task<HttpContext>>
+  ├─ jObject.SelectTokens
+  ├─ jObject.SelectTokens(matchAdvancedAgg.JsonPath).Select
+  ├─ jObject.SelectTokens(matchAdvancedAgg.JsonPath).Select(s => s.ToString()).Distinct
+  └─ foreach (var value in values)
+     ├─ HttpItemsExtensions.TemplatePlaceholderNameAndValues
++    ├─ new List<PlaceholderNameAndValue>
+~    ├─ new PlaceholderNameAndValue (signature changed) ↑ as above
+-    ├─ tPnv.Add
++    ├─ List<T>.Add
+     ├─ MultiplexingMiddleware.ProcessRouteAsync
+     └─ processing.Add
+
+  ChangeDownstreamPathTemplate.ChangeDownstreamPath
+  ├─ foreach (var config in claimsToThings)
+  │  ├─ IClaimsParser.GetValue → ClaimsParser.GetValue
+  │  ├─ if (value.IsError)
++ │  ├─ new PlaceholderNameAndValue
++ │  │  ├─ if (isKey)
++ │  │  │  └─ string.Concat
++ │  │  └─ new Object
+  │  ├─ downstreamPathTemplate.Value.Contains
+- │  ├─ if (!downstreamPathTemplate.Value.Contains(placeholderName))
+- │  │  ├─ new CouldNotFindPlaceholderError (depth limit)
+- │  │  └─ new ErrorResponse (depth limit)
++ │  ├─ if (!downstreamPathTemplate.Value.Contains(placeholder.Name))
++ │  │  ├─ new CouldNotFindPlaceholderError (depth limit)
++ │  │  └─ new ErrorResponse (depth limit)
+  │  ├─ placeholders.Any
+- │  ├─ if (placeholders.Any(ph => ph.Name == placeholderName))
+- │  │  └─ placeholders.RemoveAll
+- │  ├─ new PlaceholderNameAndValue
+- │  │  └─ new Object
++ │  ├─ if (placeholders.Any(ph => ph.Name == placeholder.Name))
++ │  │  └─ placeholders.RemoveAll
+  │  └─ placeholders.Add
+  └─ new OkResponse
+```
+stderr:
