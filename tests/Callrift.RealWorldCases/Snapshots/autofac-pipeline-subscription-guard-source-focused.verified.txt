@@ -1,0 +1,163 @@
+﻿format: text
+exit: 0
+stdout:
++ ComponentRegistrationExtensions.ConfigurePipeline
++ ├─ if (componentRegistration is null)
++ │  └─ new ArgumentNullException
++ ├─ if (configurationAction is null)
++ │  └─ new ArgumentNullException
++ ├─ callback
++ │  └─ configurationAction
++ └─ IComponentRegistration.add_PipelineBuilding
++    ├─ ⇢ ComponentRegistration.add_PipelineBuilding
++    │  └─ if (_builtComponentPipeline is object)
++    │     └─ new InvalidOperationException
++    └─ ⇢ ComponentRegistrationLifetimeDecorator.add_PipelineBuilding
++       └─ IComponentRegistration.add_PipelineBuilding
++          ├─ ⇢ ComponentRegistration.add_PipelineBuilding (changes below depth limit)
++          └─ ⇢ ComponentRegistrationLifetimeDecorator.add_PipelineBuilding (↺ cycle)
+
+  ComponentRegistration.BuildResolvePipeline
+- ├─ if (PipelineBuilding is object)
+- │  └─ PipelineBuilding.Invoke
++ ├─ if (_pipelineBuildEvent is object)
++ │  └─ _pipelineBuildEvent.Invoke
+  └─ ComponentRegistration.BuildResolvePipeline
+     ├─ ⇢ ComponentRegistration.BuildResolvePipeline
+     │  ├─ ComponentRegistration.HasStartableService (depth limit)
+     │  ├─ if (HasStartableService())
+     │  ├─ if (Ownership == InstanceOwnership.OwnedByLifetimeScope)
+     │  ├─ possible initialization of ActivatorErrorHandlingMiddleware
+     │  ├─ IResolvePipelineBuilder.Use
+     │  ├─ IInstanceActivator.ConfigurePipeline
+     │  │  ├─ ⇢ DelegateActivator.ConfigurePipeline (depth limit)
+     │  │  ├─ ⇢ ProvidedInstanceActivator.ConfigurePipeline (depth limit)
+~    │  │  ├─ ⇢ ReflectionActivator.ConfigurePipeline (changes below depth limit)
+     │  │  └─ ⇢ ExternalComponentRegistration.NoOpActivator.ConfigurePipeline (depth limit)
+     │  └─ IResolvePipelineBuilder.Build
+     └─ ⇢ ExternalComponentRegistration.BuildResolvePipeline
+
+- ComponentRegistration.ConfigurePipeline
+- ├─ if (configurationAction is null)
+- │  └─ new ArgumentNullException
+- ├─ if (_builtComponentPipeline is object)
+- │  └─ new InvalidOperationException
+- ├─ callback
+- │  └─ configurationAction
+- └─ ComponentRegistration.add_PipelineBuilding
+
+  ComponentRegistration.add_PipelineBuilding
++ └─ if (_builtComponentPipeline is object)
++    └─ new InvalidOperationException
+
+~ ComponentRegistration.remove_PipelineBuilding (body changed; visible calls unchanged)
+
+- ComponentRegistrationLifetimeDecorator.ConfigurePipeline
+- └─ IComponentRegistration.ConfigurePipeline
+-    ├─ ⇢ ComponentRegistration.ConfigurePipeline
+-    │  ├─ if (configurationAction is null)
+-    │  │  └─ new ArgumentNullException
+-    │  ├─ if (_builtComponentPipeline is object)
+-    │  │  └─ new InvalidOperationException
+-    │  ├─ callback
+-    │  │  └─ configurationAction
+-    │  └─ ComponentRegistration.add_PipelineBuilding
+-    └─ ⇢ ComponentRegistrationLifetimeDecorator.ConfigurePipeline (↺ cycle)
+
+  ComponentRegistrationLifetimeDecorator.add_PipelineBuilding
+  └─ IComponentRegistration.add_PipelineBuilding
++    ├─ ⇢ ComponentRegistration.add_PipelineBuilding ↑ as above
+     └─ ⇢ ComponentRegistrationLifetimeDecorator.add_PipelineBuilding (↺ cycle)
+stderr:
+bench/Autofac.BenchmarkProfiling/Program.cs:23: unresolved-call: Cannot bind PrintBenchmarks; candidates: source::Autofac.BenchmarkProfiling.Program.PrintBenchmarks(global::System.Type[])
+bench/Autofac.BenchmarkProfiling/Program.cs:29: unresolved-call: Cannot bind availableBenchmarks.FirstOrDefault.
+bench/Autofac.BenchmarkProfiling/Program.cs:29: unresolved-call: Cannot bind x.Name.Equals.
+bench/Autofac.BenchmarkProfiling/Program.cs:34: unresolved-call: Cannot bind PrintBenchmarks; candidates: source::Autofac.BenchmarkProfiling.Program.PrintBenchmarks(global::System.Type[])
+bench/Autofac.BenchmarkProfiling/Program.cs:38: unresolved-call: Cannot bind BenchmarkConverter.TypeToBenchmarks.
+bench/Autofac.BenchmarkProfiling/Program.cs:65: unresolved-call: Cannot bind PrintCases; candidates: source::Autofac.BenchmarkProfiling.Program.PrintCases(BenchmarkRunInfo)
+bench/Autofac.BenchmarkProfiling/Program.cs:77: unresolved-call: Cannot bind PrintCases; candidates: source::Autofac.BenchmarkProfiling.Program.PrintCases(BenchmarkRunInfo)
+bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind Activator.CreateInstance; candidates: source::System.Activator.CreateInstance(global::System.Type), source::System.Activator.CreateInstance(global::System.Type,bool), source::System.Activator.CreateInstance(global::System.Type,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo), source::System.Activator.CreateInstance(global::System.Type,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo,object[]), source::System.Activator.CreateInstance(global::System.Type,object[]), source::System.Activator.CreateInstance(global::System.Type,object[],object[]), source::System.Activator.CreateInstance(string,string), source::System.Activator.CreateInstance(string,string,bool,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo,object[]), source::System.Activator.CreateInstance(string,string,object[]), source::System.Activator.CreateInstance`1()
+8 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
++ ComponentRegistrationExtensions.ConfigurePipeline
++ ├─ if (componentRegistration is null)
++ │  └─ new ArgumentNullException
++ ├─ if (configurationAction is null)
++ │  └─ new ArgumentNullException
++ ├─ callback
++ │  └─ configurationAction
++ └─ IComponentRegistration.add_PipelineBuilding
++    ├─ ⇢ ComponentRegistration.add_PipelineBuilding
++    │  └─ if (_builtComponentPipeline is object)
++    │     └─ new InvalidOperationException
++    └─ ⇢ ComponentRegistrationLifetimeDecorator.add_PipelineBuilding
++       └─ IComponentRegistration.add_PipelineBuilding
++          ├─ ⇢ ComponentRegistration.add_PipelineBuilding (changes below depth limit)
++          └─ ⇢ ComponentRegistrationLifetimeDecorator.add_PipelineBuilding (↺ cycle)
+
+  ComponentRegistration.BuildResolvePipeline
+- ├─ if (PipelineBuilding is object)
+- │  └─ PipelineBuilding.Invoke
++ ├─ if (_pipelineBuildEvent is object)
++ │  └─ _pipelineBuildEvent.Invoke
+  └─ ComponentRegistration.BuildResolvePipeline
+     ├─ ⇢ ComponentRegistration.BuildResolvePipeline
+     │  ├─ ComponentRegistration.HasStartableService (depth limit)
+     │  ├─ if (HasStartableService())
+     │  ├─ if (Ownership == InstanceOwnership.OwnedByLifetimeScope)
+     │  ├─ possible initialization of ActivatorErrorHandlingMiddleware
+     │  ├─ IResolvePipelineBuilder.Use
+     │  ├─ IInstanceActivator.ConfigurePipeline
+     │  │  ├─ ⇢ DelegateActivator.ConfigurePipeline (depth limit)
+     │  │  ├─ ⇢ ProvidedInstanceActivator.ConfigurePipeline (depth limit)
+~    │  │  ├─ ⇢ ReflectionActivator.ConfigurePipeline (changes below depth limit)
+     │  │  └─ ⇢ ExternalComponentRegistration.NoOpActivator.ConfigurePipeline (depth limit)
+     │  └─ IResolvePipelineBuilder.Build
+     └─ ⇢ ExternalComponentRegistration.BuildResolvePipeline
+
+- ComponentRegistration.ConfigurePipeline
+- ├─ if (configurationAction is null)
+- │  └─ new ArgumentNullException
+- ├─ if (_builtComponentPipeline is object)
+- │  └─ new InvalidOperationException
+- ├─ callback
+- │  └─ configurationAction
+- └─ ComponentRegistration.add_PipelineBuilding
+
+  ComponentRegistration.add_PipelineBuilding
++ └─ if (_builtComponentPipeline is object)
++    └─ new InvalidOperationException
+
+~ ComponentRegistration.remove_PipelineBuilding (body changed; visible calls unchanged)
+
+- ComponentRegistrationLifetimeDecorator.ConfigurePipeline
+- └─ IComponentRegistration.ConfigurePipeline
+-    ├─ ⇢ ComponentRegistration.ConfigurePipeline
+-    │  ├─ if (configurationAction is null)
+-    │  │  └─ new ArgumentNullException
+-    │  ├─ if (_builtComponentPipeline is object)
+-    │  │  └─ new InvalidOperationException
+-    │  ├─ callback
+-    │  │  └─ configurationAction
+-    │  └─ ComponentRegistration.add_PipelineBuilding
+-    └─ ⇢ ComponentRegistrationLifetimeDecorator.ConfigurePipeline (↺ cycle)
+
+  ComponentRegistrationLifetimeDecorator.add_PipelineBuilding
+  └─ IComponentRegistration.add_PipelineBuilding
++    ├─ ⇢ ComponentRegistration.add_PipelineBuilding ↑ as above
+     └─ ⇢ ComponentRegistrationLifetimeDecorator.add_PipelineBuilding (↺ cycle)
+```
+stderr:
+bench/Autofac.BenchmarkProfiling/Program.cs:23: unresolved-call: Cannot bind PrintBenchmarks; candidates: source::Autofac.BenchmarkProfiling.Program.PrintBenchmarks(global::System.Type[])
+bench/Autofac.BenchmarkProfiling/Program.cs:29: unresolved-call: Cannot bind availableBenchmarks.FirstOrDefault.
+bench/Autofac.BenchmarkProfiling/Program.cs:29: unresolved-call: Cannot bind x.Name.Equals.
+bench/Autofac.BenchmarkProfiling/Program.cs:34: unresolved-call: Cannot bind PrintBenchmarks; candidates: source::Autofac.BenchmarkProfiling.Program.PrintBenchmarks(global::System.Type[])
+bench/Autofac.BenchmarkProfiling/Program.cs:38: unresolved-call: Cannot bind BenchmarkConverter.TypeToBenchmarks.
+bench/Autofac.BenchmarkProfiling/Program.cs:65: unresolved-call: Cannot bind PrintCases; candidates: source::Autofac.BenchmarkProfiling.Program.PrintCases(BenchmarkRunInfo)
+bench/Autofac.BenchmarkProfiling/Program.cs:77: unresolved-call: Cannot bind PrintCases; candidates: source::Autofac.BenchmarkProfiling.Program.PrintCases(BenchmarkRunInfo)
+bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind Activator.CreateInstance; candidates: source::System.Activator.CreateInstance(global::System.Type), source::System.Activator.CreateInstance(global::System.Type,bool), source::System.Activator.CreateInstance(global::System.Type,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo), source::System.Activator.CreateInstance(global::System.Type,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo,object[]), source::System.Activator.CreateInstance(global::System.Type,object[]), source::System.Activator.CreateInstance(global::System.Type,object[],object[]), source::System.Activator.CreateInstance(string,string), source::System.Activator.CreateInstance(string,string,bool,global::System.Reflection.BindingFlags,global::System.Reflection.Binder,object[],global::System.Globalization.CultureInfo,object[]), source::System.Activator.CreateInstance(string,string,object[]), source::System.Activator.CreateInstance`1()
+8 additional diagnostics; use --diagnostics full.

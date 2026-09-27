@@ -2595,5 +2595,66 @@
         ]
       }
     ]
+  },
+  {
+    "id": "autofac-pipeline-subscription-guard",
+    "repository": "https://github.com/autofac/Autofac.git",
+    "cacheName": "autofac",
+    "before": "91f12bdde7f52eb82e475795305f1131d4908042",
+    "after": "390dbaed88501316c09a4fa05a5896f5fb8089a0",
+    "license": "MIT",
+    "licenseFile": "LICENSE",
+    "beforeLicenseBlob": "1cdb1e8cb215bc1e9e34eb6261a6653186c6f183",
+    "afterLicenseBlob": "1cdb1e8cb215bc1e9e34eb6261a6653186c6f183",
+    "reason": "Move pipeline configuration from instance and interface methods into an extension method, adding a null receiver guard and moving late-subscription rejection into the custom event add accessor. Preserve decorator forwarding and pipeline building while changing invocation to a backing delegate. Pinned diffs, declarations, compiler bindings, automatic-root connections, diagnostics and locations reviewed independently. Source mode lacks project references and defines. Generated field-like event bodies are not followed or included as interface dispatch targets before the change; custom accessors are followed afterward. Call-free early returns, property access, delegate-field updates and clearing remain unmodeled. Possible callbacks, dispatch and decorator cycles do not prove runtime invocation, receivers or recursion. Restored netstandard2.1 trial exits 2 because pinned global.json requires unavailable SDK 5.0.100 with latestFeature roll-forward.",
+    "tags": [
+      "event-accessors",
+      "extension-method",
+      "interface-dispatch",
+      "decorator",
+      "branch-guard",
+      "exceptions",
+      "callback",
+      "automatic-roots"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "review": "../tests/Callrift.RealWorldCases/AutofacSubscriptionExpectations.cs",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "3",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "ComponentRegistrationExtensions.ConfigurePipeline",
+          "--entry",
+          "ComponentRegistration.ConfigurePipeline",
+          "--entry",
+          "ComponentRegistration.add_PipelineBuilding",
+          "--entry",
+          "ComponentRegistration.remove_PipelineBuilding",
+          "--entry",
+          "ComponentRegistrationLifetimeDecorator.add_PipelineBuilding",
+          "--entry",
+          "ComponentRegistrationLifetimeDecorator.ConfigurePipeline",
+          "--entry",
+          "Autofac.Core.Registration.ComponentRegistration.BuildResolvePipeline(global::Autofac.Core.IComponentRegistryServices)"
+        ]
+      }
+    ]
   }
 ]

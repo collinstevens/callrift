@@ -73,6 +73,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             AutofacModuleExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "autofac-build-failure-disposal")
             AutofacDisposalExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "autofac-pipeline-subscription-guard")
+            AutofacSubscriptionExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "ocelot-aggregate-route-arrays")
             OcelotAggregationExpectations.Verify(result, options.Entries.Count > 0);
         var diagnostics = string.Concat(result.Diagnostics.Take(8).Select(diagnostic =>
