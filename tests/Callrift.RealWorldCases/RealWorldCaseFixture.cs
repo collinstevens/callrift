@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Text;
 using Callrift.Core;
 using Callrift.MSBuild;
 using VerifyXunit;
@@ -184,8 +185,31 @@ public sealed class RealWorldCaseFixture : IDisposable
             project is null ? null : new MSBuildOptions(project, framework));
     }
 
-    private static async Task VerifyAsync(string value, string name) =>
-        await Verifier.Verify(value).UseDirectory("Snapshots").UseFileName(name).DisableDiff();
+    private static async Task VerifyAsync(string value, string name)
+    {
+        if (Encoding.UTF8.GetByteCount(value) <= 90 * 1024 * 1024)
+        {
+            await Verifier.Verify(value).UseDirectory("Snapshots").UseFileName(name).DisableDiff();
+            return;
+        }
+        value = value.ReplaceLineEndings("\n");
+        var parts = new List<string>();
+        for (var offset = 0; offset < value.Length;)
+        {
+            var length = Math.Min(16 * 1024 * 1024, value.Length - offset);
+            if (offset + length < value.Length)
+            {
+                var newline = value.LastIndexOf('\n', offset + length - 1, length);
+                if (newline < offset) throw new InvalidOperationException("Snapshot line exceeds the part size limit.");
+                length = newline - offset + 1;
+            }
+            var partName = name + "-part-" + (parts.Count + 1).ToString("D3", CultureInfo.InvariantCulture);
+            parts.Add(partName);
+            await Verifier.Verify(value.Substring(offset, length)).UseDirectory("Snapshots").UseFileName(partName).DisableDiff();
+            offset += length;
+        }
+        await Verifier.Verify(string.Join("\n", parts)).UseDirectory("Snapshots").UseFileName(name).DisableDiff();
+    }
 
     public void Dispose() => cached = null;
 

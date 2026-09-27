@@ -2,7 +2,8 @@
 exit: 0
 stdout:
   LocalizationOrchardHelperExtensions.GetJSLocalizations
-  ├─ ArgumentNullException.ThrowIfNull
+  ├─ …
+  ├─ IOrchardHelper.get_HttpContext
   ├─ ? orchardHelper.HttpContext.RequestServices.GetServices<IJSLocalizer>
   └─ JSLocalizerExtensions.GetMergedLocalizations
      ├─ …
@@ -10,31 +11,54 @@ stdout:
      ├─ new Dictionary<string, string>
      └─ foreach (var group in groups)
         └─ foreach (var jsLocalizer in jsLocalizers)
-           └─ IJSLocalizer.GetLocalizations
-+             ├─ ⇢ AdminMenuJSLocalizer.GetLocalizations (changes below depth limit)
-+             ├─ ⇢ ContentFieldsJSLocalizer.GetLocalizations (changes below depth limit)
-+             ├─ ⇢ CorsJSLocalizer.GetLocalizations (changes below depth limit)
-+             ├─ ⇢ FormsJSLocalizer.GetLocalizations (changes below depth limit)
-+             ├─ ⇢ LocalizationJSLocalizer.GetLocalizations (changes below depth limit)
-              ├─ ⇢ MediaJSLocalizer.GetLocalizations (depth limit)
-+             ├─ ⇢ MenuJSLocalizer.GetLocalizations (changes below depth limit)
-+             ├─ ⇢ OpenIdJSLocalizer.GetLocalizations (changes below depth limit)
-+             ├─ ⇢ SeoJSLocalizer.GetLocalizations (changes below depth limit)
-+             ├─ ⇢ ShortcodesJSLocalizer.GetLocalizations (changes below depth limit)
-+             └─ ⇢ TaxonomiesJSLocalizer.GetLocalizations (changes below depth limit)
+           ├─ IJSLocalizer.GetLocalizations
++          │  ├─ ⇢ AdminMenuJSLocalizer.GetLocalizations (changes below depth limit)
++          │  ├─ ⇢ ContentFieldsJSLocalizer.GetLocalizations (changes below depth limit)
++          │  ├─ ⇢ CorsJSLocalizer.GetLocalizations (changes below depth limit)
++          │  ├─ ⇢ FormsJSLocalizer.GetLocalizations (changes below depth limit)
++          │  ├─ ⇢ LocalizationJSLocalizer.GetLocalizations (changes below depth limit)
+           │  ├─ ⇢ MediaJSLocalizer.GetLocalizations (depth limit)
++          │  ├─ ⇢ MenuJSLocalizer.GetLocalizations (changes below depth limit)
++          │  ├─ ⇢ OpenIdJSLocalizer.GetLocalizations (changes below depth limit)
++          │  ├─ ⇢ SeoJSLocalizer.GetLocalizations (changes below depth limit)
++          │  ├─ ⇢ ShortcodesJSLocalizer.GetLocalizations (changes below depth limit)
++          │  └─ ⇢ TaxonomiesJSLocalizer.GetLocalizations (changes below depth limit)
+           └─ foreach (var kvp in localizations)
 
   initialization of DefaultLocalizationService
+  ├─ CultureInfo.get_InstalledUICulture
+  ├─ CultureInfo.get_Name
 + ├─ string.IsNullOrEmpty
-  └─ Task.FromResult ×2
++ ├─ else (!(string.IsNullOrEmpty(CultureInfo.InstalledUICulture.Name)))
++ │  ├─ CultureInfo.get_InstalledUICulture
++ │  └─ CultureInfo.get_Name
+  ├─ Task.FromResult
+- ├─ CultureInfo.get_InstalledUICulture
+- ├─ CultureInfo.get_Name
+  └─ Task.FromResult
 
   initialization of LocalizationSettings
-+ └─ string.IsNullOrEmpty
+  ├─ CultureInfo.get_InstalledUICulture
+  ├─ CultureInfo.get_Name
++ ├─ string.IsNullOrEmpty
++ └─ else (!(string.IsNullOrEmpty(CultureInfo.InstalledUICulture.Name)))
++    ├─ CultureInfo.get_InstalledUICulture
++    └─ CultureInfo.get_Name
 
   initialization of LocalizationService
+  ├─ CultureInfo.get_InstalledUICulture
+  ├─ CultureInfo.get_Name
+- ├─ CultureInfo.get_InstalledUICulture
+- ├─ CultureInfo.get_Name
 + ├─ string.IsNullOrEmpty
++ ├─ else (!(string.IsNullOrEmpty(CultureInfo.InstalledUICulture.Name)))
++ │  ├─ CultureInfo.get_InstalledUICulture
++ │  └─ CultureInfo.get_Name
   └─ CultureInfo.GetCultureInfo ×2
 
   GetLocalizationsEndpoint.HandleAsync
+  ├─ CultureInfo.get_CurrentUICulture
+  ├─ CultureInfo.get_Name
   ├─ ? cache.GetOrCreate
   │  ├─ JSLocalizerExtensions.GetMergedLocalizations ↑ as above
   │  ├─ JsonSerializer.SerializeToUtf8Bytes
@@ -45,11 +69,16 @@ stdout:
   └─ …
 
   ResourceManagementOptionsConfiguration.Configure
+  ├─ ResourceManagementOptions.get_ResourceManifests
 ~ ├─ ResourceManagementOptionsConfiguration.BuildManifest (signature changed)
   │  ├─ …
   │  ├─ ResourceDefinition.SetVersion
   │  ├─ ResourceManifest.DefineScript
 - │  ├─ ResourceDefinition.SetDependencies
+- │  │  ├─ ResourceDefinition.get_Dependencies
+- │  │  ├─ if (Dependencies is null)
+- │  │  │  └─ ResourceDefinition.set_Dependencies
+- │  │  ├─ ResourceDefinition.get_Dependencies
 - │  │  └─ Dependencies.AddRange
   │  ├─ ResourceDefinition.SetUrl
   │  ├─ ResourceDefinition.SetCdn
@@ -57,15 +86,22 @@ stdout:
   │  ├─ ResourceDefinition.SetVersion
   │  ├─ ResourceManifest.DefineScript
 - │  ├─ ResourceDefinition.SetUrl
-- │  │  └─ ArgumentException.ThrowIfNullOrEmpty
+- │  │  ├─ ArgumentException.ThrowIfNullOrEmpty
+- │  │  ├─ ResourceDefinition.set_Url
+- │  │  └─ if (urlDebug != null)
+- │  │     └─ ResourceDefinition.set_UrlDebug
 - │  ├─ ResourceDefinition.SetCdn
 - │  │  └─ ResourceDefinition.SetCdn (depth limit)
 - │  ├─ ResourceDefinition.SetCdnIntegrity
-- │  │  └─ ArgumentException.ThrowIfNullOrEmpty
+- │  │  ├─ ArgumentException.ThrowIfNullOrEmpty
+- │  │  ├─ ResourceDefinition.set_CdnIntegrity
+- │  │  └─ if (cdnDebugIntegrity != null)
+- │  │     └─ ResourceDefinition.set_CdnDebugIntegrity
 - │  ├─ ResourceDefinition.SetVersion
 - │  │  ├─ System.Version.TryParse
-- │  │  └─ if (!System.Version.TryParse(version, out _))
-- │  │     └─ new FormatException
+- │  │  ├─ if (!System.Version.TryParse(version, out _))
+- │  │  │  └─ new FormatException
+- │  │  └─ ResourceDefinition.set_Version
 - │  ├─ ResourceManifest.DefineScript
 - │  │  └─ ResourceManifest.DefineResource (depth limit)
   │  ├─ ResourceDefinition.SetUrl
@@ -114,6 +150,7 @@ stdout:
 - │  ├─ ResourceManifest.DefineScript ↑ as above
 - │  ├─ ResourceDefinition.SetUrl ↑ as above
 - │  ├─ ResourceDefinition.SetPosition
+- │  │  └─ ResourceDefinition.set_Position
 - │  ├─ ResourceDefinition.SetVersion ↑ as above
 - │  ├─ ResourceManifest.DefineScript ↑ as above
 - │  ├─ ? manifest.DefineScript("monaco").SetAttribute
@@ -123,24 +160,26 @@ stdout:
 - │  ├─ ResourceDefinition.SetDependencies ↑ as above
   │  └─ ResourceDefinition.SetVersion
   ├─ options.ResourceManifests.Add
-  └─ case ResourceDebugMode.FromConfiguration:
+  ├─ ResourceOptions.get_ResourceDebugMode
+  └─ …
 stderr:
 src/OrchardCore.AspireHost/ClamAV.cs:13: unresolved-call: Cannot bind : base(name).
+src/OrchardCore.AspireHost/ClamAV.cs:18: unresolved-call: Cannot bind new EndpointReference.
+src/OrchardCore.AspireHost/ClamAV.cs:21: unresolved-call: Cannot bind ReferenceExpression.Create.
+src/OrchardCore.AspireHost/ClamAV.cs:22: unresolved-call: Cannot bind PrimaryEndpoint.Property.
+src/OrchardCore.AspireHost/ClamAV.cs:22: unresolved-call: Cannot bind PrimaryEndpoint.Property.
 src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag("latest").WithEnvironment("CLAMAV_NO_FRESHCLAMD", "true").WithEndpoint.
 src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag("latest").WithEnvironment.
 src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag.
-src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry.
-src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage.
-src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource.
-src/OrchardCore.AspireHost/ClamAV.cs:46: unresolved-call: Cannot bind builder.WithVolume.
-16771 additional diagnostics; use --diagnostics full.
+17226 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
 stdout:
 ```diff
   LocalizationOrchardHelperExtensions.GetJSLocalizations
-  ├─ ArgumentNullException.ThrowIfNull
+  ├─ …
+  ├─ IOrchardHelper.get_HttpContext
   ├─ ? orchardHelper.HttpContext.RequestServices.GetServices<IJSLocalizer>
   └─ JSLocalizerExtensions.GetMergedLocalizations
      ├─ …
@@ -148,31 +187,54 @@ stdout:
      ├─ new Dictionary<string, string>
      └─ foreach (var group in groups)
         └─ foreach (var jsLocalizer in jsLocalizers)
-           └─ IJSLocalizer.GetLocalizations
-+             ├─ ⇢ AdminMenuJSLocalizer.GetLocalizations (changes below depth limit)
-+             ├─ ⇢ ContentFieldsJSLocalizer.GetLocalizations (changes below depth limit)
-+             ├─ ⇢ CorsJSLocalizer.GetLocalizations (changes below depth limit)
-+             ├─ ⇢ FormsJSLocalizer.GetLocalizations (changes below depth limit)
-+             ├─ ⇢ LocalizationJSLocalizer.GetLocalizations (changes below depth limit)
-              ├─ ⇢ MediaJSLocalizer.GetLocalizations (depth limit)
-+             ├─ ⇢ MenuJSLocalizer.GetLocalizations (changes below depth limit)
-+             ├─ ⇢ OpenIdJSLocalizer.GetLocalizations (changes below depth limit)
-+             ├─ ⇢ SeoJSLocalizer.GetLocalizations (changes below depth limit)
-+             ├─ ⇢ ShortcodesJSLocalizer.GetLocalizations (changes below depth limit)
-+             └─ ⇢ TaxonomiesJSLocalizer.GetLocalizations (changes below depth limit)
+           ├─ IJSLocalizer.GetLocalizations
++          │  ├─ ⇢ AdminMenuJSLocalizer.GetLocalizations (changes below depth limit)
++          │  ├─ ⇢ ContentFieldsJSLocalizer.GetLocalizations (changes below depth limit)
++          │  ├─ ⇢ CorsJSLocalizer.GetLocalizations (changes below depth limit)
++          │  ├─ ⇢ FormsJSLocalizer.GetLocalizations (changes below depth limit)
++          │  ├─ ⇢ LocalizationJSLocalizer.GetLocalizations (changes below depth limit)
+           │  ├─ ⇢ MediaJSLocalizer.GetLocalizations (depth limit)
++          │  ├─ ⇢ MenuJSLocalizer.GetLocalizations (changes below depth limit)
++          │  ├─ ⇢ OpenIdJSLocalizer.GetLocalizations (changes below depth limit)
++          │  ├─ ⇢ SeoJSLocalizer.GetLocalizations (changes below depth limit)
++          │  ├─ ⇢ ShortcodesJSLocalizer.GetLocalizations (changes below depth limit)
++          │  └─ ⇢ TaxonomiesJSLocalizer.GetLocalizations (changes below depth limit)
+           └─ foreach (var kvp in localizations)
 
   initialization of DefaultLocalizationService
+  ├─ CultureInfo.get_InstalledUICulture
+  ├─ CultureInfo.get_Name
 + ├─ string.IsNullOrEmpty
-  └─ Task.FromResult ×2
++ ├─ else (!(string.IsNullOrEmpty(CultureInfo.InstalledUICulture.Name)))
++ │  ├─ CultureInfo.get_InstalledUICulture
++ │  └─ CultureInfo.get_Name
+  ├─ Task.FromResult
+- ├─ CultureInfo.get_InstalledUICulture
+- ├─ CultureInfo.get_Name
+  └─ Task.FromResult
 
   initialization of LocalizationSettings
-+ └─ string.IsNullOrEmpty
+  ├─ CultureInfo.get_InstalledUICulture
+  ├─ CultureInfo.get_Name
++ ├─ string.IsNullOrEmpty
++ └─ else (!(string.IsNullOrEmpty(CultureInfo.InstalledUICulture.Name)))
++    ├─ CultureInfo.get_InstalledUICulture
++    └─ CultureInfo.get_Name
 
   initialization of LocalizationService
+  ├─ CultureInfo.get_InstalledUICulture
+  ├─ CultureInfo.get_Name
+- ├─ CultureInfo.get_InstalledUICulture
+- ├─ CultureInfo.get_Name
 + ├─ string.IsNullOrEmpty
++ ├─ else (!(string.IsNullOrEmpty(CultureInfo.InstalledUICulture.Name)))
++ │  ├─ CultureInfo.get_InstalledUICulture
++ │  └─ CultureInfo.get_Name
   └─ CultureInfo.GetCultureInfo ×2
 
   GetLocalizationsEndpoint.HandleAsync
+  ├─ CultureInfo.get_CurrentUICulture
+  ├─ CultureInfo.get_Name
   ├─ ? cache.GetOrCreate
   │  ├─ JSLocalizerExtensions.GetMergedLocalizations ↑ as above
   │  ├─ JsonSerializer.SerializeToUtf8Bytes
@@ -183,11 +245,16 @@ stdout:
   └─ …
 
   ResourceManagementOptionsConfiguration.Configure
+  ├─ ResourceManagementOptions.get_ResourceManifests
 ~ ├─ ResourceManagementOptionsConfiguration.BuildManifest (signature changed)
   │  ├─ …
   │  ├─ ResourceDefinition.SetVersion
   │  ├─ ResourceManifest.DefineScript
 - │  ├─ ResourceDefinition.SetDependencies
+- │  │  ├─ ResourceDefinition.get_Dependencies
+- │  │  ├─ if (Dependencies is null)
+- │  │  │  └─ ResourceDefinition.set_Dependencies
+- │  │  ├─ ResourceDefinition.get_Dependencies
 - │  │  └─ Dependencies.AddRange
   │  ├─ ResourceDefinition.SetUrl
   │  ├─ ResourceDefinition.SetCdn
@@ -195,15 +262,22 @@ stdout:
   │  ├─ ResourceDefinition.SetVersion
   │  ├─ ResourceManifest.DefineScript
 - │  ├─ ResourceDefinition.SetUrl
-- │  │  └─ ArgumentException.ThrowIfNullOrEmpty
+- │  │  ├─ ArgumentException.ThrowIfNullOrEmpty
+- │  │  ├─ ResourceDefinition.set_Url
+- │  │  └─ if (urlDebug != null)
+- │  │     └─ ResourceDefinition.set_UrlDebug
 - │  ├─ ResourceDefinition.SetCdn
 - │  │  └─ ResourceDefinition.SetCdn (depth limit)
 - │  ├─ ResourceDefinition.SetCdnIntegrity
-- │  │  └─ ArgumentException.ThrowIfNullOrEmpty
+- │  │  ├─ ArgumentException.ThrowIfNullOrEmpty
+- │  │  ├─ ResourceDefinition.set_CdnIntegrity
+- │  │  └─ if (cdnDebugIntegrity != null)
+- │  │     └─ ResourceDefinition.set_CdnDebugIntegrity
 - │  ├─ ResourceDefinition.SetVersion
 - │  │  ├─ System.Version.TryParse
-- │  │  └─ if (!System.Version.TryParse(version, out _))
-- │  │     └─ new FormatException
+- │  │  ├─ if (!System.Version.TryParse(version, out _))
+- │  │  │  └─ new FormatException
+- │  │  └─ ResourceDefinition.set_Version
 - │  ├─ ResourceManifest.DefineScript
 - │  │  └─ ResourceManifest.DefineResource (depth limit)
   │  ├─ ResourceDefinition.SetUrl
@@ -252,6 +326,7 @@ stdout:
 - │  ├─ ResourceManifest.DefineScript ↑ as above
 - │  ├─ ResourceDefinition.SetUrl ↑ as above
 - │  ├─ ResourceDefinition.SetPosition
+- │  │  └─ ResourceDefinition.set_Position
 - │  ├─ ResourceDefinition.SetVersion ↑ as above
 - │  ├─ ResourceManifest.DefineScript ↑ as above
 - │  ├─ ? manifest.DefineScript("monaco").SetAttribute
@@ -261,15 +336,16 @@ stdout:
 - │  ├─ ResourceDefinition.SetDependencies ↑ as above
   │  └─ ResourceDefinition.SetVersion
   ├─ options.ResourceManifests.Add
-  └─ case ResourceDebugMode.FromConfiguration:
+  ├─ ResourceOptions.get_ResourceDebugMode
+  └─ …
 ```
 stderr:
 src/OrchardCore.AspireHost/ClamAV.cs:13: unresolved-call: Cannot bind : base(name).
+src/OrchardCore.AspireHost/ClamAV.cs:18: unresolved-call: Cannot bind new EndpointReference.
+src/OrchardCore.AspireHost/ClamAV.cs:21: unresolved-call: Cannot bind ReferenceExpression.Create.
+src/OrchardCore.AspireHost/ClamAV.cs:22: unresolved-call: Cannot bind PrimaryEndpoint.Property.
+src/OrchardCore.AspireHost/ClamAV.cs:22: unresolved-call: Cannot bind PrimaryEndpoint.Property.
 src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag("latest").WithEnvironment("CLAMAV_NO_FRESHCLAMD", "true").WithEndpoint.
 src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag("latest").WithEnvironment.
 src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry("docker.io").WithImageTag.
-src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage("clamav/clamav").WithImageRegistry.
-src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource(resource).WithImage.
-src/OrchardCore.AspireHost/ClamAV.cs:34: unresolved-call: Cannot bind builder.AddResource.
-src/OrchardCore.AspireHost/ClamAV.cs:46: unresolved-call: Cannot bind builder.WithVolume.
-16771 additional diagnostics; use --diagnostics full.
+17226 additional diagnostics; use --diagnostics full.

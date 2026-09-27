@@ -1716,7 +1716,7 @@
     "licenseFile": "LICENSE",
     "beforeLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
     "afterLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
-    "reason": "ES-module and Vue migration adds ten scoped JavaScript localizers, introduces empty-culture fallbacks, renames a startup, and changes resource registration. Pinned production and functional-test diffs, declaration signatures, generated sources, diagnostics, root witnesses, and rendered bindings were independently reviewed; all four JSON views repeat on Linux. Executable expectations preserve possible interface dispatch, static BuildManifest binding, and the removed generated XML cache entry at its original call site. The graph omits JavaScript and Razor execution, culture fallback literal values, call-free guards, accessor effects, and fluent receiver/value identity. Identical DefineScript calls can align to an earlier resource chain, and changed argument values are not rendered. Root views stop at depth one; focused views stop at depth three. Final cross-platform validation remains required.",
+    "reason": "ES-module and Vue migration adds ten scoped JavaScript localizers, empty-culture fallbacks, a startup rename, and resource registration changes. Independent pinned-source, compiler and generated-template review covers all four views, 4963 declaration signatures, 70519 bound source/generated edges, 3234 metadata edges and 112228 locations. Accessor ordering exposes installed-culture reads before the fallback check and repeated reads only in its nonempty branch. Source automatic output has 390 roots: the extra router Awaited path reaches possible startup ConfigureOrder dispatch after a receiver-type rename, although the inherited getter body and definition target IDs are unchanged; rendered definition IDs omit that receiver context. Restored output has 425 roots: two OpenAPI transformers now reach a changed generated cache through its getter, with the removed XML entry beyond depth one. Source diagnostics total 17234; restored retains 19 dynamic-receiver diagnostics. All 12 CLI formats repeat exactly on Linux. Possible dispatch does not prove runtime execution. The graph omits JavaScript and Razor execution, fallback literal values, call-free guards, operators and events, and fluent receiver/value identity. Identical DefineScript calls can align to an earlier resource chain; changed argument values are not rendered. Root views stop at depth one and focused views at depth three. Upstream tests were not executed; final cross-platform validation remains required.",
     "tags": [
       "cross-project",
       "interface-dispatch",
@@ -1728,7 +1728,8 @@
       "interceptors",
       "repeated-call-alignment",
       "mixed-language",
-      "automatic-roots"
+      "automatic-roots",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/orchardcore-coverage.md",

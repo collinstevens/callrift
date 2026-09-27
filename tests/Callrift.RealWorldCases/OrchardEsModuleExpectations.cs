@@ -44,8 +44,14 @@ internal static class OrchardEsModuleExpectations
         foreach (var type in new[] { "LocalizationSettings", "LocalizationService", "DefaultLocalizationService" })
         {
             var initializer = Assert.Single(result.Trees, node => node.Label == "initialization of " + type);
-            var addition = Assert.Single(Descendants(initializer.Children), node => node.Mark == '+');
-            Assert.Equal("string.IsNullOrEmpty", addition.Label);
+            var children = Descendants(initializer.Children).ToArray();
+            Assert.Equal(["string.IsNullOrEmpty", "else (!(string.IsNullOrEmpty(CultureInfo.InstalledUICulture.Name)))", "CultureInfo.get_InstalledUICulture", "CultureInfo.get_Name"],
+                children.Where(node => node.Mark == '+').Select(node => node.Label));
+            Assert.Equal(["CultureInfo.get_InstalledUICulture", "CultureInfo.get_Name", "string.IsNullOrEmpty"],
+                initializer.Children.Where(node => node.After is not null).Take(3).Select(node => node.Label));
+            var systemCulture = Assert.Single(initializer.Children, node => node.Mark == '+' && node.Kind == "branch");
+            Assert.Equal(["CultureInfo.get_InstalledUICulture", "CultureInfo.get_Name"], systemCulture.Children.Select(node => node.Label));
+            Assert.Equal(type == "LocalizationSettings" ? 0 : 2, children.Count(node => node.Mark == '-'));
         }
         var manifest = Assert.Single(nodes, node => node.Label == "ResourceManagementOptionsConfiguration.BuildManifest");
         Assert.Equal("signature changed", manifest.Detail);
@@ -56,21 +62,39 @@ internal static class OrchardEsModuleExpectations
     private static void VerifyRoots(DiffResult result, DiffNode[] nodes)
     {
         var restored = result.Coverage.Mode == "msbuild";
-        Assert.Equal(restored ? 424 : 389, result.Trees.Count);
+        Assert.Equal(restored ? 425 : 390, result.Trees.Count);
         if (!restored)
         {
-            Assert.Equal(16756, result.Diagnostics.Count(diagnostic => diagnostic.Code == "unresolved-call"));
+            Assert.Equal(17207, result.Diagnostics.Count(diagnostic => diagnostic.Code == "unresolved-call"));
             Assert.Equal(19, result.Diagnostics.Count(diagnostic => diagnostic.Code == "test-project-inferred"));
-            Assert.Equal(2, result.Diagnostics.Count(diagnostic => diagnostic.Code == "duplicate-member"));
+            Assert.Equal(6, result.Diagnostics.Count(diagnostic => diagnostic.Code == "duplicate-member"));
             Assert.Equal(2, result.Diagnostics.Count(diagnostic => diagnostic.Code == "unresolved-static-initializer"));
+            var awaited = Assert.Single(result.Trees, node => node.Label == "ModularTenantRouterMiddleware.Invoke.Awaited");
+            Assert.Equal(["ShellContextExtensions.HasPipeline", "if (!shellContext.HasPipeline())", "ShellContext.get_Pipeline", "? shellContext.Pipeline.Invoke"],
+                awaited.Children.Select(node => node.Label));
+            var build = Assert.Single(awaited.Children[1].Children);
+            Assert.Equal("ShellPipelineExtensions.BuildPipelineAsync", build.Label);
+            Assert.Equal('~', build.Mark);
+            Assert.Equal("depth-limit", build.Omission!.Reason);
             return;
         }
         Assert.Equal(19, result.Diagnostics.Count);
         Assert.All(result.Diagnostics, diagnostic => Assert.Equal("unresolved-call", diagnostic.Code));
-        var cache = Assert.Single(result.Trees, node => node.Label == "XmlCommentCache.GenerateCacheEntries");
-        var removed = Assert.Single(Descendants(cache.Children), node => node.Mark == '-');
-        Assert.Equal("new XmlComment", removed.Label);
-        Assert.Equal(1205, Assert.Single(removed.Before!.CallSites).Line);
+        Assert.DoesNotContain(result.Trees, node => node.Label == "XmlCommentCache.GenerateCacheEntries");
+        foreach (var type in new[] { "XmlCommentOperationTransformer", "XmlCommentSchemaTransformer" })
+        {
+            var transformer = Assert.Single(result.Trees, node => node.Label == type + ".TransformAsync");
+            var getters = Descendants(transformer.Children).Where(node => node.Label == "XmlCommentCache.get_Cache").ToArray();
+            Assert.Equal(2, getters.Length);
+            Assert.All(getters, getter =>
+            {
+                Assert.Equal('~', getter.Mark);
+                Assert.Equal("changes below depth limit", getter.Detail);
+                Assert.Equal("depth-limit", getter.Omission!.Reason);
+                Assert.Equal(getter.Before!.SymbolId, getter.After!.SymbolId);
+                Assert.EndsWith("/OpenApiXmlCommentSupport.generated.cs", getter.After.Definition!.Path);
+            });
+        }
         Assert.Contains(nodes, node => node.After?.Definition?.Path.EndsWith("/ShapeFactoryGenerator.g.cs", StringComparison.Ordinal) == true
             && node.Label.Contains("[interceptor in ", StringComparison.Ordinal));
     }
