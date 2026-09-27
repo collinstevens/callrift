@@ -1,6 +1,6 @@
 # Test-suite performance goal
 
-Status: second performance phase in progress. Matched full-corpus cold/warm improvement is established at `2fae0fb`, with all 426 executions retained. Cold/warm broad CI paths meet ten minutes on every OS with equivalent coverage, but individual targets are not yet stable. Run 36294683341 passed all required jobs and confirmed repository/package-cache hits; Windows workspace A took 136.66 seconds and macOS case B 210.59 seconds. The next checkpoint uses three workspace/case shards while preserving two scenario shards, existing rows and per-process concurrency limits. Extra setup/runner cost and scheduling delay remain part of the evidence. The previous phase established fast everyday feedback, but broad CI originally took 46–49 minutes. This phase makes the remaining suite fast. It does not resume the paused implementation goal in `GOAL.md`.
+Status: second performance phase in progress. Cold run 36295334411 at `79df40b` passed every required job with three workspace/case shards and two scenario shards. Longest complete commands meet every suite budget; whole broad paths including staggered starts took 3m 53s / 7m 45s / 9m 21s on Ubuntu / Windows / macOS. Full suite spans and queue/setup costs are published separately; final warm-cache confirmation remains outstanding. Matched full-corpus cold/warm improvement is established at `2fae0fb`, with all 426 executions retained. Broad CI originally took 46–49 minutes. This phase does not resume the paused implementation goal in `GOAL.md`.
 
 ## Outcome
 

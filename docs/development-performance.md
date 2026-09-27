@@ -4,9 +4,10 @@ This work tracks `WORKFLOW_DEVEX_GOAL.md`; it does not resume `GOAL.md`.
 The first phase completed at `90083f5`; the second phase's broad-suite performance
 goal remains active. The latest completed evidence includes the
 [matched full-corpus cold/warm comparison](#matched-complete-e2e-results-at-2fae0fb)
-and [cold shard confirmation](#cold-confirmation-at-3060e3e). Warm repository
-caches are confirmed, but Windows workspace/case budgets and combined suite
-timing under staggered job starts remain open.
+and [three-shard cold confirmation](#three-shard-cold-confirmation-at-79df40b).
+The current partition meets all test-command budgets cold; its final warm
+repository/package-cache confirmation remains open. Full suite spans, including
+staggered starts, remain visible alongside command times.
 
 The inventory describes existing assertions, not permission to remove integration
 coverage. Historical checkpoint observations are retained below. Unsampled
@@ -2289,3 +2290,36 @@ The subsequent `mise run test:fast` passed all 350 rows; its dotnet portion,
 including build/restore, took 4.31 s. The complete wrapper's earlier measured
 5.33 s remains the latest full-process fast timing, rather than substituting
 this narrower timer for it.
+
+### Three-shard cold confirmation at 79df40b
+
+[Run 36295334411](https://github.com/collinstevens/callrift/actions/runs/36295334411)
+passed all required jobs. Each OS retained 350 fast rows, 305 scenarios, 26
+workspace rows and 25 routine cases, plus representative integration/packaging.
+All nine repository caches and eighteen package caches explicitly missed and
+saved their new keys. SDK/configuration and hosted image families are unchanged.
+
+| Complete dotnet command | Ubuntu | Windows | macOS |
+|---|---:|---:|---:|
+| Scenarios A / B | 121.58 / 191.55 s | 190.98 / 130.68 s | 155.72 / 272.55 s |
+| Workspaces A / B / C | 61.96 / 73.59 / 49.30 s | 85.82 / 89.52 / 79.95 s | 54.59 / 85.33 / 70.03 s |
+| Cold cases A / B / C | 125.81 / 106.83 / 93.76 s | 173.95 / 138.34 / 149.09 s | 101.82 / 90.70 / 131.60 s |
+| Whole broad path including setup/staggered starts | 3m 53s | 7m 45s | 9m 21s |
+
+Initial queue delays were 2 / 2 / 6 s. The final broad job started 117 / 117 /
+218 s after its platform's first job. First-test-step-start to last-test-step-finish
+spans were 195 / 314 / 350 s for scenarios, 191 / 199 / 202 s for workspaces,
+and 129 / 264 / 214 s for cases. Those combined spans are not described as
+sub-two-minute workspace feedback. Per-suite command budgets use the longest
+complete shard invocation; the ten-minute broad budget includes all setup,
+staggered starts, cache transfers and teardown. This distinction keeps execution
+cost and actual feedback latency visible.
+
+The twenty-four broad jobs used 75.60 runner-minutes, 47.4% below the original
+143.82-minute cold baseline. Aggregate commands consumed 47.08 minutes, versus
+the original 140.50 minutes. Runner time is higher than the two-shard warm
+checkpoint's 63.40 minutes; additional runners, fresh caches and host variance
+are explicitly part of that tradeoff. The matched local CPU/setup costs above
+remain the controlled comparison. Every longest command meets its suite budget,
+and every whole broad path meets ten minutes cold. A following run with unchanged
+code and cache keys must still establish warm behavior before completion.
