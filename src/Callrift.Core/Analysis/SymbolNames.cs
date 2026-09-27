@@ -168,7 +168,8 @@ internal sealed class SymbolNames(Func<IMethodSymbol, string>? scope = null, Fun
             span.EndLinePosition.Line + 1, span.EndLinePosition.Character + 1);
     }
 
-    public static string Compact(SyntaxNode node) => node.ReplaceTrivia(node.DescendantTrivia(), static (_, _) => default)
+    public static string Compact(SyntaxNode node) => node is IdentifierNameSyntax name ? name.Identifier.Text
+        : node.ReplaceTrivia(node.DescendantTrivia(), static (_, _) => default)
         .NormalizeWhitespace(indentation: "", eol: " ", elasticTrivia: false).ToFullString();
 
     public static string SyntaxLabel(SyntaxNode node) => node switch

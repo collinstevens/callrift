@@ -1,5 +1,5 @@
 using System.Collections.Immutable;
-using System.Text;
+using System.Runtime.CompilerServices;
 
 namespace Callrift.Core;
 
@@ -23,22 +23,32 @@ internal sealed class InvocationContext(string Key, IReadOnlyDictionary<string, 
     {
         if (Limited) return Key + "\u001e<context-limit>";
         if (!HasSpecialization) return Key;
-        var result = new StringBuilder(Key).Append('\u001e');
-        var first = true;
-        foreach (var argument in Arguments.OrderBy(p => p.Key, StringComparer.Ordinal))
+        var result = new DefaultInterpolatedStringHandler(0, 0, null, stackalloc char[256]);
+        try
         {
-            if (!first) result.Append(';');
-            first = false;
-            result.Append(argument.Key).Append('=');
-            AppendTypeKey(result, argument.Value, Definitions);
+            result.AppendLiteral(Key);
+            result.AppendLiteral("\u001e");
+            var first = true;
+            foreach (var argument in Arguments.OrderBy(p => p.Key, StringComparer.Ordinal))
+            {
+                if (!first) result.AppendLiteral(";");
+                first = false;
+                result.AppendLiteral(argument.Key);
+                result.AppendLiteral("=");
+                AppendTypeKey(ref result, argument.Value, Definitions);
+            }
+            if (ReceiverSpecialized)
+            {
+                result.AppendLiteral(";this=");
+                AppendTypeKey(ref result, Receiver!, Definitions);
+                if (ReceiverExact) result.AppendLiteral("!");
+            }
+            return result.ToString();
         }
-        if (ReceiverSpecialized)
+        finally
         {
-            result.Append(";this=");
-            AppendTypeKey(result, Receiver!, Definitions);
-            if (ReceiverExact) result.Append('!');
+            result.Clear();
         }
-        return result.ToString();
     }
 
     public static InvocationContext Create(CallGraph graph, string key, IReadOnlyDictionary<string, DispatchType> arguments, DispatchType? receiver = null, bool receiverExact = false)
@@ -121,24 +131,34 @@ internal sealed class InvocationContext(string Key, IReadOnlyDictionary<string, 
         return true;
     }
 
-    private static void AppendTypeKey(StringBuilder result, DispatchType type, IReadOnlyDictionary<string, DispatchTypeDefinition>? definitions)
+    private static void AppendTypeKey(ref DefaultInterpolatedStringHandler result, DispatchType type, IReadOnlyDictionary<string, DispatchTypeDefinition>? definitions)
     {
-        result.Append(definitions?.GetValueOrDefault(type.Name)?.ContextIdentity ?? type.Name).Append('<');
-        AppendTypes(result, type.Arguments, definitions);
-        result.Append('>');
+        result.AppendLiteral(definitions?.GetValueOrDefault(type.Name)?.ContextIdentity ?? type.Name);
+        result.AppendLiteral("<");
+        AppendTypes(ref result, type.Arguments, definitions);
+        result.AppendLiteral(">");
         if (type.Constraints is not { } constraints) return;
-        result.Append('[').Append(constraints.ReferenceType).Append(',').Append(constraints.ValueType).Append(',')
-            .Append(constraints.UnmanagedType).Append(',').Append(constraints.Constructor).Append(',').Append(constraints.AllowsRefLikeType).Append(':');
-        AppendTypes(result, constraints.Types, definitions);
-        result.Append(']');
+        result.AppendLiteral("[");
+        result.AppendFormatted(constraints.ReferenceType);
+        result.AppendLiteral(",");
+        result.AppendFormatted(constraints.ValueType);
+        result.AppendLiteral(",");
+        result.AppendFormatted(constraints.UnmanagedType);
+        result.AppendLiteral(",");
+        result.AppendFormatted(constraints.Constructor);
+        result.AppendLiteral(",");
+        result.AppendFormatted(constraints.AllowsRefLikeType);
+        result.AppendLiteral(":");
+        AppendTypes(ref result, constraints.Types, definitions);
+        result.AppendLiteral("]");
     }
 
-    private static void AppendTypes(StringBuilder result, IReadOnlyList<DispatchType> types, IReadOnlyDictionary<string, DispatchTypeDefinition>? definitions)
+    private static void AppendTypes(ref DefaultInterpolatedStringHandler result, IReadOnlyList<DispatchType> types, IReadOnlyDictionary<string, DispatchTypeDefinition>? definitions)
     {
         for (var index = 0; index < types.Count; index++)
         {
-            if (index != 0) result.Append(',');
-            AppendTypeKey(result, types[index], definitions);
+            if (index != 0) result.AppendLiteral(",");
+            AppendTypeKey(ref result, types[index], definitions);
         }
     }
 
