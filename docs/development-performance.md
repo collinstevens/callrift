@@ -1,13 +1,18 @@
 # Development performance inventory
 
 This work tracks `WORKFLOW_DEVEX_GOAL.md`; it does not resume `GOAL.md`.
-The inventory describes existing assertions, not permission to remove integration
-coverage. The workstream is complete: final fast, representative and broad CI
-passed on all three supported operating systems. Unsampled classes have no measured cost rank.
-The sections below retain historical checkpoint observations; the current-results
-table and fixture-repair section describe the latest validated state.
+The first phase completed at `90083f5`; the second phase's broad-suite performance
+goal remains active. The latest completed evidence includes the
+[matched full-corpus cold/warm comparison](#matched-complete-e2e-results-at-2fae0fb)
+and [first cold shard CI](#first-cold-shard-ci-at-a3bba0f). Windows workspace timing
+and final warm-cache confirmation remain open.
 
-## Current results
+The inventory describes existing assertions, not permission to remove integration
+coverage. Historical checkpoint observations are retained below. Unsampled
+classes have no measured cost rank; first-phase completion does not establish
+completion of the active second phase.
+
+## First-phase results
 
 | Evidence | Result |
 |---|---|
@@ -2109,3 +2114,31 @@ Adding the class names changes the partition-file cache hash even though case
 membership is unchanged. The next case jobs therefore prepare another cold
 namespace; final warm evidence still requires a following cache-hit run. Old
 cache entries are preserved.
+
+### Cold confirmation at 3060e3e
+
+[Run 36293540835](https://github.com/collinstevens/callrift/actions/runs/36293540835)
+passed all required jobs with the same SDK, Debug configuration and hosted image
+versions as the preceding run. Counts remain 350 fast, 305 scenarios, 26
+workspaces and 25 routine cases per OS, plus representative integration. All six
+case jobs explicitly missed and saved the new partition-hash cache namespace.
+
+| Complete dotnet command | Ubuntu | Windows | macOS |
+|---|---:|---:|---:|
+| Scenarios A / B | 220.13 / 190.46 s | 254.13 / 220.83 s | 189.76 / 139.25 s |
+| Workspaces A / B | 112.74 / 101.02 s | 96.78 / 115.57 s | 60.89 / 88.82 s |
+| Cold cases A / B | 157.97 / 113.54 s | 194.11 / 195.95 s | 118.83 / 135.91 s |
+| Whole broad path including setup/staggered starts | 4m 18s | 5m 48s | 5m 23s |
+
+Initial queue delay was 1 / 1 / 5 s; the last broad job started 1 / 50 / 163 s
+after its platform's first job. First-test-step-start to last-test-step-finish
+spans were 221 / 256 / 247 s for scenarios, 117 / 179 / 196 s for workspaces,
+and 160 / 248 / 269 s for cold cases. Thus every workspace command meets two
+minutes, while the Windows/macOS combined spans still exceed that duration
+because of setup and scheduling skew. These are distinct measurements.
+
+The eighteen broad jobs consumed 62.57 runner-minutes, 56.5% below the original
+cold baseline, with 45.11 aggregate dotnet command minutes. All broad paths
+again meet ten minutes. Warm repository-cache behavior still needs a following
+run with unchanged partition configuration; the cold Windows cases are not
+presented as meeting the warm three-minute target.
