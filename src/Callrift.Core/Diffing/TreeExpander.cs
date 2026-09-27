@@ -7,6 +7,7 @@ public sealed record CallTree(string Key, string Label, string MatchName, string
     public Omission? Omission { get; init; }
     internal string? SemanticKey { get; init; }
     internal string? InvocationKey { get; init; }
+    internal string? AlignmentKey { get; init; }
     internal string? DispatchLabel { get; init; }
     internal bool ExpandedDispatch { get; init; }
     internal Func<CallTree>? ExpandDispatch { get; init; }
@@ -152,6 +153,7 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
             tree = tree with
             {
                 Kind = "call",
+                AlignmentKey = call.AlignmentKey,
                 Side = side,
                 Children = tree.Children.Concat(children).ToArray(),
                 InvocationKey = InvocationContext.Create(resolvedGraph, call.DefinitionKey ?? call.Key, call.GenericArguments).Identity,

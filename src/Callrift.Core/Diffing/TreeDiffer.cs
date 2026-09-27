@@ -19,12 +19,34 @@ public static class TreeDiffer
             return left.Label == right.Label && left.MatchName == right.MatchName
                 && before.Count(n => n.Label == left.Label) == 1 && after.Count(n => n.Label == right.Label) == 1;
         }
-        var lengths = new int[before.Count + 1, after.Count + 1];
+        var directions = new byte[before.Count, after.Count];
+        var next = new long[after.Count + 1];
+        var current = new long[after.Count + 1];
+        var matchWeight = (long)Math.Min(before.Count, after.Count) + 1;
         for (var i = before.Count - 1; i >= 0; i--)
         {
             cancellationToken.ThrowIfCancellationRequested();
             for (var j = after.Count - 1; j >= 0; j--)
-                lengths[i, j] = Matches(i, j) ? lengths[i + 1, j + 1] + 1 : Math.Max(lengths[i + 1, j], lengths[i, j + 1]);
+            {
+                var match = Matches(i, j) ? next[j + 1] + matchWeight
+                    + (before[i].AlignmentKey is { } key && key == after[j].AlignmentKey ? 1 : 0) : -1;
+                if (match >= next[j] && match >= current[j + 1])
+                {
+                    current[j] = match;
+                    directions[i, j] = 0;
+                }
+                else if (next[j] >= current[j + 1])
+                {
+                    current[j] = next[j];
+                    directions[i, j] = 1;
+                }
+                else
+                {
+                    current[j] = current[j + 1];
+                    directions[i, j] = 2;
+                }
+            }
+            (next, current) = (current, next);
         }
         var result = new List<DiffNode>();
         var oldIndex = 0;
@@ -32,7 +54,7 @@ public static class TreeDiffer
         while (oldIndex < before.Count || newIndex < after.Count)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            if (oldIndex < before.Count && newIndex < after.Count && Matches(oldIndex, newIndex))
+            if (oldIndex < before.Count && newIndex < after.Count && directions[oldIndex, newIndex] == 0)
             {
                 var left = before[oldIndex++];
                 var right = after[newIndex++];
@@ -54,7 +76,7 @@ public static class TreeDiffer
                     signatureChanged ? "signature changed" : contextChanged ? "generic arguments changed" : contextLimited ? "generic context limit" : right.Detail ?? (hiddenBodyChange ? "body changed; visible calls unchanged" : null))
                 { Kind = right.Kind, Before = left.Side, After = right.Side, Omission = contextLimited ? new Omission("generic-context-limit") : right.Omission });
             }
-            else if (oldIndex < before.Count && (newIndex == after.Count || lengths[oldIndex + 1, newIndex] >= lengths[oldIndex, newIndex + 1]))
+            else if (oldIndex < before.Count && (newIndex == after.Count || directions[oldIndex, newIndex] == 1))
                 result.Add(Mark(before[oldIndex++], '-', cancellationToken));
             else
                 result.Add(Mark(after[newIndex++], '+', cancellationToken));
