@@ -397,6 +397,13 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
     private static DispatchMap BuildDispatchMap(IEnumerable<INamedTypeSymbol> types, IReadOnlyDictionary<string, Member> members, SymbolNames symbols,
         CancellationToken cancellationToken, IEnumerable<ITypeSymbol>? observedTypes = null)
     {
+        var methodCache = new Dictionary<INamedTypeSymbol, IMethodSymbol[]>(ReferenceEqualityComparer.Instance);
+        IMethodSymbol[] Methods(INamedTypeSymbol type)
+        {
+            if (!methodCache.TryGetValue(type, out var methods))
+                methodCache[type] = methods = type.GetMembers().OfType<IMethodSymbol>().ToArray();
+            return methods;
+        }
         var declaredTypes = types.ToArray();
         var map = new Dictionary<string, SortedSet<string>>(StringComparer.Ordinal);
         var contracts = new Dictionary<string, List<DispatchContract>>(StringComparer.Ordinal);
@@ -421,13 +428,13 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
             var receiverTypes = type.AllInterfaces.Select(DispatchType.From).ToList();
             for (var current = type; current is not null; current = current.BaseType) receiverTypes.Add(DispatchType.From(current));
             foreach (var contract in type.AllInterfaces)
-                foreach (var method in contract.GetMembers().OfType<IMethodSymbol>())
+                foreach (var method in Methods(contract))
                     if (type.FindImplementationForInterfaceMember(method) is IMethodSymbol implementation)
                     {
                         var resolved = implementation;
                         for (var current = type; current is not null; current = current.BaseType)
                         {
-                            var candidate = current.GetMembers().OfType<IMethodSymbol>().FirstOrDefault(m => Overrides(m, implementation));
+                            var candidate = Methods(current).FirstOrDefault(m => Overrides(m, implementation));
                             if (candidate is null) continue;
                             resolved = candidate;
                             break;
@@ -438,7 +445,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                 continue;
             var overridden = new HashSet<ISymbol>(SymbolEqualityComparer.Default);
             for (var current = type; current is not null; current = current.BaseType)
-                foreach (var method in current.GetMembers().OfType<IMethodSymbol>())
+                foreach (var method in Methods(current))
                 {
                     if (overridden.Contains(method)) continue;
                     if (method.IsVirtual || method.IsOverride) Add(method, method, receiverTypes, type, includeSelf: true);
