@@ -1,18 +1,40 @@
 # Development performance inventory
 
 This work tracks `WORKFLOW_DEVEX_GOAL.md`; it does not resume `GOAL.md`.
-The first phase completed at `90083f5`; the second phase's broad-suite performance
-goal remains active. The latest completed evidence includes the
+The first phase completed at `90083f5`; the second phase completed with the
+unchanged-code cold/warm CI pair `79df40b` / `320cc45`. Final evidence includes the
 [matched full-corpus cold/warm comparison](#matched-complete-e2e-results-at-2fae0fb)
-and [three-shard cold confirmation](#three-shard-cold-confirmation-at-79df40b).
-The current partition meets all test-command budgets cold; its final warm
-repository/package-cache confirmation remains open. Full suite spans, including
-staggered starts, remain visible alongside command times.
+and [three-shard cold confirmation](#three-shard-cold-confirmation-at-79df40b)
+with its [warm confirmation](#three-shard-warm-confirmation-at-320cc45).
+Per-suite execution budgets use the longest complete shard command. Whole broad
+feedback includes setup, staggered starts, cache transfers and teardown; full
+suite spans are also reported and are not substituted for command durations.
 
 The inventory describes existing assertions, not permission to remove integration
 coverage. Historical checkpoint observations are retained below. Unsampled
 classes have no measured cost rank; first-phase completion does not establish
-completion of the active second phase.
+completion of the second phase on their own.
+
+## Second-phase results
+
+| Final measured scope | Ubuntu | Windows | macOS |
+|---|---:|---:|---:|
+| Original broad CI, cold | 48m 33s | 49m 02s | 46m 14s |
+| Final broad CI, cold | 3m 53s | 7m 45s | 9m 21s |
+| Final broad CI, warm | 4m 44s | 5m 02s | 5m 44s |
+| Longest warm scenario command, budget 360 s | 162.20 s | 220.22 s | 270.18 s |
+| Longest warm workspace command, budget 120 s | 55.61 s | 86.34 s | 52.72 s |
+| Longest warm routine-case command, budget 180 s | 111.49 s | 142.65 s | 131.16 s |
+
+Both final CI runs passed every required job with 706 fast/broad executions per
+OS, plus representative integration/packaging. The local fast path remains below
+ten seconds on the prepared checkout. The separately matched 426-row all-cases
+E2E command fell from 54m 30s / 53m 58s cold/warm to 8m 28s / 7m 55s, with
+about 85% less sampled CPU. Its pinned corpus and every reviewed snapshot remain
+unchanged. Final broad runner use is 75.60 / 69.30 minutes cold/warm versus the
+original 143.82 minutes. Extra shard CPU/setup, memory peaks, package transfer
+costs and queue delays are quantified below; more runners alone are not credited
+as reduced work. These are observed results, not a guarantee of hosted latency.
 
 ## First-phase results
 
@@ -2323,3 +2345,45 @@ are explicitly part of that tradeoff. The matched local CPU/setup costs above
 remain the controlled comparison. Every longest command meets its suite budget,
 and every whole broad path meets ten minutes cold. A following run with unchanged
 code and cache keys must still establish warm behavior before completion.
+
+### Three-shard warm confirmation at 320cc45
+
+[Run 36295841555](https://github.com/collinstevens/callrift/actions/runs/36295841555)
+passed every required job on all three supported operating systems. The tested
+code is identical to `79df40b`; only the evidence documents changed. All nine
+repository and eighteen package keys explicitly hit. SDK, Debug configuration
+and runner image versions remain the same as the cold run.
+
+| Complete dotnet command | Ubuntu | Windows | macOS |
+|---|---:|---:|---:|
+| Scenarios A / B | 150.97 / 162.20 s | 145.90 / 220.22 s | 270.18 / 154.28 s |
+| Workspaces A / B / C | 55.61 / 42.90 / 48.46 s | 78.26 / 86.34 / 78.34 s | 44.57 / 52.72 / 42.99 s |
+| Warm cases A / B / C | 111.49 / 104.57 / 102.39 s | 101.76 / 132.28 / 142.65 s | 131.16 / 62.08 / 114.15 s |
+| Whole broad path including setup/staggered starts | 4m 44s | 5m 02s | 5m 44s |
+
+Initial queue delays were 2 / 1 / 6 s. Last-start delays were 159 / 2 / 209 s.
+First-test-step-start to last-test-step-finish spans were 193 / 223 / 295 s for
+scenarios, 107 / 100 / 186 s for workspaces and 239 / 155 / 161 s for cases.
+In particular, macOS's full workspace span and Ubuntu's full case span exceed
+their test-command budgets because of staggered starts. Those delays remain
+inside the broad feedback paths; no sub-two-minute full workspace-span claim is
+made. Every longest test command meets its execution budget and every full broad
+path meets ten minutes in both final cold and warm observations.
+
+The twenty-four broad jobs consumed 69.30 runner-minutes, 51.8% below the original
+cold baseline. Aggregate command time was 43.94 minutes, 68.7% below the original
+140.50 minutes. The eighteen package entries total 3.18 GiB compressed; cache
+restore/extraction steps took 1–15 s apiece, 101 s in aggregate, included in those
+job totals. Repository/cache conditions and hosted variability prevent treating
+the cold-to-warm difference as a controlled cache-only speedup. The matched
+full-corpus comparison independently establishes the actual work reduction.
+
+All 706 fast/broad rows per OS, representative integration/packaging, workflow
+lint and quality checks passed. Unchanged snapshots, pinned revisions/licenses,
+exact shard unions, retained CLI/framework/generator/process boundaries, bounded
+overlap and cleanup are accounted for above. Each final cache condition has one
+complete hosted observation; earlier checkpoints expose the observed variation
+and rejected configurations. Additional shard CPU/setup and slower first-cache
+preparation remain costs of the chosen latency tradeoff. The second performance
+phase is complete on the stated command/broad-path accounting; no full local
+suite became a commit or push gate.

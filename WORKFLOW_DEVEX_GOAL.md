@@ -1,6 +1,6 @@
 # Test-suite performance goal
 
-Status: second performance phase in progress. Cold run 36295334411 at `79df40b` passed every required job with three workspace/case shards and two scenario shards. Longest complete commands meet every suite budget; whole broad paths including staggered starts took 3m 53s / 7m 45s / 9m 21s on Ubuntu / Windows / macOS. Full suite spans and queue/setup costs are published separately; final warm-cache confirmation remains outstanding. Matched full-corpus cold/warm improvement is established at `2fae0fb`, with all 426 executions retained. Broad CI originally took 46–49 minutes. This phase does not resume the paused implementation goal in `GOAL.md`.
+Status: complete. Cold run 36295334411 (`79df40b`) and warm run 36295841555 (`320cc45`, identical tested code) passed every required job. Longest complete shard commands meet every suite budget. Whole broad paths including setup, staggered starts and teardown took 3m 53s / 7m 45s / 9m 21s cold and 4m 44s / 5m 02s / 5m 44s warm on Ubuntu / Windows / macOS. All nine repository and eighteen package caches explicitly hit in the warm run. Per-suite command budgets use the longest shard invocation; full suite spans are separately published and are not claimed to fit those execution-only budgets. Aggregate work, runner cost, coverage mappings and cleanup are documented in `docs/development-performance.md`. Matched full-corpus cold/warm improvement retains all 426 executions. This phase does not resume the paused implementation goal in `GOAL.md`.
 
 ## Outcome
 
@@ -106,10 +106,10 @@ Record machine or runner type, OS, SDK, revision, selected cases, build state, c
 - [x] The expensive paths have measured costs, and every remaining serial boundary has a documented isolation or resource reason.
 - [x] Independent workspace and real-world cases demonstrably overlap with bounded concurrency; shared repository preparation and cleanup remain safe under cold and warm execution.
 - [x] Format-only assertions reuse analysis, and redundant restoration/worker setup is reduced without losing meaningful integration checks.
-- [ ] All per-suite and broad CI targets are met on Ubuntu, Windows, and macOS, with cold and warm conditions reported honestly.
+- [x] All per-suite and broad CI targets are met on Ubuntu, Windows, and macOS, with cold and warm conditions reported honestly.
 - [x] Aggregate work is reduced; any additional runner cost is quantified separately from elapsed-time improvement.
 - [x] The explicit all-cases E2E command has its own matched before/after evidence with the pinned corpus preserved.
 - [x] The current fast-tier budget and focused integration workflow remain intact.
-- [ ] Equivalent behavioral coverage, unchanged reviewed expectations, concurrency stability, and passing supported-platform CI are documented in `docs/development-performance.md`.
+- [x] Equivalent behavioral coverage, unchanged reviewed expectations, concurrency stability, and passing supported-platform CI are documented in `docs/development-performance.md`.
 
 Do not mark this phase complete solely because the fast tier passes, jobs have been split, or slow tests have moved out of the developer's way.
