@@ -2781,7 +2781,7 @@
     "licenseFile": "LICENSE",
     "beforeLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
     "afterLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
-    "reason": "Pass timeout to the TimeoutRejectedException constructor in both legacy timeout engines. Preserve the cancellation guard, timeout callback ordering and base exception constructor while selecting the overload declared in Polly.Core. Independent pinned source, declarations, compiler bindings, automatic-root connections, diagnostics and locations reviewed. The graph does not prove timeout argument values or the constructor property assignment. Implicit using-variable disposal, property access and runtime receiver identity remain unmodeled. Source mode omits project imports, references and defines, leaving SystemClock calls unresolved, merging duplicate TelemetryUtil types and selecting Cancel instead of the NET8_0_OR_GREATER CancelAsync branch. Bounded generic expansion and possible dispatch limit completeness; benchmark roots do not prove the configured runtime policy is a timeout policy. Upstream timeout-value tests were read but not executed. Restored net6.0 trial exits 2 because pinned SDK 9.0.308 with latestMinor roll-forward is unavailable.",
+    "reason": "Pass timeout to the TimeoutRejectedException constructor in both legacy timeout engines. Independent pinned source and compiler-binding review verifies short-circuit cancellation getters, callback-before-constructor ordering, and base construction before the added private Timeout setter. Async cleanup also preserves short-circuit property reads; its long guard label is truncated. The graph does not prove timeout argument values or runtime receiver identity, and implicit using-variable disposal remains absent. Source mode omits project imports, references and defines, leaving SystemClock calls unresolved, merging duplicate TelemetryUtil types and selecting Cancel instead of the NET8_0_OR_GREATER CancelAsync branch. Bounded generic expansion and possible dispatch limit completeness; benchmark roots do not prove the configured runtime policy is a timeout policy. Upstream timeout-value tests were read but not executed. Restored net6.0 trial exits 2 because pinned SDK 9.0.308 with latestMinor roll-forward is unavailable.",
     "tags": [
       "constructor-overload",
       "cross-project",
@@ -2789,7 +2789,8 @@
       "async",
       "callback",
       "conditional-compilation",
-      "automatic-roots"
+      "automatic-roots",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/source-only-coverage.md",
