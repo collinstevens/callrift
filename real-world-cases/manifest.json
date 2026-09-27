@@ -3337,5 +3337,80 @@
     "beforeLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
     "afterLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
     "review": "../tests/Callrift.RealWorldCases/PollyAsyncOverheadExpectations.cs"
+  },
+  {
+    "repository": "https://github.com/App-vNext/Polly.git",
+    "cacheName": "polly",
+    "license": "BSD-3-Clause",
+    "licenseFile": "LICENSE",
+    "id": "polly-null-properties",
+    "before": "d496e1f9d440d67a26c379159a68c552ecec85ab",
+    "after": "f7dc35fb365407fd7579316b4b220595281e2e5c",
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "2"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "ResilienceProperties.TryGetValue",
+          "--entry",
+          "ResilienceProperties.GetValue"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "options": [
+          "--depth",
+          "2",
+          "--project",
+          "src/Polly.Core/Polly.Core.csproj",
+          "--framework",
+          "net8.0"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "ResilienceProperties.TryGetValue",
+          "--entry",
+          "ResilienceProperties.GetValue",
+          "--project",
+          "src/Polly.Core/Polly.Core.csproj",
+          "--framework",
+          "net8.0"
+        ]
+      }
+    ],
+    "reason": "Review stored-null handling in ResilienceProperties through source and restored Polly.Core net8.0 views. TryGetValue now returns true and assigns default when a stored value is null, allowing GetValue to return null instead of its supplied fallback. Both trees retain the changed-body marker and unchanged accessor/dictionary calls; the type-test, null-test, assignments and return-only branches are absent, so these views do not prove returned values. Source mode conservatively expands IDictionary.TryGetValue through legacy Context, while the restored Core project binds the metadata call without that possible target. Source diagnostics retain missing dependencies, duplicate legacy/Core types and inferred test classification; both modes retain bounded generic expansion.",
+    "tags": [
+      "properties",
+      "generics",
+      "nullability",
+      "body-only-change",
+      "possible-dispatch",
+      "source-msbuild"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "beforeLicenseBlob": "a3f141b4656d0e2906fb9f4d20bd364af8c3fee3",
+    "afterLicenseBlob": "a3f141b4656d0e2906fb9f4d20bd364af8c3fee3",
+    "review": "../tests/Callrift.RealWorldCases/PollyNullPropertyExpectations.cs"
   }
 ]
