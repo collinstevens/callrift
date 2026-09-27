@@ -7504,6 +7504,225 @@ stdout:
         {
           "id": "n140",
           "kind": "call",
+          "change": "removed",
+          "label": "IComponentRegistryBuilder.add_Registered → ComponentRegistryBuilder.add_Registered",
+          "detail": null,
+          "before": {
+            "symbolId": "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.Registration.IComponentRegistryBuilder.add_Registered(global::System.EventHandler<global::Autofac.Core.ComponentRegisteredEventArgs>)",
+            "signature": "public abstract Autofac.Core.Registration.IComponentRegistryBuilder.Registered.add -> void",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.Registration.ComponentRegistryBuilder.add_Registered(global::System.EventHandler<global::Autofac.Core.ComponentRegisteredEventArgs>)"
+            ],
+            "definition": {
+              "path": "src/Autofac/Core/Registration/IComponentRegistryBuilder.cs",
+              "startLine": 17,
+              "startColumn": 54,
+              "endLine": 17,
+              "endColumn": 64
+            },
+            "callSites": [
+              {
+                "path": "src/Autofac/Module.cs",
+                "startLine": 135,
+                "startColumn": 9,
+                "endLine": 135,
+                "endColumn": 37
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": null,
+          "children": [
+            {
+              "id": "n141",
+              "kind": "branch",
+              "change": "removed",
+              "label": "foreach (var registration in _registeredServicesTracker.Registrations)",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                    "startLine": 42,
+                    "startColumn": 13,
+                    "endLine": 45,
+                    "endColumn": 14
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": null,
+              "children": [
+                {
+                  "id": "n142",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "new ComponentRegisteredEventArgs",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.ComponentRegisteredEventArgs..ctor(global::Autofac.Core.Registration.IComponentRegistryBuilder,global::Autofac.Core.IComponentRegistration)",
+                    "signature": "public Autofac.Core.ComponentRegisteredEventArgs.ComponentRegisteredEventArgs(Autofac.Core.Registration.IComponentRegistryBuilder registryBuilder, Autofac.Core.IComponentRegistration componentRegistration) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.ComponentRegisteredEventArgs..ctor(global::Autofac.Core.Registration.IComponentRegistryBuilder,global::Autofac.Core.IComponentRegistration)"
+                    ],
+                    "definition": {
+                      "path": "src/Autofac/Core/ComponentRegisteredEventArgs.cs",
+                      "startLine": 19,
+                      "startColumn": 5,
+                      "endLine": 23,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                        "startLine": 44,
+                        "startColumn": 29,
+                        "endLine": 44,
+                        "endColumn": 81
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n143",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "value",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "metadata:System.Runtime::System.EventHandler<TEventArgs>.Invoke(object,TEventArgs)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Runtime::System.EventHandler<TEventArgs>.Invoke(object,TEventArgs)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                        "startLine": 44,
+                        "startColumn": 17,
+                        "endLine": 44,
+                        "endColumn": 82
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n144",
+              "kind": "call",
+              "change": "removed",
+              "label": "ComponentRegistryBuilder.GetRegistered",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.Registration.ComponentRegistryBuilder.GetRegistered()",
+                "signature": "private Autofac.Core.Registration.ComponentRegistryBuilder.GetRegistered() -> System.EventHandler<Autofac.Core.ComponentRegisteredEventArgs>?",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.Registration.ComponentRegistryBuilder.GetRegistered()"
+                ],
+                "definition": {
+                  "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                  "startLine": 212,
+                  "startColumn": 5,
+                  "endLine": 221,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                    "startLine": 47,
+                    "startColumn": 62,
+                    "endLine": 47,
+                    "endColumn": 77
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": null,
+              "children": [
+                {
+                  "id": "n145",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "Properties.TryGetValue → FallbackDictionary<TKey, TValue>.TryGetValue",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "metadata:System.Runtime::System.Collections.Generic.IDictionary<TKey, TValue>.TryGetValue(TKey,out TValue)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "possible",
+                    "targetIds": [
+                      "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Util.FallbackDictionary<TKey, TValue>.TryGetValue(TKey,out TValue)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                        "startLine": 215,
+                        "startColumn": 13,
+                        "endLine": 215,
+                        "endColumn": 91
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n146",
+          "kind": "call",
           "change": "added",
           "label": "GetType",
           "detail": null,
@@ -7534,7 +7753,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n141",
+          "id": "n147",
           "kind": "branch",
           "change": "added",
           "label": "possible initialization of ReflectionCacheSet",
@@ -7562,7 +7781,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n142",
+              "id": "n148",
               "kind": "call",
               "change": "added",
               "label": "initialization of ReflectionCacheSet",
@@ -7598,7 +7817,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n143",
+                  "id": "n149",
                   "kind": "call",
                   "change": "added",
                   "label": "new",
@@ -7636,7 +7855,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n144",
+          "id": "n150",
           "kind": "call",
           "change": "added",
           "label": "cache.GetOrAdd",
@@ -7666,7 +7885,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n145",
+              "id": "n151",
               "kind": "call",
               "change": "added",
               "label": "t.GetMethod",
@@ -7698,7 +7917,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n146",
+              "id": "n152",
               "kind": "branch",
               "change": "added",
               "label": "if (method is not null)",
@@ -7726,7 +7945,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n147",
+                  "id": "n153",
                   "kind": "call",
                   "change": "added",
                   "label": "Type.op_Inequality",
@@ -7764,7 +7983,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n148",
+          "id": "n154",
           "kind": "branch",
           "change": "added",
           "label": "if (overrides)",
@@ -7792,7 +8011,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n149",
+              "id": "n155",
               "kind": "branch",
               "change": "added",
               "label": "callback",
@@ -7820,7 +8039,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n150",
+                  "id": "n156",
                   "kind": "call",
                   "change": "added",
                   "label": "Module.AttachToComponentRegistration",
@@ -7859,6 +8078,192 @@ stdout:
                 }
               ],
               "omission": null
+            },
+            {
+              "id": "n157",
+              "kind": "call",
+              "change": "added",
+              "label": "IComponentRegistryBuilder.add_Registered → ComponentRegistryBuilder.add_Registered",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.Registration.IComponentRegistryBuilder.add_Registered(global::System.EventHandler<global::Autofac.Core.ComponentRegisteredEventArgs>)",
+                "signature": "public abstract Autofac.Core.Registration.IComponentRegistryBuilder.Registered.add -> void",
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.Registration.ComponentRegistryBuilder.add_Registered(global::System.EventHandler<global::Autofac.Core.ComponentRegisteredEventArgs>)"
+                ],
+                "definition": {
+                  "path": "src/Autofac/Core/Registration/IComponentRegistryBuilder.cs",
+                  "startLine": 17,
+                  "startColumn": 54,
+                  "endLine": 17,
+                  "endColumn": 64
+                },
+                "callSites": [
+                  {
+                    "path": "src/Autofac/Module.cs",
+                    "startLine": 154,
+                    "startColumn": 13,
+                    "endLine": 154,
+                    "endColumn": 41
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n158",
+                  "kind": "branch",
+                  "change": "added",
+                  "label": "foreach (var registration in _registeredServicesTracker.Registrations)",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                        "startLine": 42,
+                        "startColumn": 13,
+                        "endLine": 45,
+                        "endColumn": 14
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "children": [
+                    {
+                      "id": "n159",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "new ComponentRegisteredEventArgs",
+                      "detail": "depth limit",
+                      "before": null,
+                      "after": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.ComponentRegisteredEventArgs..ctor(global::Autofac.Core.Registration.IComponentRegistryBuilder,global::Autofac.Core.IComponentRegistration)",
+                        "signature": "public Autofac.Core.ComponentRegisteredEventArgs.ComponentRegisteredEventArgs(Autofac.Core.Registration.IComponentRegistryBuilder registryBuilder, Autofac.Core.IComponentRegistration componentRegistration) -> void",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.ComponentRegisteredEventArgs..ctor(global::Autofac.Core.Registration.IComponentRegistryBuilder,global::Autofac.Core.IComponentRegistration)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/ComponentRegisteredEventArgs.cs",
+                          "startLine": 19,
+                          "startColumn": 5,
+                          "endLine": 23,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                            "startLine": 44,
+                            "startColumn": 29,
+                            "endLine": 44,
+                            "endColumn": 81
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": {
+                        "reason": "depth-limit",
+                        "symbolId": null,
+                        "referenceId": null
+                      }
+                    },
+                    {
+                      "id": "n160",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "value",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "metadata:System.Runtime::System.EventHandler<TEventArgs>.Invoke(object,TEventArgs)",
+                        "signature": null,
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "metadata:System.Runtime::System.EventHandler<TEventArgs>.Invoke(object,TEventArgs)"
+                        ],
+                        "definition": null,
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                            "startLine": 44,
+                            "startColumn": 17,
+                            "endLine": 44,
+                            "endColumn": 82
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "metadata"
+                      },
+                      "children": [],
+                      "omission": null
+                    }
+                  ],
+                  "omission": null
+                },
+                {
+                  "id": "n161",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "ComponentRegistryBuilder.GetRegistered",
+                  "detail": "depth limit",
+                  "before": null,
+                  "after": {
+                    "symbolId": "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.Registration.ComponentRegistryBuilder.GetRegistered()",
+                    "signature": "private Autofac.Core.Registration.ComponentRegistryBuilder.GetRegistered() -> System.EventHandler<Autofac.Core.ComponentRegisteredEventArgs>?",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.Registration.ComponentRegistryBuilder.GetRegistered()"
+                    ],
+                    "definition": {
+                      "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                      "startLine": 212,
+                      "startColumn": 5,
+                      "endLine": 221,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                        "startLine": 47,
+                        "startColumn": 62,
+                        "endLine": 47,
+                        "endColumn": 77
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
             }
           ],
           "omission": null
@@ -7867,7 +8272,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n151",
+      "id": "n162",
       "kind": "member",
       "change": "unchanged",
       "label": "Module.AttachToSources",
@@ -7914,7 +8319,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n152",
+          "id": "n163",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (componentRegistry == null)",
@@ -7961,7 +8366,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n153",
+              "id": "n164",
               "kind": "call",
               "change": "unchanged",
               "label": "new ArgumentNullException",
@@ -8017,7 +8422,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n154",
+          "id": "n165",
           "kind": "branch",
           "change": "removed",
           "label": "callback",
@@ -8045,7 +8450,7 @@ stdout:
           "after": null,
           "children": [
             {
-              "id": "n155",
+              "id": "n166",
               "kind": "call",
               "change": "removed",
               "label": "Module.AttachToRegistrationSource",
@@ -8086,7 +8491,226 @@ stdout:
           "omission": null
         },
         {
-          "id": "n156",
+          "id": "n167",
+          "kind": "call",
+          "change": "removed",
+          "label": "IComponentRegistryBuilder.add_RegistrationSourceAdded → ComponentRegistryBuilder.add_RegistrationSourceAdded",
+          "detail": null,
+          "before": {
+            "symbolId": "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.Registration.IComponentRegistryBuilder.add_RegistrationSourceAdded(global::System.EventHandler<global::Autofac.Core.RegistrationSourceAddedEventArgs>)",
+            "signature": "public abstract Autofac.Core.Registration.IComponentRegistryBuilder.RegistrationSourceAdded.add -> void",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.Registration.ComponentRegistryBuilder.add_RegistrationSourceAdded(global::System.EventHandler<global::Autofac.Core.RegistrationSourceAddedEventArgs>)"
+            ],
+            "definition": {
+              "path": "src/Autofac/Core/Registration/IComponentRegistryBuilder.cs",
+              "startLine": 22,
+              "startColumn": 58,
+              "endLine": 22,
+              "endColumn": 81
+            },
+            "callSites": [
+              {
+                "path": "src/Autofac/Module.cs",
+                "startLine": 146,
+                "startColumn": 9,
+                "endLine": 146,
+                "endColumn": 50
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": null,
+          "children": [
+            {
+              "id": "n168",
+              "kind": "branch",
+              "change": "removed",
+              "label": "foreach (var source in _registeredServicesTracker.Sources)",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "structural",
+                "dispatch": "none",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                    "startLine": 63,
+                    "startColumn": 13,
+                    "endLine": 66,
+                    "endColumn": 14
+                  }
+                ],
+                "relation": "branch",
+                "candidates": null,
+                "origin": "structural"
+              },
+              "after": null,
+              "children": [
+                {
+                  "id": "n169",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "new RegistrationSourceAddedEventArgs",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.RegistrationSourceAddedEventArgs..ctor(global::Autofac.Core.Registration.IComponentRegistryBuilder,global::Autofac.Core.IRegistrationSource)",
+                    "signature": "public Autofac.Core.RegistrationSourceAddedEventArgs.RegistrationSourceAddedEventArgs(Autofac.Core.Registration.IComponentRegistryBuilder componentRegistry, Autofac.Core.IRegistrationSource registrationSource) -> void",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.RegistrationSourceAddedEventArgs..ctor(global::Autofac.Core.Registration.IComponentRegistryBuilder,global::Autofac.Core.IRegistrationSource)"
+                    ],
+                    "definition": {
+                      "path": "src/Autofac/Core/RegistrationSourceAddedEventArgs.cs",
+                      "startLine": 18,
+                      "startColumn": 5,
+                      "endLine": 22,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                        "startLine": 65,
+                        "startColumn": 29,
+                        "endLine": 65,
+                        "endColumn": 79
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                },
+                {
+                  "id": "n170",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "value",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "metadata:System.Runtime::System.EventHandler<TEventArgs>.Invoke(object,TEventArgs)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "metadata:System.Runtime::System.EventHandler<TEventArgs>.Invoke(object,TEventArgs)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                        "startLine": 65,
+                        "startColumn": 17,
+                        "endLine": 65,
+                        "endColumn": 80
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": null
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n171",
+              "kind": "call",
+              "change": "removed",
+              "label": "ComponentRegistryBuilder.GetRegistrationSourceAdded",
+              "detail": null,
+              "before": {
+                "symbolId": "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.Registration.ComponentRegistryBuilder.GetRegistrationSourceAdded()",
+                "signature": "private Autofac.Core.Registration.ComponentRegistryBuilder.GetRegistrationSourceAdded() -> System.EventHandler<Autofac.Core.RegistrationSourceAddedEventArgs>?",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.Registration.ComponentRegistryBuilder.GetRegistrationSourceAdded()"
+                ],
+                "definition": {
+                  "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                  "startLine": 223,
+                  "startColumn": 5,
+                  "endLine": 232,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                    "startLine": 68,
+                    "startColumn": 75,
+                    "endLine": 68,
+                    "endColumn": 103
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": null,
+              "children": [
+                {
+                  "id": "n172",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "Properties.TryGetValue → FallbackDictionary<TKey, TValue>.TryGetValue",
+                  "detail": "depth limit",
+                  "before": {
+                    "symbolId": "metadata:System.Runtime::System.Collections.Generic.IDictionary<TKey, TValue>.TryGetValue(TKey,out TValue)",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "possible",
+                    "targetIds": [
+                      "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Util.FallbackDictionary<TKey, TValue>.TryGetValue(TKey,out TValue)"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                        "startLine": 226,
+                        "startColumn": 13,
+                        "endLine": 226,
+                        "endColumn": 117
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
+                }
+              ],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n173",
           "kind": "call",
           "change": "added",
           "label": "GetType",
@@ -8118,7 +8742,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n157",
+          "id": "n174",
           "kind": "branch",
           "change": "added",
           "label": "possible initialization of ReflectionCacheSet",
@@ -8146,7 +8770,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n158",
+              "id": "n175",
               "kind": "call",
               "change": "added",
               "label": "initialization of ReflectionCacheSet",
@@ -8182,7 +8806,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n159",
+                  "id": "n176",
                   "kind": "call",
                   "change": "added",
                   "label": "new",
@@ -8220,7 +8844,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n160",
+          "id": "n177",
           "kind": "call",
           "change": "added",
           "label": "cache.GetOrAdd",
@@ -8250,7 +8874,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n161",
+              "id": "n178",
               "kind": "call",
               "change": "added",
               "label": "t.GetMethod",
@@ -8282,7 +8906,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n162",
+              "id": "n179",
               "kind": "branch",
               "change": "added",
               "label": "if (method is not null)",
@@ -8310,7 +8934,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n163",
+                  "id": "n180",
                   "kind": "call",
                   "change": "added",
                   "label": "Type.op_Inequality",
@@ -8348,7 +8972,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n164",
+          "id": "n181",
           "kind": "branch",
           "change": "added",
           "label": "if (overrides)",
@@ -8376,7 +9000,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n165",
+              "id": "n182",
               "kind": "branch",
               "change": "added",
               "label": "callback",
@@ -8404,7 +9028,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n166",
+                  "id": "n183",
                   "kind": "call",
                   "change": "added",
                   "label": "Module.AttachToRegistrationSource",
@@ -8440,6 +9064,192 @@ stdout:
                   },
                   "children": [],
                   "omission": null
+                }
+              ],
+              "omission": null
+            },
+            {
+              "id": "n184",
+              "kind": "call",
+              "change": "added",
+              "label": "IComponentRegistryBuilder.add_RegistrationSourceAdded → ComponentRegistryBuilder.add_RegistrationSourceAdded",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.Registration.IComponentRegistryBuilder.add_RegistrationSourceAdded(global::System.EventHandler<global::Autofac.Core.RegistrationSourceAddedEventArgs>)",
+                "signature": "public abstract Autofac.Core.Registration.IComponentRegistryBuilder.RegistrationSourceAdded.add -> void",
+                "binding": "resolved",
+                "dispatch": "possible",
+                "targetIds": [
+                  "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.Registration.ComponentRegistryBuilder.add_RegistrationSourceAdded(global::System.EventHandler<global::Autofac.Core.RegistrationSourceAddedEventArgs>)"
+                ],
+                "definition": {
+                  "path": "src/Autofac/Core/Registration/IComponentRegistryBuilder.cs",
+                  "startLine": 22,
+                  "startColumn": 58,
+                  "endLine": 22,
+                  "endColumn": 81
+                },
+                "callSites": [
+                  {
+                    "path": "src/Autofac/Module.cs",
+                    "startLine": 185,
+                    "startColumn": 13,
+                    "endLine": 185,
+                    "endColumn": 54
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [
+                {
+                  "id": "n185",
+                  "kind": "branch",
+                  "change": "added",
+                  "label": "foreach (var source in _registeredServicesTracker.Sources)",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                        "startLine": 63,
+                        "startColumn": 13,
+                        "endLine": 66,
+                        "endColumn": 14
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "children": [
+                    {
+                      "id": "n186",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "new RegistrationSourceAddedEventArgs",
+                      "detail": "depth limit",
+                      "before": null,
+                      "after": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.RegistrationSourceAddedEventArgs..ctor(global::Autofac.Core.Registration.IComponentRegistryBuilder,global::Autofac.Core.IRegistrationSource)",
+                        "signature": "public Autofac.Core.RegistrationSourceAddedEventArgs.RegistrationSourceAddedEventArgs(Autofac.Core.Registration.IComponentRegistryBuilder componentRegistry, Autofac.Core.IRegistrationSource registrationSource) -> void",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.RegistrationSourceAddedEventArgs..ctor(global::Autofac.Core.Registration.IComponentRegistryBuilder,global::Autofac.Core.IRegistrationSource)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/RegistrationSourceAddedEventArgs.cs",
+                          "startLine": 18,
+                          "startColumn": 5,
+                          "endLine": 22,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                            "startLine": 65,
+                            "startColumn": 29,
+                            "endLine": 65,
+                            "endColumn": 79
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": {
+                        "reason": "depth-limit",
+                        "symbolId": null,
+                        "referenceId": null
+                      }
+                    },
+                    {
+                      "id": "n187",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "value",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "metadata:System.Runtime::System.EventHandler<TEventArgs>.Invoke(object,TEventArgs)",
+                        "signature": null,
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "metadata:System.Runtime::System.EventHandler<TEventArgs>.Invoke(object,TEventArgs)"
+                        ],
+                        "definition": null,
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                            "startLine": 65,
+                            "startColumn": 17,
+                            "endLine": 65,
+                            "endColumn": 80
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "metadata"
+                      },
+                      "children": [],
+                      "omission": null
+                    }
+                  ],
+                  "omission": null
+                },
+                {
+                  "id": "n188",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "ComponentRegistryBuilder.GetRegistrationSourceAdded",
+                  "detail": "depth limit",
+                  "before": null,
+                  "after": {
+                    "symbolId": "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.Registration.ComponentRegistryBuilder.GetRegistrationSourceAdded()",
+                    "signature": "private Autofac.Core.Registration.ComponentRegistryBuilder.GetRegistrationSourceAdded() -> System.EventHandler<Autofac.Core.RegistrationSourceAddedEventArgs>?",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "project:src/Autofac/Autofac.csproj@net8.0::Autofac.Core.Registration.ComponentRegistryBuilder.GetRegistrationSourceAdded()"
+                    ],
+                    "definition": {
+                      "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                      "startLine": 223,
+                      "startColumn": 5,
+                      "endLine": 232,
+                      "endColumn": 6
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Autofac/Core/Registration/ComponentRegistryBuilder.cs",
+                        "startLine": 68,
+                        "startColumn": 75,
+                        "endLine": 68,
+                        "endColumn": 103
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "children": [],
+                  "omission": {
+                    "reason": "depth-limit",
+                    "symbolId": null,
+                    "referenceId": null
+                  }
                 }
               ],
               "omission": null

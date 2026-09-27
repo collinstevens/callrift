@@ -61,6 +61,15 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                     Walk(methodAccess.Expression, result);
                 Callback(expression, [CreateCall(expression, method, [])], result);
                 return;
+            case AssignmentExpressionSyntax assignment when assignment.Kind() is SyntaxKind.AddAssignmentExpression or SyntaxKind.SubtractAssignmentExpression
+                && model.GetOperation(assignment, cancellationToken) is IEventAssignmentOperation
+                { EventReference: IEventReferenceOperation eventReference } eventAssignment
+                && (eventAssignment.Adds ? eventReference.Event.AddMethod : eventReference.Event.RemoveMethod) is { } accessor:
+                if (assignment.Left is MemberAccessExpressionSyntax eventAccess) Walk(eventAccess.Expression, result);
+                Walk(assignment.Right, result);
+                if (accessor is { IsImplicitlyDeclared: true, IsAbstract: false }) AddStaticMember(assignment.Left, result);
+                result.Add(CreateCall(assignment.Left, accessor, []));
+                return;
             case AssignmentExpressionSyntax assignment when assignment.IsKind(SyntaxKind.CoalesceAssignmentExpression):
                 Walk(assignment.Left, result);
                 Branch("if (" + SymbolNames.Compact(assignment.Left) + " is null)", assignment, [assignment.Right], result);
@@ -363,7 +372,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             || receiver is not null && model.GetTypeInfo(receiver, cancellationToken).Type is INamedTypeSymbol { IsSealed: true }
             || receiver is null && model.GetEnclosingSymbol(node.SpanStart, cancellationToken)?.ContainingType is { IsSealed: true };
         var dispatches = !exactReceiver && (method.ContainingType.TypeKind == TypeKind.Interface || method.IsAbstract || method.IsVirtual || method.IsOverride);
-        return new CallStep("call", symbols.Key(normalized), source || method.MethodKind is MethodKind.Conversion or MethodKind.UserDefinedOperator || collection is not null || node is ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax or WithExpressionSyntax
+        return new CallStep("call", symbols.Key(normalized), source || method.MethodKind is MethodKind.Conversion or MethodKind.UserDefinedOperator or MethodKind.EventAdd or MethodKind.EventRemove || collection is not null || node is ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax or WithExpressionSyntax
             ? symbols.Label(normalized) : SymbolNames.SyntaxLabel(node), source, symbols.Location(node), children)
         {
             AlignmentKey = AlignmentKey(node),

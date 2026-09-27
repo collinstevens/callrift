@@ -78,6 +78,125 @@ stdout:
       "children": [
         {
           "id": "n1",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "Service.op_Equality",
+          "detail": null,
+          "before": {
+            "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+            "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+            ],
+            "definition": {
+              "path": "src/Autofac/Core/Service.cs",
+              "startLine": 26,
+              "startColumn": 5,
+              "endLine": 30,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Autofac/Features/KeyedServices/AnyKeyRegistrationSource.cs",
+                "startLine": 39,
+                "startColumn": 13,
+                "endLine": 39,
+                "endColumn": 28
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+            "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+            ],
+            "definition": {
+              "path": "src/Autofac/Core/Service.cs",
+              "startLine": 26,
+              "startColumn": 5,
+              "endLine": 30,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Autofac/Features/KeyedServices/AnyKeyRegistrationSource.cs",
+                "startLine": 28,
+                "startColumn": 13,
+                "endLine": 28,
+                "endColumn": 28
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [
+            {
+              "id": "n2",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "Equals",
+              "detail": null,
+              "before": {
+                "symbolId": "metadata:System.Runtime::object.Equals(object,object)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::object.Equals(object,object)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Autofac/Core/Service.cs",
+                    "startLine": 29,
+                    "startColumn": 16,
+                    "endLine": 29,
+                    "endColumn": 35
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": {
+                "symbolId": "metadata:System.Runtime::object.Equals(object,object)",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "metadata:System.Runtime::object.Equals(object,object)"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Autofac/Core/Service.cs",
+                    "startLine": 29,
+                    "startColumn": 16,
+                    "endLine": 29,
+                    "endColumn": 35
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n3",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (service == null)",
@@ -124,7 +243,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n2",
+              "id": "n4",
               "kind": "call",
               "change": "unchanged",
               "label": "new ArgumentNullException",
@@ -180,7 +299,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n3",
+          "id": "n5",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (registrationAccessor == null)",
@@ -227,7 +346,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n4",
+              "id": "n6",
               "kind": "call",
               "change": "unchanged",
               "label": "new ArgumentNullException",
@@ -283,7 +402,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n5",
+          "id": "n7",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (!(service is not KeyedService keyedService))",
@@ -330,7 +449,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n6",
+              "id": "n8",
               "kind": "call",
               "change": "unchanged",
               "label": "KeyedService.IsAnyKey",
@@ -393,7 +512,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n7",
+                  "id": "n9",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (serviceKey == null)",
@@ -440,7 +559,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n8",
+                      "id": "n10",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "new ArgumentNullException",
@@ -496,7 +615,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n9",
+                  "id": "n11",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "possible initialization of KeyedService",
@@ -543,7 +662,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n10",
+                      "id": "n12",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "initialization of KeyedService",
@@ -615,7 +734,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n11",
+                  "id": "n13",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "ReferenceEquals",
@@ -674,7 +793,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n12",
+          "id": "n14",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (!(service is not KeyedService keyedService || KeyedService.IsAnyKey(keyedService.ServiceKey)))",
@@ -721,7 +840,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n13",
+              "id": "n15",
               "kind": "call",
               "change": "unchanged",
               "label": "InternalTypeExtensions.IsCollectionServiceType",
@@ -784,7 +903,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n14",
+                  "id": "n16",
                   "kind": "branch",
                   "change": "unchanged",
                   "label": "if (!(serviceType.IsArray))",
@@ -831,7 +950,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n15",
+                      "id": "n17",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "InternalTypeExtensions.IsGenericEnumerableInterfaceType",
@@ -909,7 +1028,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n16",
+          "id": "n18",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (service is not KeyedService keyedService || KeyedService.IsAnyKey(keyedService.ServiceKey) ||…",
@@ -956,7 +1075,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n17",
+              "id": "n19",
               "kind": "call",
               "change": "unchanged",
               "label": "Enumerable.Empty<IComponentRegistration>",
@@ -1012,7 +1131,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n18",
+          "id": "n20",
           "kind": "call",
           "change": "removed",
           "label": "_adapterCache.TryGetValue",
@@ -1044,7 +1163,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n19",
+          "id": "n21",
           "kind": "call",
           "change": "unchanged",
           "label": "registrationAccessor",
@@ -1097,7 +1216,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n20",
+          "id": "n22",
           "kind": "call",
           "change": "unchanged",
           "label": "registrationAccessor(service).Any",
@@ -1150,7 +1269,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n21",
+          "id": "n23",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (registrationAccessor(service).Any())",
@@ -1197,7 +1316,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n22",
+              "id": "n24",
               "kind": "call",
               "change": "unchanged",
               "label": "Enumerable.Empty<IComponentRegistration>",
@@ -1253,7 +1372,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n23",
+          "id": "n25",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of KeyedService",
@@ -1300,7 +1419,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n24",
+              "id": "n26",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of KeyedService",
@@ -1363,7 +1482,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n25",
+                  "id": "n27",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new object",
@@ -1422,7 +1541,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n26",
+          "id": "n28",
           "kind": "call",
           "change": "unchanged",
           "label": "new KeyedService",
@@ -1485,7 +1604,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n27",
+              "id": "n29",
               "kind": "call",
               "change": "unchanged",
               "label": "new Service",
@@ -1548,7 +1667,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n28",
+                  "id": "n30",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new Object",
@@ -1604,7 +1723,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n29",
+              "id": "n31",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (serviceKey is null)",
@@ -1651,7 +1770,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n30",
+                  "id": "n32",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new ArgumentNullException",
@@ -1707,7 +1826,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n31",
+              "id": "n33",
               "kind": "branch",
               "change": "unchanged",
               "label": "if (serviceType is null)",
@@ -1754,7 +1873,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n32",
+                  "id": "n34",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new ArgumentNullException",
@@ -1813,7 +1932,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n33",
+          "id": "n35",
           "kind": "call",
           "change": "unchanged",
           "label": "registrationAccessor",
@@ -1866,7 +1985,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n34",
+          "id": "n36",
           "kind": "call",
           "change": "unchanged",
           "label": "registrationAccessor(anyKeyService).ToArray",
@@ -1919,7 +2038,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n35",
+          "id": "n37",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (anyKeyRegistrations.Length == 0)",
@@ -1966,7 +2085,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n36",
+              "id": "n38",
               "kind": "call",
               "change": "unchanged",
               "label": "Enumerable.Empty<IComponentRegistration>",
@@ -2022,7 +2141,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n37",
+          "id": "n39",
           "kind": "branch",
           "change": "unchanged",
           "label": "for (i < anyKeyRegistrations.Length)",
@@ -2069,7 +2188,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n38",
+              "id": "n40",
               "kind": "call",
               "change": "unchanged",
               "label": "AnyKeyRegistrationSource.CreateAdapterRegistration",
@@ -2132,7 +2251,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n39",
+                  "id": "n41",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new Dictionary<string, object?>",
@@ -2185,7 +2304,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n40",
+                  "id": "n42",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new DelegateActivator",
@@ -2248,7 +2367,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n41",
+                      "id": "n43",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "new KeyedService",
@@ -2317,7 +2436,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n42",
+                      "id": "n44",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "new ResolveRequest",
@@ -2382,7 +2501,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n43",
+                      "id": "n45",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "IComponentContext.ResolveComponent",
@@ -2451,7 +2570,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n44",
+                          "id": "n46",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ Container.ResolveComponent",
@@ -2504,7 +2623,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n45",
+                          "id": "n47",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ LifetimeScope.ResolveComponent",
@@ -2557,7 +2676,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n46",
+                          "id": "n48",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ DefaultResolveRequestContext.ResolveComponent",
@@ -2610,7 +2729,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n47",
+                          "id": "n49",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ DecoratorContext.ResolveComponent",
@@ -2673,7 +2792,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n48",
+                  "id": "n50",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "Guid.NewGuid",
@@ -2726,7 +2845,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n49",
+                  "id": "n51",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "new ComponentRegistration",
@@ -2801,7 +2920,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n50",
+          "id": "n52",
           "kind": "call",
           "change": "removed",
           "label": "_adapterCache.TryAdd",

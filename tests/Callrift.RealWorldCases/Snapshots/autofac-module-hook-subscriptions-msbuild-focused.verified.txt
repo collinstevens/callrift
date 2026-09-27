@@ -25,6 +25,12 @@ stdout:
   ├─ if (componentRegistry == null)
 - ├─ callback
 - │  └─ Module.AttachToComponentRegistration
+- ├─ IComponentRegistryBuilder.add_Registered → ComponentRegistryBuilder.add_Registered
+- │  ├─ foreach (var registration in _registeredServicesTracker.Registrations)
+- │  │  ├─ new ComponentRegisteredEventArgs (depth limit)
+- │  │  └─ value
+- │  └─ ComponentRegistryBuilder.GetRegistered
+- │     └─ Properties.TryGetValue → FallbackDictionary<TKey, TValue>.TryGetValue (depth limit)
 + ├─ GetType
 + ├─ possible initialization of ReflectionCacheSet
 + │  └─ initialization of ReflectionCacheSet
@@ -34,20 +40,36 @@ stdout:
 + │  └─ if (method is not null)
 + │     └─ Type.op_Inequality
 + └─ if (overrides)
-+    └─ callback
-+       └─ Module.AttachToComponentRegistration
++    ├─ callback
++    │  └─ Module.AttachToComponentRegistration
++    └─ IComponentRegistryBuilder.add_Registered → ComponentRegistryBuilder.add_Registered
++       ├─ foreach (var registration in _registeredServicesTracker.Registrations)
++       │  ├─ new ComponentRegisteredEventArgs (depth limit)
++       │  └─ value
++       └─ ComponentRegistryBuilder.GetRegistered (depth limit)
 
   Module.AttachToSources
   ├─ if (componentRegistry == null)
 - ├─ callback
 - │  └─ Module.AttachToRegistrationSource
+- ├─ IComponentRegistryBuilder.add_RegistrationSourceAdded → ComponentRegistryBuilder.add_RegistrationSourceAdded
+- │  ├─ foreach (var source in _registeredServicesTracker.Sources)
+- │  │  ├─ new RegistrationSourceAddedEventArgs (depth limit)
+- │  │  └─ value
+- │  └─ ComponentRegistryBuilder.GetRegistrationSourceAdded
+- │     └─ Properties.TryGetValue → FallbackDictionary<TKey, TValue>.TryGetValue (depth limit)
 + ├─ GetType
 + ├─ possible initialization of ReflectionCacheSet
 + │  └─ initialization of ReflectionCacheSet ↑ as above
 + ├─ cache.GetOrAdd ↑ as above
 + └─ if (overrides)
-+    └─ callback
-+       └─ Module.AttachToRegistrationSource
++    ├─ callback
++    │  └─ Module.AttachToRegistrationSource
++    └─ IComponentRegistryBuilder.add_RegistrationSourceAdded → ComponentRegistryBuilder.add_RegistrationSourceAdded
++       ├─ foreach (var source in _registeredServicesTracker.Sources)
++       │  ├─ new RegistrationSourceAddedEventArgs (depth limit)
++       │  └─ value
++       └─ ComponentRegistryBuilder.GetRegistrationSourceAdded (depth limit)
 stderr:
 
 format: md
@@ -78,6 +100,12 @@ stdout:
   ├─ if (componentRegistry == null)
 - ├─ callback
 - │  └─ Module.AttachToComponentRegistration
+- ├─ IComponentRegistryBuilder.add_Registered → ComponentRegistryBuilder.add_Registered
+- │  ├─ foreach (var registration in _registeredServicesTracker.Registrations)
+- │  │  ├─ new ComponentRegisteredEventArgs (depth limit)
+- │  │  └─ value
+- │  └─ ComponentRegistryBuilder.GetRegistered
+- │     └─ Properties.TryGetValue → FallbackDictionary<TKey, TValue>.TryGetValue (depth limit)
 + ├─ GetType
 + ├─ possible initialization of ReflectionCacheSet
 + │  └─ initialization of ReflectionCacheSet
@@ -87,19 +115,35 @@ stdout:
 + │  └─ if (method is not null)
 + │     └─ Type.op_Inequality
 + └─ if (overrides)
-+    └─ callback
-+       └─ Module.AttachToComponentRegistration
++    ├─ callback
++    │  └─ Module.AttachToComponentRegistration
++    └─ IComponentRegistryBuilder.add_Registered → ComponentRegistryBuilder.add_Registered
++       ├─ foreach (var registration in _registeredServicesTracker.Registrations)
++       │  ├─ new ComponentRegisteredEventArgs (depth limit)
++       │  └─ value
++       └─ ComponentRegistryBuilder.GetRegistered (depth limit)
 
   Module.AttachToSources
   ├─ if (componentRegistry == null)
 - ├─ callback
 - │  └─ Module.AttachToRegistrationSource
+- ├─ IComponentRegistryBuilder.add_RegistrationSourceAdded → ComponentRegistryBuilder.add_RegistrationSourceAdded
+- │  ├─ foreach (var source in _registeredServicesTracker.Sources)
+- │  │  ├─ new RegistrationSourceAddedEventArgs (depth limit)
+- │  │  └─ value
+- │  └─ ComponentRegistryBuilder.GetRegistrationSourceAdded
+- │     └─ Properties.TryGetValue → FallbackDictionary<TKey, TValue>.TryGetValue (depth limit)
 + ├─ GetType
 + ├─ possible initialization of ReflectionCacheSet
 + │  └─ initialization of ReflectionCacheSet ↑ as above
 + ├─ cache.GetOrAdd ↑ as above
 + └─ if (overrides)
-+    └─ callback
-+       └─ Module.AttachToRegistrationSource
++    ├─ callback
++    │  └─ Module.AttachToRegistrationSource
++    └─ IComponentRegistryBuilder.add_RegistrationSourceAdded → ComponentRegistryBuilder.add_RegistrationSourceAdded
++       ├─ foreach (var source in _registeredServicesTracker.Sources)
++       │  ├─ new RegistrationSourceAddedEventArgs (depth limit)
++       │  └─ value
++       └─ ComponentRegistryBuilder.GetRegistrationSourceAdded (depth limit)
 ```
 stderr:

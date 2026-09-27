@@ -71,12 +71,18 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                 cancellationToken.ThrowIfCancellationRequested();
                 if (node is TypeDeclarationSyntax typeDeclaration && model.GetDeclaredSymbol(typeDeclaration, cancellationToken) is INamedTypeSymbol type)
                     types.Add(type);
+                if (node is VariableDeclaratorSyntax { Parent.Parent: EventFieldDeclarationSyntax } eventVariable
+                    && model.GetDeclaredSymbol(eventVariable, cancellationToken) is IEventSymbol eventSymbol)
+                    foreach (var accessor in new[] { eventSymbol.AddMethod, eventSymbol.RemoveMethod }.OfType<IMethodSymbol>())
+                        members.Add(new Member(symbols.Key(accessor), symbols.Label(accessor), symbols.MatchName(accessor), symbols.Signature(accessor),
+                            symbols.Location(eventVariable), false, []));
                 IMethodSymbol? symbol = node switch
                 {
                     MethodDeclarationSyntax method => model.GetDeclaredSymbol(method, cancellationToken),
                     ConstructorDeclarationSyntax constructor => model.GetDeclaredSymbol(constructor, cancellationToken),
                     ConversionOperatorDeclarationSyntax conversion => model.GetDeclaredSymbol(conversion, cancellationToken),
                     OperatorDeclarationSyntax operation => model.GetDeclaredSymbol(operation, cancellationToken),
+                    AccessorDeclarationSyntax { Parent.Parent: EventDeclarationSyntax } accessor => model.GetDeclaredSymbol(accessor, cancellationToken),
                     LocalFunctionStatementSyntax local => model.GetDeclaredSymbol(local, cancellationToken),
                     _ => null
                 };
@@ -88,6 +94,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                     ConstructorDeclarationSyntax constructor => (SyntaxNode?)constructor.Body ?? constructor.ExpressionBody,
                     ConversionOperatorDeclarationSyntax conversion => (SyntaxNode?)conversion.Body ?? conversion.ExpressionBody,
                     OperatorDeclarationSyntax operation => (SyntaxNode?)operation.Body ?? operation.ExpressionBody,
+                    AccessorDeclarationSyntax accessor => (SyntaxNode?)accessor.Body ?? accessor.ExpressionBody,
                     LocalFunctionStatementSyntax local => (SyntaxNode?)local.Body ?? local.ExpressionBody,
                     _ => null
                 };

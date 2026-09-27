@@ -15,7 +15,7 @@ internal static class AutofacDisposalExpectations
         if (workspace) Assert.Empty(result.Diagnostics);
         else
         {
-            Assert.Equal(173, result.Diagnostics.Count(diagnostic => diagnostic.Code == "unresolved-call"));
+            Assert.Equal(174, result.Diagnostics.Count(diagnostic => diagnostic.Code == "unresolved-call"));
             Assert.Equal(2, result.Diagnostics.Count(diagnostic => diagnostic.Code == "test-project-inferred"));
         }
         if (!focused)

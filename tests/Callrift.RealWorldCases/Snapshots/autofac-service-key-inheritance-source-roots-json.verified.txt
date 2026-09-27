@@ -869,6 +869,17 @@ stdout:
     },
     {
       "code": "unresolved-call",
+      "message": "Cannot bind new InvalidOperationException; candidates: source::System.InvalidOperationException..ctor(), source::System.InvalidOperationException..ctor(string), source::System.InvalidOperationException..ctor(string,global::System.Exception)",
+      "location": {
+        "path": "src/Autofac/Core/Registration/ComponentRegistration.cs",
+        "startLine": 161,
+        "startColumn": 23,
+        "endLine": 161,
+        "endColumn": 105
+      }
+    },
+    {
+      "code": "unresolved-call",
       "message": "Cannot bind string.Format; candidates: source::string.Format(global::System.IFormatProvider,global::System.Text.CompositeFormat,global::System.ReadOnlySpan<object>), source::string.Format(global::System.IFormatProvider,global::System.Text.CompositeFormat,object[]), source::string.Format(global::System.IFormatProvider,string,global::System.ReadOnlySpan<object>), source::string.Format(global::System.IFormatProvider,string,object), source::string.Format(global::System.IFormatProvider,string,object,object), source::string.Format(global::System.IFormatProvider,string,object,object,object), source::string.Format(global::System.IFormatProvider,string,object[]), source::string.Format(string,global::System.ReadOnlySpan<object>), source::string.Format(string,object), source::string.Format(string,object,object), source::string.Format(string,object,object,object), source::string.Format(string,object[]), source::string.Format`1(global::System.IFormatProvider,global::System.Text.CompositeFormat,TArg0), source::string.Format`2(global::System.IFormatProvider,global::System.Text.CompositeFormat,TArg0,TArg1), source::string.Format`3(global::System.IFormatProvider,global::System.Text.CompositeFormat,TArg0,TArg1,TArg2)",
       "location": {
         "path": "src/Autofac/Core/Registration/ComponentRegistration.cs",
@@ -34424,6 +34435,71 @@ stdout:
           "id": "n529",
           "kind": "call",
           "change": "unchanged",
+          "label": "Service.op_Equality",
+          "detail": null,
+          "before": {
+            "symbolId": "source::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+            "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+            ],
+            "definition": {
+              "path": "src/Autofac/Core/Service.cs",
+              "startLine": 26,
+              "startColumn": 5,
+              "endLine": 30,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Autofac/Features/GeneratedFactories/FactoryGenerator.cs",
+                "startLine": 37,
+                "startColumn": 13,
+                "endLine": 37,
+                "endColumn": 28
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+            "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+            ],
+            "definition": {
+              "path": "src/Autofac/Core/Service.cs",
+              "startLine": 26,
+              "startColumn": 5,
+              "endLine": 30,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Autofac/Features/GeneratedFactories/FactoryGenerator.cs",
+                "startLine": 37,
+                "startColumn": 13,
+                "endLine": 37,
+                "endColumn": 28
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n530",
+          "kind": "call",
+          "change": "unchanged",
           "label": "Enforce.ArgumentTypeIsFunction",
           "detail": "depth limit",
           "before": {
@@ -34490,7 +34566,7 @@ stdout:
           }
         },
         {
-          "id": "n530",
+          "id": "n531",
           "kind": "call",
           "change": "unchanged",
           "label": "FactoryGenerator.GetParameterMapping",
@@ -34559,7 +34635,7 @@ stdout:
           }
         },
         {
-          "id": "n531",
+          "id": "n532",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of ReflectionCacheSet",
@@ -34606,7 +34682,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n532",
+              "id": "n533",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of ReflectionCacheSet",
@@ -34674,7 +34750,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n533",
+          "id": "n534",
           "kind": "call",
           "change": "unchanged",
           "label": "ReflectionCacheSet.Shared.Internal.GeneratedFactoryServiceOnlyGenerators.GetOrAdd",
@@ -34725,7 +34801,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n534",
+              "id": "n535",
               "kind": "call",
               "change": "modified",
               "label": "FactoryGenerator.CreateServiceOnlyGenerator",
@@ -34800,7 +34876,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n535",
+      "id": "n536",
       "kind": "member",
       "change": "unchanged",
       "label": "FactoryGenerator.GenerateFactory",
@@ -34847,7 +34923,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n536",
+          "id": "n537",
           "kind": "call",
           "change": "modified",
           "label": "FactoryGenerator.GenerateFactory",
@@ -34919,7 +34995,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n537",
+      "id": "n538",
       "kind": "member",
       "change": "unchanged",
       "label": "KeyedServiceIndex<TKey, TValue>.TryGetValue",
@@ -34966,7 +35042,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n538",
+          "id": "n539",
           "kind": "call",
           "change": "unchanged",
           "label": "KeyedServiceIndex<TKey, TValue>.GetService",
@@ -35035,7 +35111,7 @@ stdout:
           }
         },
         {
-          "id": "n539",
+          "id": "n540",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.TryResolveService",
@@ -35107,7 +35183,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n540",
+      "id": "n541",
       "kind": "member",
       "change": "unchanged",
       "label": "LazyWithMetadataRegistrationSource.CreateLazyRegistration",
@@ -35154,7 +35230,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n541",
+          "id": "n542",
           "kind": "call",
           "change": "unchanged",
           "label": "MetadataViewProvider.GetMetadataViewProvider",
@@ -35223,7 +35299,7 @@ stdout:
           }
         },
         {
-          "id": "n542",
+          "id": "n543",
           "kind": "call",
           "change": "unchanged",
           "label": "RegistrationBuilder.ForDelegate",
@@ -35286,7 +35362,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n543",
+              "id": "n544",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -35355,7 +35431,7 @@ stdout:
               }
             },
             {
-              "id": "n544",
+              "id": "n545",
               "kind": "call",
               "change": "unchanged",
               "label": "new ResolveRequest",
@@ -35420,7 +35496,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n545",
+              "id": "n546",
               "kind": "call",
               "change": "unchanged",
               "label": "new Func<T>",
@@ -35471,7 +35547,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n546",
+                  "id": "n547",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "IComponentContext.ResolveComponent",
@@ -35540,7 +35616,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n547",
+                      "id": "n548",
                       "kind": "dispatchTarget",
                       "change": "unchanged",
                       "label": "⇢ Container.ResolveComponent",
@@ -35593,7 +35669,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n548",
+                      "id": "n549",
                       "kind": "dispatchTarget",
                       "change": "unchanged",
                       "label": "⇢ LifetimeScope.ResolveComponent",
@@ -35646,7 +35722,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n549",
+                      "id": "n550",
                       "kind": "dispatchTarget",
                       "change": "unchanged",
                       "label": "⇢ DefaultResolveRequestContext.ResolveComponent",
@@ -35699,7 +35775,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n550",
+                      "id": "n551",
                       "kind": "dispatchTarget",
                       "change": "unchanged",
                       "label": "⇢ DecoratorContext.ResolveComponent",
@@ -35765,7 +35841,7 @@ stdout:
           }
         },
         {
-          "id": "n551",
+          "id": "n552",
           "kind": "call",
           "change": "unchanged",
           "label": "IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As",
@@ -35834,7 +35910,7 @@ stdout:
           }
         },
         {
-          "id": "n552",
+          "id": "n553",
           "kind": "call",
           "change": "unchanged",
           "label": "RegistrationExtensions.Targeting",
@@ -35899,7 +35975,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n553",
+          "id": "n554",
           "kind": "call",
           "change": "unchanged",
           "label": "RegistrationBuilder.CreateRegistration",
@@ -35971,7 +36047,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n554",
+      "id": "n555",
       "kind": "member",
       "change": "unchanged",
       "label": "ModuleRegistrationExtensions.IfNotRegistered",
@@ -36018,7 +36094,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n555",
+          "id": "n556",
           "kind": "call",
           "change": "unchanged",
           "label": "ModuleRegistrationExtensions.OnlyIf",
@@ -36081,7 +36157,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n556",
+              "id": "n557",
               "kind": "call",
               "change": "unchanged",
               "label": "new TypedService",
@@ -36150,7 +36226,7 @@ stdout:
               }
             },
             {
-              "id": "n557",
+              "id": "n558",
               "kind": "call",
               "change": "modified",
               "label": "IComponentRegistryBuilder.IsRegistered → ComponentRegistryBuilder.IsRegistered",
@@ -36229,7 +36305,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n558",
+      "id": "n559",
       "kind": "member",
       "change": "unchanged",
       "label": "ModuleRegistrationExtensions.RegisterAssemblyModules",
@@ -36275,78 +36351,78 @@ stdout:
         "origin": "source"
       },
       "children": [
-        {
-          "id": "n559",
-          "kind": "call",
-          "change": "unchanged",
-          "label": "new ModuleRegistrar",
-          "detail": "depth limit",
-          "before": {
-            "symbolId": "source::Autofac.Core.Registration.ModuleRegistrar..ctor(global::Autofac.ContainerBuilder)",
-            "signature": "public Autofac.Core.Registration.ModuleRegistrar.ModuleRegistrar(Autofac.ContainerBuilder builder) -> void",
-            "binding": "resolved",
-            "dispatch": "direct",
-            "targetIds": [
-              "source::Autofac.Core.Registration.ModuleRegistrar..ctor(global::Autofac.ContainerBuilder)"
-            ],
-            "definition": {
-              "path": "src/Autofac/Core/Registration/ModuleRegistrar.cs",
-              "startLine": 25,
-              "startColumn": 5,
-              "endLine": 38,
-              "endColumn": 6
-            },
-            "callSites": [
-              {
-                "path": "src/Autofac/ModuleRegistrationExtensions.cs",
-                "startLine": 141,
-                "startColumn": 25,
-                "endLine": 141,
-                "endColumn": 53
-              }
-            ],
-            "relation": "call",
-            "candidates": [],
-            "origin": "source"
-          },
-          "after": {
-            "symbolId": "source::Autofac.Core.Registration.ModuleRegistrar..ctor(global::Autofac.ContainerBuilder)",
-            "signature": "public Autofac.Core.Registration.ModuleRegistrar.ModuleRegistrar(Autofac.ContainerBuilder builder) -> void",
-            "binding": "resolved",
-            "dispatch": "direct",
-            "targetIds": [
-              "source::Autofac.Core.Registration.ModuleRegistrar..ctor(global::Autofac.ContainerBuilder)"
-            ],
-            "definition": {
-              "path": "src/Autofac/Core/Registration/ModuleRegistrar.cs",
-              "startLine": 25,
-              "startColumn": 5,
-              "endLine": 38,
-              "endColumn": 6
-            },
-            "callSites": [
-              {
-                "path": "src/Autofac/ModuleRegistrationExtensions.cs",
-                "startLine": 141,
-                "startColumn": 25,
-                "endLine": 141,
-                "endColumn": 53
-              }
-            ],
-            "relation": "call",
-            "candidates": [],
-            "origin": "source"
-          },
-          "children": [],
-          "omission": {
-            "reason": "depth-limit",
-            "symbolId": null,
-            "referenceId": null
-          }
-        },
         {
           "id": "n560",
           "kind": "call",
+          "change": "unchanged",
+          "label": "new ModuleRegistrar",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "source::Autofac.Core.Registration.ModuleRegistrar..ctor(global::Autofac.ContainerBuilder)",
+            "signature": "public Autofac.Core.Registration.ModuleRegistrar.ModuleRegistrar(Autofac.ContainerBuilder builder) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Autofac.Core.Registration.ModuleRegistrar..ctor(global::Autofac.ContainerBuilder)"
+            ],
+            "definition": {
+              "path": "src/Autofac/Core/Registration/ModuleRegistrar.cs",
+              "startLine": 25,
+              "startColumn": 5,
+              "endLine": 38,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Autofac/ModuleRegistrationExtensions.cs",
+                "startLine": 141,
+                "startColumn": 25,
+                "endLine": 141,
+                "endColumn": 53
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Autofac.Core.Registration.ModuleRegistrar..ctor(global::Autofac.ContainerBuilder)",
+            "signature": "public Autofac.Core.Registration.ModuleRegistrar.ModuleRegistrar(Autofac.ContainerBuilder builder) -> void",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Autofac.Core.Registration.ModuleRegistrar..ctor(global::Autofac.ContainerBuilder)"
+            ],
+            "definition": {
+              "path": "src/Autofac/Core/Registration/ModuleRegistrar.cs",
+              "startLine": 25,
+              "startColumn": 5,
+              "endLine": 38,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "src/Autofac/ModuleRegistrationExtensions.cs",
+                "startLine": 141,
+                "startColumn": 25,
+                "endLine": 141,
+                "endColumn": 53
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n561",
+          "kind": "call",
           "change": "modified",
           "label": "ModuleRegistrationExtensions.RegisterAssemblyModules",
           "detail": "changes below depth limit",
@@ -36417,7 +36493,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n561",
+      "id": "n562",
       "kind": "member",
       "change": "unchanged",
       "label": "ModuleRegistrationExtensions.RegisterAssemblyModules",
@@ -36464,7 +36540,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n562",
+          "id": "n563",
           "kind": "call",
           "change": "modified",
           "label": "ModuleRegistrationExtensions.RegisterAssemblyModules",
@@ -36536,7 +36612,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n563",
+      "id": "n564",
       "kind": "member",
       "change": "unchanged",
       "label": "ModuleRegistrationExtensions.RegisterAssemblyModules",
@@ -36583,7 +36659,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n564",
+          "id": "n565",
           "kind": "call",
           "change": "unchanged",
           "label": "new ModuleRegistrar",
@@ -36652,7 +36728,7 @@ stdout:
           }
         },
         {
-          "id": "n565",
+          "id": "n566",
           "kind": "call",
           "change": "modified",
           "label": "ModuleRegistrationExtensions.RegisterAssemblyModules",
@@ -36724,7 +36800,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n566",
+      "id": "n567",
       "kind": "member",
       "change": "unchanged",
       "label": "ModuleRegistrationExtensions.RegisterModule",
@@ -36771,7 +36847,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n567",
+          "id": "n568",
           "kind": "call",
           "change": "unchanged",
           "label": "new ModuleRegistrar",
@@ -36840,7 +36916,7 @@ stdout:
           }
         },
         {
-          "id": "n568",
+          "id": "n569",
           "kind": "call",
           "change": "modified",
           "label": "ModuleRegistrar.RegisterModule",
@@ -36912,7 +36988,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n569",
+      "id": "n570",
       "kind": "member",
       "change": "unchanged",
       "label": "RegistrationExtensions.Except",
@@ -36959,7 +37035,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n570",
+          "id": "n571",
           "kind": "call",
           "change": "unchanged",
           "label": "RegistrationExtensions.Except",
@@ -37028,7 +37104,7 @@ stdout:
           }
         },
         {
-          "id": "n571",
+          "id": "n572",
           "kind": "call",
           "change": "unchanged",
           "label": "result.ActivatorData.PostScanningCallbacks.Add",
@@ -37079,7 +37155,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n572",
+              "id": "n573",
               "kind": "call",
               "change": "unchanged",
               "label": "RegistrationBuilder.ForType",
@@ -37148,7 +37224,7 @@ stdout:
               }
             },
             {
-              "id": "n573",
+              "id": "n574",
               "kind": "call",
               "change": "modified",
               "label": "RegistrationBuilder.RegisterSingleComponent",
@@ -37223,7 +37299,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n574",
+      "id": "n575",
       "kind": "member",
       "change": "unchanged",
       "label": "RegistrationExtensions.IfNotRegistered",
@@ -37270,7 +37346,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n575",
+          "id": "n576",
           "kind": "call",
           "change": "unchanged",
           "label": "RegistrationExtensions.OnlyIf",
@@ -37333,7 +37409,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n576",
+              "id": "n577",
               "kind": "call",
               "change": "unchanged",
               "label": "new TypedService",
@@ -37402,7 +37478,7 @@ stdout:
               }
             },
             {
-              "id": "n577",
+              "id": "n578",
               "kind": "call",
               "change": "modified",
               "label": "IComponentRegistryBuilder.IsRegistered → ComponentRegistryBuilder.IsRegistered",
@@ -37481,7 +37557,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n578",
+      "id": "n579",
       "kind": "member",
       "change": "unchanged",
       "label": "RegistrationExtensions.PropertiesAutowired",
@@ -37528,7 +37604,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n579",
+          "id": "n580",
           "kind": "call",
           "change": "unchanged",
           "label": "new DelegatePropertySelector",
@@ -37593,7 +37669,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n580",
+          "id": "n581",
           "kind": "call",
           "change": "modified",
           "label": "IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.PropertiesAutowired",
@@ -37665,7 +37741,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n581",
+      "id": "n582",
       "kind": "member",
       "change": "unchanged",
       "label": "RegistrationExtensions.RegisterComponent",
@@ -37712,7 +37788,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n582",
+          "id": "n583",
           "kind": "call",
           "change": "unchanged",
           "label": "ContainerBuilder.RegisterCallback",
@@ -37775,7 +37851,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n583",
+              "id": "n584",
               "kind": "call",
               "change": "modified",
               "label": "IComponentRegistryBuilder.Register → ComponentRegistryBuilder.Register",
@@ -37854,7 +37930,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n584",
+      "id": "n585",
       "kind": "member",
       "change": "unchanged",
       "label": "RegistrationExtensions.RegisterComposite",
@@ -37901,7 +37977,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n585",
+          "id": "n586",
           "kind": "call",
           "change": "modified",
           "label": "RegistrationExtensions.RegisterType",
@@ -37970,7 +38046,7 @@ stdout:
           }
         },
         {
-          "id": "n586",
+          "id": "n587",
           "kind": "call",
           "change": "unchanged",
           "label": "IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As",
@@ -38039,7 +38115,7 @@ stdout:
           }
         },
         {
-          "id": "n587",
+          "id": "n588",
           "kind": "call",
           "change": "unchanged",
           "label": "RegistrationExtensions.ApplyCompositeConfiguration",
@@ -38111,7 +38187,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n588",
+      "id": "n589",
       "kind": "member",
       "change": "unchanged",
       "label": "RegistrationExtensions.RegisterComposite",
@@ -38158,7 +38234,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n589",
+          "id": "n590",
           "kind": "call",
           "change": "modified",
           "label": "RegistrationExtensions.RegisterComposite",
@@ -38230,7 +38306,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n590",
+      "id": "n591",
       "kind": "member",
       "change": "unchanged",
       "label": "RegistrationExtensions.RegisterComposite",
@@ -38277,7 +38353,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n591",
+          "id": "n592",
           "kind": "call",
           "change": "modified",
           "label": "RegistrationExtensions.RegisterType",
@@ -38346,7 +38422,7 @@ stdout:
           }
         },
         {
-          "id": "n592",
+          "id": "n593",
           "kind": "call",
           "change": "unchanged",
           "label": "IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As",
@@ -38415,7 +38491,7 @@ stdout:
           }
         },
         {
-          "id": "n593",
+          "id": "n594",
           "kind": "call",
           "change": "unchanged",
           "label": "RegistrationExtensions.ApplyCompositeConfiguration",
@@ -38487,7 +38563,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n594",
+      "id": "n595",
       "kind": "member",
       "change": "unchanged",
       "label": "RegistrationExtensions.RegisterDecorator",
@@ -38534,7 +38610,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n595",
+          "id": "n596",
           "kind": "call",
           "change": "unchanged",
           "label": "new DecoratorService",
@@ -38603,7 +38679,7 @@ stdout:
           }
         },
         {
-          "id": "n596",
+          "id": "n597",
           "kind": "call",
           "change": "unchanged",
           "label": "RegistrationBuilder.ForType",
@@ -38672,7 +38748,7 @@ stdout:
           }
         },
         {
-          "id": "n597",
+          "id": "n598",
           "kind": "call",
           "change": "unchanged",
           "label": "IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As",
@@ -38741,7 +38817,7 @@ stdout:
           }
         },
         {
-          "id": "n598",
+          "id": "n599",
           "kind": "call",
           "change": "unchanged",
           "label": "RegistrationBuilder.CreateRegistration",
@@ -38810,7 +38886,7 @@ stdout:
           }
         },
         {
-          "id": "n599",
+          "id": "n600",
           "kind": "call",
           "change": "unchanged",
           "label": "new DecoratorMiddleware",
@@ -38875,7 +38951,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n600",
+          "id": "n601",
           "kind": "call",
           "change": "unchanged",
           "label": "ServiceMiddlewareRegistrationExtensions.RegisterServiceMiddleware",
@@ -38944,7 +39020,7 @@ stdout:
           }
         },
         {
-          "id": "n601",
+          "id": "n602",
           "kind": "call",
           "change": "unchanged",
           "label": "ContainerBuilder.RegisterCallback",
@@ -39007,7 +39083,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n602",
+              "id": "n603",
               "kind": "call",
               "change": "modified",
               "label": "IComponentRegistryBuilder.Register → ComponentRegistryBuilder.Register",
@@ -39086,7 +39162,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n603",
+      "id": "n604",
       "kind": "member",
       "change": "unchanged",
       "label": "RegistrationExtensions.RegisterTypes",
@@ -39133,7 +39209,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n604",
+          "id": "n605",
           "kind": "call",
           "change": "modified",
           "label": "ScanningRegistrationExtensions.ScanAndRegisterTypes",
@@ -39205,7 +39281,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n605",
+      "id": "n606",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.InjectProperties",
@@ -39252,7 +39328,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n606",
+          "id": "n607",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of DefaultPropertySelector",
@@ -39299,7 +39375,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n607",
+              "id": "n608",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of DefaultPropertySelector",
@@ -39371,7 +39447,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n608",
+          "id": "n609",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of ResolveRequest",
@@ -39418,7 +39494,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n609",
+              "id": "n610",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of ResolveRequest",
@@ -39486,7 +39562,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n610",
+          "id": "n611",
           "kind": "call",
           "change": "modified",
           "label": "AutowiringPropertyInjector.InjectProperties",
@@ -39558,7 +39634,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n611",
+      "id": "n612",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.InjectProperties",
@@ -39605,7 +39681,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n612",
+          "id": "n613",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of ResolveRequest",
@@ -39652,7 +39728,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n613",
+              "id": "n614",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of ResolveRequest",
@@ -39720,7 +39796,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n614",
+          "id": "n615",
           "kind": "call",
           "change": "modified",
           "label": "AutowiringPropertyInjector.InjectProperties",
@@ -39792,7 +39868,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n615",
+      "id": "n616",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.InjectProperties",
@@ -39839,7 +39915,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n616",
+          "id": "n617",
           "kind": "call",
           "change": "modified",
           "label": "AutowiringPropertyInjector.InjectProperties",
@@ -39911,7 +39987,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n617",
+      "id": "n618",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.InjectProperties",
@@ -39958,7 +40034,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n618",
+          "id": "n619",
           "kind": "call",
           "change": "modified",
           "label": "AutowiringPropertyInjector.InjectProperties",
@@ -40030,7 +40106,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n619",
+      "id": "n620",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.InjectProperties",
@@ -40077,7 +40153,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n620",
+          "id": "n621",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of DefaultPropertySelector",
@@ -40124,7 +40200,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n621",
+              "id": "n622",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of DefaultPropertySelector",
@@ -40196,7 +40272,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n622",
+          "id": "n623",
           "kind": "call",
           "change": "modified",
           "label": "AutowiringPropertyInjector.InjectProperties",
@@ -40268,7 +40344,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n623",
+      "id": "n624",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.InjectProperties",
@@ -40315,7 +40391,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n624",
+          "id": "n625",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of DefaultPropertySelector",
@@ -40362,7 +40438,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n625",
+              "id": "n626",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of DefaultPropertySelector",
@@ -40434,7 +40510,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n626",
+          "id": "n627",
           "kind": "call",
           "change": "modified",
           "label": "AutowiringPropertyInjector.InjectProperties",
@@ -40506,7 +40582,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n627",
+      "id": "n628",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.InjectUnsetProperties",
@@ -40553,7 +40629,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n628",
+          "id": "n629",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of DefaultPropertySelector",
@@ -40600,7 +40676,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n629",
+              "id": "n630",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of DefaultPropertySelector",
@@ -40672,7 +40748,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n630",
+          "id": "n631",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of ResolveRequest",
@@ -40719,7 +40795,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n631",
+              "id": "n632",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of ResolveRequest",
@@ -40787,7 +40863,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n632",
+          "id": "n633",
           "kind": "call",
           "change": "modified",
           "label": "AutowiringPropertyInjector.InjectProperties",
@@ -40859,7 +40935,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n633",
+      "id": "n634",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.InjectUnsetProperties",
@@ -40906,7 +40982,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n634",
+          "id": "n635",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of DefaultPropertySelector",
@@ -40953,7 +41029,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n635",
+              "id": "n636",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of DefaultPropertySelector",
@@ -41025,7 +41101,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n636",
+          "id": "n637",
           "kind": "call",
           "change": "modified",
           "label": "AutowiringPropertyInjector.InjectProperties",
@@ -41097,7 +41173,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n637",
+      "id": "n638",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.InjectUnsetProperties",
@@ -41144,7 +41220,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n638",
+          "id": "n639",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of DefaultPropertySelector",
@@ -41191,7 +41267,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n639",
+              "id": "n640",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of DefaultPropertySelector",
@@ -41263,7 +41339,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n640",
+          "id": "n641",
           "kind": "call",
           "change": "modified",
           "label": "AutowiringPropertyInjector.InjectProperties",
@@ -41335,7 +41411,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n641",
+      "id": "n642",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.IsRegistered",
@@ -41382,7 +41458,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n642",
+          "id": "n643",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.IsRegistered",
@@ -41454,7 +41530,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n643",
+      "id": "n644",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.IsRegisteredWithName",
@@ -41501,7 +41577,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n644",
+          "id": "n645",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.IsRegisteredWithKey",
@@ -41573,7 +41649,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n645",
+      "id": "n646",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.IsRegisteredWithName",
@@ -41620,7 +41696,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n646",
+          "id": "n647",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.IsRegisteredWithKey",
@@ -41692,7 +41768,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n647",
+      "id": "n648",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.ResolveKeyed",
@@ -41739,7 +41815,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n648",
+          "id": "n649",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.ResolveKeyed",
@@ -41811,7 +41887,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n649",
+      "id": "n650",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.ResolveKeyed",
@@ -41858,7 +41934,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n650",
+          "id": "n651",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of ResolveRequest",
@@ -41905,7 +41981,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n651",
+              "id": "n652",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of ResolveRequest",
@@ -41973,7 +42049,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n652",
+          "id": "n653",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.ResolveKeyed",
@@ -42045,7 +42121,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n653",
+      "id": "n654",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.ResolveKeyed",
@@ -42092,7 +42168,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n654",
+          "id": "n655",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.ResolveKeyed",
@@ -42164,7 +42240,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n655",
+      "id": "n656",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.ResolveNamed",
@@ -42211,7 +42287,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n656",
+          "id": "n657",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of ResolveRequest",
@@ -42258,7 +42334,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n657",
+              "id": "n658",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of ResolveRequest",
@@ -42326,7 +42402,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n658",
+          "id": "n659",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.ResolveNamed",
@@ -42398,7 +42474,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n659",
+      "id": "n660",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.ResolveNamed",
@@ -42445,7 +42521,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n660",
+          "id": "n661",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.ResolveNamed",
@@ -42517,7 +42593,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n661",
+      "id": "n662",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.ResolveNamed",
@@ -42564,7 +42640,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n662",
+          "id": "n663",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of ResolveRequest",
@@ -42611,7 +42687,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n663",
+              "id": "n664",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of ResolveRequest",
@@ -42679,7 +42755,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n664",
+          "id": "n665",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.ResolveNamed",
@@ -42751,7 +42827,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n665",
+      "id": "n666",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.ResolveNamed",
@@ -42798,7 +42874,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n666",
+          "id": "n667",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.ResolveNamed",
@@ -42870,7 +42946,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n667",
+      "id": "n668",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.ResolveOptional",
@@ -42917,7 +42993,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n668",
+          "id": "n669",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.ResolveOptional",
@@ -42989,7 +43065,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n669",
+      "id": "n670",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.ResolveOptional",
@@ -43036,7 +43112,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n670",
+          "id": "n671",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of ResolveRequest",
@@ -43083,7 +43159,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n671",
+              "id": "n672",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of ResolveRequest",
@@ -43151,7 +43227,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n672",
+          "id": "n673",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.ResolveOptional",
@@ -43223,7 +43299,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n673",
+      "id": "n674",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.ResolveOptional",
@@ -43270,7 +43346,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n674",
+          "id": "n675",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.ResolveOptional",
@@ -43342,7 +43418,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n675",
+      "id": "n676",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.ResolveOptionalNamed",
@@ -43389,7 +43465,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n676",
+          "id": "n677",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.ResolveOptionalKeyed",
@@ -43461,7 +43537,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n677",
+      "id": "n678",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.ResolveOptionalNamed",
@@ -43508,7 +43584,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n678",
+          "id": "n679",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.ResolveOptionalKeyed",
@@ -43580,7 +43656,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n679",
+      "id": "n680",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.ResolveOptionalNamed",
@@ -43627,7 +43703,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n680",
+          "id": "n681",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.ResolveOptionalKeyed",
@@ -43699,7 +43775,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n681",
+      "id": "n682",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.ResolveOptionalService",
@@ -43746,7 +43822,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n682",
+          "id": "n683",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of ResolveRequest",
@@ -43793,7 +43869,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n683",
+              "id": "n684",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of ResolveRequest",
@@ -43861,7 +43937,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n684",
+          "id": "n685",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.ResolveOptionalService",
@@ -43933,7 +44009,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n685",
+      "id": "n686",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.ResolveOptionalService",
@@ -43980,7 +44056,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n686",
+          "id": "n687",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.ResolveOptionalService",
@@ -44052,7 +44128,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n687",
+      "id": "n688",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.TryResolve",
@@ -44099,7 +44175,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n688",
+          "id": "n689",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.TryResolve",
@@ -44168,7 +44244,7 @@ stdout:
           }
         },
         {
-          "id": "n689",
+          "id": "n690",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (context.TryResolve(typeof(T), out var component))",
@@ -44215,7 +44291,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n690",
+              "id": "n691",
               "kind": "call",
               "change": "unchanged",
               "label": "ResolutionExtensions.CastInstance",
@@ -44290,7 +44366,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n691",
+      "id": "n692",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.TryResolveKeyed",
@@ -44337,7 +44413,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n692",
+          "id": "n693",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.TryResolveKeyed",
@@ -44406,7 +44482,7 @@ stdout:
           }
         },
         {
-          "id": "n693",
+          "id": "n694",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (context.TryResolveKeyed(serviceKey, typeof(T), out var component))",
@@ -44453,7 +44529,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n694",
+              "id": "n695",
               "kind": "call",
               "change": "unchanged",
               "label": "ResolutionExtensions.CastInstance",
@@ -44528,7 +44604,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n695",
+      "id": "n696",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionExtensions.TryResolveNamed",
@@ -44575,7 +44651,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n696",
+          "id": "n697",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.TryResolveNamed",
@@ -44644,7 +44720,7 @@ stdout:
           }
         },
         {
-          "id": "n697",
+          "id": "n698",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (context.TryResolveNamed(serviceName, typeof(T), out var component))",
@@ -44691,7 +44767,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n698",
+              "id": "n699",
               "kind": "call",
               "change": "unchanged",
               "label": "ResolutionExtensions.CastInstance",
@@ -44766,7 +44842,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n699",
+      "id": "n700",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionValueExtensions.ResolveOptional",
@@ -44813,7 +44889,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n700",
+          "id": "n701",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of ResolutionValueExtensions",
@@ -44860,7 +44936,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n701",
+              "id": "n702",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of ResolutionValueExtensions",
@@ -44928,7 +45004,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n702",
+          "id": "n703",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionValueExtensions.ResolveOptional",
@@ -45000,7 +45076,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n703",
+      "id": "n704",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionValueExtensions.ResolveOptional",
@@ -45047,7 +45123,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n704",
+          "id": "n705",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionValueExtensions.ResolveOptional",
@@ -45119,7 +45195,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n705",
+      "id": "n706",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionValueExtensions.ResolveOptionalNamed",
@@ -45166,7 +45242,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n706",
+          "id": "n707",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionValueExtensions.ResolveOptionalKeyed",
@@ -45238,7 +45314,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n707",
+      "id": "n708",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionValueExtensions.ResolveOptionalNamed",
@@ -45285,7 +45361,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n708",
+          "id": "n709",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionValueExtensions.ResolveOptionalKeyed",
@@ -45357,7 +45433,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n709",
+      "id": "n710",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionValueExtensions.ResolveOptionalNamed",
@@ -45404,7 +45480,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n710",
+          "id": "n711",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionValueExtensions.ResolveOptionalKeyed",
@@ -45476,7 +45552,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n711",
+      "id": "n712",
       "kind": "member",
       "change": "unchanged",
       "label": "ResolutionValueExtensions.TryResolve",
@@ -45523,7 +45599,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n712",
+          "id": "n713",
           "kind": "call",
           "change": "modified",
           "label": "ResolutionExtensions.TryResolve",
@@ -45595,7 +45671,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n713",
+      "id": "n714",
       "kind": "member",
       "change": "unchanged",
       "label": "Program.Main",
@@ -45642,7 +45718,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n714",
+          "id": "n715",
           "kind": "call",
           "change": "modified",
           "label": "new ContainerBuilder",
@@ -45711,7 +45787,7 @@ stdout:
           }
         },
         {
-          "id": "n715",
+          "id": "n716",
           "kind": "call",
           "change": "modified",
           "label": "RegistrationExtensions.RegisterType",
@@ -45780,7 +45856,7 @@ stdout:
           }
         },
         {
-          "id": "n716",
+          "id": "n717",
           "kind": "call",
           "change": "unchanged",
           "label": "IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As",
@@ -45849,7 +45925,7 @@ stdout:
           }
         },
         {
-          "id": "n717",
+          "id": "n718",
           "kind": "call",
           "change": "unchanged",
           "label": "IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.SingleInstance",
@@ -45918,75 +45994,6 @@ stdout:
           }
         },
         {
-          "id": "n718",
-          "kind": "call",
-          "change": "modified",
-          "label": "RegistrationExtensions.RegisterType",
-          "detail": "changes below depth limit",
-          "before": {
-            "symbolId": "source::Autofac.RegistrationExtensions.RegisterType`1(global::Autofac.ContainerBuilder)",
-            "signature": "public static Autofac.RegistrationExtensions.RegisterType<TImplementer>(this Autofac.ContainerBuilder builder) -> Autofac.Builder.IRegistrationBuilder<TImplementer, Autofac.Builder.ConcreteReflectionActivatorData, Autofac.Builder.SingleRegistrationStyle> where TImplementer : notnull",
-            "binding": "resolved",
-            "dispatch": "direct",
-            "targetIds": [
-              "source::Autofac.RegistrationExtensions.RegisterType`1(global::Autofac.ContainerBuilder)"
-            ],
-            "definition": {
-              "path": "src/Autofac/RegistrationExtensions.cs",
-              "startLine": 97,
-              "startColumn": 5,
-              "endLine": 111,
-              "endColumn": 6
-            },
-            "callSites": [
-              {
-                "path": "test/Autofac.Test.Aot/Program.cs",
-                "startLine": 46,
-                "startColumn": 9,
-                "endLine": 46,
-                "endColumn": 52
-              }
-            ],
-            "relation": "call",
-            "candidates": [],
-            "origin": "source"
-          },
-          "after": {
-            "symbolId": "source::Autofac.RegistrationExtensions.RegisterType`1(global::Autofac.ContainerBuilder)",
-            "signature": "public static Autofac.RegistrationExtensions.RegisterType<TImplementer>(this Autofac.ContainerBuilder builder) -> Autofac.Builder.IRegistrationBuilder<TImplementer, Autofac.Builder.ConcreteReflectionActivatorData, Autofac.Builder.SingleRegistrationStyle> where TImplementer : notnull",
-            "binding": "resolved",
-            "dispatch": "direct",
-            "targetIds": [
-              "source::Autofac.RegistrationExtensions.RegisterType`1(global::Autofac.ContainerBuilder)"
-            ],
-            "definition": {
-              "path": "src/Autofac/RegistrationExtensions.cs",
-              "startLine": 97,
-              "startColumn": 5,
-              "endLine": 111,
-              "endColumn": 6
-            },
-            "callSites": [
-              {
-                "path": "test/Autofac.Test.Aot/Program.cs",
-                "startLine": 46,
-                "startColumn": 9,
-                "endLine": 46,
-                "endColumn": 52
-              }
-            ],
-            "relation": "call",
-            "candidates": [],
-            "origin": "source"
-          },
-          "children": [],
-          "omission": {
-            "reason": "depth-limit",
-            "symbolId": null,
-            "referenceId": null
-          }
-        },
-        {
           "id": "n719",
           "kind": "call",
           "change": "modified",
@@ -46010,6 +46017,75 @@ stdout:
             "callSites": [
               {
                 "path": "test/Autofac.Test.Aot/Program.cs",
+                "startLine": 46,
+                "startColumn": 9,
+                "endLine": 46,
+                "endColumn": 52
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Autofac.RegistrationExtensions.RegisterType`1(global::Autofac.ContainerBuilder)",
+            "signature": "public static Autofac.RegistrationExtensions.RegisterType<TImplementer>(this Autofac.ContainerBuilder builder) -> Autofac.Builder.IRegistrationBuilder<TImplementer, Autofac.Builder.ConcreteReflectionActivatorData, Autofac.Builder.SingleRegistrationStyle> where TImplementer : notnull",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Autofac.RegistrationExtensions.RegisterType`1(global::Autofac.ContainerBuilder)"
+            ],
+            "definition": {
+              "path": "src/Autofac/RegistrationExtensions.cs",
+              "startLine": 97,
+              "startColumn": 5,
+              "endLine": 111,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "test/Autofac.Test.Aot/Program.cs",
+                "startLine": 46,
+                "startColumn": 9,
+                "endLine": 46,
+                "endColumn": 52
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n720",
+          "kind": "call",
+          "change": "modified",
+          "label": "RegistrationExtensions.RegisterType",
+          "detail": "changes below depth limit",
+          "before": {
+            "symbolId": "source::Autofac.RegistrationExtensions.RegisterType`1(global::Autofac.ContainerBuilder)",
+            "signature": "public static Autofac.RegistrationExtensions.RegisterType<TImplementer>(this Autofac.ContainerBuilder builder) -> Autofac.Builder.IRegistrationBuilder<TImplementer, Autofac.Builder.ConcreteReflectionActivatorData, Autofac.Builder.SingleRegistrationStyle> where TImplementer : notnull",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Autofac.RegistrationExtensions.RegisterType`1(global::Autofac.ContainerBuilder)"
+            ],
+            "definition": {
+              "path": "src/Autofac/RegistrationExtensions.cs",
+              "startLine": 97,
+              "startColumn": 5,
+              "endLine": 111,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "test/Autofac.Test.Aot/Program.cs",
                 "startLine": 47,
                 "startColumn": 9,
                 "endLine": 47,
@@ -46056,7 +46132,7 @@ stdout:
           }
         },
         {
-          "id": "n720",
+          "id": "n721",
           "kind": "call",
           "change": "modified",
           "label": "RegistrationExtensions.PropertiesAutowired",
@@ -46125,75 +46201,6 @@ stdout:
           }
         },
         {
-          "id": "n721",
-          "kind": "call",
-          "change": "modified",
-          "label": "RegistrationExtensions.RegisterType",
-          "detail": "changes below depth limit",
-          "before": {
-            "symbolId": "source::Autofac.RegistrationExtensions.RegisterType`1(global::Autofac.ContainerBuilder)",
-            "signature": "public static Autofac.RegistrationExtensions.RegisterType<TImplementer>(this Autofac.ContainerBuilder builder) -> Autofac.Builder.IRegistrationBuilder<TImplementer, Autofac.Builder.ConcreteReflectionActivatorData, Autofac.Builder.SingleRegistrationStyle> where TImplementer : notnull",
-            "binding": "resolved",
-            "dispatch": "direct",
-            "targetIds": [
-              "source::Autofac.RegistrationExtensions.RegisterType`1(global::Autofac.ContainerBuilder)"
-            ],
-            "definition": {
-              "path": "src/Autofac/RegistrationExtensions.cs",
-              "startLine": 97,
-              "startColumn": 5,
-              "endLine": 111,
-              "endColumn": 6
-            },
-            "callSites": [
-              {
-                "path": "test/Autofac.Test.Aot/Program.cs",
-                "startLine": 48,
-                "startColumn": 9,
-                "endLine": 48,
-                "endColumn": 54
-              }
-            ],
-            "relation": "call",
-            "candidates": [],
-            "origin": "source"
-          },
-          "after": {
-            "symbolId": "source::Autofac.RegistrationExtensions.RegisterType`1(global::Autofac.ContainerBuilder)",
-            "signature": "public static Autofac.RegistrationExtensions.RegisterType<TImplementer>(this Autofac.ContainerBuilder builder) -> Autofac.Builder.IRegistrationBuilder<TImplementer, Autofac.Builder.ConcreteReflectionActivatorData, Autofac.Builder.SingleRegistrationStyle> where TImplementer : notnull",
-            "binding": "resolved",
-            "dispatch": "direct",
-            "targetIds": [
-              "source::Autofac.RegistrationExtensions.RegisterType`1(global::Autofac.ContainerBuilder)"
-            ],
-            "definition": {
-              "path": "src/Autofac/RegistrationExtensions.cs",
-              "startLine": 97,
-              "startColumn": 5,
-              "endLine": 111,
-              "endColumn": 6
-            },
-            "callSites": [
-              {
-                "path": "test/Autofac.Test.Aot/Program.cs",
-                "startLine": 48,
-                "startColumn": 9,
-                "endLine": 48,
-                "endColumn": 54
-              }
-            ],
-            "relation": "call",
-            "candidates": [],
-            "origin": "source"
-          },
-          "children": [],
-          "omission": {
-            "reason": "depth-limit",
-            "symbolId": null,
-            "referenceId": null
-          }
-        },
-        {
           "id": "n722",
           "kind": "call",
           "change": "modified",
@@ -46217,6 +46224,75 @@ stdout:
             "callSites": [
               {
                 "path": "test/Autofac.Test.Aot/Program.cs",
+                "startLine": 48,
+                "startColumn": 9,
+                "endLine": 48,
+                "endColumn": 54
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Autofac.RegistrationExtensions.RegisterType`1(global::Autofac.ContainerBuilder)",
+            "signature": "public static Autofac.RegistrationExtensions.RegisterType<TImplementer>(this Autofac.ContainerBuilder builder) -> Autofac.Builder.IRegistrationBuilder<TImplementer, Autofac.Builder.ConcreteReflectionActivatorData, Autofac.Builder.SingleRegistrationStyle> where TImplementer : notnull",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Autofac.RegistrationExtensions.RegisterType`1(global::Autofac.ContainerBuilder)"
+            ],
+            "definition": {
+              "path": "src/Autofac/RegistrationExtensions.cs",
+              "startLine": 97,
+              "startColumn": 5,
+              "endLine": 111,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "test/Autofac.Test.Aot/Program.cs",
+                "startLine": 48,
+                "startColumn": 9,
+                "endLine": 48,
+                "endColumn": 54
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n723",
+          "kind": "call",
+          "change": "modified",
+          "label": "RegistrationExtensions.RegisterType",
+          "detail": "changes below depth limit",
+          "before": {
+            "symbolId": "source::Autofac.RegistrationExtensions.RegisterType`1(global::Autofac.ContainerBuilder)",
+            "signature": "public static Autofac.RegistrationExtensions.RegisterType<TImplementer>(this Autofac.ContainerBuilder builder) -> Autofac.Builder.IRegistrationBuilder<TImplementer, Autofac.Builder.ConcreteReflectionActivatorData, Autofac.Builder.SingleRegistrationStyle> where TImplementer : notnull",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Autofac.RegistrationExtensions.RegisterType`1(global::Autofac.ContainerBuilder)"
+            ],
+            "definition": {
+              "path": "src/Autofac/RegistrationExtensions.cs",
+              "startLine": 97,
+              "startColumn": 5,
+              "endLine": 111,
+              "endColumn": 6
+            },
+            "callSites": [
+              {
+                "path": "test/Autofac.Test.Aot/Program.cs",
                 "startLine": 49,
                 "startColumn": 9,
                 "endLine": 49,
@@ -46263,7 +46339,7 @@ stdout:
           }
         },
         {
-          "id": "n723",
+          "id": "n724",
           "kind": "call",
           "change": "unchanged",
           "label": "IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.Keyed → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.Keyed",
@@ -46332,7 +46408,7 @@ stdout:
           }
         },
         {
-          "id": "n724",
+          "id": "n725",
           "kind": "call",
           "change": "unchanged",
           "label": "new ProvidedService",
@@ -46397,7 +46473,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n725",
+          "id": "n726",
           "kind": "call",
           "change": "modified",
           "label": "RegistrationExtensions.RegisterInstance",
@@ -46466,7 +46542,7 @@ stdout:
           }
         },
         {
-          "id": "n726",
+          "id": "n727",
           "kind": "call",
           "change": "unchanged",
           "label": "RegistrationExtensions.AsSelf",
@@ -46535,7 +46611,7 @@ stdout:
           }
         },
         {
-          "id": "n727",
+          "id": "n728",
           "kind": "call",
           "change": "unchanged",
           "label": "RegistrationExtensions.Register",
@@ -46598,7 +46674,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n728",
+              "id": "n729",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -46667,7 +46743,7 @@ stdout:
               }
             },
             {
-              "id": "n729",
+              "id": "n730",
               "kind": "call",
               "change": "unchanged",
               "label": "new LambdaService",
@@ -46739,7 +46815,7 @@ stdout:
           }
         },
         {
-          "id": "n730",
+          "id": "n731",
           "kind": "call",
           "change": "unchanged",
           "label": "RegistrationExtensions.AsSelf",
@@ -46808,7 +46884,7 @@ stdout:
           }
         },
         {
-          "id": "n731",
+          "id": "n732",
           "kind": "call",
           "change": "modified",
           "label": "RegistrationExtensions.RegisterType",
@@ -46877,7 +46953,7 @@ stdout:
           }
         },
         {
-          "id": "n732",
+          "id": "n733",
           "kind": "call",
           "change": "unchanged",
           "label": "RegistrationExtensions.AsSelf",
@@ -46946,7 +47022,7 @@ stdout:
           }
         },
         {
-          "id": "n733",
+          "id": "n734",
           "kind": "call",
           "change": "unchanged",
           "label": "IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerDependency → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerDependency",
@@ -47015,7 +47091,7 @@ stdout:
           }
         },
         {
-          "id": "n734",
+          "id": "n735",
           "kind": "call",
           "change": "modified",
           "label": "ModuleRegistrationExtensions.RegisterModule",
@@ -47084,7 +47160,7 @@ stdout:
           }
         },
         {
-          "id": "n735",
+          "id": "n736",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.RegisterOpenGeneric",
@@ -47153,7 +47229,7 @@ stdout:
           }
         },
         {
-          "id": "n736",
+          "id": "n737",
           "kind": "call",
           "change": "modified",
           "label": "ContainerBuilder.Build",
@@ -47222,7 +47298,7 @@ stdout:
           }
         },
         {
-          "id": "n737",
+          "id": "n738",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -47285,7 +47361,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n738",
+              "id": "n739",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -47357,7 +47433,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n739",
+          "id": "n740",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -47420,7 +47496,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n740",
+              "id": "n741",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -47492,7 +47568,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n741",
+          "id": "n742",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -47555,7 +47631,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n742",
+              "id": "n743",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -47627,7 +47703,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n743",
+          "id": "n744",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -47690,7 +47766,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n744",
+              "id": "n745",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -47762,7 +47838,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n745",
+          "id": "n746",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -47825,7 +47901,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n746",
+              "id": "n747",
               "kind": "call",
               "change": "unchanged",
               "label": "new TypedParameter",
@@ -47894,7 +47970,7 @@ stdout:
               }
             },
             {
-              "id": "n747",
+              "id": "n748",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -47966,7 +48042,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n748",
+          "id": "n749",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -48029,7 +48105,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n749",
+              "id": "n750",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.ResolveKeyed",
@@ -48101,7 +48177,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n750",
+          "id": "n751",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -48164,7 +48240,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n751",
+              "id": "n752",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -48236,7 +48312,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n752",
+          "id": "n753",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -48299,7 +48375,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n753",
+              "id": "n754",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -48371,7 +48447,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n754",
+          "id": "n755",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -48434,7 +48510,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n755",
+              "id": "n756",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -48506,7 +48582,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n756",
+          "id": "n757",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -48568,75 +48644,6 @@ stdout:
             "origin": "source"
           },
           "children": [
-            {
-              "id": "n757",
-              "kind": "call",
-              "change": "modified",
-              "label": "ResolutionExtensions.Resolve",
-              "detail": "changes below depth limit",
-              "before": {
-                "symbolId": "source::Autofac.ResolutionExtensions.Resolve`1(global::Autofac.IComponentContext)",
-                "signature": "public static Autofac.ResolutionExtensions.Resolve<TService>(this Autofac.IComponentContext context) -> TService where TService : notnull",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "source::Autofac.ResolutionExtensions.Resolve`1(global::Autofac.IComponentContext)"
-                ],
-                "definition": {
-                  "path": "src/Autofac/ResolutionExtensions.cs",
-                  "startLine": 273,
-                  "startColumn": 5,
-                  "endLine": 277,
-                  "endColumn": 6
-                },
-                "callSites": [
-                  {
-                    "path": "test/Autofac.Test.Aot/Program.cs",
-                    "startLine": 94,
-                    "startColumn": 73,
-                    "endLine": 94,
-                    "endColumn": 105
-                  }
-                ],
-                "relation": "callback",
-                "candidates": [],
-                "origin": "source"
-              },
-              "after": {
-                "symbolId": "source::Autofac.ResolutionExtensions.Resolve`1(global::Autofac.IComponentContext)",
-                "signature": "public static Autofac.ResolutionExtensions.Resolve<TService>(this Autofac.IComponentContext context) -> TService where TService : notnull",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "source::Autofac.ResolutionExtensions.Resolve`1(global::Autofac.IComponentContext)"
-                ],
-                "definition": {
-                  "path": "src/Autofac/ResolutionExtensions.cs",
-                  "startLine": 273,
-                  "startColumn": 5,
-                  "endLine": 277,
-                  "endColumn": 6
-                },
-                "callSites": [
-                  {
-                    "path": "test/Autofac.Test.Aot/Program.cs",
-                    "startLine": 94,
-                    "startColumn": 73,
-                    "endLine": 94,
-                    "endColumn": 105
-                  }
-                ],
-                "relation": "callback",
-                "candidates": [],
-                "origin": "source"
-              },
-              "children": [],
-              "omission": {
-                "reason": "depth-limit",
-                "symbolId": null,
-                "referenceId": null
-              }
-            },
             {
               "id": "n758",
               "kind": "call",
@@ -48662,6 +48669,75 @@ stdout:
                   {
                     "path": "test/Autofac.Test.Aot/Program.cs",
                     "startLine": 94,
+                    "startColumn": 73,
+                    "endLine": 94,
+                    "endColumn": 105
+                  }
+                ],
+                "relation": "callback",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "source::Autofac.ResolutionExtensions.Resolve`1(global::Autofac.IComponentContext)",
+                "signature": "public static Autofac.ResolutionExtensions.Resolve<TService>(this Autofac.IComponentContext context) -> TService where TService : notnull",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Autofac.ResolutionExtensions.Resolve`1(global::Autofac.IComponentContext)"
+                ],
+                "definition": {
+                  "path": "src/Autofac/ResolutionExtensions.cs",
+                  "startLine": 273,
+                  "startColumn": 5,
+                  "endLine": 277,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "test/Autofac.Test.Aot/Program.cs",
+                    "startLine": 94,
+                    "startColumn": 73,
+                    "endLine": 94,
+                    "endColumn": 105
+                  }
+                ],
+                "relation": "callback",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            },
+            {
+              "id": "n759",
+              "kind": "call",
+              "change": "modified",
+              "label": "ResolutionExtensions.Resolve",
+              "detail": "changes below depth limit",
+              "before": {
+                "symbolId": "source::Autofac.ResolutionExtensions.Resolve`1(global::Autofac.IComponentContext)",
+                "signature": "public static Autofac.ResolutionExtensions.Resolve<TService>(this Autofac.IComponentContext context) -> TService where TService : notnull",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Autofac.ResolutionExtensions.Resolve`1(global::Autofac.IComponentContext)"
+                ],
+                "definition": {
+                  "path": "src/Autofac/ResolutionExtensions.cs",
+                  "startLine": 273,
+                  "startColumn": 5,
+                  "endLine": 277,
+                  "endColumn": 6
+                },
+                "callSites": [
+                  {
+                    "path": "test/Autofac.Test.Aot/Program.cs",
+                    "startLine": 94,
                     "startColumn": 107,
                     "endLine": 94,
                     "endColumn": 139
@@ -48710,7 +48786,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n759",
+          "id": "n760",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -48773,7 +48849,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n760",
+              "id": "n761",
               "kind": "call",
               "change": "unchanged",
               "label": "ILifetimeScope.BeginLifetimeScope → Container.BeginLifetimeScope",
@@ -48842,7 +48918,7 @@ stdout:
               }
             },
             {
-              "id": "n761",
+              "id": "n762",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -48914,7 +48990,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n762",
+          "id": "n763",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -48977,7 +49053,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n763",
+              "id": "n764",
               "kind": "call",
               "change": "unchanged",
               "label": "ILifetimeScope.BeginLifetimeScope → Container.BeginLifetimeScope",
@@ -49040,7 +49116,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n764",
+                  "id": "n765",
                   "kind": "call",
                   "change": "modified",
                   "label": "RegistrationExtensions.RegisterType",
@@ -49109,7 +49185,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n765",
+                  "id": "n766",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "RegistrationExtensions.AsSelf",
@@ -49185,7 +49261,7 @@ stdout:
               }
             },
             {
-              "id": "n766",
+              "id": "n767",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -49257,7 +49333,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n767",
+          "id": "n768",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -49320,7 +49396,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n768",
+              "id": "n769",
               "kind": "call",
               "change": "unchanged",
               "label": "ILifetimeScope.BeginLifetimeScope → Container.BeginLifetimeScope",
@@ -49389,7 +49465,7 @@ stdout:
               }
             },
             {
-              "id": "n769",
+              "id": "n770",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -49461,7 +49537,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n770",
+          "id": "n771",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -49524,7 +49600,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n771",
+              "id": "n772",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -49596,7 +49672,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n772",
+          "id": "n773",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -49659,7 +49735,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n773",
+              "id": "n774",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -49731,7 +49807,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n774",
+          "id": "n775",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -49794,7 +49870,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n775",
+              "id": "n776",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -49866,7 +49942,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n776",
+          "id": "n777",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -49929,7 +50005,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n777",
+              "id": "n778",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -50001,7 +50077,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n778",
+          "id": "n779",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -50064,7 +50140,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n779",
+              "id": "n780",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -50136,7 +50212,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n780",
+          "id": "n781",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.Check",
@@ -50199,7 +50275,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n781",
+              "id": "n782",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -50271,7 +50347,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n782",
+          "id": "n783",
           "kind": "call",
           "change": "unchanged",
           "label": "Program.CheckThrows",
@@ -50334,7 +50410,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n783",
+              "id": "n784",
               "kind": "call",
               "change": "modified",
               "label": "ResolutionExtensions.Resolve",
@@ -50409,7 +50485,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n784",
+      "id": "n785",
       "kind": "member",
       "change": "unchanged",
       "label": "test/Autofac.Test.AotWarnings/Program.cs::<top-level>",
@@ -50456,7 +50532,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n785",
+          "id": "n786",
           "kind": "call",
           "change": "modified",
           "label": "new ContainerBuilder",
@@ -50525,7 +50601,7 @@ stdout:
           }
         },
         {
-          "id": "n786",
+          "id": "n787",
           "kind": "call",
           "change": "unchanged",
           "label": "RegistrationExtensions.RegisterGeneric",
@@ -50594,7 +50670,7 @@ stdout:
           }
         },
         {
-          "id": "n787",
+          "id": "n788",
           "kind": "call",
           "change": "unchanged",
           "label": "RegistrationExtensions.RegisterGenericDecorator",
@@ -50663,7 +50739,7 @@ stdout:
           }
         },
         {
-          "id": "n788",
+          "id": "n789",
           "kind": "call",
           "change": "modified",
           "label": "RegistrationExtensions.RegisterAssemblyTypes",
@@ -50732,7 +50808,7 @@ stdout:
           }
         },
         {
-          "id": "n789",
+          "id": "n790",
           "kind": "call",
           "change": "modified",
           "label": "ModuleRegistrationExtensions.RegisterAssemblyModules",
@@ -50801,7 +50877,7 @@ stdout:
           }
         },
         {
-          "id": "n790",
+          "id": "n791",
           "kind": "call",
           "change": "modified",
           "label": "ContainerBuilder.Build",
@@ -50884,4 +50960,4 @@ bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind Ben
 bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
-172 additional diagnostics; use --diagnostics full.
+173 additional diagnostics; use --diagnostics full.

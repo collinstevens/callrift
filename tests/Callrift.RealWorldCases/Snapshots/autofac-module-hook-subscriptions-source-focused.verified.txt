@@ -25,6 +25,12 @@ stdout:
   ├─ if (componentRegistry == null)
 - ├─ callback
 - │  └─ Module.AttachToComponentRegistration
+- ├─ IComponentRegistryBuilder.add_Registered → ComponentRegistryBuilder.add_Registered
+- │  ├─ foreach (var registration in _registeredServicesTracker.Registrations)
+- │  │  ├─ new ComponentRegisteredEventArgs (depth limit)
+- │  │  └─ value
+- │  └─ ComponentRegistryBuilder.GetRegistered
+- │     └─ Properties.TryGetValue → FallbackDictionary<TKey, TValue>.TryGetValue (depth limit)
 + ├─ GetType
 + ├─ possible initialization of ReflectionCacheSet
 + │  └─ initialization of ReflectionCacheSet
@@ -34,20 +40,36 @@ stdout:
 + │  └─ if (method is not null)
 + │     └─ Type.op_Inequality
 + └─ if (overrides)
-+    └─ callback
-+       └─ Module.AttachToComponentRegistration
++    ├─ callback
++    │  └─ Module.AttachToComponentRegistration
++    └─ IComponentRegistryBuilder.add_Registered → ComponentRegistryBuilder.add_Registered
++       ├─ foreach (var registration in _registeredServicesTracker.Registrations)
++       │  ├─ new ComponentRegisteredEventArgs (depth limit)
++       │  └─ value
++       └─ ComponentRegistryBuilder.GetRegistered (depth limit)
 
   Module.AttachToSources
   ├─ if (componentRegistry == null)
 - ├─ callback
 - │  └─ Module.AttachToRegistrationSource
+- ├─ IComponentRegistryBuilder.add_RegistrationSourceAdded → ComponentRegistryBuilder.add_RegistrationSourceAdded
+- │  ├─ foreach (var source in _registeredServicesTracker.Sources)
+- │  │  ├─ new RegistrationSourceAddedEventArgs (depth limit)
+- │  │  └─ value
+- │  └─ ComponentRegistryBuilder.GetRegistrationSourceAdded
+- │     └─ Properties.TryGetValue → FallbackDictionary<TKey, TValue>.TryGetValue (depth limit)
 + ├─ GetType
 + ├─ possible initialization of ReflectionCacheSet
 + │  └─ initialization of ReflectionCacheSet ↑ as above
 + ├─ cache.GetOrAdd ↑ as above
 + └─ if (overrides)
-+    └─ callback
-+       └─ Module.AttachToRegistrationSource
++    ├─ callback
++    │  └─ Module.AttachToRegistrationSource
++    └─ IComponentRegistryBuilder.add_RegistrationSourceAdded → ComponentRegistryBuilder.add_RegistrationSourceAdded
++       ├─ foreach (var source in _registeredServicesTracker.Sources)
++       │  ├─ new RegistrationSourceAddedEventArgs (depth limit)
++       │  └─ value
++       └─ ComponentRegistryBuilder.GetRegistrationSourceAdded (depth limit)
 stderr:
 bench/Autofac.BenchmarkProfiling/Program.cs:35: unresolved-call: Cannot bind BenchmarkConverter.TypeToBenchmarks.
 bench/Autofac.BenchmarkProfiling/Program.cs:62: unresolved-call: Cannot bind PrintCases; candidates: source::Autofac.BenchmarkProfiling.Program.PrintCases(BenchmarkRunInfo)
@@ -57,7 +79,7 @@ bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind Ben
 bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
-166 additional diagnostics; use --diagnostics full.
+167 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -87,6 +109,12 @@ stdout:
   ├─ if (componentRegistry == null)
 - ├─ callback
 - │  └─ Module.AttachToComponentRegistration
+- ├─ IComponentRegistryBuilder.add_Registered → ComponentRegistryBuilder.add_Registered
+- │  ├─ foreach (var registration in _registeredServicesTracker.Registrations)
+- │  │  ├─ new ComponentRegisteredEventArgs (depth limit)
+- │  │  └─ value
+- │  └─ ComponentRegistryBuilder.GetRegistered
+- │     └─ Properties.TryGetValue → FallbackDictionary<TKey, TValue>.TryGetValue (depth limit)
 + ├─ GetType
 + ├─ possible initialization of ReflectionCacheSet
 + │  └─ initialization of ReflectionCacheSet
@@ -96,20 +124,36 @@ stdout:
 + │  └─ if (method is not null)
 + │     └─ Type.op_Inequality
 + └─ if (overrides)
-+    └─ callback
-+       └─ Module.AttachToComponentRegistration
++    ├─ callback
++    │  └─ Module.AttachToComponentRegistration
++    └─ IComponentRegistryBuilder.add_Registered → ComponentRegistryBuilder.add_Registered
++       ├─ foreach (var registration in _registeredServicesTracker.Registrations)
++       │  ├─ new ComponentRegisteredEventArgs (depth limit)
++       │  └─ value
++       └─ ComponentRegistryBuilder.GetRegistered (depth limit)
 
   Module.AttachToSources
   ├─ if (componentRegistry == null)
 - ├─ callback
 - │  └─ Module.AttachToRegistrationSource
+- ├─ IComponentRegistryBuilder.add_RegistrationSourceAdded → ComponentRegistryBuilder.add_RegistrationSourceAdded
+- │  ├─ foreach (var source in _registeredServicesTracker.Sources)
+- │  │  ├─ new RegistrationSourceAddedEventArgs (depth limit)
+- │  │  └─ value
+- │  └─ ComponentRegistryBuilder.GetRegistrationSourceAdded
+- │     └─ Properties.TryGetValue → FallbackDictionary<TKey, TValue>.TryGetValue (depth limit)
 + ├─ GetType
 + ├─ possible initialization of ReflectionCacheSet
 + │  └─ initialization of ReflectionCacheSet ↑ as above
 + ├─ cache.GetOrAdd ↑ as above
 + └─ if (overrides)
-+    └─ callback
-+       └─ Module.AttachToRegistrationSource
++    ├─ callback
++    │  └─ Module.AttachToRegistrationSource
++    └─ IComponentRegistryBuilder.add_RegistrationSourceAdded → ComponentRegistryBuilder.add_RegistrationSourceAdded
++       ├─ foreach (var source in _registeredServicesTracker.Sources)
++       │  ├─ new RegistrationSourceAddedEventArgs (depth limit)
++       │  └─ value
++       └─ ComponentRegistryBuilder.GetRegistrationSourceAdded (depth limit)
 ```
 stderr:
 bench/Autofac.BenchmarkProfiling/Program.cs:35: unresolved-call: Cannot bind BenchmarkConverter.TypeToBenchmarks.
@@ -120,4 +164,4 @@ bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind Ben
 bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
-166 additional diagnostics; use --diagnostics full.
+167 additional diagnostics; use --diagnostics full.

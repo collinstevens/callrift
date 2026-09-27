@@ -15,7 +15,7 @@ internal static class AutofacModuleExpectations
         if (workspace) Assert.Empty(result.Diagnostics);
         else
         {
-            Assert.Equal(172, result.Diagnostics.Count(diagnostic => diagnostic.Code == "unresolved-call"));
+            Assert.Equal(173, result.Diagnostics.Count(diagnostic => diagnostic.Code == "unresolved-call"));
             Assert.Equal(2, result.Diagnostics.Count(diagnostic => diagnostic.Code == "test-project-inferred"));
         }
         if (!focused)
@@ -44,11 +44,11 @@ internal static class AutofacModuleExpectations
             var failure = Assert.Single(Descendants(node.Children), child => child.Label.EndsWith("new InvalidOperationException", StringComparison.Ordinal));
             Assert.Equal(workspace ? "resolved" : "unresolved", failure.After!.Binding);
         });
-        VerifyHook(result.Trees[1], "Module.AttachToComponentRegistration", 155);
-        VerifyHook(result.Trees[2], "Module.AttachToRegistrationSource", 186);
+        VerifyHook(result.Trees[1], "Module.AttachToComponentRegistration", "Registered", 155);
+        VerifyHook(result.Trees[2], "Module.AttachToRegistrationSource", "RegistrationSourceAdded", 186);
     }
 
-    private static void VerifyHook(DiffNode root, string hook, int line)
+    private static void VerifyHook(DiffNode root, string hook, string eventName, int line)
     {
         var guard = Assert.Single(root.Children, node => node.Label == "if (componentRegistry == null)");
         Assert.Equal(' ', guard.Mark);
@@ -63,14 +63,22 @@ internal static class AutofacModuleExpectations
         Assert.Equal("Type.op_Inequality", Assert.Single(lookup.Children[1].Children).Label);
         var condition = Assert.Single(root.Children, node => node.Label == "if (overrides)");
         Assert.Equal('+', condition.Mark);
-        var callback = Assert.Single(condition.Children);
+        var callback = Assert.Single(condition.Children, node => node.Label == "callback");
         Assert.Equal("callback", callback.After!.Relation);
         var moved = Assert.Single(callback.Children);
         Assert.Equal(hook, moved.Label);
         Assert.Equal(original.Before!.SymbolId, moved.After!.SymbolId);
         Assert.Equal(line, Assert.Single(moved.After.CallSites).Line);
-        Assert.DoesNotContain(Descendants(root.Children), node => node.After?.SymbolId?.Contains(".add_", StringComparison.Ordinal) == true
-            || node.After?.SymbolId?.Contains(".get_Shared", StringComparison.Ordinal) == true);
+        var previousSubscription = Assert.Single(root.Children, node => node.Mark == '-'
+            && node.Before?.SymbolId?.Contains(".add_" + eventName + "(", StringComparison.Ordinal) == true);
+        var subscription = Assert.Single(condition.Children, node => node != callback);
+        Assert.Equal(previousSubscription.Before!.SymbolId, subscription.After!.SymbolId);
+        Assert.Equal("possible", subscription.After.Dispatch);
+        Assert.Contains("::Autofac.Core.Registration.ComponentRegistryBuilder.add_" + eventName + "(", Assert.Single(subscription.After.TargetIds));
+        Assert.Equal(line - 1, Assert.Single(subscription.After.CallSites).Line);
+        Assert.Contains(subscription.Children, node => node.Label.StartsWith("foreach (", StringComparison.Ordinal));
+        Assert.Contains(Descendants(subscription.Children), node => node.Label == "value");
+        Assert.DoesNotContain(Descendants(root.Children), node => node.After?.SymbolId?.Contains(".get_Shared", StringComparison.Ordinal) == true);
     }
 
     private static IEnumerable<DiffNode> Descendants(IEnumerable<DiffNode> nodes) =>

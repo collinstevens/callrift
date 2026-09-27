@@ -2390,6 +2390,71 @@ stdout:
                   "children": [
                     {
                       "id": "n42",
+                      "kind": "call",
+                      "change": "unchanged",
+                      "label": "Service.op_Equality",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+                        "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Service.cs",
+                          "startLine": 26,
+                          "startColumn": 5,
+                          "endLine": 30,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Features/Collections/CollectionRegistrationSource.cs",
+                            "startLine": 67,
+                            "startColumn": 13,
+                            "endLine": 67,
+                            "endColumn": 28
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "after": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+                        "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Service.cs",
+                          "startLine": 26,
+                          "startColumn": 5,
+                          "endLine": 30,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Features/Collections/CollectionRegistrationSource.cs",
+                            "startLine": 67,
+                            "startColumn": 13,
+                            "endLine": 67,
+                            "endColumn": 28
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n43",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "possible initialization of ReflectionCacheSet",
@@ -2436,7 +2501,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n43",
+                          "id": "n44",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "initialization of ReflectionCacheSet",
@@ -2504,7 +2569,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n44",
+                      "id": "n45",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "ReflectionCacheSet.GetOrCreateCache",
@@ -2573,7 +2638,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n45",
+                      "id": "n46",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "factoryCache.GetOrAdd",
@@ -2624,7 +2689,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n46",
+                          "id": "n47",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "InternalTypeExtensions.IsGenericTypeDefinedBy",
@@ -2693,7 +2758,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n47",
+                          "id": "n48",
                           "kind": "branch",
                           "change": "unchanged",
                           "label": "if (serviceType.IsGenericTypeDefinedBy(typeof(IEnumerable<>)))",
@@ -2740,7 +2805,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n48",
+                              "id": "n49",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "CollectionRegistrationSource.GenerateArrayFactory",
@@ -2808,7 +2873,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n49",
+                          "id": "n50",
                           "kind": "branch",
                           "change": "unchanged",
                           "label": "else (!(serviceType.IsGenericTypeDefinedBy(typeof(IEnumerable<>))))",
@@ -2855,7 +2920,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n50",
+                              "id": "n51",
                               "kind": "branch",
                               "change": "unchanged",
                               "label": "if (serviceType.IsArray)",
@@ -2902,7 +2967,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n51",
+                                  "id": "n52",
                                   "kind": "call",
                                   "change": "unchanged",
                                   "label": "CollectionRegistrationSource.GenerateArrayFactory",
@@ -2970,7 +3035,7 @@ stdout:
                               "omission": null
                             },
                             {
-                              "id": "n52",
+                              "id": "n53",
                               "kind": "branch",
                               "change": "unchanged",
                               "label": "else (!(serviceType.IsArray))",
@@ -3017,7 +3082,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n53",
+                                  "id": "n54",
                                   "kind": "call",
                                   "change": "unchanged",
                                   "label": "InternalTypeExtensions.IsGenericListOrCollectionInterfaceType",
@@ -3086,7 +3151,7 @@ stdout:
                                   }
                                 },
                                 {
-                                  "id": "n54",
+                                  "id": "n55",
                                   "kind": "branch",
                                   "change": "unchanged",
                                   "label": "if (serviceType.IsGenericListOrCollectionInterfaceType())",
@@ -3133,7 +3198,7 @@ stdout:
                                   },
                                   "children": [
                                     {
-                                      "id": "n55",
+                                      "id": "n56",
                                       "kind": "call",
                                       "change": "unchanged",
                                       "label": "CollectionRegistrationSource.GenerateListFactory",
@@ -3214,7 +3279,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n56",
+                      "id": "n57",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "CollectionRegistrationSource.TryGetCollectionBuildInfo",
@@ -3279,7 +3344,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n57",
+                      "id": "n58",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "IServiceWithType.ChangeType",
@@ -3346,7 +3411,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n58",
+                          "id": "n59",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ KeyedService.ChangeType",
@@ -3399,7 +3464,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n59",
+                          "id": "n60",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ TypedService.ChangeType",
@@ -3452,7 +3517,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n60",
+                          "id": "n61",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ DecoratorService.ChangeType",
@@ -3508,7 +3573,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n61",
+                      "id": "n62",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "if (service is KeyedService keyedService)",
@@ -3555,7 +3620,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n62",
+                          "id": "n63",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "KeyedService.IsAnyKey",
@@ -3627,7 +3692,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n63",
+                      "id": "n64",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "new DelegateActivator",
@@ -3690,7 +3755,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n64",
+                          "id": "n65",
                           "kind": "branch",
                           "change": "unchanged",
                           "label": "if (isAnyKeyQuery)",
@@ -3737,7 +3802,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n65",
+                              "id": "n66",
                               "kind": "call",
                               "change": "modified",
                               "label": "CollectionRegistrationSource.GetAllSpecificKeyedRegistrations",
@@ -3809,7 +3874,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n66",
+                          "id": "n67",
                           "kind": "branch",
                           "change": "unchanged",
                           "label": "else (!(isAnyKeyQuery))",
@@ -3856,7 +3921,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n67",
+                              "id": "n68",
                               "kind": "call",
                               "change": "modified",
                               "label": "CollectionRegistrationSource.BuildStandardRegistrationList",
@@ -3928,7 +3993,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n68",
+                          "id": "n69",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "CollectionRegistrationSource.GetCollectionMetricsDetails",
@@ -3997,7 +4062,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n69",
+                          "id": "n70",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "CollectionRegistrationSource.BuildCollection",
@@ -4073,7 +4138,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n70",
+                      "id": "n71",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "possible initialization of CurrentScopeLifetime",
@@ -4120,7 +4185,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n71",
+                          "id": "n72",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "initialization of CurrentScopeLifetime",
@@ -4192,7 +4257,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n72",
+                      "id": "n73",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "new ComponentRegistration",
@@ -4264,7 +4329,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n73",
+                  "id": "n74",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ GeneratedFactoryRegistrationSource.RegistrationsFor",
@@ -4311,7 +4376,72 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n74",
+                      "id": "n75",
+                      "kind": "call",
+                      "change": "unchanged",
+                      "label": "Service.op_Equality",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+                        "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Service.cs",
+                          "startLine": 26,
+                          "startColumn": 5,
+                          "endLine": 30,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Features/GeneratedFactories/GeneratedFactoryRegistrationSource.cs",
+                            "startLine": 35,
+                            "startColumn": 13,
+                            "endLine": 35,
+                            "endColumn": 28
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "after": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+                        "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Service.cs",
+                          "startLine": 26,
+                          "startColumn": 5,
+                          "endLine": 30,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Features/GeneratedFactories/GeneratedFactoryRegistrationSource.cs",
+                            "startLine": 35,
+                            "startColumn": 13,
+                            "endLine": 35,
+                            "endColumn": 28
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n76",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "if (!(service is not IServiceWithType ts))",
@@ -4358,7 +4488,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n75",
+                          "id": "n77",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "InternalTypeExtensions.IsDelegate",
@@ -4426,7 +4556,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n76",
+                      "id": "n78",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "InternalTypeExtensions.FunctionReturnType",
@@ -4495,7 +4625,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n77",
+                      "id": "n79",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "IServiceWithType.ChangeType",
@@ -4562,7 +4692,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n78",
+                          "id": "n80",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ KeyedService.ChangeType",
@@ -4615,7 +4745,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n79",
+                          "id": "n81",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ TypedService.ChangeType",
@@ -4668,7 +4798,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n80",
+                          "id": "n82",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ DecoratorService.ChangeType",
@@ -4724,7 +4854,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n81",
+                      "id": "n83",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "registrationAccessor(resultTypeService).Select",
@@ -4775,7 +4905,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n82",
+                          "id": "n84",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "new FactoryGenerator",
@@ -4844,7 +4974,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n83",
+                          "id": "n85",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "RegistrationBuilder.ForDelegate",
@@ -4907,7 +5037,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n84",
+                              "id": "n86",
                               "kind": "call",
                               "change": "modified",
                               "label": "FactoryGenerator.GenerateFactory",
@@ -4983,7 +5113,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n85",
+                          "id": "n87",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.InstancePerLifetimeScope",
@@ -5052,7 +5182,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n86",
+                          "id": "n88",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.ExternallyOwned",
@@ -5117,7 +5247,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n87",
+                          "id": "n89",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As",
@@ -5186,7 +5316,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n88",
+                          "id": "n90",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "RegistrationExtensions.Targeting",
@@ -5251,7 +5381,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n89",
+                          "id": "n91",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "RegistrationOrderExtensions.InheritRegistrationOrderFrom",
@@ -5320,7 +5450,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n90",
+                          "id": "n92",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "RegistrationBuilder.CreateRegistration",
@@ -5395,7 +5525,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n91",
+                  "id": "n93",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ AnyKeyRegistrationSource.RegistrationsFor",
@@ -5442,7 +5572,72 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n92",
+                      "id": "n94",
+                      "kind": "call",
+                      "change": "unchanged",
+                      "label": "Service.op_Equality",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+                        "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Service.cs",
+                          "startLine": 26,
+                          "startColumn": 5,
+                          "endLine": 30,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Features/KeyedServices/AnyKeyRegistrationSource.cs",
+                            "startLine": 28,
+                            "startColumn": 13,
+                            "endLine": 28,
+                            "endColumn": 28
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "after": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+                        "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Service.cs",
+                          "startLine": 26,
+                          "startColumn": 5,
+                          "endLine": 30,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Features/KeyedServices/AnyKeyRegistrationSource.cs",
+                            "startLine": 28,
+                            "startColumn": 13,
+                            "endLine": 28,
+                            "endColumn": 28
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n95",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "if (!(service is not KeyedService keyedService))",
@@ -5489,7 +5684,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n93",
+                          "id": "n96",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "KeyedService.IsAnyKey",
@@ -5561,7 +5756,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n94",
+                      "id": "n97",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "if (!(service is not KeyedService keyedService || KeyedService.IsAnyKey(keyedService.ServiceKey)))",
@@ -5608,7 +5803,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n95",
+                          "id": "n98",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "InternalTypeExtensions.IsCollectionServiceType",
@@ -5680,7 +5875,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n96",
+                      "id": "n99",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "possible initialization of KeyedService",
@@ -5727,7 +5922,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n97",
+                          "id": "n100",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "initialization of KeyedService",
@@ -5795,7 +5990,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n98",
+                      "id": "n101",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "new KeyedService",
@@ -5864,7 +6059,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n99",
+                      "id": "n102",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "for (i < anyKeyRegistrations.Length)",
@@ -5911,7 +6106,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n100",
+                          "id": "n103",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "AnyKeyRegistrationSource.CreateAdapterRegistration",
@@ -5986,7 +6181,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n101",
+                  "id": "n104",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ LazyWithMetadataRegistrationSource.RegistrationsFor",
@@ -6033,7 +6228,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n102",
+                      "id": "n105",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "if (!(service is not IServiceWithType swt))",
@@ -6080,7 +6275,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n103",
+                          "id": "n106",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "InternalTypeExtensions.IsGenericTypeDefinedBy",
@@ -6152,7 +6347,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n104",
+                      "id": "n107",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "IServiceWithType.ChangeType",
@@ -6219,7 +6414,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n105",
+                          "id": "n108",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ KeyedService.ChangeType",
@@ -6272,7 +6467,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n106",
+                          "id": "n109",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ TypedService.ChangeType",
@@ -6325,7 +6520,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n107",
+                          "id": "n110",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ DecoratorService.ChangeType",
@@ -6381,7 +6576,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n108",
+                      "id": "n111",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "possible initialization of ReflectionCacheSet",
@@ -6428,7 +6623,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n109",
+                          "id": "n112",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "initialization of ReflectionCacheSet",
@@ -6496,7 +6691,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n110",
+                      "id": "n113",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "ReflectionCacheSet.GetOrCreateCache",
@@ -6565,7 +6760,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n111",
+                      "id": "n114",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "methodCache.GetOrAdd",
@@ -6616,7 +6811,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n112",
+                          "id": "n115",
                           "kind": "branch",
                           "change": "unchanged",
                           "label": "possible initialization of LazyWithMetadataRegistrationSource",
@@ -6663,7 +6858,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n113",
+                              "id": "n116",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "initialization of LazyWithMetadataRegistrationSource",
@@ -6741,7 +6936,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n114",
+                  "id": "n117",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ LightweightAdapterRegistrationSource.RegistrationsFor",
@@ -6788,7 +6983,72 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n115",
+                      "id": "n118",
+                      "kind": "call",
+                      "change": "unchanged",
+                      "label": "Service.op_Equality",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+                        "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Service.cs",
+                          "startLine": 26,
+                          "startColumn": 5,
+                          "endLine": 30,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Features/LightweightAdapters/LightweightAdapterRegistrationSource.cs",
+                            "startLine": 42,
+                            "startColumn": 13,
+                            "endLine": 42,
+                            "endColumn": 28
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "after": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+                        "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Service.cs",
+                          "startLine": 26,
+                          "startColumn": 5,
+                          "endLine": 30,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Features/LightweightAdapters/LightweightAdapterRegistrationSource.cs",
+                            "startLine": 42,
+                            "startColumn": 13,
+                            "endLine": 42,
+                            "endColumn": 28
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n119",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "if (_registrationData.Services.Contains(service))",
@@ -6835,7 +7095,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n116",
+                          "id": "n120",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "registrationAccessor(_activatorData.FromService).Select",
@@ -6886,7 +7146,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n117",
+                              "id": "n121",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "RegistrationBuilder.ForDelegate",
@@ -6949,7 +7209,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n118",
+                                  "id": "n122",
                                   "kind": "call",
                                   "change": "unchanged",
                                   "label": "new ResolveRequest",
@@ -7014,7 +7274,7 @@ stdout:
                                   "omission": null
                                 },
                                 {
-                                  "id": "n119",
+                                  "id": "n123",
                                   "kind": "call",
                                   "change": "unchanged",
                                   "label": "IComponentContext.ResolveComponent",
@@ -7083,7 +7343,7 @@ stdout:
                                   },
                                   "children": [
                                     {
-                                      "id": "n120",
+                                      "id": "n124",
                                       "kind": "dispatchTarget",
                                       "change": "unchanged",
                                       "label": "⇢ Container.ResolveComponent",
@@ -7136,7 +7396,7 @@ stdout:
                                       }
                                     },
                                     {
-                                      "id": "n121",
+                                      "id": "n125",
                                       "kind": "dispatchTarget",
                                       "change": "unchanged",
                                       "label": "⇢ LifetimeScope.ResolveComponent",
@@ -7189,7 +7449,7 @@ stdout:
                                       }
                                     },
                                     {
-                                      "id": "n122",
+                                      "id": "n126",
                                       "kind": "dispatchTarget",
                                       "change": "unchanged",
                                       "label": "⇢ DefaultResolveRequestContext.ResolveComponent",
@@ -7242,7 +7502,7 @@ stdout:
                                       }
                                     },
                                     {
-                                      "id": "n123",
+                                      "id": "n127",
                                       "kind": "dispatchTarget",
                                       "change": "unchanged",
                                       "label": "⇢ DecoratorContext.ResolveComponent",
@@ -7305,7 +7565,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n124",
+                              "id": "n128",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "RegistrationExtensions.Targeting",
@@ -7370,7 +7630,7 @@ stdout:
                               "omission": null
                             },
                             {
-                              "id": "n125",
+                              "id": "n129",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "RegistrationOrderExtensions.InheritRegistrationOrderFrom",
@@ -7439,7 +7699,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n126",
+                              "id": "n130",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "RegistrationData.CopyFrom",
@@ -7508,7 +7768,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n127",
+                              "id": "n131",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "RegistrationBuilder.CreateRegistration",
@@ -7583,7 +7843,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n128",
+                      "id": "n132",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "if ((service is IServiceWithType requestedServiceWithType && _activatorData.FromService is IServi…",
@@ -7630,7 +7890,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n129",
+                          "id": "n133",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "IServiceWithType.ChangeType",
@@ -7697,7 +7957,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n130",
+                              "id": "n134",
                               "kind": "dispatchTarget",
                               "change": "unchanged",
                               "label": "⇢ KeyedService.ChangeType",
@@ -7750,7 +8010,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n131",
+                              "id": "n135",
                               "kind": "dispatchTarget",
                               "change": "unchanged",
                               "label": "⇢ TypedService.ChangeType",
@@ -7803,7 +8063,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n132",
+                              "id": "n136",
                               "kind": "dispatchTarget",
                               "change": "unchanged",
                               "label": "⇢ DecoratorService.ChangeType",
@@ -7859,7 +8119,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n133",
+                          "id": "n137",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "registrationAccessor(serviceToFind).Select",
@@ -7910,7 +8170,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n134",
+                              "id": "n138",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "RegistrationBuilder.ForDelegate",
@@ -7973,7 +8233,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n135",
+                                  "id": "n139",
                                   "kind": "call",
                                   "change": "unchanged",
                                   "label": "new ResolveRequest",
@@ -8038,7 +8298,7 @@ stdout:
                                   "omission": null
                                 },
                                 {
-                                  "id": "n136",
+                                  "id": "n140",
                                   "kind": "call",
                                   "change": "unchanged",
                                   "label": "IComponentContext.ResolveComponent",
@@ -8107,7 +8367,7 @@ stdout:
                                   },
                                   "children": [
                                     {
-                                      "id": "n137",
+                                      "id": "n141",
                                       "kind": "dispatchTarget",
                                       "change": "unchanged",
                                       "label": "⇢ Container.ResolveComponent",
@@ -8160,7 +8420,7 @@ stdout:
                                       }
                                     },
                                     {
-                                      "id": "n138",
+                                      "id": "n142",
                                       "kind": "dispatchTarget",
                                       "change": "unchanged",
                                       "label": "⇢ LifetimeScope.ResolveComponent",
@@ -8213,7 +8473,7 @@ stdout:
                                       }
                                     },
                                     {
-                                      "id": "n139",
+                                      "id": "n143",
                                       "kind": "dispatchTarget",
                                       "change": "unchanged",
                                       "label": "⇢ DefaultResolveRequestContext.ResolveComponent",
@@ -8266,7 +8526,7 @@ stdout:
                                       }
                                     },
                                     {
-                                      "id": "n140",
+                                      "id": "n144",
                                       "kind": "dispatchTarget",
                                       "change": "unchanged",
                                       "label": "⇢ DecoratorContext.ResolveComponent",
@@ -8329,7 +8589,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n141",
+                              "id": "n145",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "RegistrationExtensions.Targeting",
@@ -8394,7 +8654,7 @@ stdout:
                               "omission": null
                             },
                             {
-                              "id": "n142",
+                              "id": "n146",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "RegistrationData.CopyFrom",
@@ -8463,11 +8723,11 @@ stdout:
                               }
                             },
                             {
-                              "id": "n143",
+                              "id": "n147",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "RegistrationData.AddService",
-                              "detail": null,
+                              "detail": "depth limit",
                               "before": {
                                 "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Builder.RegistrationData.AddService(global::Autofac.Core.Service)",
                                 "signature": "public Autofac.Builder.RegistrationData.AddService(Autofac.Core.Service service) -> void",
@@ -8525,10 +8785,14 @@ stdout:
                                 "origin": "source"
                               },
                               "children": [],
-                              "omission": null
+                              "omission": {
+                                "reason": "depth-limit",
+                                "symbolId": null,
+                                "referenceId": null
+                              }
                             },
                             {
-                              "id": "n144",
+                              "id": "n148",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "RegistrationBuilder.CreateRegistration",
@@ -8606,7 +8870,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n145",
+                  "id": "n149",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ StronglyTypedMetaRegistrationSource.RegistrationsFor",
@@ -8653,7 +8917,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n146",
+                      "id": "n150",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "if (!(service is not IServiceWithType swt))",
@@ -8700,7 +8964,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n147",
+                          "id": "n151",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "InternalTypeExtensions.IsGenericTypeDefinedBy",
@@ -8772,7 +9036,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n148",
+                      "id": "n152",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "IServiceWithType.ChangeType",
@@ -8839,7 +9103,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n149",
+                          "id": "n153",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ KeyedService.ChangeType",
@@ -8892,7 +9156,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n150",
+                          "id": "n154",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ TypedService.ChangeType",
@@ -8945,7 +9209,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n151",
+                          "id": "n155",
                           "kind": "dispatchTarget",
                           "change": "unchanged",
                           "label": "⇢ DecoratorService.ChangeType",
@@ -9001,7 +9265,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n152",
+                      "id": "n156",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "possible initialization of ReflectionCacheSet",
@@ -9048,7 +9312,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n153",
+                          "id": "n157",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "initialization of ReflectionCacheSet",
@@ -9116,7 +9380,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n154",
+                      "id": "n158",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "ReflectionCacheSet.GetOrCreateCache",
@@ -9185,7 +9449,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n155",
+                      "id": "n159",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "methodCache.GetOrAdd",
@@ -9236,7 +9500,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n156",
+                          "id": "n160",
                           "kind": "branch",
                           "change": "unchanged",
                           "label": "possible initialization of StronglyTypedMetaRegistrationSource",
@@ -9283,7 +9547,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n157",
+                              "id": "n161",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "initialization of StronglyTypedMetaRegistrationSource",
@@ -9361,7 +9625,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n158",
+                  "id": "n162",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ OpenGenericDecoratorRegistrationSource.RegistrationsFor",
@@ -9408,7 +9672,72 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n159",
+                      "id": "n163",
+                      "kind": "call",
+                      "change": "unchanged",
+                      "label": "Service.op_Equality",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+                        "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Service.cs",
+                          "startLine": 26,
+                          "startColumn": 5,
+                          "endLine": 30,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Features/OpenGenerics/OpenGenericDecoratorRegistrationSource.cs",
+                            "startLine": 64,
+                            "startColumn": 13,
+                            "endLine": 64,
+                            "endColumn": 28
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "after": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+                        "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Service.cs",
+                          "startLine": 26,
+                          "startColumn": 5,
+                          "endLine": 30,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Features/OpenGenerics/OpenGenericDecoratorRegistrationSource.cs",
+                            "startLine": 64,
+                            "startColumn": 13,
+                            "endLine": 64,
+                            "endColumn": 28
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n164",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "OpenGenericServiceBinder.TryBindOpenGenericTypedService",
@@ -9477,7 +9806,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n160",
+                      "id": "n165",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "if (OpenGenericServiceBinder.TryBindOpenGenericTypedService(swt, _registrationData.Services, _act…",
@@ -9524,7 +9853,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n161",
+                          "id": "n166",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "IServiceWithType.ChangeType",
@@ -9591,7 +9920,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n162",
+                              "id": "n167",
                               "kind": "dispatchTarget",
                               "change": "unchanged",
                               "label": "⇢ KeyedService.ChangeType",
@@ -9644,7 +9973,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n163",
+                              "id": "n168",
                               "kind": "dispatchTarget",
                               "change": "unchanged",
                               "label": "⇢ TypedService.ChangeType",
@@ -9697,7 +10026,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n164",
+                              "id": "n169",
                               "kind": "dispatchTarget",
                               "change": "unchanged",
                               "label": "⇢ DecoratorService.ChangeType",
@@ -9753,7 +10082,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n165",
+                          "id": "n170",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "registrationAccessor(fromService).Select",
@@ -9804,7 +10133,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n166",
+                              "id": "n171",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "OpenGenericDecoratorRegistrationSource.AddDecoratedComponentParameter",
@@ -9873,7 +10202,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n167",
+                              "id": "n172",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "new ReflectionActivator",
@@ -9942,7 +10271,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n168",
+                              "id": "n173",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "RegistrationBuilder.CreateRegistration",
@@ -10020,7 +10349,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n169",
+                  "id": "n174",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ OpenGenericDelegateRegistrationSource.RegistrationsFor",
@@ -10067,7 +10396,72 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n170",
+                      "id": "n175",
+                      "kind": "call",
+                      "change": "unchanged",
+                      "label": "Service.op_Equality",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+                        "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Service.cs",
+                          "startLine": 26,
+                          "startColumn": 5,
+                          "endLine": 30,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Features/OpenGenerics/OpenGenericDelegateRegistrationSource.cs",
+                            "startLine": 47,
+                            "startColumn": 13,
+                            "endLine": 47,
+                            "endColumn": 28
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "after": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+                        "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Service.cs",
+                          "startLine": 26,
+                          "startColumn": 5,
+                          "endLine": 30,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Features/OpenGenerics/OpenGenericDelegateRegistrationSource.cs",
+                            "startLine": 47,
+                            "startColumn": 13,
+                            "endLine": 47,
+                            "endColumn": 28
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n176",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "OpenGenericServiceBinder.TryBindOpenGenericDelegateService",
@@ -10136,7 +10530,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n171",
+                      "id": "n177",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "if (OpenGenericServiceBinder.TryBindOpenGenericDelegateService(swt, _registrationData.Services, _…",
@@ -10183,7 +10577,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n172",
+                          "id": "n178",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "new DelegateActivator",
@@ -10252,7 +10646,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n173",
+                          "id": "n179",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "RegistrationBuilder.CreateRegistration",
@@ -10327,7 +10721,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n174",
+                  "id": "n180",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ OpenGenericRegistrationSource.RegistrationsFor",
@@ -10374,7 +10768,72 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n175",
+                      "id": "n181",
+                      "kind": "call",
+                      "change": "unchanged",
+                      "label": "Service.op_Equality",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+                        "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Service.cs",
+                          "startLine": 26,
+                          "startColumn": 5,
+                          "endLine": 30,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Features/OpenGenerics/OpenGenericRegistrationSource.cs",
+                            "startLine": 59,
+                            "startColumn": 13,
+                            "endLine": 59,
+                            "endColumn": 28
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "after": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+                        "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Service.cs",
+                          "startLine": 26,
+                          "startColumn": 5,
+                          "endLine": 30,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Features/OpenGenerics/OpenGenericRegistrationSource.cs",
+                            "startLine": 59,
+                            "startColumn": 13,
+                            "endLine": 59,
+                            "endColumn": 28
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n182",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "OpenGenericServiceBinder.TryBindOpenGenericTypedService",
@@ -10443,7 +10902,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n176",
+                      "id": "n183",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "if (OpenGenericServiceBinder.TryBindOpenGenericTypedService(swt, _registrationData.Services, _act…",
@@ -10490,7 +10949,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n177",
+                          "id": "n184",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "new ReflectionActivator",
@@ -10559,7 +11018,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n178",
+                          "id": "n185",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "RegistrationBuilder.CreateRegistration",
@@ -10634,7 +11093,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n179",
+                  "id": "n186",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ AnyConcreteTypeNotAlreadyRegisteredSource.RegistrationsFor",
@@ -10681,7 +11140,72 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n180",
+                      "id": "n187",
+                      "kind": "call",
+                      "change": "unchanged",
+                      "label": "Service.op_Equality",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+                        "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Service.cs",
+                          "startLine": 26,
+                          "startColumn": 5,
+                          "endLine": 30,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Features/ResolveAnything/AnyConcreteTypeNotAlreadyRegisteredSource.cs",
+                            "startLine": 75,
+                            "startColumn": 13,
+                            "endLine": 75,
+                            "endColumn": 23
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "after": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+                        "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Service.cs",
+                          "startLine": 26,
+                          "startColumn": 5,
+                          "endLine": 30,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Features/ResolveAnything/AnyConcreteTypeNotAlreadyRegisteredSource.cs",
+                            "startLine": 75,
+                            "startColumn": 13,
+                            "endLine": 75,
+                            "endColumn": 23
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n188",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "InternalTypeExtensions.MayAllowReflectionActivation",
@@ -10750,7 +11274,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n181",
+                      "id": "n189",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "if (serviceType.IsGenericType)",
@@ -10797,7 +11321,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n182",
+                          "id": "n190",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "AnyConcreteTypeNotAlreadyRegisteredSource.ShouldRegisterGenericService",
@@ -10869,7 +11393,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n183",
+                      "id": "n191",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "RegistrationBuilder.ForType",
@@ -10938,7 +11462,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n184",
+                      "id": "n192",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "RegistrationBuilder.CreateRegistration",
@@ -11010,7 +11534,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n185",
+                  "id": "n193",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ ContravariantRegistrationSource.RegistrationsFor",
@@ -11057,7 +11581,72 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n186",
+                      "id": "n194",
+                      "kind": "call",
+                      "change": "unchanged",
+                      "label": "Service.op_Equality",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+                        "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Service.cs",
+                          "startLine": 26,
+                          "startColumn": 5,
+                          "endLine": 30,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Features/Variance/ContravariantRegistrationSource.cs",
+                            "startLine": 78,
+                            "startColumn": 13,
+                            "endLine": 78,
+                            "endColumn": 28
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "after": {
+                        "symbolId": "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)",
+                        "signature": "public static Autofac.Core.Service.operator ==(Autofac.Core.Service? left, Autofac.Core.Service? right) -> bool",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "project:src/Autofac/Autofac.csproj@net10.0::Autofac.Core.Service.op_Equality(global::Autofac.Core.Service,global::Autofac.Core.Service)"
+                        ],
+                        "definition": {
+                          "path": "src/Autofac/Core/Service.cs",
+                          "startLine": 26,
+                          "startColumn": 5,
+                          "endLine": 30,
+                          "endColumn": 6
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Autofac/Features/Variance/ContravariantRegistrationSource.cs",
+                            "startLine": 78,
+                            "startColumn": 13,
+                            "endLine": 78,
+                            "endColumn": 28
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n195",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "if (!(service is not IServiceWithType swt || service is DecoratorService))",
@@ -11104,7 +11693,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n187",
+                          "id": "n196",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "ContravariantRegistrationSource.IsCompatibleInterfaceType",
@@ -11172,7 +11761,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n188",
+                      "id": "n197",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "ContravariantRegistrationSource.GetTypesAssignableFrom",
@@ -11241,7 +11830,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n189",
+                      "id": "n198",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "possibleSubstitutions.Select",
@@ -11292,7 +11881,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n190",
+                          "id": "n199",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "ContravariantRegistrationSource.SubstituteArrayElementAt",
@@ -11360,7 +11949,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n191",
+                      "id": "n200",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "possibleSubstitutions.Select(s => SubstituteArrayElementAt(args, s, contravariantParameterIndex)).Where",
@@ -11411,7 +12000,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n192",
+                          "id": "n201",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "InternalTypeExtensions.IsCompatibleWithGenericParameterConstraints",
@@ -11483,7 +12072,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n193",
+                      "id": "n202",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "variations.SelectMany",
@@ -11534,7 +12123,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n194",
+                          "id": "n203",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "IServiceWithType.ChangeType",
@@ -11601,7 +12190,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n195",
+                              "id": "n204",
                               "kind": "dispatchTarget",
                               "change": "unchanged",
                               "label": "⇢ KeyedService.ChangeType",
@@ -11654,7 +12243,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n196",
+                              "id": "n205",
                               "kind": "dispatchTarget",
                               "change": "unchanged",
                               "label": "⇢ TypedService.ChangeType",
@@ -11707,7 +12296,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n197",
+                              "id": "n206",
                               "kind": "dispatchTarget",
                               "change": "unchanged",
                               "label": "⇢ DecoratorService.ChangeType",
@@ -11766,7 +12355,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n198",
+                      "id": "n207",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "variations.SelectMany(v => registrationAccessor(swt.ChangeType(v))).Where",
@@ -11817,7 +12406,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n199",
+                          "id": "n208",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "r.Metadata.ContainsKey → FallbackDictionary<TKey, TValue>.ContainsKey",
@@ -11873,7 +12462,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n200",
+                      "id": "n209",
                       "kind": "call",
                       "change": "unchanged",
                       "label": "variantRegistrations.Select",
@@ -11924,7 +12513,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n201",
+                          "id": "n210",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "RegistrationBuilder.ForDelegate",
@@ -11987,7 +12576,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n202",
+                              "id": "n211",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "new ResolveRequest",
@@ -12052,7 +12641,7 @@ stdout:
                               "omission": null
                             },
                             {
-                              "id": "n203",
+                              "id": "n212",
                               "kind": "call",
                               "change": "unchanged",
                               "label": "IComponentContext.ResolveComponent",
@@ -12121,7 +12710,7 @@ stdout:
                               },
                               "children": [
                                 {
-                                  "id": "n204",
+                                  "id": "n213",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
                                   "label": "⇢ Container.ResolveComponent",
@@ -12174,7 +12763,7 @@ stdout:
                                   }
                                 },
                                 {
-                                  "id": "n205",
+                                  "id": "n214",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
                                   "label": "⇢ LifetimeScope.ResolveComponent",
@@ -12227,7 +12816,7 @@ stdout:
                                   }
                                 },
                                 {
-                                  "id": "n206",
+                                  "id": "n215",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
                                   "label": "⇢ DefaultResolveRequestContext.ResolveComponent",
@@ -12280,7 +12869,7 @@ stdout:
                                   }
                                 },
                                 {
-                                  "id": "n207",
+                                  "id": "n216",
                                   "kind": "dispatchTarget",
                                   "change": "unchanged",
                                   "label": "⇢ DecoratorContext.ResolveComponent",
@@ -12343,7 +12932,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n208",
+                          "id": "n217",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "RegistrationExtensions.Targeting",
@@ -12408,7 +12997,7 @@ stdout:
                           "omission": null
                         },
                         {
-                          "id": "n209",
+                          "id": "n218",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.As",
@@ -12477,7 +13066,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n210",
+                          "id": "n219",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.WithMetadata → RegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>.WithMetadata",
@@ -12546,7 +13135,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n211",
+                          "id": "n220",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "RegistrationBuilder.CreateRegistration",
@@ -12624,7 +13213,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n212",
+              "id": "n221",
               "kind": "branch",
               "change": "unchanged",
               "label": "foreach (var provided in next.RegistrationsFor(service, _registrationAccessor))",
@@ -12671,7 +13260,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n213",
+                  "id": "n222",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "DefaultRegisteredServicesTracker.PopulateAdditionalServicesForProvidedRegistration",
@@ -12734,7 +13323,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n214",
+                      "id": "n223",
                       "kind": "branch",
                       "change": "unchanged",
                       "label": "foreach (var additionalService in provided.Services)",
@@ -12781,7 +13370,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n215",
+                          "id": "n224",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "DefaultRegisteredServicesTracker.GetServiceInfo",
@@ -12850,7 +13439,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n216",
+                          "id": "n225",
                           "kind": "call",
                           "change": "unchanged",
                           "label": "DefaultRegisteredServicesTracker.UseEphemeralAdditionalInfoIfNeeded",
@@ -12919,7 +13508,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n217",
+                          "id": "n226",
                           "kind": "call",
                           "change": "removed",
                           "label": "DefaultRegisteredServicesTracker.InitializeOrSkipSource",
@@ -12961,7 +13550,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n218",
+                          "id": "n227",
                           "kind": "call",
                           "change": "added",
                           "label": "DefaultRegisteredServicesTracker.HoldOrApplyForAdditionalService",
@@ -13009,7 +13598,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n219",
+                  "id": "n228",
                   "kind": "call",
                   "change": "removed",
                   "label": "DefaultRegisteredServicesTracker.AddRegistration",
@@ -13046,7 +13635,7 @@ stdout:
                   "after": null,
                   "children": [
                     {
-                      "id": "n220",
+                      "id": "n229",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ DefaultRegisteredServicesTracker.AddRegistration",
@@ -13080,7 +13669,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n221",
+                      "id": "n230",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ ScopeRestrictedRegisteredServicesTracker.AddRegistration",
@@ -13117,7 +13706,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n222",
+                  "id": "n231",
                   "kind": "call",
                   "change": "added",
                   "label": "DefaultRegisteredServicesTracker.AddRegistration",
@@ -13154,7 +13743,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n223",
+                      "id": "n232",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ DefaultRegisteredServicesTracker.AddRegistration",
@@ -13188,7 +13777,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n224",
+                      "id": "n233",
                       "kind": "dispatchTarget",
                       "change": "added",
                       "label": "⇢ ScopeRestrictedRegisteredServicesTracker.AddRegistration",
