@@ -65,6 +65,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             SerilogMetricsExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "polly-fault-null-outcome")
             PollyFaultExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "cleanarchitecture-value-object-operators")
+            CleanArchitectureOperatorExpectations.Verify(result, options.Entries.Count > 0);
         var diagnostics = string.Concat(result.Diagnostics.Take(8).Select(diagnostic =>
             (diagnostic.Location is null ? "" : $"{diagnostic.Location.Path}:{diagnostic.Location.Line}: ") + $"{diagnostic.Code}: {diagnostic.Message}\n"));
         if (result.Diagnostics.Count > 8)

@@ -1,0 +1,57 @@
+﻿format: text
+exit: 0
+stdout:
++ ValueObject.op_Equality
++ └─ ValueObject.EqualOperator
++    └─ if (left is not null)
++       └─ ValueObject.Equals
++          ├─ if (!(obj == null))
++          │  ├─ obj.GetType
++          │  ├─ GetType
++          │  └─ Type.op_Inequality
++          ├─ ValueObject.GetEqualityComponents → Colour.GetEqualityComponents ×2
++          └─ GetEqualityComponents().SequenceEqual
+
++ ValueObject.op_Inequality
++ └─ ValueObject.NotEqualOperator
++    └─ ValueObject.EqualOperator ↑ as above
+stderr:
+src/AppHost/Program.cs:1: unresolved-call: Cannot bind DistributedApplication.CreateBuilder.
+src/AppHost/Program.cs:25: unresolved-call: Cannot bind builder.AddProject<Projects.Web>.
+src/AppHost/Program.cs:28: unresolved-call: Cannot bind builder.Build().Run.
+src/AppHost/Program.cs:28: unresolved-call: Cannot bind builder.Build.
+src/Application/Common/Behaviours/AuthorizationBehaviour.cs:14: unresolved-call: Cannot bind implicit base constructor for new AuthorizationBehaviour<TRequest, TResponse>.
+src/Application/Common/Behaviours/AuthorizationBehaviour.cs:78: unresolved-call: Cannot bind next.
+src/Application/Common/Behaviours/LoggingBehaviour.cs:14: unresolved-call: Cannot bind implicit base constructor for new LoggingBehaviour<TRequest>.
+src/Application/Common/Behaviours/PerformanceBehaviour.cs:15: unresolved-call: Cannot bind implicit base constructor for new PerformanceBehaviour<TRequest, TResponse>.
+369 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
++ ValueObject.op_Equality
++ └─ ValueObject.EqualOperator
++    └─ if (left is not null)
++       └─ ValueObject.Equals
++          ├─ if (!(obj == null))
++          │  ├─ obj.GetType
++          │  ├─ GetType
++          │  └─ Type.op_Inequality
++          ├─ ValueObject.GetEqualityComponents → Colour.GetEqualityComponents ×2
++          └─ GetEqualityComponents().SequenceEqual
+
++ ValueObject.op_Inequality
++ └─ ValueObject.NotEqualOperator
++    └─ ValueObject.EqualOperator ↑ as above
+```
+stderr:
+src/AppHost/Program.cs:1: unresolved-call: Cannot bind DistributedApplication.CreateBuilder.
+src/AppHost/Program.cs:25: unresolved-call: Cannot bind builder.AddProject<Projects.Web>.
+src/AppHost/Program.cs:28: unresolved-call: Cannot bind builder.Build().Run.
+src/AppHost/Program.cs:28: unresolved-call: Cannot bind builder.Build.
+src/Application/Common/Behaviours/AuthorizationBehaviour.cs:14: unresolved-call: Cannot bind implicit base constructor for new AuthorizationBehaviour<TRequest, TResponse>.
+src/Application/Common/Behaviours/AuthorizationBehaviour.cs:78: unresolved-call: Cannot bind next.
+src/Application/Common/Behaviours/LoggingBehaviour.cs:14: unresolved-call: Cannot bind implicit base constructor for new LoggingBehaviour<TRequest>.
+src/Application/Common/Behaviours/PerformanceBehaviour.cs:15: unresolved-call: Cannot bind implicit base constructor for new PerformanceBehaviour<TRequest, TResponse>.
+369 additional diagnostics; use --diagnostics full.

@@ -5,7 +5,7 @@ internal static class RealWorldCaseData
     private static readonly IReadOnlyDictionary<string, (bool History, bool Views)> RepositoryCollections = new Dictionary<string, (bool, bool)>
     {
         ["serilog"] = (true, true),
-        ["cleanarchitecture"] = (true, false),
+        ["cleanarchitecture"] = (true, true),
         ["autofac"] = (false, true),
         ["polly"] = (false, true),
         ["ocelot"] = (false, true),

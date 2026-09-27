@@ -19,10 +19,15 @@ public sealed class SerilogRealWorldCaseTests(RealWorldCaseFixture fixture) : IC
 public sealed class CleanArchitectureRealWorldCaseTests(RealWorldCaseFixture fixture) : IClassFixture<RealWorldCaseFixture>
 {
     public static IEnumerable<object[]> Entries => RealWorldCaseData.Entries("cleanarchitecture");
+    public static IEnumerable<object[]> Views => RealWorldCaseData.Views("cleanarchitecture");
 
     [Theory]
     [MemberData(nameof(Entries))]
     public Task PinnedHistory(string id) => fixture.VerifyHistoryAsync(id);
+
+    [Theory]
+    [MemberData(nameof(Views))]
+    public Task ReviewedView(string id, string viewId) => fixture.VerifyViewAsync(id, viewId);
 }
 
 public sealed class AutofacRealWorldCaseTests(RealWorldCaseFixture fixture) : IClassFixture<RealWorldCaseFixture>
