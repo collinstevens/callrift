@@ -268,16 +268,17 @@
     "afterLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
     "before": "6a2e0f806960a5796450abd6184f22ac039cb03a",
     "after": "30842446a27c81cee45748d8f1916eeac2a5d58d",
-    "reason": "Remove shared any-key adapters so registrations remain specific to each registry",
+    "reason": "Remove shared any-key adapters so registrations remain specific to each registry. Independent pinned-source and compiler review verifies short-circuit key/type getters, array-length reads, metadata copying before the dictionary indexer write, and Lifetime/Sharing/Ownership reads before adapter construction. The callback reads AnyKey and ServiceType before constructing its resolve request. Cache TryGetValue and TryAdd disappear; the call-free cache-hit return guard remains unrendered. Automatic roots are 140 in source mode and 101 in restored net10.0, including newly exposed indexer/activator getter paths and the added benchmark roots. Possible factory-expression callbacks and interface dispatch do not prove runtime execution. Generated declarations were independently regenerated. Source has six newly followed unresolved resource calls; restored diagnostics remain empty. Upstream tests were read but not executed.",
     "tags": [
       "cache-removal",
       "branch-guard",
       "constructor-removal",
-      "registration-scopes"
+      "registration-scopes",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/source-only-coverage.md",
-    "review": "reviews/autofac-any-key-cache.md",
+    "review": "../tests/Callrift.RealWorldCases/AutofacAnyKeyExpectations.cs",
     "routine": false,
     "views": [
       {

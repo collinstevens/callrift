@@ -95,6 +95,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             AutofacModuleExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "autofac-held-pipeline")
             AutofacHeldPipelineExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "autofac-any-key-cache")
+            AutofacAnyKeyExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "autofac-build-failure-disposal")
             AutofacDisposalExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "autofac-pipeline-subscription-guard")
