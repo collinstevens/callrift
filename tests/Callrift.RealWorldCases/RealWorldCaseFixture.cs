@@ -149,6 +149,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             OcelotTimeoutExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "ocelot-header-errors")
             OcelotHeaderErrorExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "polly-hedging-attempt")
+            PollyHedgingAttemptExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "ocelot-route-claims-keys")
             OcelotRouteClaimsExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "ocelot-websocket-security")

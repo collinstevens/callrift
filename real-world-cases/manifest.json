@@ -3771,5 +3771,85 @@
     "beforeLicenseBlob": "058bbbcec4d6137a36c5cc6a46a599f93bb10c42",
     "afterLicenseBlob": "058bbbcec4d6137a36c5cc6a46a599f93bb10c42",
     "review": "../tests/Callrift.RealWorldCases/OcelotHeaderErrorExpectations.cs"
+  },
+  {
+    "id": "polly-hedging-attempt",
+    "before": "6ef33acb7b132bda93d3790923f9f1f2b32858d9",
+    "after": "198b42a16a75753be49d9820aa89c6b3518b91ea",
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "2"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "TaskExecution<T>.UpdateOutcomeAsync",
+          "--entry",
+          "HedgingPredicateArguments<TResult>..ctor(global::Polly.ResilienceContext,global::Polly.Outcome<TResult>)",
+          "--entry",
+          "HedgingPredicateArguments<TResult>..ctor(global::Polly.ResilienceContext,global::Polly.Outcome<TResult>,int)"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "options": [
+          "--depth",
+          "2",
+          "--project",
+          "src/Polly.Core/Polly.Core.csproj",
+          "--framework",
+          "net8.0"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "TaskExecution<T>.UpdateOutcomeAsync",
+          "--entry",
+          "HedgingPredicateArguments<TResult>..ctor(global::Polly.ResilienceContext,global::Polly.Outcome<TResult>)",
+          "--entry",
+          "HedgingPredicateArguments<TResult>..ctor(global::Polly.ResilienceContext,global::Polly.Outcome<TResult>,int)",
+          "--project",
+          "src/Polly.Core/Polly.Core.csproj",
+          "--framework",
+          "net8.0"
+        ]
+      }
+    ],
+    "repository": "https://github.com/App-vNext/Polly.git",
+    "cacheName": "polly",
+    "license": "BSD-3-Clause",
+    "licenseFile": "LICENSE",
+    "reason": "Review hedging attempt-number propagation through source and restored Polly.Core net8.0 views. UpdateOutcomeAsync adds an AttemptNumber getter before switching from the two-argument predicate constructor to the new three-argument overload, which forwards to the preserved constructor. The existing constructor keeps its identity and receives a body-change marker from the new nullable property initializer; assignments and null/default values are absent from its call tree. Predicate invocation, outcome updates and telemetry calls remain ordered and unchanged. Automatic restored roots reach public pipeline execution overloads through possible component dispatch; source mode stops at TaskExecution.InitializeAsync because missing dependencies prevent the wider binding. The new nullable getter remains an automatic root. Source mode retains 1935 independently checked unresolved calls, two duplicate members, one unresolved static initializer and six inferred test-project diagnostics. Generic expansion is bounded with 15 source and 14 restored diagnostics; all views remain partial and truncated. Call graphs do not prove incrementing values or runtime hedging behavior. All formats repeat exactly in both modes on the review machine.",
+    "tags": [
+      "constructors",
+      "overloads",
+      "properties",
+      "generics",
+      "async",
+      "possible-dispatch",
+      "source-msbuild"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "beforeLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+    "afterLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
+    "review": "../tests/Callrift.RealWorldCases/PollyHedgingAttemptExpectations.cs"
   }
 ]
