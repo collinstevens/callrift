@@ -6,6 +6,75 @@ namespace Callrift.Scenarios;
 
 public sealed class DepthReachabilityTests
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    [Trait("Layer", "Fast")]
+    public Task DepthHintsFollowSelectedDefaultInterfaceImplementations(bool inherited) => VerifyDepthHintsFollowSelectedDefaultInterfaceImplementations(inherited, false);
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceDepthHintsFollowSelectedDefaultInterfaceImplementations(bool inherited) => VerifyDepthHintsFollowSelectedDefaultInterfaceImplementations(inherited, true);
+
+    private static async Task VerifyDepthHintsFollowSelectedDefaultInterfaceImplementations(bool inherited, bool workspace)
+    {
+        await using var fixture = await AnalysisFixture.CreateAsync(DefaultInterfaceScenario(inherited), workspace);
+        foreach (var depth in new[] { 1, 8 })
+        {
+            var outputs = await fixture.DiffFormatsAsync(new DiffOptions { Entries = ["Entry.Run"], MaxDepth = depth });
+            using var document = JsonDocument.Parse(outputs["json"]);
+            Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
+            Assert.Equal(inherited, document.RootElement.GetProperty("hasChanges").GetBoolean());
+            foreach (var format in new[] { "text", "md" })
+                Assert.Equal(inherited, outputs[format].Contains("Entry.Run", StringComparison.Ordinal));
+        }
+    }
+
+    [Theory]
+    [InlineData(false, false)]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    [InlineData(true, true)]
+    [Trait("Layer", "Integration")]
+    public async Task CliDefaultInterfaceDispatchAgreesAcrossQueries(bool inherited, bool workspace)
+    {
+        await using var fixture = await GitFixture.CreateAsync(DefaultInterfaceScenario(inherited));
+        foreach (var command in new[] { "diff", "tree", "reach" })
+        {
+            var arguments = new List<string> { command, command == "diff" ? fixture.Before : fixture.After };
+            if (command == "diff") arguments.Add(fixture.After);
+            arguments.AddRange(["--entry", "Entry.Run", "--depth", command == "diff" ? "1" : "8", "--format", "json"]);
+            if (command == "reach") arguments.AddRange(["--to", "Changed.Run"]);
+            if (workspace) arguments.AddRange(["--project", "App.csproj"]);
+            var output = await fixture.RunAsync(arguments.ToArray());
+            Assert.StartsWith("exit: 0\n", output);
+            using var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+            Assert.Empty(document.RootElement.GetProperty("diagnostics").EnumerateArray());
+            if (command == "diff") Assert.Equal(inherited, document.RootElement.GetProperty("hasChanges").GetBoolean());
+            else if (command == "reach") Assert.Equal(inherited, document.RootElement.GetProperty("paths").GetArrayLength() > 0);
+            else Assert.Equal(inherited, output.Contains("Changed.Run", StringComparison.Ordinal));
+        }
+    }
+
+    private static Scenario DefaultInterfaceScenario(bool inherited)
+    {
+        var source = """
+            interface IWork { void Run() => Changed.Run(); }
+            sealed class Worker : IWork { public void Run() => Preserved.Run(); }
+            static class Entry { public static void Run(IWork worker) => Bridge.Run(worker); }
+            static class Bridge { public static void Run(IWork worker) => worker.Run(); }
+            static class Changed { public static void Run() => Sink.Before(); }
+            static class Preserved { public static void Run() {} }
+            static class Sink { public static void Before() {} public static void After() {} }
+            """ + (inherited ? " sealed class InheritingWorker : IWork {}" : "");
+        const string project = "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup></Project>";
+        return new Scenario("depth-default-interface", "Depth hints follow the same possible implementations as expanded calls.",
+            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = source },
+            new Dictionary<string, string> { ["App.csproj"] = project, ["Flow.cs"] = source.Replace("Sink.Before();", "Sink.After();", StringComparison.Ordinal) }, []);
+    }
+
     [Fact]
     public void ConcurrentExpansionsRetainChangedDescendants()
     {

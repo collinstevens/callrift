@@ -402,7 +402,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                             resolved = candidate;
                             break;
                         }
-                        Add(method, resolved, receiverTypes, type);
+                        Add(method, resolved, receiverTypes, type, includeSelf: true);
                     }
             if (type.IsAbstract)
                 continue;
