@@ -77,6 +77,9 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
             return new CallTree(key, member.Label, member.MatchName, member.Signature, [], reachesChange, reachesChange ? "changes below depth limit" : "depth limit")
             { Kind = "member", Side = side, Omission = new Omission("depth-limit") };
         }
+        if (member.Calls.Count == 0)
+            return new CallTree(key, member.Label, member.MatchName, member.Signature, [], changed.Contains(key))
+            { Kind = "member", Side = side };
         var prelude = member.Calls.TakeWhile(call => call.IsInitialization).ToArray();
         var initializers = ExpandCalls(prelude, active, depth + 1, initialized);
         var path = new HashSet<string>(active, StringComparer.Ordinal) { key };
@@ -237,12 +240,12 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
 
     private HashSet<string> FindChangeReachability(bool skipInitialization)
     {
-        var callers = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
+        var callers = new Dictionary<string, List<string>>(StringComparer.Ordinal);
         foreach (var member in resolvedGraph.Members.Values)
             foreach (var target in ReachabilityTargets(member.Calls, skipInitialization))
             {
-                if (!callers.TryGetValue(target, out var incoming)) callers[target] = incoming = new HashSet<string>(StringComparer.Ordinal);
-                incoming.Add(member.Key);
+                if (!callers.TryGetValue(target, out var incoming)) callers[target] = incoming = [];
+                if (incoming.Count == 0 || incoming[^1] != member.Key) incoming.Add(member.Key);
             }
         var reachable = new HashSet<string>(changed, StringComparer.Ordinal);
         var pending = new Queue<string>(reachable);

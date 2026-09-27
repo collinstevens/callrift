@@ -173,8 +173,8 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 Branch("if (" + predicate + ")", binary, [binary.Right], result);
                 return;
         }
-        foreach (var child in node.ChildNodes())
-            Walk(child, result);
+        foreach (var child in node.ChildNodesAndTokens())
+            if (child.AsNode() is { } childNode) Walk(childNode, result);
     }
 
     private static ISymbol? StaticMember(ISymbol? symbol) => symbol switch
