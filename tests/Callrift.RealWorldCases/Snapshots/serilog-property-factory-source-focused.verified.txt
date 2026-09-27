@@ -1,0 +1,25 @@
+﻿format: text
+exit: 0
+stdout:
+~ LogEvent.AddPropertyIfAbsent (signature changed)
++ ├─ Guard.AgainstNull
++ │  └─ if (argument is null)
++ │     └─ new ArgumentNullException
+  ├─ _properties.ContainsKey
+  └─ if (!_properties.ContainsKey(name))
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
+
+format: md
+exit: 0
+stdout:
+```diff
+~ LogEvent.AddPropertyIfAbsent (signature changed)
++ ├─ Guard.AgainstNull
++ │  └─ if (argument is null)
++ │     └─ new ArgumentNullException
+  ├─ _properties.ContainsKey
+  └─ if (!_properties.ContainsKey(name))
+```
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.

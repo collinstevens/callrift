@@ -81,6 +81,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             SerilogMetricsExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "serilog-metrics-sequencing")
             SerilogSequencingExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "serilog-property-factory")
+            SerilogPropertyFactoryExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "serilog-exception-format")
             SerilogAccessorExpectations.VerifyExceptionFormatting(result);
         if (entry.Id == "serilog-extra-arguments")

@@ -1,0 +1,1495 @@
+﻿format: text
+exit: 0
+stdout:
+  LoggerAuditSinkConfiguration.Logger
+  └─ LoggerSinkConfiguration.Logger
+     ├─ Guard.AgainstNull
+     ├─ new LoggerConfiguration
+     ├─ LoggerConfiguration.get_MinimumLevel
+     ├─ LoggerMinimumLevelConfiguration.Is
+     ├─ configureLogger
+     ├─ LoggerConfiguration.CreateLogger
+     │  ├─ if (_loggerCreated)
+     │  ├─ List<T>.get_Count
+     │  ├─ if (_logEventSinks.Count > 0)
+     │  ├─ _auditSinks.Any
+     │  ├─ if (auditing)
+     │  ├─ if (sink is null)
+     │  ├─ _filters.Any
+     │  ├─ if (_filters.Any())
+     │  ├─ new PropertyValueConverter
+     │  ├─ new MessageTemplateProcessor
+     │  ├─ List<T>.get_Count
+     │  ├─ case 0
+     │  ├─ case 1
+     │  ├─ case _
+     │  ├─ Dictionary<TKey, TValue>.get_Count
+     │  ├─ if (_overrides.Count != 0)
+     │  ├─ _logEventSinks.Concat
+     │  ├─ _logEventSinks.Concat(_auditSinks).Where
+     │  ├─ _logEventSinks.Concat(_auditSinks).Where(s => s is IDisposable).ToArray
+     │  └─ new Logger
+     │     ├─ new Object
+~    │     └─ LoggerConfiguration.CreateLogger.Dispose (changes below depth limit)
+     ├─ Logger.get_HasOverrideMap
+     ├─ if (subLogger.HasOverrideMap)
+     ├─ new SecondaryLoggerSink
+     └─ LoggerSinkConfiguration.Sink
+
+  LoggerSinkConfiguration.Sink
+  ├─ new TSink
+  └─ LoggerSinkConfiguration.Sink
+     ├─ Guard.AgainstNull ×2
+     ├─ new BatchingSink
+     │  ├─ new
+     │  ├─ new
+     │  ├─ new
+     │  ├─ SelfLog.get_FailureListener
+     │  ├─ new Object
+     │  ├─ if (options == null)
+     │  ├─ BatchingOptions.get_BatchSizeLimit
+     │  ├─ if (options.BatchSizeLimit <= 0)
+     │  ├─ BatchingOptions.get_BufferingTimeLimit
+     │  ├─ TimeSpan.op_LessThanOrEqual
+     │  ├─ if (options.BufferingTimeLimit <= TimeSpan.Zero)
+     │  ├─ BatchingOptions.get_RetryTimeLimit
+     │  ├─ TimeSpan.op_LessThan
+     │  ├─ if (options.RetryTimeLimit < TimeSpan.Zero)
+     │  ├─ if (batchedSink is null)
+     │  ├─ BatchingOptions.get_BatchSizeLimit
+     │  ├─ BatchingOptions.get_QueueLimit
+     │  ├─ if (options.QueueLimit is { } limit)
+     │  ├─ else (!(options.QueueLimit is { } limit))
+     │  ├─ BatchingOptions.get_BufferingTimeLimit
+     │  ├─ BatchingOptions.get_RetryTimeLimit
+     │  ├─ new FailureAwareBatchScheduler
+     │  ├─ BatchingOptions.get_EagerlyEmitFirstEvent
+     │  ├─ CancellationTokenSource.get_Token
+     │  ├─ Task.Delay
+     │  ├─ Task.Delay(Timeout.InfiniteTimeSpan, _shutdownSignal.Token).ContinueWith
+     │  ├─ ExecutionContext.IsFlowSuppressed
+     │  ├─ else (!(ExecutionContext.IsFlowSuppressed()))
+     │  └─ Task.Run
+~    │     └─ BatchingSink.LoopAsync (changes below depth limit)
+     └─ LoggerSinkConfiguration.Sink
+
+  Logger.Debug
+  ├─ possible initialization of Logger
+  └─ Logger.Write
+     ├─ Logger.IsEnabled
+     ├─ if (propertyValues != null)
+     ├─ DateTimeOffset.get_Now
+     ├─ MessageTemplateProcessor.Process
+     ├─ Activity.get_Current
+     ├─ if (currentActivity is not null)
+     ├─ if (currentActivity is not null)
+     ├─ new LogEvent
+     └─ Logger.Dispatch
+        ├─ try
+        │  └─ ILogEventEnricher.Enrich
+~       │     ├─ ⇢ LogContextEnricher.Enrich (changes below depth limit)
+~       │     ├─ ⇢ ConditionalEnricher.Enrich (changes below depth limit)
+        │     ├─ ⇢ EmptyEnricher.Enrich
+        │     ├─ ⇢ FixedPropertyEnricher.Enrich (depth limit)
+~       │     ├─ ⇢ PropertyEnricher.Enrich (changes below depth limit)
+~       │     └─ ⇢ SafeAggregateEnricher.Enrich (changes below depth limit)
+        ├─ catch (Exception ex)
+        └─ ILogEventSink.Emit
+~          ├─ ⇢ Logger.Serilog.Core.ILogEventSink.Emit (changes below depth limit)
+~          ├─ ⇢ AggregateSink.Emit (changes below depth limit)
+           ├─ ⇢ BatchingSink.Emit (depth limit)
+~          ├─ ⇢ ConditionalSink.Emit (changes below depth limit)
+~          ├─ ⇢ DisposingAggregateSink.Emit (changes below depth limit)
+~          ├─ ⇢ FailureListenerSink.Emit (changes below depth limit)
+~          ├─ ⇢ FilteringSink.Emit (changes below depth limit)
+~          ├─ ⇢ OptionalInterfaceForwardingSink.Emit (changes below depth limit)
+~          ├─ ⇢ RestrictedSink.Emit (changes below depth limit)
+~          ├─ ⇢ SafeAggregateSink.Emit (changes below depth limit)
+~          └─ ⇢ SecondaryLoggerSink.Emit (changes below depth limit)
+
+  Logger.Debug
+  ├─ possible initialization of Logger
+  └─ Logger.Write
+     └─ Logger.Write
+        ├─ Logger.IsEnabled
+        ├─ if (propertyValues != null)
+        ├─ DateTimeOffset.get_Now
+        ├─ MessageTemplateProcessor.Process
+        ├─ Activity.get_Current
+        ├─ if (currentActivity is not null)
+        ├─ if (currentActivity is not null)
+        ├─ new LogEvent
+        └─ Logger.Dispatch ↑ as above
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled
+     └─ if (IsEnabled(level))
+        └─ Logger.Write
+           ├─ Logger.IsEnabled (depth limit)
+           ├─ if (propertyValues != null)
+           ├─ DateTimeOffset.get_Now
+           ├─ if (propertyValues is null)
+           ├─ MessageTemplateProcessor.Process (depth limit)
+           ├─ Activity.get_Current
+           ├─ if (currentActivity is not null)
+           ├─ if (currentActivity is not null)
+           ├─ new LogEvent (depth limit)
+~          └─ Logger.Dispatch (changes below depth limit)
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled
+     └─ if (IsEnabled(level))
+        └─ Logger.Write
+~          └─ Logger.Write (changes below depth limit)
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled
+     └─ if (IsEnabled(level))
+        └─ Logger.Write ↑ as above
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled
+     └─ if (IsEnabled(level))
+        └─ Logger.Write ↑ as above
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled
+     └─ if (IsEnabled(level))
+        └─ Logger.Write ↑ as above
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled
+     └─ if (IsEnabled(level))
+        └─ Logger.Write ↑ as above
+
+  Logger.Error
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Log.CloseAndFlush
+  ├─ possible initialization of Log
+  ├─ Logger.get_None
+  ├─ Interlocked.Exchange
+  └─ if ((logger as IDisposable) is not null)
+     └─ .Dispose
+        ├─ ⇢ EnricherStack.Enumerator.Dispose
+        ├─ ⇢ LogContext.ContextStackBookmark.Dispose
+        ├─ ⇢ ConditionalEnricher.Dispose
+        │  └─ if ((_wrapped as IDisposable) is not null)
+        │     └─ .Dispose
+        │        ├─ ⇢ EnricherStack.Enumerator.Dispose
+        │        ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+        │        ├─ ⇢ ConditionalEnricher.Dispose (↺ cycle)
+        │        ├─ ⇢ Logger.Dispose (depth limit)
+~       │        ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+~       │        └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+        ├─ ⇢ Logger.Dispose
+        ├─ ⇢ BatchingSink.Dispose
+        │  ├─ BatchingSink.SignalShutdown (depth limit)
+        │  ├─ try
+        │  ├─ catch (Exception ex)
+        │  │  └─ ILoggingFailureListener.OnLoggingFailed
+~       │  │     ├─ ⇢ DelegatingLoggingFailureListener.OnLoggingFailed (changes below depth limit)
+        │  │     └─ ⇢ SelfLog.SelfLogFailureListener.OnLoggingFailed (depth limit)
+        │  └─ if ((_targetSink as IDisposable) is not null)
+        │     └─ .Dispose
+        │        ├─ ⇢ EnricherStack.Enumerator.Dispose
+        │        ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~       │        ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+        │        ├─ ⇢ Logger.Dispose (depth limit)
+        │        ├─ ⇢ BatchingSink.Dispose (↺ cycle)
+~       │        ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+~       │        └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+        ├─ ⇢ ConditionalSink.Dispose
+        │  └─ if ((_wrapped as IDisposable) is not null)
+        │     └─ .Dispose
+        │        ├─ ⇢ EnricherStack.Enumerator.Dispose
+        │        ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~       │        ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+        │        ├─ ⇢ Logger.Dispose (depth limit)
+~       │        ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+        │        ├─ ⇢ ConditionalSink.Dispose (↺ cycle)
+~       │        ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+~       │        └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+        ├─ ⇢ DisposingAggregateSink.Dispose
+        │  └─ foreach (var sink in _sinks)
+        │     ├─ try
+        │     │  └─ disposable.Dispose
+        │     │     ├─ ⇢ EnricherStack.Enumerator.Dispose
+        │     │     ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~       │     │     ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+        │     │     ├─ ⇢ Logger.Dispose (depth limit)
+~       │     │     ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+~       │     │     ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+        │     │     ├─ ⇢ DisposingAggregateSink.Dispose (↺ cycle)
+~       │     │     ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (changes below depth limit)
+~       │     │     ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+~       │     │     └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+        │     └─ catch (Exception ex)
+        ├─ ⇢ OptionalInterfaceForwardingSink.Dispose
+        │  ├─ if (_sink is IDisposable inner)
+        │  │  └─ inner.Dispose
+        │  │     ├─ ⇢ EnricherStack.Enumerator.Dispose
+        │  │     ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~       │  │     ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+        │  │     ├─ ⇢ Logger.Dispose (depth limit)
+~       │  │     ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+~       │  │     ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+~       │  │     ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+        │  │     ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (↺ cycle)
+~       │  │     ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+~       │  │     └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+        │  └─ if ((_receiver as IDisposable) is not null)
+        │     └─ .Dispose
+        │        ├─ ⇢ EnricherStack.Enumerator.Dispose
+        │        ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~       │        ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+        │        ├─ ⇢ Logger.Dispose (depth limit)
+~       │        ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+        │        ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (↺ cycle)
+~       │        ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+~       │        └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+        ├─ ⇢ RestrictedSink.Dispose
+        │  └─ if ((_sink as IDisposable) is not null)
+        │     └─ .Dispose
+        │        ├─ ⇢ EnricherStack.Enumerator.Dispose
+        │        ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~       │        ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+        │        ├─ ⇢ Logger.Dispose (depth limit)
+~       │        ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (changes below depth limit)
+        │        ├─ ⇢ RestrictedSink.Dispose (↺ cycle)
+~       │        └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+        └─ ⇢ SecondaryLoggerSink.Dispose
+           └─ if ((_logger as IDisposable) is not null)
+              └─ .Dispose
+                 ├─ ⇢ EnricherStack.Enumerator.Dispose
+                 ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~                ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+                 ├─ ⇢ Logger.Dispose (depth limit)
+~                ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+~                ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+~                ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+~                ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (changes below depth limit)
+~                ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+                 └─ ⇢ SecondaryLoggerSink.Dispose (↺ cycle)
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger
+     └─ ILogger.Write
+        ├─ ⇢ Logger.Write
+        │  ├─ Logger.IsEnabled (depth limit)
+        │  └─ if (IsEnabled(level))
+        │     ├─ possible initialization of Logger
+~       │     └─ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  ├─ Log.get_Logger
+  └─ ILogger.Debug
+     ├─ ⇢ Logger.Debug
+     │  └─ Logger.Write ↑ as above
+     └─ ⇢ SilentLogger.Debug
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger
+     └─ ILogger.Write
+        ├─ ⇢ Logger.Write
+        │  ├─ Logger.IsEnabled (depth limit)
+        │  └─ if (IsEnabled(level))
+        │     ├─ possible initialization of Logger
+~       │     └─ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  ├─ Log.get_Logger
+  └─ ILogger.Debug
+     ├─ ⇢ Logger.Debug
+     │  └─ Logger.Debug
+~    │     └─ Logger.Write (changes below depth limit)
+     └─ ⇢ SilentLogger.Debug
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger
+     └─ ILogger.Write
+        ├─ ⇢ Logger.Write
+        │  ├─ Logger.IsEnabled (depth limit)
+        │  └─ if (IsEnabled(level))
+~       │     └─ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger
+     └─ ILogger.Write
+        ├─ ⇢ Logger.Write
+        │  ├─ Logger.IsEnabled (depth limit)
+        │  └─ if (IsEnabled(level))
+~       │     └─ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger
+     └─ ILogger.Write
+        ├─ ⇢ Logger.Write
+        │  ├─ Logger.IsEnabled (depth limit)
+        │  └─ if (IsEnabled(level))
+~       │     └─ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger
+     └─ ILogger.Write
+        ├─ ⇢ Logger.Write
+        │  ├─ Logger.IsEnabled (depth limit)
+        │  └─ if (IsEnabled(level))
+~       │     └─ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger
+     └─ ILogger.Write
+        ├─ ⇢ Logger.Write
+        │  ├─ Logger.IsEnabled (depth limit)
+        │  └─ if (IsEnabled(level))
+~       │     └─ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger
+     └─ ILogger.Write
+        ├─ ⇢ Logger.Write
+        │  ├─ Logger.IsEnabled (depth limit)
+        │  └─ if (IsEnabled(level))
+~       │     └─ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  ├─ Log.get_Logger
+  └─ ILogger.Error
+     ├─ ⇢ Logger.Error
+     │  └─ Logger.Write ↑ as above
+     └─ ⇢ SilentLogger.Error
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  ├─ Log.get_Logger
+  └─ ILogger.Error
+     ├─ ⇢ Logger.Error
+     │  └─ Logger.Error
+~    │     └─ Logger.Write (changes below depth limit)
+     └─ ⇢ SilentLogger.Error
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  ├─ Log.get_Logger
+  └─ ILogger.Fatal
+     ├─ ⇢ Logger.Fatal
+     │  └─ Logger.Write ↑ as above
+     └─ ⇢ SilentLogger.Fatal
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  ├─ Log.get_Logger
+  └─ ILogger.Fatal
+     ├─ ⇢ Logger.Fatal
+     │  └─ Logger.Fatal
+~    │     └─ Logger.Write (changes below depth limit)
+     └─ ⇢ SilentLogger.Fatal
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  ├─ Log.get_Logger
+  └─ ILogger.Information
+     ├─ ⇢ Logger.Information
+     │  └─ Logger.Write ↑ as above
+     └─ ⇢ SilentLogger.Information
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  ├─ Log.get_Logger
+  └─ ILogger.Information
+     ├─ ⇢ Logger.Information
+     │  └─ Logger.Information
+~    │     └─ Logger.Write (changes below depth limit)
+     └─ ⇢ SilentLogger.Information
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  ├─ Log.get_Logger
+  └─ ILogger.Verbose
+     ├─ ⇢ Logger.Verbose
+     │  └─ Logger.Write ↑ as above
+     └─ ⇢ SilentLogger.Verbose
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  ├─ Log.get_Logger
+  └─ ILogger.Verbose
+     ├─ ⇢ Logger.Verbose
+     │  └─ Logger.Verbose
+~    │     └─ Logger.Write (changes below depth limit)
+     └─ ⇢ SilentLogger.Verbose
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  ├─ Log.get_Logger
+  └─ ILogger.Warning
+     ├─ ⇢ Logger.Warning
+     │  └─ Logger.Write ↑ as above
+     └─ ⇢ SilentLogger.Warning
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  ├─ Log.get_Logger
+  └─ ILogger.Warning
+     ├─ ⇢ Logger.Warning
+     │  └─ Logger.Warning
+~    │     └─ Logger.Write (changes below depth limit)
+     └─ ⇢ SilentLogger.Warning
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Write
+  ├─ Log.get_Logger
+  └─ ILogger.Write
+     ├─ ⇢ Logger.Write
+     │  ├─ LogEvent.get_Level
+     │  ├─ Logger.IsEnabled
+     │  └─ Logger.Dispatch ↑ as above
+     └─ ⇢ SilentLogger.Write
+
+  Log.Write
+  ├─ Log.get_Logger
+  └─ ILogger.Write
+     ├─ ⇢ Logger.Write
+     │  ├─ Logger.IsEnabled
+     │  ├─ if (propertyValues != null)
+     │  ├─ DateTimeOffset.get_Now
+     │  ├─ if (propertyValues is null)
+     │  ├─ MessageTemplateProcessor.Process
+     │  ├─ Activity.get_Current
+     │  ├─ if (currentActivity is not null)
+     │  ├─ if (currentActivity is not null)
+     │  ├─ new LogEvent
+     │  └─ Logger.Dispatch ↑ as above
+     └─ ⇢ SilentLogger.Write
+
+  Log.Write
+  ├─ Log.get_Logger
+  └─ ILogger.Write
+     ├─ ⇢ Logger.Write
+     │  └─ Logger.Write ↑ as above
+     └─ ⇢ SilentLogger.Write
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
+
+format: md
+exit: 0
+stdout:
+```diff
+  LoggerAuditSinkConfiguration.Logger
+  └─ LoggerSinkConfiguration.Logger
+     ├─ Guard.AgainstNull
+     ├─ new LoggerConfiguration
+     ├─ LoggerConfiguration.get_MinimumLevel
+     ├─ LoggerMinimumLevelConfiguration.Is
+     ├─ configureLogger
+     ├─ LoggerConfiguration.CreateLogger
+     │  ├─ if (_loggerCreated)
+     │  ├─ List<T>.get_Count
+     │  ├─ if (_logEventSinks.Count > 0)
+     │  ├─ _auditSinks.Any
+     │  ├─ if (auditing)
+     │  ├─ if (sink is null)
+     │  ├─ _filters.Any
+     │  ├─ if (_filters.Any())
+     │  ├─ new PropertyValueConverter
+     │  ├─ new MessageTemplateProcessor
+     │  ├─ List<T>.get_Count
+     │  ├─ case 0
+     │  ├─ case 1
+     │  ├─ case _
+     │  ├─ Dictionary<TKey, TValue>.get_Count
+     │  ├─ if (_overrides.Count != 0)
+     │  ├─ _logEventSinks.Concat
+     │  ├─ _logEventSinks.Concat(_auditSinks).Where
+     │  ├─ _logEventSinks.Concat(_auditSinks).Where(s => s is IDisposable).ToArray
+     │  └─ new Logger
+     │     ├─ new Object
+~    │     └─ LoggerConfiguration.CreateLogger.Dispose (changes below depth limit)
+     ├─ Logger.get_HasOverrideMap
+     ├─ if (subLogger.HasOverrideMap)
+     ├─ new SecondaryLoggerSink
+     └─ LoggerSinkConfiguration.Sink
+
+  LoggerSinkConfiguration.Sink
+  ├─ new TSink
+  └─ LoggerSinkConfiguration.Sink
+     ├─ Guard.AgainstNull ×2
+     ├─ new BatchingSink
+     │  ├─ new
+     │  ├─ new
+     │  ├─ new
+     │  ├─ SelfLog.get_FailureListener
+     │  ├─ new Object
+     │  ├─ if (options == null)
+     │  ├─ BatchingOptions.get_BatchSizeLimit
+     │  ├─ if (options.BatchSizeLimit <= 0)
+     │  ├─ BatchingOptions.get_BufferingTimeLimit
+     │  ├─ TimeSpan.op_LessThanOrEqual
+     │  ├─ if (options.BufferingTimeLimit <= TimeSpan.Zero)
+     │  ├─ BatchingOptions.get_RetryTimeLimit
+     │  ├─ TimeSpan.op_LessThan
+     │  ├─ if (options.RetryTimeLimit < TimeSpan.Zero)
+     │  ├─ if (batchedSink is null)
+     │  ├─ BatchingOptions.get_BatchSizeLimit
+     │  ├─ BatchingOptions.get_QueueLimit
+     │  ├─ if (options.QueueLimit is { } limit)
+     │  ├─ else (!(options.QueueLimit is { } limit))
+     │  ├─ BatchingOptions.get_BufferingTimeLimit
+     │  ├─ BatchingOptions.get_RetryTimeLimit
+     │  ├─ new FailureAwareBatchScheduler
+     │  ├─ BatchingOptions.get_EagerlyEmitFirstEvent
+     │  ├─ CancellationTokenSource.get_Token
+     │  ├─ Task.Delay
+     │  ├─ Task.Delay(Timeout.InfiniteTimeSpan, _shutdownSignal.Token).ContinueWith
+     │  ├─ ExecutionContext.IsFlowSuppressed
+     │  ├─ else (!(ExecutionContext.IsFlowSuppressed()))
+     │  └─ Task.Run
+~    │     └─ BatchingSink.LoopAsync (changes below depth limit)
+     └─ LoggerSinkConfiguration.Sink
+
+  Logger.Debug
+  ├─ possible initialization of Logger
+  └─ Logger.Write
+     ├─ Logger.IsEnabled
+     ├─ if (propertyValues != null)
+     ├─ DateTimeOffset.get_Now
+     ├─ MessageTemplateProcessor.Process
+     ├─ Activity.get_Current
+     ├─ if (currentActivity is not null)
+     ├─ if (currentActivity is not null)
+     ├─ new LogEvent
+     └─ Logger.Dispatch
+        ├─ try
+        │  └─ ILogEventEnricher.Enrich
+~       │     ├─ ⇢ LogContextEnricher.Enrich (changes below depth limit)
+~       │     ├─ ⇢ ConditionalEnricher.Enrich (changes below depth limit)
+        │     ├─ ⇢ EmptyEnricher.Enrich
+        │     ├─ ⇢ FixedPropertyEnricher.Enrich (depth limit)
+~       │     ├─ ⇢ PropertyEnricher.Enrich (changes below depth limit)
+~       │     └─ ⇢ SafeAggregateEnricher.Enrich (changes below depth limit)
+        ├─ catch (Exception ex)
+        └─ ILogEventSink.Emit
+~          ├─ ⇢ Logger.Serilog.Core.ILogEventSink.Emit (changes below depth limit)
+~          ├─ ⇢ AggregateSink.Emit (changes below depth limit)
+           ├─ ⇢ BatchingSink.Emit (depth limit)
+~          ├─ ⇢ ConditionalSink.Emit (changes below depth limit)
+~          ├─ ⇢ DisposingAggregateSink.Emit (changes below depth limit)
+~          ├─ ⇢ FailureListenerSink.Emit (changes below depth limit)
+~          ├─ ⇢ FilteringSink.Emit (changes below depth limit)
+~          ├─ ⇢ OptionalInterfaceForwardingSink.Emit (changes below depth limit)
+~          ├─ ⇢ RestrictedSink.Emit (changes below depth limit)
+~          ├─ ⇢ SafeAggregateSink.Emit (changes below depth limit)
+~          └─ ⇢ SecondaryLoggerSink.Emit (changes below depth limit)
+
+  Logger.Debug
+  ├─ possible initialization of Logger
+  └─ Logger.Write
+     └─ Logger.Write
+        ├─ Logger.IsEnabled
+        ├─ if (propertyValues != null)
+        ├─ DateTimeOffset.get_Now
+        ├─ MessageTemplateProcessor.Process
+        ├─ Activity.get_Current
+        ├─ if (currentActivity is not null)
+        ├─ if (currentActivity is not null)
+        ├─ new LogEvent
+        └─ Logger.Dispatch ↑ as above
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled
+     └─ if (IsEnabled(level))
+        └─ Logger.Write
+           ├─ Logger.IsEnabled (depth limit)
+           ├─ if (propertyValues != null)
+           ├─ DateTimeOffset.get_Now
+           ├─ if (propertyValues is null)
+           ├─ MessageTemplateProcessor.Process (depth limit)
+           ├─ Activity.get_Current
+           ├─ if (currentActivity is not null)
+           ├─ if (currentActivity is not null)
+           ├─ new LogEvent (depth limit)
+~          └─ Logger.Dispatch (changes below depth limit)
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled
+     └─ if (IsEnabled(level))
+        └─ Logger.Write
+~          └─ Logger.Write (changes below depth limit)
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled
+     └─ if (IsEnabled(level))
+        └─ Logger.Write ↑ as above
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled
+     └─ if (IsEnabled(level))
+        └─ Logger.Write ↑ as above
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled
+     └─ if (IsEnabled(level))
+        └─ Logger.Write ↑ as above
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled
+     └─ if (IsEnabled(level))
+        └─ Logger.Write ↑ as above
+
+  Logger.Error
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Log.CloseAndFlush
+  ├─ possible initialization of Log
+  ├─ Logger.get_None
+  ├─ Interlocked.Exchange
+  └─ if ((logger as IDisposable) is not null)
+     └─ .Dispose
+        ├─ ⇢ EnricherStack.Enumerator.Dispose
+        ├─ ⇢ LogContext.ContextStackBookmark.Dispose
+        ├─ ⇢ ConditionalEnricher.Dispose
+        │  └─ if ((_wrapped as IDisposable) is not null)
+        │     └─ .Dispose
+        │        ├─ ⇢ EnricherStack.Enumerator.Dispose
+        │        ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+        │        ├─ ⇢ ConditionalEnricher.Dispose (↺ cycle)
+        │        ├─ ⇢ Logger.Dispose (depth limit)
+~       │        ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+~       │        └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+        ├─ ⇢ Logger.Dispose
+        ├─ ⇢ BatchingSink.Dispose
+        │  ├─ BatchingSink.SignalShutdown (depth limit)
+        │  ├─ try
+        │  ├─ catch (Exception ex)
+        │  │  └─ ILoggingFailureListener.OnLoggingFailed
+~       │  │     ├─ ⇢ DelegatingLoggingFailureListener.OnLoggingFailed (changes below depth limit)
+        │  │     └─ ⇢ SelfLog.SelfLogFailureListener.OnLoggingFailed (depth limit)
+        │  └─ if ((_targetSink as IDisposable) is not null)
+        │     └─ .Dispose
+        │        ├─ ⇢ EnricherStack.Enumerator.Dispose
+        │        ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~       │        ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+        │        ├─ ⇢ Logger.Dispose (depth limit)
+        │        ├─ ⇢ BatchingSink.Dispose (↺ cycle)
+~       │        ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+~       │        └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+        ├─ ⇢ ConditionalSink.Dispose
+        │  └─ if ((_wrapped as IDisposable) is not null)
+        │     └─ .Dispose
+        │        ├─ ⇢ EnricherStack.Enumerator.Dispose
+        │        ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~       │        ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+        │        ├─ ⇢ Logger.Dispose (depth limit)
+~       │        ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+        │        ├─ ⇢ ConditionalSink.Dispose (↺ cycle)
+~       │        ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+~       │        └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+        ├─ ⇢ DisposingAggregateSink.Dispose
+        │  └─ foreach (var sink in _sinks)
+        │     ├─ try
+        │     │  └─ disposable.Dispose
+        │     │     ├─ ⇢ EnricherStack.Enumerator.Dispose
+        │     │     ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~       │     │     ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+        │     │     ├─ ⇢ Logger.Dispose (depth limit)
+~       │     │     ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+~       │     │     ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+        │     │     ├─ ⇢ DisposingAggregateSink.Dispose (↺ cycle)
+~       │     │     ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (changes below depth limit)
+~       │     │     ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+~       │     │     └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+        │     └─ catch (Exception ex)
+        ├─ ⇢ OptionalInterfaceForwardingSink.Dispose
+        │  ├─ if (_sink is IDisposable inner)
+        │  │  └─ inner.Dispose
+        │  │     ├─ ⇢ EnricherStack.Enumerator.Dispose
+        │  │     ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~       │  │     ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+        │  │     ├─ ⇢ Logger.Dispose (depth limit)
+~       │  │     ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+~       │  │     ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+~       │  │     ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+        │  │     ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (↺ cycle)
+~       │  │     ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+~       │  │     └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+        │  └─ if ((_receiver as IDisposable) is not null)
+        │     └─ .Dispose
+        │        ├─ ⇢ EnricherStack.Enumerator.Dispose
+        │        ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~       │        ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+        │        ├─ ⇢ Logger.Dispose (depth limit)
+~       │        ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+        │        ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (↺ cycle)
+~       │        ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+~       │        └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+        ├─ ⇢ RestrictedSink.Dispose
+        │  └─ if ((_sink as IDisposable) is not null)
+        │     └─ .Dispose
+        │        ├─ ⇢ EnricherStack.Enumerator.Dispose
+        │        ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~       │        ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+        │        ├─ ⇢ Logger.Dispose (depth limit)
+~       │        ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+~       │        ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (changes below depth limit)
+        │        ├─ ⇢ RestrictedSink.Dispose (↺ cycle)
+~       │        └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+        └─ ⇢ SecondaryLoggerSink.Dispose
+           └─ if ((_logger as IDisposable) is not null)
+              └─ .Dispose
+                 ├─ ⇢ EnricherStack.Enumerator.Dispose
+                 ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~                ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+                 ├─ ⇢ Logger.Dispose (depth limit)
+~                ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+~                ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+~                ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+~                ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (changes below depth limit)
+~                ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+                 └─ ⇢ SecondaryLoggerSink.Dispose (↺ cycle)
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger
+     └─ ILogger.Write
+        ├─ ⇢ Logger.Write
+        │  ├─ Logger.IsEnabled (depth limit)
+        │  └─ if (IsEnabled(level))
+        │     ├─ possible initialization of Logger
+~       │     └─ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  ├─ Log.get_Logger
+  └─ ILogger.Debug
+     ├─ ⇢ Logger.Debug
+     │  └─ Logger.Write ↑ as above
+     └─ ⇢ SilentLogger.Debug
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger
+     └─ ILogger.Write
+        ├─ ⇢ Logger.Write
+        │  ├─ Logger.IsEnabled (depth limit)
+        │  └─ if (IsEnabled(level))
+        │     ├─ possible initialization of Logger
+~       │     └─ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  ├─ Log.get_Logger
+  └─ ILogger.Debug
+     ├─ ⇢ Logger.Debug
+     │  └─ Logger.Debug
+~    │     └─ Logger.Write (changes below depth limit)
+     └─ ⇢ SilentLogger.Debug
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger
+     └─ ILogger.Write
+        ├─ ⇢ Logger.Write
+        │  ├─ Logger.IsEnabled (depth limit)
+        │  └─ if (IsEnabled(level))
+~       │     └─ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger
+     └─ ILogger.Write
+        ├─ ⇢ Logger.Write
+        │  ├─ Logger.IsEnabled (depth limit)
+        │  └─ if (IsEnabled(level))
+~       │     └─ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger
+     └─ ILogger.Write
+        ├─ ⇢ Logger.Write
+        │  ├─ Logger.IsEnabled (depth limit)
+        │  └─ if (IsEnabled(level))
+~       │     └─ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger
+     └─ ILogger.Write
+        ├─ ⇢ Logger.Write
+        │  ├─ Logger.IsEnabled (depth limit)
+        │  └─ if (IsEnabled(level))
+~       │     └─ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger
+     └─ ILogger.Write
+        ├─ ⇢ Logger.Write
+        │  ├─ Logger.IsEnabled (depth limit)
+        │  └─ if (IsEnabled(level))
+~       │     └─ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger
+     └─ ILogger.Write
+        ├─ ⇢ Logger.Write
+        │  ├─ Logger.IsEnabled (depth limit)
+        │  └─ if (IsEnabled(level))
+~       │     └─ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  ├─ Log.get_Logger
+  └─ ILogger.Error
+     ├─ ⇢ Logger.Error
+     │  └─ Logger.Write ↑ as above
+     └─ ⇢ SilentLogger.Error
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  ├─ Log.get_Logger
+  └─ ILogger.Error
+     ├─ ⇢ Logger.Error
+     │  └─ Logger.Error
+~    │     └─ Logger.Write (changes below depth limit)
+     └─ ⇢ SilentLogger.Error
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  ├─ Log.get_Logger
+  └─ ILogger.Fatal
+     ├─ ⇢ Logger.Fatal
+     │  └─ Logger.Write ↑ as above
+     └─ ⇢ SilentLogger.Fatal
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  ├─ Log.get_Logger
+  └─ ILogger.Fatal
+     ├─ ⇢ Logger.Fatal
+     │  └─ Logger.Fatal
+~    │     └─ Logger.Write (changes below depth limit)
+     └─ ⇢ SilentLogger.Fatal
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  ├─ Log.get_Logger
+  └─ ILogger.Information
+     ├─ ⇢ Logger.Information
+     │  └─ Logger.Write ↑ as above
+     └─ ⇢ SilentLogger.Information
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  ├─ Log.get_Logger
+  └─ ILogger.Information
+     ├─ ⇢ Logger.Information
+     │  └─ Logger.Information
+~    │     └─ Logger.Write (changes below depth limit)
+     └─ ⇢ SilentLogger.Information
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  ├─ Log.get_Logger
+  └─ ILogger.Verbose
+     ├─ ⇢ Logger.Verbose
+     │  └─ Logger.Write ↑ as above
+     └─ ⇢ SilentLogger.Verbose
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  ├─ Log.get_Logger
+  └─ ILogger.Verbose
+     ├─ ⇢ Logger.Verbose
+     │  └─ Logger.Verbose
+~    │     └─ Logger.Write (changes below depth limit)
+     └─ ⇢ SilentLogger.Verbose
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  ├─ Log.get_Logger
+  └─ ILogger.Warning
+     ├─ ⇢ Logger.Warning
+     │  └─ Logger.Write ↑ as above
+     └─ ⇢ SilentLogger.Warning
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  ├─ Log.get_Logger
+  └─ ILogger.Warning
+     ├─ ⇢ Logger.Warning
+     │  └─ Logger.Warning
+~    │     └─ Logger.Write (changes below depth limit)
+     └─ ⇢ SilentLogger.Warning
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Write
+  ├─ Log.get_Logger
+  └─ ILogger.Write
+     ├─ ⇢ Logger.Write
+     │  ├─ LogEvent.get_Level
+     │  ├─ Logger.IsEnabled
+     │  └─ Logger.Dispatch ↑ as above
+     └─ ⇢ SilentLogger.Write
+
+  Log.Write
+  ├─ Log.get_Logger
+  └─ ILogger.Write
+     ├─ ⇢ Logger.Write
+     │  ├─ Logger.IsEnabled
+     │  ├─ if (propertyValues != null)
+     │  ├─ DateTimeOffset.get_Now
+     │  ├─ if (propertyValues is null)
+     │  ├─ MessageTemplateProcessor.Process
+     │  ├─ Activity.get_Current
+     │  ├─ if (currentActivity is not null)
+     │  ├─ if (currentActivity is not null)
+     │  ├─ new LogEvent
+     │  └─ Logger.Dispatch ↑ as above
+     └─ ⇢ SilentLogger.Write
+
+  Log.Write
+  ├─ Log.get_Logger
+  └─ ILogger.Write
+     ├─ ⇢ Logger.Write
+     │  └─ Logger.Write ↑ as above
+     └─ ⇢ SilentLogger.Write
+```
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.

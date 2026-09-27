@@ -3020,5 +3020,47 @@
         ]
       }
     ]
+  },
+  {
+    "id": "serilog-property-factory",
+    "repository": "https://github.com/serilog/serilog.git",
+    "cacheName": "serilog",
+    "license": "Apache-2.0",
+    "licenseFile": "LICENSE",
+    "before": "ed87d30aead032163720b700c212e891212cf3e7",
+    "after": "e4e0b025db0b55f22b25a773b99fb7021956596d",
+    "beforeLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "afterLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "reason": "Expose the property-factory overload and reject a null factory before checking whether the property already exists. Independent source review covers the unchanged value-factory and property-factory branches, getter ordering and 313 declarations (240 exact prior source matches and 73 newly read). Executable expectations preserve stable identity with an internal-to-public signature change, the new null guard and the existing factory dispatch. Automatic discovery includes 114 roots through conservative logger and sink dispatch; its 20 JSON ancestor cycles do not establish runtime recursion. Text collapses unchanged branch contents while JSON retains them. Source mode does not evaluate project defines; the inferred TestDummies classification is explicit. Upstream regression test and production source reviewed; upstream tests were not executed. Cross-platform repeatability remains pending.",
+    "tags": [
+      "signature",
+      "overloads",
+      "branch-guard",
+      "interface-dispatch",
+      "properties",
+      "automatic-roots"
+    ],
+    "options": [
+      "--depth",
+      "4",
+      "--context",
+      "all",
+      "--externals"
+    ],
+    "knownIssue": "issues/source-only-coverage.md",
+    "review": "../tests/Callrift.RealWorldCases/SerilogPropertyFactoryExpectations.cs",
+    "views": [
+      {
+        "id": "source-roots",
+        "options": []
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--entry",
+          "source::Serilog.Events.LogEvent.AddPropertyIfAbsent(global::Serilog.Core.ILogEventPropertyFactory,string,object,bool)"
+        ]
+      }
+    ]
   }
 ]
