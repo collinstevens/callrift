@@ -44,8 +44,7 @@ internal static class ContextGraph
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 var call = frame.Resolve(original);
-                var requested = call.Kind == "call" ? InvocationContext.DispatchTargets(graph, call, cancellationToken)
-                    .DistinctBy(target => target.Identity, StringComparer.Ordinal).OrderBy(target => target.Identity, StringComparer.Ordinal).ToArray() : [];
+                var requested = call.Kind == "call" ? DispatchTargets(graph, call, cancellationToken) : [];
                 var direct = requested.Length == 1 && requested[0].Key == call.Key ? requested[0] : null;
                 if (direct is not null) requested = [];
                 var semanticTargets = requested.Length == 0 ? [] : requested.Select(target => target.Identity).ToArray();
@@ -130,6 +129,24 @@ internal static class ContextGraph
                 Limitations = graph.Coverage.Limitations.Append("generic-context-limit").Distinct(StringComparer.Ordinal).ToArray()
             }
         };
+    }
+
+    private static InvocationContext[] DispatchTargets(CallGraph graph, CallStep call, CancellationToken cancellationToken)
+    {
+        using var iterator = InvocationContext.DispatchTargets(graph, call, cancellationToken).GetEnumerator();
+        if (!iterator.MoveNext()) return [];
+        var first = iterator.Current;
+        if (!iterator.MoveNext()) return [first];
+        var seen = new HashSet<string>(StringComparer.Ordinal) { first.Identity };
+        var targets = new List<InvocationContext> { first };
+        do
+        {
+            var target = iterator.Current;
+            if (seen.Add(target.Identity)) targets.Add(target);
+        }
+        while (iterator.MoveNext());
+        targets.Sort(static (left, right) => StringComparer.Ordinal.Compare(left.Identity, right.Identity));
+        return targets.ToArray();
     }
 
     private static IEnumerable<CallStep> Flatten(IEnumerable<CallStep> calls)
