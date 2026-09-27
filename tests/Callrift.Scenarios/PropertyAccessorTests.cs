@@ -77,6 +77,14 @@ public sealed class PropertyAccessorTests
     [Trait("Layer", "Integration")]
     public Task WorkspaceAccessorBodiesAndEvaluationOrder(string name) => VerifyAccessor(name, true);
 
+    [Fact]
+    [Trait("Layer", "Fast")]
+    public Task AnonymousInitializersOnlyReadTheirValues() => VerifyAnonymousInitializers(false);
+
+    [Fact]
+    [Trait("Layer", "Integration")]
+    public Task WorkspaceAnonymousInitializersOnlyReadTheirValues() => VerifyAnonymousInitializers(true);
+
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
@@ -152,6 +160,28 @@ public sealed class PropertyAccessorTests
             Assert.EndsWith("Value.get_Item(int)", side.GetProperty("symbolId").GetString());
             if (workspace) Assert.StartsWith("project:Lib/Lib.csproj@net11.0::", side.GetProperty("symbolId").GetString());
         }
+    }
+
+    private static async Task VerifyAnonymousInitializers(bool workspace)
+    {
+        var scenario = CreateScenario(("anonymous-initializer", "class Value { public int Item => Sink.Before(); }", "Value",
+            "var source = new { Item = Receiver().Item }; var copy = new { source.Item, Named = Sink.Argument() }; _ = copy.Named;", "receiver,before,argument"));
+        Assert.Equal("receiver,before,argument", Execute(scenario.Before["Flow.cs"]));
+        Assert.Equal("receiver,after,argument", Execute(scenario.After["Flow.cs"]));
+        await using var fixture = await AnalysisFixture.CreateAsync(scenario, workspace);
+        var options = new DiffOptions { Entries = ["Entry.Run"], MaxDepth = 25, Context = -1, IncludeExternals = true };
+        using var query = JsonDocument.Parse(await fixture.QueryAsync(options));
+        Assert.Empty(query.RootElement.GetProperty("diagnostics").EnumerateArray());
+        var nodes = Walk(query.RootElement.GetProperty("trees")).ToArray();
+        var anonymousReads = nodes.Where(node => node.GetProperty("label").GetString()!.StartsWith("<anonymous type:", StringComparison.Ordinal)).ToArray();
+        Assert.Equal(2, anonymousReads.Length);
+        Assert.EndsWith(".get_Item", anonymousReads[0].GetProperty("label").GetString());
+        Assert.EndsWith(".get_Named", anonymousReads[1].GetProperty("label").GetString());
+        Assert.Equal(["Sink.Receiver", "Sink.After", "Sink.Argument"], nodes.Select(node => node.GetProperty("label").GetString())
+            .Where(label => label!.StartsWith("Sink.", StringComparison.Ordinal)));
+        var diff = await fixture.DiffAsync(options);
+        Assert.Contains("Value.get_Item", diff);
+        Assert.Contains("Sink.After", diff);
     }
 
     private static async Task VerifyAccessor(string name, bool workspace)

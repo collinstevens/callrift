@@ -145,6 +145,9 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 Emit(creation, creation.ArgumentList?.Arguments ?? [], result);
                 Walk(creation.Initializer, result);
                 return;
+            case AnonymousObjectMemberDeclaratorSyntax member:
+                Walk(member.Expression, result);
+                return;
             case InitializerExpressionSyntax initializer when initializer.IsKind(SyntaxKind.CollectionInitializerExpression):
                 var collection = initializer.Parent switch
                 {
