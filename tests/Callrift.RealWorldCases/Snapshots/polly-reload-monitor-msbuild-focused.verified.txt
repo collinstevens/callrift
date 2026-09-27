@@ -2,6 +2,8 @@
 exit: 0
 stdout:
   AddResiliencePipelineContext<TKey>.EnableReloads
+- ├─ AddResiliencePipelineContext<TKey>.get_RegistryContext
+  ├─ AddResiliencePipelineContext<TKey>.get_ServiceProvider
   ├─ ServiceProvider.GetRequiredService<IOptionsMonitor<TOptions>>
 - ├─ ConfigureBuilderContextExtensions.EnableReloads
 - │  ├─ Guard.NotNull ×2
@@ -10,11 +12,17 @@ stdout:
 - │  ├─ optionsMonitor.OnChange
 - │  │  └─ if (name == changedNamed)
 - │  │     └─ source.Cancel
+- │  ├─ CancellationTokenSource.get_Token
 - │  ├─ ConfigureBuilderContext<TKey>.AddReloadToken
+- │  │  ├─ CancellationToken.get_CanBeCanceled
+- │  │  ├─ if (!(!cancellationToken.CanBeCanceled))
+- │  │  │  └─ CancellationToken.get_IsCancellationRequested
+- │  │  ├─ ConfigureBuilderContext<TKey>.get_ReloadTokens
 - │  │  └─ ReloadTokens.Add
 - │  └─ ConfigureBuilderContext<TKey>.OnPipelineDisposed
 - │     ├─ Guard.NotNull
 - │     │  └─ ArgumentNullException.ThrowIfNull
+- │     ├─ ConfigureBuilderContext<TKey>.get_DisposeCallbacks
 - │     ├─ DisposeCallbacks.Add
 - │     ├─ if (registration is not null)
 - │     │  └─ .Dispose
@@ -27,6 +35,7 @@ stdout:
 + └─ AddResiliencePipelineContext<TKey>.EnableReloadsWithMonitor
 +    ├─ Guard.NotNull
 +    │  └─ ArgumentNullException.ThrowIfNull
++    ├─ AddResiliencePipelineContext<TKey>.get_RegistryContext
 +    └─ ConfigureBuilderContextExtensions.EnableReloads
 +       ├─ Guard.NotNull ×2
 +       │  └─ ArgumentNullException.ThrowIfNull
@@ -34,10 +43,16 @@ stdout:
 +       ├─ optionsMonitor.OnChange
 +       │  └─ if (name == changedNamed)
 +       │     └─ source.Cancel
++       ├─ CancellationTokenSource.get_Token
 +       ├─ ConfigureBuilderContext<TKey>.AddReloadToken
++       │  ├─ CancellationToken.get_CanBeCanceled
++       │  ├─ if (!(!cancellationToken.CanBeCanceled))
++       │  │  └─ CancellationToken.get_IsCancellationRequested
++       │  ├─ ConfigureBuilderContext<TKey>.get_ReloadTokens
 +       │  └─ ReloadTokens.Add
 +       └─ ConfigureBuilderContext<TKey>.OnPipelineDisposed
 +          ├─ Guard.NotNull (depth limit)
++          ├─ ConfigureBuilderContext<TKey>.get_DisposeCallbacks
 +          ├─ DisposeCallbacks.Add
 +          ├─ if (registration is not null)
 +          │  └─ .Dispose
@@ -63,6 +78,8 @@ exit: 0
 stdout:
 ```diff
   AddResiliencePipelineContext<TKey>.EnableReloads
+- ├─ AddResiliencePipelineContext<TKey>.get_RegistryContext
+  ├─ AddResiliencePipelineContext<TKey>.get_ServiceProvider
   ├─ ServiceProvider.GetRequiredService<IOptionsMonitor<TOptions>>
 - ├─ ConfigureBuilderContextExtensions.EnableReloads
 - │  ├─ Guard.NotNull ×2
@@ -71,11 +88,17 @@ stdout:
 - │  ├─ optionsMonitor.OnChange
 - │  │  └─ if (name == changedNamed)
 - │  │     └─ source.Cancel
+- │  ├─ CancellationTokenSource.get_Token
 - │  ├─ ConfigureBuilderContext<TKey>.AddReloadToken
+- │  │  ├─ CancellationToken.get_CanBeCanceled
+- │  │  ├─ if (!(!cancellationToken.CanBeCanceled))
+- │  │  │  └─ CancellationToken.get_IsCancellationRequested
+- │  │  ├─ ConfigureBuilderContext<TKey>.get_ReloadTokens
 - │  │  └─ ReloadTokens.Add
 - │  └─ ConfigureBuilderContext<TKey>.OnPipelineDisposed
 - │     ├─ Guard.NotNull
 - │     │  └─ ArgumentNullException.ThrowIfNull
+- │     ├─ ConfigureBuilderContext<TKey>.get_DisposeCallbacks
 - │     ├─ DisposeCallbacks.Add
 - │     ├─ if (registration is not null)
 - │     │  └─ .Dispose
@@ -88,6 +111,7 @@ stdout:
 + └─ AddResiliencePipelineContext<TKey>.EnableReloadsWithMonitor
 +    ├─ Guard.NotNull
 +    │  └─ ArgumentNullException.ThrowIfNull
++    ├─ AddResiliencePipelineContext<TKey>.get_RegistryContext
 +    └─ ConfigureBuilderContextExtensions.EnableReloads
 +       ├─ Guard.NotNull ×2
 +       │  └─ ArgumentNullException.ThrowIfNull
@@ -95,10 +119,16 @@ stdout:
 +       ├─ optionsMonitor.OnChange
 +       │  └─ if (name == changedNamed)
 +       │     └─ source.Cancel
++       ├─ CancellationTokenSource.get_Token
 +       ├─ ConfigureBuilderContext<TKey>.AddReloadToken
++       │  ├─ CancellationToken.get_CanBeCanceled
++       │  ├─ if (!(!cancellationToken.CanBeCanceled))
++       │  │  └─ CancellationToken.get_IsCancellationRequested
++       │  ├─ ConfigureBuilderContext<TKey>.get_ReloadTokens
 +       │  └─ ReloadTokens.Add
 +       └─ ConfigureBuilderContext<TKey>.OnPipelineDisposed
 +          ├─ Guard.NotNull (depth limit)
++          ├─ ConfigureBuilderContext<TKey>.get_DisposeCallbacks
 +          ├─ DisposeCallbacks.Add
 +          ├─ if (registration is not null)
 +          │  └─ .Dispose

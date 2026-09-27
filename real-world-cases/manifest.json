@@ -536,15 +536,16 @@
     "after": "f2a07e687b3020f6cbaaf9192f14e1f8845682e3",
     "beforeLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
     "afterLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
-    "reason": "Extract monitor-based reload setup with a null guard",
+    "reason": "Extract monitor-based reload setup with a null guard. Independent pinned source and compiler-binding review shows RegistryContext access moving after the helper guard while ServiceProvider access remains in the caller. Preserve named-change cancellation, token registration and possible disposal callbacks. Token getters expose short-circuit evaluation, but the return-only early guard does not constrain the later collection Add in the graph. Source mode merges conflicting legacy/Core declarations and leaves missing dependency calls unresolved; restored net8.0 retains generic expansion limits. Possible disposal targets do not identify the subscription returned at runtime.",
     "tags": [
       "helper-extraction",
       "callback",
-      "project-reference"
+      "project-reference",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/polly-coverage.md",
-    "review": "reviews/polly-reload-monitor.md",
+    "review": "../tests/Callrift.RealWorldCases/PollyReloadExpectations.cs",
     "views": [
       {
         "id": "source-roots",

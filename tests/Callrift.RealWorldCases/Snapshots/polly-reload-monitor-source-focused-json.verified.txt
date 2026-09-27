@@ -3333,6 +3333,28 @@ stdout:
       }
     },
     {
+      "code": "duplicate-member",
+      "message": "Multiple bodies for source::Polly.CircuitBreaker.CircuitStateController<T>.get_CircuitState(); expansion omitted.",
+      "location": {
+        "path": "src/Polly.Core/CircuitBreaker/Controller/CircuitStateController.cs",
+        "startLine": 51,
+        "startColumn": 9,
+        "endLine": 59,
+        "endColumn": 10
+      }
+    },
+    {
+      "code": "duplicate-member",
+      "message": "Multiple bodies for source::Polly.CircuitBreaker.CircuitStateController<T>.get_LastException(); expansion omitted.",
+      "location": {
+        "path": "src/Polly.Core/CircuitBreaker/Controller/CircuitStateController.cs",
+        "startLine": 64,
+        "startColumn": 9,
+        "endLine": 72,
+        "endColumn": 10
+      }
+    },
+    {
       "code": "unresolved-call",
       "message": "Cannot bind Debug.Assert.",
       "location": {
@@ -8364,6 +8386,50 @@ stdout:
       "message": "Cannot bind TimedLock.Lock.",
       "location": {
         "path": "src/Polly/CircuitBreaker/CircuitStateController.cs",
+        "startLine": 39,
+        "startColumn": 27,
+        "endLine": 39,
+        "endColumn": 47
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind TimedLock.Lock.",
+      "location": {
+        "path": "src/Polly/CircuitBreaker/CircuitStateController.cs",
+        "startLine": 57,
+        "startColumn": 27,
+        "endLine": 57,
+        "endColumn": 47
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind TimedLock.Lock.",
+      "location": {
+        "path": "src/Polly/CircuitBreaker/CircuitStateController.cs",
+        "startLine": 66,
+        "startColumn": 27,
+        "endLine": 66,
+        "endColumn": 47
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind SystemClock.UtcNow.",
+      "location": {
+        "path": "src/Polly/CircuitBreaker/CircuitStateController.cs",
+        "startLine": 71,
+        "startColumn": 52,
+        "endLine": 71,
+        "endColumn": 72
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind TimedLock.Lock.",
+      "location": {
+        "path": "src/Polly/CircuitBreaker/CircuitStateController.cs",
         "startLine": 75,
         "startColumn": 23,
         "endLine": 75,
@@ -8786,6 +8852,17 @@ stdout:
         "startColumn": 9,
         "endLine": 17,
         "endColumn": 39
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind KeyHelper.GuidPart.",
+      "location": {
+        "path": "src/Polly/PolicyBase.ContextAndKeys.cs",
+        "startLine": 17,
+        "startColumn": 77,
+        "endLine": 17,
+        "endColumn": 97
       }
     },
     {
@@ -22645,6 +22722,109 @@ stdout:
         {
           "id": "n1",
           "kind": "call",
+          "change": "removed",
+          "label": "AddResiliencePipelineContext<TKey>.get_RegistryContext",
+          "detail": null,
+          "before": {
+            "symbolId": "source::Polly.DependencyInjection.AddResiliencePipelineContext<TKey>.get_RegistryContext()",
+            "signature": "internal Polly.DependencyInjection.AddResiliencePipelineContext<TKey>.get_RegistryContext() -> Polly.Registry.ConfigureBuilderContext<TKey> [Polly.DependencyInjection.AddResiliencePipelineContext<TKey> where TKey : notnull]",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.DependencyInjection.AddResiliencePipelineContext<TKey>.get_RegistryContext()"
+            ],
+            "definition": {
+              "path": "src/Polly.Extensions/DependencyInjection/AddResiliencePipelineContext.cs",
+              "startLine": 34,
+              "startColumn": 62,
+              "endLine": 34,
+              "endColumn": 66
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/AddResiliencePipelineContext.cs",
+                "startLine": 49,
+                "startColumn": 12,
+                "endLine": 49,
+                "endColumn": 27
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": null,
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n2",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "AddResiliencePipelineContext<TKey>.get_ServiceProvider",
+          "detail": null,
+          "before": {
+            "symbolId": "source::Polly.DependencyInjection.AddResiliencePipelineContext<TKey>.get_ServiceProvider()",
+            "signature": "public Polly.DependencyInjection.AddResiliencePipelineContext<TKey>.get_ServiceProvider() -> System.IServiceProvider [Polly.DependencyInjection.AddResiliencePipelineContext<TKey> where TKey : notnull]",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.DependencyInjection.AddResiliencePipelineContext<TKey>.get_ServiceProvider()"
+            ],
+            "definition": {
+              "path": "src/Polly.Extensions/DependencyInjection/AddResiliencePipelineContext.cs",
+              "startLine": 29,
+              "startColumn": 47,
+              "endLine": 29,
+              "endColumn": 51
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/AddResiliencePipelineContext.cs",
+                "startLine": 49,
+                "startColumn": 42,
+                "endLine": 49,
+                "endColumn": 57
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Polly.DependencyInjection.AddResiliencePipelineContext<TKey>.get_ServiceProvider()",
+            "signature": "public Polly.DependencyInjection.AddResiliencePipelineContext<TKey>.get_ServiceProvider() -> System.IServiceProvider [Polly.DependencyInjection.AddResiliencePipelineContext<TKey> where TKey : notnull]",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.DependencyInjection.AddResiliencePipelineContext<TKey>.get_ServiceProvider()"
+            ],
+            "definition": {
+              "path": "src/Polly.Extensions/DependencyInjection/AddResiliencePipelineContext.cs",
+              "startLine": 30,
+              "startColumn": 47,
+              "endLine": 30,
+              "endColumn": 51
+            },
+            "callSites": [
+              {
+                "path": "src/Polly.Extensions/DependencyInjection/AddResiliencePipelineContext.cs",
+                "startLine": 50,
+                "startColumn": 37,
+                "endLine": 50,
+                "endColumn": 52
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n3",
+          "kind": "call",
           "change": "unchanged",
           "label": "ServiceProvider.GetRequiredService<IOptionsMonitor<TOptions>>",
           "detail": null,
@@ -22696,7 +22876,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n2",
+          "id": "n4",
           "kind": "call",
           "change": "removed",
           "label": "ConfigureBuilderContextExtensions.EnableReloads",
@@ -22732,7 +22912,7 @@ stdout:
           "after": null,
           "children": [
             {
-              "id": "n3",
+              "id": "n5",
               "kind": "call",
               "change": "removed",
               "label": "Guard.NotNull",
@@ -22768,7 +22948,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n4",
+                  "id": "n6",
                   "kind": "branch",
                   "change": "removed",
                   "label": "if (value is null)",
@@ -22796,7 +22976,7 @@ stdout:
                   "after": null,
                   "children": [
                     {
-                      "id": "n5",
+                      "id": "n7",
                       "kind": "call",
                       "change": "removed",
                       "label": "new ArgumentNullException",
@@ -22834,7 +23014,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n6",
+              "id": "n8",
               "kind": "call",
               "change": "removed",
               "label": "Guard.NotNull",
@@ -22870,7 +23050,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n7",
+                  "id": "n9",
                   "kind": "branch",
                   "change": "removed",
                   "label": "if (value is null)",
@@ -22898,7 +23078,7 @@ stdout:
                   "after": null,
                   "children": [
                     {
-                      "id": "n8",
+                      "id": "n10",
                       "kind": "call",
                       "change": "removed",
                       "label": "new ArgumentNullException",
@@ -22936,7 +23116,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n9",
+              "id": "n11",
               "kind": "call",
               "change": "removed",
               "label": "new CancellationTokenSource",
@@ -22968,7 +23148,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n10",
+              "id": "n12",
               "kind": "call",
               "change": "removed",
               "label": "optionsMonitor.OnChange",
@@ -22998,7 +23178,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n11",
+                  "id": "n13",
                   "kind": "branch",
                   "change": "removed",
                   "label": "if (name == changedNamed)",
@@ -23026,7 +23206,7 @@ stdout:
                   "after": null,
                   "children": [
                     {
-                      "id": "n12",
+                      "id": "n14",
                       "kind": "call",
                       "change": "removed",
                       "label": "source.Cancel",
@@ -23064,7 +23244,39 @@ stdout:
               "omission": null
             },
             {
-              "id": "n13",
+              "id": "n15",
+              "kind": "call",
+              "change": "removed",
+              "label": "CancellationTokenSource.get_Token",
+              "detail": null,
+              "before": {
+                "symbolId": "source::System.Threading.CancellationTokenSource.get_Token()",
+                "signature": null,
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::System.Threading.CancellationTokenSource.get_Token()"
+                ],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Polly.Extensions/Registry/ConfigureBuilderContextExtensions.cs",
+                    "startLine": 50,
+                    "startColumn": 32,
+                    "endLine": 50,
+                    "endColumn": 44
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "metadata"
+              },
+              "after": null,
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n16",
               "kind": "call",
               "change": "removed",
               "label": "ConfigureBuilderContext<TKey>.AddReloadToken",
@@ -23100,7 +23312,140 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n14",
+                  "id": "n17",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "CancellationToken.get_CanBeCanceled",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "source::System.Threading.CancellationToken.get_CanBeCanceled()",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::System.Threading.CancellationToken.get_CanBeCanceled()"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Polly.Core/Registry/ConfigureBuilderContext.cs",
+                        "startLine": 45,
+                        "startColumn": 14,
+                        "endLine": 45,
+                        "endColumn": 45
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n18",
+                  "kind": "branch",
+                  "change": "removed",
+                  "label": "if (!(!cancellationToken.CanBeCanceled))",
+                  "detail": null,
+                  "before": {
+                    "symbolId": null,
+                    "signature": null,
+                    "binding": "structural",
+                    "dispatch": "none",
+                    "targetIds": [],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Polly.Core/Registry/ConfigureBuilderContext.cs",
+                        "startLine": 45,
+                        "startColumn": 13,
+                        "endLine": 45,
+                        "endColumn": 90
+                      }
+                    ],
+                    "relation": "branch",
+                    "candidates": null,
+                    "origin": "structural"
+                  },
+                  "after": null,
+                  "children": [
+                    {
+                      "id": "n19",
+                      "kind": "call",
+                      "change": "removed",
+                      "label": "CancellationToken.get_IsCancellationRequested",
+                      "detail": null,
+                      "before": {
+                        "symbolId": "source::System.Threading.CancellationToken.get_IsCancellationRequested()",
+                        "signature": null,
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "source::System.Threading.CancellationToken.get_IsCancellationRequested()"
+                        ],
+                        "definition": null,
+                        "callSites": [
+                          {
+                            "path": "src/Polly.Core/Registry/ConfigureBuilderContext.cs",
+                            "startLine": 45,
+                            "startColumn": 49,
+                            "endLine": 45,
+                            "endColumn": 90
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "metadata"
+                      },
+                      "after": null,
+                      "children": [],
+                      "omission": null
+                    }
+                  ],
+                  "omission": null
+                },
+                {
+                  "id": "n20",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "ConfigureBuilderContext<TKey>.get_ReloadTokens",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "source::Polly.Registry.ConfigureBuilderContext<TKey>.get_ReloadTokens()",
+                    "signature": "internal Polly.Registry.ConfigureBuilderContext<TKey>.get_ReloadTokens() -> System.Collections.Generic.List<System.Threading.CancellationToken> [Polly.Registry.ConfigureBuilderContext<TKey> where TKey : notnull]",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Polly.Registry.ConfigureBuilderContext<TKey>.get_ReloadTokens()"
+                    ],
+                    "definition": {
+                      "path": "src/Polly.Core/Registry/ConfigureBuilderContext.cs",
+                      "startLine": 32,
+                      "startColumn": 53,
+                      "endLine": 32,
+                      "endColumn": 57
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Polly.Core/Registry/ConfigureBuilderContext.cs",
+                        "startLine": 50,
+                        "startColumn": 9,
+                        "endLine": 50,
+                        "endColumn": 21
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n21",
                   "kind": "call",
                   "change": "removed",
                   "label": "ReloadTokens.Add",
@@ -23135,7 +23480,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n15",
+              "id": "n22",
               "kind": "call",
               "change": "removed",
               "label": "ConfigureBuilderContext<TKey>.OnPipelineDisposed",
@@ -23171,7 +23516,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n16",
+                  "id": "n23",
                   "kind": "call",
                   "change": "removed",
                   "label": "? Guard.NotNull",
@@ -23201,7 +23546,45 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n17",
+                  "id": "n24",
+                  "kind": "call",
+                  "change": "removed",
+                  "label": "ConfigureBuilderContext<TKey>.get_DisposeCallbacks",
+                  "detail": null,
+                  "before": {
+                    "symbolId": "source::Polly.Registry.ConfigureBuilderContext<TKey>.get_DisposeCallbacks()",
+                    "signature": "internal Polly.Registry.ConfigureBuilderContext<TKey>.get_DisposeCallbacks() -> System.Collections.Generic.List<System.Action> [Polly.Registry.ConfigureBuilderContext<TKey> where TKey : notnull]",
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::Polly.Registry.ConfigureBuilderContext<TKey>.get_DisposeCallbacks()"
+                    ],
+                    "definition": {
+                      "path": "src/Polly.Core/Registry/ConfigureBuilderContext.cs",
+                      "startLine": 34,
+                      "startColumn": 46,
+                      "endLine": 34,
+                      "endColumn": 50
+                    },
+                    "callSites": [
+                      {
+                        "path": "src/Polly.Core/Registry/ConfigureBuilderContext.cs",
+                        "startLine": 61,
+                        "startColumn": 9,
+                        "endLine": 61,
+                        "endColumn": 25
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "source"
+                  },
+                  "after": null,
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n25",
                   "kind": "call",
                   "change": "removed",
                   "label": "DisposeCallbacks.Add",
@@ -23233,7 +23616,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n18",
+                  "id": "n26",
                   "kind": "branch",
                   "change": "removed",
                   "label": "if (registration is not null)",
@@ -23261,7 +23644,7 @@ stdout:
                   "after": null,
                   "children": [
                     {
-                      "id": "n19",
+                      "id": "n27",
                       "kind": "call",
                       "change": "removed",
                       "label": ".Dispose",
@@ -23302,7 +23685,7 @@ stdout:
                       "after": null,
                       "children": [
                         {
-                          "id": "n20",
+                          "id": "n28",
                           "kind": "dispatchTarget",
                           "change": "removed",
                           "label": "⇢ AsyncBulkheadPolicy.Dispose",
@@ -23336,7 +23719,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n21",
+                          "id": "n29",
                           "kind": "dispatchTarget",
                           "change": "removed",
                           "label": "⇢ AsyncBulkheadPolicy<TResult>.Dispose",
@@ -23370,7 +23753,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n22",
+                          "id": "n30",
                           "kind": "dispatchTarget",
                           "change": "removed",
                           "label": "⇢ BulkheadPolicy.Dispose",
@@ -23404,7 +23787,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n23",
+                          "id": "n31",
                           "kind": "dispatchTarget",
                           "change": "removed",
                           "label": "⇢ BulkheadPolicy<TResult>.Dispose",
@@ -23438,7 +23821,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n24",
+                          "id": "n32",
                           "kind": "dispatchTarget",
                           "change": "removed",
                           "label": "⇢ CircuitBreakerManualControl.RegistrationDisposable.Dispose",
@@ -23472,7 +23855,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n25",
+                          "id": "n33",
                           "kind": "dispatchTarget",
                           "change": "removed",
                           "label": "⇢ CircuitBreakerResilienceStrategy<T>.Dispose",
@@ -23506,7 +23889,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n26",
+                          "id": "n34",
                           "kind": "dispatchTarget",
                           "change": "removed",
                           "label": "⇢ CircuitStateController<T>.Dispose",
@@ -23540,7 +23923,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n27",
+                          "id": "n35",
                           "kind": "dispatchTarget",
                           "change": "removed",
                           "label": "⇢ ScheduledTaskExecutor.Dispose",
@@ -23574,7 +23957,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n28",
+                          "id": "n36",
                           "kind": "dispatchTarget",
                           "change": "removed",
                           "label": "⇢ RateLimiterResilienceStrategy.Dispose",
@@ -23608,7 +23991,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n29",
+                          "id": "n37",
                           "kind": "dispatchTarget",
                           "change": "removed",
                           "label": "⇢ ResiliencePipelineRegistry<TKey>.Dispose",
@@ -23642,7 +24025,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n30",
+                          "id": "n38",
                           "kind": "dispatchTarget",
                           "change": "removed",
                           "label": "⇢ TimedLock.Dispose",
@@ -23676,7 +24059,7 @@ stdout:
                           }
                         },
                         {
-                          "id": "n31",
+                          "id": "n39",
                           "kind": "dispatchTarget",
                           "change": "removed",
                           "label": "⇢ ResiliencePipelineRegistry.PipelineRegistryAdapter.Dispose",
@@ -23716,7 +24099,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n32",
+                  "id": "n40",
                   "kind": "call",
                   "change": "removed",
                   "label": "source.Dispose",
@@ -23754,7 +24137,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n33",
+          "id": "n41",
           "kind": "call",
           "change": "added",
           "label": "AddResiliencePipelineContext<TKey>.EnableReloadsWithMonitor",
@@ -23790,7 +24173,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n34",
+              "id": "n42",
               "kind": "call",
               "change": "added",
               "label": "Guard.NotNull",
@@ -23826,7 +24209,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n35",
+                  "id": "n43",
                   "kind": "branch",
                   "change": "added",
                   "label": "if (value is null)",
@@ -23854,7 +24237,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n36",
+                      "id": "n44",
                       "kind": "call",
                       "change": "added",
                       "label": "new ArgumentNullException",
@@ -23892,7 +24275,45 @@ stdout:
               "omission": null
             },
             {
-              "id": "n37",
+              "id": "n45",
+              "kind": "call",
+              "change": "added",
+              "label": "AddResiliencePipelineContext<TKey>.get_RegistryContext",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::Polly.DependencyInjection.AddResiliencePipelineContext<TKey>.get_RegistryContext()",
+                "signature": "internal Polly.DependencyInjection.AddResiliencePipelineContext<TKey>.get_RegistryContext() -> Polly.Registry.ConfigureBuilderContext<TKey> [Polly.DependencyInjection.AddResiliencePipelineContext<TKey> where TKey : notnull]",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Polly.DependencyInjection.AddResiliencePipelineContext<TKey>.get_RegistryContext()"
+                ],
+                "definition": {
+                  "path": "src/Polly.Extensions/DependencyInjection/AddResiliencePipelineContext.cs",
+                  "startLine": 35,
+                  "startColumn": 62,
+                  "endLine": 35,
+                  "endColumn": 66
+                },
+                "callSites": [
+                  {
+                    "path": "src/Polly.Extensions/DependencyInjection/AddResiliencePipelineContext.cs",
+                    "startLine": 70,
+                    "startColumn": 9,
+                    "endLine": 70,
+                    "endColumn": 24
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n46",
               "kind": "call",
               "change": "added",
               "label": "ConfigureBuilderContextExtensions.EnableReloads",
@@ -23928,7 +24349,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n38",
+                  "id": "n47",
                   "kind": "call",
                   "change": "added",
                   "label": "Guard.NotNull",
@@ -23964,7 +24385,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n39",
+                      "id": "n48",
                       "kind": "branch",
                       "change": "added",
                       "label": "if (value is null)",
@@ -23992,7 +24413,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n40",
+                          "id": "n49",
                           "kind": "call",
                           "change": "added",
                           "label": "new ArgumentNullException",
@@ -24030,7 +24451,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n41",
+                  "id": "n50",
                   "kind": "call",
                   "change": "added",
                   "label": "Guard.NotNull",
@@ -24066,7 +24487,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n42",
+                      "id": "n51",
                       "kind": "branch",
                       "change": "added",
                       "label": "if (value is null)",
@@ -24094,7 +24515,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n43",
+                          "id": "n52",
                           "kind": "call",
                           "change": "added",
                           "label": "new ArgumentNullException",
@@ -24132,7 +24553,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n44",
+                  "id": "n53",
                   "kind": "call",
                   "change": "added",
                   "label": "new CancellationTokenSource",
@@ -24164,7 +24585,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n45",
+                  "id": "n54",
                   "kind": "call",
                   "change": "added",
                   "label": "optionsMonitor.OnChange",
@@ -24194,7 +24615,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n46",
+                      "id": "n55",
                       "kind": "branch",
                       "change": "added",
                       "label": "if (name == changedNamed)",
@@ -24222,7 +24643,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n47",
+                          "id": "n56",
                           "kind": "call",
                           "change": "added",
                           "label": "source.Cancel",
@@ -24260,7 +24681,39 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n48",
+                  "id": "n57",
+                  "kind": "call",
+                  "change": "added",
+                  "label": "CancellationTokenSource.get_Token",
+                  "detail": null,
+                  "before": null,
+                  "after": {
+                    "symbolId": "source::System.Threading.CancellationTokenSource.get_Token()",
+                    "signature": null,
+                    "binding": "resolved",
+                    "dispatch": "direct",
+                    "targetIds": [
+                      "source::System.Threading.CancellationTokenSource.get_Token()"
+                    ],
+                    "definition": null,
+                    "callSites": [
+                      {
+                        "path": "src/Polly.Extensions/Registry/ConfigureBuilderContextExtensions.cs",
+                        "startLine": 50,
+                        "startColumn": 32,
+                        "endLine": 50,
+                        "endColumn": 44
+                      }
+                    ],
+                    "relation": "call",
+                    "candidates": [],
+                    "origin": "metadata"
+                  },
+                  "children": [],
+                  "omission": null
+                },
+                {
+                  "id": "n58",
                   "kind": "call",
                   "change": "added",
                   "label": "ConfigureBuilderContext<TKey>.AddReloadToken",
@@ -24296,7 +24749,140 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n49",
+                      "id": "n59",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "CancellationToken.get_CanBeCanceled",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "source::System.Threading.CancellationToken.get_CanBeCanceled()",
+                        "signature": null,
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "source::System.Threading.CancellationToken.get_CanBeCanceled()"
+                        ],
+                        "definition": null,
+                        "callSites": [
+                          {
+                            "path": "src/Polly.Core/Registry/ConfigureBuilderContext.cs",
+                            "startLine": 45,
+                            "startColumn": 14,
+                            "endLine": 45,
+                            "endColumn": 45
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "metadata"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n60",
+                      "kind": "branch",
+                      "change": "added",
+                      "label": "if (!(!cancellationToken.CanBeCanceled))",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": null,
+                        "signature": null,
+                        "binding": "structural",
+                        "dispatch": "none",
+                        "targetIds": [],
+                        "definition": null,
+                        "callSites": [
+                          {
+                            "path": "src/Polly.Core/Registry/ConfigureBuilderContext.cs",
+                            "startLine": 45,
+                            "startColumn": 13,
+                            "endLine": 45,
+                            "endColumn": 90
+                          }
+                        ],
+                        "relation": "branch",
+                        "candidates": null,
+                        "origin": "structural"
+                      },
+                      "children": [
+                        {
+                          "id": "n61",
+                          "kind": "call",
+                          "change": "added",
+                          "label": "CancellationToken.get_IsCancellationRequested",
+                          "detail": null,
+                          "before": null,
+                          "after": {
+                            "symbolId": "source::System.Threading.CancellationToken.get_IsCancellationRequested()",
+                            "signature": null,
+                            "binding": "resolved",
+                            "dispatch": "direct",
+                            "targetIds": [
+                              "source::System.Threading.CancellationToken.get_IsCancellationRequested()"
+                            ],
+                            "definition": null,
+                            "callSites": [
+                              {
+                                "path": "src/Polly.Core/Registry/ConfigureBuilderContext.cs",
+                                "startLine": 45,
+                                "startColumn": 49,
+                                "endLine": 45,
+                                "endColumn": 90
+                              }
+                            ],
+                            "relation": "call",
+                            "candidates": [],
+                            "origin": "metadata"
+                          },
+                          "children": [],
+                          "omission": null
+                        }
+                      ],
+                      "omission": null
+                    },
+                    {
+                      "id": "n62",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "ConfigureBuilderContext<TKey>.get_ReloadTokens",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "source::Polly.Registry.ConfigureBuilderContext<TKey>.get_ReloadTokens()",
+                        "signature": "internal Polly.Registry.ConfigureBuilderContext<TKey>.get_ReloadTokens() -> System.Collections.Generic.List<System.Threading.CancellationToken> [Polly.Registry.ConfigureBuilderContext<TKey> where TKey : notnull]",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "source::Polly.Registry.ConfigureBuilderContext<TKey>.get_ReloadTokens()"
+                        ],
+                        "definition": {
+                          "path": "src/Polly.Core/Registry/ConfigureBuilderContext.cs",
+                          "startLine": 32,
+                          "startColumn": 53,
+                          "endLine": 32,
+                          "endColumn": 57
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Polly.Core/Registry/ConfigureBuilderContext.cs",
+                            "startLine": 50,
+                            "startColumn": 9,
+                            "endLine": 50,
+                            "endColumn": 21
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n63",
                       "kind": "call",
                       "change": "added",
                       "label": "ReloadTokens.Add",
@@ -24331,7 +24917,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n50",
+                  "id": "n64",
                   "kind": "call",
                   "change": "added",
                   "label": "ConfigureBuilderContext<TKey>.OnPipelineDisposed",
@@ -24367,7 +24953,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n51",
+                      "id": "n65",
                       "kind": "call",
                       "change": "added",
                       "label": "? Guard.NotNull",
@@ -24397,7 +24983,45 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n52",
+                      "id": "n66",
+                      "kind": "call",
+                      "change": "added",
+                      "label": "ConfigureBuilderContext<TKey>.get_DisposeCallbacks",
+                      "detail": null,
+                      "before": null,
+                      "after": {
+                        "symbolId": "source::Polly.Registry.ConfigureBuilderContext<TKey>.get_DisposeCallbacks()",
+                        "signature": "internal Polly.Registry.ConfigureBuilderContext<TKey>.get_DisposeCallbacks() -> System.Collections.Generic.List<System.Action> [Polly.Registry.ConfigureBuilderContext<TKey> where TKey : notnull]",
+                        "binding": "resolved",
+                        "dispatch": "direct",
+                        "targetIds": [
+                          "source::Polly.Registry.ConfigureBuilderContext<TKey>.get_DisposeCallbacks()"
+                        ],
+                        "definition": {
+                          "path": "src/Polly.Core/Registry/ConfigureBuilderContext.cs",
+                          "startLine": 34,
+                          "startColumn": 46,
+                          "endLine": 34,
+                          "endColumn": 50
+                        },
+                        "callSites": [
+                          {
+                            "path": "src/Polly.Core/Registry/ConfigureBuilderContext.cs",
+                            "startLine": 61,
+                            "startColumn": 9,
+                            "endLine": 61,
+                            "endColumn": 25
+                          }
+                        ],
+                        "relation": "call",
+                        "candidates": [],
+                        "origin": "source"
+                      },
+                      "children": [],
+                      "omission": null
+                    },
+                    {
+                      "id": "n67",
                       "kind": "call",
                       "change": "added",
                       "label": "DisposeCallbacks.Add",
@@ -24429,7 +25053,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n53",
+                      "id": "n68",
                       "kind": "branch",
                       "change": "added",
                       "label": "if (registration is not null)",
@@ -24457,7 +25081,7 @@ stdout:
                       },
                       "children": [
                         {
-                          "id": "n54",
+                          "id": "n69",
                           "kind": "call",
                           "change": "added",
                           "label": ".Dispose",
@@ -24498,7 +25122,7 @@ stdout:
                           },
                           "children": [
                             {
-                              "id": "n55",
+                              "id": "n70",
                               "kind": "dispatchTarget",
                               "change": "added",
                               "label": "⇢ AsyncBulkheadPolicy.Dispose",
@@ -24532,7 +25156,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n56",
+                              "id": "n71",
                               "kind": "dispatchTarget",
                               "change": "added",
                               "label": "⇢ AsyncBulkheadPolicy<TResult>.Dispose",
@@ -24566,7 +25190,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n57",
+                              "id": "n72",
                               "kind": "dispatchTarget",
                               "change": "added",
                               "label": "⇢ BulkheadPolicy.Dispose",
@@ -24600,7 +25224,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n58",
+                              "id": "n73",
                               "kind": "dispatchTarget",
                               "change": "added",
                               "label": "⇢ BulkheadPolicy<TResult>.Dispose",
@@ -24634,7 +25258,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n59",
+                              "id": "n74",
                               "kind": "dispatchTarget",
                               "change": "added",
                               "label": "⇢ CircuitBreakerManualControl.RegistrationDisposable.Dispose",
@@ -24668,7 +25292,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n60",
+                              "id": "n75",
                               "kind": "dispatchTarget",
                               "change": "added",
                               "label": "⇢ CircuitBreakerResilienceStrategy<T>.Dispose",
@@ -24702,7 +25326,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n61",
+                              "id": "n76",
                               "kind": "dispatchTarget",
                               "change": "added",
                               "label": "⇢ CircuitStateController<T>.Dispose",
@@ -24736,7 +25360,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n62",
+                              "id": "n77",
                               "kind": "dispatchTarget",
                               "change": "added",
                               "label": "⇢ ScheduledTaskExecutor.Dispose",
@@ -24770,7 +25394,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n63",
+                              "id": "n78",
                               "kind": "dispatchTarget",
                               "change": "added",
                               "label": "⇢ RateLimiterResilienceStrategy.Dispose",
@@ -24804,7 +25428,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n64",
+                              "id": "n79",
                               "kind": "dispatchTarget",
                               "change": "added",
                               "label": "⇢ ResiliencePipelineRegistry<TKey>.Dispose",
@@ -24838,7 +25462,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n65",
+                              "id": "n80",
                               "kind": "dispatchTarget",
                               "change": "added",
                               "label": "⇢ TimedLock.Dispose",
@@ -24872,7 +25496,7 @@ stdout:
                               }
                             },
                             {
-                              "id": "n66",
+                              "id": "n81",
                               "kind": "dispatchTarget",
                               "change": "added",
                               "label": "⇢ ResiliencePipelineRegistry.PipelineRegistryAdapter.Dispose",
@@ -24912,7 +25536,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n67",
+                      "id": "n82",
                       "kind": "call",
                       "change": "added",
                       "label": "source.Dispose",
@@ -24967,4 +25591,4 @@ bench/Polly.Benchmarks/Cache.cs:12: unresolved-call: Cannot bind Policy.CacheAsy
 bench/Polly.Benchmarks/Cache.cs:14: unresolved-call: Cannot bind Policy.Cache; candidates: source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>)
 bench/Polly.Benchmarks/Cache.cs:15: unresolved-call: Cannot bind Policy.CacheAsync; candidates: source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>)
 bench/Polly.Benchmarks/Cache.cs:48: unresolved-call: Cannot bind implicit base constructor for new Cache.MemoryCacheProvider.
-2043 additional diagnostics; use --diagnostics full.
+2050 additional diagnostics; use --diagnostics full.

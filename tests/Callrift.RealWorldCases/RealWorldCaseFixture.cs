@@ -71,6 +71,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             SerilogAccessorExpectations.VerifyExtraArguments(result);
         if (entry.Id == "serilog-null-key")
             SerilogAccessorExpectations.VerifyNullKey(result);
+        if (entry.Id == "polly-reload-monitor")
+            PollyReloadExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "polly-executor-continuations")
             PollyExecutorExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "polly-fault-null-outcome")
