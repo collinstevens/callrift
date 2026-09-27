@@ -1633,7 +1633,17 @@ Release and changed-reference inputs. Temporary probes verified cancellation of
 an active reference-build `Exec` child and preservation of failing-target
 diagnostics. Probe sources were removed before committing. The solution built
 without warnings or errors, and all 350 fast rows passed in 4.49 s including
-complete invocation startup. Supported-platform CI for this change is pending.
+complete invocation startup.
+
+[CI run 36288612788](https://github.com/collinstevens/callrift/actions/runs/36288612788)
+passed all fast, representative integration and quality jobs. All 26 workspace
+rows passed in 136.31 / 267.55 / 226.56 s and all 25 routine case rows passed in
+276.29 / 218.33 / 182.75 s on Ubuntu / Windows / macOS. Repository caches hit on
+all three platforms. macOS passed all 305 scenarios in 473.88 s. The next
+checkpoint superseded this run before Ubuntu and Windows scenarios completed;
+their canceled jobs are not passing suite measurements. No completed per-suite
+measurement met its target, and this partial run cannot establish the broad
+dependency path on every platform.
 
 ### Reusing semantic graphs in the remaining CLI-heavy scenarios
 
@@ -1669,3 +1679,68 @@ measurements, not a claim that hosted suite targets are met.
 All 350 fast rows passed through `mise run test:fast` in 5.37 s for the complete
 invocation, including its incremental build and startup. The scenario project
 also built without warnings or errors.
+
+### Identity and presentation format reuse
+
+The two file-local identity rows remain real workspace checks. Direct calls now
+reuse an analyzed pair; interface dispatch retains all CLI diff and tree formats
+and exit checks. The record-copy presentation row now checks all existing labels,
+symbol identities, source locations, copy order and three command/format matrices
+against one real workspace pair. The existing sealed-copy row still exercises
+record-copy CLI diff formats, tree and reach routing. No independent fresh-process
+determinism assertion was removed.
+
+Both imported-project classification rows retain actual solution loading,
+`Directory.Build.targets` imports, package restoration and test classification.
+The excluded-tests row renders one fresh analyzed pair. The included-tests row
+retains all three CLI formats, `--solution`, `--tests` and exit checks. The fixture
+factory for explicit workspace options uses the original fresh workspace path;
+these custom imports do not enter the eligible workspace pool. All fast rows and
+all five integration row names remain unchanged.
+
+The same prepared Debug, CPUs 0–3 setup measured the five existing integration
+rows against `9caf37c`. Every row passed, and TRX case-name multisets match.
+
+| Harness | Complete invocation seconds | Sampled CPU seconds | Peak summed RSS GiB |
+|---|---:|---:|---:|
+| Repeated CLI analysis | 35.40 | 122.67 | 2.21 |
+| Reused semantic graphs | 22.11 | 64.26 | 2.31 |
+| Reused semantic graphs, repeat | 22.31 | 65.07 | 2.30 |
+
+Analysis workers fell from 42 to 17, with two reusable fixture workers added;
+restores fell from 11 to eight and CLI invocations from 27 to nine. Median elapsed
+time fell about 37% and sampled CPU about 47%, with slightly higher retained RSS.
+All 350 fast rows passed through the normal mise command in 5.29 s, and the
+scenario project built without warnings or errors.
+
+### Workspace queries share analyzed inputs
+
+Framework dispatch retains all four framework/nesting rows and every diff, tree
+and reach assertion. Three rows reuse fresh MSBuild graphs for their before/after
+projects; the non-nested `netstandard2.0` row retains all three real CLI commands
+and exit checks. Both target frameworks and both nested-type modes still resolve
+real project references and assert the referenced project's scoped identities.
+
+The generated-interceptor row still runs its diff twice in separate CLI processes
+and compares the complete outputs, preserving the regenerated-name determinism
+boundary. Its six tree/reach rendering assertions now reuse one additional fresh
+workspace graph, with an explicit empty-diagnostics check. The generator project
+is still restored and built from source. All three formats retain their existing
+positive and fallback-exclusion assertions. CLI query format routing and exit
+behavior remain independently covered by `QueryTests.Query`; workspace CLI query
+routing also remains in the framework-dispatch representative.
+
+Matched prepared Debug samples on CPUs 0–3 retained the same five existing rows
+and exact TRX case-name multisets. All passed in each invocation.
+
+| Harness | Complete invocation seconds | Sampled CPU seconds | Peak summed RSS GiB |
+|---|---:|---:|---:|
+| Repeated CLI queries | 36.42 | 77.96 | 1.82 |
+| Reused query graphs | 28.48 | 48.85 | 1.84 |
+| Reused query graphs, repeat | 28.20 | 48.50 | 1.83 |
+
+Median elapsed time fell about 22% and sampled CPU about 38%. Analysis workers
+fell from 26 to 15 and CLI invocations from 20 to five. Restores increased from
+10 to 11 because the shared generated graph deliberately uses a fresh workspace.
+The workspace project built without warnings or errors. Hosted targets remain
+unproven for this checkpoint.

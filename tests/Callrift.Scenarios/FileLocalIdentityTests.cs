@@ -36,8 +36,8 @@ public sealed class FileLocalIdentityTests
             ["First.cs"] = before["First.cs"].Replace("=> Before();", "=> After();", StringComparison.Ordinal)
         };
         var scenario = new Scenario("file-local-identity", "Identically named file-local types bind to their own files and retain distinct callers.", before, after, []);
-        await using var fixture = workspace ? await AnalysisFixture.CreateWorkspaceCliAsync(scenario)
-            : await AnalysisFixture.CreateAsync(scenario, workspace: false);
+        await using var fixture = workspace && interfaceDispatch ? await AnalysisFixture.CreateWorkspaceCliAsync(scenario)
+            : await AnalysisFixture.CreateAsync(scenario, workspace);
         var diffs = await fixture.DiffFormatsAsync(new DiffOptions());
         var trees = await fixture.QueryFormatsAsync(new DiffOptions { Entries = ["Second.Entry"] });
         foreach (var format in new[] { "text", "md", "json" })

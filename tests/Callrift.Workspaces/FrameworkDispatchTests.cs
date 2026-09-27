@@ -1,4 +1,6 @@
 using System.Text.Json;
+using Callrift.Core;
+using Callrift.MSBuild;
 using Callrift.Scenarios;
 using Xunit;
 
@@ -26,16 +28,32 @@ public sealed class FrameworkDispatchTests
         {
             ["Library/Worker.cs"] = before["Library/Worker.cs"].Replace("Before();", "After();", StringComparison.Ordinal)
         };
-        await using var fixture = await GitFixture.CreateAsync(new Scenario("framework-interface", "A BCL interface call reaches a referenced implementation across framework identities.", before, after, []));
+        var scenario = new Scenario("framework-interface", "A BCL interface call reaches a referenced implementation across framework identities.", before, after, []);
+        await using var fixture = framework == "netstandard2.0" && !nested ? await GitFixture.CreateAsync(scenario) : null;
+        var graphs = fixture is null
+            ? await WorkspaceFixture.AnalyzeAsync(scenario, options: new MSBuildOptions("App/App.csproj", NoRestore: true))
+            : default;
         foreach (var command in new[] { "diff", "tree", "reach" })
         {
-            string[] revisions = command == "diff" ? [fixture.Before, fixture.After] : [fixture.After];
-            string[] entry = command == "diff" ? [] : ["--entry", "Flow.Run"];
-            string[] target = command == "reach" ? ["--to", "Worker.After"] : [];
-            string[] restore = command == "diff" ? [] : ["--no-restore"];
-            var output = await fixture.RunAsync([command, .. revisions, .. entry, .. target, "--project", "App/App.csproj", "--format", "json", .. restore]);
-            Assert.True(output.StartsWith("exit: 0\n", StringComparison.Ordinal), output);
-            using var document = JsonDocument.Parse(output.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0]);
+            string output;
+            if (fixture is not null)
+            {
+                string[] revisions = command == "diff" ? [fixture.Before, fixture.After] : [fixture.After];
+                string[] entry = command == "diff" ? [] : ["--entry", "Flow.Run"];
+                string[] target = command == "reach" ? ["--to", "Worker.After"] : [];
+                string[] restore = command == "diff" ? [] : ["--no-restore"];
+                var rendered = await fixture.RunAsync([command, .. revisions, .. entry, .. target, "--project", "App/App.csproj", "--format", "json", .. restore]);
+                Assert.True(rendered.StartsWith("exit: 0\n", StringComparison.Ordinal), rendered);
+                output = rendered.Split("stdout:\n", StringSplitOptions.None)[1].Split("stderr:\n", StringSplitOptions.None)[0];
+            }
+            else
+            {
+                var options = new DiffOptions { Entries = command == "diff" ? [] : ["Flow.Run"] };
+                var result = command == "diff" ? CallriftService.Compare(graphs.Before, graphs.After, options)
+                    : CallQueries.Query(graphs.After, new QueryRequest("unused") { Options = options, Target = command == "reach" ? "Worker.After" : null });
+                output = JsonRenderer.Render(result);
+            }
+            using var document = JsonDocument.Parse(output);
             Assert.All(document.RootElement.GetProperty("diagnostics").EnumerateArray(), diagnostic => Assert.Equal("workspace-warning", diagnostic.GetProperty("code").GetString()));
             var root = Assert.Single(document.RootElement.GetProperty(command == "reach" ? "paths" : "trees").EnumerateArray());
             Assert.Equal("Flow.Run", root.GetProperty("label").GetString());

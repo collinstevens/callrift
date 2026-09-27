@@ -1,4 +1,5 @@
 using Callrift.Core;
+using Callrift.MSBuild;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -71,7 +72,7 @@ public sealed class ProjectClassificationTests
         };
         var scenario = new Scenario("shared-test-settings", "Test checks are excluded while application callers under test directories and Latest remain visible.", before, after, []);
         IReadOnlyDictionary<string, string> outputs;
-        if (workspace)
+        if (workspace && includeTests)
         {
             await using var fixture = await GitFixture.CreateAsync(scenario);
             var rendered = new Dictionary<string, string>();
@@ -87,7 +88,9 @@ public sealed class ProjectClassificationTests
         }
         else
         {
-            await using var fixture = await AnalysisFixture.CreateAsync(scenario, workspace: false, includeTests: includeTests);
+            await using var fixture = workspace
+                ? await AnalysisFixture.CreateWorkspaceAsync(scenario, new MSBuildOptions("App.slnx", NoRestore: true), includeTests)
+                : await AnalysisFixture.CreateAsync(scenario, workspace: false, includeTests: includeTests);
             outputs = await fixture.DiffFormatsAsync(new DiffOptions { IncludeTests = includeTests });
         }
         foreach (var format in new[] { "text", "md", "json" })

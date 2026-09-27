@@ -1,5 +1,6 @@
 using System.Globalization;
 using Callrift.Core;
+using Callrift.MSBuild;
 using Xunit;
 
 namespace Callrift.Scenarios;
@@ -35,6 +36,12 @@ public sealed class AnalysisFixture : IAsyncDisposable
 
     public static async Task<AnalysisFixture> CreateWorkspaceCliAsync(Scenario scenario, bool includeTests = false) =>
         new(await GitFixture.CreateAsync(scenario), includeTests);
+
+    public static async Task<AnalysisFixture> CreateWorkspaceAsync(Scenario scenario, MSBuildOptions options, bool includeTests = false)
+    {
+        var (before, after) = await WorkspaceFixture.AnalyzeAsync(scenario, includeTests, options);
+        return new AnalysisFixture(before, after, includeTests);
+    }
 
     public async Task<string> DiffAsync(DiffOptions? options = null, bool reverse = false)
     {

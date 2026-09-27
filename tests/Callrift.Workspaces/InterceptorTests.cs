@@ -29,14 +29,18 @@ public sealed class InterceptorTests : InterceptorFixture
         Assert.DoesNotContain("Sink.Fallback", output);
         var repeated = await fixture.RunAsync(["diff", fixture.Before, fixture.After, .. selection, "--format", "json", "--no-restore"]);
         Assert.Equal(output, repeated);
+        var graph = await WorkspaceFixture.AnalyzeAsync(after, new MSBuildOptions("App/App.csproj", "net11.0", NoRestore: true));
+        Assert.Empty(graph.Diagnostics);
+        var options = new DiffOptions { Entries = ["Flow.Entry"] };
+        var treeResult = CallQueries.Query(graph, new QueryRequest("unused") { Options = options });
+        var reachResult = CallQueries.Query(graph, new QueryRequest("unused") { Options = options, Target = "Sink.After" });
         foreach (var format in new[] { "text", "md", "json" })
         {
-            var tree = await fixture.RunAsync(["tree", fixture.After, "--entry", "Flow.Entry", .. selection, "--format", format, "--no-restore"]);
-            Assert.True(tree.StartsWith("exit: 0\n", StringComparison.Ordinal), tree);
+            string Render(DiffResult result) => format == "json" ? JsonRenderer.Render(result) : DiffRenderer.Render(result, options, markdown: format == "md");
+            var tree = Render(treeResult);
             Assert.Contains("Sink.After", tree);
             Assert.DoesNotContain("Sink.Fallback", tree);
-            var reach = await fixture.RunAsync(["reach", fixture.After, "--entry", "Flow.Entry", "--to", "Sink.After", .. selection, "--format", format, "--no-restore"]);
-            Assert.True(reach.StartsWith("exit: 0\n", StringComparison.Ordinal), reach);
+            var reach = Render(reachResult);
             Assert.Contains("Flow.Entry", reach);
             Assert.Contains("Sink.After", reach);
         }
