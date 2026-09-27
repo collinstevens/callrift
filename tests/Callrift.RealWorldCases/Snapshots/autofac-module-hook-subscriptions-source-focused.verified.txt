@@ -10,8 +10,9 @@ stdout:
 + │  │     └─ factory
 + │  ├─ catch (InvalidCastException)
 + │  │  └─ ? new InvalidOperationException
-+ │  └─ new ReflectionCacheDictionary<TKey, TValue>
-+ │     └─ new ConcurrentDictionary<TKey, TValue>
++ │  ├─ new ReflectionCacheDictionary<TKey, TValue>
++ │  │  └─ new ConcurrentDictionary<TKey, TValue>
++ │  └─ ReflectionCacheDictionary<TKey, TValue>.set_Usage
   ├─ ReflectionCacheSet.GetOrCreateCache
   ├─ ReflectionCacheSet.GetOrCreateCache
   ├─ ReflectionCacheSet.GetOrCreateCache
@@ -24,52 +25,86 @@ stdout:
   Module.AttachToRegistrations
   ├─ if (componentRegistry == null)
 - ├─ callback
+- │  ├─ ComponentRegisteredEventArgs.get_ComponentRegistryBuilder
+- │  ├─ ComponentRegisteredEventArgs.get_ComponentRegistration
 - │  └─ Module.AttachToComponentRegistration
 - ├─ IComponentRegistryBuilder.add_Registered → ComponentRegistryBuilder.add_Registered
+- │  ├─ IRegisteredServicesTracker.get_Registrations → DefaultRegisteredServicesTracker.get_Registrations
 - │  ├─ foreach (var registration in _registeredServicesTracker.Registrations)
 - │  │  ├─ new ComponentRegisteredEventArgs (depth limit)
 - │  │  └─ value
-- │  └─ ComponentRegistryBuilder.GetRegistered
-- │     └─ Properties.TryGetValue → FallbackDictionary<TKey, TValue>.TryGetValue (depth limit)
+- │  ├─ ComponentRegistryBuilder.get_Properties
+- │  ├─ ComponentRegistryBuilder.GetRegistered
+- │  │  ├─ ComponentRegistryBuilder.get_Properties
+- │  │  └─ Properties.TryGetValue → FallbackDictionary<TKey, TValue>.TryGetValue (depth limit)
+- │  └─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item
+- │     └─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item (↺ cycle)
 + ├─ GetType
-+ ├─ possible initialization of ReflectionCacheSet
-+ │  └─ initialization of ReflectionCacheSet
-+ │     └─ new
++ ├─ ReflectionCacheSet.get_Shared
++ │  ├─ ReflectionCacheSet.TryGetSharedCache
++ │  │  ├─ possible initialization of ReflectionCacheSet
++ │  │  │  └─ initialization of ReflectionCacheSet (depth limit)
++ │  │  └─ _sharedSet.TryGetTarget
++ │  └─ if (!TryGetSharedCache(out var sharedCache))
++ │     ├─ ReflectionCacheSet.TryGetSharedCache (depth limit)
++ │     └─ if (!TryGetSharedCache(out sharedCache))
++ │        ├─ new ReflectionCacheSet (changes below depth limit)
++ │        └─ new WeakReference<ReflectionCacheSet>
++ ├─ ReflectionCacheSet.get_Internal
++ ├─ InternalReflectionCaches.get_ModuleOverridesAttachToComponentRegistration
 + ├─ cache.GetOrAdd
 + │  ├─ t.GetMethod
 + │  └─ if (method is not null)
++ │     ├─ MemberInfo.get_DeclaringType
 + │     └─ Type.op_Inequality
 + └─ if (overrides)
 +    ├─ callback
++    │  ├─ ComponentRegisteredEventArgs.get_ComponentRegistryBuilder
++    │  ├─ ComponentRegisteredEventArgs.get_ComponentRegistration
 +    │  └─ Module.AttachToComponentRegistration
 +    └─ IComponentRegistryBuilder.add_Registered → ComponentRegistryBuilder.add_Registered
++       ├─ IRegisteredServicesTracker.get_Registrations → DefaultRegisteredServicesTracker.get_Registrations
 +       ├─ foreach (var registration in _registeredServicesTracker.Registrations)
 +       │  ├─ new ComponentRegisteredEventArgs (depth limit)
 +       │  └─ value
-+       └─ ComponentRegistryBuilder.GetRegistered (depth limit)
++       ├─ ComponentRegistryBuilder.get_Properties
++       ├─ ComponentRegistryBuilder.GetRegistered (depth limit)
++       └─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item (depth limit)
 
   Module.AttachToSources
   ├─ if (componentRegistry == null)
 - ├─ callback
+- │  ├─ RegistrationSourceAddedEventArgs.get_ComponentRegistry
+- │  ├─ RegistrationSourceAddedEventArgs.get_RegistrationSource
 - │  └─ Module.AttachToRegistrationSource
 - ├─ IComponentRegistryBuilder.add_RegistrationSourceAdded → ComponentRegistryBuilder.add_RegistrationSourceAdded
+- │  ├─ IRegisteredServicesTracker.get_Sources → DefaultRegisteredServicesTracker.get_Sources
 - │  ├─ foreach (var source in _registeredServicesTracker.Sources)
 - │  │  ├─ new RegistrationSourceAddedEventArgs (depth limit)
 - │  │  └─ value
-- │  └─ ComponentRegistryBuilder.GetRegistrationSourceAdded
-- │     └─ Properties.TryGetValue → FallbackDictionary<TKey, TValue>.TryGetValue (depth limit)
+- │  ├─ ComponentRegistryBuilder.get_Properties
+- │  ├─ ComponentRegistryBuilder.GetRegistrationSourceAdded
+- │  │  ├─ ComponentRegistryBuilder.get_Properties
+- │  │  └─ Properties.TryGetValue → FallbackDictionary<TKey, TValue>.TryGetValue (depth limit)
+- │  └─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item ↑ as above
 + ├─ GetType
-+ ├─ possible initialization of ReflectionCacheSet
-+ │  └─ initialization of ReflectionCacheSet ↑ as above
++ ├─ ReflectionCacheSet.get_Shared ↑ as above
++ ├─ ReflectionCacheSet.get_Internal
++ ├─ InternalReflectionCaches.get_ModuleOverridesAttachToRegistrationSource
 + ├─ cache.GetOrAdd ↑ as above
 + └─ if (overrides)
 +    ├─ callback
++    │  ├─ RegistrationSourceAddedEventArgs.get_ComponentRegistry
++    │  ├─ RegistrationSourceAddedEventArgs.get_RegistrationSource
 +    │  └─ Module.AttachToRegistrationSource
 +    └─ IComponentRegistryBuilder.add_RegistrationSourceAdded → ComponentRegistryBuilder.add_RegistrationSourceAdded
++       ├─ IRegisteredServicesTracker.get_Sources → DefaultRegisteredServicesTracker.get_Sources
 +       ├─ foreach (var source in _registeredServicesTracker.Sources)
 +       │  ├─ new RegistrationSourceAddedEventArgs (depth limit)
 +       │  └─ value
-+       └─ ComponentRegistryBuilder.GetRegistrationSourceAdded (depth limit)
++       ├─ ComponentRegistryBuilder.get_Properties
++       ├─ ComponentRegistryBuilder.GetRegistrationSourceAdded (depth limit)
++       └─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item (depth limit)
 stderr:
 bench/Autofac.BenchmarkProfiling/Program.cs:35: unresolved-call: Cannot bind BenchmarkConverter.TypeToBenchmarks.
 bench/Autofac.BenchmarkProfiling/Program.cs:62: unresolved-call: Cannot bind PrintCases; candidates: source::Autofac.BenchmarkProfiling.Program.PrintCases(BenchmarkRunInfo)
@@ -79,7 +114,7 @@ bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind Ben
 bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
-167 additional diagnostics; use --diagnostics full.
+173 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -94,8 +129,9 @@ stdout:
 + │  │     └─ factory
 + │  ├─ catch (InvalidCastException)
 + │  │  └─ ? new InvalidOperationException
-+ │  └─ new ReflectionCacheDictionary<TKey, TValue>
-+ │     └─ new ConcurrentDictionary<TKey, TValue>
++ │  ├─ new ReflectionCacheDictionary<TKey, TValue>
++ │  │  └─ new ConcurrentDictionary<TKey, TValue>
++ │  └─ ReflectionCacheDictionary<TKey, TValue>.set_Usage
   ├─ ReflectionCacheSet.GetOrCreateCache
   ├─ ReflectionCacheSet.GetOrCreateCache
   ├─ ReflectionCacheSet.GetOrCreateCache
@@ -108,52 +144,86 @@ stdout:
   Module.AttachToRegistrations
   ├─ if (componentRegistry == null)
 - ├─ callback
+- │  ├─ ComponentRegisteredEventArgs.get_ComponentRegistryBuilder
+- │  ├─ ComponentRegisteredEventArgs.get_ComponentRegistration
 - │  └─ Module.AttachToComponentRegistration
 - ├─ IComponentRegistryBuilder.add_Registered → ComponentRegistryBuilder.add_Registered
+- │  ├─ IRegisteredServicesTracker.get_Registrations → DefaultRegisteredServicesTracker.get_Registrations
 - │  ├─ foreach (var registration in _registeredServicesTracker.Registrations)
 - │  │  ├─ new ComponentRegisteredEventArgs (depth limit)
 - │  │  └─ value
-- │  └─ ComponentRegistryBuilder.GetRegistered
-- │     └─ Properties.TryGetValue → FallbackDictionary<TKey, TValue>.TryGetValue (depth limit)
+- │  ├─ ComponentRegistryBuilder.get_Properties
+- │  ├─ ComponentRegistryBuilder.GetRegistered
+- │  │  ├─ ComponentRegistryBuilder.get_Properties
+- │  │  └─ Properties.TryGetValue → FallbackDictionary<TKey, TValue>.TryGetValue (depth limit)
+- │  └─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item
+- │     └─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item (↺ cycle)
 + ├─ GetType
-+ ├─ possible initialization of ReflectionCacheSet
-+ │  └─ initialization of ReflectionCacheSet
-+ │     └─ new
++ ├─ ReflectionCacheSet.get_Shared
++ │  ├─ ReflectionCacheSet.TryGetSharedCache
++ │  │  ├─ possible initialization of ReflectionCacheSet
++ │  │  │  └─ initialization of ReflectionCacheSet (depth limit)
++ │  │  └─ _sharedSet.TryGetTarget
++ │  └─ if (!TryGetSharedCache(out var sharedCache))
++ │     ├─ ReflectionCacheSet.TryGetSharedCache (depth limit)
++ │     └─ if (!TryGetSharedCache(out sharedCache))
++ │        ├─ new ReflectionCacheSet (changes below depth limit)
++ │        └─ new WeakReference<ReflectionCacheSet>
++ ├─ ReflectionCacheSet.get_Internal
++ ├─ InternalReflectionCaches.get_ModuleOverridesAttachToComponentRegistration
 + ├─ cache.GetOrAdd
 + │  ├─ t.GetMethod
 + │  └─ if (method is not null)
++ │     ├─ MemberInfo.get_DeclaringType
 + │     └─ Type.op_Inequality
 + └─ if (overrides)
 +    ├─ callback
++    │  ├─ ComponentRegisteredEventArgs.get_ComponentRegistryBuilder
++    │  ├─ ComponentRegisteredEventArgs.get_ComponentRegistration
 +    │  └─ Module.AttachToComponentRegistration
 +    └─ IComponentRegistryBuilder.add_Registered → ComponentRegistryBuilder.add_Registered
++       ├─ IRegisteredServicesTracker.get_Registrations → DefaultRegisteredServicesTracker.get_Registrations
 +       ├─ foreach (var registration in _registeredServicesTracker.Registrations)
 +       │  ├─ new ComponentRegisteredEventArgs (depth limit)
 +       │  └─ value
-+       └─ ComponentRegistryBuilder.GetRegistered (depth limit)
++       ├─ ComponentRegistryBuilder.get_Properties
++       ├─ ComponentRegistryBuilder.GetRegistered (depth limit)
++       └─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item (depth limit)
 
   Module.AttachToSources
   ├─ if (componentRegistry == null)
 - ├─ callback
+- │  ├─ RegistrationSourceAddedEventArgs.get_ComponentRegistry
+- │  ├─ RegistrationSourceAddedEventArgs.get_RegistrationSource
 - │  └─ Module.AttachToRegistrationSource
 - ├─ IComponentRegistryBuilder.add_RegistrationSourceAdded → ComponentRegistryBuilder.add_RegistrationSourceAdded
+- │  ├─ IRegisteredServicesTracker.get_Sources → DefaultRegisteredServicesTracker.get_Sources
 - │  ├─ foreach (var source in _registeredServicesTracker.Sources)
 - │  │  ├─ new RegistrationSourceAddedEventArgs (depth limit)
 - │  │  └─ value
-- │  └─ ComponentRegistryBuilder.GetRegistrationSourceAdded
-- │     └─ Properties.TryGetValue → FallbackDictionary<TKey, TValue>.TryGetValue (depth limit)
+- │  ├─ ComponentRegistryBuilder.get_Properties
+- │  ├─ ComponentRegistryBuilder.GetRegistrationSourceAdded
+- │  │  ├─ ComponentRegistryBuilder.get_Properties
+- │  │  └─ Properties.TryGetValue → FallbackDictionary<TKey, TValue>.TryGetValue (depth limit)
+- │  └─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item ↑ as above
 + ├─ GetType
-+ ├─ possible initialization of ReflectionCacheSet
-+ │  └─ initialization of ReflectionCacheSet ↑ as above
++ ├─ ReflectionCacheSet.get_Shared ↑ as above
++ ├─ ReflectionCacheSet.get_Internal
++ ├─ InternalReflectionCaches.get_ModuleOverridesAttachToRegistrationSource
 + ├─ cache.GetOrAdd ↑ as above
 + └─ if (overrides)
 +    ├─ callback
++    │  ├─ RegistrationSourceAddedEventArgs.get_ComponentRegistry
++    │  ├─ RegistrationSourceAddedEventArgs.get_RegistrationSource
 +    │  └─ Module.AttachToRegistrationSource
 +    └─ IComponentRegistryBuilder.add_RegistrationSourceAdded → ComponentRegistryBuilder.add_RegistrationSourceAdded
++       ├─ IRegisteredServicesTracker.get_Sources → DefaultRegisteredServicesTracker.get_Sources
 +       ├─ foreach (var source in _registeredServicesTracker.Sources)
 +       │  ├─ new RegistrationSourceAddedEventArgs (depth limit)
 +       │  └─ value
-+       └─ ComponentRegistryBuilder.GetRegistrationSourceAdded (depth limit)
++       ├─ ComponentRegistryBuilder.get_Properties
++       ├─ ComponentRegistryBuilder.GetRegistrationSourceAdded (depth limit)
++       └─ IDictionary<TKey, TValue>.set_Item → FallbackDictionary<TKey, TValue>.set_Item (depth limit)
 ```
 stderr:
 bench/Autofac.BenchmarkProfiling/Program.cs:35: unresolved-call: Cannot bind BenchmarkConverter.TypeToBenchmarks.
@@ -164,4 +234,4 @@ bench/Autofac.BenchmarkProfiling/Program.cs:82: unresolved-call: Cannot bind Ben
 bench/Autofac.BenchmarkProfiling/Program.cs:83: unresolved-call: Cannot bind BenchmarkActionFactory.CreateGlobalCleanup.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Descriptor.WorkloadMethod.Invoke.
 bench/Autofac.BenchmarkProfiling/Program.cs:91: unresolved-call: Cannot bind selectedCase.Parameters.Items.Select(x => x.Value).ToArray.
-167 additional diagnostics; use --diagnostics full.
+173 additional diagnostics; use --diagnostics full.

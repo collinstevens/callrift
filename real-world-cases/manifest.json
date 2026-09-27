@@ -2284,13 +2284,14 @@
     "after": "434c93c86cad878a60bd7904387eacaef5c25bba",
     "beforeLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
     "afterLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
-    "reason": "Cache module-hook override detection and move subscriptions under conditional guards. Follow custom add accessors through interface dispatch, including initial registration/source enumeration and handler invocation. Preserve possible callback semantics; shared-cache property getter calls and generated field-like event bodies remain unmodeled. Source mode leaves the generated-resource exception argument unresolved; restored net8.0 binds it.",
+    "reason": "Subscribe module hooks only when overridden. Independent pinned source and compiler-binding review verifies Shared/Internal/cache getter ordering, reflection lookup before the override guard, event-argument getters before moved hook calls, and cache dictionary construction before the Usage setter. Following Shared exposes paths to the changed cache constructor, expanding automatic roots from 7 to 128 source roots and 106 restored net8.0 roots. Every root has a checked path to changed code; possible dispatch, callbacks and the FallbackDictionary indexer cycle do not prove runtime execution. Generated delegate and resource declarations were independently regenerated and reviewed. Source has six additional unresolved calls in newly followed accessors because generated resources are unavailable; restored diagnostics remain empty. Call-free return guards remain unrendered. Upstream hook tests were read but not executed.",
     "tags": [
       "event-callback",
       "reflection",
       "conditional-subscription",
       "generic-cache",
-      "static-initialization"
+      "static-initialization",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/source-only-coverage.md",
