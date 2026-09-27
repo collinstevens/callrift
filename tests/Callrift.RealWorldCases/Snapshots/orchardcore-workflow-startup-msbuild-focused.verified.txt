@@ -3,32 +3,37 @@ exit: 0
 stdout:
   ActivityController.Create
   ├─ …
-  ├─ IDisplayManager<TModel>.BuildEditorAsync → ActivityDisplayManager.BuildEditorAsync
-  ├─ new ActivityEditViewModel
+  ├─ ActivityEditViewModel.set_ReturnUrl
+  ├─ IActivity.get_HasEditor → Activity.get_HasEditor
   ├─ if (!activity.HasEditor)
   │  └─ ActivityController.Create
   │     ├─ …
-  │     ├─ if (!ModelState.IsValid)
-  │     ├─ new ActivityRecord (depth limit)
+  │     ├─ IActivity.get_Properties → Entity.get_Properties
+  │     ├─ Entity.set_Properties
 + │     ├─ ActivityExtensions.IsEvent
 + │     ├─ if (activity.IsEvent())
 + │     │  └─ WorkflowTypeExtensions.HasStartActivity (changes below depth limit)
++ │     ├─ ActivityRecord.set_IsStart
+  │     ├─ WorkflowType.get_Activities
   │     ├─ workflowType.Activities.Add
-  │     ├─ _session.SaveAsync
   │     └─ …
   └─ View
 
   WorkflowTypeController.Edit
   ├─ …
-  ├─ IWorkflowTypeStore.SaveAsync → WorkflowTypeStore.SaveAsync
+  ├─ IHtmlLocalizer.get_Item
   ├─ NotifierExtensions.SuccessAsync
 + ├─ WorkflowTypeExtensions.IsMissingStartActivity
 + │  ├─ ArgumentNullException.ThrowIfNull
++ │  ├─ WorkflowType.get_Activities
++ │  ├─ ICollection<T>.get_Count
 + │  └─ if (workflowType.Activities.Count > 0)
 + │     └─ WorkflowTypeExtensions.HasStartActivity (changes below depth limit)
 + ├─ if (workflowType.IsMissingStartActivity())
++ │  ├─ IHtmlLocalizer.get_Item
 + │  └─ NotifierExtensions.WarningAsync
 + │     └─ INotifier.AddAsync → Notifier.AddAsync (depth limit)
+  ├─ WorkflowTypeUpdateModel.get_Id
   └─ RedirectToAction
 stderr:
 src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/ShapePagerTag.cs:57: unresolved-call: Cannot bind objectValue.ItemClasses.Add.
@@ -44,32 +49,37 @@ stdout:
 ```diff
   ActivityController.Create
   ├─ …
-  ├─ IDisplayManager<TModel>.BuildEditorAsync → ActivityDisplayManager.BuildEditorAsync
-  ├─ new ActivityEditViewModel
+  ├─ ActivityEditViewModel.set_ReturnUrl
+  ├─ IActivity.get_HasEditor → Activity.get_HasEditor
   ├─ if (!activity.HasEditor)
   │  └─ ActivityController.Create
   │     ├─ …
-  │     ├─ if (!ModelState.IsValid)
-  │     ├─ new ActivityRecord (depth limit)
+  │     ├─ IActivity.get_Properties → Entity.get_Properties
+  │     ├─ Entity.set_Properties
 + │     ├─ ActivityExtensions.IsEvent
 + │     ├─ if (activity.IsEvent())
 + │     │  └─ WorkflowTypeExtensions.HasStartActivity (changes below depth limit)
++ │     ├─ ActivityRecord.set_IsStart
+  │     ├─ WorkflowType.get_Activities
   │     ├─ workflowType.Activities.Add
-  │     ├─ _session.SaveAsync
   │     └─ …
   └─ View
 
   WorkflowTypeController.Edit
   ├─ …
-  ├─ IWorkflowTypeStore.SaveAsync → WorkflowTypeStore.SaveAsync
+  ├─ IHtmlLocalizer.get_Item
   ├─ NotifierExtensions.SuccessAsync
 + ├─ WorkflowTypeExtensions.IsMissingStartActivity
 + │  ├─ ArgumentNullException.ThrowIfNull
++ │  ├─ WorkflowType.get_Activities
++ │  ├─ ICollection<T>.get_Count
 + │  └─ if (workflowType.Activities.Count > 0)
 + │     └─ WorkflowTypeExtensions.HasStartActivity (changes below depth limit)
 + ├─ if (workflowType.IsMissingStartActivity())
++ │  ├─ IHtmlLocalizer.get_Item
 + │  └─ NotifierExtensions.WarningAsync
 + │     └─ INotifier.AddAsync → Notifier.AddAsync (depth limit)
+  ├─ WorkflowTypeUpdateModel.get_Id
   └─ RedirectToAction
 ```
 stderr:

@@ -1314,16 +1314,17 @@
     "licenseFile": "LICENSE",
     "before": "0e50949dad6637c7e17214baeaa44df6f6be2dd8",
     "after": "ee892e7e9fb30305110504bf553dcf4265e6c02a",
-    "reason": "Make the first event added to a workflow its startup task (#16344) (#19896)",
+    "reason": "Make the first workflow event a startup task and warn when saved workflows have activities but no startup task. Independent pinned-source and compiler review checks HasEditor getter placement, the short-circuit event check before the IsStart setter, Activities and Count getters before the missing-start guard, and save/success/warning/redirect ordering. Source creation cannot bind HasStartActivity; restored creation resolves it at the depth limit. Both modes retain two automatic roots. Four generated Metadata getters were independently regenerated and their lazy ShapeMetadata creation checked. Existing display-driver target sets remain unchanged. Source diagnostics total 17199, including 451 added unresolved calls and 4 duplicate accessors from equal namespaces in separate projects; the six restored diagnostics are unchanged explicit dynamic calls in ShapePagerTag. All 12 CLI formats repeat exactly. Upstream tests were read but not executed. Razor execution and runtime receiver selection remain outside these possible-call graphs.",
     "tags": [
       "guards",
       "short-circuit",
       "cross-project",
-      "callbacks"
+      "callbacks",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/orchardcore-coverage.md",
-    "review": "reviews/orchardcore-workflow-startup.md",
+    "review": "../tests/Callrift.RealWorldCases/OrchardWorkflowExpectations.cs",
     "beforeLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
     "afterLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
     "routine": false,

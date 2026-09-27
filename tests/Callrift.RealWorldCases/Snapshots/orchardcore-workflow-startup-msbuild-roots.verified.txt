@@ -3,8 +3,8 @@ exit: 0
 stdout:
   ActivityController.Create
   ├─ …
-  ├─ IDisplayManager<TModel>.BuildEditorAsync → ActivityDisplayManager.BuildEditorAsync (depth limit)
-  ├─ new ActivityEditViewModel
+  ├─ ActivityEditViewModel.set_ReturnUrl
+  ├─ IActivity.get_HasEditor → Activity.get_HasEditor
   └─ if (!activity.HasEditor)
 ~    └─ ActivityController.Create (changes below depth limit)
 
@@ -13,8 +13,9 @@ stdout:
   ├─ IWorkflowTypeStore.SaveAsync → WorkflowTypeStore.SaveAsync (depth limit)
   ├─ NotifierExtensions.SuccessAsync (depth limit)
 + ├─ WorkflowTypeExtensions.IsMissingStartActivity (changes below depth limit)
-+ └─ if (workflowType.IsMissingStartActivity())
-+    └─ NotifierExtensions.WarningAsync (depth limit)
++ ├─ if (workflowType.IsMissingStartActivity())
++ │  └─ NotifierExtensions.WarningAsync (depth limit)
+  └─ WorkflowTypeUpdateModel.get_Id
 stderr:
 src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/ShapePagerTag.cs:57: unresolved-call: Cannot bind objectValue.ItemClasses.Add.
 src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/ShapePagerTag.cs:64: unresolved-call: Cannot bind objectValue.ItemClasses.Add.
@@ -29,8 +30,8 @@ stdout:
 ```diff
   ActivityController.Create
   ├─ …
-  ├─ IDisplayManager<TModel>.BuildEditorAsync → ActivityDisplayManager.BuildEditorAsync (depth limit)
-  ├─ new ActivityEditViewModel
+  ├─ ActivityEditViewModel.set_ReturnUrl
+  ├─ IActivity.get_HasEditor → Activity.get_HasEditor
   └─ if (!activity.HasEditor)
 ~    └─ ActivityController.Create (changes below depth limit)
 
@@ -39,8 +40,9 @@ stdout:
   ├─ IWorkflowTypeStore.SaveAsync → WorkflowTypeStore.SaveAsync (depth limit)
   ├─ NotifierExtensions.SuccessAsync (depth limit)
 + ├─ WorkflowTypeExtensions.IsMissingStartActivity (changes below depth limit)
-+ └─ if (workflowType.IsMissingStartActivity())
-+    └─ NotifierExtensions.WarningAsync (depth limit)
++ ├─ if (workflowType.IsMissingStartActivity())
++ │  └─ NotifierExtensions.WarningAsync (depth limit)
+  └─ WorkflowTypeUpdateModel.get_Id
 ```
 stderr:
 src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/ShapePagerTag.cs:57: unresolved-call: Cannot bind objectValue.ItemClasses.Add.
