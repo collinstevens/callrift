@@ -23,6 +23,14 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         if (node is null)
             return;
         cancellationToken.ThrowIfCancellationRequested();
+        WalkCore(node, result);
+        if (node is ExpressionSyntax and not ParenthesizedExpressionSyntax && model.GetConversion(node, cancellationToken) is { IsUserDefined: true, MethodSymbol: { } method } conversion
+            && model.GetOperation(node, cancellationToken) is not null)
+            result.Add(CreateConversionCall(node, method, conversion.ConstrainedToType));
+    }
+
+    private void WalkCore(SyntaxNode node, List<CallStep> result)
+    {
         switch (node)
         {
             case LocalFunctionStatementSyntax or BaseTypeDeclarationSyntax or MethodDeclarationSyntax:
@@ -32,9 +40,15 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 Walk(lambda.Body, body);
                 Callback(lambda, body, result);
                 return;
+            case CastExpressionSyntax cast:
+                Walk(cast.Expression, result);
+                if (model.GetOperation(cast, cancellationToken) is IConversionOperation { OperatorMethod: { } conversionMethod } conversion)
+                    result.Add(CreateConversionCall(cast, conversionMethod, conversion.ConstrainedToType));
+                return;
             case ExpressionSyntax expression when expression is IdentifierNameSyntax or GenericNameSyntax or MemberAccessExpressionSyntax
-                && model.GetTypeInfo(expression, cancellationToken).ConvertedType?.TypeKind == TypeKind.Delegate
-                && model.GetSymbolInfo(expression, cancellationToken).Symbol is IMethodSymbol method:
+                && model.GetSymbolInfo(expression, cancellationToken).Symbol is IMethodSymbol method
+                && (model.GetTypeInfo(expression, cancellationToken).ConvertedType?.TypeKind == TypeKind.Delegate
+                    || model.GetOperation(expression, cancellationToken) is IMethodReferenceOperation):
                 if (expression is MemberAccessExpressionSyntax methodAccess)
                     Walk(methodAccess.Expression, result);
                 Callback(expression, [CreateCall(expression, method, [])], result);
@@ -196,7 +210,9 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
         {
             var callbackStart = callbacks.Count;
             var expression = argument;
-            while (expression is ParenthesizedExpressionSyntax or CastExpressionSyntax)
+            while (expression is ParenthesizedExpressionSyntax || expression is CastExpressionSyntax
+                && !model.GetConversion(expression, cancellationToken).IsUserDefined
+                && model.GetOperation(expression, cancellationToken) is not IConversionOperation { OperatorMethod: not null })
                 expression = expression is ParenthesizedExpressionSyntax parenthesized ? parenthesized.Expression : ((CastExpressionSyntax)expression).Expression;
             if (expression is AnonymousFunctionExpressionSyntax lambda)
                 Walk(lambda.Body, callbacks);
@@ -207,7 +223,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 callbacks.Add(CreateCall(expression, method, []));
             }
             else
-                Walk(expression, result);
+                Walk(argument, result);
             for (var index = callbackStart; index < callbacks.Count; index++)
                 callbacks[index] = callbacks[index] with { CallbackGroup = argumentIndex };
             argumentIndex++;
@@ -241,6 +257,17 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
     public CallStep ImplicitConstructor(SyntaxNode declaration, IMethodSymbol constructor) => CreateCall(declaration, constructor, []) with
     { Label = symbols.Label(constructor), SuppressDispatch = true, UsesContainingInstance = true };
 
+    private CallStep CreateConversionCall(SyntaxNode node, IMethodSymbol method, ITypeSymbol? constrainedType)
+    {
+        var call = CreateCall(node, method, []);
+        return constrainedType is null ? call : call with
+        {
+            SuppressDispatch = false,
+            DispatchType = DescribeType(method.ContainingType),
+            ReceiverType = DescribeType(constrainedType)
+        };
+    }
+
     private CallStep CreateCall(SyntaxNode node, IMethodSymbol method, IReadOnlyList<CallStep> children, ExpressionSyntax? collection = null)
     {
         var normalized = SymbolNames.Normalize(method);
@@ -260,7 +287,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             || receiver is not null && model.GetTypeInfo(receiver, cancellationToken).Type is INamedTypeSymbol { IsSealed: true }
             || receiver is null && model.GetEnclosingSymbol(node.SpanStart, cancellationToken)?.ContainingType is { IsSealed: true };
         var dispatches = !exactReceiver && (method.ContainingType.TypeKind == TypeKind.Interface || method.IsAbstract || method.IsVirtual || method.IsOverride);
-        return new CallStep("call", symbols.Key(normalized), source || collection is not null || node is ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax or WithExpressionSyntax
+        return new CallStep("call", symbols.Key(normalized), source || method.MethodKind == MethodKind.Conversion || collection is not null || node is ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax or WithExpressionSyntax
             ? symbols.Label(normalized) : SymbolNames.SyntaxLabel(node), source, symbols.Location(node), children)
         {
             AlignmentKey = AlignmentKey(node),
