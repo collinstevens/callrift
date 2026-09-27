@@ -18,7 +18,9 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
     public TreeExpander(CallGraph graph, IReadOnlySet<string> changed, DiffOptions options) : this(graph, changed, options, default) { }
 
     private readonly CallGraph resolvedGraph = ContextGraph.Create(graph, cancellationToken);
-    private readonly Dictionary<string, bool> changeReachability = new(StringComparer.Ordinal);
+    private readonly Lock changeReachabilityLock = new();
+    private HashSet<string>? changeReachability;
+    private HashSet<string>? changesWithoutInitialization;
 
     public CallTree Expand(string key)
     {
@@ -70,8 +72,11 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
             return new CallTree(key, member.Label, member.MatchName, member.Signature, [], false, "↺ cycle")
             { Kind = "member", Side = side, Omission = new Omission("cycle", definition) { ReferenceKey = key } };
         if (depth >= options.MaxDepth && HasVisibleCalls(member.Calls, initialized))
-            return new CallTree(key, member.Label, member.MatchName, member.Signature, [], ReachesChange(key, initialized), ReachesChange(key, initialized) ? "changes below depth limit" : "depth limit")
+        {
+            var reachesChange = ReachesChange(key, initialized);
+            return new CallTree(key, member.Label, member.MatchName, member.Signature, [], reachesChange, reachesChange ? "changes below depth limit" : "depth limit")
             { Kind = "member", Side = side, Omission = new Omission("depth-limit") };
+        }
         var prelude = member.Calls.TakeWhile(call => call.IsInitialization).ToArray();
         var initializers = ExpandCalls(prelude, active, depth + 1, initialized);
         var path = new HashSet<string>(active, StringComparer.Ordinal) { key };
@@ -216,28 +221,58 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
     {
         cancellationToken.ThrowIfCancellationRequested();
         if (changed.Count == 0) return false;
-        if (initialized.Count != 0) return FindUninitializedChange(key, initialized, new HashSet<string>(StringComparer.Ordinal));
-        lock (changeReachability)
+        lock (changeReachabilityLock)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            if (changeReachability.TryGetValue(key, out var known)) return known;
-            var visited = new HashSet<string>(StringComparer.Ordinal);
-            var result = FindChangedPath(key, visited);
-            if (!result)
-                foreach (var missing in visited)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                    changeReachability[missing] = false;
-                }
-            return result;
+            changeReachability ??= FindChangeReachability(false);
+            if (!changeReachability.Contains(key)) return false;
+            if (initialized.Count == 0) return true;
+            changesWithoutInitialization ??= FindChangeReachability(true);
+        }
+        return FindUninitializedChange(key, initialized, new HashSet<string>(StringComparer.Ordinal));
+    }
+
+    private HashSet<string> FindChangeReachability(bool skipInitialization)
+    {
+        var callers = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
+        foreach (var member in resolvedGraph.Members.Values)
+            foreach (var target in ReachabilityTargets(member.Calls, skipInitialization))
+            {
+                if (!callers.TryGetValue(target, out var incoming)) callers[target] = incoming = new HashSet<string>(StringComparer.Ordinal);
+                incoming.Add(member.Key);
+            }
+        var reachable = new HashSet<string>(changed, StringComparer.Ordinal);
+        var pending = new Queue<string>(reachable);
+        while (pending.TryDequeue(out var key))
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (!callers.TryGetValue(key, out var incoming)) continue;
+            foreach (var caller in incoming)
+                if (reachable.Add(caller)) pending.Enqueue(caller);
+        }
+        return reachable;
+    }
+
+    private IEnumerable<string> ReachabilityTargets(IEnumerable<CallStep> calls, bool skipInitialization)
+    {
+        foreach (var call in calls)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (skipInitialization && call.IsInitialization) continue;
+            if (call.Kind == "call")
+            {
+                yield return call.Key;
+                foreach (var target in resolvedGraph.Targets(call, cancellationToken)) yield return target;
+            }
+            foreach (var target in ReachabilityTargets(call.Children, skipInitialization)) yield return target;
         }
     }
 
     private bool FindUninitializedChange(string key, IReadOnlySet<string> initialized, HashSet<string> visited)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        if (changed.Contains(key)) return true;
-        if (!visited.Add(key) || !resolvedGraph.Members.TryGetValue(key, out var member)) return false;
+        if (changesWithoutInitialization!.Contains(key)) return true;
+        if (!changeReachability!.Contains(key) || !visited.Add(key) || !resolvedGraph.Members.TryGetValue(key, out var member)) return false;
         bool CallsReachChange(IEnumerable<CallStep> calls)
         {
             foreach (var call in calls)
@@ -255,17 +290,5 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
             return false;
         }
         return CallsReachChange(member.Calls);
-    }
-
-    private bool FindChangedPath(string key, HashSet<string> visited)
-    {
-        cancellationToken.ThrowIfCancellationRequested();
-        if (changeReachability.TryGetValue(key, out var known)) return known;
-        if (changed.Contains(key)) return changeReachability[key] = true;
-        if (!visited.Add(key)) return false;
-        if (resolvedGraph.Members.TryGetValue(key, out var member))
-            foreach (var target in EntrySelector.Targets(member.Calls, resolvedGraph, cancellationToken))
-                if (FindChangedPath(target, visited)) return changeReachability[key] = true;
-        return false;
     }
 }
