@@ -78,6 +78,7 @@ public sealed record DispatchType(string Name, IReadOnlyList<DispatchType> Argum
 
     internal DispatchType Resolve(IReadOnlyDictionary<string, (DispatchType Type, string Side)> bindings, string side, HashSet<string> active)
     {
+        if (bindings.Count == 0) return this;
         if (IsParameter && active.Add(side + Name) && bindings.TryGetValue(side + Name, out var bound))
             return bound.Type.Resolve(bindings, bound.Side, active);
         DispatchType[]? arguments = null;

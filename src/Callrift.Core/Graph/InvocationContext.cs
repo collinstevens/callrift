@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Text;
 
 namespace Callrift.Core;
@@ -42,23 +43,56 @@ internal sealed class InvocationContext(string Key, IReadOnlyDictionary<string, 
 
     public static InvocationContext Create(CallGraph graph, string key, IReadOnlyDictionary<string, DispatchType> arguments, DispatchType? receiver = null, bool receiverExact = false)
     {
+        var member = graph.Members.GetValueOrDefault(key);
+        if (member is null || member.GenericParameters.Count == 0 && (member.InstanceType is null || graph.ReceiverSensitiveMembers?.Contains(key) != true))
+            return new(key, ImmutableDictionary<string, DispatchType>.Empty, Definitions: graph.TypeDefinitions);
+        return CreateSpecialized(graph, key, arguments, receiver, receiverExact);
+    }
+
+    private static InvocationContext CreateSpecialized(CallGraph graph, string key, IReadOnlyDictionary<string, DispatchType> arguments, DispatchType? receiver, bool receiverExact)
+    {
         var parameters = graph.Members.GetValueOrDefault(key)?.GenericParameters ?? [];
-        var names = new Dictionary<string, string>(StringComparer.Ordinal);
+        Dictionary<string, string>? names = null;
         DispatchType Normalize(DispatchType type)
         {
             var name = type.Name;
-            if (type.IsParameter && !names.TryGetValue(name, out name))
-                names[type.Name] = name = names.Count < parameters.Count ? parameters[names.Count] : "generic-context:" + names.Count;
-            return type with
+            if (type.IsParameter)
             {
-                Name = name!,
-                Arguments = type.Arguments.Select(Normalize).ToArray(),
-                Constraints = type.Constraints is { } constraints ? constraints with { Types = constraints.Types.Select(Normalize).ToArray() } : null
-            };
+                names ??= new Dictionary<string, string>(StringComparer.Ordinal);
+                if (!names.TryGetValue(name, out name))
+                    names[type.Name] = name = names.Count < parameters.Count ? parameters[names.Count] : "generic-context:" + names.Count;
+            }
+            var normalizedArguments = NormalizeTypes(type.Arguments);
+            var constraints = type.Constraints;
+            if (constraints is not null)
+            {
+                var types = NormalizeTypes(constraints.Types);
+                if (!ReferenceEquals(types, constraints.Types)) constraints = constraints with { Types = types };
+            }
+            return name == type.Name && ReferenceEquals(normalizedArguments, type.Arguments) && ReferenceEquals(constraints, type.Constraints)
+                ? type : type with { Name = name!, Arguments = normalizedArguments, Constraints = constraints };
         }
-        var bindings = parameters.Select(parameter => new KeyValuePair<string, DispatchType>(parameter,
-            Normalize(arguments.GetValueOrDefault(parameter) ?? new DispatchType(parameter, [], true)))).Where(p =>
-                !(p.Value.IsParameter && p.Value.Name == p.Key && p.Value.Constraints is null)).ToDictionary(p => p.Key, p => p.Value, StringComparer.Ordinal);
+        IReadOnlyList<DispatchType> NormalizeTypes(IReadOnlyList<DispatchType> types)
+        {
+            DispatchType[]? result = null;
+            for (var index = 0; index < types.Count; index++)
+            {
+                var normalized = Normalize(types[index]);
+                if (ReferenceEquals(normalized, types[index])) continue;
+                result ??= types.ToArray();
+                result[index] = normalized;
+            }
+            return result ?? types;
+        }
+        Dictionary<string, DispatchType>? specializedBindings = null;
+        foreach (var parameter in parameters)
+        {
+            var normalized = Normalize(arguments.GetValueOrDefault(parameter) ?? new DispatchType(parameter, [], true));
+            if (normalized.IsParameter && normalized.Name == parameter && normalized.Constraints is null) continue;
+            specializedBindings ??= new Dictionary<string, DispatchType>(StringComparer.Ordinal);
+            specializedBindings.Add(parameter, normalized);
+        }
+        IReadOnlyDictionary<string, DispatchType> bindings = specializedBindings is null ? ImmutableDictionary<string, DispatchType>.Empty : specializedBindings;
         var declaration = graph.ReceiverSensitiveMembers?.Contains(key) == true ? graph.Members.GetValueOrDefault(key)?.InstanceType : null;
         var owner = declaration is null ? null : DispatchTypeCatalog.Substitute(declaration, bindings);
         var instance = owner is null ? null : receiver is null ? owner : Normalize(receiver);
