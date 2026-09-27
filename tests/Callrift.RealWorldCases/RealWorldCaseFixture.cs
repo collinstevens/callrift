@@ -51,6 +51,8 @@ public sealed class RealWorldCaseFixture : IDisposable
                 new SnapshotIdentity("revision", entry.Before, beforeId), new SnapshotIdentity("revision", entry.After, afterId));
         }
         var result = CallriftService.Compare(cached.Before, cached.After, options, timeout.Token) with { From = cached.From, To = cached.To };
+        if (entry.Id == "orchardcore-esmodule-localization")
+            OrchardEsModuleExpectations.Verify(result, options.Entries.Count > 0);
         var diagnostics = string.Concat(result.Diagnostics.Take(8).Select(diagnostic =>
             (diagnostic.Location is null ? "" : $"{diagnostic.Location.Path}:{diagnostic.Location.Line}: ") + $"{diagnostic.Code}: {diagnostic.Message}\n"));
         if (result.Diagnostics.Count > 8)
