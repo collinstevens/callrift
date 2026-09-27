@@ -2184,3 +2184,24 @@ time and cache size must be counted alongside command time before retaining this
 change as a measured improvement. The first run populates this package namespace;
 a following unchanged-key run must demonstrate explicit hits. No performance
 benefit is claimed yet, and failure artifact payloads remain unchanged.
+
+[Population run 36294268859](https://github.com/collinstevens/callrift/actions/runs/36294268859)
+at `5a2814e` passed all required jobs. Every repository cache hit, and all twelve
+new package keys explicitly missed and then saved. Package saves took 3–14 s
+per entry in the job-step timestamps; those costs are included below.
+
+| Complete dotnet command | Ubuntu | Windows | macOS |
+|---|---:|---:|---:|
+| Scenarios A / B | 201.86 / 188.68 s | 267.56 / 213.10 s | 214.02 / 131.01 s |
+| Workspaces A / B | 113.04 / 100.83 s | 142.99 / 115.56 s | 120.40 / 106.08 s |
+| Warm repository, cold package cases A / B | 146.50 / 149.46 s | 218.75 / 167.09 s | 121.97 / 104.05 s |
+| Whole broad path including setup/staggered starts | 3m 57s | 6m 23s | 7m 20s |
+
+Initial queue delays were 2 / 2 / 6 s, last-start delays 43 / 48 / 162 s.
+First-test-step-start to last-test-step-finish spans were 204 / 274 / 340 s for
+scenarios, 115 / 172 / 129 s for workspaces and 188 / 284 / 124 s for cases.
+The eighteen jobs consumed 67.12 runner-minutes and 47.05 aggregate command
+minutes. Windows workspace/case A and macOS workspace A miss their command
+budgets. This run populates the package cache; it cannot establish the benefit
+of restoring it. The following documentation-only checkpoint keeps all code,
+partition and package keys unchanged for that comparison.
