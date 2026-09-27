@@ -15,6 +15,7 @@ stdout:
   │  ├─ FileConfigurationPoller.ToJson
   │  ├─ if (asJson != _previousAsJson)
 ~ │  │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create (changes below depth limit)
+  │  │  ├─ Response.get_IsError (depth limit)
   │  │  └─ if (!config.IsError)
   │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
   └─ finally
@@ -27,10 +28,13 @@ stdout:
 
   ClaimsToDownstreamPathMiddleware.Invoke
   ├─ HttpItemsExtensions.DownstreamRoute (depth limit)
+  ├─ DownstreamRoute.get_ClaimsToPath
   └─ if (downstreamRoute.ClaimsToPath.Any())
-     ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
-     ├─ HttpItemsExtensions.TemplatePlaceholderNameAndValues (depth limit)
+     ├─ …
+     ├─ DownstreamRoute.get_ClaimsToPath
+     ├─ DownstreamRoute.get_DownstreamPathTemplate
 ~    ├─ IChangeDownstreamPathTemplate.ChangeDownstreamPath → ChangeDownstreamPathTemplate.ChangeDownstreamPath (changes below depth limit)
+     ├─ Response.get_IsError (depth limit)
      └─ if (response.IsError)
 
   DownstreamRouteFinderMiddleware.Invoke
@@ -40,8 +44,8 @@ stdout:
   ├─ IDownstreamRouteProvider.Get
   │  ├─ ⇢ DiscoveryDownstreamRouteFinder.Get (depth limit)
 ~ │  └─ ⇢ DownstreamRouteFinder.Get (changes below depth limit)
+  ├─ Response.get_IsError (depth limit)
   ├─ if (response.IsError)
-  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (depth limit)
   └─ …
 
   OcelotMiddlewareExtensions.UseOcelot
@@ -57,12 +61,14 @@ stdout:
 ~ └─ OcelotMiddlewareExtensions.UseOcelot (changes below depth limit)
 
 ~ MultiplexingMiddleware.Invoke (signature changed)
-  ├─ HttpItemsExtensions.DownstreamRouteHolder (depth limit)
+  ├─ …
+  ├─ Route.get_DownstreamRoute
   ├─ MultiplexingMiddleware.ShouldProcessSingleRoute
 - ├─ if (ShouldProcessSingleRoute(httpContext, downstreamRoutes))
 - │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync (depth limit)
 + ├─ if (ShouldProcessSingleRoute(context, downstreamRoutes))
 + │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync (depth limit)
+  ├─ Route.get_DownstreamRouteConfig
   ├─ if (routeKeysConfigs == null || routeKeysConfigs.Count == 0)
 ~ │  └─ MultiplexingMiddleware.ProcessRoutesAsync (changes below depth limit)
 ~ ├─ MultiplexingMiddleware.ProcessMainRouteAsync (signature changed)
@@ -88,6 +94,7 @@ stdout:
   │  ├─ FileConfigurationPoller.ToJson
   │  ├─ if (asJson != _previousAsJson)
 ~ │  │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create (changes below depth limit)
+  │  │  ├─ Response.get_IsError (depth limit)
   │  │  └─ if (!config.IsError)
   │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
   └─ finally
@@ -100,10 +107,13 @@ stdout:
 
   ClaimsToDownstreamPathMiddleware.Invoke
   ├─ HttpItemsExtensions.DownstreamRoute (depth limit)
+  ├─ DownstreamRoute.get_ClaimsToPath
   └─ if (downstreamRoute.ClaimsToPath.Any())
-     ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
-     ├─ HttpItemsExtensions.TemplatePlaceholderNameAndValues (depth limit)
+     ├─ …
+     ├─ DownstreamRoute.get_ClaimsToPath
+     ├─ DownstreamRoute.get_DownstreamPathTemplate
 ~    ├─ IChangeDownstreamPathTemplate.ChangeDownstreamPath → ChangeDownstreamPathTemplate.ChangeDownstreamPath (changes below depth limit)
+     ├─ Response.get_IsError (depth limit)
      └─ if (response.IsError)
 
   DownstreamRouteFinderMiddleware.Invoke
@@ -113,8 +123,8 @@ stdout:
   ├─ IDownstreamRouteProvider.Get
   │  ├─ ⇢ DiscoveryDownstreamRouteFinder.Get (depth limit)
 ~ │  └─ ⇢ DownstreamRouteFinder.Get (changes below depth limit)
+  ├─ Response.get_IsError (depth limit)
   ├─ if (response.IsError)
-  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (depth limit)
   └─ …
 
   OcelotMiddlewareExtensions.UseOcelot
@@ -130,12 +140,14 @@ stdout:
 ~ └─ OcelotMiddlewareExtensions.UseOcelot (changes below depth limit)
 
 ~ MultiplexingMiddleware.Invoke (signature changed)
-  ├─ HttpItemsExtensions.DownstreamRouteHolder (depth limit)
+  ├─ …
+  ├─ Route.get_DownstreamRoute
   ├─ MultiplexingMiddleware.ShouldProcessSingleRoute
 - ├─ if (ShouldProcessSingleRoute(httpContext, downstreamRoutes))
 - │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync (depth limit)
 + ├─ if (ShouldProcessSingleRoute(context, downstreamRoutes))
 + │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync (depth limit)
+  ├─ Route.get_DownstreamRouteConfig
   ├─ if (routeKeysConfigs == null || routeKeysConfigs.Count == 0)
 ~ │  └─ MultiplexingMiddleware.ProcessRoutesAsync (changes below depth limit)
 ~ ├─ MultiplexingMiddleware.ProcessMainRouteAsync (signature changed)

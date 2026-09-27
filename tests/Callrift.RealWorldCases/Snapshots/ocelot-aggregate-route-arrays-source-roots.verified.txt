@@ -17,6 +17,7 @@ stdout:
   │  ├─ FileConfigurationPoller.ToJson (depth limit)
   │  ├─ if (asJson != _previousAsJson)
 ~ │  │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create (changes below depth limit)
+  │  │  ├─ Response.get_IsError (depth limit)
   │  │  └─ if (!config.IsError)
   │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
   └─ finally
@@ -28,10 +29,13 @@ stdout:
 ~    └─ FileConfigurationPoller.OnTimer (changes below depth limit)
 
   DownstreamRouteFinder.Get
+  ├─ …
   ├─ configuration.Routes.Where
+  ├─ configuration.Routes.Where(r => !r.IsDynamic && RouteIsApplicableToThisRequest(r, httpMethod, upstreamHost)).OrderByDescending
   ├─ foreach (var route in applicableRoutes)
-  │  ├─ IUrlPathToUrlTemplateMatcher.Match → RegExUrlMatcher.Match (depth limit)
+  │  ├─ …
   │  ├─ IHeadersToHeaderTemplatesMatcher.Match → HeadersToHeaderTemplatesMatcher.Match (depth limit)
+  │  ├─ UrlMatch.get_Match
   │  └─ if (urlMatch.Match && headersMatch)
 ~ │     └─ DownstreamRouteFinder.GetPlaceholderNamesAndValues (changes below depth limit)
   ├─ if (downstreamRoutes.Count != 0)
@@ -49,11 +53,14 @@ stdout:
 ~ MultiplexingMiddleware.Invoke (signature changed)
 - ├─ ? httpContext.Items.DownstreamRouteHolder
 + ├─ ? context.Items.DownstreamRouteHolder
+  ├─ DownstreamRouteHolder.get_Route
+  ├─ Route.get_DownstreamRoute
   ├─ MultiplexingMiddleware.ShouldProcessSingleRoute
 - ├─ if (ShouldProcessSingleRoute(httpContext, downstreamRoutes))
 - │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync (depth limit)
 + ├─ if (ShouldProcessSingleRoute(context, downstreamRoutes))
 + │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync (depth limit)
+  ├─ Route.get_DownstreamRouteConfig
   ├─ if (routeKeysConfigs == null || routeKeysConfigs.Count == 0)
 ~ │  └─ MultiplexingMiddleware.ProcessRoutesAsync (changes below depth limit)
 ~ ├─ MultiplexingMiddleware.ProcessMainRouteAsync (signature changed)
@@ -68,15 +75,18 @@ stdout:
   ├─ ? jObject.SelectTokens(matchAdvancedAgg.JsonPath).Select(s => s.ToString()).Distinct
   └─ foreach (var value in values)
 -    ├─ ? httpContext.Items.TemplatePlaceholderNameAndValues
--    ├─ ? new PlaceholderNameAndValue
 +    ├─ ? context.Items.TemplatePlaceholderNameAndValues
+     ├─ AggregateRouteConfig.get_Parameter
+-    ├─ ? new PlaceholderNameAndValue
 +    ├─ ? new
      └─ MultiplexingMiddleware.ProcessRouteAsync (depth limit)
 
   MultiplexingMiddleware.ProcessRoutesWithRouteKeysAsync
-  ├─ ? mainResponse.Items.DownstreamResponse
+  ├─ …
+  ├─ DownstreamResponse.get_Content
   ├─ ? JToken.Parse
   └─ foreach (var downstreamRoute in routes.Skip(1))
+     ├─ routeKeysConfigs.FirstOrDefault
      ├─ if (matchAdvancedAgg != null)
 -    ├─ MultiplexingMiddleware.ProcessRouteAsync (depth limit)
 +    └─ else (!(matchAdvancedAgg != null))
@@ -84,15 +94,31 @@ stdout:
 
   ChangeDownstreamPathTemplate.ChangeDownstreamPath
   ├─ foreach (var config in claimsToThings)
-  │  ├─ IClaimsParser.GetValue → ClaimsParser.GetValue (depth limit)
+  │  ├─ …
   │  ├─ if (value.IsError)
+  │  ├─ ClaimToThing.get_ExistingKey
+- │  ├─ DownstreamPathTemplate.get_Value
 - │  ├─ if (!downstreamPathTemplate.Value.Contains(placeholderName))
 - │  │  ├─ new CouldNotFindPlaceholderError (depth limit)
 - │  │  └─ new ErrorResponse (depth limit)
+- │  ├─ placeholders.Any
+- │  │  └─ PlaceholderNameAndValue.get_Name
+- │  ├─ if (placeholders.Any(ph => ph.Name == placeholderName))
+- │  │  └─ placeholders.RemoveAll
+- │  │     └─ PlaceholderNameAndValue.get_Name
+  │  ├─ Response<T>.get_Data
 ~ │  ├─ new PlaceholderNameAndValue (signature changed)
-+ │  └─ if (!downstreamPathTemplate.Value.Contains(placeholder.Name))
-+ │     ├─ new CouldNotFindPlaceholderError (depth limit)
-+ │     └─ new ErrorResponse (depth limit)
++ │  ├─ DownstreamPathTemplate.get_Value
++ │  ├─ PlaceholderNameAndValue.get_Name
++ │  ├─ if (!downstreamPathTemplate.Value.Contains(placeholder.Name))
++ │  │  ├─ PlaceholderNameAndValue.get_Name
++ │  │  ├─ new CouldNotFindPlaceholderError (depth limit)
++ │  │  └─ new ErrorResponse (depth limit)
++ │  ├─ placeholders.Any
++ │  │  └─ PlaceholderNameAndValue.get_Name ×2
++ │  └─ if (placeholders.Any(ph => ph.Name == placeholder.Name))
++ │     └─ placeholders.RemoveAll
++ │        └─ PlaceholderNameAndValue.get_Name ×2
   └─ new OkResponse (depth limit)
 
   WebSocketsSteps.StartHttp2OcelotWithWebSockets
@@ -144,6 +170,7 @@ stdout:
   │  ├─ FileConfigurationPoller.ToJson (depth limit)
   │  ├─ if (asJson != _previousAsJson)
 ~ │  │  ├─ IInternalConfigurationCreator.Create → FileInternalConfigurationCreator.Create (changes below depth limit)
+  │  │  ├─ Response.get_IsError (depth limit)
   │  │  └─ if (!config.IsError)
   │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (depth limit)
   └─ finally
@@ -155,10 +182,13 @@ stdout:
 ~    └─ FileConfigurationPoller.OnTimer (changes below depth limit)
 
   DownstreamRouteFinder.Get
+  ├─ …
   ├─ configuration.Routes.Where
+  ├─ configuration.Routes.Where(r => !r.IsDynamic && RouteIsApplicableToThisRequest(r, httpMethod, upstreamHost)).OrderByDescending
   ├─ foreach (var route in applicableRoutes)
-  │  ├─ IUrlPathToUrlTemplateMatcher.Match → RegExUrlMatcher.Match (depth limit)
+  │  ├─ …
   │  ├─ IHeadersToHeaderTemplatesMatcher.Match → HeadersToHeaderTemplatesMatcher.Match (depth limit)
+  │  ├─ UrlMatch.get_Match
   │  └─ if (urlMatch.Match && headersMatch)
 ~ │     └─ DownstreamRouteFinder.GetPlaceholderNamesAndValues (changes below depth limit)
   ├─ if (downstreamRoutes.Count != 0)
@@ -176,11 +206,14 @@ stdout:
 ~ MultiplexingMiddleware.Invoke (signature changed)
 - ├─ ? httpContext.Items.DownstreamRouteHolder
 + ├─ ? context.Items.DownstreamRouteHolder
+  ├─ DownstreamRouteHolder.get_Route
+  ├─ Route.get_DownstreamRoute
   ├─ MultiplexingMiddleware.ShouldProcessSingleRoute
 - ├─ if (ShouldProcessSingleRoute(httpContext, downstreamRoutes))
 - │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync (depth limit)
 + ├─ if (ShouldProcessSingleRoute(context, downstreamRoutes))
 + │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync (depth limit)
+  ├─ Route.get_DownstreamRouteConfig
   ├─ if (routeKeysConfigs == null || routeKeysConfigs.Count == 0)
 ~ │  └─ MultiplexingMiddleware.ProcessRoutesAsync (changes below depth limit)
 ~ ├─ MultiplexingMiddleware.ProcessMainRouteAsync (signature changed)
@@ -195,15 +228,18 @@ stdout:
   ├─ ? jObject.SelectTokens(matchAdvancedAgg.JsonPath).Select(s => s.ToString()).Distinct
   └─ foreach (var value in values)
 -    ├─ ? httpContext.Items.TemplatePlaceholderNameAndValues
--    ├─ ? new PlaceholderNameAndValue
 +    ├─ ? context.Items.TemplatePlaceholderNameAndValues
+     ├─ AggregateRouteConfig.get_Parameter
+-    ├─ ? new PlaceholderNameAndValue
 +    ├─ ? new
      └─ MultiplexingMiddleware.ProcessRouteAsync (depth limit)
 
   MultiplexingMiddleware.ProcessRoutesWithRouteKeysAsync
-  ├─ ? mainResponse.Items.DownstreamResponse
+  ├─ …
+  ├─ DownstreamResponse.get_Content
   ├─ ? JToken.Parse
   └─ foreach (var downstreamRoute in routes.Skip(1))
+     ├─ routeKeysConfigs.FirstOrDefault
      ├─ if (matchAdvancedAgg != null)
 -    ├─ MultiplexingMiddleware.ProcessRouteAsync (depth limit)
 +    └─ else (!(matchAdvancedAgg != null))
@@ -211,15 +247,31 @@ stdout:
 
   ChangeDownstreamPathTemplate.ChangeDownstreamPath
   ├─ foreach (var config in claimsToThings)
-  │  ├─ IClaimsParser.GetValue → ClaimsParser.GetValue (depth limit)
+  │  ├─ …
   │  ├─ if (value.IsError)
+  │  ├─ ClaimToThing.get_ExistingKey
+- │  ├─ DownstreamPathTemplate.get_Value
 - │  ├─ if (!downstreamPathTemplate.Value.Contains(placeholderName))
 - │  │  ├─ new CouldNotFindPlaceholderError (depth limit)
 - │  │  └─ new ErrorResponse (depth limit)
+- │  ├─ placeholders.Any
+- │  │  └─ PlaceholderNameAndValue.get_Name
+- │  ├─ if (placeholders.Any(ph => ph.Name == placeholderName))
+- │  │  └─ placeholders.RemoveAll
+- │  │     └─ PlaceholderNameAndValue.get_Name
+  │  ├─ Response<T>.get_Data
 ~ │  ├─ new PlaceholderNameAndValue (signature changed)
-+ │  └─ if (!downstreamPathTemplate.Value.Contains(placeholder.Name))
-+ │     ├─ new CouldNotFindPlaceholderError (depth limit)
-+ │     └─ new ErrorResponse (depth limit)
++ │  ├─ DownstreamPathTemplate.get_Value
++ │  ├─ PlaceholderNameAndValue.get_Name
++ │  ├─ if (!downstreamPathTemplate.Value.Contains(placeholder.Name))
++ │  │  ├─ PlaceholderNameAndValue.get_Name
++ │  │  ├─ new CouldNotFindPlaceholderError (depth limit)
++ │  │  └─ new ErrorResponse (depth limit)
++ │  ├─ placeholders.Any
++ │  │  └─ PlaceholderNameAndValue.get_Name ×2
++ │  └─ if (placeholders.Any(ph => ph.Name == placeholder.Name))
++ │     └─ placeholders.RemoveAll
++ │        └─ PlaceholderNameAndValue.get_Name ×2
   └─ new OkResponse (depth limit)
 
   WebSocketsSteps.StartHttp2OcelotWithWebSockets

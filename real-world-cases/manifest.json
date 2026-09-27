@@ -2415,7 +2415,7 @@
     "licenseFile": "LICENSE.md",
     "before": "6ceb308bab676942fd7c10d00ea5f9dd0dccca78",
     "after": "2634264fd6a67e99acc7bd4a10c94287ceae1a23",
-    "reason": "Copy route placeholders per JSONPath result, introduce primary constructors, and move aggregate routing fallback into an explicit else; indexer-based response-key writes remain omitted.",
+    "reason": "Copy route placeholders per JSONPath result, introduce primary constructors, and move aggregate routing fallback into an explicit else. Accessor review follows route property reads, init setters, list indexing and short-circuit count guards. Restored mode shows the guarded response-key dictionary write; source mode lacks ASP.NET bindings for that write. Call-free return guards still do not constrain later calls.",
     "tags": [
       "aggregation",
       "async",
@@ -2425,7 +2425,8 @@
       "signature-change",
       "interface-dispatch",
       "generated-regex",
-      "indexer-limitation"
+      "properties",
+      "indexers"
     ],
     "options": [],
     "knownIssue": "issues/ocelot-coverage.md",

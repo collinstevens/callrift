@@ -29,7 +29,7 @@ internal static class OcelotAggregationExpectations
         }
         Assert.Equal(7, result.Trees.Count);
         VerifyPlaceholderCopy(result, workspace);
-        VerifyOmittedIndexerWrites(result);
+        VerifyIndexerWrites(result, workspace);
         var invoke = Assert.Single(result.Trees, node => node.Label == "MultiplexingMiddleware.Invoke");
         Assert.Contains("httpContext", invoke.Before!.Signature);
         Assert.DoesNotContain("httpContext", invoke.After!.Signature);
@@ -80,18 +80,41 @@ internal static class OcelotAggregationExpectations
         else Assert.Contains(loop.Children, node => node.Label == "? new" && node.After!.SymbolId is null);
     }
 
-    private static void VerifyOmittedIndexerWrites(DiffResult result)
+    private static void VerifyIndexerWrites(DiffResult result, bool workspace)
     {
         var map = Assert.Single(result.Trees, node => node.Label == "MultiplexingMiddleware.MapAsync");
         Assert.Equal("signature changed", map.Detail);
+        Assert.Equal("Route.get_DownstreamRoute", map.Children[0].Label);
+        Assert.Equal("List<T>.get_Count", map.Children[1].Label);
+        var singleRoute = Assert.Single(map.Children, node => node.Label == "if (route.DownstreamRoute.Count == 1)");
+        Assert.Equal("Task.get_CompletedTask", Assert.Single(singleRoute.Children).Label);
+        var configured = Assert.Single(map.Children, node => node.Label == "if (route.DownstreamRouteConfig?.Count > 0)");
+        Assert.Equal('+', configured.Mark);
+        var loop = Assert.Single(configured.Children);
+        Assert.Equal("for (i < contexts.Count && i < route.DownstreamRouteConfig.Count)", loop.Label);
+        var shortCircuit = Assert.Single(loop.Children, node => node.Label == "if (i < contexts.Count)");
+        Assert.Equal(["Route.get_DownstreamRouteConfig", "List<T>.get_Count"], shortCircuit.Children.Select(node => node.Label));
+        Assert.Contains(loop.Children, node => node.Label == "AggregateRouteConfig.get_RouteKey");
+        if (workspace)
+        {
+            Assert.Equal(["List<T>.get_Item", "HttpContext.get_Items", "IDictionary<TKey, TValue>.set_Item"],
+                loop.Children.TakeLast(3).Select(node => node.Label));
+            var write = loop.Children[^1];
+            Assert.Equal('+', write.Mark);
+            Assert.Equal(257, Assert.Single(write.After!.CallSites).Line);
+        }
+        else
+        {
+            Assert.Equal("List<T>.get_Item", loop.Children[^1].Label);
+            Assert.DoesNotContain(Descendants(map.Children), node => node.Label == "IDictionary<TKey, TValue>.set_Item");
+        }
         Assert.Equal(["IResponseAggregatorFactory.Get → InMemoryResponseAggregatorFactory.Get", "IResponseAggregator.Aggregate"],
-            map.Children.Select(node => node.Label));
-        var aggregate = map.Children[1];
+            map.Children.TakeLast(2).Select(node => node.Label));
+        var aggregate = map.Children[^1];
         Assert.Equal("possible", aggregate.After!.Dispatch);
         Assert.Equal(2, aggregate.After.TargetIds.Count);
         Assert.Contains(aggregate.After.TargetIds, identity => identity.Contains("SimpleJsonResponseAggregator.Aggregate", StringComparison.Ordinal));
         Assert.Contains(aggregate.After.TargetIds, identity => identity.Contains("UserDefinedResponseAggregator.Aggregate", StringComparison.Ordinal));
-        Assert.DoesNotContain(Descendants(map.Children), node => node.Label.Contains("CurrentAggregateRouteKey", StringComparison.Ordinal));
     }
 
     private static IEnumerable<DiffNode> Descendants(IEnumerable<DiffNode> nodes) =>

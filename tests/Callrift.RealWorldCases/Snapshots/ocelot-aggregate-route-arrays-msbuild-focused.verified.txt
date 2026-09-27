@@ -2,33 +2,55 @@
 exit: 0
 stdout:
   AggregatesCreator.Create
+  ├─ FileConfiguration.get_Aggregates
   ├─ fileConfiguration.Aggregates.Select
+  │  ├─ FileConfiguration.get_GlobalConfiguration
   │  └─ AggregatesCreator.SetUpAggregateRoute
   │     ├─ new List<DownstreamRoute>
   │     ├─ routes.SelectMany
+  │     ├─ FileAggregateRoute.get_RouteKeys
 - │     ├─ aggregateRoute.RouteKeys.Select
 - │     │  └─ allRoutes.FirstOrDefault
+- │     │     └─ DownstreamRoute.get_Key
 - │     ├─ foreach (var downstreamRoute in downstreamRoutes)
 - │     │  └─ applicableRoutes.Add
 + │     ├─ foreach (var key in aggregateRoute.RouteKeys)
 + │     │  ├─ allRoutes.FirstOrDefault
++ │     │  │  └─ DownstreamRoute.get_Key
 + │     │  └─ applicableRoutes.Add
   │     ├─ IUpstreamTemplatePatternCreator.Create → UpstreamTemplatePatternCreator.Create (depth limit)
   │     ├─ IUpstreamHeaderTemplatePatternCreator.Create → UpstreamHeaderTemplatePatternCreator.Create (depth limit)
+  │     ├─ FileAggregateRoute.get_UpstreamHttpMethod
   │     ├─ IEnumerableExtensions.ToHttpMethods (depth limit)
-  │     └─ new Route (depth limit)
+  │     ├─ new Route (depth limit)
+  │     ├─ FileAggregateRoute.get_Aggregator
+  │     ├─ Route.set_Aggregator
+  │     ├─ Route.set_DownstreamRoute
+  │     ├─ FileAggregateRoute.get_RouteKeysConfig
+  │     ├─ Route.set_DownstreamRouteConfig
+  │     ├─ Route.set_UpstreamHeaderTemplates
+  │     ├─ FileAggregateRoute.get_UpstreamHost
+  │     ├─ Route.set_UpstreamHost
+  │     ├─ Route.set_UpstreamHttpMethod
+  │     └─ Route.set_UpstreamTemplatePattern
   ├─ fileConfiguration.Aggregates.Select(aggregate => SetUpAggregateRoute(routes, aggregate, fileConfiguration.GlobalConfiguration)).Where
   └─ fileConfiguration.Aggregates.Select(aggregate => SetUpAggregateRoute(routes, aggregate, fileConfiguration.GlobalConfiguration)).Where(aggregate => aggregate != null).ToList
 
   HeaderPlaceholderNameAndValueFinder.Find
   ├─ new List<PlaceholderNameAndValue>
   └─ foreach (var templateHeader in templateHeaders)
+     ├─ KeyValuePair<TKey, TValue>.get_Key
+     ├─ IHeaderDictionary.get_Item
+     ├─ KeyValuePair<TKey, TValue>.get_Value
+     ├─ UpstreamHeaderTemplate.get_Pattern
      ├─ StringValues.op_Implicit
      ├─ templateHeader.Value.Pattern.Matches
      ├─ matches.SelectMany
      ├─ matches.SelectMany(g => g.Groups as IEnumerable<Group>).Where
      ├─ matches.SelectMany(g => g.Groups as IEnumerable<Group>).Where(g => g.Name != "0").Select
+     │  ├─ Group.get_Name
 -    │  ├─ string.Concat
+     │  ├─ Capture.get_Value
 ~    │  └─ new PlaceholderNameAndValue (signature changed)
      └─ result.AddRange
 
@@ -44,35 +66,52 @@ stdout:
   │  └─ new OkResponse<T>
   ├─ UrlPathPlaceholderNameAndValueFinder.FindGroups
   ├─ FindGroups(path, query, pathTemplate).Select
+  │  ├─ Group.get_Name
+  │  ├─ Capture.get_Value
 ~ │  └─ new PlaceholderNameAndValue (signature changed) ↑ as above
 - ├─ FindGroups(path, query, pathTemplate).Select(g => new PlaceholderNameAndValue($"{LeftBrace}{g.Name}{RightBrace}", g.Value)).ToList
 + ├─ FindGroups(path, query, pathTemplate).Select(g => new PlaceholderNameAndValue(g.Name, g.Value, true)).ToList
   └─ new OkResponse<T>
 
 ~ MultiplexingMiddleware.Invoke (signature changed)
+  ├─ HttpContext.get_Items
   ├─ HttpItemsExtensions.DownstreamRouteHolder
+  ├─ DownstreamRouteHolder.get_Route
+  ├─ Route.get_DownstreamRoute
   ├─ MultiplexingMiddleware.ShouldProcessSingleRoute
 - ├─ if (ShouldProcessSingleRoute(httpContext, downstreamRoutes))
+- │  ├─ List<T>.get_Item
 - │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync
+- │     ├─ HttpContext.get_Items
 - │     ├─ HttpItemsExtensions.UpsertDownstreamRoute (depth limit)
 - │     └─ _next.Invoke
 + ├─ if (ShouldProcessSingleRoute(context, downstreamRoutes))
++ │  ├─ List<T>.get_Item
 + │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync
++ │     ├─ HttpContext.get_Items
 + │     ├─ HttpItemsExtensions.UpsertDownstreamRoute (depth limit)
 + │     └─ _next.Invoke
+  ├─ List<T>.get_Count
+  ├─ Route.get_DownstreamRouteConfig
+  ├─ if (!(routeKeysConfigs == null))
   ├─ if (routeKeysConfigs == null || routeKeysConfigs.Count == 0)
   │  └─ MultiplexingMiddleware.ProcessRoutesAsync
+  │     ├─ Route.get_DownstreamRoute
   │     ├─ route.DownstreamRoute.Select
   │     ├─ route.DownstreamRoute.Select(downstreamRoute => ProcessRouteAsync(context, downstreamRoute)).ToArray
   │     ├─ Task.WhenAll
   │     ├─ new
 ~ │     └─ MultiplexingMiddleware.MapAsync (signature changed)
+  ├─ List<T>.get_Item
 ~ ├─ MultiplexingMiddleware.ProcessMainRouteAsync (signature changed)
+  │  ├─ HttpContext.get_Items
   │  ├─ HttpItemsExtensions.UpsertDownstreamRoute
   │  └─ _next.Invoke
   ├─ MultiplexingMiddleware.ProcessRoutesWithRouteKeysAsync
   │  ├─ new List<Task<HttpContext>>
+  │  ├─ HttpContext.get_Items
   │  ├─ HttpItemsExtensions.DownstreamResponse
+  │  ├─ DownstreamResponse.get_Content
   │  ├─ mainResponse.Items.DownstreamResponse().Content.ReadAsStringAsync
   │  ├─ JToken.Parse
   │  ├─ routes.Skip
@@ -87,26 +126,66 @@ stdout:
 + │  │     ├─ MultiplexingMiddleware.ProcessRouteAsync (depth limit)
 + │  │     └─ processing.Add
   │  └─ Task.WhenAll
+  ├─ Array.get_Length
   └─ MultiplexingMiddleware.MapResponsesAsync
      ├─ new List<HttpContext>
      ├─ List<T>.Add
      ├─ contexts.AddRange
 ~    └─ MultiplexingMiddleware.MapAsync (signature changed)
+        ├─ Route.get_DownstreamRoute
+        ├─ List<T>.get_Count
+        ├─ if (route.DownstreamRoute.Count == 1)
++       ├─ Route.get_DownstreamRouteConfig
++       ├─ if (route.DownstreamRouteConfig is not null)
++       │  └─ List<T>.get_Count
++       ├─ if (route.DownstreamRouteConfig?.Count > 0)
++       │  └─ for (i < contexts.Count && i < route.DownstreamRouteConfig.Count)
++       │     ├─ List<T>.get_Count
++       │     ├─ if (i < contexts.Count)
++       │     │  ├─ Route.get_DownstreamRouteConfig
++       │     │  └─ List<T>.get_Count
++       │     ├─ Route.get_DownstreamRouteConfig
++       │     ├─ List<T>.get_Item
++       │     ├─ AggregateRouteConfig.get_RouteKey
++       │     ├─ List<T>.get_Item
++       │     ├─ HttpContext.get_Items
++       │     └─ IDictionary<TKey, TValue>.set_Item
         ├─ IResponseAggregatorFactory.Get → InMemoryResponseAggregatorFactory.Get (depth limit)
         └─ IResponseAggregator.Aggregate
 
 ~ MultiplexingMiddleware.MapAsync (signature changed)
+  ├─ Route.get_DownstreamRoute
+  ├─ List<T>.get_Count
+  ├─ if (route.DownstreamRoute.Count == 1)
++ ├─ Route.get_DownstreamRouteConfig
++ ├─ if (route.DownstreamRouteConfig is not null)
++ │  └─ List<T>.get_Count
++ ├─ if (route.DownstreamRouteConfig?.Count > 0)
++ │  └─ for (i < contexts.Count && i < route.DownstreamRouteConfig.Count)
++ │     ├─ List<T>.get_Count
++ │     ├─ if (i < contexts.Count)
++ │     │  ├─ Route.get_DownstreamRouteConfig
++ │     │  └─ List<T>.get_Count
++ │     ├─ Route.get_DownstreamRouteConfig
++ │     ├─ List<T>.get_Item
++ │     ├─ AggregateRouteConfig.get_RouteKey
++ │     ├─ List<T>.get_Item
++ │     ├─ HttpContext.get_Items
++ │     └─ IDictionary<TKey, TValue>.set_Item
   ├─ IResponseAggregatorFactory.Get → InMemoryResponseAggregatorFactory.Get
   └─ IResponseAggregator.Aggregate
 
 ~ MultiplexingMiddleware.ProcessRouteWithComplexAggregation (signature changed)
   ├─ new List<Task<HttpContext>>
+  ├─ AggregateRouteConfig.get_JsonPath
   ├─ jObject.SelectTokens
   ├─ jObject.SelectTokens(matchAdvancedAgg.JsonPath).Select
   ├─ jObject.SelectTokens(matchAdvancedAgg.JsonPath).Select(s => s.ToString()).Distinct
   └─ foreach (var value in values)
+     ├─ HttpContext.get_Items
      ├─ HttpItemsExtensions.TemplatePlaceholderNameAndValues
 +    ├─ new List<PlaceholderNameAndValue>
+     ├─ AggregateRouteConfig.get_Parameter
 ~    ├─ new PlaceholderNameAndValue (signature changed) ↑ as above
 -    ├─ tPnv.Add
 +    ├─ List<T>.Add
@@ -115,26 +194,40 @@ stdout:
 
   ChangeDownstreamPathTemplate.ChangeDownstreamPath
   ├─ foreach (var config in claimsToThings)
+  │  ├─ ClaimToThing.get_NewKey
+  │  ├─ ClaimToThing.get_Delimiter
+  │  ├─ ClaimToThing.get_Index
   │  ├─ IClaimsParser.GetValue → ClaimsParser.GetValue
+  │  ├─ Response.get_IsError
   │  ├─ if (value.IsError)
+  │  ├─ ClaimToThing.get_ExistingKey
++ │  ├─ Response<T>.get_Data
 + │  ├─ new PlaceholderNameAndValue
 + │  │  ├─ if (isKey)
 + │  │  │  └─ string.Concat
 + │  │  └─ new Object
+  │  ├─ DownstreamPathTemplate.get_Value
++ │  ├─ PlaceholderNameAndValue.get_Name
   │  ├─ downstreamPathTemplate.Value.Contains
 - │  ├─ if (!downstreamPathTemplate.Value.Contains(placeholderName))
 - │  │  ├─ new CouldNotFindPlaceholderError (depth limit)
 - │  │  └─ new ErrorResponse (depth limit)
 + │  ├─ if (!downstreamPathTemplate.Value.Contains(placeholder.Name))
++ │  │  ├─ PlaceholderNameAndValue.get_Name
 + │  │  ├─ new CouldNotFindPlaceholderError (depth limit)
 + │  │  └─ new ErrorResponse (depth limit)
   │  ├─ placeholders.Any
+  │  │  ├─ PlaceholderNameAndValue.get_Name
++ │  │  └─ PlaceholderNameAndValue.get_Name
 - │  ├─ if (placeholders.Any(ph => ph.Name == placeholderName))
 - │  │  └─ placeholders.RemoveAll
+- │  │     └─ PlaceholderNameAndValue.get_Name
+- │  ├─ Response<T>.get_Data
 - │  ├─ new PlaceholderNameAndValue
 - │  │  └─ new Object
 + │  ├─ if (placeholders.Any(ph => ph.Name == placeholder.Name))
 + │  │  └─ placeholders.RemoveAll
++ │  │     └─ PlaceholderNameAndValue.get_Name ×2
   │  └─ placeholders.Add
   └─ new OkResponse
 stderr:
@@ -144,33 +237,55 @@ exit: 0
 stdout:
 ```diff
   AggregatesCreator.Create
+  ├─ FileConfiguration.get_Aggregates
   ├─ fileConfiguration.Aggregates.Select
+  │  ├─ FileConfiguration.get_GlobalConfiguration
   │  └─ AggregatesCreator.SetUpAggregateRoute
   │     ├─ new List<DownstreamRoute>
   │     ├─ routes.SelectMany
+  │     ├─ FileAggregateRoute.get_RouteKeys
 - │     ├─ aggregateRoute.RouteKeys.Select
 - │     │  └─ allRoutes.FirstOrDefault
+- │     │     └─ DownstreamRoute.get_Key
 - │     ├─ foreach (var downstreamRoute in downstreamRoutes)
 - │     │  └─ applicableRoutes.Add
 + │     ├─ foreach (var key in aggregateRoute.RouteKeys)
 + │     │  ├─ allRoutes.FirstOrDefault
++ │     │  │  └─ DownstreamRoute.get_Key
 + │     │  └─ applicableRoutes.Add
   │     ├─ IUpstreamTemplatePatternCreator.Create → UpstreamTemplatePatternCreator.Create (depth limit)
   │     ├─ IUpstreamHeaderTemplatePatternCreator.Create → UpstreamHeaderTemplatePatternCreator.Create (depth limit)
+  │     ├─ FileAggregateRoute.get_UpstreamHttpMethod
   │     ├─ IEnumerableExtensions.ToHttpMethods (depth limit)
-  │     └─ new Route (depth limit)
+  │     ├─ new Route (depth limit)
+  │     ├─ FileAggregateRoute.get_Aggregator
+  │     ├─ Route.set_Aggregator
+  │     ├─ Route.set_DownstreamRoute
+  │     ├─ FileAggregateRoute.get_RouteKeysConfig
+  │     ├─ Route.set_DownstreamRouteConfig
+  │     ├─ Route.set_UpstreamHeaderTemplates
+  │     ├─ FileAggregateRoute.get_UpstreamHost
+  │     ├─ Route.set_UpstreamHost
+  │     ├─ Route.set_UpstreamHttpMethod
+  │     └─ Route.set_UpstreamTemplatePattern
   ├─ fileConfiguration.Aggregates.Select(aggregate => SetUpAggregateRoute(routes, aggregate, fileConfiguration.GlobalConfiguration)).Where
   └─ fileConfiguration.Aggregates.Select(aggregate => SetUpAggregateRoute(routes, aggregate, fileConfiguration.GlobalConfiguration)).Where(aggregate => aggregate != null).ToList
 
   HeaderPlaceholderNameAndValueFinder.Find
   ├─ new List<PlaceholderNameAndValue>
   └─ foreach (var templateHeader in templateHeaders)
+     ├─ KeyValuePair<TKey, TValue>.get_Key
+     ├─ IHeaderDictionary.get_Item
+     ├─ KeyValuePair<TKey, TValue>.get_Value
+     ├─ UpstreamHeaderTemplate.get_Pattern
      ├─ StringValues.op_Implicit
      ├─ templateHeader.Value.Pattern.Matches
      ├─ matches.SelectMany
      ├─ matches.SelectMany(g => g.Groups as IEnumerable<Group>).Where
      ├─ matches.SelectMany(g => g.Groups as IEnumerable<Group>).Where(g => g.Name != "0").Select
+     │  ├─ Group.get_Name
 -    │  ├─ string.Concat
+     │  ├─ Capture.get_Value
 ~    │  └─ new PlaceholderNameAndValue (signature changed)
      └─ result.AddRange
 
@@ -186,35 +301,52 @@ stdout:
   │  └─ new OkResponse<T>
   ├─ UrlPathPlaceholderNameAndValueFinder.FindGroups
   ├─ FindGroups(path, query, pathTemplate).Select
+  │  ├─ Group.get_Name
+  │  ├─ Capture.get_Value
 ~ │  └─ new PlaceholderNameAndValue (signature changed) ↑ as above
 - ├─ FindGroups(path, query, pathTemplate).Select(g => new PlaceholderNameAndValue($"{LeftBrace}{g.Name}{RightBrace}", g.Value)).ToList
 + ├─ FindGroups(path, query, pathTemplate).Select(g => new PlaceholderNameAndValue(g.Name, g.Value, true)).ToList
   └─ new OkResponse<T>
 
 ~ MultiplexingMiddleware.Invoke (signature changed)
+  ├─ HttpContext.get_Items
   ├─ HttpItemsExtensions.DownstreamRouteHolder
+  ├─ DownstreamRouteHolder.get_Route
+  ├─ Route.get_DownstreamRoute
   ├─ MultiplexingMiddleware.ShouldProcessSingleRoute
 - ├─ if (ShouldProcessSingleRoute(httpContext, downstreamRoutes))
+- │  ├─ List<T>.get_Item
 - │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync
+- │     ├─ HttpContext.get_Items
 - │     ├─ HttpItemsExtensions.UpsertDownstreamRoute (depth limit)
 - │     └─ _next.Invoke
 + ├─ if (ShouldProcessSingleRoute(context, downstreamRoutes))
++ │  ├─ List<T>.get_Item
 + │  └─ MultiplexingMiddleware.ProcessSingleRouteAsync
++ │     ├─ HttpContext.get_Items
 + │     ├─ HttpItemsExtensions.UpsertDownstreamRoute (depth limit)
 + │     └─ _next.Invoke
+  ├─ List<T>.get_Count
+  ├─ Route.get_DownstreamRouteConfig
+  ├─ if (!(routeKeysConfigs == null))
   ├─ if (routeKeysConfigs == null || routeKeysConfigs.Count == 0)
   │  └─ MultiplexingMiddleware.ProcessRoutesAsync
+  │     ├─ Route.get_DownstreamRoute
   │     ├─ route.DownstreamRoute.Select
   │     ├─ route.DownstreamRoute.Select(downstreamRoute => ProcessRouteAsync(context, downstreamRoute)).ToArray
   │     ├─ Task.WhenAll
   │     ├─ new
 ~ │     └─ MultiplexingMiddleware.MapAsync (signature changed)
+  ├─ List<T>.get_Item
 ~ ├─ MultiplexingMiddleware.ProcessMainRouteAsync (signature changed)
+  │  ├─ HttpContext.get_Items
   │  ├─ HttpItemsExtensions.UpsertDownstreamRoute
   │  └─ _next.Invoke
   ├─ MultiplexingMiddleware.ProcessRoutesWithRouteKeysAsync
   │  ├─ new List<Task<HttpContext>>
+  │  ├─ HttpContext.get_Items
   │  ├─ HttpItemsExtensions.DownstreamResponse
+  │  ├─ DownstreamResponse.get_Content
   │  ├─ mainResponse.Items.DownstreamResponse().Content.ReadAsStringAsync
   │  ├─ JToken.Parse
   │  ├─ routes.Skip
@@ -229,26 +361,66 @@ stdout:
 + │  │     ├─ MultiplexingMiddleware.ProcessRouteAsync (depth limit)
 + │  │     └─ processing.Add
   │  └─ Task.WhenAll
+  ├─ Array.get_Length
   └─ MultiplexingMiddleware.MapResponsesAsync
      ├─ new List<HttpContext>
      ├─ List<T>.Add
      ├─ contexts.AddRange
 ~    └─ MultiplexingMiddleware.MapAsync (signature changed)
+        ├─ Route.get_DownstreamRoute
+        ├─ List<T>.get_Count
+        ├─ if (route.DownstreamRoute.Count == 1)
++       ├─ Route.get_DownstreamRouteConfig
++       ├─ if (route.DownstreamRouteConfig is not null)
++       │  └─ List<T>.get_Count
++       ├─ if (route.DownstreamRouteConfig?.Count > 0)
++       │  └─ for (i < contexts.Count && i < route.DownstreamRouteConfig.Count)
++       │     ├─ List<T>.get_Count
++       │     ├─ if (i < contexts.Count)
++       │     │  ├─ Route.get_DownstreamRouteConfig
++       │     │  └─ List<T>.get_Count
++       │     ├─ Route.get_DownstreamRouteConfig
++       │     ├─ List<T>.get_Item
++       │     ├─ AggregateRouteConfig.get_RouteKey
++       │     ├─ List<T>.get_Item
++       │     ├─ HttpContext.get_Items
++       │     └─ IDictionary<TKey, TValue>.set_Item
         ├─ IResponseAggregatorFactory.Get → InMemoryResponseAggregatorFactory.Get (depth limit)
         └─ IResponseAggregator.Aggregate
 
 ~ MultiplexingMiddleware.MapAsync (signature changed)
+  ├─ Route.get_DownstreamRoute
+  ├─ List<T>.get_Count
+  ├─ if (route.DownstreamRoute.Count == 1)
++ ├─ Route.get_DownstreamRouteConfig
++ ├─ if (route.DownstreamRouteConfig is not null)
++ │  └─ List<T>.get_Count
++ ├─ if (route.DownstreamRouteConfig?.Count > 0)
++ │  └─ for (i < contexts.Count && i < route.DownstreamRouteConfig.Count)
++ │     ├─ List<T>.get_Count
++ │     ├─ if (i < contexts.Count)
++ │     │  ├─ Route.get_DownstreamRouteConfig
++ │     │  └─ List<T>.get_Count
++ │     ├─ Route.get_DownstreamRouteConfig
++ │     ├─ List<T>.get_Item
++ │     ├─ AggregateRouteConfig.get_RouteKey
++ │     ├─ List<T>.get_Item
++ │     ├─ HttpContext.get_Items
++ │     └─ IDictionary<TKey, TValue>.set_Item
   ├─ IResponseAggregatorFactory.Get → InMemoryResponseAggregatorFactory.Get
   └─ IResponseAggregator.Aggregate
 
 ~ MultiplexingMiddleware.ProcessRouteWithComplexAggregation (signature changed)
   ├─ new List<Task<HttpContext>>
+  ├─ AggregateRouteConfig.get_JsonPath
   ├─ jObject.SelectTokens
   ├─ jObject.SelectTokens(matchAdvancedAgg.JsonPath).Select
   ├─ jObject.SelectTokens(matchAdvancedAgg.JsonPath).Select(s => s.ToString()).Distinct
   └─ foreach (var value in values)
+     ├─ HttpContext.get_Items
      ├─ HttpItemsExtensions.TemplatePlaceholderNameAndValues
 +    ├─ new List<PlaceholderNameAndValue>
+     ├─ AggregateRouteConfig.get_Parameter
 ~    ├─ new PlaceholderNameAndValue (signature changed) ↑ as above
 -    ├─ tPnv.Add
 +    ├─ List<T>.Add
@@ -257,26 +429,40 @@ stdout:
 
   ChangeDownstreamPathTemplate.ChangeDownstreamPath
   ├─ foreach (var config in claimsToThings)
+  │  ├─ ClaimToThing.get_NewKey
+  │  ├─ ClaimToThing.get_Delimiter
+  │  ├─ ClaimToThing.get_Index
   │  ├─ IClaimsParser.GetValue → ClaimsParser.GetValue
+  │  ├─ Response.get_IsError
   │  ├─ if (value.IsError)
+  │  ├─ ClaimToThing.get_ExistingKey
++ │  ├─ Response<T>.get_Data
 + │  ├─ new PlaceholderNameAndValue
 + │  │  ├─ if (isKey)
 + │  │  │  └─ string.Concat
 + │  │  └─ new Object
+  │  ├─ DownstreamPathTemplate.get_Value
++ │  ├─ PlaceholderNameAndValue.get_Name
   │  ├─ downstreamPathTemplate.Value.Contains
 - │  ├─ if (!downstreamPathTemplate.Value.Contains(placeholderName))
 - │  │  ├─ new CouldNotFindPlaceholderError (depth limit)
 - │  │  └─ new ErrorResponse (depth limit)
 + │  ├─ if (!downstreamPathTemplate.Value.Contains(placeholder.Name))
++ │  │  ├─ PlaceholderNameAndValue.get_Name
 + │  │  ├─ new CouldNotFindPlaceholderError (depth limit)
 + │  │  └─ new ErrorResponse (depth limit)
   │  ├─ placeholders.Any
+  │  │  ├─ PlaceholderNameAndValue.get_Name
++ │  │  └─ PlaceholderNameAndValue.get_Name
 - │  ├─ if (placeholders.Any(ph => ph.Name == placeholderName))
 - │  │  └─ placeholders.RemoveAll
+- │  │     └─ PlaceholderNameAndValue.get_Name
+- │  ├─ Response<T>.get_Data
 - │  ├─ new PlaceholderNameAndValue
 - │  │  └─ new Object
 + │  ├─ if (placeholders.Any(ph => ph.Name == placeholder.Name))
 + │  │  └─ placeholders.RemoveAll
++ │  │     └─ PlaceholderNameAndValue.get_Name ×2
   │  └─ placeholders.Add
   └─ new OkResponse
 ```
