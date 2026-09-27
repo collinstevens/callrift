@@ -18,6 +18,13 @@ internal static class SerilogRestrictedSinkExpectations
             Assert.Equal(workspace ? 13 : 12, result.Trees.Count);
             Assert.DoesNotContain(result.Trees, node => node.Label is "Log.Debug" or "Log.Information" or "Log.Warning" or "Log.Error" or "Log.Fatal" or "Log.Verbose");
             Assert.Equal(workspace, result.Trees.Any(node => node.Label == "Log.CloseAndFlushAsync"));
+            foreach (var close in result.Trees.Where(node => node.Label is "Log.CloseAndFlush" or "Log.CloseAndFlushAsync"))
+            {
+                var none = Assert.Single(close.Children, node => node.Label == "Logger.get_None");
+                Assert.Equal(' ', none.Mark);
+                Assert.Equal("public static Serilog.Core.Logger.get_None() -> Serilog.ILogger", none.After!.Signature);
+                Assert.DoesNotContain(close.Children, node => node.Label == "possible initialization of Logger");
+            }
             return;
         }
         Assert.Equal(workspace ? 7 : 5, result.Trees.Count);

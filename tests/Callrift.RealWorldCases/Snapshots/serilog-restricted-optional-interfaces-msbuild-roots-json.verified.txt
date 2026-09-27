@@ -2573,17 +2573,25 @@ stdout:
         },
         {
           "id": "n41",
-          "kind": "branch",
+          "kind": "call",
           "change": "unchanged",
-          "label": "possible initialization of Logger",
-          "detail": null,
+          "label": "Logger.get_None",
+          "detail": "depth limit",
           "before": {
-            "symbolId": null,
-            "signature": null,
-            "binding": "structural",
-            "dispatch": "none",
-            "targetIds": [],
-            "definition": null,
+            "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.Logger.get_None()",
+            "signature": "public static Serilog.Core.Logger.get_None() -> Serilog.ILogger",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.Logger.get_None()"
+            ],
+            "definition": {
+              "path": "src/Serilog/Core/Logger.cs",
+              "startLine": 1463,
+              "startColumn": 34,
+              "endLine": 1463,
+              "endColumn": 38
+            },
             "callSites": [
               {
                 "path": "src/Serilog/Log.cs",
@@ -2593,17 +2601,25 @@ stdout:
                 "endColumn": 80
               }
             ],
-            "relation": "branch",
-            "candidates": null,
-            "origin": "structural"
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
           },
           "after": {
-            "symbolId": null,
-            "signature": null,
-            "binding": "structural",
-            "dispatch": "none",
-            "targetIds": [],
-            "definition": null,
+            "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.Logger.get_None()",
+            "signature": "public static Serilog.Core.Logger.get_None() -> Serilog.ILogger",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.Logger.get_None()"
+            ],
+            "definition": {
+              "path": "src/Serilog/Core/Logger.cs",
+              "startLine": 1463,
+              "startColumn": 34,
+              "endLine": 1463,
+              "endColumn": 38
+            },
             "callSites": [
               {
                 "path": "src/Serilog/Log.cs",
@@ -2613,85 +2629,19 @@ stdout:
                 "endColumn": 80
               }
             ],
-            "relation": "branch",
-            "candidates": null,
-            "origin": "structural"
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
           },
-          "children": [
-            {
-              "id": "n42",
-              "kind": "call",
-              "change": "unchanged",
-              "label": "initialization of Logger",
-              "detail": "depth limit",
-              "before": {
-                "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.Logger..cctor()",
-                "signature": "static Serilog.Core.Logger.Logger() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.Logger..cctor()"
-                ],
-                "definition": {
-                  "path": "src/Serilog/Core/Logger.cs",
-                  "startLine": 26,
-                  "startColumn": 1,
-                  "endLine": 1464,
-                  "endColumn": 2
-                },
-                "callSites": [
-                  {
-                    "path": "src/Serilog/Log.cs",
-                    "startLine": 53,
-                    "startColumn": 56,
-                    "endLine": 53,
-                    "endColumn": 80
-                  }
-                ],
-                "relation": "call",
-                "candidates": [],
-                "origin": "source"
-              },
-              "after": {
-                "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.Logger..cctor()",
-                "signature": "static Serilog.Core.Logger.Logger() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.Logger..cctor()"
-                ],
-                "definition": {
-                  "path": "src/Serilog/Core/Logger.cs",
-                  "startLine": 26,
-                  "startColumn": 1,
-                  "endLine": 1464,
-                  "endColumn": 2
-                },
-                "callSites": [
-                  {
-                    "path": "src/Serilog/Log.cs",
-                    "startLine": 53,
-                    "startColumn": 56,
-                    "endLine": 53,
-                    "endColumn": 80
-                  }
-                ],
-                "relation": "call",
-                "candidates": [],
-                "origin": "source"
-              },
-              "children": [],
-              "omission": {
-                "reason": "depth-limit",
-                "symbolId": null,
-                "referenceId": null
-              }
-            }
-          ],
-          "omission": null
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
         },
         {
-          "id": "n43",
+          "id": "n42",
           "kind": "branch",
           "change": "unchanged",
           "label": "if ((logger as IDisposable) is not null)",
@@ -2738,7 +2688,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n44",
+              "id": "n43",
               "kind": "call",
               "change": "unchanged",
               "label": ".Dispose",
@@ -2806,7 +2756,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n45",
+                  "id": "n44",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ EnricherStack.Enumerator.Dispose",
@@ -2855,7 +2805,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n46",
+                  "id": "n45",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ LogContext.ContextStackBookmark.Dispose",
@@ -2908,7 +2858,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n47",
+                  "id": "n46",
                   "kind": "dispatchTarget",
                   "change": "modified",
                   "label": "⇢ ConditionalEnricher.Dispose",
@@ -2961,7 +2911,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n48",
+                  "id": "n47",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ Logger.Dispose",
@@ -3010,7 +2960,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n49",
+                  "id": "n48",
                   "kind": "dispatchTarget",
                   "change": "modified",
                   "label": "⇢ BatchingSink.Dispose",
@@ -3063,7 +3013,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n50",
+                  "id": "n49",
                   "kind": "dispatchTarget",
                   "change": "modified",
                   "label": "⇢ ConditionalSink.Dispose",
@@ -3116,7 +3066,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n51",
+                  "id": "n50",
                   "kind": "dispatchTarget",
                   "change": "modified",
                   "label": "⇢ DisposingAggregateSink.Dispose",
@@ -3169,7 +3119,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n52",
+                  "id": "n51",
                   "kind": "dispatchTarget",
                   "change": "modified",
                   "label": "⇢ OptionalInterfaceForwardingSink.Dispose",
@@ -3222,7 +3172,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n53",
+                  "id": "n52",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ RestrictedSink.Dispose",
@@ -3256,7 +3206,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n54",
+                  "id": "n53",
                   "kind": "dispatchTarget",
                   "change": "modified",
                   "label": "⇢ SecondaryLoggerSink.Dispose",
@@ -3318,7 +3268,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n55",
+      "id": "n54",
       "kind": "member",
       "change": "unchanged",
       "label": "Log.CloseAndFlushAsync",
@@ -3365,7 +3315,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n56",
+          "id": "n55",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of Log",
@@ -3412,7 +3362,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n57",
+              "id": "n56",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of Log",
@@ -3484,18 +3434,26 @@ stdout:
           "omission": null
         },
         {
-          "id": "n58",
-          "kind": "branch",
+          "id": "n57",
+          "kind": "call",
           "change": "unchanged",
-          "label": "possible initialization of Logger",
-          "detail": null,
+          "label": "Logger.get_None",
+          "detail": "depth limit",
           "before": {
-            "symbolId": null,
-            "signature": null,
-            "binding": "structural",
-            "dispatch": "none",
-            "targetIds": [],
-            "definition": null,
+            "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.Logger.get_None()",
+            "signature": "public static Serilog.Core.Logger.get_None() -> Serilog.ILogger",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.Logger.get_None()"
+            ],
+            "definition": {
+              "path": "src/Serilog/Core/Logger.cs",
+              "startLine": 1463,
+              "startColumn": 34,
+              "endLine": 1463,
+              "endColumn": 38
+            },
             "callSites": [
               {
                 "path": "src/Serilog/Log.cs",
@@ -3505,17 +3463,25 @@ stdout:
                 "endColumn": 80
               }
             ],
-            "relation": "branch",
-            "candidates": null,
-            "origin": "structural"
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
           },
           "after": {
-            "symbolId": null,
-            "signature": null,
-            "binding": "structural",
-            "dispatch": "none",
-            "targetIds": [],
-            "definition": null,
+            "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.Logger.get_None()",
+            "signature": "public static Serilog.Core.Logger.get_None() -> Serilog.ILogger",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.Logger.get_None()"
+            ],
+            "definition": {
+              "path": "src/Serilog/Core/Logger.cs",
+              "startLine": 1463,
+              "startColumn": 34,
+              "endLine": 1463,
+              "endColumn": 38
+            },
             "callSites": [
               {
                 "path": "src/Serilog/Log.cs",
@@ -3525,85 +3491,19 @@ stdout:
                 "endColumn": 80
               }
             ],
-            "relation": "branch",
-            "candidates": null,
-            "origin": "structural"
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
           },
-          "children": [
-            {
-              "id": "n59",
-              "kind": "call",
-              "change": "unchanged",
-              "label": "initialization of Logger",
-              "detail": "depth limit",
-              "before": {
-                "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.Logger..cctor()",
-                "signature": "static Serilog.Core.Logger.Logger() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.Logger..cctor()"
-                ],
-                "definition": {
-                  "path": "src/Serilog/Core/Logger.cs",
-                  "startLine": 26,
-                  "startColumn": 1,
-                  "endLine": 1464,
-                  "endColumn": 2
-                },
-                "callSites": [
-                  {
-                    "path": "src/Serilog/Log.cs",
-                    "startLine": 64,
-                    "startColumn": 56,
-                    "endLine": 64,
-                    "endColumn": 80
-                  }
-                ],
-                "relation": "call",
-                "candidates": [],
-                "origin": "source"
-              },
-              "after": {
-                "symbolId": "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.Logger..cctor()",
-                "signature": "static Serilog.Core.Logger.Logger() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "project:src/Serilog/Serilog.csproj@net10.0::Serilog.Core.Logger..cctor()"
-                ],
-                "definition": {
-                  "path": "src/Serilog/Core/Logger.cs",
-                  "startLine": 26,
-                  "startColumn": 1,
-                  "endLine": 1464,
-                  "endColumn": 2
-                },
-                "callSites": [
-                  {
-                    "path": "src/Serilog/Log.cs",
-                    "startLine": 64,
-                    "startColumn": 56,
-                    "endLine": 64,
-                    "endColumn": 80
-                  }
-                ],
-                "relation": "call",
-                "candidates": [],
-                "origin": "source"
-              },
-              "children": [],
-              "omission": {
-                "reason": "depth-limit",
-                "symbolId": null,
-                "referenceId": null
-              }
-            }
-          ],
-          "omission": null
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
         },
         {
-          "id": "n60",
+          "id": "n58",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (logger is IAsyncDisposable asyncDisposable)",
@@ -3650,7 +3550,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n61",
+              "id": "n59",
               "kind": "call",
               "change": "unchanged",
               "label": "asyncDisposable.DisposeAsync",
@@ -3712,7 +3612,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n62",
+                  "id": "n60",
                   "kind": "dispatchTarget",
                   "change": "unchanged",
                   "label": "⇢ Logger.DisposeAsync",
@@ -3761,7 +3661,7 @@ stdout:
                   "omission": null
                 },
                 {
-                  "id": "n63",
+                  "id": "n61",
                   "kind": "dispatchTarget",
                   "change": "modified",
                   "label": "⇢ BatchingSink.DisposeAsync",
@@ -3814,7 +3714,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n64",
+                  "id": "n62",
                   "kind": "dispatchTarget",
                   "change": "modified",
                   "label": "⇢ ConditionalSink.DisposeAsync",
@@ -3867,7 +3767,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n65",
+                  "id": "n63",
                   "kind": "dispatchTarget",
                   "change": "modified",
                   "label": "⇢ DisposingAggregateSink.DisposeAsync",
@@ -3920,7 +3820,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n66",
+                  "id": "n64",
                   "kind": "dispatchTarget",
                   "change": "modified",
                   "label": "⇢ OptionalInterfaceForwardingSink.DisposeAsync",
@@ -3973,7 +3873,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n67",
+                  "id": "n65",
                   "kind": "dispatchTarget",
                   "change": "removed",
                   "label": "⇢ RestrictedSink.DisposeAsync",
@@ -4007,7 +3907,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n68",
+                  "id": "n66",
                   "kind": "dispatchTarget",
                   "change": "modified",
                   "label": "⇢ SecondaryLoggerSink.DisposeAsync",
@@ -4066,7 +3966,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n69",
+          "id": "n67",
           "kind": "branch",
           "change": "unchanged",
           "label": "else (!(logger is IAsyncDisposable asyncDisposable))",
@@ -4113,7 +4013,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n70",
+              "id": "n68",
               "kind": "branch",
               "change": "unchanged",
               "label": "if ((logger as IDisposable) is not null)",
@@ -4160,7 +4060,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n71",
+                  "id": "n69",
                   "kind": "call",
                   "change": "unchanged",
                   "label": ".Dispose",
@@ -4228,7 +4128,7 @@ stdout:
                   },
                   "children": [
                     {
-                      "id": "n72",
+                      "id": "n70",
                       "kind": "dispatchTarget",
                       "change": "unchanged",
                       "label": "⇢ EnricherStack.Enumerator.Dispose",
@@ -4277,7 +4177,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n73",
+                      "id": "n71",
                       "kind": "dispatchTarget",
                       "change": "unchanged",
                       "label": "⇢ LogContext.ContextStackBookmark.Dispose",
@@ -4330,7 +4230,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n74",
+                      "id": "n72",
                       "kind": "dispatchTarget",
                       "change": "modified",
                       "label": "⇢ ConditionalEnricher.Dispose",
@@ -4383,7 +4283,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n75",
+                      "id": "n73",
                       "kind": "dispatchTarget",
                       "change": "unchanged",
                       "label": "⇢ Logger.Dispose",
@@ -4432,7 +4332,7 @@ stdout:
                       "omission": null
                     },
                     {
-                      "id": "n76",
+                      "id": "n74",
                       "kind": "dispatchTarget",
                       "change": "modified",
                       "label": "⇢ BatchingSink.Dispose",
@@ -4485,7 +4385,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n77",
+                      "id": "n75",
                       "kind": "dispatchTarget",
                       "change": "modified",
                       "label": "⇢ ConditionalSink.Dispose",
@@ -4538,7 +4438,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n78",
+                      "id": "n76",
                       "kind": "dispatchTarget",
                       "change": "modified",
                       "label": "⇢ DisposingAggregateSink.Dispose",
@@ -4591,7 +4491,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n79",
+                      "id": "n77",
                       "kind": "dispatchTarget",
                       "change": "modified",
                       "label": "⇢ OptionalInterfaceForwardingSink.Dispose",
@@ -4644,7 +4544,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n80",
+                      "id": "n78",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ RestrictedSink.Dispose",
@@ -4678,7 +4578,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n81",
+                      "id": "n79",
                       "kind": "dispatchTarget",
                       "change": "modified",
                       "label": "⇢ SecondaryLoggerSink.Dispose",
@@ -4743,7 +4643,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n82",
+      "id": "n80",
       "kind": "member",
       "change": "unchanged",
       "label": "SurrogateConfigurationMethods.Sink",
@@ -4790,7 +4690,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n83",
+          "id": "n81",
           "kind": "call",
           "change": "modified",
           "label": "LoggerAuditSinkConfiguration.Sink",
@@ -4862,7 +4762,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n84",
+      "id": "n82",
       "kind": "member",
       "change": "unchanged",
       "label": "SurrogateConfigurationMethods.Sink",
@@ -4909,7 +4809,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n85",
+          "id": "n83",
           "kind": "call",
           "change": "modified",
           "label": "LoggerSinkConfiguration.Sink",

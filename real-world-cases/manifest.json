@@ -1941,7 +1941,7 @@
     "licenseFile": "LICENSE",
     "beforeLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
     "afterLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
-    "reason": "Move RestrictedSink disposal and failure-listener forwarding into OptionalInterfaceForwardingSink. Both level-switch and minimum-level branches preserve restriction and conditionally wrap the original sink. Restored net10.0 adds conditional async disposal. Preserve short-circuit guards, removed methods, changed possible targets, cycles and locations. Independent pinned source, upstream tests, declarations, call bindings, root paths and diagnostics reviewed; upstream tests were not executed. Source mode omits project defines; possible interface dispatch and callbacks do not prove receiver value flow or runtime cleanup. Automatic roots omit unchanged concrete dispatch paths instead of claiming changes through overridden default bodies.",
+    "reason": "Move RestrictedSink disposal and failure-listener forwarding into OptionalInterfaceForwardingSink. Both level-switch and minimum-level branches preserve restriction and conditionally wrap the original sink. Restored net10.0 adds conditional async disposal. Preserve short-circuit guards, removed methods, changed possible targets, cycles and locations. Independent pinned source, upstream tests, declarations, call bindings, root paths and diagnostics reviewed; upstream tests were not executed. Source mode omits project defines; possible interface dispatch and callbacks do not prove receiver value flow or runtime cleanup. Automatic roots omit unchanged concrete dispatch paths instead of claiming changes through overridden default bodies. Accessor review preserves automatic roots while showing Logger.None reads in CloseAndFlush and restored CloseAndFlushAsync; the getter owns the possible backing-field initialization below the depth-one boundary.",
     "tags": [
       "interface-dispatch",
       "default-interface",
@@ -1951,7 +1951,8 @@
       "async",
       "method-removal",
       "automatic-roots",
-      "multi-target"
+      "multi-target",
+      "properties"
     ],
     "options": [],
     "review": "../tests/Callrift.RealWorldCases/SerilogRestrictedSinkExpectations.cs",
