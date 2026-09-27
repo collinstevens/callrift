@@ -6,14 +6,27 @@ using Xunit;
 
 namespace Callrift.Workspaces;
 
-public sealed class FrameworkDispatchTests
+public sealed class FrameworkDispatchTests : FrameworkDispatchFixture
 {
     [Theory]
     [InlineData("netstandard2.0", false)]
     [InlineData("netstandard2.0", true)]
+    public Task FrameworkInterfaceDispatchReachesReferencedImplementation(string framework, bool nested) =>
+        VerifyFrameworkInterfaceDispatchAsync(framework, nested);
+}
+
+public sealed class Framework21DispatchTests : FrameworkDispatchFixture
+{
+    [Theory]
     [InlineData("netstandard2.1", false)]
     [InlineData("netstandard2.1", true)]
-    public async Task FrameworkInterfaceDispatchReachesReferencedImplementation(string framework, bool nested)
+    public Task FrameworkInterfaceDispatchReachesReferencedImplementation(string framework, bool nested) =>
+        VerifyFrameworkInterfaceDispatchAsync(framework, nested);
+}
+
+public abstract class FrameworkDispatchFixture
+{
+    protected static async Task VerifyFrameworkInterfaceDispatchAsync(string framework, bool nested)
     {
         var before = new Dictionary<string, string>
         {

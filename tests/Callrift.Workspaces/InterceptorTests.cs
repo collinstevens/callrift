@@ -83,6 +83,13 @@ public sealed class ImplicitInterceptorTests : InterceptorFixture
 {
     [Theory]
     [InlineData(false, false)]
+    public Task GeneratedStaticInitializersPreserveIdentityAndRealChanges(bool explicitConstructor, bool initializerChanges) =>
+        VerifyStaticInitializersAsync(explicitConstructor, initializerChanges);
+}
+
+public sealed class ChangedImplicitInterceptorTests : InterceptorFixture
+{
+    [Theory]
     [InlineData(false, true)]
     public Task GeneratedStaticInitializersPreserveIdentityAndRealChanges(bool explicitConstructor, bool initializerChanges) =>
         VerifyStaticInitializersAsync(explicitConstructor, initializerChanges);
@@ -92,6 +99,13 @@ public sealed class ExplicitInterceptorTests : InterceptorFixture
 {
     [Theory]
     [InlineData(true, false)]
+    public Task GeneratedStaticInitializersPreserveIdentityAndRealChanges(bool explicitConstructor, bool initializerChanges) =>
+        VerifyStaticInitializersAsync(explicitConstructor, initializerChanges);
+}
+
+public sealed class ChangedExplicitInterceptorTests : InterceptorFixture
+{
+    [Theory]
     [InlineData(true, true)]
     public Task GeneratedStaticInitializersPreserveIdentityAndRealChanges(bool explicitConstructor, bool initializerChanges) =>
         VerifyStaticInitializersAsync(explicitConstructor, initializerChanges);

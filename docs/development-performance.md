@@ -1909,3 +1909,108 @@ Windows scenarios and all workspace/case targets remained unmet. Windows also
 exceeded the broad target by 21 seconds. The earlier all-platform warm result
 therefore is not evidence of stable target compliance. Optimized cold CI and
 further reductions remain necessary.
+
+
+### Callback checkpoint CI at 1ab0509
+
+[Run 36291797116](https://github.com/collinstevens/callrift/actions/runs/36291797116)
+passed every required job with repository-cache hits on all platforms and all
+305 / 26 / 25 broad executions per OS. Complete scenario commands took
+267.09 / 435.41 / 476.73 s on Ubuntu / Windows / macOS; workspaces took
+198.79 / 167.40 / 163.93 s, and routine cases 265.21 / 278.04 / 311.78 s.
+Broad paths including setup were 5m 12s / 8m 53s / 9m 06s, with initial queue
+waits of 2 / 2 / 7 s reported separately. The nine broad jobs used 53.80
+runner-minutes. All broad paths met ten minutes in this run, but only Ubuntu
+scenarios met its individual suite target. Platform variation still precludes
+claiming stable compliance or attributing each hosted timing change solely to
+the callback harness adjustment.
+
+
+### Balanced broad CI shards
+
+Each supported OS now runs A and B shards for each of Scenarios, Workspaces and
+Cases. The partition keeps whole classes and repository groups together.
+`Test-ShardA.json` lists A's classes; B is the exact complement, so new classes
+remain selected. The script intersects the partition with any caller filter and
+keeps the zero-execution failure. Shards are rejected for Fast, Integration and
+E2E; their existing local entrypoints retain their selections. Reproduction
+commands, TRX names and failure-artifact names identify the shard. No additional
+artifact payloads are uploaded.
+
+The final split is 125 + 180 scenarios, 13 + 13 workspace rows and 12 + 13
+routine cases. Four existing workspace rows moved classes without changing their
+assertions: the two netstandard2.1 framework-dispatch variants now belong to
+`Framework21DispatchTests`, and the changed explicit/implicit interceptor rows
+to `ChangedExplicitInterceptorTests` / `ChangedImplicitInterceptorTests`. The
+former classes retain the other rows. All graph, scope, diagnostic, generated
+identity, repeat-process, query and format checks remain. These cases use
+independent roots and no shared mutable class fixture. Splitting the prior
+framework/interceptor collections removes a long serial tail while preserving
+the four-case assembly limit. The environment-mutating scenario collection
+remains exclusive; real-world classes retain their two-case limit and shared
+repository/graph ownership.
+
+This changes nine broad jobs to eighteen. It buys latency with additional runner
+capacity and repeated setup; it is not presented as a reduction in useful test
+work. Earlier graph/restore/worker reductions remain the source of the measured
+work savings against the original 143.82-runner-minute baseline. Final acceptance
+requires hosted cold/warm paths, each suite's last shard completion, aggregate
+command time, all eighteen job durations and queue delay to be reported together.
+Local sequential shard samples do not establish hosted parallel latency.
+
+Case caches include OS, shard, manifest and partition configuration in the key.
+Separate keys prevent competing shards from publishing an incomplete shared
+cache on their first run. Both Serilog classes stay in the same shard. The new
+keys intentionally create a measurable first cold preparation; a subsequent run
+must confirm cache hits before it is called warm. Existing cache entries are
+preserved, and the pinned corpus and license checks are unchanged.
+
+
+The local comparison uses the prepared Ubuntu 26.04 Ryzen 9 7945HX host,
+44,825 MiB RAM, SDK `11.0.100-rc.1.26425.128`, Debug, CPUs 0–3, fresh fixture
+roots and prepared SDK/NuGet caches. Routine cases reuse the same external
+repository/workspace caches as their control. Every complete command includes
+PowerShell and dotnet startup and uses the prepared build. Shards ran sequentially
+with no overlapping local build/profile, so their maximum time is a scheduling
+estimate, not a measured concurrent CI result.
+
+| Suite | Unsplit control seconds | A / B seconds | Control / summed shard CPU seconds |
+|---|---:|---:|---:|
+| Scenarios, 305 | 122.54 | 68.22 / 75.40 | 426.44 / 476.64 |
+| Workspaces, 26 | 60.53 | 36.25 / 30.80 | 228.55 / 234.44 |
+| Routine cases, 25 | 96.24 | 58.16 / 58.77 | 290.83 / 351.98 |
+
+Thus scenario shards add 17.2% combined elapsed time and 11.8% sampled CPU;
+workspace shards add 10.8% elapsed time and 2.6% CPU, and case shards add 21.5%
+elapsed time and 21.0% CPU. These costs must remain visible
+when judging the lower longest-shard time. Scenario peak summed RSS was 4.36 GiB
+in the control and 3.74 / 3.60 GiB per shard; case peaks were 4.70 GiB versus
+4.17 / 4.20 GiB. Workspace peaks were 3.22 GiB versus 3.31 / 3.26 GiB.
+Peak RSS is per invocation; the CI shards execute on separate runners.
+Sampled case workers/restores remain exactly fourteen /
+ten in aggregate, with all repository views kept together.
+
+A trial that scheduled the largest routine cases first made the case shards
+slower: 59.41 / 72.53 s and 190.11 / 221.47 CPU-seconds. Restoring the original
+collection order reduced the second shard to 58.77 s and 156.57 CPU-seconds.
+That trial was reverted; the all-cases and routine collection ordering are
+unchanged. The remaining split-process overhead is reported rather than hidden.
+
+All 305 scenario names and 25 routine-case names exactly match the disjoint
+union of their two shards. Workspace method-and-parameter identity is retained
+for all 26 rows, with the four class moves explicitly mapped. Empty/invalid
+filters, unsupported shard suites and unknown shard names retain failure
+behavior. Hosted results, new cache saves and a subsequent cache-hit run remain
+pending at this checkpoint.
+
+Across the three routine suites, sampled analysis-worker counts stay at 150;
+pooled fixture workers increase from six to twelve and sampled restores from
+133 to 136. This exposes the extra process/setup work alongside the CPU and
+elapsed overhead. The unsharded workspace control uses the same reorganized
+classes and script as its shard samples, so its 60.53 s is directly comparable.
+
+The final fast command passed all 350 rows in 5.33 s including startup/build.
+Workflow lint passed. Four invalid-argument probes and a disjoint shard/filter
+intersection all failed as intended; no temporary tests were left in the tree.
+The solution build completed without warnings or errors. Reviewed snapshots and
+the pinned manifest remain unchanged.

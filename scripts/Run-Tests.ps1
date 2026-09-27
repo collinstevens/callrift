@@ -2,6 +2,8 @@ param(
     [ValidateSet('Fast', 'Integration', 'E2E', 'Scenarios', 'Workspaces', 'Cases')]
     [string]$Suite = 'Fast',
     [string]$Filter,
+    [ValidateSet('A', 'B')]
+    [string]$Shard,
     [switch]$NoBuild
 )
 
@@ -13,6 +15,23 @@ if ($PSBoundParameters.ContainsKey('Filter') -and [string]::IsNullOrWhiteSpace($
 }
 if ($Suite -in @('Integration', 'Scenarios') -and [string]::IsNullOrWhiteSpace($Filter)) {
     throw "$Suite requires an explicit test filter. Use Fast for routine feedback or E2E for the full slow selection."
+}
+if ($Shard -and $Suite -notin @('Scenarios', 'Workspaces', 'Cases')) {
+    throw 'Shards are available only for Scenarios, Workspaces and Cases.'
+}
+
+$shardFilter = $null
+if ($Shard) {
+    $classes = @((Get-Content -Raw (Join-Path $PSScriptRoot 'Test-ShardA.json') | ConvertFrom-Json -AsHashtable)[$Suite])
+    if ($classes.Count -eq 0 -or $classes.Where({ [string]::IsNullOrWhiteSpace($_) }).Count -ne 0) {
+        throw "No shard classes are configured for $Suite."
+    }
+    $shardFilter = if ($Shard -eq 'A') {
+        ($classes | ForEach-Object { "FullyQualifiedName~$_." }) -join '|'
+    }
+    else {
+        ($classes | ForEach-Object { "FullyQualifiedName!~$_." }) -join '&'
+    }
 }
 
 $repository = Split-Path $PSScriptRoot -Parent
@@ -41,13 +60,18 @@ try {
         if (-not [string]::IsNullOrWhiteSpace($Filter)) {
             $selection = if ($selection) { "($selection)&($Filter)" } else { $Filter }
         }
+        if ($shardFilter) {
+            $selection = if ($selection) { "($selection)&($shardFilter)" } else { $shardFilter }
+        }
         $results = Join-Path $repository "tests/$project/TestResults"
-        $fileName = "$Suite-$([Guid]::NewGuid().ToString('N')).trx"
+        $resultLabel = if ($Shard) { "$Suite-$Shard" } else { $Suite }
+        $fileName = "$resultLabel-$([Guid]::NewGuid().ToString('N')).trx"
         $arguments = @('test', "tests/$project/$project.csproj", '--logger', "trx;LogFileName=$fileName", '--results-directory', $results)
         if ($selection) { $arguments += @('--filter', $selection) }
         if ($NoBuild) { $arguments += '--no-build' }
         $reproduce = "mise exec -- pwsh -NoProfile -File scripts/Run-Tests.ps1 -Suite $Suite"
         if ($Filter) { $reproduce += " -Filter '$($Filter.Replace("'", "''"))'" }
+        if ($Shard) { $reproduce += " -Shard $Shard" }
         Write-Host "Revision: $revision; project: $project; selection: $selection"
         Write-Host "Reproduce: $reproduce"
         $timer = [Diagnostics.Stopwatch]::StartNew()
@@ -64,7 +88,8 @@ try {
         if ($null -eq $counters) { throw "$project produced no test counters: $resultPath" }
         $executed = [int]$counters.GetAttribute('executed')
         $failed = [int]$counters.GetAttribute('failed')
-        $summary = "$project at ${revision}: $executed executed, $failed failed, ${elapsed}s including dotnet startup and any build/restore."
+        $displayProject = if ($Shard) { "$project shard $Shard" } else { $project }
+        $summary = "$displayProject at ${revision}: $executed executed, $failed failed, ${elapsed}s including dotnet startup and any build/restore."
         Write-Host $summary
         if ($Suite -ne 'Fast') {
             $classes = @{}

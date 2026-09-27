@@ -15,6 +15,8 @@ Run `mise run test` (or `mise run test:fast`) for routine semantic feedback. The
 
 The focused test tasks require a filter and build their test project as needed. Empty, invalid or unmatched selections fail. `test:integration` restricts the supplied filter to non-fast scenario rows; `test:focused` can select either layer. `test:e2e` explicitly runs all non-fast scenarios, workspaces and pinned cases. `test:fast` and `test:e2e` together retain the full suite. No tests have been added to hooks. For additional dotnet test options, invoke `mise exec -c 'dotnet test <project> --filter <filter> ...'` directly. Use the full-suite tasks only when explicitly needed for diagnosis or a requested complete run.
 
+Broad CI runs two shards per suite and OS. Each job prints its exact reproduction command, including `-Shard A` or `-Shard B` for `scripts/Run-Tests.ps1`. [Test-ShardA.json](scripts/Test-ShardA.json) lists the classes assigned to A; B includes every other class. Keep repository groups together when balancing case shards so their graphs and preparation can be reused. Unsharded local commands keep their full selections. Case shards use separate repository caches keyed by OS, shard, manifest and partition configuration. Evaluate shard changes using both the complete feedback path and the sum of all job durations; extra runners and repeated setup are costs, not reductions in test work.
+
 | Changed area | Local command |
 |---|---|
 | Routine semantic feedback | `mise run test:fast` |

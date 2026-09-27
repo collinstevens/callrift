@@ -14,6 +14,9 @@ public sealed class WorkspaceCollectionOrderer : ITestCollectionOrderer
         typeof(InterceptorTests),
         typeof(ExplicitInterceptorTests),
         typeof(ImplicitInterceptorTests),
+        typeof(ChangedExplicitInterceptorTests),
+        typeof(ChangedImplicitInterceptorTests),
+        typeof(Framework21DispatchTests),
         typeof(FrameworkWorkspaceTests)
     }.Select((type, priority) => (Name: $"Test collection for {type.FullName}", Priority: priority))
         .ToDictionary(item => item.Name, item => item.Priority, StringComparer.Ordinal);

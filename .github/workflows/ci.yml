@@ -84,6 +84,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         suite: [Scenarios, Workspaces, Cases]
+        shard: [A, B]
         include:
           - suite: Scenarios
             project: Callrift.Scenarios
@@ -108,22 +109,22 @@ jobs:
         if: matrix.suite == 'Cases'
         with:
           path: ${{ runner.temp }}/callrift-real-world-cases
-          key: cases-${{ runner.os }}-${{ hashFiles('real-world-cases/manifest.json') }}
+          key: cases-${{ runner.os }}-${{ matrix.shard }}-${{ hashFiles('real-world-cases/manifest.json', 'scripts/Test-ShardA.json') }}
       - run: ./.github/scripts/Initialize-TestGit.ps1
       - run: dotnet restore tests/${{ matrix.project }}/${{ matrix.project }}.csproj --locked-mode
       - run: dotnet build tests/${{ matrix.project }}/${{ matrix.project }}.csproj --no-restore
       - if: matrix.suite == 'Scenarios'
-        run: ./scripts/Run-Tests.ps1 -Suite Scenarios -Filter "Layer!=Fast" -NoBuild
+        run: ./scripts/Run-Tests.ps1 -Suite Scenarios -Filter "Layer!=Fast" -Shard ${{ matrix.shard }} -NoBuild
       - if: matrix.suite == 'Workspaces'
-        run: ./scripts/Run-Tests.ps1 -Suite Workspaces -NoBuild
+        run: ./scripts/Run-Tests.ps1 -Suite Workspaces -Shard ${{ matrix.shard }} -NoBuild
       - if: matrix.suite == 'Cases'
         env:
           CALLRIFT_CASES_CACHE: ${{ runner.temp }}/callrift-real-world-cases
-        run: ./scripts/Run-Tests.ps1 -Suite Cases -NoBuild
+        run: ./scripts/Run-Tests.ps1 -Suite Cases -Shard ${{ matrix.shard }} -NoBuild
       - if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: diagnostics-${{ runner.os }}-${{ matrix.suite }}
+          name: diagnostics-${{ runner.os }}-${{ matrix.suite }}-${{ matrix.shard }}
           path: |
             **/TestResults/*.trx
             **/*.received.*
