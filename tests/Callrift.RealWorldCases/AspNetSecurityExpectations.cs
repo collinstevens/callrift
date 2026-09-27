@@ -11,7 +11,7 @@ internal static class AspNetSecurityExpectations
         if (!focused)
         {
             Assert.True(result.Truncated);
-            Assert.Equal(1179, result.Trees.Count);
+            Assert.Equal(2322, result.Trees.Count);
             Assert.Equal(3, result.Trees.Count(node => node.Label == "AuthorizationServiceExtensions.AuthorizeAsync"));
             return;
         }
@@ -19,16 +19,28 @@ internal static class AspNetSecurityExpectations
         Assert.Equal("LoggingExtensions.UserAuthorizationFailed", root.Label);
         Assert.Equal(root.Before!.SymbolId, root.After!.SymbolId);
         Assert.Equal(root.Before.Signature, root.After.Signature);
+        Assert.Equal("AuthorizationFailure.get_FailCalled", root.Children[0].Label);
+        Assert.Equal(' ', root.Children[0].Mark);
         var explicitFailure = Assert.Single(root.Children, node => node.Label == "if (failure.FailCalled)");
         Assert.Equal('+', explicitFailure.Mark);
+        Assert.Equal(["AuthorizationFailure.get_FailureReasons", "failure.FailureReasons.Any", "if (failure.FailureReasons.Any())"],
+            explicitFailure.Children.Select(node => node.Label));
         Assert.Contains(explicitFailure.Children, node => node.Label == "failure.FailureReasons.Any" && node.Mark == '+');
         var reasons = Assert.Single(explicitFailure.Children, node => node.Label == "if (failure.FailureReasons.Any())");
-        Assert.Equal(["failure.FailureReasons.Select", "string.Join"], reasons.Children.Select(node => node.Label));
+        Assert.Equal(["Environment.get_NewLine", "Environment.get_NewLine", "AuthorizationFailure.get_FailureReasons", "failure.FailureReasons.Select", "string.Join"],
+            reasons.Children.Select(node => node.Label));
         Assert.All(reasons.Children, node => Assert.Equal('+', node.Mark));
+        var projection = Assert.Single(reasons.Children, node => node.Label == "failure.FailureReasons.Select");
+        var message = Assert.Single(projection.Children);
+        Assert.Equal("AuthorizationFailureReason.get_Message", message.Label);
+        Assert.Equal('+', message.Mark);
+        Assert.Equal("callback", message.After!.Relation);
         var requirements = Assert.Single(root.Children, node => node.Label == "else (!(failure.FailCalled))");
         Assert.Equal(' ', requirements.Mark);
-        Assert.Equal("string.Join", Assert.Single(requirements.Children).Label);
-        var logger = Assert.Single(root.Children, node => node.Kind == "call");
+        Assert.Equal(["Environment.get_NewLine", "Environment.get_NewLine", "AuthorizationFailure.get_FailedRequirements", "string.Join"],
+            requirements.Children.Select(node => node.Label));
+        Assert.All(requirements.Children, node => Assert.Equal(' ', node.Mark));
+        var logger = Assert.Single(root.Children, node => node.Label == "LoggingExtensions.UserAuthorizationFailed");
         Assert.Equal(' ', logger.Mark);
         Assert.NotEqual(root.After.SymbolId, logger.After!.SymbolId);
         Assert.EndsWith(",string)", logger.After.SymbolId);

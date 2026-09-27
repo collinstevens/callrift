@@ -1884,7 +1884,7 @@
     "licenseFile": "LICENSE.txt",
     "beforeLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
     "afterLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
-    "reason": "Include explicit authorization failure messages while preserving the no-reason and unmet-requirement paths. Add Enumerable.Any and Select with a string.Join overload inside the FailCalled branch. LoggerMessage-generated implementation and property-only lambda body are not expanded; string message contents and call-free fallback are not proven by the call tree. Pinned production diffs and upstream test helpers reviewed; upstream tests were not executed. Source declarations, bindings, root connectivity, diagnostics and all output formats reviewed independently. Source mode lacks project references, defines and generators; possible callbacks and dispatch do not prove runtime execution. Restored trial exits 2 for unsupported src/submodules/MessagePack-CSharp.",
+    "reason": "Include explicit authorization failure messages while preserving the no-reason and unmet-requirement paths. The focused view reads FailCalled before branching, FailureReasons before Any and Select, and each Message through the possible projection callback; it retains the private partial logging overload. Independent review covers 7841 signatures, including 4106 exact prior declaration matches and 3735 newly read declarations, 59406 source edges, 1131 metadata edges, 115069 rendered locations and all 23410 diagnostics. The 2322 automatic roots have independently bound paths to the changed logger; broad accessor and wrapper dispatch is conservative connectivity, not proof of runtime execution or recursion. All six formats repeat exactly on Linux. Pinned production diffs and upstream test helpers reviewed; upstream tests were not executed. LoggerMessage-generated implementation, string message contents and call-free fallback are not proven by the call tree. Source mode lacks project references, defines and generators. Restored trial exits 2 for unsupported src/submodules/MessagePack-CSharp. Final cross-platform validation remains required.",
     "tags": [
       "branch-guard",
       "overload",
@@ -1892,7 +1892,8 @@
       "automatic-roots",
       "logging",
       "lambda",
-      "partial-method"
+      "partial-method",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/aspnetcore-source-coverage.md",
