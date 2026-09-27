@@ -1,6 +1,6 @@
 # Test-suite performance goal
 
-Status: second performance phase in progress. Matched full-corpus cold/warm improvement is established at `2fae0fb`, with all 426 executions retained. Cold CI run 36293540835 at `3060e3e` passed every required job and completed broad feedback in 4m 18s / 5m 48s / 5m 23s on Ubuntu / Windows / macOS. All workspace commands now finish within two minutes, but staggered starts extend the complete workspace spans to 117 / 179 / 196 seconds. Warm case-cache evidence and final suite-target confirmation remain outstanding. The previous phase established fast everyday feedback, but broad CI originally took 46–49 minutes. This phase makes the remaining suite fast. It does not resume the paused implementation goal in `GOAL.md`.
+Status: second performance phase in progress. Matched full-corpus cold/warm improvement is established at `2fae0fb`, with all 426 executions retained. Cold/warm broad CI paths now finish within six minutes on every OS with equivalent coverage, but individual targets are not yet stable. Warm run 36293916171 passed all required jobs and confirmed all six repository-cache hits; Windows workspace A took 132.74 seconds and cases A 188.89 seconds. Combined suite spans also expose scheduling/setup skew. The next checkpoint tests NuGet package caching without skipping restoration or analysis. The previous phase established fast everyday feedback, but broad CI originally took 46–49 minutes. This phase makes the remaining suite fast. It does not resume the paused implementation goal in `GOAL.md`.
 
 ## Outcome
 
@@ -103,11 +103,11 @@ Record machine or runner type, OS, SDK, revision, selected cases, build state, c
 
 ## Completion criteria
 
-- [ ] The expensive paths have measured costs, and every remaining serial boundary has a documented isolation or resource reason.
-- [ ] Independent workspace and real-world cases demonstrably overlap with bounded concurrency; shared repository preparation and cleanup remain safe under cold and warm execution.
-- [ ] Format-only assertions reuse analysis, and redundant restoration/worker setup is reduced without losing meaningful integration checks.
+- [x] The expensive paths have measured costs, and every remaining serial boundary has a documented isolation or resource reason.
+- [x] Independent workspace and real-world cases demonstrably overlap with bounded concurrency; shared repository preparation and cleanup remain safe under cold and warm execution.
+- [x] Format-only assertions reuse analysis, and redundant restoration/worker setup is reduced without losing meaningful integration checks.
 - [ ] All per-suite and broad CI targets are met on Ubuntu, Windows, and macOS, with cold and warm conditions reported honestly.
-- [ ] Aggregate work is reduced; any additional runner cost is quantified separately from elapsed-time improvement.
+- [x] Aggregate work is reduced; any additional runner cost is quantified separately from elapsed-time improvement.
 - [x] The explicit all-cases E2E command has its own matched before/after evidence with the pinned corpus preserved.
 - [x] The current fast-tier budget and focused integration workflow remain intact.
 - [ ] Equivalent behavioral coverage, unchanged reviewed expectations, concurrency stability, and passing supported-platform CI are documented in `docs/development-performance.md`.

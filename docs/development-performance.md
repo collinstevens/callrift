@@ -4,8 +4,9 @@ This work tracks `WORKFLOW_DEVEX_GOAL.md`; it does not resume `GOAL.md`.
 The first phase completed at `90083f5`; the second phase's broad-suite performance
 goal remains active. The latest completed evidence includes the
 [matched full-corpus cold/warm comparison](#matched-complete-e2e-results-at-2fae0fb)
-and [first cold shard CI](#first-cold-shard-ci-at-a3bba0f). Windows workspace timing
-and final warm-cache confirmation remain open.
+and [cold shard confirmation](#cold-confirmation-at-3060e3e). Warm repository
+caches are confirmed, but Windows workspace/case budgets and combined suite
+timing under staggered job starts remain open.
 
 The inventory describes existing assertions, not permission to remove integration
 coverage. Historical checkpoint observations are retained below. Unsampled
@@ -2142,3 +2143,44 @@ cold baseline, with 45.11 aggregate dotnet command minutes. All broad paths
 again meet ten minutes. Warm repository-cache behavior still needs a following
 run with unchanged partition configuration; the cold Windows cases are not
 presented as meeting the warm three-minute target.
+
+### Warm repository-cache confirmation at 7faf551
+
+[Run 36293916171](https://github.com/collinstevens/callrift/actions/runs/36293916171)
+passed all required jobs with unchanged source, selection and partition keys.
+All six case jobs explicitly restored their repository caches. Every platform
+retained 350 fast, 305 scenario, 26 workspace and 25 routine-case executions.
+
+| Complete dotnet command | Ubuntu | Windows | macOS |
+|---|---:|---:|---:|
+| Scenarios A / B | 202.93 / 137.18 s | 145.91 / 169.41 s | 196.56 / 199.97 s |
+| Workspaces A / B | 78.89 / 110.97 s | 132.74 / 83.72 s | 101.00 / 65.44 s |
+| Warm cases A / B | 148.42 / 144.88 s | 188.89 / 154.76 s | 113.25 / 127.15 s |
+| Whole broad path including setup/staggered starts | 4m 03s | 4m 56s | 4m 34s |
+
+Initial queue delays were 1 / 1 / 5 s, and last-start delays 52 / 3 / 117 s.
+First-test-step-start to last-test-step-finish spans were 208 / 208 / 217 s for
+scenarios, 119 / 148 / 116 s for workspaces and 200 / 191 / 235 s for cases.
+The eighteen jobs used 61.08 runner-minutes and 41.70 aggregate command minutes,
+versus 62.57 / 45.11 in the preceding cold run. These hosted observations include
+machine and scheduling variance; they are not a controlled estimate of cache
+savings. Broad feedback meets ten minutes in both conditions. Windows workspace
+A and case A still miss their command budgets, and suite spans retain queue/setup
+skew. The goal remains active.
+
+### Measuring package-cache reuse
+
+The next workflow checkpoint caches NuGet global packages for workspace and case
+shards. Repository-cache hits alone do not retain fixture dependencies on fresh
+runners. The package key includes OS, suite, shard, lockfiles, SDK configuration,
+pinned corpus, partition and fixture sources. Separate shard keys avoid a first
+writer publishing only another shard's package set. Fresh project restoration
+and all analysis still execute; only package acquisition can be reused.
+
+The cache stores `~/.nuget/packages`, following the
+[GitHub dependency-cache guidance](https://docs.github.com/en/actions/tutorials/build-and-test-code/net).
+There are twelve package entries per configuration. Download, extraction, save
+time and cache size must be counted alongside command time before retaining this
+change as a measured improvement. The first run populates this package namespace;
+a following unchanged-key run must demonstrate explicit hits. No performance
+benefit is claimed yet, and failure artifact payloads remain unchanged.
