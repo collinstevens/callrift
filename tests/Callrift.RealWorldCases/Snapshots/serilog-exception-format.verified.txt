@@ -1,9 +1,36 @@
 ﻿format: text
 exit: 0
 stdout:
-~ MessageTemplateTextFormatter.Format (body changed; visible calls unchanged)
-  ├─ Guard.AgainstNull ×2
-  └─ …
+  MessageTemplateTextFormatter.Format
+  ├─ …
+  ├─ Guard.AgainstNull
+  ├─ MessageTemplate.get_TokenArray
+  └─ foreach (var token in _outputTemplate.TokenArray)
+     ├─ …
+     ├─ PropertyToken.get_PropertyName
+     ├─ if (pt.PropertyName == OutputProperties.LevelPropertyName)
+     └─ else (!(pt.PropertyName == OutputProperties.LevelPropertyName))
+        ├─ PropertyToken.get_PropertyName
+        ├─ if (pt.PropertyName == OutputProperties.TraceIdPropertyName)
+        └─ else (!(pt.PropertyName == OutputProperties.TraceIdPropertyName))
+           ├─ PropertyToken.get_PropertyName
+           ├─ if (pt.PropertyName == OutputProperties.SpanIdPropertyName)
+           └─ else (!(pt.PropertyName == OutputProperties.SpanIdPropertyName))
+              ├─ PropertyToken.get_PropertyName
+              ├─ if (pt.PropertyName == OutputProperties.NewLinePropertyName)
+              └─ else (!(pt.PropertyName == OutputProperties.NewLinePropertyName))
+                 ├─ PropertyToken.get_PropertyName
+                 ├─ if (pt.PropertyName == OutputProperties.ExceptionPropertyName)
+                 │  ├─ LogEvent.get_Exception
+                 │  ├─ else (!(logEvent.Exception == null))
+-                │  │  ├─ LogEvent.get_Exception
++                │  │  ├─ try
++                │  │  │  └─ LogEvent.get_Exception
++                │  │  └─ catch (Exception ex)
++                │  │     └─ LogEvent.get_Exception
+                 │  ├─ PropertyToken.get_Alignment
+                 │  └─ Padding.Apply (depth limit)
+                 └─ else (!(pt.PropertyName == OutputProperties.ExceptionPropertyName))
 stderr:
 test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
 
@@ -11,9 +38,36 @@ format: md
 exit: 0
 stdout:
 ```diff
-~ MessageTemplateTextFormatter.Format (body changed; visible calls unchanged)
-  ├─ Guard.AgainstNull ×2
-  └─ …
+  MessageTemplateTextFormatter.Format
+  ├─ …
+  ├─ Guard.AgainstNull
+  ├─ MessageTemplate.get_TokenArray
+  └─ foreach (var token in _outputTemplate.TokenArray)
+     ├─ …
+     ├─ PropertyToken.get_PropertyName
+     ├─ if (pt.PropertyName == OutputProperties.LevelPropertyName)
+     └─ else (!(pt.PropertyName == OutputProperties.LevelPropertyName))
+        ├─ PropertyToken.get_PropertyName
+        ├─ if (pt.PropertyName == OutputProperties.TraceIdPropertyName)
+        └─ else (!(pt.PropertyName == OutputProperties.TraceIdPropertyName))
+           ├─ PropertyToken.get_PropertyName
+           ├─ if (pt.PropertyName == OutputProperties.SpanIdPropertyName)
+           └─ else (!(pt.PropertyName == OutputProperties.SpanIdPropertyName))
+              ├─ PropertyToken.get_PropertyName
+              ├─ if (pt.PropertyName == OutputProperties.NewLinePropertyName)
+              └─ else (!(pt.PropertyName == OutputProperties.NewLinePropertyName))
+                 ├─ PropertyToken.get_PropertyName
+                 ├─ if (pt.PropertyName == OutputProperties.ExceptionPropertyName)
+                 │  ├─ LogEvent.get_Exception
+                 │  ├─ else (!(logEvent.Exception == null))
+-                │  │  ├─ LogEvent.get_Exception
++                │  │  ├─ try
++                │  │  │  └─ LogEvent.get_Exception
++                │  │  └─ catch (Exception ex)
++                │  │     └─ LogEvent.get_Exception
+                 │  ├─ PropertyToken.get_Alignment
+                 │  └─ Padding.Apply (depth limit)
+                 └─ else (!(pt.PropertyName == OutputProperties.ExceptionPropertyName))
 ```
 stderr:
 test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
