@@ -2784,5 +2784,73 @@
         ]
       }
     ]
+  },
+  {
+    "id": "cleanarchitecture-static-endpoint-groups",
+    "repository": "https://github.com/jasontaylordev/CleanArchitecture.git",
+    "cacheName": "cleanarchitecture",
+    "before": "de2e5d666ee1fff9914b809dd985159fa22e2763",
+    "after": "d4ac254a14b6c06a6d78f047b031cb1bc76d6ef9",
+    "license": "MIT",
+    "licenseFile": "LICENSE",
+    "beforeLicenseBlob": "20e161181137c75ff743500b197414ff88f11eba",
+    "afterLicenseBlob": "20e161181137c75ff743500b197414ff88f11eba",
+    "reason": "Replace instance endpoint groups with static interface members and reflection-based mapping, consolidate exception callbacks into a problem-details switch, and move endpoint/OpenAPI extension files while preserving type identities. Independently reviewed pinned source, declarations, bindings, locations, diagnostics and automatic-root connectivity. Reflection-selected Map targets and RoutePrefix getters are not followed; possible dispatch before the change does not prove execution. Source mode lacks project references/imports, so endpoint registration, mediator calls and dependency injection remain unresolved. The Program argument change has unchanged visible calls. Property values, status codes, the call-free unknown-exception return and collection-expression constructor lowering are unmodeled. Unexpanded command/query templates account for syntax errors, duplicate members and omitted record-copy constructors. The new static character field produces possible initialization, not proof of exact runtime timing. Restored Web/net10.0 trial exits 2 because pinned dependencies produce NU1902/NU1903 warnings treated as errors; no package changes or audit override applied.",
+    "tags": [
+      "static-interface",
+      "minimal-api",
+      "reflection",
+      "exceptions",
+      "method-group",
+      "static-initialization",
+      "moved-file",
+      "dependency-injection",
+      "automatic-roots"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "review": "../tests/Callrift.RealWorldCases/CleanArchitectureEndpointExpectations.cs",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "WebApplicationExtensions.MapEndpoints",
+          "--entry",
+          "CustomExceptionHandler.TryHandleAsync",
+          "--entry",
+          "ProblemDetailsExceptionHandler.TryHandleAsync",
+          "--entry",
+          "TodoItems.Map",
+          "--entry",
+          "TodoLists.Map",
+          "--entry",
+          "Users.Map",
+          "--entry",
+          "WeatherForecasts.Map",
+          "--entry",
+          "MethodInfoExtensions.IsAnonymous",
+          "--entry",
+          "ApiExceptionOperationTransformer.TransformAsync",
+          "--entry",
+          "DependencyInjection.AddWebServices"
+        ]
+      }
+    ]
   }
 ]

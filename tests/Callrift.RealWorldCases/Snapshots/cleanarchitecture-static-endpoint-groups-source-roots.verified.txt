@@ -1,0 +1,283 @@
+﻿format: text
+exit: 0
+stdout:
+  new TodoItems
+- └─ new EndpointGroupBase
+
+~ TodoItems.CreateTodoItem (signature changed)
+  ├─ ? sender.Send
+  └─ ? TypedResults.Created
+
+~ TodoItems.DeleteTodoItem (signature changed)
+  ├─ new DeleteTodoItemCommand (depth limit)
+  ├─ ? sender.Send
+  └─ …
+
+~ TodoItems.GetTodoItemsWithPagination (signature changed)
+  ├─ ? sender.Send
+  └─ ? TypedResults.Ok
+
+~ TodoItems.UpdateTodoItem (signature changed)
+  ├─ if (id != command.Id)
+  ├─ ? sender.Send
+  └─ …
+
+~ TodoItems.UpdateTodoItemDetail (signature changed)
+  ├─ if (id != command.Id)
+  ├─ ? sender.Send
+  └─ …
+
+  new TodoLists
+- └─ new EndpointGroupBase
+
+~ TodoLists.CreateTodoList (signature changed)
+  ├─ ? sender.Send
+  └─ ? TypedResults.Created
+
+~ TodoLists.DeleteTodoList (signature changed)
+  ├─ new DeleteTodoListCommand (depth limit)
+  ├─ ? sender.Send
+  └─ …
+
+~ TodoLists.GetTodoLists (signature changed)
+  ├─ new GetTodosQuery (depth limit)
+  ├─ ? sender.Send
+  └─ …
+
+~ TodoLists.UpdateTodoList (signature changed)
+  ├─ if (id != command.Id)
+  ├─ ? sender.Send
+  └─ …
+
+  new Users
+- └─ new EndpointGroupBase
+
+~ Users.Logout (signature changed)
+  ├─ if (empty != null)
+  └─ ? TypedResults.Unauthorized
+
+  new WeatherForecasts
+- └─ new EndpointGroupBase
+
+~ WeatherForecasts.GetWeatherForecasts (signature changed)
+  ├─ new GetWeatherForecastsQuery (depth limit)
+  ├─ ? sender.Send
+  └─ …
+
+  ApiExceptionOperationTransformer.TransformAsync
+- ├─ if (operation.Responses is null)
+- │  └─ ? new OpenApiResponses
+  ├─ ? new OpenApiResponse
+  ├─ ? operation.Responses.TryAdd
+  └─ …
+
+- new CustomExceptionHandler
+- ├─ ? base()
+- ├─ Dictionary<TKey, TValue>.Add
+- │  └─ CustomExceptionHandler.HandleValidationException (changes below depth limit)
+- ├─ Dictionary<TKey, TValue>.Add
+- │  └─ CustomExceptionHandler.HandleNotFoundException (changes below depth limit)
+- ├─ Dictionary<TKey, TValue>.Add
+- │  └─ CustomExceptionHandler.HandleUnauthorizedAccessException (changes below depth limit)
+- └─ Dictionary<TKey, TValue>.Add
+-    └─ CustomExceptionHandler.HandleForbiddenAccessException (changes below depth limit)
+
+- CustomExceptionHandler.TryHandleAsync
+
+  MethodInfoExtensions.AnonymousMethod
+~ └─ MethodInfoExtensions.IsAnonymous (changes below depth limit)
+
++ new ProblemDetailsExceptionHandler
++ └─ ? base()
+
++ ProblemDetailsExceptionHandler.TryHandleAsync
++ ├─ case ValidationException ve
++ │  └─ ? new ValidationProblemDetails
++ ├─ case NotFoundException ne
++ │  └─ ? new ProblemDetails
++ ├─ case UnauthorizedAccessException
++ │  └─ ? new ProblemDetails
++ ├─ case ForbiddenAccessException
++ │  └─ ? new ProblemDetails
++ └─ ? httpContext.Response.WriteAsJsonAsync
+
+~ WebApplicationExtensions.MapEndpoints (signature changed)
+  └─ foreach (var type in endpointGroupTypes)
+-    ├─ if (Activator.CreateInstance(type)is EndpointGroupBase instance)
+-    │  ├─ WebApplicationExtensions.MapGroup (changes below depth limit)
+-    │  └─ EndpointGroupBase.Map
+-    │     ├─ ⇢ TodoItems.Map (changes below depth limit)
+-    │     ├─ ⇢ TodoLists.Map (changes below depth limit)
+-    │     ├─ ⇢ Users.Map (changes below depth limit)
+-    │     └─ ⇢ WeatherForecasts.Map (changes below depth limit)
++    ├─ ? app.MapGroup
++    ├─ ? app.MapGroup(routePrefix).WithTags
++    └─ ? type.GetMethod(nameof(IEndpointGroup.Map))!.Invoke
+
+  DependencyInjection.AddWebServices
+  ├─ …
+  ├─ ? builder.Services.AddScoped<IUser, CurrentUser>
+  ├─ ? builder.Services.AddHttpContextAccessor
+- ├─ ? builder.Services.AddExceptionHandler<CustomExceptionHandler>
++ ├─ ? builder.Services.AddExceptionHandler<ProblemDetailsExceptionHandler>
+  ├─ ? builder.Services.Configure<ApiBehaviorOptions>
+  ├─ ? builder.Services.AddEndpointsApiExplorer
+  └─ …
+
+~ src/Web/Program.cs::<top-level> (body changed; visible calls unchanged)
+  ├─ ? WebApplication.CreateBuilder
+  ├─ ? builder.AddServiceDefaults
+  └─ …
+stderr:
+src/AppHost/Program.cs:3: unresolved-call: Cannot bind DistributedApplication.CreateBuilder.
+src/AppHost/Program.cs:13: unresolved-call: Cannot bind builder.AddSqlite.
+src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>(Services.WebApi).WithReference(databaseServer).WaitFor(databaseServer).WithUrlForEndpoint.
+src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>(Services.WebApi).WithReference(databaseServer).WaitFor.
+src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>(Services.WebApi).WithReference.
+src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>.
+src/AppHost/Program.cs:26: unresolved-call: Cannot bind builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp").WithRunScript("start").WithReference(web).WaitFor(web).WithHttpEndpoint(env: "PORT").WithExternalHttpEndpoints().PublishAsDockerFile.
+src/AppHost/Program.cs:26: unresolved-call: Cannot bind builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp").WithRunScript("start").WithReference(web).WaitFor(web).WithHttpEndpoint(env: "PORT").WithExternalHttpEndpoints.
+468 additional diagnostics; use --diagnostics full.
+
+format: md
+exit: 0
+stdout:
+```diff
+  new TodoItems
+- └─ new EndpointGroupBase
+
+~ TodoItems.CreateTodoItem (signature changed)
+  ├─ ? sender.Send
+  └─ ? TypedResults.Created
+
+~ TodoItems.DeleteTodoItem (signature changed)
+  ├─ new DeleteTodoItemCommand (depth limit)
+  ├─ ? sender.Send
+  └─ …
+
+~ TodoItems.GetTodoItemsWithPagination (signature changed)
+  ├─ ? sender.Send
+  └─ ? TypedResults.Ok
+
+~ TodoItems.UpdateTodoItem (signature changed)
+  ├─ if (id != command.Id)
+  ├─ ? sender.Send
+  └─ …
+
+~ TodoItems.UpdateTodoItemDetail (signature changed)
+  ├─ if (id != command.Id)
+  ├─ ? sender.Send
+  └─ …
+
+  new TodoLists
+- └─ new EndpointGroupBase
+
+~ TodoLists.CreateTodoList (signature changed)
+  ├─ ? sender.Send
+  └─ ? TypedResults.Created
+
+~ TodoLists.DeleteTodoList (signature changed)
+  ├─ new DeleteTodoListCommand (depth limit)
+  ├─ ? sender.Send
+  └─ …
+
+~ TodoLists.GetTodoLists (signature changed)
+  ├─ new GetTodosQuery (depth limit)
+  ├─ ? sender.Send
+  └─ …
+
+~ TodoLists.UpdateTodoList (signature changed)
+  ├─ if (id != command.Id)
+  ├─ ? sender.Send
+  └─ …
+
+  new Users
+- └─ new EndpointGroupBase
+
+~ Users.Logout (signature changed)
+  ├─ if (empty != null)
+  └─ ? TypedResults.Unauthorized
+
+  new WeatherForecasts
+- └─ new EndpointGroupBase
+
+~ WeatherForecasts.GetWeatherForecasts (signature changed)
+  ├─ new GetWeatherForecastsQuery (depth limit)
+  ├─ ? sender.Send
+  └─ …
+
+  ApiExceptionOperationTransformer.TransformAsync
+- ├─ if (operation.Responses is null)
+- │  └─ ? new OpenApiResponses
+  ├─ ? new OpenApiResponse
+  ├─ ? operation.Responses.TryAdd
+  └─ …
+
+- new CustomExceptionHandler
+- ├─ ? base()
+- ├─ Dictionary<TKey, TValue>.Add
+- │  └─ CustomExceptionHandler.HandleValidationException (changes below depth limit)
+- ├─ Dictionary<TKey, TValue>.Add
+- │  └─ CustomExceptionHandler.HandleNotFoundException (changes below depth limit)
+- ├─ Dictionary<TKey, TValue>.Add
+- │  └─ CustomExceptionHandler.HandleUnauthorizedAccessException (changes below depth limit)
+- └─ Dictionary<TKey, TValue>.Add
+-    └─ CustomExceptionHandler.HandleForbiddenAccessException (changes below depth limit)
+
+- CustomExceptionHandler.TryHandleAsync
+
+  MethodInfoExtensions.AnonymousMethod
+~ └─ MethodInfoExtensions.IsAnonymous (changes below depth limit)
+
++ new ProblemDetailsExceptionHandler
++ └─ ? base()
+
++ ProblemDetailsExceptionHandler.TryHandleAsync
++ ├─ case ValidationException ve
++ │  └─ ? new ValidationProblemDetails
++ ├─ case NotFoundException ne
++ │  └─ ? new ProblemDetails
++ ├─ case UnauthorizedAccessException
++ │  └─ ? new ProblemDetails
++ ├─ case ForbiddenAccessException
++ │  └─ ? new ProblemDetails
++ └─ ? httpContext.Response.WriteAsJsonAsync
+
+~ WebApplicationExtensions.MapEndpoints (signature changed)
+  └─ foreach (var type in endpointGroupTypes)
+-    ├─ if (Activator.CreateInstance(type)is EndpointGroupBase instance)
+-    │  ├─ WebApplicationExtensions.MapGroup (changes below depth limit)
+-    │  └─ EndpointGroupBase.Map
+-    │     ├─ ⇢ TodoItems.Map (changes below depth limit)
+-    │     ├─ ⇢ TodoLists.Map (changes below depth limit)
+-    │     ├─ ⇢ Users.Map (changes below depth limit)
+-    │     └─ ⇢ WeatherForecasts.Map (changes below depth limit)
++    ├─ ? app.MapGroup
++    ├─ ? app.MapGroup(routePrefix).WithTags
++    └─ ? type.GetMethod(nameof(IEndpointGroup.Map))!.Invoke
+
+  DependencyInjection.AddWebServices
+  ├─ …
+  ├─ ? builder.Services.AddScoped<IUser, CurrentUser>
+  ├─ ? builder.Services.AddHttpContextAccessor
+- ├─ ? builder.Services.AddExceptionHandler<CustomExceptionHandler>
++ ├─ ? builder.Services.AddExceptionHandler<ProblemDetailsExceptionHandler>
+  ├─ ? builder.Services.Configure<ApiBehaviorOptions>
+  ├─ ? builder.Services.AddEndpointsApiExplorer
+  └─ …
+
+~ src/Web/Program.cs::<top-level> (body changed; visible calls unchanged)
+  ├─ ? WebApplication.CreateBuilder
+  ├─ ? builder.AddServiceDefaults
+  └─ …
+```
+stderr:
+src/AppHost/Program.cs:3: unresolved-call: Cannot bind DistributedApplication.CreateBuilder.
+src/AppHost/Program.cs:13: unresolved-call: Cannot bind builder.AddSqlite.
+src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>(Services.WebApi).WithReference(databaseServer).WaitFor(databaseServer).WithUrlForEndpoint.
+src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>(Services.WebApi).WithReference(databaseServer).WaitFor.
+src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>(Services.WebApi).WithReference.
+src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>.
+src/AppHost/Program.cs:26: unresolved-call: Cannot bind builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp").WithRunScript("start").WithReference(web).WaitFor(web).WithHttpEndpoint(env: "PORT").WithExternalHttpEndpoints().PublishAsDockerFile.
+src/AppHost/Program.cs:26: unresolved-call: Cannot bind builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp").WithRunScript("start").WithReference(web).WaitFor(web).WithHttpEndpoint(env: "PORT").WithExternalHttpEndpoints.
+468 additional diagnostics; use --diagnostics full.

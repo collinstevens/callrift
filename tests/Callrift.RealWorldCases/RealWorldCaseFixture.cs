@@ -73,6 +73,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             PollyTimeoutExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "cleanarchitecture-value-object-operators")
             CleanArchitectureOperatorExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "cleanarchitecture-static-endpoint-groups")
+            CleanArchitectureEndpointExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "autofac-module-hook-subscriptions")
             AutofacModuleExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "autofac-build-failure-disposal")
