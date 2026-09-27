@@ -2,12 +2,16 @@
 exit: 0
 stdout:
   DeleteTodoItemCommandHandler.Handle
+  ├─ …
+  ├─ DeleteTodoItemCommand.get_Id
   ├─ ? _context.TodoItems.FindAsync
 - ├─ if (entity == null)
+- │  ├─ DeleteTodoItemCommand.get_Id
 - │  └─ new NotFoundException
++ ├─ DeleteTodoItemCommand.get_Id
 + ├─ ? Guard.Against.NotFound
+  ├─ IApplicationDbContext.get_TodoItems → ApplicationDbContext.get_TodoItems
   ├─ ? _context.TodoItems.Remove
-  ├─ ? new TodoItemDeletedEvent
   └─ …
 stderr:
 src/Application/Common/Behaviours/AuthorizationBehaviour.cs:14: unresolved-call: Cannot bind implicit base constructor for new AuthorizationBehaviour<TRequest, TResponse>.
@@ -18,19 +22,23 @@ src/Application/Common/Behaviours/PerformanceBehaviour.cs:31: unresolved-call: C
 src/Application/Common/Behaviours/UnhandledExceptionBehaviour.cs:10: unresolved-call: Cannot bind implicit base constructor for new UnhandledExceptionBehaviour<TRequest, TResponse>.
 src/Application/Common/Behaviours/UnhandledExceptionBehaviour.cs:19: unresolved-call: Cannot bind next.
 src/Application/Common/Behaviours/ValidationBehaviour.cs:12: unresolved-call: Cannot bind implicit base constructor for new ValidationBehaviour<TRequest, TResponse>.
-888 additional diagnostics; use --diagnostics full.
+892 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
 stdout:
 ```diff
   DeleteTodoItemCommandHandler.Handle
+  ├─ …
+  ├─ DeleteTodoItemCommand.get_Id
   ├─ ? _context.TodoItems.FindAsync
 - ├─ if (entity == null)
+- │  ├─ DeleteTodoItemCommand.get_Id
 - │  └─ new NotFoundException
++ ├─ DeleteTodoItemCommand.get_Id
 + ├─ ? Guard.Against.NotFound
+  ├─ IApplicationDbContext.get_TodoItems → ApplicationDbContext.get_TodoItems
   ├─ ? _context.TodoItems.Remove
-  ├─ ? new TodoItemDeletedEvent
   └─ …
 ```
 stderr:
@@ -42,4 +50,4 @@ src/Application/Common/Behaviours/PerformanceBehaviour.cs:31: unresolved-call: C
 src/Application/Common/Behaviours/UnhandledExceptionBehaviour.cs:10: unresolved-call: Cannot bind implicit base constructor for new UnhandledExceptionBehaviour<TRequest, TResponse>.
 src/Application/Common/Behaviours/UnhandledExceptionBehaviour.cs:19: unresolved-call: Cannot bind next.
 src/Application/Common/Behaviours/ValidationBehaviour.cs:12: unresolved-call: Cannot bind implicit base constructor for new ValidationBehaviour<TRequest, TResponse>.
-888 additional diagnostics; use --diagnostics full.
+892 additional diagnostics; use --diagnostics full.

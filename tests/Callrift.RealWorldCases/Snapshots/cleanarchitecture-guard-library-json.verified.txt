@@ -2024,6 +2024,28 @@ stdout:
     },
     {
       "code": "unresolved-call",
+      "message": "Cannot bind Set<TodoList>.",
+      "location": {
+        "path": "src/Infrastructure/Persistence/ApplicationDbContext.cs",
+        "startLine": 27,
+        "startColumn": 41,
+        "endLine": 27,
+        "endColumn": 56
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind Set<TodoItem>.",
+      "location": {
+        "path": "src/Infrastructure/Persistence/ApplicationDbContext.cs",
+        "startLine": 29,
+        "startColumn": 41,
+        "endLine": 29,
+        "endColumn": 56
+      }
+    },
+    {
+      "code": "unresolved-call",
       "message": "Cannot bind builder.ApplyConfigurationsFromAssembly.",
       "location": {
         "path": "src/Infrastructure/Persistence/ApplicationDbContext.cs",
@@ -8943,6 +8965,17 @@ stdout:
     },
     {
       "code": "unresolved-call",
+      "message": "Cannot bind HttpContext.RequestServices.GetRequiredService<ISender>.",
+      "location": {
+        "path": "src/WebUI/Controllers/ApiControllerBase.cs",
+        "startLine": 16,
+        "startColumn": 49,
+        "endLine": 16,
+        "endColumn": 106
+      }
+    },
+    {
+      "code": "unresolved-call",
       "message": "Cannot bind Mediator.Send.",
       "location": {
         "path": "src/WebUI/Controllers/TodoItemsController.cs",
@@ -9548,6 +9581,17 @@ stdout:
     },
     {
       "code": "unresolved-call",
+      "message": "Cannot bind .FindFirstValue.",
+      "location": {
+        "path": "src/WebUI/Services/CurrentUserService.cs",
+        "startLine": 16,
+        "startColumn": 69,
+        "endLine": 16,
+        "endColumn": 111
+      }
+    },
+    {
+      "code": "unresolved-call",
       "message": "Cannot bind implicit base constructor for new DeleteTodoItemCommand.",
       "location": {
         "path": "src/Application/TodoItems/Commands/DeleteTodoItem/DeleteTodoItem.cs",
@@ -9940,6 +9984,186 @@ stdout:
           "id": "n1",
           "kind": "call",
           "change": "unchanged",
+          "label": "IApplicationDbContext.get_TodoItems → ApplicationDbContext.get_TodoItems",
+          "detail": null,
+          "before": {
+            "symbolId": "source::CleanArchitecture.Application.Common.Interfaces.IApplicationDbContext.get_TodoItems()",
+            "signature": "public abstract CleanArchitecture.Application.Common.Interfaces.IApplicationDbContext.get_TodoItems() -> DbSet<CleanArchitecture.Domain.Entities.TodoItem>",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "source::CleanArchitecture.Infrastructure.Persistence.ApplicationDbContext.get_TodoItems()"
+            ],
+            "definition": {
+              "path": "src/Application/Common/Interfaces/IApplicationDbContext.cs",
+              "startLine": 10,
+              "startColumn": 33,
+              "endLine": 10,
+              "endColumn": 37
+            },
+            "callSites": [
+              {
+                "path": "src/Application/TodoItems/Commands/DeleteTodoItem/DeleteTodoItem.cs",
+                "startLine": 22,
+                "startColumn": 28,
+                "endLine": 22,
+                "endColumn": 46
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::CleanArchitecture.Application.Common.Interfaces.IApplicationDbContext.get_TodoItems()",
+            "signature": "public abstract CleanArchitecture.Application.Common.Interfaces.IApplicationDbContext.get_TodoItems() -> DbSet<CleanArchitecture.Domain.Entities.TodoItem>",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "source::CleanArchitecture.Infrastructure.Persistence.ApplicationDbContext.get_TodoItems()"
+            ],
+            "definition": {
+              "path": "src/Application/Common/Interfaces/IApplicationDbContext.cs",
+              "startLine": 10,
+              "startColumn": 33,
+              "endLine": 10,
+              "endColumn": 37
+            },
+            "callSites": [
+              {
+                "path": "src/Application/TodoItems/Commands/DeleteTodoItem/DeleteTodoItem.cs",
+                "startLine": 21,
+                "startColumn": 28,
+                "endLine": 21,
+                "endColumn": 46
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [
+            {
+              "id": "n2",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "? Set<TodoItem>",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "unresolved",
+                "dispatch": "direct",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Infrastructure/Persistence/ApplicationDbContext.cs",
+                    "startLine": 29,
+                    "startColumn": 41,
+                    "endLine": 29,
+                    "endColumn": 56
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "unknown"
+              },
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "unresolved",
+                "dispatch": "direct",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Infrastructure/Persistence/ApplicationDbContext.cs",
+                    "startLine": 29,
+                    "startColumn": 41,
+                    "endLine": 29,
+                    "endColumn": 56
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "unknown"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n3",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "DeleteTodoItemCommand.get_Id",
+          "detail": null,
+          "before": {
+            "symbolId": "source::CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem.DeleteTodoItemCommand.get_Id()",
+            "signature": "public CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem.DeleteTodoItemCommand.get_Id() -> int",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem.DeleteTodoItemCommand.get_Id()"
+            ],
+            "definition": {
+              "path": "src/Application/TodoItems/Commands/DeleteTodoItem/DeleteTodoItem.cs",
+              "startLine": 9,
+              "startColumn": 37,
+              "endLine": 9,
+              "endColumn": 43
+            },
+            "callSites": [
+              {
+                "path": "src/Application/TodoItems/Commands/DeleteTodoItem/DeleteTodoItem.cs",
+                "startLine": 23,
+                "startColumn": 39,
+                "endLine": 23,
+                "endColumn": 49
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem.DeleteTodoItemCommand.get_Id()",
+            "signature": "public CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem.DeleteTodoItemCommand.get_Id() -> int",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem.DeleteTodoItemCommand.get_Id()"
+            ],
+            "definition": {
+              "path": "src/Application/TodoItems/Commands/DeleteTodoItem/DeleteTodoItem.cs",
+              "startLine": 8,
+              "startColumn": 37,
+              "endLine": 8,
+              "endColumn": 43
+            },
+            "callSites": [
+              {
+                "path": "src/Application/TodoItems/Commands/DeleteTodoItem/DeleteTodoItem.cs",
+                "startLine": 22,
+                "startColumn": 39,
+                "endLine": 22,
+                "endColumn": 49
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n4",
+          "kind": "call",
+          "change": "unchanged",
           "label": "? _context.TodoItems.FindAsync",
           "detail": null,
           "before": {
@@ -9986,7 +10210,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n2",
+          "id": "n5",
           "kind": "branch",
           "change": "removed",
           "label": "if (entity == null)",
@@ -10014,7 +10238,45 @@ stdout:
           "after": null,
           "children": [
             {
-              "id": "n3",
+              "id": "n6",
+              "kind": "call",
+              "change": "removed",
+              "label": "DeleteTodoItemCommand.get_Id",
+              "detail": null,
+              "before": {
+                "symbolId": "source::CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem.DeleteTodoItemCommand.get_Id()",
+                "signature": "public CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem.DeleteTodoItemCommand.get_Id() -> int",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem.DeleteTodoItemCommand.get_Id()"
+                ],
+                "definition": {
+                  "path": "src/Application/TodoItems/Commands/DeleteTodoItem/DeleteTodoItem.cs",
+                  "startLine": 9,
+                  "startColumn": 37,
+                  "endLine": 9,
+                  "endColumn": 43
+                },
+                "callSites": [
+                  {
+                    "path": "src/Application/TodoItems/Commands/DeleteTodoItem/DeleteTodoItem.cs",
+                    "startLine": 27,
+                    "startColumn": 59,
+                    "endLine": 27,
+                    "endColumn": 69
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": null,
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n7",
               "kind": "call",
               "change": "removed",
               "label": "new NotFoundException",
@@ -10055,7 +10317,45 @@ stdout:
           "omission": null
         },
         {
-          "id": "n4",
+          "id": "n8",
+          "kind": "call",
+          "change": "added",
+          "label": "DeleteTodoItemCommand.get_Id",
+          "detail": null,
+          "before": null,
+          "after": {
+            "symbolId": "source::CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem.DeleteTodoItemCommand.get_Id()",
+            "signature": "public CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem.DeleteTodoItemCommand.get_Id() -> int",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem.DeleteTodoItemCommand.get_Id()"
+            ],
+            "definition": {
+              "path": "src/Application/TodoItems/Commands/DeleteTodoItem/DeleteTodoItem.cs",
+              "startLine": 8,
+              "startColumn": 37,
+              "endLine": 8,
+              "endColumn": 43
+            },
+            "callSites": [
+              {
+                "path": "src/Application/TodoItems/Commands/DeleteTodoItem/DeleteTodoItem.cs",
+                "startLine": 24,
+                "startColumn": 32,
+                "endLine": 24,
+                "endColumn": 42
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n9",
           "kind": "call",
           "change": "added",
           "label": "? Guard.Against.NotFound",
@@ -10085,7 +10385,122 @@ stdout:
           "omission": null
         },
         {
-          "id": "n5",
+          "id": "n10",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "IApplicationDbContext.get_TodoItems → ApplicationDbContext.get_TodoItems",
+          "detail": null,
+          "before": {
+            "symbolId": "source::CleanArchitecture.Application.Common.Interfaces.IApplicationDbContext.get_TodoItems()",
+            "signature": "public abstract CleanArchitecture.Application.Common.Interfaces.IApplicationDbContext.get_TodoItems() -> DbSet<CleanArchitecture.Domain.Entities.TodoItem>",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "source::CleanArchitecture.Infrastructure.Persistence.ApplicationDbContext.get_TodoItems()"
+            ],
+            "definition": {
+              "path": "src/Application/Common/Interfaces/IApplicationDbContext.cs",
+              "startLine": 10,
+              "startColumn": 33,
+              "endLine": 10,
+              "endColumn": 37
+            },
+            "callSites": [
+              {
+                "path": "src/Application/TodoItems/Commands/DeleteTodoItem/DeleteTodoItem.cs",
+                "startLine": 30,
+                "startColumn": 9,
+                "endLine": 30,
+                "endColumn": 27
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::CleanArchitecture.Application.Common.Interfaces.IApplicationDbContext.get_TodoItems()",
+            "signature": "public abstract CleanArchitecture.Application.Common.Interfaces.IApplicationDbContext.get_TodoItems() -> DbSet<CleanArchitecture.Domain.Entities.TodoItem>",
+            "binding": "resolved",
+            "dispatch": "possible",
+            "targetIds": [
+              "source::CleanArchitecture.Infrastructure.Persistence.ApplicationDbContext.get_TodoItems()"
+            ],
+            "definition": {
+              "path": "src/Application/Common/Interfaces/IApplicationDbContext.cs",
+              "startLine": 10,
+              "startColumn": 33,
+              "endLine": 10,
+              "endColumn": 37
+            },
+            "callSites": [
+              {
+                "path": "src/Application/TodoItems/Commands/DeleteTodoItem/DeleteTodoItem.cs",
+                "startLine": 26,
+                "startColumn": 9,
+                "endLine": 26,
+                "endColumn": 27
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [
+            {
+              "id": "n11",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "? Set<TodoItem>",
+              "detail": null,
+              "before": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "unresolved",
+                "dispatch": "direct",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Infrastructure/Persistence/ApplicationDbContext.cs",
+                    "startLine": 29,
+                    "startColumn": 41,
+                    "endLine": 29,
+                    "endColumn": 56
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "unknown"
+              },
+              "after": {
+                "symbolId": null,
+                "signature": null,
+                "binding": "unresolved",
+                "dispatch": "direct",
+                "targetIds": [],
+                "definition": null,
+                "callSites": [
+                  {
+                    "path": "src/Infrastructure/Persistence/ApplicationDbContext.cs",
+                    "startLine": 29,
+                    "startColumn": 41,
+                    "endLine": 29,
+                    "endColumn": 56
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "unknown"
+              },
+              "children": [],
+              "omission": null
+            }
+          ],
+          "omission": null
+        },
+        {
+          "id": "n12",
           "kind": "call",
           "change": "unchanged",
           "label": "? _context.TodoItems.Remove",
@@ -10134,7 +10549,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n6",
+          "id": "n13",
           "kind": "call",
           "change": "unchanged",
           "label": "? new TodoItemDeletedEvent",
@@ -10187,7 +10602,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n7",
+          "id": "n14",
           "kind": "call",
           "change": "unchanged",
           "label": "? entity.AddDomainEvent",
@@ -10236,7 +10651,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n8",
+          "id": "n15",
           "kind": "call",
           "change": "unchanged",
           "label": "IApplicationDbContext.SaveChangesAsync → ApplicationDbContext.SaveChangesAsync",
@@ -10299,7 +10714,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n9",
+              "id": "n16",
               "kind": "call",
               "change": "unchanged",
               "label": "? _mediator.DispatchDomainEvents",
@@ -10352,7 +10767,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n10",
+              "id": "n17",
               "kind": "call",
               "change": "unchanged",
               "label": "? base.SaveChangesAsync",
@@ -10418,4 +10833,4 @@ src/Application/Common/Behaviours/PerformanceBehaviour.cs:31: unresolved-call: C
 src/Application/Common/Behaviours/UnhandledExceptionBehaviour.cs:10: unresolved-call: Cannot bind implicit base constructor for new UnhandledExceptionBehaviour<TRequest, TResponse>.
 src/Application/Common/Behaviours/UnhandledExceptionBehaviour.cs:19: unresolved-call: Cannot bind next.
 src/Application/Common/Behaviours/ValidationBehaviour.cs:12: unresolved-call: Cannot bind implicit base constructor for new ValidationBehaviour<TRequest, TResponse>.
-888 additional diagnostics; use --diagnostics full.
+892 additional diagnostics; use --diagnostics full.

@@ -51,6 +51,9 @@ public sealed class RealWorldCaseFixture : IDisposable
                 new SnapshotIdentity("revision", entry.Before, beforeId), new SnapshotIdentity("revision", entry.After, afterId));
         }
         var result = CallriftService.Compare(cached.Before, cached.After, options, timeout.Token) with { From = cached.From, To = cached.To };
+        if (entry.Id is "cleanarchitecture-endpoint-groups" or "cleanarchitecture-logging-di" or
+            "cleanarchitecture-validation-lambda" or "cleanarchitecture-handler-rename" or "cleanarchitecture-guard-library")
+            CleanArchitectureLegacyExpectations.Verify(result, entry.Id);
         if (entry.Id == "orchardcore-esmodule-localization")
             OrchardEsModuleExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "aspnetcore-upload-stream-ownership")
