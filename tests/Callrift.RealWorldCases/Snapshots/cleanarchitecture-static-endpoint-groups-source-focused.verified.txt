@@ -38,15 +38,18 @@ stdout:
   ├─ ? new OpenApiResponse
   ├─ ? operation.Responses.TryAdd
   ├─ ? context.Description.ActionDescriptor.EndpointMetadata.Any
-  └─ if (requiresAuth)
+  ├─ if (requiresAuth)
+  └─ Task.get_CompletedTask
 
 - CustomExceptionHandler.TryHandleAsync
 - ├─ exception.GetType
 - ├─ _exceptionHandlers.ContainsKey
 - └─ if (_exceptionHandlers.ContainsKey(exceptionType))
+-    ├─ Dictionary<TKey, TValue>.get_Item
 -    └─ _exceptionHandlers[exceptionType].Invoke
 
   MethodInfoExtensions.IsAnonymous
+  ├─ MemberInfo.get_Name
 + ├─ possible initialization of MethodInfoExtensions
 + │  └─ initialization of MethodInfoExtensions
   └─ method.Name.Any
@@ -55,6 +58,7 @@ stdout:
 
 + ProblemDetailsExceptionHandler.TryHandleAsync
 + ├─ case ValidationException ve
++ │  ├─ ValidationException.get_Errors
 + │  └─ ? new ValidationProblemDetails
 + ├─ case NotFoundException ne
 + │  └─ ? new ProblemDetails
@@ -69,14 +73,19 @@ stdout:
   ├─ assembly.GetExportedTypes
   ├─ assembly.GetExportedTypes().Where
 - │  ├─ t.IsSubclassOf
++ │  ├─ pattern (t is { IsAbstract: false, IsInterface: false })
++ │  │  ├─ Type.get_IsAbstract
++ │  │  └─ Type.get_IsInterface
 + │  └─ if (t is { IsAbstract: false, IsInterface: false })
 + │     └─ t.IsAssignableTo
   └─ foreach (var type in endpointGroupTypes)
 -    ├─ Activator.CreateInstance
 -    ├─ if (Activator.CreateInstance(type)is EndpointGroupBase instance)
 -    │  ├─ WebApplicationExtensions.MapGroup
+-    │  │  ├─ EndpointGroupBase.get_GroupName
 -    │  │  ├─ if (group.GroupName is null)
--    │  │  │  └─ group.GetType
+-    │  │  │  ├─ group.GetType
+-    │  │  │  └─ MemberInfo.get_Name
 -    │  │  ├─ ? app.MapGroup
 -    │  │  └─ ? app.MapGroup($"/api/{groupName}").WithTags
 -    │  └─ EndpointGroupBase.Map
@@ -84,6 +93,7 @@ stdout:
 -    │     ├─ ⇢ TodoLists.Map (changes below depth limit)
 -    │     ├─ ⇢ Users.Map (changes below depth limit)
 -    │     └─ ⇢ WeatherForecasts.Map (changes below depth limit)
++    ├─ MemberInfo.get_Name
 +    ├─ type.GetProperty
 +    ├─ if (type.GetProperty(nameof(IEndpointGroup.RoutePrefix)) is not null)
 +    │  └─ .GetValue
@@ -111,7 +121,7 @@ src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Proje
 src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>.
 src/AppHost/Program.cs:26: unresolved-call: Cannot bind builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp").WithRunScript("start").WithReference(web).WaitFor(web).WithHttpEndpoint(env: "PORT").WithExternalHttpEndpoints().PublishAsDockerFile.
 src/AppHost/Program.cs:26: unresolved-call: Cannot bind builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp").WithRunScript("start").WithReference(web).WaitFor(web).WithHttpEndpoint(env: "PORT").WithExternalHttpEndpoints.
-468 additional diagnostics; use --diagnostics full.
+474 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -154,15 +164,18 @@ stdout:
   ├─ ? new OpenApiResponse
   ├─ ? operation.Responses.TryAdd
   ├─ ? context.Description.ActionDescriptor.EndpointMetadata.Any
-  └─ if (requiresAuth)
+  ├─ if (requiresAuth)
+  └─ Task.get_CompletedTask
 
 - CustomExceptionHandler.TryHandleAsync
 - ├─ exception.GetType
 - ├─ _exceptionHandlers.ContainsKey
 - └─ if (_exceptionHandlers.ContainsKey(exceptionType))
+-    ├─ Dictionary<TKey, TValue>.get_Item
 -    └─ _exceptionHandlers[exceptionType].Invoke
 
   MethodInfoExtensions.IsAnonymous
+  ├─ MemberInfo.get_Name
 + ├─ possible initialization of MethodInfoExtensions
 + │  └─ initialization of MethodInfoExtensions
   └─ method.Name.Any
@@ -171,6 +184,7 @@ stdout:
 
 + ProblemDetailsExceptionHandler.TryHandleAsync
 + ├─ case ValidationException ve
++ │  ├─ ValidationException.get_Errors
 + │  └─ ? new ValidationProblemDetails
 + ├─ case NotFoundException ne
 + │  └─ ? new ProblemDetails
@@ -185,14 +199,19 @@ stdout:
   ├─ assembly.GetExportedTypes
   ├─ assembly.GetExportedTypes().Where
 - │  ├─ t.IsSubclassOf
++ │  ├─ pattern (t is { IsAbstract: false, IsInterface: false })
++ │  │  ├─ Type.get_IsAbstract
++ │  │  └─ Type.get_IsInterface
 + │  └─ if (t is { IsAbstract: false, IsInterface: false })
 + │     └─ t.IsAssignableTo
   └─ foreach (var type in endpointGroupTypes)
 -    ├─ Activator.CreateInstance
 -    ├─ if (Activator.CreateInstance(type)is EndpointGroupBase instance)
 -    │  ├─ WebApplicationExtensions.MapGroup
+-    │  │  ├─ EndpointGroupBase.get_GroupName
 -    │  │  ├─ if (group.GroupName is null)
--    │  │  │  └─ group.GetType
+-    │  │  │  ├─ group.GetType
+-    │  │  │  └─ MemberInfo.get_Name
 -    │  │  ├─ ? app.MapGroup
 -    │  │  └─ ? app.MapGroup($"/api/{groupName}").WithTags
 -    │  └─ EndpointGroupBase.Map
@@ -200,6 +219,7 @@ stdout:
 -    │     ├─ ⇢ TodoLists.Map (changes below depth limit)
 -    │     ├─ ⇢ Users.Map (changes below depth limit)
 -    │     └─ ⇢ WeatherForecasts.Map (changes below depth limit)
++    ├─ MemberInfo.get_Name
 +    ├─ type.GetProperty
 +    ├─ if (type.GetProperty(nameof(IEndpointGroup.RoutePrefix)) is not null)
 +    │  └─ .GetValue
@@ -228,4 +248,4 @@ src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Proje
 src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>.
 src/AppHost/Program.cs:26: unresolved-call: Cannot bind builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp").WithRunScript("start").WithReference(web).WaitFor(web).WithHttpEndpoint(env: "PORT").WithExternalHttpEndpoints().PublishAsDockerFile.
 src/AppHost/Program.cs:26: unresolved-call: Cannot bind builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp").WithRunScript("start").WithReference(web).WaitFor(web).WithHttpEndpoint(env: "PORT").WithExternalHttpEndpoints.
-468 additional diagnostics; use --diagnostics full.
+474 additional diagnostics; use --diagnostics full.

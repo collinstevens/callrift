@@ -1672,6 +1672,28 @@ stdout:
     },
     {
       "code": "unresolved-call",
+      "message": "Cannot bind Set<TodoList>.",
+      "location": {
+        "path": "src/Infrastructure/Data/ApplicationDbContext.cs",
+        "startLine": 14,
+        "startColumn": 41,
+        "endLine": 14,
+        "endColumn": 56
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind Set<TodoItem>.",
+      "location": {
+        "path": "src/Infrastructure/Data/ApplicationDbContext.cs",
+        "startLine": 16,
+        "startColumn": 41,
+        "endLine": 16,
+        "endColumn": 56
+      }
+    },
+    {
+      "code": "unresolved-call",
       "message": "Cannot bind base.OnModelCreating.",
       "location": {
         "path": "src/Infrastructure/Data/ApplicationDbContext.cs",
@@ -4278,6 +4300,50 @@ stdout:
       }
     },
     {
+      "code": "unresolved-call",
+      "message": "Cannot bind .FindFirstValue.",
+      "location": {
+        "path": "src/Web/Services/CurrentUser.cs",
+        "startLine": 16,
+        "startColumn": 65,
+        "endLine": 16,
+        "endColumn": 107
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind .FindAll(ClaimTypes.Role).Select(x => x.Value).ToList.",
+      "location": {
+        "path": "src/Web/Services/CurrentUser.cs",
+        "startLine": 17,
+        "startColumn": 74,
+        "endLine": 17,
+        "endColumn": 129
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind .FindAll(ClaimTypes.Role).Select.",
+      "location": {
+        "path": "src/Web/Services/CurrentUser.cs",
+        "startLine": 17,
+        "startColumn": 74,
+        "endLine": 17,
+        "endColumn": 120
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind .FindAll.",
+      "location": {
+        "path": "src/Web/Services/CurrentUser.cs",
+        "startLine": 17,
+        "startColumn": 74,
+        "endLine": 17,
+        "endColumn": 99
+      }
+    },
+    {
       "code": "CS1513",
       "message": "} expected",
       "location": {
@@ -5919,6 +5985,71 @@ stdout:
       "children": [
         {
           "id": "n13",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "UpdateTodoItemCommand.get_Id",
+          "detail": null,
+          "before": {
+            "symbolId": "source::CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem.UpdateTodoItemCommand.get_Id()",
+            "signature": "public CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem.UpdateTodoItemCommand.get_Id() -> int",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem.UpdateTodoItemCommand.get_Id()"
+            ],
+            "definition": {
+              "path": "src/Application/TodoItems/Commands/UpdateTodoItem/UpdateTodoItem.cs",
+              "startLine": 7,
+              "startColumn": 21,
+              "endLine": 7,
+              "endColumn": 25
+            },
+            "callSites": [
+              {
+                "path": "src/Web/Endpoints/TodoItems.cs",
+                "startLine": 49,
+                "startColumn": 19,
+                "endLine": 49,
+                "endColumn": 29
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem.UpdateTodoItemCommand.get_Id()",
+            "signature": "public CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem.UpdateTodoItemCommand.get_Id() -> int",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem.UpdateTodoItemCommand.get_Id()"
+            ],
+            "definition": {
+              "path": "src/Application/TodoItems/Commands/UpdateTodoItem/UpdateTodoItem.cs",
+              "startLine": 7,
+              "startColumn": 21,
+              "endLine": 7,
+              "endColumn": 25
+            },
+            "callSites": [
+              {
+                "path": "src/Web/Endpoints/TodoItems.cs",
+                "startLine": 46,
+                "startColumn": 19,
+                "endLine": 46,
+                "endColumn": 29
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n14",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (id != command.Id)",
@@ -5965,7 +6096,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n14",
+              "id": "n15",
               "kind": "call",
               "change": "unchanged",
               "label": "? TypedResults.BadRequest",
@@ -6017,7 +6148,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n15",
+          "id": "n16",
           "kind": "call",
           "change": "unchanged",
           "label": "? sender.Send",
@@ -6066,7 +6197,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n16",
+          "id": "n17",
           "kind": "call",
           "change": "unchanged",
           "label": "? TypedResults.NoContent",
@@ -6118,7 +6249,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n17",
+      "id": "n18",
       "kind": "member",
       "change": "modified",
       "label": "TodoItems.UpdateTodoItemDetail",
@@ -6165,7 +6296,72 @@ stdout:
       },
       "children": [
         {
-          "id": "n18",
+          "id": "n19",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "UpdateTodoItemDetailCommand.get_Id",
+          "detail": null,
+          "before": {
+            "symbolId": "source::CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail.UpdateTodoItemDetailCommand.get_Id()",
+            "signature": "public CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail.UpdateTodoItemDetailCommand.get_Id() -> int",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail.UpdateTodoItemDetailCommand.get_Id()"
+            ],
+            "definition": {
+              "path": "src/Application/TodoItems/Commands/UpdateTodoItemDetail/UpdateTodoItemDetail.cs",
+              "startLine": 8,
+              "startColumn": 21,
+              "endLine": 8,
+              "endColumn": 25
+            },
+            "callSites": [
+              {
+                "path": "src/Web/Endpoints/TodoItems.cs",
+                "startLine": 62,
+                "startColumn": 19,
+                "endLine": 62,
+                "endColumn": 29
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail.UpdateTodoItemDetailCommand.get_Id()",
+            "signature": "public CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail.UpdateTodoItemDetailCommand.get_Id() -> int",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail.UpdateTodoItemDetailCommand.get_Id()"
+            ],
+            "definition": {
+              "path": "src/Application/TodoItems/Commands/UpdateTodoItemDetail/UpdateTodoItemDetail.cs",
+              "startLine": 8,
+              "startColumn": 21,
+              "endLine": 8,
+              "endColumn": 25
+            },
+            "callSites": [
+              {
+                "path": "src/Web/Endpoints/TodoItems.cs",
+                "startLine": 58,
+                "startColumn": 19,
+                "endLine": 58,
+                "endColumn": 29
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n20",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (id != command.Id)",
@@ -6212,7 +6408,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n19",
+              "id": "n21",
               "kind": "call",
               "change": "unchanged",
               "label": "? TypedResults.BadRequest",
@@ -6264,7 +6460,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n20",
+          "id": "n22",
           "kind": "call",
           "change": "unchanged",
           "label": "? sender.Send",
@@ -6313,7 +6509,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n21",
+          "id": "n23",
           "kind": "call",
           "change": "unchanged",
           "label": "? TypedResults.NoContent",
@@ -6365,7 +6561,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n22",
+      "id": "n24",
       "kind": "member",
       "change": "unchanged",
       "label": "new TodoLists",
@@ -6412,7 +6608,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n23",
+          "id": "n25",
           "kind": "call",
           "change": "removed",
           "label": "new EndpointGroupBase",
@@ -6453,7 +6649,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n24",
+      "id": "n26",
       "kind": "member",
       "change": "modified",
       "label": "TodoLists.CreateTodoList",
@@ -6500,7 +6696,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n25",
+          "id": "n27",
           "kind": "call",
           "change": "unchanged",
           "label": "? sender.Send",
@@ -6549,7 +6745,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n26",
+          "id": "n28",
           "kind": "call",
           "change": "unchanged",
           "label": "? TypedResults.Created",
@@ -6601,7 +6797,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n27",
+      "id": "n29",
       "kind": "member",
       "change": "modified",
       "label": "TodoLists.DeleteTodoList",
@@ -6648,7 +6844,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n28",
+          "id": "n30",
           "kind": "call",
           "change": "unchanged",
           "label": "new DeleteTodoListCommand",
@@ -6717,7 +6913,7 @@ stdout:
           }
         },
         {
-          "id": "n29",
+          "id": "n31",
           "kind": "call",
           "change": "unchanged",
           "label": "? sender.Send",
@@ -6766,7 +6962,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n30",
+          "id": "n32",
           "kind": "call",
           "change": "unchanged",
           "label": "? TypedResults.NoContent",
@@ -6818,7 +7014,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n31",
+      "id": "n33",
       "kind": "member",
       "change": "modified",
       "label": "TodoLists.GetTodoLists",
@@ -6865,7 +7061,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n32",
+          "id": "n34",
           "kind": "call",
           "change": "unchanged",
           "label": "new GetTodosQuery",
@@ -6934,7 +7130,7 @@ stdout:
           }
         },
         {
-          "id": "n33",
+          "id": "n35",
           "kind": "call",
           "change": "unchanged",
           "label": "? sender.Send",
@@ -6983,7 +7179,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n34",
+          "id": "n36",
           "kind": "call",
           "change": "unchanged",
           "label": "? TypedResults.Ok",
@@ -7035,7 +7231,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n35",
+      "id": "n37",
       "kind": "member",
       "change": "modified",
       "label": "TodoLists.UpdateTodoList",
@@ -7082,7 +7278,72 @@ stdout:
       },
       "children": [
         {
-          "id": "n36",
+          "id": "n38",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "UpdateTodoListCommand.get_Id",
+          "detail": null,
+          "before": {
+            "symbolId": "source::CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList.UpdateTodoListCommand.get_Id()",
+            "signature": "public CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList.UpdateTodoListCommand.get_Id() -> int",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList.UpdateTodoListCommand.get_Id()"
+            ],
+            "definition": {
+              "path": "src/Application/TodoLists/Commands/UpdateTodoList/UpdateTodoList.cs",
+              "startLine": 7,
+              "startColumn": 21,
+              "endLine": 7,
+              "endColumn": 25
+            },
+            "callSites": [
+              {
+                "path": "src/Web/Endpoints/TodoLists.cs",
+                "startLine": 44,
+                "startColumn": 19,
+                "endLine": 44,
+                "endColumn": 29
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList.UpdateTodoListCommand.get_Id()",
+            "signature": "public CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList.UpdateTodoListCommand.get_Id() -> int",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList.UpdateTodoListCommand.get_Id()"
+            ],
+            "definition": {
+              "path": "src/Application/TodoLists/Commands/UpdateTodoList/UpdateTodoList.cs",
+              "startLine": 7,
+              "startColumn": 21,
+              "endLine": 7,
+              "endColumn": 25
+            },
+            "callSites": [
+              {
+                "path": "src/Web/Endpoints/TodoLists.cs",
+                "startLine": 41,
+                "startColumn": 19,
+                "endLine": 41,
+                "endColumn": 29
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
+          "omission": null
+        },
+        {
+          "id": "n39",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (id != command.Id)",
@@ -7129,7 +7390,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n37",
+              "id": "n40",
               "kind": "call",
               "change": "unchanged",
               "label": "? TypedResults.BadRequest",
@@ -7181,7 +7442,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n38",
+          "id": "n41",
           "kind": "call",
           "change": "unchanged",
           "label": "? sender.Send",
@@ -7230,7 +7491,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n39",
+          "id": "n42",
           "kind": "call",
           "change": "unchanged",
           "label": "? TypedResults.NoContent",
@@ -7282,7 +7543,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n40",
+      "id": "n43",
       "kind": "member",
       "change": "unchanged",
       "label": "new Users",
@@ -7329,7 +7590,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n41",
+          "id": "n44",
           "kind": "call",
           "change": "removed",
           "label": "new EndpointGroupBase",
@@ -7370,7 +7631,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n42",
+      "id": "n45",
       "kind": "member",
       "change": "modified",
       "label": "Users.Logout",
@@ -7417,7 +7678,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n43",
+          "id": "n46",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (empty != null)",
@@ -7464,7 +7725,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n44",
+              "id": "n47",
               "kind": "call",
               "change": "unchanged",
               "label": "? signInManager.SignOutAsync",
@@ -7513,7 +7774,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n45",
+              "id": "n48",
               "kind": "call",
               "change": "unchanged",
               "label": "? TypedResults.Ok",
@@ -7565,7 +7826,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n46",
+          "id": "n49",
           "kind": "call",
           "change": "unchanged",
           "label": "? TypedResults.Unauthorized",
@@ -7617,7 +7878,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n47",
+      "id": "n50",
       "kind": "member",
       "change": "unchanged",
       "label": "new WeatherForecasts",
@@ -7664,7 +7925,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n48",
+          "id": "n51",
           "kind": "call",
           "change": "removed",
           "label": "new EndpointGroupBase",
@@ -7705,7 +7966,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n49",
+      "id": "n52",
       "kind": "member",
       "change": "modified",
       "label": "WeatherForecasts.GetWeatherForecasts",
@@ -7752,7 +8013,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n50",
+          "id": "n53",
           "kind": "call",
           "change": "unchanged",
           "label": "new GetWeatherForecastsQuery",
@@ -7821,7 +8082,7 @@ stdout:
           }
         },
         {
-          "id": "n51",
+          "id": "n54",
           "kind": "call",
           "change": "unchanged",
           "label": "? sender.Send",
@@ -7870,7 +8131,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n52",
+          "id": "n55",
           "kind": "call",
           "change": "unchanged",
           "label": "? TypedResults.Ok",
@@ -7922,7 +8183,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n53",
+      "id": "n56",
       "kind": "member",
       "change": "unchanged",
       "label": "ApiExceptionOperationTransformer.TransformAsync",
@@ -7969,7 +8230,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n54",
+          "id": "n57",
           "kind": "branch",
           "change": "removed",
           "label": "if (operation.Responses is null)",
@@ -7997,7 +8258,7 @@ stdout:
           "after": null,
           "children": [
             {
-              "id": "n55",
+              "id": "n58",
               "kind": "call",
               "change": "removed",
               "label": "? new OpenApiResponses",
@@ -8030,7 +8291,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n56",
+          "id": "n59",
           "kind": "call",
           "change": "unchanged",
           "label": "? new OpenApiResponse",
@@ -8079,7 +8340,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n57",
+          "id": "n60",
           "kind": "call",
           "change": "unchanged",
           "label": "? operation.Responses.TryAdd",
@@ -8128,7 +8389,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n58",
+          "id": "n61",
           "kind": "call",
           "change": "unchanged",
           "label": "? context.Description.ActionDescriptor.EndpointMetadata.Any",
@@ -8177,7 +8438,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n59",
+          "id": "n62",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (requiresAuth)",
@@ -8224,7 +8485,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n60",
+              "id": "n63",
               "kind": "call",
               "change": "unchanged",
               "label": "? new OpenApiResponse",
@@ -8273,7 +8534,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n61",
+              "id": "n64",
               "kind": "call",
               "change": "unchanged",
               "label": "? operation.Responses.TryAdd",
@@ -8322,7 +8583,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n62",
+              "id": "n65",
               "kind": "call",
               "change": "unchanged",
               "label": "? new OpenApiResponse",
@@ -8371,7 +8632,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n63",
+              "id": "n66",
               "kind": "call",
               "change": "unchanged",
               "label": "? operation.Responses.TryAdd",
@@ -8426,7 +8687,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n64",
+      "id": "n67",
       "kind": "member",
       "change": "removed",
       "label": "new CustomExceptionHandler",
@@ -8454,7 +8715,7 @@ stdout:
       "after": null,
       "children": [
         {
-          "id": "n65",
+          "id": "n68",
           "kind": "call",
           "change": "removed",
           "label": "? base()",
@@ -8484,7 +8745,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n66",
+          "id": "n69",
           "kind": "call",
           "change": "removed",
           "label": "Dictionary<TKey, TValue>.Add",
@@ -8514,7 +8775,7 @@ stdout:
           "after": null,
           "children": [
             {
-              "id": "n67",
+              "id": "n70",
               "kind": "call",
               "change": "removed",
               "label": "CustomExceptionHandler.HandleValidationException",
@@ -8559,7 +8820,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n68",
+          "id": "n71",
           "kind": "call",
           "change": "removed",
           "label": "Dictionary<TKey, TValue>.Add",
@@ -8589,7 +8850,7 @@ stdout:
           "after": null,
           "children": [
             {
-              "id": "n69",
+              "id": "n72",
               "kind": "call",
               "change": "removed",
               "label": "CustomExceptionHandler.HandleNotFoundException",
@@ -8634,7 +8895,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n70",
+          "id": "n73",
           "kind": "call",
           "change": "removed",
           "label": "Dictionary<TKey, TValue>.Add",
@@ -8664,7 +8925,7 @@ stdout:
           "after": null,
           "children": [
             {
-              "id": "n71",
+              "id": "n74",
               "kind": "call",
               "change": "removed",
               "label": "CustomExceptionHandler.HandleUnauthorizedAccessException",
@@ -8709,7 +8970,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n72",
+          "id": "n75",
           "kind": "call",
           "change": "removed",
           "label": "Dictionary<TKey, TValue>.Add",
@@ -8739,7 +9000,7 @@ stdout:
           "after": null,
           "children": [
             {
-              "id": "n73",
+              "id": "n76",
               "kind": "call",
               "change": "removed",
               "label": "CustomExceptionHandler.HandleForbiddenAccessException",
@@ -8787,7 +9048,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n74",
+      "id": "n77",
       "kind": "member",
       "change": "removed",
       "label": "CustomExceptionHandler.TryHandleAsync",
@@ -8817,7 +9078,37 @@ stdout:
       "omission": null
     },
     {
-      "id": "n75",
+      "id": "n78",
+      "kind": "member",
+      "change": "added",
+      "label": "IEndpointGroup.get_RoutePrefix",
+      "detail": null,
+      "before": null,
+      "after": {
+        "symbolId": "source::CleanArchitecture.Web.Infrastructure.IEndpointGroup.get_RoutePrefix()",
+        "signature": "public static virtual CleanArchitecture.Web.Infrastructure.IEndpointGroup.get_RoutePrefix() -> string?",
+        "binding": "resolved",
+        "dispatch": "direct",
+        "targetIds": [
+          "source::CleanArchitecture.Web.Infrastructure.IEndpointGroup.get_RoutePrefix()"
+        ],
+        "definition": {
+          "path": "src/Web/Infrastructure/IEndpointGroup.cs",
+          "startLine": 16,
+          "startColumn": 5,
+          "endLine": 16,
+          "endColumn": 48
+        },
+        "callSites": [],
+        "relation": "definition",
+        "candidates": null,
+        "origin": "source"
+      },
+      "children": [],
+      "omission": null
+    },
+    {
+      "id": "n79",
       "kind": "member",
       "change": "unchanged",
       "label": "MethodInfoExtensions.AnonymousMethod",
@@ -8864,7 +9155,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n76",
+          "id": "n80",
           "kind": "call",
           "change": "modified",
           "label": "MethodInfoExtensions.IsAnonymous",
@@ -8936,7 +9227,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n77",
+      "id": "n81",
       "kind": "member",
       "change": "added",
       "label": "new ProblemDetailsExceptionHandler",
@@ -8964,7 +9255,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n78",
+          "id": "n82",
           "kind": "call",
           "change": "added",
           "label": "? base()",
@@ -8997,7 +9288,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n79",
+      "id": "n83",
       "kind": "member",
       "change": "added",
       "label": "ProblemDetailsExceptionHandler.TryHandleAsync",
@@ -9025,7 +9316,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n80",
+          "id": "n84",
           "kind": "branch",
           "change": "added",
           "label": "case ValidationException ve",
@@ -9053,7 +9344,45 @@ stdout:
           },
           "children": [
             {
-              "id": "n81",
+              "id": "n85",
+              "kind": "call",
+              "change": "added",
+              "label": "ValidationException.get_Errors",
+              "detail": null,
+              "before": null,
+              "after": {
+                "symbolId": "source::CleanArchitecture.Application.Common.Exceptions.ValidationException.get_Errors()",
+                "signature": "public CleanArchitecture.Application.Common.Exceptions.ValidationException.get_Errors() -> System.Collections.Generic.IDictionary<string, string[]>",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::CleanArchitecture.Application.Common.Exceptions.ValidationException.get_Errors()"
+                ],
+                "definition": {
+                  "path": "src/Application/Common/Exceptions/ValidationException.cs",
+                  "startLine": 21,
+                  "startColumn": 51,
+                  "endLine": 21,
+                  "endColumn": 55
+                },
+                "callSites": [
+                  {
+                    "path": "src/Web/Infrastructure/ProblemDetailsExceptionHandler.cs",
+                    "startLine": 19,
+                    "startColumn": 118,
+                    "endLine": 19,
+                    "endColumn": 127
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
+              "omission": null
+            },
+            {
+              "id": "n86",
               "kind": "call",
               "change": "added",
               "label": "? new ValidationProblemDetails",
@@ -9086,7 +9415,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n82",
+          "id": "n87",
           "kind": "branch",
           "change": "added",
           "label": "case NotFoundException ne",
@@ -9114,7 +9443,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n83",
+              "id": "n88",
               "kind": "call",
               "change": "added",
               "label": "? new ProblemDetails",
@@ -9147,7 +9476,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n84",
+          "id": "n89",
           "kind": "branch",
           "change": "added",
           "label": "case UnauthorizedAccessException",
@@ -9175,7 +9504,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n85",
+              "id": "n90",
               "kind": "call",
               "change": "added",
               "label": "? new ProblemDetails",
@@ -9208,7 +9537,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n86",
+          "id": "n91",
           "kind": "branch",
           "change": "added",
           "label": "case ForbiddenAccessException",
@@ -9236,7 +9565,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n87",
+              "id": "n92",
               "kind": "call",
               "change": "added",
               "label": "? new ProblemDetails",
@@ -9269,7 +9598,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n88",
+          "id": "n93",
           "kind": "call",
           "change": "added",
           "label": "? httpContext.Response.WriteAsJsonAsync",
@@ -9302,7 +9631,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n89",
+      "id": "n94",
       "kind": "member",
       "change": "modified",
       "label": "WebApplicationExtensions.MapEndpoints",
@@ -9349,7 +9678,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n90",
+          "id": "n95",
           "kind": "branch",
           "change": "unchanged",
           "label": "foreach (var type in endpointGroupTypes)",
@@ -9396,7 +9725,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n91",
+              "id": "n96",
               "kind": "branch",
               "change": "removed",
               "label": "if (Activator.CreateInstance(type)is EndpointGroupBase instance)",
@@ -9424,7 +9753,7 @@ stdout:
               "after": null,
               "children": [
                 {
-                  "id": "n92",
+                  "id": "n97",
                   "kind": "call",
                   "change": "removed",
                   "label": "WebApplicationExtensions.MapGroup",
@@ -9466,7 +9795,7 @@ stdout:
                   }
                 },
                 {
-                  "id": "n93",
+                  "id": "n98",
                   "kind": "call",
                   "change": "removed",
                   "label": "EndpointGroupBase.Map",
@@ -9505,7 +9834,7 @@ stdout:
                   "after": null,
                   "children": [
                     {
-                      "id": "n94",
+                      "id": "n99",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ TodoItems.Map",
@@ -9539,7 +9868,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n95",
+                      "id": "n100",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ TodoLists.Map",
@@ -9573,7 +9902,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n96",
+                      "id": "n101",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ Users.Map",
@@ -9607,7 +9936,7 @@ stdout:
                       }
                     },
                     {
-                      "id": "n97",
+                      "id": "n102",
                       "kind": "dispatchTarget",
                       "change": "removed",
                       "label": "⇢ WeatherForecasts.Map",
@@ -9647,7 +9976,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n98",
+              "id": "n103",
               "kind": "call",
               "change": "added",
               "label": "? app.MapGroup",
@@ -9677,7 +10006,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n99",
+              "id": "n104",
               "kind": "call",
               "change": "added",
               "label": "? app.MapGroup(routePrefix).WithTags",
@@ -9707,7 +10036,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n100",
+              "id": "n105",
               "kind": "call",
               "change": "added",
               "label": "? type.GetMethod(nameof(IEndpointGroup.Map))!.Invoke",
@@ -9746,7 +10075,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n101",
+      "id": "n106",
       "kind": "member",
       "change": "unchanged",
       "label": "DependencyInjection.AddWebServices",
@@ -9793,7 +10122,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n102",
+          "id": "n107",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Services.AddDatabaseDeveloperPageExceptionFilter",
@@ -9842,7 +10171,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n103",
+          "id": "n108",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Services.AddScoped<IUser, CurrentUser>",
@@ -9891,7 +10220,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n104",
+          "id": "n109",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Services.AddHttpContextAccessor",
@@ -9940,7 +10269,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n105",
+          "id": "n110",
           "kind": "call",
           "change": "removed",
           "label": "? builder.Services.AddExceptionHandler<CustomExceptionHandler>",
@@ -9970,7 +10299,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n106",
+          "id": "n111",
           "kind": "call",
           "change": "added",
           "label": "? builder.Services.AddExceptionHandler<ProblemDetailsExceptionHandler>",
@@ -10000,7 +10329,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n107",
+          "id": "n112",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Services.Configure<ApiBehaviorOptions>",
@@ -10049,7 +10378,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n108",
+          "id": "n113",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Services.AddEndpointsApiExplorer",
@@ -10098,7 +10427,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n109",
+          "id": "n114",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Services.AddOpenApi",
@@ -10145,7 +10474,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n110",
+              "id": "n115",
               "kind": "call",
               "change": "unchanged",
               "label": "? options.AddOperationTransformer<ApiExceptionOperationTransformer>",
@@ -10194,7 +10523,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n111",
+              "id": "n116",
               "kind": "call",
               "change": "unchanged",
               "label": "? options.AddOperationTransformer<IdentityApiOperationTransformer>",
@@ -10246,7 +10575,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n112",
+          "id": "n117",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Services.AddCors",
@@ -10298,7 +10627,7 @@ stdout:
       "omission": null
     },
     {
-      "id": "n113",
+      "id": "n118",
       "kind": "member",
       "change": "modified",
       "label": "src/Web/Program.cs::<top-level>",
@@ -10345,7 +10674,7 @@ stdout:
       },
       "children": [
         {
-          "id": "n114",
+          "id": "n119",
           "kind": "call",
           "change": "unchanged",
           "label": "? WebApplication.CreateBuilder",
@@ -10394,7 +10723,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n115",
+          "id": "n120",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.AddServiceDefaults",
@@ -10443,7 +10772,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n116",
+          "id": "n121",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.AddKeyVaultIfConfigured",
@@ -10492,7 +10821,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n117",
+          "id": "n122",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.AddApplicationServices",
@@ -10541,7 +10870,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n118",
+          "id": "n123",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.AddInfrastructureServices",
@@ -10590,7 +10919,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n119",
+          "id": "n124",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.AddWebServices",
@@ -10639,7 +10968,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n120",
+          "id": "n125",
           "kind": "call",
           "change": "unchanged",
           "label": "? builder.Build",
@@ -10688,7 +11017,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n121",
+          "id": "n126",
           "kind": "call",
           "change": "unchanged",
           "label": "? app.Environment.IsDevelopment",
@@ -10737,7 +11066,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n122",
+          "id": "n127",
           "kind": "branch",
           "change": "unchanged",
           "label": "if (app.Environment.IsDevelopment())",
@@ -10784,7 +11113,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n123",
+              "id": "n128",
               "kind": "call",
               "change": "unchanged",
               "label": "? app.InitialiseDatabaseAsync",
@@ -10836,7 +11165,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n124",
+          "id": "n129",
           "kind": "branch",
           "change": "unchanged",
           "label": "else (!(app.Environment.IsDevelopment()))",
@@ -10883,7 +11212,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n125",
+              "id": "n130",
               "kind": "call",
               "change": "unchanged",
               "label": "? app.UseHsts",
@@ -10935,7 +11264,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n126",
+          "id": "n131",
           "kind": "call",
           "change": "unchanged",
           "label": "? app.UseHttpsRedirection",
@@ -10984,7 +11313,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n127",
+          "id": "n132",
           "kind": "call",
           "change": "unchanged",
           "label": "? app.UseCors",
@@ -11031,7 +11360,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n128",
+              "id": "n133",
               "kind": "call",
               "change": "unchanged",
               "label": "? builder.AllowAnyMethod",
@@ -11080,7 +11409,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n129",
+              "id": "n134",
               "kind": "call",
               "change": "unchanged",
               "label": "? builder.AllowAnyMethod().AllowAnyHeader",
@@ -11129,7 +11458,7 @@ stdout:
               "omission": null
             },
             {
-              "id": "n130",
+              "id": "n135",
               "kind": "call",
               "change": "unchanged",
               "label": "? builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin",
@@ -11181,7 +11510,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n131",
+          "id": "n136",
           "kind": "call",
           "change": "unchanged",
           "label": "? app.MapOpenApi",
@@ -11230,7 +11559,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n132",
+          "id": "n137",
           "kind": "call",
           "change": "unchanged",
           "label": "? app.MapScalarApiReference",
@@ -11279,7 +11608,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n133",
+          "id": "n138",
           "kind": "call",
           "change": "unchanged",
           "label": "? app.MapFallbackToFile",
@@ -11328,7 +11657,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n134",
+          "id": "n139",
           "kind": "call",
           "change": "unchanged",
           "label": "? app.UseExceptionHandler",
@@ -11377,7 +11706,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n135",
+          "id": "n140",
           "kind": "call",
           "change": "unchanged",
           "label": "? app.MapDefaultEndpoints",
@@ -11426,7 +11755,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n136",
+          "id": "n141",
           "kind": "call",
           "change": "unchanged",
           "label": "? app.MapEndpoints",
@@ -11475,7 +11804,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n137",
+          "id": "n142",
           "kind": "call",
           "change": "unchanged",
           "label": "? app.UseFileServer",
@@ -11524,7 +11853,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n138",
+          "id": "n143",
           "kind": "call",
           "change": "unchanged",
           "label": "? app.Run",
@@ -11587,4 +11916,4 @@ src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Proje
 src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>.
 src/AppHost/Program.cs:26: unresolved-call: Cannot bind builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp").WithRunScript("start").WithReference(web).WaitFor(web).WithHttpEndpoint(env: "PORT").WithExternalHttpEndpoints().PublishAsDockerFile.
 src/AppHost/Program.cs:26: unresolved-call: Cannot bind builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp").WithRunScript("start").WithReference(web).WaitFor(web).WithHttpEndpoint(env: "PORT").WithExternalHttpEndpoints.
-468 additional diagnostics; use --diagnostics full.
+474 additional diagnostics; use --diagnostics full.

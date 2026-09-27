@@ -2861,7 +2861,7 @@
     "licenseFile": "LICENSE",
     "beforeLicenseBlob": "20e161181137c75ff743500b197414ff88f11eba",
     "afterLicenseBlob": "20e161181137c75ff743500b197414ff88f11eba",
-    "reason": "Replace instance endpoint groups with static interface members and reflection-based mapping, consolidate exception callbacks into a problem-details switch, and move endpoint/OpenAPI extension files while preserving type identities. Independently reviewed pinned source, declarations, bindings, locations, diagnostics and automatic-root connectivity. Reflection-selected Map targets and RoutePrefix getters are not followed; possible dispatch before the change does not prove execution. Source mode lacks project references/imports, so endpoint registration, mediator calls and dependency injection remain unresolved. The Program argument change has unchanged visible calls. Property values, status codes, the call-free unknown-exception return and collection-expression constructor lowering are unmodeled. Unexpanded command/query templates account for syntax errors, duplicate members and omitted record-copy constructors. The new static character field produces possible initialization, not proof of exact runtime timing. Restored Web/net10.0 trial exits 2 because pinned dependencies produce NU1902/NU1903 warnings treated as errors; no package changes or audit override applied.",
+    "reason": "Replace instance endpoint groups with static interface members and reflection-based mapping, consolidate exception callbacks into a problem-details switch, and move endpoint/OpenAPI extension files while preserving type identities. Independently reviewed pinned source, declarations, bindings, locations, diagnostics and automatic-root connectivity. Reflection-selected Map and RoutePrefix targets are not followed; the added static virtual RoutePrefix declaration is an automatic root; possible dispatch before the change does not prove execution. Source mode lacks project references/imports, so endpoint registration, mediator calls and dependency injection remain unresolved. The Program argument change has unchanged visible calls. Property values, status codes, the call-free unknown-exception return and collection-expression constructor lowering are unmodeled. Unexpanded command/query templates account for syntax errors, duplicate members and omitted record-copy constructors. The new static character field produces possible initialization, not proof of exact runtime timing. Restored Web/net10.0 trial exits 2 because pinned dependencies produce NU1902/NU1903 warnings treated as errors; no package changes or audit override applied. Accessor review verifies command-ID guards, validation Errors reads, dictionary indexer access before delegate invocation, GroupName null fallback, reflection property-pattern candidates, MemberInfo.Name and Task.CompletedTask. The property-pattern group does not prove exact runtime getter evaluation order. Automatic roots total 25; all paths to changed seeds were independently checked. Six new getter-body diagnostics increase unresolved calls to 470; the 12 template diagnostics are unchanged. All six formats repeat exactly.",
     "tags": [
       "static-interface",
       "minimal-api",
@@ -2871,7 +2871,8 @@
       "static-initialization",
       "moved-file",
       "dependency-injection",
-      "automatic-roots"
+      "automatic-roots",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/source-only-coverage.md",

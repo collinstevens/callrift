@@ -18,13 +18,13 @@ stdout:
   └─ ? TypedResults.Ok
 
 ~ TodoItems.UpdateTodoItem (signature changed)
+  ├─ UpdateTodoItemCommand.get_Id
   ├─ if (id != command.Id)
-  ├─ ? sender.Send
   └─ …
 
 ~ TodoItems.UpdateTodoItemDetail (signature changed)
+  ├─ UpdateTodoItemDetailCommand.get_Id
   ├─ if (id != command.Id)
-  ├─ ? sender.Send
   └─ …
 
   new TodoLists
@@ -45,8 +45,8 @@ stdout:
   └─ …
 
 ~ TodoLists.UpdateTodoList (signature changed)
+  ├─ UpdateTodoListCommand.get_Id
   ├─ if (id != command.Id)
-  ├─ ? sender.Send
   └─ …
 
   new Users
@@ -84,6 +84,8 @@ stdout:
 
 - CustomExceptionHandler.TryHandleAsync
 
++ IEndpointGroup.get_RoutePrefix
+
   MethodInfoExtensions.AnonymousMethod
 ~ └─ MethodInfoExtensions.IsAnonymous (changes below depth limit)
 
@@ -92,6 +94,7 @@ stdout:
 
 + ProblemDetailsExceptionHandler.TryHandleAsync
 + ├─ case ValidationException ve
++ │  ├─ ValidationException.get_Errors
 + │  └─ ? new ValidationProblemDetails
 + ├─ case NotFoundException ne
 + │  └─ ? new ProblemDetails
@@ -137,7 +140,7 @@ src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Proje
 src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>.
 src/AppHost/Program.cs:26: unresolved-call: Cannot bind builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp").WithRunScript("start").WithReference(web).WaitFor(web).WithHttpEndpoint(env: "PORT").WithExternalHttpEndpoints().PublishAsDockerFile.
 src/AppHost/Program.cs:26: unresolved-call: Cannot bind builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp").WithRunScript("start").WithReference(web).WaitFor(web).WithHttpEndpoint(env: "PORT").WithExternalHttpEndpoints.
-468 additional diagnostics; use --diagnostics full.
+474 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
@@ -160,13 +163,13 @@ stdout:
   └─ ? TypedResults.Ok
 
 ~ TodoItems.UpdateTodoItem (signature changed)
+  ├─ UpdateTodoItemCommand.get_Id
   ├─ if (id != command.Id)
-  ├─ ? sender.Send
   └─ …
 
 ~ TodoItems.UpdateTodoItemDetail (signature changed)
+  ├─ UpdateTodoItemDetailCommand.get_Id
   ├─ if (id != command.Id)
-  ├─ ? sender.Send
   └─ …
 
   new TodoLists
@@ -187,8 +190,8 @@ stdout:
   └─ …
 
 ~ TodoLists.UpdateTodoList (signature changed)
+  ├─ UpdateTodoListCommand.get_Id
   ├─ if (id != command.Id)
-  ├─ ? sender.Send
   └─ …
 
   new Users
@@ -226,6 +229,8 @@ stdout:
 
 - CustomExceptionHandler.TryHandleAsync
 
++ IEndpointGroup.get_RoutePrefix
+
   MethodInfoExtensions.AnonymousMethod
 ~ └─ MethodInfoExtensions.IsAnonymous (changes below depth limit)
 
@@ -234,6 +239,7 @@ stdout:
 
 + ProblemDetailsExceptionHandler.TryHandleAsync
 + ├─ case ValidationException ve
++ │  ├─ ValidationException.get_Errors
 + │  └─ ? new ValidationProblemDetails
 + ├─ case NotFoundException ne
 + │  └─ ? new ProblemDetails
@@ -280,4 +286,4 @@ src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Proje
 src/AppHost/Program.cs:17: unresolved-call: Cannot bind builder.AddProject<Projects.Web>.
 src/AppHost/Program.cs:26: unresolved-call: Cannot bind builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp").WithRunScript("start").WithReference(web).WaitFor(web).WithHttpEndpoint(env: "PORT").WithExternalHttpEndpoints().PublishAsDockerFile.
 src/AppHost/Program.cs:26: unresolved-call: Cannot bind builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp").WithRunScript("start").WithReference(web).WaitFor(web).WithHttpEndpoint(env: "PORT").WithExternalHttpEndpoints.
-468 additional diagnostics; use --diagnostics full.
+474 additional diagnostics; use --diagnostics full.
