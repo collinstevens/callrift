@@ -108,10 +108,15 @@ public sealed record CallGraph(
         if (call.ContextTargets is { } contextual) return contextual;
         if (call.SuppressDispatch || !Implementations.TryGetValue(call.Key, out var targets)) return [];
         if (call.DispatchType is null || !DispatchContracts.TryGetValue(call.Key, out var contracts)) return targets;
+        return MatchingTargets(contracts, call.DispatchType, call.ReceiverType, cancellationToken);
+    }
+
+    private IReadOnlyList<string> MatchingTargets(IReadOnlyList<DispatchContract> contracts, DispatchType dispatchType, DispatchType? receiverType, CancellationToken cancellationToken)
+    {
         return contracts.Where(c =>
         {
             cancellationToken.ThrowIfCancellationRequested();
-            return c.CanMatch(call.DispatchType, call.ReceiverType, TypeDefinitions);
+            return c.CanMatch(dispatchType, receiverType, TypeDefinitions);
         }).Select(c => c.Target).Distinct(StringComparer.Ordinal).Order(StringComparer.Ordinal).ToArray();
     }
 }

@@ -98,7 +98,9 @@ public static class EntrySelector
                 yield return call.Key;
                 foreach (var target in graph.Targets(call, cancellationToken)) yield return target;
             }
-            foreach (var child in Targets(call.Children, graph, cancellationToken)) yield return child;
+            cancellationToken.ThrowIfCancellationRequested();
+            if (call.Children.Count != 0)
+                foreach (var child in Targets(call.Children, graph, cancellationToken)) yield return child;
         }
     }
 

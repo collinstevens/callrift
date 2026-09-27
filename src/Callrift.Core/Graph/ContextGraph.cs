@@ -137,7 +137,8 @@ internal static class ContextGraph
         foreach (var call in calls)
         {
             if (call.Kind == "call") yield return call;
-            foreach (var child in Flatten(call.Children)) yield return child;
+            if (call.Children.Count != 0)
+                foreach (var child in Flatten(call.Children)) yield return child;
         }
     }
 

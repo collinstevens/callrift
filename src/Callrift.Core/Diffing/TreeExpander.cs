@@ -268,7 +268,8 @@ public sealed class TreeExpander(CallGraph graph, IReadOnlySet<string> changed, 
                 if (targets.Count == 0) yield return call.Key;
                 else foreach (var target in targets) yield return target;
             }
-            foreach (var target in ReachabilityTargets(call.Children, skipInitialization)) yield return target;
+            if (call.Children.Count != 0)
+                foreach (var target in ReachabilityTargets(call.Children, skipInitialization)) yield return target;
         }
     }
 
