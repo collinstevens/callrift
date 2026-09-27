@@ -10,6 +10,52 @@ param(
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
+function Read-TestRunSummary([string]$Path) {
+    $reader = [System.Xml.XmlReader]::Create($Path)
+    $classes = @{}
+    $results = [Collections.Generic.List[object]]::new()
+    $counters = $null
+    $testId = $null
+    try {
+        while (-not $reader.EOF) {
+            if ($reader.NodeType -eq [System.Xml.XmlNodeType]::Element) {
+                switch ($reader.LocalName) {
+                    'UnitTest' { $testId = $reader.GetAttribute('id') }
+                    'TestMethod' {
+                        if ($null -ne $testId) { $classes[$testId] = $reader.GetAttribute('className') }
+                    }
+                    'UnitTestResult' {
+                        $results.Add([pscustomobject]@{
+                            Name = $reader.GetAttribute('testName')
+                            TestId = $reader.GetAttribute('testId')
+                            Duration = $reader.GetAttribute('duration')
+                            Outcome = $reader.GetAttribute('outcome')
+                        })
+                    }
+                    'Counters' {
+                        $counters = [pscustomobject]@{
+                            Executed = [int]$reader.GetAttribute('executed')
+                            Failed = [int]$reader.GetAttribute('failed')
+                        }
+                    }
+                }
+                if ($reader.LocalName -eq 'Output') {
+                    $reader.Skip()
+                    continue
+                }
+            }
+            elseif ($reader.NodeType -eq [System.Xml.XmlNodeType]::EndElement -and $reader.LocalName -eq 'UnitTest') {
+                $testId = $null
+            }
+            $null = $reader.Read()
+        }
+    }
+    finally {
+        $reader.Dispose()
+    }
+    return [pscustomobject]@{ Counters = $counters; Classes = $classes; Results = $results }
+}
+
 if ($PSBoundParameters.ContainsKey('Filter') -and [string]::IsNullOrWhiteSpace($Filter)) {
     throw 'The test filter must not be empty.'
 }
@@ -88,26 +134,21 @@ try {
         if (-not (Test-Path $resultPath)) {
             throw "$project did not produce test results (exit $testExitCode, ${elapsed}s). Reproduce: $reproduce"
         }
-        [xml]$document = Get-Content -Raw $resultPath
-        $counters = $document.SelectSingleNode("/*[local-name()='TestRun']/*[local-name()='ResultSummary']/*[local-name()='Counters']")
+        $run = Read-TestRunSummary $resultPath
+        $counters = $run.Counters
         if ($null -eq $counters) { throw "$project produced no test counters: $resultPath" }
-        $executed = [int]$counters.GetAttribute('executed')
-        $failed = [int]$counters.GetAttribute('failed')
+        $executed = $counters.Executed
+        $failed = $counters.Failed
         $displayProject = if ($Shard) { "$project shard $Shard" } else { $project }
         $summary = "$displayProject at ${revision}: $executed executed, $failed failed, ${elapsed}s including dotnet startup and any build/restore."
         Write-Host $summary
         if ($Suite -ne 'Fast') {
-            $classes = @{}
-            foreach ($definition in $document.SelectNodes("//*[local-name()='UnitTest']")) {
-                $method = $definition.SelectSingleNode("*[local-name()='TestMethod']")
-                if ($null -ne $method) { $classes[$definition.GetAttribute('id')] = $method.GetAttribute('className') }
-            }
-            $timings = foreach ($result in $document.SelectNodes("//*[local-name()='UnitTestResult']")) {
+            $timings = foreach ($result in $run.Results) {
                 $duration = [TimeSpan]::Zero
-                if (-not [TimeSpan]::TryParse($result.GetAttribute('duration'), [Globalization.CultureInfo]::InvariantCulture, [ref]$duration)) { continue }
+                if (-not [TimeSpan]::TryParse($result.Duration, [Globalization.CultureInfo]::InvariantCulture, [ref]$duration)) { continue }
                 [pscustomobject]@{
-                    Name = $result.GetAttribute('testName')
-                    Class = $classes[$result.GetAttribute('testId')]
+                    Name = $result.Name
+                    Class = $run.Classes[$result.TestId]
                     Seconds = $duration.TotalSeconds
                 }
             }
@@ -126,8 +167,8 @@ try {
         if ($env:GITHUB_STEP_SUMMARY) {
             Add-Content $env:GITHUB_STEP_SUMMARY "$summary`n`nReproduce: ``$reproduce```n"
         }
-        foreach ($failure in $document.SelectNodes("//*[local-name()='UnitTestResult'][@outcome='Failed']")) {
-            Write-Host "Failed case: $($failure.GetAttribute('testName'))"
+        foreach ($failure in $run.Results.Where({ $_.Outcome -eq 'Failed' })) {
+            Write-Host "Failed case: $($failure.Name)"
         }
         if ($executed -eq 0) { throw "No tests executed for '$selection' in $project. Check the filter. Reproduce: $reproduce" }
         if ($testExitCode -ne 0 -or $failed -ne 0) { throw "$project failed (exit $testExitCode). Reproduce: $reproduce" }
