@@ -73,16 +73,19 @@ public sealed class MSBuildAnalysisProvider(MSBuildOptions options) : IAnalysisP
         return message.Replace("\r\n", "\n", StringComparison.Ordinal);
     }
 
-    private static async Task<FileStream> AcquireAsync(string path, CancellationToken cancellationToken)
+    internal static async Task<FileStream> AcquireAsync(string path, CancellationToken cancellationToken)
     {
-        var attempts = 0;
         while (true)
         {
             cancellationToken.ThrowIfCancellationRequested();
             try { return new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None); }
-            catch (IOException) when (++attempts < 600) { await Task.Delay(100, cancellationToken); }
+            catch (IOException error) when (IsLockContention(error)) { await Task.Delay(100, cancellationToken); }
         }
     }
+
+    private static bool IsLockContention(IOException error) => OperatingSystem.IsWindows()
+        ? error.HResult is unchecked((int)0x80070020) or unchecked((int)0x80070021)
+        : error.HResult == (OperatingSystem.IsMacOS() ? 35 : 11);
 
     internal static async Task RunProcessAsync(string directory, IReadOnlyList<string> arguments, string root, CancellationToken cancellationToken)
     {
