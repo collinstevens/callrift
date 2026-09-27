@@ -28,7 +28,7 @@ internal static class ContextGraph
                 if (!omitted.TryGetValue(frame.Key, out var reasons)) omitted[frame.Key] = reasons = new SortedSet<string>(StringComparer.Ordinal);
                 if (stateLimited) reasons.Add("65536 additional invocation states");
                 if (typeLimited) reasons.Add("128 type nodes");
-                frame = frame with { Arguments = new Dictionary<string, DispatchType>(), Receiver = null, ReceiverSpecialized = false, ReceiverExact = false, Limited = true };
+                frame = new InvocationContext(frame.Key, new Dictionary<string, DispatchType>(), Limited: true, Definitions: frame.Definitions);
                 if (frames.TryGetValue(frame.Identity, out known)) return known;
             }
             if (frame.HasSpecialization) additional++;

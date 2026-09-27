@@ -113,7 +113,18 @@ internal static class DispatchTypeCatalog
     internal static bool IsArray(DispatchType type) => type.Arguments.Count == 1 && type.Name.StartsWith("array:", StringComparison.Ordinal)
         && int.TryParse(type.Name.AsSpan(6), out var rank) && rank > 0;
 
-    internal static DispatchType Substitute(DispatchType type, IReadOnlyDictionary<string, DispatchType> substitutions) =>
-        type.IsParameter && substitutions.TryGetValue(type.Name, out var replacement) ? replacement
-            : type with { Arguments = type.Arguments.Select(t => Substitute(t, substitutions)).ToArray() };
+    internal static DispatchType Substitute(DispatchType type, IReadOnlyDictionary<string, DispatchType> substitutions)
+    {
+        if (substitutions.Count == 0) return type;
+        if (type.IsParameter && substitutions.TryGetValue(type.Name, out var replacement)) return replacement;
+        DispatchType[]? arguments = null;
+        for (var index = 0; index < type.Arguments.Count; index++)
+        {
+            var resolved = Substitute(type.Arguments[index], substitutions);
+            if (ReferenceEquals(resolved, type.Arguments[index])) continue;
+            arguments ??= type.Arguments.ToArray();
+            arguments[index] = resolved;
+        }
+        return arguments is null ? type : type with { Arguments = arguments };
+    }
 }
