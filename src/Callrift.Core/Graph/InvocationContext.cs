@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace Callrift.Core;
 
 internal sealed class InvocationContext(string Key, IReadOnlyDictionary<string, DispatchType> Arguments, bool Limited = false,
@@ -14,8 +16,29 @@ internal sealed class InvocationContext(string Key, IReadOnlyDictionary<string, 
     private string? identity;
 
     public bool HasSpecialization => Arguments.Count != 0 || ReceiverSpecialized;
-    public string Identity => identity ??= Limited ? Key + "\u001e<context-limit>" : !HasSpecialization ? Key : Key + "\u001e" + string.Join(";", Arguments.OrderBy(p => p.Key, StringComparer.Ordinal).Select(p => p.Key + "=" + TypeKey(p.Value, Definitions)))
-        + (ReceiverSpecialized ? ";this=" + TypeKey(Receiver!, Definitions) + (ReceiverExact ? "!" : "") : "");
+    public string Identity => identity ??= CreateIdentity();
+
+    private string CreateIdentity()
+    {
+        if (Limited) return Key + "\u001e<context-limit>";
+        if (!HasSpecialization) return Key;
+        var result = new StringBuilder(Key).Append('\u001e');
+        var first = true;
+        foreach (var argument in Arguments.OrderBy(p => p.Key, StringComparer.Ordinal))
+        {
+            if (!first) result.Append(';');
+            first = false;
+            result.Append(argument.Key).Append('=');
+            AppendTypeKey(result, argument.Value, Definitions);
+        }
+        if (ReceiverSpecialized)
+        {
+            result.Append(";this=");
+            AppendTypeKey(result, Receiver!, Definitions);
+            if (ReceiverExact) result.Append('!');
+        }
+        return result.ToString();
+    }
 
     public static InvocationContext Create(CallGraph graph, string key, IReadOnlyDictionary<string, DispatchType> arguments, DispatchType? receiver = null, bool receiverExact = false)
     {
@@ -41,14 +64,49 @@ internal sealed class InvocationContext(string Key, IReadOnlyDictionary<string, 
         var instance = owner is null ? null : receiver is null ? owner : Normalize(receiver);
         var ownerExact = owner is not null && graph.TypeDefinitions.GetValueOrDefault(owner.Name)?.IsSealed == true;
         var exact = instance is not null && (receiverExact || graph.TypeDefinitions.GetValueOrDefault(instance.Name)?.IsSealed == true);
-        return new(key, bindings, Receiver: instance, ReceiverSpecialized: instance is not null && (TypeKey(instance, graph.TypeDefinitions) != TypeKey(owner!, graph.TypeDefinitions) || exact != ownerExact), ReceiverExact: exact,
+        return new(key, bindings, Receiver: instance, ReceiverSpecialized: instance is not null && (exact != ownerExact || !SameType(instance, owner!, graph.TypeDefinitions)), ReceiverExact: exact,
             Definitions: graph.TypeDefinitions);
     }
 
-    private static string TypeKey(DispatchType type, IReadOnlyDictionary<string, DispatchTypeDefinition>? definitions) => (definitions?.GetValueOrDefault(type.Name)?.ContextIdentity ?? type.Name)
-        + "<" + string.Join(",", type.Arguments.Select(argument => TypeKey(argument, definitions))) + ">"
-        + (type.Constraints is { } constraints ? $"[{constraints.ReferenceType},{constraints.ValueType},{constraints.UnmanagedType},{constraints.Constructor},{constraints.AllowsRefLikeType}:"
-            + string.Join(",", constraints.Types.Select(constraint => TypeKey(constraint, definitions))) + "]" : "");
+    private static bool SameType(DispatchType left, DispatchType right, IReadOnlyDictionary<string, DispatchTypeDefinition> definitions)
+    {
+        if (ReferenceEquals(left, right)) return true;
+        if ((definitions.GetValueOrDefault(left.Name)?.ContextIdentity ?? left.Name) != (definitions.GetValueOrDefault(right.Name)?.ContextIdentity ?? right.Name)
+            || left.Arguments.Count != right.Arguments.Count) return false;
+        for (var index = 0; index < left.Arguments.Count; index++)
+            if (!SameType(left.Arguments[index], right.Arguments[index], definitions)) return false;
+        var leftConstraints = left.Constraints;
+        var rightConstraints = right.Constraints;
+        if (ReferenceEquals(leftConstraints, rightConstraints)) return true;
+        if (leftConstraints is null || rightConstraints is null || leftConstraints.ReferenceType != rightConstraints.ReferenceType
+            || leftConstraints.ValueType != rightConstraints.ValueType || leftConstraints.UnmanagedType != rightConstraints.UnmanagedType
+            || leftConstraints.Constructor != rightConstraints.Constructor || leftConstraints.AllowsRefLikeType != rightConstraints.AllowsRefLikeType
+            || leftConstraints.Types.Count != rightConstraints.Types.Count) return false;
+        for (var index = 0; index < leftConstraints.Types.Count; index++)
+            if (!SameType(leftConstraints.Types[index], rightConstraints.Types[index], definitions)) return false;
+        return true;
+    }
+
+    private static void AppendTypeKey(StringBuilder result, DispatchType type, IReadOnlyDictionary<string, DispatchTypeDefinition>? definitions)
+    {
+        result.Append(definitions?.GetValueOrDefault(type.Name)?.ContextIdentity ?? type.Name).Append('<');
+        AppendTypes(result, type.Arguments, definitions);
+        result.Append('>');
+        if (type.Constraints is not { } constraints) return;
+        result.Append('[').Append(constraints.ReferenceType).Append(',').Append(constraints.ValueType).Append(',')
+            .Append(constraints.UnmanagedType).Append(',').Append(constraints.Constructor).Append(',').Append(constraints.AllowsRefLikeType).Append(':');
+        AppendTypes(result, constraints.Types, definitions);
+        result.Append(']');
+    }
+
+    private static void AppendTypes(StringBuilder result, IReadOnlyList<DispatchType> types, IReadOnlyDictionary<string, DispatchTypeDefinition>? definitions)
+    {
+        for (var index = 0; index < types.Count; index++)
+        {
+            if (index != 0) result.Append(',');
+            AppendTypeKey(result, types[index], definitions);
+        }
+    }
 
     public CallStep Resolve(CallStep call) => call with
     {
