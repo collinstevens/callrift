@@ -1,0 +1,1263 @@
+﻿format: text
+exit: 0
+stdout:
+  FileConfigurationController.Post
+  └─ try
+~    ├─ IFileConfigurationSetter.Set → FileAndInternalConfigurationSetter.Set (changes below depth limit)
+     ├─ Response.get_IsError (depth limit)
+     └─ if (response.IsError)
+
+  AuthenticationMiddleware.Invoke
+  ├─ …
+  ├─ HttpRequestExtensions.IsOptionsMethod
+  ├─ if (!(request.IsOptionsMethod()))
+  ├─ if (request.IsOptionsMethod() || !route.IsAuthenticated)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit)
+  │     └─ DownstreamRoute.Name (depth limit)
+  ├─ OcelotMiddleware.get_Logger
+  ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation
+~ │  ├─ OcelotLogger.WriteLog (changes below depth limit)
+  │  └─ OcelotMiddleware.get_MiddlewareName
+  ├─ AuthenticationMiddleware.AuthenticateAsync
+  │  ├─ DownstreamRoute.get_AuthenticationOptions
+  │  ├─ AuthenticationOptions.get_AuthenticationProviderKeys
+  │  └─ foreach (var scheme in notEmptySchemes)
+  │     └─ catch (Exception e)
+  │        ├─ OcelotMiddleware.get_Logger
+~ │        └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+  │           └─ DownstreamRoute.Name (depth limit)
+  ├─ if (result.Principal?.Identity == null)
+~ │  └─ AuthenticationMiddleware.SetUnauthenticatedError (changes below depth limit)
+  ├─ if (context.User.Identity.IsAuthenticated)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit)
+  └─ AuthenticationMiddleware.SetUnauthenticatedError
+~    ├─ new UnauthenticatedError (changes below depth limit)
+     ├─ OcelotMiddleware.get_Logger
+~    ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+     └─ HttpItemsExtensions.SetError (depth limit)
+
+  AuthorizationMiddleware.Invoke
+  ├─ …
+  ├─ HttpContextExtensions.IsOptionsMethod
+  ├─ if (!context.IsOptionsMethod())
+  ├─ if (!context.IsOptionsMethod() && route.IsAuthenticated)
+  │  ├─ DownstreamRoute.get_AuthenticationOptions
+  │  ├─ AuthenticationOptions.get_AllowedScopes
+~ │  ├─ IScopesAuthorizer.Authorize → ScopesAuthorizer.Authorize (changes below depth limit)
+  │  ├─ Response.get_IsError (depth limit)
+  │  ├─ if (authorized.IsError)
+  │  │  ├─ OcelotMiddleware.get_Logger
+~ │  │  ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+  │  │  │  ├─ DownstreamRoute.Name (depth limit)
+  │  │  │  ├─ Response.get_Errors
+  │  │  │  └─ …
+  │  │  ├─ Response.get_Errors
+  │  │  └─ HttpItemsExtensions.UpsertErrors (depth limit)
+  │  ├─ Response<T>.get_Data
+  │  └─ if (!authorized.Data)
+  │     ├─ DownstreamRoute.Name (depth limit)
+~ │     ├─ new UnauthorizedError (changes below depth limit)
+  │     ├─ OcelotMiddleware.get_Logger
+~ │     ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit)
+  │     │  └─ Error.ToString (depth limit)
+  │     └─ HttpItemsExtensions.SetError (depth limit)
+  ├─ HttpContextExtensions.IsOptionsMethod
+  ├─ if (!context.IsOptionsMethod())
+  ├─ if (!context.IsOptionsMethod() && route.IsAuthorized)
+  │  ├─ DownstreamRoute.get_RouteClaimsRequirement
+  │  ├─ HttpItemsExtensions.TemplatePlaceholderNameAndValues (depth limit)
+~ │  ├─ IClaimsAuthorizer.Authorize → ClaimsAuthorizer.Authorize (changes below depth limit)
+  │  ├─ Response.get_IsError (depth limit)
+  │  ├─ if (authorized.IsError)
+  │  │  ├─ OcelotMiddleware.get_Logger
+~ │  │  ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit) ↑ as above
+  │  │  ├─ Response.get_Errors
+  │  │  └─ HttpItemsExtensions.UpsertErrors (depth limit)
+  │  ├─ Response<T>.get_Data
+  │  ├─ if (authorized.Data)
+  │  │  ├─ OcelotMiddleware.get_Logger
+~ │  │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit) ↑ as above
+  │  └─ else (!(authorized.Data))
+  │     ├─ DownstreamRoute.Name (depth limit)
+~ │     ├─ new UnauthorizedError (changes below depth limit)
+  │     ├─ OcelotMiddleware.get_Logger
+~ │     ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit) ↑ as above
+  │     └─ HttpItemsExtensions.SetError (depth limit)
+  └─ else (!(!context.IsOptionsMethod() && route.IsAuthorized))
+     ├─ OcelotMiddleware.get_Logger
+~    └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+        └─ DownstreamRoute.Name (depth limit)
+
+  OutputCacheMiddleware.Invoke
+  ├─ …
+  ├─ ICacheKeyGenerator.GenerateRequestCacheKey → DefaultCacheKeyGenerator.GenerateRequestCacheKey
+  ├─ OcelotMiddleware.get_Logger
+  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug
+~ │  └─ OcelotLogger.WriteLog (changes below depth limit)
+  ├─ CacheOptions.get_Region
+  ├─ IOcelotCache<T>.Get → DefaultMemoryCache<T>.Get
+  ├─ if (cached != null)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+  │  ├─ OutputCacheMiddleware.CreateHttpResponseMessage (depth limit)
+  │  ├─ OutputCacheMiddleware.SetHttpResponseMessageThisRequest (depth limit)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+  ├─ OcelotMiddleware.get_Logger
+  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug ↑ as above
+  ├─ HttpItemsExtensions.Errors
+  ├─ if (httpContext.Items.Errors().Count > 0)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+  ├─ HttpItemsExtensions.DownstreamResponse
+  ├─ OutputCacheMiddleware.CreateCachedResponse
+  ├─ …
+  ├─ IOcelotCache<T>.Add → DefaultMemoryCache<T>.Add
+  ├─ OcelotMiddleware.get_Logger
+  └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug ↑ as above
+
+  ClaimsToClaimsMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRoute
+  ├─ DownstreamRoute.get_ClaimsToClaims
+  └─ if (downstreamRoute.ClaimsToClaims.Any())
+     ├─ OcelotMiddleware.get_Logger
+~    ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+     ├─ DownstreamRoute.get_ClaimsToClaims
+~    ├─ IAddClaimsToRequest.SetClaimsOnContext → AddClaimsToRequest.SetClaimsOnContext (changes below depth limit)
+     ├─ Response.get_IsError (depth limit)
+     └─ if (result.IsError)
+        ├─ OcelotMiddleware.get_Logger
+~       ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+        ├─ Response.get_Errors
+        └─ HttpItemsExtensions.UpsertErrors (depth limit)
+
+  HeaderFindAndReplaceCreator.Create
+  └─ HeaderFindAndReplaceCreator.Create
+     ├─ …
+     ├─ FileGlobalConfiguration.get_UpstreamHeaderTransform
+     ├─ HeaderFindAndReplaceCreator.Merge
+~    ├─ HeaderFindAndReplaceCreator.ProcessHeaders (changes below depth limit)
+     ├─ FileRoute.get_DownstreamHeaderTransform
+     ├─ FileGlobalConfiguration.get_DownstreamHeaderTransform
+     ├─ HeaderFindAndReplaceCreator.Merge
+~    ├─ HeaderFindAndReplaceCreator.ProcessHeaders (changes below depth limit)
+     └─ new HeaderTransformations
+
+  FileConfigurationPoller.StartAsync
+  ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation
+~ │  └─ OcelotLogger.WriteLog (changes below depth limit)
+  ├─ IFileConfigurationPollerOptions.get_Delay ×2
+  └─ new
+~    └─ FileConfigurationPoller.OnTimer (changes below depth limit)
+
+  FileConfigurationPoller.StopAsync
+  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation ↑ as above
+
+  ClaimsToDownstreamPathMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRoute
+  ├─ DownstreamRoute.get_ClaimsToPath
+  └─ if (downstreamRoute.ClaimsToPath.Any())
+     ├─ OcelotMiddleware.get_Logger
+~    ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit)
+     │  ├─ DownstreamRoute.get_DownstreamPathTemplate
+     │  └─ DownstreamPathTemplate.get_Value
+     ├─ HttpItemsExtensions.TemplatePlaceholderNameAndValues (depth limit)
+     ├─ DownstreamRoute.get_ClaimsToPath
+     ├─ DownstreamRoute.get_DownstreamPathTemplate
+~    ├─ IChangeDownstreamPathTemplate.ChangeDownstreamPath → ChangeDownstreamPathTemplate.ChangeDownstreamPath (changes below depth limit)
+     ├─ Response.get_IsError (depth limit)
+     └─ if (response.IsError)
+        ├─ OcelotMiddleware.get_Logger
+~       ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+        ├─ Response.get_Errors
+        └─ HttpItemsExtensions.UpsertErrors (depth limit)
+
+  DownstreamRouteFinderMiddleware.Invoke
+  ├─ HttpItemsExtensions.IInternalConfiguration
+  ├─ OcelotMiddleware.get_Logger
+  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug ↑ as above
+  ├─ IDownstreamRouteProviderFactory.Get → DownstreamRouteProviderFactory.Get
+  │  ├─ …
+  │  ├─ if (!(config.Routes.Length == 0))
+  │  ├─ if ((config.Routes.Length == 0 || config.Routes.All(x => string.IsNullOrEmpty(x.UpstreamTemplateP…
+  │  └─ if ((config.Routes.Length == 0 || config.Routes.All(x => string.IsNullOrEmpty(x.UpstreamTemplateP…
+~ │     └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit)
+  ├─ IDownstreamRouteProvider.Get
+  │  ├─ ⇢ DiscoveryDownstreamRouteFinder.Get (depth limit)
+~ │  └─ ⇢ DownstreamRouteFinder.Get (changes below depth limit)
+  ├─ Response.get_IsError
+  ├─ if (response.IsError)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+  │  │  ├─ OcelotMiddleware.get_MiddlewareName
+  │  │  ├─ Response.get_Errors
+  │  │  └─ …
+  │  ├─ Response.get_Errors
+  │  └─ HttpItemsExtensions.UpsertErrors (depth limit)
+  ├─ OcelotMiddleware.get_Logger
+  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug
+~ │  ├─ OcelotLogger.WriteLog (changes below depth limit)
+  │  ├─ Response<T>.get_Data
+  │  ├─ DownstreamRouteHolder.get_Route
+  │  └─ …
+  ├─ Response<T>.get_Data
+  ├─ DownstreamRouteHolder.get_TemplatePlaceholderNameAndValues
+  └─ …
+
+  DownstreamUrlCreatorMiddleware.Invoke
+  ├─ …
+  ├─ else (!(ServiceFabricRequest(internalConfiguration, downstreamRoute)))
+  ├─ OcelotMiddleware.get_Logger
+  └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug ↑ as above
+
++ Error.get_Exception
+
+  ExceptionHandlerMiddleware.Invoke
+  ├─ try
+  │  ├─ HttpItemsExtensions.IInternalConfiguration (depth limit)
+~ │  ├─ ExceptionHandlerMiddleware.TrySetGlobalRequestId (changes below depth limit)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+  ├─ catch (OperationCanceledException e) when (context.RequestAborted.IsCancellationRequested)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+  │     └─ ExceptionHandlerMiddleware.CreateMessage (depth limit)
+  ├─ catch (Exception e)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogError → OcelotLogger.LogError (changes below depth limit)
+  │     └─ ExceptionHandlerMiddleware.CreateMessage (depth limit)
+  └─ finally
+     ├─ OcelotMiddleware.get_Logger
+~    └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+
+  ClaimsToHeadersMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRoute
+  ├─ DownstreamRoute.get_ClaimsToHeaders
+  └─ if (downstreamRoute.ClaimsToHeaders.Any())
+     ├─ OcelotMiddleware.get_Logger
+~    ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit) ↑ as above
+     ├─ HttpItemsExtensions.DownstreamRequest (depth limit)
+     ├─ DownstreamRoute.get_ClaimsToHeaders
+~    ├─ IAddHeadersToRequest.SetHeadersOnDownstreamRequest → AddHeadersToRequest.SetHeadersOnDownstreamRequest (changes below depth limit)
+     ├─ Response.get_IsError (depth limit)
+     ├─ if (response.IsError)
+     │  ├─ OcelotMiddleware.get_Logger
+~    │  ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+     │  ├─ Response.get_Errors
+     │  └─ HttpItemsExtensions.UpsertErrors (depth limit)
+     ├─ OcelotMiddleware.get_Logger
+~    └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit)
+
+  HttpHeadersTransformationMiddleware.Invoke
+  ├─ …
+  ├─ IHttpContextRequestHeaderReplacer.Replace → HttpContextRequestHeaderReplacer.Replace
+  ├─ DownstreamRoute.get_AddHeadersToUpstream
+  ├─ IAddHeadersToRequest.SetHeadersOnDownstreamRequest → AddHeadersToRequest.SetHeadersOnDownstreamRequest
+  │  └─ foreach (var header in headers)
+  │     ├─ …
+  │     ├─ AddHeader.get_Value
+  │     ├─ if (header.Value.StartsWith('{'))
+  │     ├─ if (header.Value.StartsWith('{') && header.Value.EndsWith("}"))
+  │     │  ├─ AddHeader.get_Value
+  │     │  ├─ IPlaceholders.Get
+~ │     │  │  ├─ ⇢ ConfigAwarePlaceholders.Get (changes below depth limit)
+~ │     │  │  └─ ⇢ Placeholders.Get (changes below depth limit)
+  │     │  ├─ Response.get_IsError (depth limit)
+  │     │  ├─ if (value.IsError)
+~ │     │  │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+  │     │  │     ├─ AddHeader.get_Key
+  │     │  │     └─ AddHeader.get_Value
+  │     │  ├─ AddHeader.get_Key
+  │     │  └─ Response<T>.get_Data
+  │     └─ else (!(header.Value.StartsWith('{') && header.Value.EndsWith("}")))
+  ├─ HttpItemsExtensions.Errors
+  ├─ DownstreamRoute.get_DownstreamHeadersFindAndReplace
+  ├─ IHttpResponseHeaderReplacer.Replace → HttpResponseHeaderReplacer.Replace
+  │  ├─ HttpItemsExtensions.DownstreamResponse (depth limit)
+  │  ├─ HttpItemsExtensions.DownstreamRequest (depth limit)
+  │  ├─ foreach (var f in fAndRs)
+  │  │  ├─ …
+  │  │  ├─ response.Headers.ToDictionary
+  │  │  ├─ HeaderFindAndReplace.get_Key
+  │  │  └─ if (dict.TryGetValue(f.Key, out var values))
+  │  │     ├─ HeaderFindAndReplace.get_Find
+  │  │     ├─ IPlaceholders.Get
+~ │  │     │  ├─ ⇢ ConfigAwarePlaceholders.Get (changes below depth limit)
+~ │  │     │  └─ ⇢ Placeholders.Get (changes below depth limit)
+  │  │     ├─ Response.get_IsError (depth limit)
+  │  │     ├─ if (!placeholderValue.IsError)
+  │  │     └─ …
+  │  └─ new OkResponse (depth limit)
+  ├─ HttpItemsExtensions.DownstreamResponse
+  ├─ DownstreamRoute.get_AddHeadersToDownstream
+  └─ IAddHeadersToResponse.Add → AddHeadersToResponse.Add
+     └─ foreach (var add in addHeaders)
+        ├─ AddHeader.get_Value
+        ├─ if (add.Value.StartsWith('{'))
+        ├─ if (add.Value.StartsWith('{') && add.Value.EndsWith('}'))
+        │  ├─ AddHeader.get_Value
+        │  ├─ IPlaceholders.Get ↑ as above
+        │  ├─ Response.get_IsError (depth limit)
+        │  ├─ if (value.IsError)
+~       │  │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit) ↑ as above
+        │  ├─ DownstreamResponse.get_Headers
+        │  ├─ AddHeader.get_Key
+        │  └─ …
+        └─ else (!(add.Value.StartsWith('{') && add.Value.EndsWith('}')))
+
+  ConfigAwarePlaceholders.Add
+  └─ IPlaceholders.Add
+     ├─ ⇢ ConfigAwarePlaceholders.Add (↺ cycle)
+~    └─ ⇢ Placeholders.Add (changes below depth limit)
+
+  ConfigAwarePlaceholders.Remove
+  └─ IPlaceholders.Remove
+     ├─ ⇢ ConfigAwarePlaceholders.Remove (↺ cycle)
+~    └─ ⇢ Placeholders.Remove (changes below depth limit)
+
+  Retry.Operation
+  ├─ for (n < retryTimes)
+  │  ├─ catch (Exception e)
+  │  │  └─ if (logger is not null)
+~ │  │     └─ IOcelotLogger.LogError → OcelotLogger.LogError (changes below depth limit)
+  │  │        └─ Retry.GetMessage
+  │  └─ if (predicate?.Invoke(result) == true)
+  │     └─ if (logger is not null)
+~ │        └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+  │           └─ Retry.GetMessage
+  └─ if (logger is not null)
+~    └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+        └─ Retry.GetMessage
+
+  Retry.OperationAsync
+  ├─ for (n < retryTimes)
+  │  ├─ catch (Exception e)
+  │  │  └─ if (logger is not null)
+~ │  │     └─ IOcelotLogger.LogError → OcelotLogger.LogError (changes below depth limit) ↑ as above
+  │  └─ if (predicate?.Invoke(result) == true)
+  │     └─ if (logger is not null)
+~ │        └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit) ↑ as above
+  └─ if (logger is not null)
+~    └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit) ↑ as above
+
+  new Placeholders
+  ├─ Dictionary<TKey, TValue>.Add
+  ├─ Dictionary<TKey, TValue>.Add
+~ │  └─ Placeholders.GetTraceId (changes below depth limit)
+  ├─ Dictionary<TKey, TValue>.Add
+~ │  └─ Placeholders.GetRemoteIpAddress (changes below depth limit)
+  ├─ Dictionary<TKey, TValue>.Add
+~ │  └─ Placeholders.GetUpstreamHost (changes below depth limit)
+  └─ Dictionary<TKey, TValue>.Add
+
+~ new HttpDataRepository (body changed; visible calls unchanged)
+
+  LoadBalancingMiddleware.Invoke
+  ├─ …
+  ├─ HttpItemsExtensions.IInternalConfiguration
+  ├─ IInternalConfiguration.get_ServiceProviderConfiguration → InternalConfiguration.get_ServiceProviderConfiguration
+  ├─ ILoadBalancerHouse.Get → LoadBalancerHouse.Get
+  │  ├─ try
+  │  │  ├─ …
+  │  │  ├─ if (_loadBalancers.TryGetValue(route.LoadBalancerKey, out var loadBalancer))
+  │  │  ├─ if (_loadBalancers.TryGetValue(route.LoadBalancerKey, out var loadBalancer) && loadBalancer.Type.…
+  │  │  └─ else (!(_loadBalancers.TryGetValue(route.LoadBalancerKey, out var loadBalancer) && loadBalancer.T…
+~ │  │     └─ LoadBalancerHouse.GetResponse (changes below depth limit)
+  │  └─ catch (Exception ex)
+  │     ├─ DownstreamRoute.get_LoadBalancerKey
+~ │     ├─ new UnableToFindLoadBalancerError (changes below depth limit)
+  │     └─ new ErrorResponse<T> (depth limit)
+  ├─ Response.get_IsError
+  ├─ if (loadBalancer.IsError)
+  ├─ Response<T>.get_Data
+  ├─ ILoadBalancer.LeaseAsync
+~ │  ├─ ⇢ CookieStickySessions.LeaseAsync (changes below depth limit)
+~ │  ├─ ⇢ LeastConnection.LeaseAsync (changes below depth limit)
+~ │  ├─ ⇢ NoLoadBalancer.LeaseAsync (changes below depth limit)
+~ │  └─ ⇢ RoundRobin.LeaseAsync (changes below depth limit)
+  ├─ Response.get_IsError
+  ├─ if (hostAndPort.IsError)
+  └─ …
+
+  OcelotDiagnosticListener.OnMiddlewareException
+  └─ IOcelotLogger.LogTrace → OcelotLogger.LogTrace
+~    └─ OcelotLogger.WriteLog (changes below depth limit)
+
+  OcelotDiagnosticListener.OnMiddlewareFinished
+  ├─ IOcelotLogger.LogTrace → OcelotLogger.LogTrace ↑ as above
+  └─ OcelotDiagnosticListener.Event
+
+  OcelotDiagnosticListener.OnMiddlewareStarting
+  ├─ IOcelotLogger.LogTrace → OcelotLogger.LogTrace ↑ as above
+  └─ OcelotDiagnosticListener.Event
+
+  OcelotHttpTracingHandler.SendAsync
+  └─ IOcelotTracer.SendAsync
+~    └─ OcelotHttpTracingHandler.AddTraceId (changes below depth limit)
+
+  OcelotLogger.LogCritical
+  └─ OcelotLogger.WriteLog
+~    └─ OcelotLogger.WriteLog (changes below depth limit)
+
+  OcelotLogger.LogCritical
+  └─ OcelotLogger.WriteLog
+~    └─ OcelotLogger.WriteLog (changes below depth limit)
+
+  OcelotLogger.LogError
+  └─ OcelotLogger.WriteLog ↑ as above
+
+  OcelotLogger.LogTrace
+  └─ OcelotLogger.WriteLog ↑ as above
+
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+  └─ OcelotMiddlewareExtensions.UseOcelot
+~    ├─ OcelotMiddlewareExtensions.CreateConfiguration (changes below depth limit)
+     ├─ OcelotMiddlewareExtensions.ConfigureDiagnosticListener
+     └─ OcelotMiddlewareExtensions.CreateOcelotPipeline (depth limit)
+
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+  └─ OcelotMiddlewareExtensions.UseOcelot
+~    ├─ OcelotMiddlewareExtensions.CreateConfiguration (changes below depth limit)
+     ├─ OcelotMiddlewareExtensions.ConfigureDiagnosticListener
+     └─ if (builderAction is not null)
+
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+  └─ OcelotMiddlewareExtensions.UseOcelot ↑ as above
+
+  MultiplexingMiddleware.Invoke
+  ├─ …
+  ├─ if (ShouldProcessSingleRoute(httpContext, downstreamRoutes))
+  ├─ Route.get_DownstreamRouteConfig
+  ├─ if (routeKeysConfigs == null || routeKeysConfigs.Count == 0)
+~ │  └─ MultiplexingMiddleware.ProcessRoutesAsync (changes below depth limit)
+  ├─ MultiplexingMiddleware.ProcessMainRouteAsync
+  ├─ MultiplexingMiddleware.ProcessRoutesWithRouteKeysAsync
+  │  ├─ HttpItemsExtensions.DownstreamResponse (depth limit)
+  │  ├─ DownstreamResponse.get_Content
+  │  └─ foreach (var downstreamRoute in routes.Skip(1))
+  │     ├─ routeKeysConfigs.FirstOrDefault
+  │     ├─ if (matchAdvancedAgg != null)
+~ │     │  └─ MultiplexingMiddleware.ProcessRouteWithComplexAggregation (changes below depth limit)
+~ │     └─ MultiplexingMiddleware.ProcessRouteAsync (changes below depth limit)
+  └─ MultiplexingMiddleware.MapResponsesAsync
+~    └─ MultiplexingMiddleware.MapAsync (changes below depth limit)
+
+  ClaimsToQueryStringMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRoute
+  ├─ DownstreamRoute.get_ClaimsToQueries
+  └─ if (downstreamRoute.ClaimsToQueries.Any())
+     ├─ OcelotMiddleware.get_Logger
+~    ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit) ↑ as above
+     ├─ HttpItemsExtensions.DownstreamRequest (depth limit)
+     ├─ DownstreamRoute.get_ClaimsToQueries
+~    ├─ IAddQueriesToRequest.SetQueriesOnDownstreamRequest → AddQueriesToRequest.SetQueriesOnDownstreamRequest (changes below depth limit)
+     ├─ Response.get_IsError (depth limit)
+     └─ if (response.IsError)
+        ├─ OcelotMiddleware.get_Logger
+~       ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+        ├─ Response.get_Errors
+        └─ HttpItemsExtensions.UpsertErrors (depth limit)
+
+  RateLimitingMiddleware.Invoke
+  ├─ …
+  ├─ if (downstreamRoute.RateLimitOptions is null)
+  ├─ RateLimitOptions.get_EnableRateLimiting
+  ├─ if (!options.EnableRateLimiting)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit) ↑ as above
+  ├─ RateLimitingMiddleware.Identify
+  ├─ RateLimitingMiddleware.IsWhitelisted
+  ├─ if (IsWhitelisted(identity, options))
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit) ↑ as above
+  ├─ RateLimitOptions.get_Rule
+  ├─ ClientRequestIdentity.get_ClientId
+  ├─ …
+  ├─ if (identity.ClientId.IsEmpty())
+  ├─ StringExtensions.IsEmpty
+  ├─ if (!warning.IsEmpty())
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+  │  ├─ new RateLimitOptions (depth limit)
+  │  ├─ RateLimitOptions.set_QuotaMessage
+  │  ├─ RateLimitOptions.set_StatusCode
+~ │  └─ RateLimitingMiddleware.Break (changes below depth limit)
+  ├─ IRateLimiting.ProcessRequest → RateLimiting.ProcessRequest
+  ├─ RateLimitRule.get_Limit
+  ├─ if (counter.Total > rule.Limit)
+  │  ├─ IRateLimiting.RetryAfter → RateLimiting.RetryAfter (depth limit)
+~ │  ├─ RateLimitingMiddleware.LogBlockedRequest (changes below depth limit)
+~ │  └─ RateLimitingMiddleware.Break (changes below depth limit)
+  ├─ RateLimitOptions.get_EnableHeaders
+  └─ if (options.EnableHeaders && originalContext != null)
+     ├─ …
+     ├─ originalContext.Response.OnStarting
+     ├─ OcelotMiddleware.get_Logger
+~    └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit) ↑ as above
+
+  DownstreamRequestInitialiserMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRoute
+  ├─ try
+  ├─ catch (Exception ex)
+~ │  ├─ new UnmappableRequestError (changes below depth limit)
+  │  └─ HttpItemsExtensions.SetError (depth limit)
+  ├─ IDownstreamRequestCreator.Create → DownstreamRequestCreator.Create
+  └─ HttpItemsExtensions.UpsertDownstreamRequest
+
+  RequestIdMiddleware.Invoke
+  └─ RequestIdMiddleware.SetOcelotRequestId
+     ├─ HttpItemsExtensions.DownstreamRoute (depth limit)
+     ├─ DownstreamRoute.get_RequestIdKey
+     ├─ if (httpContext.Request.Headers.TryGetValue(key, out var upstreamRequestIds))
+~    │  ├─ IRequestScopedDataRepository.Get → HttpDataRepository.Get (changes below depth limit)
+     │  ├─ Response.get_IsError (depth limit)
+     │  ├─ if (!previousRequestId.IsError)
+     │  ├─ if (!previousRequestId.IsError && !string.IsNullOrEmpty(previousRequestId.Data))
+     │  ├─ if (!previousRequestId.IsError && !string.IsNullOrEmpty(previousRequestId.Data) && previousReques…
+     │  │  ├─ Response<T>.get_Data
+~    │  │  ├─ IRequestScopedDataRepository.Add → HttpDataRepository.Add (changes below depth limit)
+~    │  │  └─ IRequestScopedDataRepository.Update → HttpDataRepository.Update (changes below depth limit)
+     │  └─ else (!(!previousRequestId.IsError && !string.IsNullOrEmpty(previousRequestId.Data) && previousRe…
+~    │     └─ IRequestScopedDataRepository.Add → HttpDataRepository.Add (changes below depth limit)
+     ├─ DownstreamRoute.get_RequestIdKey
+     ├─ new RequestId
+     └─ …
+
++ new BadRequestError
++ └─ new Error
+
+  HttpRequesterMiddleware.Invoke
+  ├─ IHttpRequester.GetResponse → MessageInvokerHttpRequester.GetResponse
+  │  ├─ HttpItemsExtensions.DownstreamRequest (depth limit)
+  │  ├─ HttpItemsExtensions.DownstreamRoute (depth limit)
+~ │  ├─ IMessageInvokerPool.Get → MessageInvokerPool.Get (changes below depth limit)
+  │  ├─ try
+  │  └─ catch (Exception exception)
+~ │     ├─ IExceptionToErrorMapper.Map → HttpExceptionToErrorMapper.Map (changes below depth limit)
+  │     └─ new ErrorResponse<T> (depth limit)
+  ├─ HttpRequesterMiddleware.CreateLogBasedOnResponse
+  │  ├─ …
+  │  ├─ Response<T>.get_Data ×2
+  │  ├─ if (status < HttpStatusCode.BadRequest)
+  │  │  ├─ OcelotMiddleware.get_Logger
+~ │  │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit)
+  │  │     └─ HttpRequesterMiddleware.CreateLogBasedOnResponse.message
+  │  └─ else (!(status < HttpStatusCode.BadRequest))
+  │     ├─ OcelotMiddleware.get_Logger
+~ │     └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+  │        └─ HttpRequesterMiddleware.CreateLogBasedOnResponse.message
+  ├─ Response.get_IsError
+  ├─ if (response.IsError)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+  │  ├─ Response.get_Errors
+  │  └─ HttpItemsExtensions.UpsertErrors (depth limit)
+  ├─ OcelotMiddleware.get_Logger
+  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug
+~ │  └─ OcelotLogger.WriteLog (changes below depth limit)
+  ├─ Response<T>.get_Data
+  ├─ new DownstreamResponse
+  └─ …
+
+  ResponderMiddleware.Invoke
+  ├─ HttpItemsExtensions.Errors
+  ├─ if (errors.Count > 0)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+  │  │  ├─ OcelotMiddleware.get_MiddlewareName
+  │  │  ├─ StringExtensions.Plural
+  │  │  └─ …
+~ │  └─ ResponderMiddleware.SetErrorResponse (changes below depth limit)
+  ├─ HttpItemsExtensions.DownstreamResponse
+  ├─ if (response == null)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+  │     └─ OcelotMiddleware.get_MiddlewareName
+  ├─ OcelotMiddleware.get_Logger
+  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug ↑ as above
+  └─ IHttpResponder.SetResponseOnHttpContext → HttpContextResponder.SetResponseOnHttpContext
+
+  IPSecurityPolicy.SecurityAsync
+  └─ Task.Run
+~    └─ IPSecurityPolicy.Security (changes below depth limit)
+
+  SecurityMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRoute
+  └─ if (_securityPolicies != null)
+     └─ foreach (var policy in _securityPolicies)
+~       ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
+        ├─ Response.get_IsError (depth limit)
+        ├─ Response.get_Errors
+        └─ …
+
+  WebSocketsProxyMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRequest
+  ├─ HttpItemsExtensions.DownstreamRoute
+  └─ WebSocketsProxyMiddleware.Proxy
+     ├─ IWebSocketsFactory.CreateClient → WebSocketsFactory.CreateClient (depth limit)
+     ├─ DownstreamRoute.get_DangerousAcceptAnyServerCertificateValidator
+     ├─ if (route.DangerousAcceptAnyServerCertificateValidator)
+     │  ├─ …
+     │  ├─ IClientWebSocketOptions.set_RemoteCertificateValidationCallback → ClientWebSocketOptionsProxy.set_RemoteCertificateValidationCallback
+     │  ├─ OcelotMiddleware.get_Logger
+~    │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+     │     ├─ DownstreamRoute.get_UpstreamPathTemplate
+     │     └─ DownstreamRoute.get_DownstreamPathTemplate
+     ├─ foreach (var protocol in context.WebSockets.WebSocketRequestedProtocols)
+     ├─ foreach (var header in context.Request.Headers)
+     ├─ DownstreamRequest.get_Scheme
+     ├─ if (!scheme.StartsWith(Uri.UriSchemeWs))
+     │  ├─ OcelotMiddleware.get_Logger
+~    │  ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+     │  │  └─ DownstreamRequest.ToUri (depth limit)
+     │  └─ DownstreamRequest.set_Scheme
+     ├─ DownstreamRequest.ToUri (depth limit)
+     ├─ IClientWebSocketConnector.ConnectAsync → ClientWebSocketProxy.ConnectAsync (depth limit)
+     ├─ IClientWebSocket.get_SubProtocol → ClientWebSocketProxy.get_SubProtocol (depth limit)
+     ├─ IClientWebSocketConnector.ToWebSocket → ClientWebSocketProxy.ToWebSocket
+~    ├─ WebSocketsProxyMiddleware.PumpAsync (changes below depth limit)
+     ├─ IClientWebSocketConnector.ToWebSocket → ClientWebSocketProxy.ToWebSocket
+~    └─ WebSocketsProxyMiddleware.PumpAsync (changes below depth limit)
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  FileConfigurationController.Post
+  └─ try
+~    ├─ IFileConfigurationSetter.Set → FileAndInternalConfigurationSetter.Set (changes below depth limit)
+     ├─ Response.get_IsError (depth limit)
+     └─ if (response.IsError)
+
+  AuthenticationMiddleware.Invoke
+  ├─ …
+  ├─ HttpRequestExtensions.IsOptionsMethod
+  ├─ if (!(request.IsOptionsMethod()))
+  ├─ if (request.IsOptionsMethod() || !route.IsAuthenticated)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit)
+  │     └─ DownstreamRoute.Name (depth limit)
+  ├─ OcelotMiddleware.get_Logger
+  ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation
+~ │  ├─ OcelotLogger.WriteLog (changes below depth limit)
+  │  └─ OcelotMiddleware.get_MiddlewareName
+  ├─ AuthenticationMiddleware.AuthenticateAsync
+  │  ├─ DownstreamRoute.get_AuthenticationOptions
+  │  ├─ AuthenticationOptions.get_AuthenticationProviderKeys
+  │  └─ foreach (var scheme in notEmptySchemes)
+  │     └─ catch (Exception e)
+  │        ├─ OcelotMiddleware.get_Logger
+~ │        └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+  │           └─ DownstreamRoute.Name (depth limit)
+  ├─ if (result.Principal?.Identity == null)
+~ │  └─ AuthenticationMiddleware.SetUnauthenticatedError (changes below depth limit)
+  ├─ if (context.User.Identity.IsAuthenticated)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit)
+  └─ AuthenticationMiddleware.SetUnauthenticatedError
+~    ├─ new UnauthenticatedError (changes below depth limit)
+     ├─ OcelotMiddleware.get_Logger
+~    ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+     └─ HttpItemsExtensions.SetError (depth limit)
+
+  AuthorizationMiddleware.Invoke
+  ├─ …
+  ├─ HttpContextExtensions.IsOptionsMethod
+  ├─ if (!context.IsOptionsMethod())
+  ├─ if (!context.IsOptionsMethod() && route.IsAuthenticated)
+  │  ├─ DownstreamRoute.get_AuthenticationOptions
+  │  ├─ AuthenticationOptions.get_AllowedScopes
+~ │  ├─ IScopesAuthorizer.Authorize → ScopesAuthorizer.Authorize (changes below depth limit)
+  │  ├─ Response.get_IsError (depth limit)
+  │  ├─ if (authorized.IsError)
+  │  │  ├─ OcelotMiddleware.get_Logger
+~ │  │  ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+  │  │  │  ├─ DownstreamRoute.Name (depth limit)
+  │  │  │  ├─ Response.get_Errors
+  │  │  │  └─ …
+  │  │  ├─ Response.get_Errors
+  │  │  └─ HttpItemsExtensions.UpsertErrors (depth limit)
+  │  ├─ Response<T>.get_Data
+  │  └─ if (!authorized.Data)
+  │     ├─ DownstreamRoute.Name (depth limit)
+~ │     ├─ new UnauthorizedError (changes below depth limit)
+  │     ├─ OcelotMiddleware.get_Logger
+~ │     ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit)
+  │     │  └─ Error.ToString (depth limit)
+  │     └─ HttpItemsExtensions.SetError (depth limit)
+  ├─ HttpContextExtensions.IsOptionsMethod
+  ├─ if (!context.IsOptionsMethod())
+  ├─ if (!context.IsOptionsMethod() && route.IsAuthorized)
+  │  ├─ DownstreamRoute.get_RouteClaimsRequirement
+  │  ├─ HttpItemsExtensions.TemplatePlaceholderNameAndValues (depth limit)
+~ │  ├─ IClaimsAuthorizer.Authorize → ClaimsAuthorizer.Authorize (changes below depth limit)
+  │  ├─ Response.get_IsError (depth limit)
+  │  ├─ if (authorized.IsError)
+  │  │  ├─ OcelotMiddleware.get_Logger
+~ │  │  ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit) ↑ as above
+  │  │  ├─ Response.get_Errors
+  │  │  └─ HttpItemsExtensions.UpsertErrors (depth limit)
+  │  ├─ Response<T>.get_Data
+  │  ├─ if (authorized.Data)
+  │  │  ├─ OcelotMiddleware.get_Logger
+~ │  │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit) ↑ as above
+  │  └─ else (!(authorized.Data))
+  │     ├─ DownstreamRoute.Name (depth limit)
+~ │     ├─ new UnauthorizedError (changes below depth limit)
+  │     ├─ OcelotMiddleware.get_Logger
+~ │     ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit) ↑ as above
+  │     └─ HttpItemsExtensions.SetError (depth limit)
+  └─ else (!(!context.IsOptionsMethod() && route.IsAuthorized))
+     ├─ OcelotMiddleware.get_Logger
+~    └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+        └─ DownstreamRoute.Name (depth limit)
+
+  OutputCacheMiddleware.Invoke
+  ├─ …
+  ├─ ICacheKeyGenerator.GenerateRequestCacheKey → DefaultCacheKeyGenerator.GenerateRequestCacheKey
+  ├─ OcelotMiddleware.get_Logger
+  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug
+~ │  └─ OcelotLogger.WriteLog (changes below depth limit)
+  ├─ CacheOptions.get_Region
+  ├─ IOcelotCache<T>.Get → DefaultMemoryCache<T>.Get
+  ├─ if (cached != null)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+  │  ├─ OutputCacheMiddleware.CreateHttpResponseMessage (depth limit)
+  │  ├─ OutputCacheMiddleware.SetHttpResponseMessageThisRequest (depth limit)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+  ├─ OcelotMiddleware.get_Logger
+  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug ↑ as above
+  ├─ HttpItemsExtensions.Errors
+  ├─ if (httpContext.Items.Errors().Count > 0)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+  ├─ HttpItemsExtensions.DownstreamResponse
+  ├─ OutputCacheMiddleware.CreateCachedResponse
+  ├─ …
+  ├─ IOcelotCache<T>.Add → DefaultMemoryCache<T>.Add
+  ├─ OcelotMiddleware.get_Logger
+  └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug ↑ as above
+
+  ClaimsToClaimsMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRoute
+  ├─ DownstreamRoute.get_ClaimsToClaims
+  └─ if (downstreamRoute.ClaimsToClaims.Any())
+     ├─ OcelotMiddleware.get_Logger
+~    ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+     ├─ DownstreamRoute.get_ClaimsToClaims
+~    ├─ IAddClaimsToRequest.SetClaimsOnContext → AddClaimsToRequest.SetClaimsOnContext (changes below depth limit)
+     ├─ Response.get_IsError (depth limit)
+     └─ if (result.IsError)
+        ├─ OcelotMiddleware.get_Logger
+~       ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+        ├─ Response.get_Errors
+        └─ HttpItemsExtensions.UpsertErrors (depth limit)
+
+  HeaderFindAndReplaceCreator.Create
+  └─ HeaderFindAndReplaceCreator.Create
+     ├─ …
+     ├─ FileGlobalConfiguration.get_UpstreamHeaderTransform
+     ├─ HeaderFindAndReplaceCreator.Merge
+~    ├─ HeaderFindAndReplaceCreator.ProcessHeaders (changes below depth limit)
+     ├─ FileRoute.get_DownstreamHeaderTransform
+     ├─ FileGlobalConfiguration.get_DownstreamHeaderTransform
+     ├─ HeaderFindAndReplaceCreator.Merge
+~    ├─ HeaderFindAndReplaceCreator.ProcessHeaders (changes below depth limit)
+     └─ new HeaderTransformations
+
+  FileConfigurationPoller.StartAsync
+  ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation
+~ │  └─ OcelotLogger.WriteLog (changes below depth limit)
+  ├─ IFileConfigurationPollerOptions.get_Delay ×2
+  └─ new
+~    └─ FileConfigurationPoller.OnTimer (changes below depth limit)
+
+  FileConfigurationPoller.StopAsync
+  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation ↑ as above
+
+  ClaimsToDownstreamPathMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRoute
+  ├─ DownstreamRoute.get_ClaimsToPath
+  └─ if (downstreamRoute.ClaimsToPath.Any())
+     ├─ OcelotMiddleware.get_Logger
+~    ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit)
+     │  ├─ DownstreamRoute.get_DownstreamPathTemplate
+     │  └─ DownstreamPathTemplate.get_Value
+     ├─ HttpItemsExtensions.TemplatePlaceholderNameAndValues (depth limit)
+     ├─ DownstreamRoute.get_ClaimsToPath
+     ├─ DownstreamRoute.get_DownstreamPathTemplate
+~    ├─ IChangeDownstreamPathTemplate.ChangeDownstreamPath → ChangeDownstreamPathTemplate.ChangeDownstreamPath (changes below depth limit)
+     ├─ Response.get_IsError (depth limit)
+     └─ if (response.IsError)
+        ├─ OcelotMiddleware.get_Logger
+~       ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+        ├─ Response.get_Errors
+        └─ HttpItemsExtensions.UpsertErrors (depth limit)
+
+  DownstreamRouteFinderMiddleware.Invoke
+  ├─ HttpItemsExtensions.IInternalConfiguration
+  ├─ OcelotMiddleware.get_Logger
+  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug ↑ as above
+  ├─ IDownstreamRouteProviderFactory.Get → DownstreamRouteProviderFactory.Get
+  │  ├─ …
+  │  ├─ if (!(config.Routes.Length == 0))
+  │  ├─ if ((config.Routes.Length == 0 || config.Routes.All(x => string.IsNullOrEmpty(x.UpstreamTemplateP…
+  │  └─ if ((config.Routes.Length == 0 || config.Routes.All(x => string.IsNullOrEmpty(x.UpstreamTemplateP…
+~ │     └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit)
+  ├─ IDownstreamRouteProvider.Get
+  │  ├─ ⇢ DiscoveryDownstreamRouteFinder.Get (depth limit)
+~ │  └─ ⇢ DownstreamRouteFinder.Get (changes below depth limit)
+  ├─ Response.get_IsError
+  ├─ if (response.IsError)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+  │  │  ├─ OcelotMiddleware.get_MiddlewareName
+  │  │  ├─ Response.get_Errors
+  │  │  └─ …
+  │  ├─ Response.get_Errors
+  │  └─ HttpItemsExtensions.UpsertErrors (depth limit)
+  ├─ OcelotMiddleware.get_Logger
+  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug
+~ │  ├─ OcelotLogger.WriteLog (changes below depth limit)
+  │  ├─ Response<T>.get_Data
+  │  ├─ DownstreamRouteHolder.get_Route
+  │  └─ …
+  ├─ Response<T>.get_Data
+  ├─ DownstreamRouteHolder.get_TemplatePlaceholderNameAndValues
+  └─ …
+
+  DownstreamUrlCreatorMiddleware.Invoke
+  ├─ …
+  ├─ else (!(ServiceFabricRequest(internalConfiguration, downstreamRoute)))
+  ├─ OcelotMiddleware.get_Logger
+  └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug ↑ as above
+
++ Error.get_Exception
+
+  ExceptionHandlerMiddleware.Invoke
+  ├─ try
+  │  ├─ HttpItemsExtensions.IInternalConfiguration (depth limit)
+~ │  ├─ ExceptionHandlerMiddleware.TrySetGlobalRequestId (changes below depth limit)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+  ├─ catch (OperationCanceledException e) when (context.RequestAborted.IsCancellationRequested)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+  │     └─ ExceptionHandlerMiddleware.CreateMessage (depth limit)
+  ├─ catch (Exception e)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogError → OcelotLogger.LogError (changes below depth limit)
+  │     └─ ExceptionHandlerMiddleware.CreateMessage (depth limit)
+  └─ finally
+     ├─ OcelotMiddleware.get_Logger
+~    └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+
+  ClaimsToHeadersMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRoute
+  ├─ DownstreamRoute.get_ClaimsToHeaders
+  └─ if (downstreamRoute.ClaimsToHeaders.Any())
+     ├─ OcelotMiddleware.get_Logger
+~    ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit) ↑ as above
+     ├─ HttpItemsExtensions.DownstreamRequest (depth limit)
+     ├─ DownstreamRoute.get_ClaimsToHeaders
+~    ├─ IAddHeadersToRequest.SetHeadersOnDownstreamRequest → AddHeadersToRequest.SetHeadersOnDownstreamRequest (changes below depth limit)
+     ├─ Response.get_IsError (depth limit)
+     ├─ if (response.IsError)
+     │  ├─ OcelotMiddleware.get_Logger
+~    │  ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+     │  ├─ Response.get_Errors
+     │  └─ HttpItemsExtensions.UpsertErrors (depth limit)
+     ├─ OcelotMiddleware.get_Logger
+~    └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit)
+
+  HttpHeadersTransformationMiddleware.Invoke
+  ├─ …
+  ├─ IHttpContextRequestHeaderReplacer.Replace → HttpContextRequestHeaderReplacer.Replace
+  ├─ DownstreamRoute.get_AddHeadersToUpstream
+  ├─ IAddHeadersToRequest.SetHeadersOnDownstreamRequest → AddHeadersToRequest.SetHeadersOnDownstreamRequest
+  │  └─ foreach (var header in headers)
+  │     ├─ …
+  │     ├─ AddHeader.get_Value
+  │     ├─ if (header.Value.StartsWith('{'))
+  │     ├─ if (header.Value.StartsWith('{') && header.Value.EndsWith("}"))
+  │     │  ├─ AddHeader.get_Value
+  │     │  ├─ IPlaceholders.Get
+~ │     │  │  ├─ ⇢ ConfigAwarePlaceholders.Get (changes below depth limit)
+~ │     │  │  └─ ⇢ Placeholders.Get (changes below depth limit)
+  │     │  ├─ Response.get_IsError (depth limit)
+  │     │  ├─ if (value.IsError)
+~ │     │  │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+  │     │  │     ├─ AddHeader.get_Key
+  │     │  │     └─ AddHeader.get_Value
+  │     │  ├─ AddHeader.get_Key
+  │     │  └─ Response<T>.get_Data
+  │     └─ else (!(header.Value.StartsWith('{') && header.Value.EndsWith("}")))
+  ├─ HttpItemsExtensions.Errors
+  ├─ DownstreamRoute.get_DownstreamHeadersFindAndReplace
+  ├─ IHttpResponseHeaderReplacer.Replace → HttpResponseHeaderReplacer.Replace
+  │  ├─ HttpItemsExtensions.DownstreamResponse (depth limit)
+  │  ├─ HttpItemsExtensions.DownstreamRequest (depth limit)
+  │  ├─ foreach (var f in fAndRs)
+  │  │  ├─ …
+  │  │  ├─ response.Headers.ToDictionary
+  │  │  ├─ HeaderFindAndReplace.get_Key
+  │  │  └─ if (dict.TryGetValue(f.Key, out var values))
+  │  │     ├─ HeaderFindAndReplace.get_Find
+  │  │     ├─ IPlaceholders.Get
+~ │  │     │  ├─ ⇢ ConfigAwarePlaceholders.Get (changes below depth limit)
+~ │  │     │  └─ ⇢ Placeholders.Get (changes below depth limit)
+  │  │     ├─ Response.get_IsError (depth limit)
+  │  │     ├─ if (!placeholderValue.IsError)
+  │  │     └─ …
+  │  └─ new OkResponse (depth limit)
+  ├─ HttpItemsExtensions.DownstreamResponse
+  ├─ DownstreamRoute.get_AddHeadersToDownstream
+  └─ IAddHeadersToResponse.Add → AddHeadersToResponse.Add
+     └─ foreach (var add in addHeaders)
+        ├─ AddHeader.get_Value
+        ├─ if (add.Value.StartsWith('{'))
+        ├─ if (add.Value.StartsWith('{') && add.Value.EndsWith('}'))
+        │  ├─ AddHeader.get_Value
+        │  ├─ IPlaceholders.Get ↑ as above
+        │  ├─ Response.get_IsError (depth limit)
+        │  ├─ if (value.IsError)
+~       │  │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit) ↑ as above
+        │  ├─ DownstreamResponse.get_Headers
+        │  ├─ AddHeader.get_Key
+        │  └─ …
+        └─ else (!(add.Value.StartsWith('{') && add.Value.EndsWith('}')))
+
+  ConfigAwarePlaceholders.Add
+  └─ IPlaceholders.Add
+     ├─ ⇢ ConfigAwarePlaceholders.Add (↺ cycle)
+~    └─ ⇢ Placeholders.Add (changes below depth limit)
+
+  ConfigAwarePlaceholders.Remove
+  └─ IPlaceholders.Remove
+     ├─ ⇢ ConfigAwarePlaceholders.Remove (↺ cycle)
+~    └─ ⇢ Placeholders.Remove (changes below depth limit)
+
+  Retry.Operation
+  ├─ for (n < retryTimes)
+  │  ├─ catch (Exception e)
+  │  │  └─ if (logger is not null)
+~ │  │     └─ IOcelotLogger.LogError → OcelotLogger.LogError (changes below depth limit)
+  │  │        └─ Retry.GetMessage
+  │  └─ if (predicate?.Invoke(result) == true)
+  │     └─ if (logger is not null)
+~ │        └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+  │           └─ Retry.GetMessage
+  └─ if (logger is not null)
+~    └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+        └─ Retry.GetMessage
+
+  Retry.OperationAsync
+  ├─ for (n < retryTimes)
+  │  ├─ catch (Exception e)
+  │  │  └─ if (logger is not null)
+~ │  │     └─ IOcelotLogger.LogError → OcelotLogger.LogError (changes below depth limit) ↑ as above
+  │  └─ if (predicate?.Invoke(result) == true)
+  │     └─ if (logger is not null)
+~ │        └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit) ↑ as above
+  └─ if (logger is not null)
+~    └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit) ↑ as above
+
+  new Placeholders
+  ├─ Dictionary<TKey, TValue>.Add
+  ├─ Dictionary<TKey, TValue>.Add
+~ │  └─ Placeholders.GetTraceId (changes below depth limit)
+  ├─ Dictionary<TKey, TValue>.Add
+~ │  └─ Placeholders.GetRemoteIpAddress (changes below depth limit)
+  ├─ Dictionary<TKey, TValue>.Add
+~ │  └─ Placeholders.GetUpstreamHost (changes below depth limit)
+  └─ Dictionary<TKey, TValue>.Add
+
+~ new HttpDataRepository (body changed; visible calls unchanged)
+
+  LoadBalancingMiddleware.Invoke
+  ├─ …
+  ├─ HttpItemsExtensions.IInternalConfiguration
+  ├─ IInternalConfiguration.get_ServiceProviderConfiguration → InternalConfiguration.get_ServiceProviderConfiguration
+  ├─ ILoadBalancerHouse.Get → LoadBalancerHouse.Get
+  │  ├─ try
+  │  │  ├─ …
+  │  │  ├─ if (_loadBalancers.TryGetValue(route.LoadBalancerKey, out var loadBalancer))
+  │  │  ├─ if (_loadBalancers.TryGetValue(route.LoadBalancerKey, out var loadBalancer) && loadBalancer.Type.…
+  │  │  └─ else (!(_loadBalancers.TryGetValue(route.LoadBalancerKey, out var loadBalancer) && loadBalancer.T…
+~ │  │     └─ LoadBalancerHouse.GetResponse (changes below depth limit)
+  │  └─ catch (Exception ex)
+  │     ├─ DownstreamRoute.get_LoadBalancerKey
+~ │     ├─ new UnableToFindLoadBalancerError (changes below depth limit)
+  │     └─ new ErrorResponse<T> (depth limit)
+  ├─ Response.get_IsError
+  ├─ if (loadBalancer.IsError)
+  ├─ Response<T>.get_Data
+  ├─ ILoadBalancer.LeaseAsync
+~ │  ├─ ⇢ CookieStickySessions.LeaseAsync (changes below depth limit)
+~ │  ├─ ⇢ LeastConnection.LeaseAsync (changes below depth limit)
+~ │  ├─ ⇢ NoLoadBalancer.LeaseAsync (changes below depth limit)
+~ │  └─ ⇢ RoundRobin.LeaseAsync (changes below depth limit)
+  ├─ Response.get_IsError
+  ├─ if (hostAndPort.IsError)
+  └─ …
+
+  OcelotDiagnosticListener.OnMiddlewareException
+  └─ IOcelotLogger.LogTrace → OcelotLogger.LogTrace
+~    └─ OcelotLogger.WriteLog (changes below depth limit)
+
+  OcelotDiagnosticListener.OnMiddlewareFinished
+  ├─ IOcelotLogger.LogTrace → OcelotLogger.LogTrace ↑ as above
+  └─ OcelotDiagnosticListener.Event
+
+  OcelotDiagnosticListener.OnMiddlewareStarting
+  ├─ IOcelotLogger.LogTrace → OcelotLogger.LogTrace ↑ as above
+  └─ OcelotDiagnosticListener.Event
+
+  OcelotHttpTracingHandler.SendAsync
+  └─ IOcelotTracer.SendAsync
+~    └─ OcelotHttpTracingHandler.AddTraceId (changes below depth limit)
+
+  OcelotLogger.LogCritical
+  └─ OcelotLogger.WriteLog
+~    └─ OcelotLogger.WriteLog (changes below depth limit)
+
+  OcelotLogger.LogCritical
+  └─ OcelotLogger.WriteLog
+~    └─ OcelotLogger.WriteLog (changes below depth limit)
+
+  OcelotLogger.LogError
+  └─ OcelotLogger.WriteLog ↑ as above
+
+  OcelotLogger.LogTrace
+  └─ OcelotLogger.WriteLog ↑ as above
+
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+  └─ OcelotMiddlewareExtensions.UseOcelot
+~    ├─ OcelotMiddlewareExtensions.CreateConfiguration (changes below depth limit)
+     ├─ OcelotMiddlewareExtensions.ConfigureDiagnosticListener
+     └─ OcelotMiddlewareExtensions.CreateOcelotPipeline (depth limit)
+
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+  └─ OcelotMiddlewareExtensions.UseOcelot
+~    ├─ OcelotMiddlewareExtensions.CreateConfiguration (changes below depth limit)
+     ├─ OcelotMiddlewareExtensions.ConfigureDiagnosticListener
+     └─ if (builderAction is not null)
+
+  OcelotMiddlewareExtensions.UseOcelot
+  ├─ new OcelotPipelineConfiguration
+  └─ OcelotMiddlewareExtensions.UseOcelot ↑ as above
+
+  MultiplexingMiddleware.Invoke
+  ├─ …
+  ├─ if (ShouldProcessSingleRoute(httpContext, downstreamRoutes))
+  ├─ Route.get_DownstreamRouteConfig
+  ├─ if (routeKeysConfigs == null || routeKeysConfigs.Count == 0)
+~ │  └─ MultiplexingMiddleware.ProcessRoutesAsync (changes below depth limit)
+  ├─ MultiplexingMiddleware.ProcessMainRouteAsync
+  ├─ MultiplexingMiddleware.ProcessRoutesWithRouteKeysAsync
+  │  ├─ HttpItemsExtensions.DownstreamResponse (depth limit)
+  │  ├─ DownstreamResponse.get_Content
+  │  └─ foreach (var downstreamRoute in routes.Skip(1))
+  │     ├─ routeKeysConfigs.FirstOrDefault
+  │     ├─ if (matchAdvancedAgg != null)
+~ │     │  └─ MultiplexingMiddleware.ProcessRouteWithComplexAggregation (changes below depth limit)
+~ │     └─ MultiplexingMiddleware.ProcessRouteAsync (changes below depth limit)
+  └─ MultiplexingMiddleware.MapResponsesAsync
+~    └─ MultiplexingMiddleware.MapAsync (changes below depth limit)
+
+  ClaimsToQueryStringMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRoute
+  ├─ DownstreamRoute.get_ClaimsToQueries
+  └─ if (downstreamRoute.ClaimsToQueries.Any())
+     ├─ OcelotMiddleware.get_Logger
+~    ├─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit) ↑ as above
+     ├─ HttpItemsExtensions.DownstreamRequest (depth limit)
+     ├─ DownstreamRoute.get_ClaimsToQueries
+~    ├─ IAddQueriesToRequest.SetQueriesOnDownstreamRequest → AddQueriesToRequest.SetQueriesOnDownstreamRequest (changes below depth limit)
+     ├─ Response.get_IsError (depth limit)
+     └─ if (response.IsError)
+        ├─ OcelotMiddleware.get_Logger
+~       ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+        ├─ Response.get_Errors
+        └─ HttpItemsExtensions.UpsertErrors (depth limit)
+
+  RateLimitingMiddleware.Invoke
+  ├─ …
+  ├─ if (downstreamRoute.RateLimitOptions is null)
+  ├─ RateLimitOptions.get_EnableRateLimiting
+  ├─ if (!options.EnableRateLimiting)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit) ↑ as above
+  ├─ RateLimitingMiddleware.Identify
+  ├─ RateLimitingMiddleware.IsWhitelisted
+  ├─ if (IsWhitelisted(identity, options))
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit) ↑ as above
+  ├─ RateLimitOptions.get_Rule
+  ├─ ClientRequestIdentity.get_ClientId
+  ├─ …
+  ├─ if (identity.ClientId.IsEmpty())
+  ├─ StringExtensions.IsEmpty
+  ├─ if (!warning.IsEmpty())
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+  │  ├─ new RateLimitOptions (depth limit)
+  │  ├─ RateLimitOptions.set_QuotaMessage
+  │  ├─ RateLimitOptions.set_StatusCode
+~ │  └─ RateLimitingMiddleware.Break (changes below depth limit)
+  ├─ IRateLimiting.ProcessRequest → RateLimiting.ProcessRequest
+  ├─ RateLimitRule.get_Limit
+  ├─ if (counter.Total > rule.Limit)
+  │  ├─ IRateLimiting.RetryAfter → RateLimiting.RetryAfter (depth limit)
+~ │  ├─ RateLimitingMiddleware.LogBlockedRequest (changes below depth limit)
+~ │  └─ RateLimitingMiddleware.Break (changes below depth limit)
+  ├─ RateLimitOptions.get_EnableHeaders
+  └─ if (options.EnableHeaders && originalContext != null)
+     ├─ …
+     ├─ originalContext.Response.OnStarting
+     ├─ OcelotMiddleware.get_Logger
+~    └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit) ↑ as above
+
+  DownstreamRequestInitialiserMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRoute
+  ├─ try
+  ├─ catch (Exception ex)
+~ │  ├─ new UnmappableRequestError (changes below depth limit)
+  │  └─ HttpItemsExtensions.SetError (depth limit)
+  ├─ IDownstreamRequestCreator.Create → DownstreamRequestCreator.Create
+  └─ HttpItemsExtensions.UpsertDownstreamRequest
+
+  RequestIdMiddleware.Invoke
+  └─ RequestIdMiddleware.SetOcelotRequestId
+     ├─ HttpItemsExtensions.DownstreamRoute (depth limit)
+     ├─ DownstreamRoute.get_RequestIdKey
+     ├─ if (httpContext.Request.Headers.TryGetValue(key, out var upstreamRequestIds))
+~    │  ├─ IRequestScopedDataRepository.Get → HttpDataRepository.Get (changes below depth limit)
+     │  ├─ Response.get_IsError (depth limit)
+     │  ├─ if (!previousRequestId.IsError)
+     │  ├─ if (!previousRequestId.IsError && !string.IsNullOrEmpty(previousRequestId.Data))
+     │  ├─ if (!previousRequestId.IsError && !string.IsNullOrEmpty(previousRequestId.Data) && previousReques…
+     │  │  ├─ Response<T>.get_Data
+~    │  │  ├─ IRequestScopedDataRepository.Add → HttpDataRepository.Add (changes below depth limit)
+~    │  │  └─ IRequestScopedDataRepository.Update → HttpDataRepository.Update (changes below depth limit)
+     │  └─ else (!(!previousRequestId.IsError && !string.IsNullOrEmpty(previousRequestId.Data) && previousRe…
+~    │     └─ IRequestScopedDataRepository.Add → HttpDataRepository.Add (changes below depth limit)
+     ├─ DownstreamRoute.get_RequestIdKey
+     ├─ new RequestId
+     └─ …
+
++ new BadRequestError
++ └─ new Error
+
+  HttpRequesterMiddleware.Invoke
+  ├─ IHttpRequester.GetResponse → MessageInvokerHttpRequester.GetResponse
+  │  ├─ HttpItemsExtensions.DownstreamRequest (depth limit)
+  │  ├─ HttpItemsExtensions.DownstreamRoute (depth limit)
+~ │  ├─ IMessageInvokerPool.Get → MessageInvokerPool.Get (changes below depth limit)
+  │  ├─ try
+  │  └─ catch (Exception exception)
+~ │     ├─ IExceptionToErrorMapper.Map → HttpExceptionToErrorMapper.Map (changes below depth limit)
+  │     └─ new ErrorResponse<T> (depth limit)
+  ├─ HttpRequesterMiddleware.CreateLogBasedOnResponse
+  │  ├─ …
+  │  ├─ Response<T>.get_Data ×2
+  │  ├─ if (status < HttpStatusCode.BadRequest)
+  │  │  ├─ OcelotMiddleware.get_Logger
+~ │  │  └─ IOcelotLogger.LogInformation → OcelotLogger.LogInformation (changes below depth limit)
+  │  │     └─ HttpRequesterMiddleware.CreateLogBasedOnResponse.message
+  │  └─ else (!(status < HttpStatusCode.BadRequest))
+  │     ├─ OcelotMiddleware.get_Logger
+~ │     └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+  │        └─ HttpRequesterMiddleware.CreateLogBasedOnResponse.message
+  ├─ Response.get_IsError
+  ├─ if (response.IsError)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+  │  ├─ Response.get_Errors
+  │  └─ HttpItemsExtensions.UpsertErrors (depth limit)
+  ├─ OcelotMiddleware.get_Logger
+  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug
+~ │  └─ OcelotLogger.WriteLog (changes below depth limit)
+  ├─ Response<T>.get_Data
+  ├─ new DownstreamResponse
+  └─ …
+
+  ResponderMiddleware.Invoke
+  ├─ HttpItemsExtensions.Errors
+  ├─ if (errors.Count > 0)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+  │  │  ├─ OcelotMiddleware.get_MiddlewareName
+  │  │  ├─ StringExtensions.Plural
+  │  │  └─ …
+~ │  └─ ResponderMiddleware.SetErrorResponse (changes below depth limit)
+  ├─ HttpItemsExtensions.DownstreamResponse
+  ├─ if (response == null)
+  │  ├─ OcelotMiddleware.get_Logger
+~ │  └─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug (changes below depth limit)
+  │     └─ OcelotMiddleware.get_MiddlewareName
+  ├─ OcelotMiddleware.get_Logger
+  ├─ IOcelotLogger.LogDebug → OcelotLogger.LogDebug ↑ as above
+  └─ IHttpResponder.SetResponseOnHttpContext → HttpContextResponder.SetResponseOnHttpContext
+
+  IPSecurityPolicy.SecurityAsync
+  └─ Task.Run
+~    └─ IPSecurityPolicy.Security (changes below depth limit)
+
+  SecurityMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRoute
+  └─ if (_securityPolicies != null)
+     └─ foreach (var policy in _securityPolicies)
+~       ├─ ISecurityPolicy.Security → IPSecurityPolicy.Security (changes below depth limit)
+        ├─ Response.get_IsError (depth limit)
+        ├─ Response.get_Errors
+        └─ …
+
+  WebSocketsProxyMiddleware.Invoke
+  ├─ HttpItemsExtensions.DownstreamRequest
+  ├─ HttpItemsExtensions.DownstreamRoute
+  └─ WebSocketsProxyMiddleware.Proxy
+     ├─ IWebSocketsFactory.CreateClient → WebSocketsFactory.CreateClient (depth limit)
+     ├─ DownstreamRoute.get_DangerousAcceptAnyServerCertificateValidator
+     ├─ if (route.DangerousAcceptAnyServerCertificateValidator)
+     │  ├─ …
+     │  ├─ IClientWebSocketOptions.set_RemoteCertificateValidationCallback → ClientWebSocketOptionsProxy.set_RemoteCertificateValidationCallback
+     │  ├─ OcelotMiddleware.get_Logger
+~    │  └─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+     │     ├─ DownstreamRoute.get_UpstreamPathTemplate
+     │     └─ DownstreamRoute.get_DownstreamPathTemplate
+     ├─ foreach (var protocol in context.WebSockets.WebSocketRequestedProtocols)
+     ├─ foreach (var header in context.Request.Headers)
+     ├─ DownstreamRequest.get_Scheme
+     ├─ if (!scheme.StartsWith(Uri.UriSchemeWs))
+     │  ├─ OcelotMiddleware.get_Logger
+~    │  ├─ IOcelotLogger.LogWarning → OcelotLogger.LogWarning (changes below depth limit)
+     │  │  └─ DownstreamRequest.ToUri (depth limit)
+     │  └─ DownstreamRequest.set_Scheme
+     ├─ DownstreamRequest.ToUri (depth limit)
+     ├─ IClientWebSocketConnector.ConnectAsync → ClientWebSocketProxy.ConnectAsync (depth limit)
+     ├─ IClientWebSocket.get_SubProtocol → ClientWebSocketProxy.get_SubProtocol (depth limit)
+     ├─ IClientWebSocketConnector.ToWebSocket → ClientWebSocketProxy.ToWebSocket
+~    ├─ WebSocketsProxyMiddleware.PumpAsync (changes below depth limit)
+     ├─ IClientWebSocketConnector.ToWebSocket → ClientWebSocketProxy.ToWebSocket
+~    └─ WebSocketsProxyMiddleware.PumpAsync (changes below depth limit)
+```
+stderr:

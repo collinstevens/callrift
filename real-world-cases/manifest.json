@@ -3679,5 +3679,97 @@
     "beforeLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
     "afterLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
     "review": "../tests/Callrift.RealWorldCases/SerilogDottedPropertyExpectations.cs"
+  },
+  {
+    "id": "ocelot-header-errors",
+    "before": "5eeb9cccad4b45d8b409310c43582e827de97e06",
+    "after": "e881c97595802c1019b972657dea9885f1b1cc25",
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "2"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "HttpExceptionToErrorMapper.Map",
+          "--entry",
+          "ErrorsToHttpStatusCodeMapper.Map",
+          "--entry",
+          "new HttpDataRepository",
+          "--entry",
+          "HttpDataRepository.Add",
+          "--entry",
+          "HttpDataRepository.Update",
+          "--entry",
+          "HttpDataRepository.Get"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "options": [
+          "--depth",
+          "2",
+          "--project",
+          "src/Ocelot/Ocelot.csproj",
+          "--framework",
+          "net10.0"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "HttpExceptionToErrorMapper.Map",
+          "--entry",
+          "ErrorsToHttpStatusCodeMapper.Map",
+          "--entry",
+          "new HttpDataRepository",
+          "--entry",
+          "HttpDataRepository.Add",
+          "--entry",
+          "HttpDataRepository.Update",
+          "--entry",
+          "HttpDataRepository.Get",
+          "--project",
+          "src/Ocelot/Ocelot.csproj",
+          "--framework",
+          "net10.0"
+        ]
+      }
+    ],
+    "repository": "https://github.com/ThreeMammals/Ocelot.git",
+    "cacheName": "ocelot",
+    "license": "MIT",
+    "licenseFile": "LICENSE.md",
+    "reason": "Review non-ASCII request-header exception mapping and exception forwarding in source and restored Ocelot net10.0 modes. Focused views preserve custom-mapper precedence and timeout/cancellation handling, add the HttpRequestException message predicate and BadRequestError constructor, and append an errors.Any callback. HttpDataRepository adds a null guard, removes accessor conditional access, and forwards exceptions through CannotAddDataError into a new Error overload. The string Error overload keeps its identity while renaming the status parameter. Return-only status branches, literal status values and field assignments are absent; these graphs do not prove runtime HTTP responses or branch exclusivity. Source mode has 1040 independently checked unresolved-call diagnostics from unavailable project references, including StatusCodes base initializers and the null guard; restored mode has none. Automatic source roots retain the Metadata sample entry point and testing support callers. All views retain explicit depth omissions and possible dispatch/callback limits. All three formats repeat exactly in both modes on the review machine.",
+    "tags": [
+      "exceptions",
+      "branch-guard",
+      "constructors",
+      "callbacks",
+      "conditional-access",
+      "signatures",
+      "source-msbuild"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "beforeLicenseBlob": "058bbbcec4d6137a36c5cc6a46a599f93bb10c42",
+    "afterLicenseBlob": "058bbbcec4d6137a36c5cc6a46a599f93bb10c42",
+    "review": "../tests/Callrift.RealWorldCases/OcelotHeaderErrorExpectations.cs"
   }
 ]

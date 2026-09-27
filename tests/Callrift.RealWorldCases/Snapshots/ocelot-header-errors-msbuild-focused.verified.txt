@@ -1,0 +1,221 @@
+﻿format: text
+exit: 0
+stdout:
+  new HttpDataRepository
+  ├─ new Object
++ └─ ArgumentNullException.ThrowIfNull
+
+  HttpDataRepository.Add
+  ├─ try
+  └─ catch (Exception exception)
+-    ├─ Exception.get_Message
+-    ├─ string.Format
+~    ├─ new CannotAddDataError (signature changed)
+~    │  └─ new Error (signature changed)
+     │     ├─ new Object
++    │     └─ Exception.get_Message
+     └─ new ErrorResponse
+
+  HttpDataRepository.Get
+- ├─ if (_contextAccessor is not null)
+- │  ├─ IHttpContextAccessor.get_HttpContext
+- │  └─ if (.HttpContext is not null)
+- │     └─ HttpContext.get_Items
+- ├─ if (_contextAccessor?.HttpContext?.Items == null)
+- │  ├─ new CannotFindDataError
+- │  │  └─ new Error
+- │  │     └─ new Object
+- │  └─ new ErrorResponse<T>
+- │     ├─ new List<Error>
+- │     ├─ List<T>.Add
+- │     └─ new Response<T>
+- │        └─ new Response (depth limit)
+  ├─ IHttpContextAccessor.get_HttpContext
++ ├─ if (_contextAccessor.HttpContext is not null)
++ │  └─ HttpContext.get_Items
++ ├─ if (_contextAccessor.HttpContext?.Items == null)
++ │  ├─ new CannotFindDataError
++ │  │  └─ new Error
++ │  │     └─ new Object
++ │  └─ new ErrorResponse<T>
++ │     ├─ new List<Error>
++ │     ├─ List<T>.Add
++ │     └─ new Response<T>
++ │        └─ new Response (depth limit)
++ ├─ IHttpContextAccessor.get_HttpContext
+  ├─ HttpContext.get_Items
+  ├─ _contextAccessor.HttpContext.Items.TryGetValue
+  ├─ if (_contextAccessor.HttpContext.Items.TryGetValue(key, out var item))
+  └─ else (!(_contextAccessor.HttpContext.Items.TryGetValue(key, out var item)))
+     ├─ new CannotFindDataError
+~    │  └─ new Error (signature changed)
+     │     └─ new Object
+     └─ new ErrorResponse<T>
+
+  HttpDataRepository.Update
+  ├─ try
+  └─ catch (Exception exception)
+-    ├─ Exception.get_Message
+-    ├─ string.Format
+~    ├─ new CannotAddDataError (signature changed) ↑ as above
+     └─ new ErrorResponse
+
+  HttpExceptionToErrorMapper.Map
+  ├─ exception.GetType
+  ├─ if (_mappers != null)
+  ├─ if (_mappers != null && _mappers.TryGetValue(type, out var mapper))
+  ├─ Type.op_Equality
+  ├─ if (type == typeof(TimeoutException))
+  │  └─ new RequestTimedOutError
+~ │     └─ new Error (signature changed) ↑ as above
+  ├─ Type.op_Equality
+  ├─ if (!(type == typeof(OperationCanceledException)))
+  ├─ if (type == typeof(OperationCanceledException) || type.IsSubclassOf(typeof(OperationCanceledExcep…
+  │  ├─ Exception.get_Message
+  │  └─ new RequestCanceledError
+~ │     └─ new Error (signature changed) ↑ as above
++ ├─ if (exception is HttpRequestException)
++ │  ├─ Exception.get_Message
++ │  └─ exception.Message.Contains
++ ├─ if (exception is HttpRequestException && exception.Message.Contains("Request headers must contain…
++ │  └─ new BadRequestError
++ │     └─ new Error
++ │        ├─ new Object
++ │        └─ Exception.get_Message
+  ├─ Type.op_Equality
+  ├─ if (!(type == typeof(HttpRequestException)))
+  ├─ if (type == typeof(HttpRequestException) || type == typeof(TimeoutException))
+  │  ├─ Exception.get_InnerException
+  │  ├─ pattern (exception.InnerException is BadHttpRequestException { StatusCode: StatusCodes.Status413R…
+  │  ├─ if (exception.InnerException is BadHttpRequestException { StatusCode: StatusCodes.Status413Reques…
+  │  │  └─ new PayloadTooLargeError
+  │  │     ├─ Exception.get_Message
+~ │  │     └─ new Error (signature changed)
+  │  └─ new ConnectionToDownstreamServiceError
+~ │     └─ new Error (signature changed) ↑ as above
+  └─ new UnableToCompleteRequestError
+~    └─ new Error (signature changed) ↑ as above
+
+  ErrorsToHttpStatusCodeMapper.Map
+  ├─ errors.Any
+  ├─ errors.Any
+  ├─ errors.Any
+  ├─ if (errors.Any(e => e.Code == OcelotErrorCode.QuotaExceededError))
+  ├─ errors.Any ×4
+  ├─ errors.Any
+  ├─ errors.Any
++ └─ errors.Any
++    └─ Error.get_Code
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  new HttpDataRepository
+  ├─ new Object
++ └─ ArgumentNullException.ThrowIfNull
+
+  HttpDataRepository.Add
+  ├─ try
+  └─ catch (Exception exception)
+-    ├─ Exception.get_Message
+-    ├─ string.Format
+~    ├─ new CannotAddDataError (signature changed)
+~    │  └─ new Error (signature changed)
+     │     ├─ new Object
++    │     └─ Exception.get_Message
+     └─ new ErrorResponse
+
+  HttpDataRepository.Get
+- ├─ if (_contextAccessor is not null)
+- │  ├─ IHttpContextAccessor.get_HttpContext
+- │  └─ if (.HttpContext is not null)
+- │     └─ HttpContext.get_Items
+- ├─ if (_contextAccessor?.HttpContext?.Items == null)
+- │  ├─ new CannotFindDataError
+- │  │  └─ new Error
+- │  │     └─ new Object
+- │  └─ new ErrorResponse<T>
+- │     ├─ new List<Error>
+- │     ├─ List<T>.Add
+- │     └─ new Response<T>
+- │        └─ new Response (depth limit)
+  ├─ IHttpContextAccessor.get_HttpContext
++ ├─ if (_contextAccessor.HttpContext is not null)
++ │  └─ HttpContext.get_Items
++ ├─ if (_contextAccessor.HttpContext?.Items == null)
++ │  ├─ new CannotFindDataError
++ │  │  └─ new Error
++ │  │     └─ new Object
++ │  └─ new ErrorResponse<T>
++ │     ├─ new List<Error>
++ │     ├─ List<T>.Add
++ │     └─ new Response<T>
++ │        └─ new Response (depth limit)
++ ├─ IHttpContextAccessor.get_HttpContext
+  ├─ HttpContext.get_Items
+  ├─ _contextAccessor.HttpContext.Items.TryGetValue
+  ├─ if (_contextAccessor.HttpContext.Items.TryGetValue(key, out var item))
+  └─ else (!(_contextAccessor.HttpContext.Items.TryGetValue(key, out var item)))
+     ├─ new CannotFindDataError
+~    │  └─ new Error (signature changed)
+     │     └─ new Object
+     └─ new ErrorResponse<T>
+
+  HttpDataRepository.Update
+  ├─ try
+  └─ catch (Exception exception)
+-    ├─ Exception.get_Message
+-    ├─ string.Format
+~    ├─ new CannotAddDataError (signature changed) ↑ as above
+     └─ new ErrorResponse
+
+  HttpExceptionToErrorMapper.Map
+  ├─ exception.GetType
+  ├─ if (_mappers != null)
+  ├─ if (_mappers != null && _mappers.TryGetValue(type, out var mapper))
+  ├─ Type.op_Equality
+  ├─ if (type == typeof(TimeoutException))
+  │  └─ new RequestTimedOutError
+~ │     └─ new Error (signature changed) ↑ as above
+  ├─ Type.op_Equality
+  ├─ if (!(type == typeof(OperationCanceledException)))
+  ├─ if (type == typeof(OperationCanceledException) || type.IsSubclassOf(typeof(OperationCanceledExcep…
+  │  ├─ Exception.get_Message
+  │  └─ new RequestCanceledError
+~ │     └─ new Error (signature changed) ↑ as above
++ ├─ if (exception is HttpRequestException)
++ │  ├─ Exception.get_Message
++ │  └─ exception.Message.Contains
++ ├─ if (exception is HttpRequestException && exception.Message.Contains("Request headers must contain…
++ │  └─ new BadRequestError
++ │     └─ new Error
++ │        ├─ new Object
++ │        └─ Exception.get_Message
+  ├─ Type.op_Equality
+  ├─ if (!(type == typeof(HttpRequestException)))
+  ├─ if (type == typeof(HttpRequestException) || type == typeof(TimeoutException))
+  │  ├─ Exception.get_InnerException
+  │  ├─ pattern (exception.InnerException is BadHttpRequestException { StatusCode: StatusCodes.Status413R…
+  │  ├─ if (exception.InnerException is BadHttpRequestException { StatusCode: StatusCodes.Status413Reques…
+  │  │  └─ new PayloadTooLargeError
+  │  │     ├─ Exception.get_Message
+~ │  │     └─ new Error (signature changed)
+  │  └─ new ConnectionToDownstreamServiceError
+~ │     └─ new Error (signature changed) ↑ as above
+  └─ new UnableToCompleteRequestError
+~    └─ new Error (signature changed) ↑ as above
+
+  ErrorsToHttpStatusCodeMapper.Map
+  ├─ errors.Any
+  ├─ errors.Any
+  ├─ errors.Any
+  ├─ if (errors.Any(e => e.Code == OcelotErrorCode.QuotaExceededError))
+  ├─ errors.Any ×4
+  ├─ errors.Any
+  ├─ errors.Any
++ └─ errors.Any
++    └─ Error.get_Code
+```
+stderr:

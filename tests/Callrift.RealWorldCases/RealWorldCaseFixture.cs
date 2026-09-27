@@ -147,6 +147,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             OcelotConsulExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "ocelot-timeout-status")
             OcelotTimeoutExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "ocelot-header-errors")
+            OcelotHeaderErrorExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "ocelot-route-claims-keys")
             OcelotRouteClaimsExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "ocelot-websocket-security")
