@@ -2,11 +2,20 @@
 exit: 0
 stdout:
 + OutcomeUtilities.WithCallerCancellationToken
++ ├─ CancellationToken.get_IsCancellationRequested
++ ├─ if (callerToken.IsCancellationRequested)
++ │  └─ Outcome<TResult>.get_Exception
++ │     ├─ Outcome<TResult>.get_ExceptionDispatchInfo
++ │     └─ if (ExceptionDispatchInfo is not null)
++ │        └─ ExceptionDispatchInfo.get_SourceException
 + ├─ if (callerToken.IsCancellationRequested && outcome.Exception is OperationCanceledException oce)
++ │  ├─ OperationCanceledException.get_CancellationToken
 + │  └─ CancellationToken.op_Inequality
 + └─ if (callerToken.IsCancellationRequested && outcome.Exception is OperationCanceledException oce &&…
++    ├─ Exception.get_Message
 +    ├─ new OperationCanceledException
 +    ├─ ExceptionUtilities.TrySetStackTrace
++    │  ├─ Exception.get_StackTrace
 +    │  ├─ string.IsNullOrWhiteSpace
 +    │  └─ System.Runtime.ExceptionServices.ExceptionDispatchInfo.SetCurrentStackTrace
 +    └─ Outcome.FromException
@@ -32,11 +41,20 @@ exit: 0
 stdout:
 ```diff
 + OutcomeUtilities.WithCallerCancellationToken
++ ├─ CancellationToken.get_IsCancellationRequested
++ ├─ if (callerToken.IsCancellationRequested)
++ │  └─ Outcome<TResult>.get_Exception
++ │     ├─ Outcome<TResult>.get_ExceptionDispatchInfo
++ │     └─ if (ExceptionDispatchInfo is not null)
++ │        └─ ExceptionDispatchInfo.get_SourceException
 + ├─ if (callerToken.IsCancellationRequested && outcome.Exception is OperationCanceledException oce)
++ │  ├─ OperationCanceledException.get_CancellationToken
 + │  └─ CancellationToken.op_Inequality
 + └─ if (callerToken.IsCancellationRequested && outcome.Exception is OperationCanceledException oce &&…
++    ├─ Exception.get_Message
 +    ├─ new OperationCanceledException
 +    ├─ ExceptionUtilities.TrySetStackTrace
++    │  ├─ Exception.get_StackTrace
 +    │  ├─ string.IsNullOrWhiteSpace
 +    │  └─ System.Runtime.ExceptionServices.ExceptionDispatchInfo.SetCurrentStackTrace
 +    └─ Outcome.FromException

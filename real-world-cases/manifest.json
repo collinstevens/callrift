@@ -605,15 +605,16 @@
     "after": "e984839b8324a163270f0bc686929a1066de69e0",
     "beforeLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
     "afterLicenseBlob": "620c5f1faddf428efafc8049e3e3aee5dbaadcea",
-    "reason": "Preserve the caller token through timeout and hedging cancellation",
+    "reason": "Preserve the caller token through timeout and hedging cancellation. Independent pinned source and compiler-binding review verifies short-circuit getter order, guarded exception replacement and the three-argument exception constructor. Automatic roots retain callers; facade getters and sample option setters remain ordered. Source mode uses reflection-based stack-trace code and has missing-import bindings and merged legacy/Core declarations; restored net8.0 uses SetCurrentStackTrace. The long replacement-condition label is truncated; call locations identify the full source condition. The stack-trace helper return-only guard does not constrain subsequent calls. Possible dispatch and bounded expansion do not prove runtime cancellation timing, argument values or complete reachability.",
     "tags": [
       "exception-path",
       "branch-guard",
-      "async"
+      "async",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/polly-coverage.md",
-    "review": "reviews/polly-caller-cancellation.md",
+    "review": "../tests/Callrift.RealWorldCases/PollyCallerCancellationExpectations.cs",
     "views": [
       {
         "id": "source-roots",
