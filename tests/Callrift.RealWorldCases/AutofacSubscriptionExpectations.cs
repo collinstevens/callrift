@@ -18,12 +18,22 @@ internal static class AutofacSubscriptionExpectations
         Assert.Single(result.Diagnostics, diagnostic => diagnostic.Code == "test-project-inferred");
         if (!focused)
         {
-            Assert.Equal(78, result.Trees.Count);
+            Assert.Equal(80, result.Trees.Count);
             Assert.Contains(result.Trees, node => node.Label == "ComponentRegistrationExtensions.ConfigurePipeline" && node.Mark == '+');
             Assert.Contains(result.Trees, node => node.Label == "ComponentRegistrationLifetimeDecorator.ConfigurePipeline" && node.Mark == '-');
             Assert.Contains(result.Trees, node => node.Label == "ComponentRegistrationLifetimeDecorator.remove_PipelineBuilding");
             Assert.Contains(result.Trees, node => node.Label == "Container.BeginLifetimeScope");
             Assert.Contains(result.Trees, node => node.Label == "RegistrationExtensions.RegisterDecorator");
+            Assert.DoesNotContain(result.Trees, node => node.Label == "new FactoryGenerator");
+            var indexer = Assert.Single(result.Trees, node => node.Label == "KeyedServiceIndex<TKey, TValue>.get_Item");
+            Assert.Equal(["KeyedServiceIndex<TKey, TValue>.GetService", "ResolutionExtensions.ResolveService"], indexer.Children.Select(node => node.Label));
+            foreach (var label in new[] { "RegistrationExtensions.AsImplementedInterfaces", "RegistrationExtensions.AsSelf" })
+            {
+                var registration = Assert.Single(result.Trees, node => node.Label == label);
+                var activator = Assert.Single(registration.Children, node => node.Label == "IConcreteActivatorData.get_Activator");
+                Assert.Equal("possible", activator.After!.Dispatch);
+                Assert.Contains(activator.Children, node => node.Label == "⇢ GeneratedFactoryActivatorData.get_Activator" && node.HasChanges);
+            }
             return;
         }
         Assert.Equal(7, result.Trees.Count);
@@ -63,8 +73,13 @@ internal static class AutofacSubscriptionExpectations
         Assert.Contains(forwarding.Children, node => node.Label == "⇢ ComponentRegistrationLifetimeDecorator.add_PipelineBuilding" && node.Omission?.Reason == "cycle");
         var pipeline = Assert.Single(result.Trees, node => node.Label == "ComponentRegistration.BuildResolvePipeline");
         Assert.Equal(pipeline.Before!.SymbolId, pipeline.After!.SymbolId);
-        Assert.Equal(["if (PipelineBuilding is object)", "if (_pipelineBuildEvent is object)", "ComponentRegistration.BuildResolvePipeline"],
+        Assert.Equal(["if (PipelineBuilding is object)", "if (_pipelineBuildEvent is object)", "ComponentRegistration.BuildResolvePipeline", "ComponentRegistration.set_ResolvePipeline"],
             pipeline.Children.Select(node => node.Label));
+        var setter = pipeline.Children[^1];
+        Assert.Equal(' ', setter.Mark);
+        Assert.Equal(setter.Before!.SymbolId, setter.After!.SymbolId);
+        Assert.Contains("protected Autofac.Core.Registration.ComponentRegistration.set_ResolvePipeline", setter.After.Signature);
+        Assert.Equal(248, Assert.Single(setter.After.CallSites).Line);
         var oldInvocation = Assert.Single(pipeline.Children[0].Children);
         var newInvocation = Assert.Single(pipeline.Children[1].Children);
         Assert.Equal("PipelineBuilding.Invoke", oldInvocation.Label);
@@ -78,7 +93,8 @@ internal static class AutofacSubscriptionExpectations
         var guard = Assert.Single(node.Children);
         Assert.Equal("if (_builtComponentPipeline is object)", guard.Label);
         Assert.Equal('+', guard.Mark);
-        var exception = Assert.Single(guard.Children);
+        Assert.Equal(["ComponentRegistrationResources.get_PipelineAlreadyBuilt", "new InvalidOperationException"], guard.Children.Select(node => node.Label));
+        var exception = guard.Children[1];
         Assert.Equal("new InvalidOperationException", exception.Label);
         Assert.Equal(211, Assert.Single(exception.After!.CallSites).Line);
     }

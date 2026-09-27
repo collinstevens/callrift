@@ -2641,7 +2641,7 @@
     "licenseFile": "LICENSE",
     "beforeLicenseBlob": "1cdb1e8cb215bc1e9e34eb6261a6653186c6f183",
     "afterLicenseBlob": "1cdb1e8cb215bc1e9e34eb6261a6653186c6f183",
-    "reason": "Move pipeline configuration from instance and interface methods into an extension method, adding a null receiver guard and moving late-subscription rejection into the custom event add accessor. Preserve decorator forwarding and pipeline building while changing invocation to a backing delegate. Pinned diffs, declarations, compiler bindings, automatic-root connections, diagnostics and locations reviewed independently. Source mode lacks project references and defines. Generated field-like event bodies are not followed or included as interface dispatch targets before the change; custom accessors are followed afterward. Call-free early returns, property access, delegate-field updates and clearing remain unmodeled. Possible callbacks, dispatch and decorator cycles do not prove runtime invocation, receivers or recursion. Restored netstandard2.1 trial exits 2 because pinned global.json requires unavailable SDK 5.0.100 with latestFeature roll-forward.",
+    "reason": "Move pipeline configuration into an extension method, adding a null receiver guard and moving late-subscription rejection into the custom event add accessor. Independent pinned source and compiler-binding review verifies resource lookup before exception construction, decorator forwarding, and pipeline building before its protected setter. The indexer and two registration helpers become affected roots through getter calls; the factory constructor gains a caller and stops being a root. Helper paths include an expression-tree callback, so possible reachability does not prove runtime invocation. Source mode lacks project references and defines. Generated field-like event bodies are not followed or included as interface dispatch targets before the change; custom accessors are followed afterward. Call-free early returns, delegate-field updates and clearing remain unmodeled. Possible dispatch and decorator cycles do not prove runtime receivers or recursion. Upstream tests were read but not executed. Restored netstandard2.1 trial exits 2 because pinned global.json requires unavailable SDK 5.0.100 with latestFeature roll-forward.",
     "tags": [
       "event-accessors",
       "extension-method",
@@ -2650,7 +2650,8 @@
       "branch-guard",
       "exceptions",
       "callback",
-      "automatic-roots"
+      "automatic-roots",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/source-only-coverage.md",

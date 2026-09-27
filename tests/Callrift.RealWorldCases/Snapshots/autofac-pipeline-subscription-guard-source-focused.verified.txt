@@ -11,6 +11,7 @@ stdout:
 + └─ IComponentRegistration.add_PipelineBuilding
 +    ├─ ⇢ ComponentRegistration.add_PipelineBuilding
 +    │  └─ if (_builtComponentPipeline is object)
++    │     ├─ ComponentRegistrationResources.get_PipelineAlreadyBuilt (depth limit)
 +    │     └─ new InvalidOperationException
 +    └─ ⇢ ComponentRegistrationLifetimeDecorator.add_PipelineBuilding
 +       └─ IComponentRegistration.add_PipelineBuilding
@@ -22,25 +23,31 @@ stdout:
 - │  └─ PipelineBuilding.Invoke
 + ├─ if (_pipelineBuildEvent is object)
 + │  └─ _pipelineBuildEvent.Invoke
-  └─ ComponentRegistration.BuildResolvePipeline
-     ├─ ⇢ ComponentRegistration.BuildResolvePipeline
-     │  ├─ ComponentRegistration.HasStartableService (depth limit)
-     │  ├─ if (HasStartableService())
-     │  ├─ if (Ownership == InstanceOwnership.OwnedByLifetimeScope)
-     │  ├─ possible initialization of ActivatorErrorHandlingMiddleware
-     │  ├─ IResolvePipelineBuilder.Use
-     │  ├─ IInstanceActivator.ConfigurePipeline
-     │  │  ├─ ⇢ DelegateActivator.ConfigurePipeline (depth limit)
-     │  │  ├─ ⇢ ProvidedInstanceActivator.ConfigurePipeline (depth limit)
-~    │  │  ├─ ⇢ ReflectionActivator.ConfigurePipeline (changes below depth limit)
-     │  │  └─ ⇢ ExternalComponentRegistration.NoOpActivator.ConfigurePipeline (depth limit)
-     │  └─ IResolvePipelineBuilder.Build
-     └─ ⇢ ExternalComponentRegistration.BuildResolvePipeline
+  ├─ ComponentRegistration.BuildResolvePipeline
+  │  ├─ ⇢ ComponentRegistration.BuildResolvePipeline
+  │  │  ├─ ComponentRegistration.HasStartableService (depth limit)
+  │  │  ├─ if (HasStartableService())
+  │  │  ├─ ComponentRegistration.get_Ownership
+  │  │  ├─ if (Ownership == InstanceOwnership.OwnedByLifetimeScope)
+  │  │  ├─ ActivatorErrorHandlingMiddleware.get_Instance (depth limit)
+  │  │  ├─ IResolvePipelineBuilder.Use
+  │  │  ├─ ComponentRegistration.get_Activator
+  │  │  ├─ IInstanceActivator.ConfigurePipeline
+  │  │  │  ├─ ⇢ DelegateActivator.ConfigurePipeline (depth limit)
+  │  │  │  ├─ ⇢ ProvidedInstanceActivator.ConfigurePipeline (depth limit)
+~ │  │  │  ├─ ⇢ ReflectionActivator.ConfigurePipeline (changes below depth limit)
+  │  │  │  └─ ⇢ ExternalComponentRegistration.NoOpActivator.ConfigurePipeline (depth limit)
+  │  │  └─ IResolvePipelineBuilder.Build
+  │  └─ ⇢ ExternalComponentRegistration.BuildResolvePipeline
+  └─ ComponentRegistration.set_ResolvePipeline
 
 - ComponentRegistration.ConfigurePipeline
 - ├─ if (configurationAction is null)
 - │  └─ new ArgumentNullException
 - ├─ if (_builtComponentPipeline is object)
+- │  ├─ ComponentRegistrationResources.get_PipelineAlreadyBuilt
+- │  │  ├─ ComponentRegistrationResources.get_ResourceManager (depth limit)
+- │  │  └─ ResourceManager.GetString
 - │  └─ new InvalidOperationException
 - ├─ callback
 - │  └─ configurationAction
@@ -48,6 +55,9 @@ stdout:
 
   ComponentRegistration.add_PipelineBuilding
 + └─ if (_builtComponentPipeline is object)
++    ├─ ComponentRegistrationResources.get_PipelineAlreadyBuilt
++    │  ├─ ComponentRegistrationResources.get_ResourceManager (depth limit)
++    │  └─ ResourceManager.GetString
 +    └─ new InvalidOperationException
 
 ~ ComponentRegistration.remove_PipelineBuilding (body changed; visible calls unchanged)
@@ -58,6 +68,7 @@ stdout:
 -    │  ├─ if (configurationAction is null)
 -    │  │  └─ new ArgumentNullException
 -    │  ├─ if (_builtComponentPipeline is object)
+-    │  │  ├─ ComponentRegistrationResources.get_PipelineAlreadyBuilt (depth limit)
 -    │  │  └─ new InvalidOperationException
 -    │  ├─ callback
 -    │  │  └─ configurationAction
@@ -93,6 +104,7 @@ stdout:
 + └─ IComponentRegistration.add_PipelineBuilding
 +    ├─ ⇢ ComponentRegistration.add_PipelineBuilding
 +    │  └─ if (_builtComponentPipeline is object)
++    │     ├─ ComponentRegistrationResources.get_PipelineAlreadyBuilt (depth limit)
 +    │     └─ new InvalidOperationException
 +    └─ ⇢ ComponentRegistrationLifetimeDecorator.add_PipelineBuilding
 +       └─ IComponentRegistration.add_PipelineBuilding
@@ -104,25 +116,31 @@ stdout:
 - │  └─ PipelineBuilding.Invoke
 + ├─ if (_pipelineBuildEvent is object)
 + │  └─ _pipelineBuildEvent.Invoke
-  └─ ComponentRegistration.BuildResolvePipeline
-     ├─ ⇢ ComponentRegistration.BuildResolvePipeline
-     │  ├─ ComponentRegistration.HasStartableService (depth limit)
-     │  ├─ if (HasStartableService())
-     │  ├─ if (Ownership == InstanceOwnership.OwnedByLifetimeScope)
-     │  ├─ possible initialization of ActivatorErrorHandlingMiddleware
-     │  ├─ IResolvePipelineBuilder.Use
-     │  ├─ IInstanceActivator.ConfigurePipeline
-     │  │  ├─ ⇢ DelegateActivator.ConfigurePipeline (depth limit)
-     │  │  ├─ ⇢ ProvidedInstanceActivator.ConfigurePipeline (depth limit)
-~    │  │  ├─ ⇢ ReflectionActivator.ConfigurePipeline (changes below depth limit)
-     │  │  └─ ⇢ ExternalComponentRegistration.NoOpActivator.ConfigurePipeline (depth limit)
-     │  └─ IResolvePipelineBuilder.Build
-     └─ ⇢ ExternalComponentRegistration.BuildResolvePipeline
+  ├─ ComponentRegistration.BuildResolvePipeline
+  │  ├─ ⇢ ComponentRegistration.BuildResolvePipeline
+  │  │  ├─ ComponentRegistration.HasStartableService (depth limit)
+  │  │  ├─ if (HasStartableService())
+  │  │  ├─ ComponentRegistration.get_Ownership
+  │  │  ├─ if (Ownership == InstanceOwnership.OwnedByLifetimeScope)
+  │  │  ├─ ActivatorErrorHandlingMiddleware.get_Instance (depth limit)
+  │  │  ├─ IResolvePipelineBuilder.Use
+  │  │  ├─ ComponentRegistration.get_Activator
+  │  │  ├─ IInstanceActivator.ConfigurePipeline
+  │  │  │  ├─ ⇢ DelegateActivator.ConfigurePipeline (depth limit)
+  │  │  │  ├─ ⇢ ProvidedInstanceActivator.ConfigurePipeline (depth limit)
+~ │  │  │  ├─ ⇢ ReflectionActivator.ConfigurePipeline (changes below depth limit)
+  │  │  │  └─ ⇢ ExternalComponentRegistration.NoOpActivator.ConfigurePipeline (depth limit)
+  │  │  └─ IResolvePipelineBuilder.Build
+  │  └─ ⇢ ExternalComponentRegistration.BuildResolvePipeline
+  └─ ComponentRegistration.set_ResolvePipeline
 
 - ComponentRegistration.ConfigurePipeline
 - ├─ if (configurationAction is null)
 - │  └─ new ArgumentNullException
 - ├─ if (_builtComponentPipeline is object)
+- │  ├─ ComponentRegistrationResources.get_PipelineAlreadyBuilt
+- │  │  ├─ ComponentRegistrationResources.get_ResourceManager (depth limit)
+- │  │  └─ ResourceManager.GetString
 - │  └─ new InvalidOperationException
 - ├─ callback
 - │  └─ configurationAction
@@ -130,6 +148,9 @@ stdout:
 
   ComponentRegistration.add_PipelineBuilding
 + └─ if (_builtComponentPipeline is object)
++    ├─ ComponentRegistrationResources.get_PipelineAlreadyBuilt
++    │  ├─ ComponentRegistrationResources.get_ResourceManager (depth limit)
++    │  └─ ResourceManager.GetString
 +    └─ new InvalidOperationException
 
 ~ ComponentRegistration.remove_PipelineBuilding (body changed; visible calls unchanged)
@@ -140,6 +161,7 @@ stdout:
 -    │  ├─ if (configurationAction is null)
 -    │  │  └─ new ArgumentNullException
 -    │  ├─ if (_builtComponentPipeline is object)
+-    │  │  ├─ ComponentRegistrationResources.get_PipelineAlreadyBuilt (depth limit)
 -    │  │  └─ new InvalidOperationException
 -    │  ├─ callback
 -    │  │  └─ configurationAction
