@@ -3633,5 +3633,51 @@
     "beforeLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
     "afterLicenseBlob": "e89fb634a4319b9488446ec6fb04e58cdbb1f2ad",
     "review": "../tests/Callrift.RealWorldCases/AutofacFactoryCacheExpectations.cs"
+  },
+  {
+    "repository": "https://github.com/serilog/serilog.git",
+    "cacheName": "serilog",
+    "license": "Apache-2.0",
+    "licenseFile": "LICENSE",
+    "id": "serilog-dotted-properties",
+    "before": "6b5412f4ddd572435a768f50ec4e9d7c114a6487",
+    "after": "0e316b7cb072ee660b97976098b1bbdb20ac6da0",
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "2"
+        ]
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--depth",
+          "4",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "MessageTemplateParser.ParsePropertyToken",
+          "--entry",
+          "MessageTemplateParser..ctor()"
+        ]
+      }
+    ],
+    "reason": "Stabilize dotted property names and reject malformed numeric or dotted identifiers. Focused source views remove feature-switch initialization and constructor forwarding, replace IsValidInPropertyName with a static ref-state helper, expose digit/name loops and the trailing-identifier TextToken fallback, and preserve format/alignment validation. Automatic roots retain 113 logging and formatting entry points with independently bound paths to changed members. Review covers 231 signatures (213 exact prior declarations and 18 newly read), 664 source edge/root checks, 97 metadata checks and 2377 locations. All six formats repeat exactly. Call-free dot/underscore state updates and returns are absent, so the graph does not prove the accepted grammar or branch exclusivity. Range expressions show Index conversion but omit compiler-lowered substring calls. Possible dispatch does not prove runtime execution; removed constructor initialization does not mean all static initialization disappears. Restored net8.0 trial with the pinned .NET 9 SDK exits 2 because Microsoft.Build.Tasks.Git 8.0.0 triggers NU1902 treated as an error; no dependency changes or audit override applied. Upstream test changes were read but not executed.",
+    "tags": [
+      "parsing",
+      "guards",
+      "ref-parameters",
+      "constructors",
+      "static-initialization",
+      "conversions"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "beforeLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "afterLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "review": "../tests/Callrift.RealWorldCases/SerilogDottedPropertyExpectations.cs"
   }
 ]

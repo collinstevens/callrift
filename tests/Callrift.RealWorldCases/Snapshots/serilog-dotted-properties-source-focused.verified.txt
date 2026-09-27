@@ -1,0 +1,175 @@
+﻿format: text
+exit: 0
+stdout:
+  new MessageTemplateParser
+- ├─ possible initialization of MessageTemplateParser
+- │  └─ initialization of MessageTemplateParser
+- │     ├─ AppContext.TryGetSwitch
+- │     └─ new TextToken
+- │        ├─ new MessageTemplateToken (depth limit)
+- │        └─ Guard.AgainstNull (depth limit)
+- ├─ new MessageTemplateParser
+- │  └─ new Object
++ └─ new Object
+
+  MessageTemplateParser.ParsePropertyToken
+  ├─ messageTemplate.IndexOf
+  ├─ if (startAt == -1)
+  │  ├─ String.get_Length
+- │  ├─ messageTemplate.Substring
++ │  ├─ Index.op_Implicit
+  │  └─ new TextToken
+  ├─ messageTemplate.Substring
+  ├─ rawText.Substring
+  ├─ String.get_Length
+  ├─ if (tagContent.Length == 0)
+  ├─ MessageTemplateParser.TrySplitTagContent
+  │  ├─ tagContent.IndexOf ×2
+  │  ├─ if (alignmentDelim == -1 || (formatDelim != -1 && alignmentDelim > formatDelim))
+- │  │  ├─ tagContent.Substring
++ │  │  ├─ Index.op_Implicit
+  │  │  ├─ String.get_Length
+  │  │  └─ else (!(formatDelim == tagContent.Length - 1))
+- │  ├─ tagContent.Substring
++ │  ├─ Index.op_Implicit
+  │  ├─ if (formatDelim == -1)
+  │  │  ├─ String.get_Length
+- │  │  ├─ tagContent.Substring
++ │  │  └─ Index.op_Implicit
+  │  ├─ tagContent.Substring
+  │  ├─ String.get_Length
+  │  └─ else (!(formatDelim == tagContent.Length - 1))
+- │     ├─ tagContent.Substring
++ │     └─ Index.op_Implicit
+  ├─ if (!TrySplitTagContent(tagContent, out var propertyNameAndDestructuring, out var format, out var…
+  ├─ String.get_Length
+  ├─ if (propertyName.Length != 0)
+  ├─ if (propertyName.Length != 0 && TryGetDestructuringHint(propertyName[0], out destructuring))
+- │  ├─ propertyName.Substring
++ │  └─ Index.op_Implicit
+  ├─ String.get_Length
+  ├─ if (propertyName.Length == 0)
+- ├─ for (i < propertyName.Length)
+- │  ├─ String.get_Length
+- │  ├─ String.get_Chars
+- │  ├─ MessageTemplateParser.IsValidInPropertyName
+- │  │  └─ char.IsLetterOrDigit
+- │  └─ if (!IsValidInPropertyName(c))
+- │     └─ new TextToken ↑ as above
++ ├─ String.get_Chars
++ ├─ char.IsDigit
++ ├─ if (char.IsDigit(propertyName[0]))
++ │  └─ for (i < propertyName.Length)
++ │     ├─ String.get_Length
++ │     ├─ String.get_Chars
++ │     ├─ char.IsDigit
++ │     └─ if (!char.IsDigit(c))
++ │        └─ new TextToken (depth limit)
++ ├─ else (!(char.IsDigit(propertyName[0])))
++ │  ├─ for (i < propertyName.Length)
++ │  │  ├─ String.get_Length
++ │  │  ├─ String.get_Chars
++ │  │  ├─ MessageTemplateParser.TryContinuePropertyName
++ │  │  │  ├─ if (beginIdent)
++ │  │  │  │  └─ char.IsLetter
++ │  │  │  └─ char.IsLetterOrDigit
++ │  │  └─ if (!TryContinuePropertyName(c, ref beginIdent))
++ │  │     └─ new TextToken (depth limit)
++ │  └─ if (beginIdent)
++ │     └─ new TextToken
++ │        ├─ new MessageTemplateToken (depth limit)
++ │        └─ Guard.AgainstNull (depth limit)
+  ├─ if (format != null)
+  ├─ if (alignment != null)
+  └─ new PropertyToken
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
+
+format: md
+exit: 0
+stdout:
+```diff
+  new MessageTemplateParser
+- ├─ possible initialization of MessageTemplateParser
+- │  └─ initialization of MessageTemplateParser
+- │     ├─ AppContext.TryGetSwitch
+- │     └─ new TextToken
+- │        ├─ new MessageTemplateToken (depth limit)
+- │        └─ Guard.AgainstNull (depth limit)
+- ├─ new MessageTemplateParser
+- │  └─ new Object
++ └─ new Object
+
+  MessageTemplateParser.ParsePropertyToken
+  ├─ messageTemplate.IndexOf
+  ├─ if (startAt == -1)
+  │  ├─ String.get_Length
+- │  ├─ messageTemplate.Substring
++ │  ├─ Index.op_Implicit
+  │  └─ new TextToken
+  ├─ messageTemplate.Substring
+  ├─ rawText.Substring
+  ├─ String.get_Length
+  ├─ if (tagContent.Length == 0)
+  ├─ MessageTemplateParser.TrySplitTagContent
+  │  ├─ tagContent.IndexOf ×2
+  │  ├─ if (alignmentDelim == -1 || (formatDelim != -1 && alignmentDelim > formatDelim))
+- │  │  ├─ tagContent.Substring
++ │  │  ├─ Index.op_Implicit
+  │  │  ├─ String.get_Length
+  │  │  └─ else (!(formatDelim == tagContent.Length - 1))
+- │  ├─ tagContent.Substring
++ │  ├─ Index.op_Implicit
+  │  ├─ if (formatDelim == -1)
+  │  │  ├─ String.get_Length
+- │  │  ├─ tagContent.Substring
++ │  │  └─ Index.op_Implicit
+  │  ├─ tagContent.Substring
+  │  ├─ String.get_Length
+  │  └─ else (!(formatDelim == tagContent.Length - 1))
+- │     ├─ tagContent.Substring
++ │     └─ Index.op_Implicit
+  ├─ if (!TrySplitTagContent(tagContent, out var propertyNameAndDestructuring, out var format, out var…
+  ├─ String.get_Length
+  ├─ if (propertyName.Length != 0)
+  ├─ if (propertyName.Length != 0 && TryGetDestructuringHint(propertyName[0], out destructuring))
+- │  ├─ propertyName.Substring
++ │  └─ Index.op_Implicit
+  ├─ String.get_Length
+  ├─ if (propertyName.Length == 0)
+- ├─ for (i < propertyName.Length)
+- │  ├─ String.get_Length
+- │  ├─ String.get_Chars
+- │  ├─ MessageTemplateParser.IsValidInPropertyName
+- │  │  └─ char.IsLetterOrDigit
+- │  └─ if (!IsValidInPropertyName(c))
+- │     └─ new TextToken ↑ as above
++ ├─ String.get_Chars
++ ├─ char.IsDigit
++ ├─ if (char.IsDigit(propertyName[0]))
++ │  └─ for (i < propertyName.Length)
++ │     ├─ String.get_Length
++ │     ├─ String.get_Chars
++ │     ├─ char.IsDigit
++ │     └─ if (!char.IsDigit(c))
++ │        └─ new TextToken (depth limit)
++ ├─ else (!(char.IsDigit(propertyName[0])))
++ │  ├─ for (i < propertyName.Length)
++ │  │  ├─ String.get_Length
++ │  │  ├─ String.get_Chars
++ │  │  ├─ MessageTemplateParser.TryContinuePropertyName
++ │  │  │  ├─ if (beginIdent)
++ │  │  │  │  └─ char.IsLetter
++ │  │  │  └─ char.IsLetterOrDigit
++ │  │  └─ if (!TryContinuePropertyName(c, ref beginIdent))
++ │  │     └─ new TextToken (depth limit)
++ │  └─ if (beginIdent)
++ │     └─ new TextToken
++ │        ├─ new MessageTemplateToken (depth limit)
++ │        └─ Guard.AgainstNull (depth limit)
+  ├─ if (format != null)
+  ├─ if (alignment != null)
+  └─ new PropertyToken
+```
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.

@@ -91,6 +91,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             SerilogRestrictedListenerExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "autofac-factory-cache")
             AutofacFactoryCacheExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "serilog-dotted-properties")
+            SerilogDottedPropertyExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "serilog-exception-format")
             SerilogAccessorExpectations.VerifyExceptionFormatting(result);
         if (entry.Id == "serilog-extra-arguments")

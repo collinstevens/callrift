@@ -1,0 +1,943 @@
+﻿format: text
+exit: 0
+stdout:
+  LoggerAuditSinkConfiguration.Logger
+  └─ LoggerSinkConfiguration.Logger
+     ├─ …
+     ├─ LoggerConfiguration.get_MinimumLevel (depth limit)
+     ├─ LoggerMinimumLevelConfiguration.Is
+~    ├─ LoggerConfiguration.CreateLogger (changes below depth limit)
+     ├─ Logger.get_HasOverrideMap
+     ├─ if (subLogger.HasOverrideMap)
+     └─ …
+
+  Logger.Debug
+  ├─ possible initialization of Logger
+  └─ Logger.Write
+     ├─ Logger.IsEnabled (depth limit)
+~    ├─ MessageTemplateProcessor.Process (changes below depth limit)
+     ├─ new LogEvent (depth limit)
+     └─ Logger.Dispatch (depth limit)
+
+  Logger.Debug
+  ├─ possible initialization of Logger
+  └─ Logger.Write
+~    └─ Logger.Write (changes below depth limit)
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled (depth limit)
+     └─ if (IsEnabled(level))
+~       └─ Logger.Write (changes below depth limit)
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled (depth limit)
+     └─ if (IsEnabled(level))
+~       └─ Logger.Write (changes below depth limit)
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled (depth limit)
+     └─ if (IsEnabled(level))
+~       └─ Logger.Write (changes below depth limit)
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled (depth limit)
+     └─ if (IsEnabled(level))
+~       └─ Logger.Write (changes below depth limit)
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled (depth limit)
+     └─ if (IsEnabled(level))
+~       └─ Logger.Write (changes below depth limit)
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled (depth limit)
+     └─ if (IsEnabled(level))
+~       └─ Logger.Write (changes below depth limit)
+
+  Logger.Error
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  new MessageTemplateTextFormatter
+  ├─ Guard.AgainstNull
+  ├─ new MessageTemplateParser
+- │  ├─ possible initialization of MessageTemplateParser
+- │  │  └─ initialization of MessageTemplateParser (changes below depth limit)
+- │  └─ new MessageTemplateParser
+  └─ MessageTemplateParser.Parse
+     ├─ Guard.AgainstNull
+~    ├─ MessageTemplateParser.Tokenize (changes below depth limit)
+     └─ new MessageTemplate (depth limit)
+
+  Log.BindMessageTemplate
+  ├─ Log.get_Logger
+  └─ ILogger.BindMessageTemplate
+~    ├─ ⇢ Logger.BindMessageTemplate (changes below depth limit)
+     └─ ⇢ SilentLogger.BindMessageTemplate
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger (depth limit)
+     └─ ILogger.Write
+~       ├─ ⇢ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  ├─ Log.get_Logger
+  └─ ILogger.Debug
+~    ├─ ⇢ Logger.Debug (changes below depth limit)
+     └─ ⇢ SilentLogger.Debug
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger (depth limit)
+     └─ ILogger.Write
+~       ├─ ⇢ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  ├─ Log.get_Logger
+  └─ ILogger.Debug
+~    ├─ ⇢ Logger.Debug (changes below depth limit)
+     └─ ⇢ SilentLogger.Debug
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger (depth limit)
+     └─ ILogger.Write
+~       ├─ ⇢ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger (depth limit)
+     └─ ILogger.Write
+~       ├─ ⇢ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger (depth limit)
+     └─ ILogger.Write
+~       ├─ ⇢ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger (depth limit)
+     └─ ILogger.Write
+~       ├─ ⇢ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger (depth limit)
+     └─ ILogger.Write
+~       ├─ ⇢ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger (depth limit)
+     └─ ILogger.Write
+~       ├─ ⇢ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  ├─ Log.get_Logger
+  └─ ILogger.Error
+~    ├─ ⇢ Logger.Error (changes below depth limit)
+     └─ ⇢ SilentLogger.Error
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  ├─ Log.get_Logger
+  └─ ILogger.Error
+~    ├─ ⇢ Logger.Error (changes below depth limit)
+     └─ ⇢ SilentLogger.Error
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  ├─ Log.get_Logger
+  └─ ILogger.Fatal
+~    ├─ ⇢ Logger.Fatal (changes below depth limit)
+     └─ ⇢ SilentLogger.Fatal
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  ├─ Log.get_Logger
+  └─ ILogger.Fatal
+~    ├─ ⇢ Logger.Fatal (changes below depth limit)
+     └─ ⇢ SilentLogger.Fatal
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  ├─ Log.get_Logger
+  └─ ILogger.Information
+~    ├─ ⇢ Logger.Information (changes below depth limit)
+     └─ ⇢ SilentLogger.Information
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  ├─ Log.get_Logger
+  └─ ILogger.Information
+~    ├─ ⇢ Logger.Information (changes below depth limit)
+     └─ ⇢ SilentLogger.Information
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  ├─ Log.get_Logger
+  └─ ILogger.Verbose
+~    ├─ ⇢ Logger.Verbose (changes below depth limit)
+     └─ ⇢ SilentLogger.Verbose
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  ├─ Log.get_Logger
+  └─ ILogger.Verbose
+~    ├─ ⇢ Logger.Verbose (changes below depth limit)
+     └─ ⇢ SilentLogger.Verbose
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  ├─ Log.get_Logger
+  └─ ILogger.Warning
+~    ├─ ⇢ Logger.Warning (changes below depth limit)
+     └─ ⇢ SilentLogger.Warning
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  ├─ Log.get_Logger
+  └─ ILogger.Warning
+~    ├─ ⇢ Logger.Warning (changes below depth limit)
+     └─ ⇢ SilentLogger.Warning
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Write
+  ├─ Log.get_Logger
+  └─ ILogger.Write
+~    ├─ ⇢ Logger.Write (changes below depth limit)
+     └─ ⇢ SilentLogger.Write
+
+  Log.Write
+  ├─ Log.get_Logger
+  └─ ILogger.Write
+~    ├─ ⇢ Logger.Write (changes below depth limit)
+     └─ ⇢ SilentLogger.Write
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
+
+format: md
+exit: 0
+stdout:
+```diff
+  LoggerAuditSinkConfiguration.Logger
+  └─ LoggerSinkConfiguration.Logger
+     ├─ …
+     ├─ LoggerConfiguration.get_MinimumLevel (depth limit)
+     ├─ LoggerMinimumLevelConfiguration.Is
+~    ├─ LoggerConfiguration.CreateLogger (changes below depth limit)
+     ├─ Logger.get_HasOverrideMap
+     ├─ if (subLogger.HasOverrideMap)
+     └─ …
+
+  Logger.Debug
+  ├─ possible initialization of Logger
+  └─ Logger.Write
+     ├─ Logger.IsEnabled (depth limit)
+~    ├─ MessageTemplateProcessor.Process (changes below depth limit)
+     ├─ new LogEvent (depth limit)
+     └─ Logger.Dispatch (depth limit)
+
+  Logger.Debug
+  ├─ possible initialization of Logger
+  └─ Logger.Write
+~    └─ Logger.Write (changes below depth limit)
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled (depth limit)
+     └─ if (IsEnabled(level))
+~       └─ Logger.Write (changes below depth limit)
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled (depth limit)
+     └─ if (IsEnabled(level))
+~       └─ Logger.Write (changes below depth limit)
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled (depth limit)
+     └─ if (IsEnabled(level))
+~       └─ Logger.Write (changes below depth limit)
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled (depth limit)
+     └─ if (IsEnabled(level))
+~       └─ Logger.Write (changes below depth limit)
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled (depth limit)
+     └─ if (IsEnabled(level))
+~       └─ Logger.Write (changes below depth limit)
+
+  Logger.Debug
+  └─ Logger.Write
+     ├─ Logger.IsEnabled (depth limit)
+     └─ if (IsEnabled(level))
+~       └─ Logger.Write (changes below depth limit)
+
+  Logger.Error
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Error
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Fatal
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Information
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Verbose
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  ├─ possible initialization of Logger
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  Logger.Warning
+  └─ Logger.Write ↑ as above
+
+  new MessageTemplateTextFormatter
+  ├─ Guard.AgainstNull
+  ├─ new MessageTemplateParser
+- │  ├─ possible initialization of MessageTemplateParser
+- │  │  └─ initialization of MessageTemplateParser (changes below depth limit)
+- │  └─ new MessageTemplateParser
+  └─ MessageTemplateParser.Parse
+     ├─ Guard.AgainstNull
+~    ├─ MessageTemplateParser.Tokenize (changes below depth limit)
+     └─ new MessageTemplate (depth limit)
+
+  Log.BindMessageTemplate
+  ├─ Log.get_Logger
+  └─ ILogger.BindMessageTemplate
+~    ├─ ⇢ Logger.BindMessageTemplate (changes below depth limit)
+     └─ ⇢ SilentLogger.BindMessageTemplate
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger (depth limit)
+     └─ ILogger.Write
+~       ├─ ⇢ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  ├─ Log.get_Logger
+  └─ ILogger.Debug
+~    ├─ ⇢ Logger.Debug (changes below depth limit)
+     └─ ⇢ SilentLogger.Debug
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger (depth limit)
+     └─ ILogger.Write
+~       ├─ ⇢ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  ├─ Log.get_Logger
+  └─ ILogger.Debug
+~    ├─ ⇢ Logger.Debug (changes below depth limit)
+     └─ ⇢ SilentLogger.Debug
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger (depth limit)
+     └─ ILogger.Write
+~       ├─ ⇢ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger (depth limit)
+     └─ ILogger.Write
+~       ├─ ⇢ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger (depth limit)
+     └─ ILogger.Write
+~       ├─ ⇢ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger (depth limit)
+     └─ ILogger.Write
+~       ├─ ⇢ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger (depth limit)
+     └─ ILogger.Write
+~       ├─ ⇢ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Debug
+  └─ Log.Write
+     ├─ Log.get_Logger (depth limit)
+     └─ ILogger.Write
+~       ├─ ⇢ Logger.Write (changes below depth limit)
+        └─ ⇢ SilentLogger.Write
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  ├─ Log.get_Logger
+  └─ ILogger.Error
+~    ├─ ⇢ Logger.Error (changes below depth limit)
+     └─ ⇢ SilentLogger.Error
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  ├─ Log.get_Logger
+  └─ ILogger.Error
+~    ├─ ⇢ Logger.Error (changes below depth limit)
+     └─ ⇢ SilentLogger.Error
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Error
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  ├─ Log.get_Logger
+  └─ ILogger.Fatal
+~    ├─ ⇢ Logger.Fatal (changes below depth limit)
+     └─ ⇢ SilentLogger.Fatal
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  ├─ Log.get_Logger
+  └─ ILogger.Fatal
+~    ├─ ⇢ Logger.Fatal (changes below depth limit)
+     └─ ⇢ SilentLogger.Fatal
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Fatal
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  ├─ Log.get_Logger
+  └─ ILogger.Information
+~    ├─ ⇢ Logger.Information (changes below depth limit)
+     └─ ⇢ SilentLogger.Information
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  ├─ Log.get_Logger
+  └─ ILogger.Information
+~    ├─ ⇢ Logger.Information (changes below depth limit)
+     └─ ⇢ SilentLogger.Information
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Information
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  ├─ Log.get_Logger
+  └─ ILogger.Verbose
+~    ├─ ⇢ Logger.Verbose (changes below depth limit)
+     └─ ⇢ SilentLogger.Verbose
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  ├─ Log.get_Logger
+  └─ ILogger.Verbose
+~    ├─ ⇢ Logger.Verbose (changes below depth limit)
+     └─ ⇢ SilentLogger.Verbose
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Verbose
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  ├─ Log.get_Logger
+  └─ ILogger.Warning
+~    ├─ ⇢ Logger.Warning (changes below depth limit)
+     └─ ⇢ SilentLogger.Warning
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  ├─ Log.get_Logger
+  └─ ILogger.Warning
+~    ├─ ⇢ Logger.Warning (changes below depth limit)
+     └─ ⇢ SilentLogger.Warning
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Warning
+  └─ Log.Write ↑ as above
+
+  Log.Write
+  ├─ Log.get_Logger
+  └─ ILogger.Write
+~    ├─ ⇢ Logger.Write (changes below depth limit)
+     └─ ⇢ SilentLogger.Write
+
+  Log.Write
+  ├─ Log.get_Logger
+  └─ ILogger.Write
+~    ├─ ⇢ Logger.Write (changes below depth limit)
+     └─ ⇢ SilentLogger.Write
+```
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
