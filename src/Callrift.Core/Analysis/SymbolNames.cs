@@ -150,6 +150,8 @@ internal sealed class SymbolNames(Func<IMethodSymbol, string>? scope = null, Fun
     private string? Scope(IMethodSymbol method)
     {
         var identity = scope?.Invoke(method);
+        if (method.DeclaringSyntaxReferences.FirstOrDefault() is { } entry && entry.GetSyntax() is CompilationUnitSyntax)
+            return (identity ?? "source") + "/file:" + (declaringPath?.Invoke(method, entry.SyntaxTree.FilePath) ?? Path(entry.SyntaxTree.FilePath));
         for (var type = method.ContainingType; type is not null; type = type.ContainingType)
             if (type.IsFileLocal && type.DeclaringSyntaxReferences.FirstOrDefault() is { } declaration)
                 return (identity ?? "source") + "/file:" + (declaringPath?.Invoke(method, declaration.SyntaxTree.FilePath) ?? Path(declaration.SyntaxTree.FilePath));
