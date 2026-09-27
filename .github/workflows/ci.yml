@@ -84,7 +84,10 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         suite: [Scenarios, Workspaces, Cases]
-        shard: [A, B]
+        shard: [A, B, C]
+        exclude:
+          - suite: Scenarios
+            shard: C
         include:
           - suite: Scenarios
             project: Callrift.Scenarios
@@ -109,12 +112,12 @@ jobs:
         if: matrix.suite == 'Cases'
         with:
           path: ${{ runner.temp }}/callrift-real-world-cases
-          key: cases-${{ runner.os }}-${{ matrix.shard }}-${{ hashFiles('real-world-cases/manifest.json', 'scripts/Test-ShardA.json') }}
+          key: cases-${{ runner.os }}-${{ matrix.shard }}-${{ hashFiles('real-world-cases/manifest.json', 'scripts/Test-Shards.json') }}
       - uses: actions/cache@v4
         if: matrix.suite != 'Scenarios'
         with:
           path: ~/.nuget/packages
-          key: nuget-${{ runner.os }}-${{ matrix.suite }}-${{ matrix.shard }}-${{ hashFiles('**/packages.lock.json', 'mise.toml', 'real-world-cases/manifest.json', 'scripts/Test-ShardA.json', 'tests/**/*.cs') }}
+          key: nuget-${{ runner.os }}-${{ matrix.suite }}-${{ matrix.shard }}-${{ hashFiles('**/packages.lock.json', 'mise.toml', 'real-world-cases/manifest.json', 'scripts/Test-Shards.json', 'tests/**/*.cs') }}
       - run: ./.github/scripts/Initialize-TestGit.ps1
       - run: dotnet restore tests/${{ matrix.project }}/${{ matrix.project }}.csproj --locked-mode
       - run: dotnet build tests/${{ matrix.project }}/${{ matrix.project }}.csproj --no-restore

@@ -10,6 +10,7 @@ public sealed class WorkspaceCollectionOrderer : ITestCollectionOrderer
     private static readonly IReadOnlyDictionary<string, int> Priorities = new[]
     {
         typeof(FrameworkDispatchTests),
+        typeof(NestedFrameworkDispatchTests),
         typeof(WorkspaceTests),
         typeof(InterceptorTests),
         typeof(ExplicitInterceptorTests),

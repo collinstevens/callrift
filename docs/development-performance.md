@@ -2205,3 +2205,87 @@ minutes. Windows workspace/case A and macOS workspace A miss their command
 budgets. This run populates the package cache; it cannot establish the benefit
 of restoring it. The following documentation-only checkpoint keeps all code,
 partition and package keys unchanged for that comparison.
+
+[Cache-hit run 36294683341](https://github.com/collinstevens/callrift/actions/runs/36294683341)
+at `d5783e5` passed all required jobs and explicitly restored all six repository
+and twelve package caches. Package entries were 132–329 MiB compressed; restoring
+and extracting them took 2–15 s each, 76 s in aggregate. Their combined compressed
+size was 2.40 GiB. This is a measurable transfer/storage cost, not free setup.
+
+| Complete dotnet command | Ubuntu | Windows | macOS |
+|---|---:|---:|---:|
+| Scenarios A / B | 207.77 / 192.06 s | 255.77 / 207.39 s | 130.41 / 121.77 s |
+| Workspaces A / B | 111.03 / 53.42 s | 136.66 / 116.46 s | 66.40 / 102.78 s |
+| Warm cases A / B | 159.15 / 137.37 s | 167.15 / 177.06 s | 160.52 / 210.59 s |
+| Whole broad path including setup/staggered starts | 4m 35s | 5m 43s | 6m 53s |
+
+Initial queue delays were 2 / 2 / 6 s, last-start delays 46 / 1 / 177 s.
+First-test-step-start to last-test-step-finish spans were 233 / 258 / 132 s for
+scenarios, 114 / 145 / 222 s for workspaces and 171 / 184 / 371 s for cases.
+Broad runner time was 63.40 minutes and aggregate command time 45.23 minutes.
+This is below the population run's 67.12 / 47.05 minutes, but hosted variance
+prevents attributing the entire difference to caching. Package hits do not solve
+the Windows workspace A or macOS case B targets. No suite or coverage change was
+made between these two runs.
+
+### Additional workspace and case scheduling headroom
+
+Windows workspace A still spent 110.88 accumulated seconds in its two framework
+dispatch rows. The nested netstandard2.0 row now moves to
+`NestedFrameworkDispatchTests` while preserving its shared assertion body, so it
+can overlap the retained real-CLI row within the same four-collection limit.
+Three workspace shards distribute the existing 26 rows as 8 / 12 / 6. There is
+no production analysis change and no new test row.
+
+macOS case B's ASP.NET Core row took 145.91 s but finished in a 210.59 s command
+because earlier collections delayed its start. Three case shards keep ASP.NET
+Core with the process checks, Autofac with both Serilog classes, and the remaining
+repositories together. Each repository's views still share one owning class and
+graph cache. The per-process case limit remains two. Scenario partitions stay
+unchanged at 125 / 180.
+
+`Test-Shards.json` records explicit groups and exactly one `null` complement per
+suite. The script rejects an unconfigured shard, intersects caller filters and
+still fails an empty selection. The complement keeps future classes selected.
+This raises broad jobs from eighteen to twenty-four, so additional setup,
+package/repository cache entries and scheduling delay must remain visible.
+Partition/source hashes invalidate the corresponding cache namespaces; final
+acceptance requires new cold and cache-hit hosted evidence.
+
+Local samples used the same prepared Ubuntu 26.04 host, SDK, Debug build and
+four-CPU affinity as the preceding shard comparison. Commands ran sequentially;
+routine cases reused the same external repository/workspace caches. Complete
+invocations include mise, PowerShell and dotnet startup.
+
+| Three-shard sample | A | B | C |
+|---|---:|---:|---:|
+| Workspace rows | 8 | 12 | 6 |
+| Workspace seconds | 26.29 | 24.65 | 20.88 |
+| Workspace sampled CPU seconds | 78.59 | 89.39 | 72.75 |
+| Workspace peak summed RSS GiB | 3.04 | 2.85 | 3.45 |
+| Routine-case rows | 5 | 10 | 10 |
+| Routine-case seconds | 57.05 | 34.05 | 48.36 |
+| Routine-case sampled CPU seconds | 144.98 | 118.89 | 150.94 |
+| Routine-case peak summed RSS GiB | 4.16 | 2.35 | 4.20 |
+
+Workspace combined elapsed time is 71.82 s and CPU 240.73 s, versus the two-shard
+66.25 s / 231.10 s after mixed-framework splitting. Case combined elapsed time
+is 139.46 s and CPU 414.81 s, versus 116.93 s / 351.98 s with two shards:
+19.3% more elapsed work and 17.9% more CPU. The local longest case command only
+falls from 58.77 to 57.05 s; this is not claimed as a substantial throughput gain.
+The hosted hypothesis is that isolating the large source-only repository removes
+its delayed start and competing analysis. New CI evidence must justify that cost.
+
+The workspace union exactly preserves all 26 method/parameter rows, with the one
+additional class move mapped. Routine cases exactly preserve all 25 full names;
+both unions are disjoint. Scenario A membership is byte-for-byte equivalent as
+parsed JSON and B remains its complement. Observed overlap was four per workspace
+shard and two per case shard. All 22 sampled owned roots were deleted and no
+fixture/analysis worker remained alive. Four invalid/empty-selection probes and
+workflow lint passed. The solution build had no warnings or errors; snapshots
+and pinned inputs remain unchanged.
+
+The subsequent `mise run test:fast` passed all 350 rows; its dotnet portion,
+including build/restore, took 4.31 s. The complete wrapper's earlier measured
+5.33 s remains the latest full-process fast timing, rather than substituting
+this narrower timer for it.

@@ -2,7 +2,7 @@ param(
     [ValidateSet('Fast', 'Integration', 'E2E', 'Scenarios', 'Workspaces', 'Cases')]
     [string]$Suite = 'Fast',
     [string]$Filter,
-    [ValidateSet('A', 'B')]
+    [ValidateSet('A', 'B', 'C')]
     [string]$Shard,
     [switch]$NoBuild
 )
@@ -22,11 +22,16 @@ if ($Shard -and $Suite -notin @('Scenarios', 'Workspaces', 'Cases')) {
 
 $shardFilter = $null
 if ($Shard) {
-    $classes = @((Get-Content -Raw (Join-Path $PSScriptRoot 'Test-ShardA.json') | ConvertFrom-Json -AsHashtable)[$Suite])
+    $partition = (Get-Content -Raw (Join-Path $PSScriptRoot 'Test-Shards.json') | ConvertFrom-Json -AsHashtable)[$Suite]
+    if (-not $partition.ContainsKey($Shard)) { throw "Shard $Shard is not configured for $Suite." }
+    $complements = @($partition.Keys | Where-Object { $null -eq $partition[$_] })
+    if ($complements.Count -ne 1) { throw "$Suite must have exactly one complementary shard." }
+    $included = $null -ne $partition[$Shard]
+    $classes = if ($included) { @($partition[$Shard]) } else { @($partition.Values | Where-Object { $null -ne $_ } | ForEach-Object { $_ }) }
     if ($classes.Count -eq 0 -or $classes.Where({ [string]::IsNullOrWhiteSpace($_) }).Count -ne 0) {
         throw "No shard classes are configured for $Suite."
     }
-    $shardFilter = if ($Shard -eq 'A') {
+    $shardFilter = if ($included) {
         ($classes | ForEach-Object { "FullyQualifiedName~$_." }) -join '|'
     }
     else {

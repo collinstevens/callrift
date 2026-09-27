@@ -10,6 +10,13 @@ public sealed class FrameworkDispatchTests : FrameworkDispatchFixture
 {
     [Theory]
     [InlineData("netstandard2.0", false)]
+    public Task FrameworkInterfaceDispatchReachesReferencedImplementation(string framework, bool nested) =>
+        VerifyFrameworkInterfaceDispatchAsync(framework, nested);
+}
+
+public sealed class NestedFrameworkDispatchTests : FrameworkDispatchFixture
+{
+    [Theory]
     [InlineData("netstandard2.0", true)]
     public Task FrameworkInterfaceDispatchReachesReferencedImplementation(string framework, bool nested) =>
         VerifyFrameworkInterfaceDispatchAsync(framework, nested);
