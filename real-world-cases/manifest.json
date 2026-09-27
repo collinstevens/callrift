@@ -1905,5 +1905,99 @@
         ]
       }
     ]
+  },
+  {
+    "id": "serilog-restricted-optional-interfaces",
+    "repository": "https://github.com/serilog/serilog.git",
+    "cacheName": "serilog",
+    "before": "c53eb147ceafe5b88cc57f95f78e8116b86cf620",
+    "after": "2ef63645cf0d0edd4b187510b238754249c4348f",
+    "license": "Apache-2.0",
+    "licenseFile": "LICENSE",
+    "beforeLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "afterLicenseBlob": "37ec93a14fdcd0d6e525d97c0cfa6b314eaa98d8",
+    "reason": "Move RestrictedSink disposal and failure-listener forwarding into OptionalInterfaceForwardingSink. Both level-switch and minimum-level branches preserve restriction and conditionally wrap the original sink. Restored net10.0 adds conditional async disposal. Preserve short-circuit guards, removed methods, changed possible targets, cycles and locations. Independent pinned source, upstream tests, declarations, call bindings, root paths and diagnostics reviewed; upstream tests were not executed. Source mode omits project defines; possible interface dispatch and callbacks do not prove receiver value flow or runtime cleanup. Automatic roots omit unchanged concrete dispatch paths instead of claiming changes through overridden default bodies.",
+    "tags": [
+      "interface-dispatch",
+      "default-interface",
+      "branch-guard",
+      "short-circuit",
+      "resource-cleanup",
+      "async",
+      "method-removal",
+      "automatic-roots",
+      "multi-target"
+    ],
+    "options": [],
+    "review": "../tests/Callrift.RealWorldCases/SerilogRestrictedSinkExpectations.cs",
+    "routine": false,
+    "views": [
+      {
+        "id": "source-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "2",
+          "--externals",
+          "--entry",
+          "Serilog.Configuration.LoggerSinkConfiguration.Sink(global::Serilog.Core.ILogEventSink,global::Serilog.Events.LogEventLevel,global::Serilog.Core.LoggingLevelSwitch)",
+          "--entry",
+          "RestrictedSink.SetFailureListener",
+          "--entry",
+          "RestrictedSink.Dispose",
+          "--entry",
+          "OptionalInterfaceForwardingSink.SetFailureListener",
+          "--entry",
+          "OptionalInterfaceForwardingSink.Dispose"
+        ]
+      },
+      {
+        "id": "source-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1"
+        ]
+      },
+      {
+        "id": "msbuild-focused",
+        "routine": false,
+        "options": [
+          "--depth",
+          "2",
+          "--project",
+          "src/Serilog/Serilog.csproj",
+          "--framework",
+          "net10.0",
+          "--externals",
+          "--entry",
+          "Serilog.Configuration.LoggerSinkConfiguration.Sink(global::Serilog.Core.ILogEventSink,global::Serilog.Events.LogEventLevel,global::Serilog.Core.LoggingLevelSwitch)",
+          "--entry",
+          "RestrictedSink.SetFailureListener",
+          "--entry",
+          "RestrictedSink.Dispose",
+          "--entry",
+          "OptionalInterfaceForwardingSink.SetFailureListener",
+          "--entry",
+          "OptionalInterfaceForwardingSink.Dispose",
+          "--entry",
+          "RestrictedSink.DisposeAsync",
+          "--entry",
+          "OptionalInterfaceForwardingSink.DisposeAsync"
+        ]
+      },
+      {
+        "id": "msbuild-roots",
+        "routine": false,
+        "options": [
+          "--depth",
+          "1",
+          "--project",
+          "src/Serilog/Serilog.csproj",
+          "--framework",
+          "net10.0"
+        ]
+      }
+    ]
   }
 ]

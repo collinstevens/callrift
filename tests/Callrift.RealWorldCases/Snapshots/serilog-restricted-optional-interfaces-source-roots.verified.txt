@@ -1,0 +1,139 @@
+﻿format: text
+exit: 0
+stdout:
+  LoggerAuditSinkConfiguration.Logger
+~ └─ LoggerSinkConfiguration.Logger (changes below depth limit)
+
+  LoggerAuditSinkConfiguration.Logger
+~ └─ LoggerSinkConfiguration.Logger (changes below depth limit)
+
+  LoggerAuditSinkConfiguration.Sink
+~ └─ LoggerSinkConfiguration.Sink (changes below depth limit)
+
+  LoggerSinkConfiguration.Conditional
+  ├─ …
+  ├─ Guard.AgainstNull
+  ├─ LoggerSinkConfiguration.Wrap (depth limit)
+~ └─ LoggerSinkConfiguration.Sink (changes below depth limit)
+
+  LoggerSinkConfiguration.FallbackChain
+  ├─ …
+  ├─ Guard.AgainstNull
+  ├─ LoggerSinkConfiguration.CreateSink (depth limit)
+  ├─ foreach (var next in chain[1..])
+  │  ├─ new DelegatingLoggingFailureListener
+  │  ├─ LoggerSinkConfiguration.Wrap (depth limit)
+~ │  │  └─ new FailureListenerSink (changes below depth limit)
+  │  ├─ OptionalInterfaceForwardingSink.SupportsAny
+  │  └─ if (OptionalInterfaceForwardingSink.SupportsAny(final))
+~ └─ LoggerSinkConfiguration.Sink (changes below depth limit)
+
+  LoggerSinkConfiguration.Fallible
+  ├─ Guard.AgainstNull ×2
+  ├─ LoggerSinkConfiguration.Wrap (depth limit) ↑ as above
+~ └─ LoggerSinkConfiguration.Sink (changes below depth limit)
+
+  LoggerSinkConfiguration.Sink
+~ └─ LoggerSinkConfiguration.Sink (changes below depth limit)
+
+  LoggerSinkConfiguration.Sink
+~ └─ LoggerSinkConfiguration.Sink (changes below depth limit)
+
+  LoggerSinkConfiguration.Wrap
+  ├─ LoggerSinkConfiguration.Wrap (depth limit)
+~ └─ LoggerSinkConfiguration.Sink (changes below depth limit)
+
+  Log.CloseAndFlush
+  ├─ possible initialization of Log
+  ├─ possible initialization of Logger
+  └─ if ((logger as IDisposable) is not null)
+     └─ .Dispose
+        ├─ ⇢ EnricherStack.Enumerator.Dispose
+        ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~       ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+        ├─ ⇢ Logger.Dispose
+~       ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+~       ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+~       ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+~       ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (changes below depth limit)
+-       ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+~       └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+
+  SurrogateConfigurationMethods.Sink
+~ └─ LoggerAuditSinkConfiguration.Sink (changes below depth limit)
+
+  SurrogateConfigurationMethods.Sink
+~ └─ LoggerSinkConfiguration.Sink (changes below depth limit)
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.
+
+format: md
+exit: 0
+stdout:
+```diff
+  LoggerAuditSinkConfiguration.Logger
+~ └─ LoggerSinkConfiguration.Logger (changes below depth limit)
+
+  LoggerAuditSinkConfiguration.Logger
+~ └─ LoggerSinkConfiguration.Logger (changes below depth limit)
+
+  LoggerAuditSinkConfiguration.Sink
+~ └─ LoggerSinkConfiguration.Sink (changes below depth limit)
+
+  LoggerSinkConfiguration.Conditional
+  ├─ …
+  ├─ Guard.AgainstNull
+  ├─ LoggerSinkConfiguration.Wrap (depth limit)
+~ └─ LoggerSinkConfiguration.Sink (changes below depth limit)
+
+  LoggerSinkConfiguration.FallbackChain
+  ├─ …
+  ├─ Guard.AgainstNull
+  ├─ LoggerSinkConfiguration.CreateSink (depth limit)
+  ├─ foreach (var next in chain[1..])
+  │  ├─ new DelegatingLoggingFailureListener
+  │  ├─ LoggerSinkConfiguration.Wrap (depth limit)
+~ │  │  └─ new FailureListenerSink (changes below depth limit)
+  │  ├─ OptionalInterfaceForwardingSink.SupportsAny
+  │  └─ if (OptionalInterfaceForwardingSink.SupportsAny(final))
+~ └─ LoggerSinkConfiguration.Sink (changes below depth limit)
+
+  LoggerSinkConfiguration.Fallible
+  ├─ Guard.AgainstNull ×2
+  ├─ LoggerSinkConfiguration.Wrap (depth limit) ↑ as above
+~ └─ LoggerSinkConfiguration.Sink (changes below depth limit)
+
+  LoggerSinkConfiguration.Sink
+~ └─ LoggerSinkConfiguration.Sink (changes below depth limit)
+
+  LoggerSinkConfiguration.Sink
+~ └─ LoggerSinkConfiguration.Sink (changes below depth limit)
+
+  LoggerSinkConfiguration.Wrap
+  ├─ LoggerSinkConfiguration.Wrap (depth limit)
+~ └─ LoggerSinkConfiguration.Sink (changes below depth limit)
+
+  Log.CloseAndFlush
+  ├─ possible initialization of Log
+  ├─ possible initialization of Logger
+  └─ if ((logger as IDisposable) is not null)
+     └─ .Dispose
+        ├─ ⇢ EnricherStack.Enumerator.Dispose
+        ├─ ⇢ LogContext.ContextStackBookmark.Dispose (depth limit)
+~       ├─ ⇢ ConditionalEnricher.Dispose (changes below depth limit)
+        ├─ ⇢ Logger.Dispose
+~       ├─ ⇢ BatchingSink.Dispose (changes below depth limit)
+~       ├─ ⇢ ConditionalSink.Dispose (changes below depth limit)
+~       ├─ ⇢ DisposingAggregateSink.Dispose (changes below depth limit)
+~       ├─ ⇢ OptionalInterfaceForwardingSink.Dispose (changes below depth limit)
+-       ├─ ⇢ RestrictedSink.Dispose (changes below depth limit)
+~       └─ ⇢ SecondaryLoggerSink.Dispose (changes below depth limit)
+
+  SurrogateConfigurationMethods.Sink
+~ └─ LoggerAuditSinkConfiguration.Sink (changes below depth limit)
+
+  SurrogateConfigurationMethods.Sink
+~ └─ LoggerSinkConfiguration.Sink (changes below depth limit)
+```
+stderr:
+test/TestDummies/TestDummies.csproj:1: test-project-inferred: Test classification for test/TestDummies/TestDummies.csproj uses literal metadata and directory naming; use MSBuild mode to evaluate imported or conditional metadata.

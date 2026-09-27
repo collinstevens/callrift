@@ -66,6 +66,17 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 Emit(creation, creation.ArgumentList?.Arguments ?? [], result);
                 Walk(creation.Initializer, result);
                 return;
+            case InitializerExpressionSyntax initializer when initializer.IsKind(SyntaxKind.CollectionInitializerExpression):
+                var collection = initializer.Parent switch
+                {
+                    BaseObjectCreationExpressionSyntax owner => owner,
+                    AssignmentExpressionSyntax assignment => assignment.Left,
+                    _ => null
+                };
+                foreach (var element in initializer.Expressions)
+                    Emit(element, element is InitializerExpressionSyntax values ? values.Expressions : [element], result,
+                        model.GetCollectionInitializerSymbolInfo(element, cancellationToken), collection);
+                return;
             case ConstructorInitializerSyntax initializer:
                 Emit(initializer, initializer.ArgumentList.Arguments, result);
                 return;
@@ -173,14 +184,18 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             { Relation = "callback" });
     }
 
-    private void Emit(SyntaxNode invocation, SeparatedSyntaxList<ArgumentSyntax> arguments, List<CallStep> result)
+    private void Emit(SyntaxNode invocation, SeparatedSyntaxList<ArgumentSyntax> arguments, List<CallStep> result) =>
+        Emit(invocation, arguments.Select(argument => argument.Expression), result);
+
+    private void Emit(SyntaxNode invocation, IEnumerable<ExpressionSyntax> arguments, List<CallStep> result,
+        SymbolInfo? initializerBinding = null, ExpressionSyntax? collection = null)
     {
         var callbacks = new List<CallStep>();
         var argumentIndex = 0;
         foreach (var argument in arguments)
         {
             var callbackStart = callbacks.Count;
-            var expression = argument.Expression;
+            var expression = argument;
             while (expression is ParenthesizedExpressionSyntax or CastExpressionSyntax)
                 expression = expression is ParenthesizedExpressionSyntax parenthesized ? parenthesized.Expression : ((CastExpressionSyntax)expression).Expression;
             if (expression is AnonymousFunctionExpressionSyntax lambda)
@@ -197,19 +212,19 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
                 callbacks[index] = callbacks[index] with { CallbackGroup = argumentIndex };
             argumentIndex++;
         }
-        var info = model.GetSymbolInfo(invocation, cancellationToken);
-        var target = invocation is InvocationExpressionSyntax interceptable
+        var info = initializerBinding ?? model.GetSymbolInfo(invocation, cancellationToken);
+        var target = initializerBinding is null && invocation is InvocationExpressionSyntax interceptable
             ? InterceptorSymbols.Find(model, interceptable, cancellationToken) ?? info.Symbol as IMethodSymbol
             : info.Symbol as IMethodSymbol;
-        if (target is null && invocation is BaseObjectCreationExpressionSyntax && model.GetOperation(invocation, cancellationToken) is IDelegateCreationOperation
+        if (target is null && initializerBinding is null && invocation is BaseObjectCreationExpressionSyntax && model.GetOperation(invocation, cancellationToken) is IDelegateCreationOperation
             { Type: INamedTypeSymbol delegateType })
             target = delegateType.InstanceConstructors.SingleOrDefault();
         if (target is not null)
-            result.Add(CreateCall(invocation, target, callbacks.Select(c => c with { Relation = "callback" }).ToArray()));
+            result.Add(CreateCall(invocation, target, callbacks.Select(c => c with { Relation = "callback" }).ToArray(), collection));
         else
         {
-            var label = SymbolNames.SyntaxLabel(invocation);
-            if (invocation is BaseObjectCreationExpressionSyntax && model.GetTypeInfo(invocation, cancellationToken).Type is ITypeParameterSymbol)
+            var label = initializerBinding is null ? SymbolNames.SyntaxLabel(invocation) : "collection initializer Add";
+            if (initializerBinding is null && invocation is BaseObjectCreationExpressionSyntax && model.GetTypeInfo(invocation, cancellationToken).Type is ITypeParameterSymbol)
             {
                 result.Add(new CallStep("call", "external:" + label, label, false, symbols.Location(invocation), callbacks)
                 { AlignmentKey = AlignmentKey(invocation) });
@@ -226,25 +241,26 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
     public CallStep ImplicitConstructor(SyntaxNode declaration, IMethodSymbol constructor) => CreateCall(declaration, constructor, []) with
     { Label = symbols.Label(constructor), SuppressDispatch = true, UsesContainingInstance = true };
 
-    private CallStep CreateCall(SyntaxNode node, IMethodSymbol method, IReadOnlyList<CallStep> children)
+    private CallStep CreateCall(SyntaxNode node, IMethodSymbol method, IReadOnlyList<CallStep> children, ExpressionSyntax? collection = null)
     {
         var normalized = SymbolNames.Normalize(method);
         dispatchTypes.Add(method.ContainingType);
         foreach (var argument in method.TypeArguments) dispatchTypes.Add(argument);
         var source = method.MethodKind != MethodKind.DelegateInvoke && normalized.ContainingType.Locations.Any(l => l.IsInSource);
         var expression = node is InvocationExpressionSyntax invocation ? invocation.Expression : node;
-        var receiver = expression switch
+        var receiver = collection ?? (expression switch
         {
             MemberAccessExpressionSyntax access => access.Expression,
             MemberBindingExpressionSyntax => expression.Ancestors().OfType<ConditionalAccessExpressionSyntax>().FirstOrDefault()?.Expression,
             WithExpressionSyntax copy => copy.Expression,
             _ => null
-        };
-        var exactReceiver = receiver is BaseExpressionSyntax or BaseObjectCreationExpressionSyntax
+        });
+        var exactReceiver = receiver is BaseExpressionSyntax
+            || receiver is BaseObjectCreationExpressionSyntax && model.GetTypeInfo(receiver, cancellationToken).Type is INamedTypeSymbol
             || receiver is not null && model.GetTypeInfo(receiver, cancellationToken).Type is INamedTypeSymbol { IsSealed: true }
             || receiver is null && model.GetEnclosingSymbol(node.SpanStart, cancellationToken)?.ContainingType is { IsSealed: true };
         var dispatches = !exactReceiver && (method.ContainingType.TypeKind == TypeKind.Interface || method.IsAbstract || method.IsVirtual || method.IsOverride);
-        return new CallStep("call", symbols.Key(normalized), source || node is ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax or WithExpressionSyntax
+        return new CallStep("call", symbols.Key(normalized), source || collection is not null || node is ConstructorInitializerSyntax or PrimaryConstructorBaseTypeSyntax or WithExpressionSyntax
             ? symbols.Label(normalized) : SymbolNames.SyntaxLabel(node), source, symbols.Location(node), children)
         {
             AlignmentKey = AlignmentKey(node),
@@ -256,7 +272,7 @@ internal sealed class CallCollector(SemanticModel model, SymbolNames symbols, Co
             InvocationReceiverType = !GenericBindings.HasContainingInstance(method) ? null : method.MethodKind == MethodKind.Constructor
                 ? DescribeType(method.ContainingType) : ReceiverConstraint(receiver, node.SpanStart),
             UsesContainingInstance = GenericBindings.HasContainingInstance(method) && UsesContainingInstance(node, receiver),
-            InvocationReceiverExact = GenericBindings.HasContainingInstance(method) && (node is BaseObjectCreationExpressionSyntax || ReceiverOperation(receiver) is IObjectCreationOperation),
+            InvocationReceiverExact = GenericBindings.HasContainingInstance(method) && (collection is null && node is BaseObjectCreationExpressionSyntax || ReceiverOperation(receiver) is IObjectCreationOperation),
             GenericArguments = GenericBindings.FromMethod(method),
             MethodArguments = method.TypeArguments.Select(DispatchType.From).ToArray()
         };
