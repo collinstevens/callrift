@@ -3207,5 +3207,50 @@
         "routine": false
       }
     ]
+  },
+  {
+    "id": "cleanarchitecture-previous-page",
+    "repository": "https://github.com/jasontaylordev/CleanArchitecture.git",
+    "cacheName": "cleanarchitecture",
+    "license": "MIT",
+    "licenseFile": "LICENSE",
+    "before": "4a9b0a44fc5750df64a9f58347e81c77561d5648",
+    "after": "1c2ef45624015890c1bfc5e47522ec577b715a3f",
+    "reason": "Bound HasPreviousPage to one page beyond the last page. The unchanged first PageNumber read precedes a new short-circuit branch containing a second PageNumber read and TotalPages. Automatic and focused discovery retain the same generic getter identity and signature; the graph does not encode the final numeric comparison or returned Boolean value. Five declarations, four source bindings, all 356 unresolved diagnostics and six repeated CLI outputs were independently reviewed. Restored Application.csproj at net10.0 exits 2 because pinned AutoMapper 15.1.0 and System.Security.Cryptography.Xml 9.0.0 trigger NU1903 warnings-as-errors; upstream files and restore policy were not changed. Accepted views are source-only and retain missing package/project bindings.",
+    "tags": [
+      "property-accessors",
+      "short-circuit",
+      "guards",
+      "generics"
+    ],
+    "options": [],
+    "knownIssue": "issues/source-only-coverage.md",
+    "beforeLicenseBlob": "20e161181137c75ff743500b197414ff88f11eba",
+    "afterLicenseBlob": "20e161181137c75ff743500b197414ff88f11eba",
+    "review": "../tests/Callrift.RealWorldCases/CleanArchitecturePreviousPageExpectations.cs",
+    "views": [
+      {
+        "id": "source-roots",
+        "options": [
+          "--depth",
+          "3"
+        ],
+        "routine": false
+      },
+      {
+        "id": "source-focused",
+        "options": [
+          "--depth",
+          "5",
+          "--context",
+          "all",
+          "--externals",
+          "--entry",
+          "PaginatedList<T>.get_HasPreviousPage"
+        ],
+        "routine": false
+      }
+    ],
+    "routine": false
   }
 ]

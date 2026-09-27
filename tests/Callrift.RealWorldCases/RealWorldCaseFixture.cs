@@ -111,6 +111,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             CleanArchitectureOperatorExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "cleanarchitecture-static-endpoint-groups")
             CleanArchitectureEndpointExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "cleanarchitecture-previous-page")
+            CleanArchitecturePreviousPageExpectations.Verify(result);
         if (entry.Id == "autofac-module-hook-subscriptions")
             AutofacModuleExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "autofac-held-pipeline")
