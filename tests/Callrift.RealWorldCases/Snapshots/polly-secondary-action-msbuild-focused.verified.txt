@@ -3,11 +3,12 @@ exit: 0
 stdout:
   TaskExecution<T>.InitializeAsync
   ├─ …
-  ├─ ResilienceContext.InitializeFrom
+  ├─ ResilienceContext.get_CancellationToken
   ├─ primaryContext.CancellationToken.UnsafeRegister
   ├─ if (type == HedgedTaskType.Secondary)
 - │  ├─ if (!_handler.IsDefaultActionGenerator)
 - │  │  ├─ try
+- │  │  │  ├─ HedgingHandler<T>.get_ActionGenerator
 - │  │  │  ├─ TaskExecution<T>.CreateArguments (depth limit)
 - │  │  │  ├─ _handler.ActionGenerator
 - │  │  │  └─ if (action == null)
@@ -16,9 +17,11 @@ stdout:
 - │  │  └─ catch (Exception e)
 - │  │     ├─ _timeProvider.GetTimestamp
 - │  │     ├─ new Outcome<TResult> (depth limit)
-- │  │     └─ TaskExecution<T>.UpdateOutcomeAsync (depth limit)
+- │  │     ├─ TaskExecution<T>.UpdateOutcomeAsync (depth limit)
+- │  │     └─ TaskExecution<T>.set_ExecutionTaskSafe
 + │  ├─ TaskExecution<T>.TryCreateSecondaryActionAsync
 + │  │  ├─ try
++ │  │  │  ├─ HedgingHandler<T>.get_ActionGenerator
 + │  │  │  ├─ TaskExecution<T>.CreateArguments (depth limit)
 + │  │  │  ├─ _handler.ActionGenerator
 + │  │  │  └─ if (action == null)
@@ -27,10 +30,11 @@ stdout:
 + │  │  └─ catch (Exception e)
 + │  │     ├─ _timeProvider.GetTimestamp
 + │  │     ├─ new Outcome<TResult> (depth limit)
-+ │  │     └─ TaskExecution<T>.UpdateOutcomeAsync (depth limit)
++ │  │     ├─ TaskExecution<T>.UpdateOutcomeAsync (depth limit)
++ │  │     └─ TaskExecution<T>.set_ExecutionTaskSafe
 + │  ├─ TryCreateSecondaryActionAsync(primaryCallback, primaryContext, state, attemptNumber).ConfigureAwait
+  │  ├─ TaskExecution<T>.get_Context
   │  ├─ new OnHedgingArguments<TResult>
-  │  ├─ new ResilienceEvent
   │  └─ …
   └─ else (!(type == HedgedTaskType.Secondary))
 stderr:
@@ -50,11 +54,12 @@ stdout:
 ```diff
   TaskExecution<T>.InitializeAsync
   ├─ …
-  ├─ ResilienceContext.InitializeFrom
+  ├─ ResilienceContext.get_CancellationToken
   ├─ primaryContext.CancellationToken.UnsafeRegister
   ├─ if (type == HedgedTaskType.Secondary)
 - │  ├─ if (!_handler.IsDefaultActionGenerator)
 - │  │  ├─ try
+- │  │  │  ├─ HedgingHandler<T>.get_ActionGenerator
 - │  │  │  ├─ TaskExecution<T>.CreateArguments (depth limit)
 - │  │  │  ├─ _handler.ActionGenerator
 - │  │  │  └─ if (action == null)
@@ -63,9 +68,11 @@ stdout:
 - │  │  └─ catch (Exception e)
 - │  │     ├─ _timeProvider.GetTimestamp
 - │  │     ├─ new Outcome<TResult> (depth limit)
-- │  │     └─ TaskExecution<T>.UpdateOutcomeAsync (depth limit)
+- │  │     ├─ TaskExecution<T>.UpdateOutcomeAsync (depth limit)
+- │  │     └─ TaskExecution<T>.set_ExecutionTaskSafe
 + │  ├─ TaskExecution<T>.TryCreateSecondaryActionAsync
 + │  │  ├─ try
++ │  │  │  ├─ HedgingHandler<T>.get_ActionGenerator
 + │  │  │  ├─ TaskExecution<T>.CreateArguments (depth limit)
 + │  │  │  ├─ _handler.ActionGenerator
 + │  │  │  └─ if (action == null)
@@ -74,10 +81,11 @@ stdout:
 + │  │  └─ catch (Exception e)
 + │  │     ├─ _timeProvider.GetTimestamp
 + │  │     ├─ new Outcome<TResult> (depth limit)
-+ │  │     └─ TaskExecution<T>.UpdateOutcomeAsync (depth limit)
++ │  │     ├─ TaskExecution<T>.UpdateOutcomeAsync (depth limit)
++ │  │     └─ TaskExecution<T>.set_ExecutionTaskSafe
 + │  ├─ TryCreateSecondaryActionAsync(primaryCallback, primaryContext, state, attemptNumber).ConfigureAwait
+  │  ├─ TaskExecution<T>.get_Context
   │  ├─ new OnHedgingArguments<TResult>
-  │  ├─ new ResilienceEvent
   │  └─ …
   └─ else (!(type == HedgedTaskType.Secondary))
 ```

@@ -71,6 +71,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             SerilogAccessorExpectations.VerifyExtraArguments(result);
         if (entry.Id == "serilog-null-key")
             SerilogAccessorExpectations.VerifyNullKey(result);
+        if (entry.Id == "polly-secondary-action")
+            PollySecondaryExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "polly-telemetry-source")
             PollyTelemetryExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "polly-caller-cancellation")
