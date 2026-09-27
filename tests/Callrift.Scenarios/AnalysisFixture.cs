@@ -28,7 +28,7 @@ public sealed class AnalysisFixture : IAsyncDisposable
     public static async Task<AnalysisFixture> CreateAsync(Scenario scenario, bool workspace, bool includeTests = false)
     {
         var (before, after) = workspace
-            ? await WorkspaceFixture.AnalyzeAsync(scenario, includeTests)
+            ? await ScenarioWorkspaceFixture.AnalyzeAsync(scenario, includeTests)
             : await SourceFixture.AnalyzeAsync(scenario, includeTests);
         return new AnalysisFixture(before, after, includeTests);
     }

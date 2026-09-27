@@ -2,8 +2,10 @@ namespace Callrift.Scenarios;
 
 internal static class FixtureDirectory
 {
+    public static string TemporaryRoot => ResolveDirectory(new DirectoryInfo(Path.GetTempPath()));
+
     public static string CreatePath(string prefix) =>
-        Path.Combine(ResolveDirectory(new DirectoryInfo(Path.GetTempPath())), prefix + Guid.NewGuid().ToString("N"));
+        Path.Combine(TemporaryRoot, prefix + Guid.NewGuid().ToString("N"));
 
     private static string ResolveDirectory(DirectoryInfo directory)
     {

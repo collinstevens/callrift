@@ -1,6 +1,6 @@
 # Test-suite performance goal
 
-Status: second performance phase in progress; format and pinned-graph reuse, preparation coordination, bounded suite scheduling and independent CI suites under validation. The previous phase established fast everyday feedback, but broad CI originally took 46–49 minutes. Supported-platform per-suite targets remain unmet. This phase makes the remaining suite fast. It does not resume the paused implementation goal in `GOAL.md`.
+Status: second performance phase in progress; format and pinned-graph reuse, preparation coordination, bounded suite scheduling, reusable scenario workers and independent CI suites under validation. Repository-cache restoration is verified on all supported platforms; warm case and other per-suite targets remain unmet. The previous phase established fast everyday feedback, but broad CI originally took 46–49 minutes. This phase makes the remaining suite fast. It does not resume the paused implementation goal in `GOAL.md`.
 
 ## Outcome
 

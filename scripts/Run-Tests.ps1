@@ -22,7 +22,10 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Cannot identify the revision under test.' }
     $worktree = git status --porcelain
     if ($LASTEXITCODE -ne 0) { throw 'Cannot determine whether the tested worktree is modified.' }
-    if ($worktree) { $revision += ' (working tree modified)' }
+    if ($worktree) {
+        $revision += ' (working tree modified)'
+        Write-Host ("Working tree changes:`n" + ($worktree -join "`n"))
+    }
     $projects = switch ($Suite) {
         'Workspaces' { 'Callrift.Workspaces' }
         'Cases' { 'Callrift.RealWorldCases' }

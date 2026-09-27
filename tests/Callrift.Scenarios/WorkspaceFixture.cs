@@ -58,7 +58,7 @@ public static class WorkspaceFixture
             ?? throw new InvalidOperationException("Workspace worker returned no graph.");
     }
 
-    private static async Task RunAsync(string root, IReadOnlyList<string> arguments)
+    internal static ProcessStartInfo CreateStartInfo(string root, IReadOnlyList<string> arguments)
     {
         var start = new ProcessStartInfo(Environment.GetEnvironmentVariable("DOTNET_HOST_PATH") ?? "dotnet")
         {
@@ -77,6 +77,12 @@ public static class WorkspaceFixture
         start.Environment.Remove("MSBuildSDKsPath");
         start.Environment.Remove("MSBuildExtensionsPath");
         foreach (var argument in arguments) start.ArgumentList.Add(argument);
+        return start;
+    }
+
+    internal static async Task RunAsync(string root, IReadOnlyList<string> arguments)
+    {
+        var start = CreateStartInfo(root, arguments);
         using var process = Process.Start(start) ?? throw new InvalidOperationException("Cannot start the .NET SDK.");
         var stdout = process.StandardOutput.ReadToEndAsync();
         var stderr = process.StandardError.ReadToEndAsync();

@@ -1327,6 +1327,22 @@ reduction combines earlier reductions in workspace/case work with runner
 variation. Every suite still exceeds its target, and the warm case condition has
 not yet been measured on hosted runners.
 
+The documentation-only checkpoint `30d831f` then ran the same committed code with restored
+repository caches in [run 36282389307](https://github.com/collinstevens/callrift/actions/runs/36282389307).
+All three case logs explicitly reported primary-key `cases-*` cache hits and
+successful restoration. Every OS passed all 25 rows:
+
+| Prepared repository-cache cases | Ubuntu | Windows | macOS |
+|---|---:|---:|---:|
+| Complete dotnet test command | 239.71 s | 343.12 s | 209.04 s |
+| Complete case job, including setup | 4m 40s | 7m 10s | 4m 09s |
+
+This verifies the cache-path correction but misses the three-minute case target
+on every platform. Only repository caches are restored by CI; restored workspace
+outputs remain fresh per job. A cache hit therefore does not remove project
+restoration, worker startup or graph analysis. The remaining broad jobs were
+still running when these case results were recorded.
+
 ### Full local E2E baseline
 
 The first attempted full baseline was stopped during real-world cases because
@@ -1337,3 +1353,65 @@ causing an Ocelot restore failure. That invalid run is retained as ignored
 Matched full-command measurements must use external cache directories outside
 the checkout; repository and workspace caches start empty for the cold sample,
 while the SDK and global NuGet cache are prepared.
+
+The corrected cold run at `75bdd97` (the baseline source plus documentation)
+passed all 426 executions: 305 scenarios, 26 workspaces and all 95 pinned cases.
+On the Ubuntu 26.04 Ryzen 9 7945HX development host, with native 32-logical-CPU
+affinity, 44,825 MiB RAM, SDK `11.0.100-rc.1.26425.128` and Debug binaries,
+`mise run test:e2e` took 3269.90 s (54m 30s). Its dotnet command portions were
+453.63 s, 260.20 s and 2555.67 s respectively. Explicit preparation before the
+measurement took 1.21 s to restore and 2.84 s to build. Repository and workspace
+caches were absent initially and lived outside the checkout; the SDK and global
+NuGet cache were already prepared.
+
+The process-tree sampler recorded 15,532.82 CPU-seconds and a peak summed RSS of
+16.60 GiB. These are sampled descendant-process measurements, not machine-wide
+CPU or unique resident memory. The warm pass will retain the same checkout and
+cache directories. Focused worker validation is scheduled between cold and warm
+passes, with no overlapping measured runs; the warm result remains pending.
+
+### Reusable scenario workers and restored project shapes
+
+The scenario harness now owns a lazy pool of at most four dedicated workers.
+Each request still calls production `WorkspaceAnalysis.AnalyzeAsync`, creates a
+fresh MSBuild workspace, compiles and analyzes the supplied source, and serializes
+the complete graph. It does not cache graphs or loaded Roslyn solutions. The
+existing scenario collection limit remains four; worker processes are leased
+exclusively across both revisions of one case and disposed at assembly teardown.
+Requests have a three-minute deadline, failed workers are discarded, and parent
+exit terminates the worker tree. Owned roots are deleted after worker exit.
+
+A restored root is reused only for one plain SDK project with identical complete
+project XML, source paths and MSBuild options. Every source is rewritten for every
+revision. The guard rejects custom imports/targets, conditional or unknown
+properties, expressions, packages, analyzers, extra inputs, path aliases and
+ambient directory build files. Recognized multi-project fixtures use a warmed
+worker but fresh roots and restores for every revision. Unknown shapes retain the
+original fresh-worker path. Dedicated CLI and fresh-process determinism checks
+remain intact, including record-copy format routing and file-local identities.
+
+Sequential matched samples used the prepared Debug build and pinned SDK on the
+same development host, with no other measured run overlapping:
+
+| Selection | CPU affinity | Baseline wall / CPU | Worker wall / CPU | Peak summed RSS before / after |
+|---|---|---:|---:|---:|
+| Inherited and direct cross-project record copy, 2 rows | Native 32 CPUs | 12.87 / 14.64 s | 10.01 / 14.83 s | 0.71 / 0.94 GiB |
+| Constraint dispatch, static initialization, constructor initialization and record copy, 95 rows | CPUs 0–3 | 218.61 / 607.65 s | 98.76 / 319.63 s | 1.90 / 2.95 GiB |
+
+Both 95-row samples reached four overlapping cases and had identical case-name
+multisets, with every row passing. Restores fell from 190 to 20; fresh analysis
+workers fell from 198 to 10, alongside four pooled workers. This reduces sampled
+work as well as elapsed time, but retains more memory. The smaller two-row sample
+does not show a CPU improvement. These single matched samples do not establish
+full-suite targets, timing variance, the best concurrency limit or platform
+stability; supported-platform CI remains required.
+
+The complete fast command passed all 350 rows in 4.63 s including mise, PowerShell,
+dotnet startup and the up-to-date build, and launched no fixture workers. Four
+existing project-classification/file-local boundary rows and two workspace
+define/referenced-generator rows also passed. Temporary probes checked shape-key
+invalidation and fallback, malformed-request recovery, newline-containing request
+paths, changed source, EOF and parent-exit termination with stdin held open. Probe
+sources were removed; no permanent tests or reviewed snapshots were added or
+changed. The test wrapper now prints changed paths when its revision is marked
+dirty, making future CI source-state reports more specific.
