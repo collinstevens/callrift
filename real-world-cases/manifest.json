@@ -1591,18 +1591,19 @@
     "beforeLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
     "afterLicenseBlob": "183936c000fa2cc5969ba724afc1bdc5bfae5080",
     "cacheName": "orchardcore",
-    "reason": "Extract logout sign-out and redirect handling and preserve end-session settings in recipes and deployment",
+    "reason": "Extract logout sign-out and redirect handling and retain end-session settings in recipes and deployment. Independent pinned-source and compiler review checks the settings getter before logout guards, authentication-result property patterns, Principal and claim-value reads, and preserved accessor order in the extracted helper. Source analysis retains unresolved framework calls and helper invocation; restored net10.0 follows the helper at LogoutAccept but stops at the configured depth under Logout. Automatic discovery yields 345 source roots and 8 restored roots with independently checked paths to changed members. Source diagnostics total 17266, including 451 additional unresolved-call diagnostics and 4 added duplicate accessors from equal namespaces in separate projects; restored diagnostics are empty. Anonymous initializer names produce no synthetic getters, while 4 genuine anonymous-property reads remain. All 12 CLI formats repeat exactly. Upstream tests were read but not executed. Possible dispatch and visible guards do not prove deployed authorization or runtime authentication behavior.",
     "tags": [
       "branch-guard",
       "async",
       "helper-extraction",
       "method-move",
       "cross-project",
-      "automatic-roots"
+      "automatic-roots",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/orchardcore-coverage.md",
-    "review": "reviews/orchardcore-openid-logout.md",
+    "review": "../tests/Callrift.RealWorldCases/OrchardOpenIdExpectations.cs",
     "routine": false,
     "views": [
       {

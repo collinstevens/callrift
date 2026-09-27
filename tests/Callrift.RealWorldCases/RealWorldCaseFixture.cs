@@ -56,6 +56,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             CleanArchitectureLegacyExpectations.Verify(result, entry.Id);
         if (entry.Id == "orchardcore-esmodule-localization")
             OrchardEsModuleExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "orchardcore-openid-logout")
+            OrchardOpenIdExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "aspnetcore-upload-stream-ownership")
             AspNetUploadStreamExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "aspnetcore-authorization-failure-reasons")

@@ -7,7 +7,7 @@ stdout:
   ├─ OpenIdExtensions.ToListAsync (depth limit)
   ├─ case ConsentTypes.Implicit: case ConsentTypes.External when authorizations.Count > 0: case Consen…
 ~ │  ├─ AccessController.PopulateIdentityClaims (changes below depth limit)
-  │  ├─ AccessController.GetResourcesAsync
+  │  ├─ AccessController.GetResourcesAsync (depth limit)
   │  ├─ if (authorization is null)
   │  └─ …
   └─ default:
@@ -18,13 +18,14 @@ stdout:
   ├─ OpenIdExtensions.ToListAsync (depth limit)
   └─ default:
 ~    ├─ AccessController.PopulateIdentityClaims (changes below depth limit)
-     ├─ AccessController.GetResourcesAsync
+     ├─ AccessController.GetResourcesAsync (depth limit)
      ├─ if (authorization is null)
      └─ …
 
   AccessController.Logout
-  ├─ if (response is not null)
+  ├─ …
   ├─ IOpenIdServerService.GetSettingsAsync → OpenIdServerService.GetSettingsAsync (depth limit)
+  ├─ OpenIdServerSettings.get_RequireEndSessionConfirmation
   └─ if (!settings.RequireEndSessionConfirmation && !string.IsNullOrEmpty(request.IdTokenHint))
 -    ├─ if (hintResult is { Succeeded: true, Principal: not null })
 -    │  └─ OpenIdExtensions.GetUserIdentifier
@@ -56,6 +57,7 @@ stdout:
      └─ ⇢ AllRateLimitPoliciesDeploymentSource.ProcessAsync (depth limit)
 
   NamedRecipeStepHandler.ExecuteAsync
+  ├─ RecipeExecutionContext.get_Name
   └─ NamedRecipeStepHandler.HandleAsync
      ├─ …
      ├─ ⇢ OpenIdClientSettingsStep.HandleAsync (depth limit)
@@ -75,7 +77,7 @@ stdout:
   ├─ OpenIdExtensions.ToListAsync (depth limit)
   ├─ case ConsentTypes.Implicit: case ConsentTypes.External when authorizations.Count > 0: case Consen…
 ~ │  ├─ AccessController.PopulateIdentityClaims (changes below depth limit)
-  │  ├─ AccessController.GetResourcesAsync
+  │  ├─ AccessController.GetResourcesAsync (depth limit)
   │  ├─ if (authorization is null)
   │  └─ …
   └─ default:
@@ -86,13 +88,14 @@ stdout:
   ├─ OpenIdExtensions.ToListAsync (depth limit)
   └─ default:
 ~    ├─ AccessController.PopulateIdentityClaims (changes below depth limit)
-     ├─ AccessController.GetResourcesAsync
+     ├─ AccessController.GetResourcesAsync (depth limit)
      ├─ if (authorization is null)
      └─ …
 
   AccessController.Logout
-  ├─ if (response is not null)
+  ├─ …
   ├─ IOpenIdServerService.GetSettingsAsync → OpenIdServerService.GetSettingsAsync (depth limit)
+  ├─ OpenIdServerSettings.get_RequireEndSessionConfirmation
   └─ if (!settings.RequireEndSessionConfirmation && !string.IsNullOrEmpty(request.IdTokenHint))
 -    ├─ if (hintResult is { Succeeded: true, Principal: not null })
 -    │  └─ OpenIdExtensions.GetUserIdentifier
@@ -124,6 +127,7 @@ stdout:
      └─ ⇢ AllRateLimitPoliciesDeploymentSource.ProcessAsync (depth limit)
 
   NamedRecipeStepHandler.ExecuteAsync
+  ├─ RecipeExecutionContext.get_Name
   └─ NamedRecipeStepHandler.HandleAsync
      ├─ …
      ├─ ⇢ OpenIdClientSettingsStep.HandleAsync (depth limit)

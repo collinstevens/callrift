@@ -3,12 +3,18 @@ exit: 0
 stdout:
   AccessController.Logout
   ├─ …
-  ├─ IOpenIdServerService.GetSettingsAsync → OpenIdServerService.GetSettingsAsync
+  ├─ OpenIdServerSettings.get_RequireEndSessionConfirmation
   ├─ if (!settings.RequireEndSessionConfirmation)
   ├─ if (!settings.RequireEndSessionConfirmation && !string.IsNullOrEmpty(request.IdTokenHint))
+  │  ├─ ControllerBase.get_HttpContext
   │  ├─ HttpContext.AuthenticateAsync
+- │  ├─ pattern (hintResult is { Succeeded: true, Principal: not null })
+- │  │  ├─ AuthenticateResult.get_Succeeded
+- │  │  └─ AuthenticateResult.get_Principal
 - │  ├─ if (hintResult is { Succeeded: true, Principal: not null })
+- │  │  ├─ AuthenticateResult.get_Principal
 - │  │  ├─ hintResult.Principal.GetClaim
+- │  │  ├─ AuthenticateResult.get_Principal
 - │  │  ├─ OpenIdExtensions.GetUserIdentifier (changes below depth limit)
 - │  │  ├─ if (hintSub != null)
 - │  │  │  ├─ hintSub.AsSpan
@@ -18,16 +24,27 @@ stdout:
 - │  │  │  └─ CryptographicOperations.FixedTimeEquals
 - │  │  └─ if (hintSub != null && CryptographicOperations.FixedTimeEquals(MemoryMarshal.AsBytes<char>(hintSu…
 - │  │     ├─ new AuthenticationProperties
+- │  │     ├─ AuthenticationProperties.set_RedirectUri
 - │  │     └─ SignOut
++ │  ├─ pattern (hintResult is { Succeeded: true })
++ │  │  └─ AuthenticateResult.get_Succeeded
 + │  ├─ if (hintResult is { Succeeded: true })
++ │  │  ├─ AuthenticateResult.get_Principal
 + │  │  └─ if (hintResult.Principal is not null)
 + │  │     └─ .GetClaim
++ │  ├─ AuthenticateResult.get_Principal
 + │  ├─ OpenIdExtensions.FindUserIdentifier
 + │  │  ├─ principal.FindFirst
++ │  │  ├─ if (principal.FindFirst(Claims.Subject) is not null)
++ │  │  │  └─ Claim.get_Value
 + │  │  └─ if (principal.FindFirst(Claims.Subject)?.Value is null)
 + │  │     ├─ principal.FindFirst
++ │  │     ├─ if (principal.FindFirst(ClaimTypes.NameIdentifier) is not null)
++ │  │     │  └─ Claim.get_Value
 + │  │     └─ if (principal.FindFirst(ClaimTypes.NameIdentifier)?.Value is null)
-+ │  │        └─ principal.FindFirst
++ │  │        ├─ principal.FindFirst
++ │  │        └─ if (principal.FindFirst(ClaimTypes.Upn) is not null)
++ │  │           └─ Claim.get_Value
 + │  ├─ string.IsNullOrEmpty
 + │  ├─ if (!string.IsNullOrEmpty(hintSubject))
 + │  │  └─ string.IsNullOrEmpty
@@ -45,18 +62,24 @@ stdout:
   ├─ …
   ├─ HttpContext.GetOpenIddictServerRequest
   ├─ if (request == null)
+- ├─ ControllerBase.get_HttpContext
 - ├─ HttpContext.SignOutAsync
+- ├─ OpenIddictRequest.get_PostLogoutRedirectUri
 - ├─ string.IsNullOrEmpty
 - ├─ if (string.IsNullOrEmpty(request.PostLogoutRedirectUri))
 - │  └─ Redirect
 - ├─ new AuthenticationProperties
+- ├─ AuthenticationProperties.set_RedirectUri
 - ├─ SignOut
 + └─ AccessController.SignOutAndRedirectAsync
++    ├─ ControllerBase.get_HttpContext
 +    ├─ HttpContext.SignOutAsync
++    ├─ OpenIddictRequest.get_PostLogoutRedirectUri
 +    ├─ string.IsNullOrEmpty
 +    ├─ if (string.IsNullOrEmpty(request.PostLogoutRedirectUri))
 +    │  └─ Redirect
 +    ├─ new AuthenticationProperties
++    ├─ AuthenticationProperties.set_RedirectUri
 +    └─ SignOut
 stderr:
 
@@ -66,12 +89,18 @@ stdout:
 ```diff
   AccessController.Logout
   ├─ …
-  ├─ IOpenIdServerService.GetSettingsAsync → OpenIdServerService.GetSettingsAsync
+  ├─ OpenIdServerSettings.get_RequireEndSessionConfirmation
   ├─ if (!settings.RequireEndSessionConfirmation)
   ├─ if (!settings.RequireEndSessionConfirmation && !string.IsNullOrEmpty(request.IdTokenHint))
+  │  ├─ ControllerBase.get_HttpContext
   │  ├─ HttpContext.AuthenticateAsync
+- │  ├─ pattern (hintResult is { Succeeded: true, Principal: not null })
+- │  │  ├─ AuthenticateResult.get_Succeeded
+- │  │  └─ AuthenticateResult.get_Principal
 - │  ├─ if (hintResult is { Succeeded: true, Principal: not null })
+- │  │  ├─ AuthenticateResult.get_Principal
 - │  │  ├─ hintResult.Principal.GetClaim
+- │  │  ├─ AuthenticateResult.get_Principal
 - │  │  ├─ OpenIdExtensions.GetUserIdentifier (changes below depth limit)
 - │  │  ├─ if (hintSub != null)
 - │  │  │  ├─ hintSub.AsSpan
@@ -81,16 +110,27 @@ stdout:
 - │  │  │  └─ CryptographicOperations.FixedTimeEquals
 - │  │  └─ if (hintSub != null && CryptographicOperations.FixedTimeEquals(MemoryMarshal.AsBytes<char>(hintSu…
 - │  │     ├─ new AuthenticationProperties
+- │  │     ├─ AuthenticationProperties.set_RedirectUri
 - │  │     └─ SignOut
++ │  ├─ pattern (hintResult is { Succeeded: true })
++ │  │  └─ AuthenticateResult.get_Succeeded
 + │  ├─ if (hintResult is { Succeeded: true })
++ │  │  ├─ AuthenticateResult.get_Principal
 + │  │  └─ if (hintResult.Principal is not null)
 + │  │     └─ .GetClaim
++ │  ├─ AuthenticateResult.get_Principal
 + │  ├─ OpenIdExtensions.FindUserIdentifier
 + │  │  ├─ principal.FindFirst
++ │  │  ├─ if (principal.FindFirst(Claims.Subject) is not null)
++ │  │  │  └─ Claim.get_Value
 + │  │  └─ if (principal.FindFirst(Claims.Subject)?.Value is null)
 + │  │     ├─ principal.FindFirst
++ │  │     ├─ if (principal.FindFirst(ClaimTypes.NameIdentifier) is not null)
++ │  │     │  └─ Claim.get_Value
 + │  │     └─ if (principal.FindFirst(ClaimTypes.NameIdentifier)?.Value is null)
-+ │  │        └─ principal.FindFirst
++ │  │        ├─ principal.FindFirst
++ │  │        └─ if (principal.FindFirst(ClaimTypes.Upn) is not null)
++ │  │           └─ Claim.get_Value
 + │  ├─ string.IsNullOrEmpty
 + │  ├─ if (!string.IsNullOrEmpty(hintSubject))
 + │  │  └─ string.IsNullOrEmpty
@@ -108,18 +148,24 @@ stdout:
   ├─ …
   ├─ HttpContext.GetOpenIddictServerRequest
   ├─ if (request == null)
+- ├─ ControllerBase.get_HttpContext
 - ├─ HttpContext.SignOutAsync
+- ├─ OpenIddictRequest.get_PostLogoutRedirectUri
 - ├─ string.IsNullOrEmpty
 - ├─ if (string.IsNullOrEmpty(request.PostLogoutRedirectUri))
 - │  └─ Redirect
 - ├─ new AuthenticationProperties
+- ├─ AuthenticationProperties.set_RedirectUri
 - ├─ SignOut
 + └─ AccessController.SignOutAndRedirectAsync
++    ├─ ControllerBase.get_HttpContext
 +    ├─ HttpContext.SignOutAsync
++    ├─ OpenIddictRequest.get_PostLogoutRedirectUri
 +    ├─ string.IsNullOrEmpty
 +    ├─ if (string.IsNullOrEmpty(request.PostLogoutRedirectUri))
 +    │  └─ Redirect
 +    ├─ new AuthenticationProperties
++    ├─ AuthenticationProperties.set_RedirectUri
 +    └─ SignOut
 ```
 stderr:
