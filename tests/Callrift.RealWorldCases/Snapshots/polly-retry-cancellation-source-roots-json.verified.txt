@@ -1760,6 +1760,28 @@ stdout:
       }
     },
     {
+      "code": "duplicate-member",
+      "message": "Multiple bodies for source::Polly.CircuitBreaker.CircuitStateController<T>.get_CircuitState(); expansion omitted.",
+      "location": {
+        "path": "src/Polly.Core/CircuitBreaker/Controller/CircuitStateController.cs",
+        "startLine": 51,
+        "startColumn": 9,
+        "endLine": 59,
+        "endColumn": 10
+      }
+    },
+    {
+      "code": "duplicate-member",
+      "message": "Multiple bodies for source::Polly.CircuitBreaker.CircuitStateController<T>.get_LastException(); expansion omitted.",
+      "location": {
+        "path": "src/Polly.Core/CircuitBreaker/Controller/CircuitStateController.cs",
+        "startLine": 64,
+        "startColumn": 9,
+        "endLine": 72,
+        "endColumn": 10
+      }
+    },
+    {
       "code": "unresolved-call",
       "message": "Cannot bind _telemetry.Report<OnCircuitClosedArguments<T>, T>; candidates: source::Polly.Telemetry.ResilienceStrategyTelemetry.Report`2(global::Polly.Telemetry.ResilienceEvent,TArgs), source::Polly.Telemetry.ResilienceStrategyTelemetry.Report`2(global::Polly.Telemetry.ResilienceEvent,global::Polly.ResilienceContext,global::Polly.Outcome<TResult>,TArgs)",
       "location": {
@@ -7572,6 +7594,50 @@ stdout:
       "message": "Cannot bind TimedLock.Lock.",
       "location": {
         "path": "src/Polly/CircuitBreaker/CircuitStateController.cs",
+        "startLine": 39,
+        "startColumn": 27,
+        "endLine": 39,
+        "endColumn": 47
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind TimedLock.Lock.",
+      "location": {
+        "path": "src/Polly/CircuitBreaker/CircuitStateController.cs",
+        "startLine": 57,
+        "startColumn": 27,
+        "endLine": 57,
+        "endColumn": 47
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind TimedLock.Lock.",
+      "location": {
+        "path": "src/Polly/CircuitBreaker/CircuitStateController.cs",
+        "startLine": 66,
+        "startColumn": 27,
+        "endLine": 66,
+        "endColumn": 47
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind SystemClock.UtcNow.",
+      "location": {
+        "path": "src/Polly/CircuitBreaker/CircuitStateController.cs",
+        "startLine": 71,
+        "startColumn": 52,
+        "endLine": 71,
+        "endColumn": 72
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind TimedLock.Lock.",
+      "location": {
+        "path": "src/Polly/CircuitBreaker/CircuitStateController.cs",
         "startLine": 75,
         "startColumn": 23,
         "endLine": 75,
@@ -7928,6 +7994,17 @@ stdout:
         "startColumn": 9,
         "endLine": 17,
         "endColumn": 39
+      }
+    },
+    {
+      "code": "unresolved-call",
+      "message": "Cannot bind KeyHelper.GuidPart.",
+      "location": {
+        "path": "src/Polly/PolicyBase.ContextAndKeys.cs",
+        "startLine": 17,
+        "startColumn": 77,
+        "endLine": 17,
+        "endColumn": 97
       }
     },
     {
@@ -22000,17 +22077,25 @@ stdout:
       "children": [
         {
           "id": "n16",
-          "kind": "branch",
+          "kind": "call",
           "change": "unchanged",
-          "label": "possible initialization of ResilienceContextPool",
-          "detail": null,
+          "label": "ResilienceContextPool.get_Shared",
+          "detail": "depth limit",
           "before": {
-            "symbolId": null,
-            "signature": null,
-            "binding": "structural",
-            "dispatch": "none",
-            "targetIds": [],
-            "definition": null,
+            "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+            "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.ResilienceContextPool.get_Shared()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResilienceContextPool.cs",
+              "startLine": 14,
+              "startColumn": 50,
+              "endLine": 14,
+              "endColumn": 54
+            },
             "callSites": [
               {
                 "path": "bench/Polly.Core.Benchmarks/MultipleStrategiesBenchmark.cs",
@@ -22020,17 +22105,25 @@ stdout:
                 "endColumn": 51
               }
             ],
-            "relation": "branch",
-            "candidates": null,
-            "origin": "structural"
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
           },
           "after": {
-            "symbolId": null,
-            "signature": null,
-            "binding": "structural",
-            "dispatch": "none",
-            "targetIds": [],
-            "definition": null,
+            "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+            "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.ResilienceContextPool.get_Shared()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResilienceContextPool.cs",
+              "startLine": 14,
+              "startColumn": 50,
+              "endLine": 14,
+              "endColumn": 54
+            },
             "callSites": [
               {
                 "path": "bench/Polly.Core.Benchmarks/MultipleStrategiesBenchmark.cs",
@@ -22040,85 +22133,19 @@ stdout:
                 "endColumn": 51
               }
             ],
-            "relation": "branch",
-            "candidates": null,
-            "origin": "structural"
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
           },
-          "children": [
-            {
-              "id": "n17",
-              "kind": "call",
-              "change": "unchanged",
-              "label": "initialization of ResilienceContextPool",
-              "detail": "depth limit",
-              "before": {
-                "symbolId": "source::Polly.ResilienceContextPool..cctor()",
-                "signature": "static Polly.ResilienceContextPool.ResilienceContextPool() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "source::Polly.ResilienceContextPool..cctor()"
-                ],
-                "definition": {
-                  "path": "src/Polly.Core/ResilienceContextPool.Shared.cs",
-                  "startLine": 3,
-                  "startColumn": 1,
-                  "endLine": 24,
-                  "endColumn": 2
-                },
-                "callSites": [
-                  {
-                    "path": "bench/Polly.Core.Benchmarks/MultipleStrategiesBenchmark.cs",
-                    "startLine": 53,
-                    "startColumn": 23,
-                    "endLine": 53,
-                    "endColumn": 51
-                  }
-                ],
-                "relation": "call",
-                "candidates": [],
-                "origin": "source"
-              },
-              "after": {
-                "symbolId": "source::Polly.ResilienceContextPool..cctor()",
-                "signature": "static Polly.ResilienceContextPool.ResilienceContextPool() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "source::Polly.ResilienceContextPool..cctor()"
-                ],
-                "definition": {
-                  "path": "src/Polly.Core/ResilienceContextPool.Shared.cs",
-                  "startLine": 3,
-                  "startColumn": 1,
-                  "endLine": 24,
-                  "endColumn": 2
-                },
-                "callSites": [
-                  {
-                    "path": "bench/Polly.Core.Benchmarks/MultipleStrategiesBenchmark.cs",
-                    "startLine": 53,
-                    "startColumn": 23,
-                    "endLine": 53,
-                    "endColumn": 51
-                  }
-                ],
-                "relation": "call",
-                "candidates": [],
-                "origin": "source"
-              },
-              "children": [],
-              "omission": {
-                "reason": "depth-limit",
-                "symbolId": null,
-                "referenceId": null
-              }
-            }
-          ],
-          "omission": null
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
         },
         {
-          "id": "n18",
+          "id": "n17",
           "kind": "call",
           "change": "unchanged",
           "label": "ResilienceContextPool.Get",
@@ -22187,7 +22214,7 @@ stdout:
           }
         },
         {
-          "id": "n19",
+          "id": "n18",
           "kind": "call",
           "change": "modified",
           "label": "ResiliencePipeline.ExecuteOutcomeAsync",
@@ -22250,7 +22277,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n20",
+              "id": "n19",
               "kind": "call",
               "change": "unchanged",
               "label": "Outcome.FromResult",
@@ -22319,6 +22346,75 @@ stdout:
               }
             }
           ],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n20",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "ResilienceContextPool.get_Shared",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+            "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.ResilienceContextPool.get_Shared()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResilienceContextPool.cs",
+              "startLine": 14,
+              "startColumn": 50,
+              "endLine": 14,
+              "endColumn": 54
+            },
+            "callSites": [
+              {
+                "path": "bench/Polly.Core.Benchmarks/MultipleStrategiesBenchmark.cs",
+                "startLine": 60,
+                "startColumn": 9,
+                "endLine": 60,
+                "endColumn": 37
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+            "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.ResilienceContextPool.get_Shared()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResilienceContextPool.cs",
+              "startLine": 14,
+              "startColumn": 50,
+              "endLine": 14,
+              "endColumn": 54
+            },
+            "callSites": [
+              {
+                "path": "bench/Polly.Core.Benchmarks/MultipleStrategiesBenchmark.cs",
+                "startLine": 60,
+                "startColumn": 9,
+                "endLine": 60,
+                "endColumn": 37
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
           "omission": {
             "reason": "depth-limit",
             "symbolId": null,
@@ -22446,17 +22542,25 @@ stdout:
       "children": [
         {
           "id": "n23",
-          "kind": "branch",
+          "kind": "call",
           "change": "unchanged",
-          "label": "possible initialization of ResilienceContextPool",
-          "detail": null,
+          "label": "ResilienceContextPool.get_Shared",
+          "detail": "depth limit",
           "before": {
-            "symbolId": null,
-            "signature": null,
-            "binding": "structural",
-            "dispatch": "none",
-            "targetIds": [],
-            "definition": null,
+            "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+            "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.ResilienceContextPool.get_Shared()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResilienceContextPool.cs",
+              "startLine": 14,
+              "startColumn": 50,
+              "endLine": 14,
+              "endColumn": 54
+            },
             "callSites": [
               {
                 "path": "bench/Polly.Core.Benchmarks/MultipleStrategiesBenchmark.cs",
@@ -22466,17 +22570,25 @@ stdout:
                 "endColumn": 51
               }
             ],
-            "relation": "branch",
-            "candidates": null,
-            "origin": "structural"
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
           },
           "after": {
-            "symbolId": null,
-            "signature": null,
-            "binding": "structural",
-            "dispatch": "none",
-            "targetIds": [],
-            "definition": null,
+            "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+            "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.ResilienceContextPool.get_Shared()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResilienceContextPool.cs",
+              "startLine": 14,
+              "startColumn": 50,
+              "endLine": 14,
+              "endColumn": 54
+            },
             "callSites": [
               {
                 "path": "bench/Polly.Core.Benchmarks/MultipleStrategiesBenchmark.cs",
@@ -22486,85 +22598,19 @@ stdout:
                 "endColumn": 51
               }
             ],
-            "relation": "branch",
-            "candidates": null,
-            "origin": "structural"
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
           },
-          "children": [
-            {
-              "id": "n24",
-              "kind": "call",
-              "change": "unchanged",
-              "label": "initialization of ResilienceContextPool",
-              "detail": "depth limit",
-              "before": {
-                "symbolId": "source::Polly.ResilienceContextPool..cctor()",
-                "signature": "static Polly.ResilienceContextPool.ResilienceContextPool() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "source::Polly.ResilienceContextPool..cctor()"
-                ],
-                "definition": {
-                  "path": "src/Polly.Core/ResilienceContextPool.Shared.cs",
-                  "startLine": 3,
-                  "startColumn": 1,
-                  "endLine": 24,
-                  "endColumn": 2
-                },
-                "callSites": [
-                  {
-                    "path": "bench/Polly.Core.Benchmarks/MultipleStrategiesBenchmark.cs",
-                    "startLine": 40,
-                    "startColumn": 23,
-                    "endLine": 40,
-                    "endColumn": 51
-                  }
-                ],
-                "relation": "call",
-                "candidates": [],
-                "origin": "source"
-              },
-              "after": {
-                "symbolId": "source::Polly.ResilienceContextPool..cctor()",
-                "signature": "static Polly.ResilienceContextPool.ResilienceContextPool() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "source::Polly.ResilienceContextPool..cctor()"
-                ],
-                "definition": {
-                  "path": "src/Polly.Core/ResilienceContextPool.Shared.cs",
-                  "startLine": 3,
-                  "startColumn": 1,
-                  "endLine": 24,
-                  "endColumn": 2
-                },
-                "callSites": [
-                  {
-                    "path": "bench/Polly.Core.Benchmarks/MultipleStrategiesBenchmark.cs",
-                    "startLine": 40,
-                    "startColumn": 23,
-                    "endLine": 40,
-                    "endColumn": 51
-                  }
-                ],
-                "relation": "call",
-                "candidates": [],
-                "origin": "source"
-              },
-              "children": [],
-              "omission": {
-                "reason": "depth-limit",
-                "symbolId": null,
-                "referenceId": null
-              }
-            }
-          ],
-          "omission": null
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
         },
         {
-          "id": "n25",
+          "id": "n24",
           "kind": "call",
           "change": "unchanged",
           "label": "ResilienceContextPool.Get",
@@ -22633,7 +22679,7 @@ stdout:
           }
         },
         {
-          "id": "n26",
+          "id": "n25",
           "kind": "call",
           "change": "modified",
           "label": "ResiliencePipeline.ExecuteOutcomeAsync",
@@ -22696,7 +22742,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n27",
+              "id": "n26",
               "kind": "call",
               "change": "unchanged",
               "label": "Outcome.FromResult",
@@ -22765,6 +22811,75 @@ stdout:
               }
             }
           ],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n27",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "ResilienceContextPool.get_Shared",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+            "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.ResilienceContextPool.get_Shared()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResilienceContextPool.cs",
+              "startLine": 14,
+              "startColumn": 50,
+              "endLine": 14,
+              "endColumn": 54
+            },
+            "callSites": [
+              {
+                "path": "bench/Polly.Core.Benchmarks/MultipleStrategiesBenchmark.cs",
+                "startLine": 47,
+                "startColumn": 9,
+                "endLine": 47,
+                "endColumn": 37
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+            "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.ResilienceContextPool.get_Shared()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResilienceContextPool.cs",
+              "startLine": 14,
+              "startColumn": 50,
+              "endLine": 14,
+              "endColumn": 54
+            },
+            "callSites": [
+              {
+                "path": "bench/Polly.Core.Benchmarks/MultipleStrategiesBenchmark.cs",
+                "startLine": 47,
+                "startColumn": 9,
+                "endLine": 47,
+                "endColumn": 37
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
           "omission": {
             "reason": "depth-limit",
             "symbolId": null,
@@ -22892,17 +23007,25 @@ stdout:
       "children": [
         {
           "id": "n30",
-          "kind": "branch",
+          "kind": "call",
           "change": "unchanged",
-          "label": "possible initialization of ResilienceContextPool",
-          "detail": null,
+          "label": "ResilienceContextPool.get_Shared",
+          "detail": "depth limit",
           "before": {
-            "symbolId": null,
-            "signature": null,
-            "binding": "structural",
-            "dispatch": "none",
-            "targetIds": [],
-            "definition": null,
+            "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+            "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.ResilienceContextPool.get_Shared()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResilienceContextPool.cs",
+              "startLine": 14,
+              "startColumn": 50,
+              "endLine": 14,
+              "endColumn": 54
+            },
             "callSites": [
               {
                 "path": "bench/Polly.Core.Benchmarks/ResiliencePipelineBenchmark.cs",
@@ -22912,17 +23035,25 @@ stdout:
                 "endColumn": 51
               }
             ],
-            "relation": "branch",
-            "candidates": null,
-            "origin": "structural"
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
           },
           "after": {
-            "symbolId": null,
-            "signature": null,
-            "binding": "structural",
-            "dispatch": "none",
-            "targetIds": [],
-            "definition": null,
+            "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+            "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.ResilienceContextPool.get_Shared()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResilienceContextPool.cs",
+              "startLine": 14,
+              "startColumn": 50,
+              "endLine": 14,
+              "endColumn": 54
+            },
             "callSites": [
               {
                 "path": "bench/Polly.Core.Benchmarks/ResiliencePipelineBenchmark.cs",
@@ -22932,85 +23063,19 @@ stdout:
                 "endColumn": 51
               }
             ],
-            "relation": "branch",
-            "candidates": null,
-            "origin": "structural"
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
           },
-          "children": [
-            {
-              "id": "n31",
-              "kind": "call",
-              "change": "unchanged",
-              "label": "initialization of ResilienceContextPool",
-              "detail": "depth limit",
-              "before": {
-                "symbolId": "source::Polly.ResilienceContextPool..cctor()",
-                "signature": "static Polly.ResilienceContextPool.ResilienceContextPool() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "source::Polly.ResilienceContextPool..cctor()"
-                ],
-                "definition": {
-                  "path": "src/Polly.Core/ResilienceContextPool.Shared.cs",
-                  "startLine": 3,
-                  "startColumn": 1,
-                  "endLine": 24,
-                  "endColumn": 2
-                },
-                "callSites": [
-                  {
-                    "path": "bench/Polly.Core.Benchmarks/ResiliencePipelineBenchmark.cs",
-                    "startLine": 12,
-                    "startColumn": 23,
-                    "endLine": 12,
-                    "endColumn": 51
-                  }
-                ],
-                "relation": "call",
-                "candidates": [],
-                "origin": "source"
-              },
-              "after": {
-                "symbolId": "source::Polly.ResilienceContextPool..cctor()",
-                "signature": "static Polly.ResilienceContextPool.ResilienceContextPool() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "source::Polly.ResilienceContextPool..cctor()"
-                ],
-                "definition": {
-                  "path": "src/Polly.Core/ResilienceContextPool.Shared.cs",
-                  "startLine": 3,
-                  "startColumn": 1,
-                  "endLine": 24,
-                  "endColumn": 2
-                },
-                "callSites": [
-                  {
-                    "path": "bench/Polly.Core.Benchmarks/ResiliencePipelineBenchmark.cs",
-                    "startLine": 12,
-                    "startColumn": 23,
-                    "endLine": 12,
-                    "endColumn": 51
-                  }
-                ],
-                "relation": "call",
-                "candidates": [],
-                "origin": "source"
-              },
-              "children": [],
-              "omission": {
-                "reason": "depth-limit",
-                "symbolId": null,
-                "referenceId": null
-              }
-            }
-          ],
-          "omission": null
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
         },
         {
-          "id": "n32",
+          "id": "n31",
           "kind": "call",
           "change": "unchanged",
           "label": "ResilienceContextPool.Get",
@@ -23079,7 +23144,7 @@ stdout:
           }
         },
         {
-          "id": "n33",
+          "id": "n32",
           "kind": "branch",
           "change": "unchanged",
           "label": "possible initialization of ResiliencePipeline",
@@ -23126,7 +23191,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n34",
+              "id": "n33",
               "kind": "call",
               "change": "unchanged",
               "label": "initialization of ResiliencePipeline",
@@ -23198,7 +23263,7 @@ stdout:
           "omission": null
         },
         {
-          "id": "n35",
+          "id": "n34",
           "kind": "call",
           "change": "modified",
           "label": "ResiliencePipeline.ExecuteOutcomeAsync",
@@ -23261,7 +23326,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n36",
+              "id": "n35",
               "kind": "call",
               "change": "unchanged",
               "label": "Outcome.FromResultAsValueTask",
@@ -23330,6 +23395,75 @@ stdout:
               }
             }
           ],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n36",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "ResilienceContextPool.get_Shared",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+            "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.ResilienceContextPool.get_Shared()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResilienceContextPool.cs",
+              "startLine": 14,
+              "startColumn": 50,
+              "endLine": 14,
+              "endColumn": 54
+            },
+            "callSites": [
+              {
+                "path": "bench/Polly.Core.Benchmarks/ResiliencePipelineBenchmark.cs",
+                "startLine": 14,
+                "startColumn": 9,
+                "endLine": 14,
+                "endColumn": 37
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+            "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.ResilienceContextPool.get_Shared()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResilienceContextPool.cs",
+              "startLine": 14,
+              "startColumn": 50,
+              "endLine": 14,
+              "endColumn": 54
+            },
+            "callSites": [
+              {
+                "path": "bench/Polly.Core.Benchmarks/ResiliencePipelineBenchmark.cs",
+                "startLine": 14,
+                "startColumn": 9,
+                "endLine": 14,
+                "endColumn": 37
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
           "omission": {
             "reason": "depth-limit",
             "symbolId": null,
@@ -23457,17 +23591,25 @@ stdout:
       "children": [
         {
           "id": "n39",
-          "kind": "branch",
+          "kind": "call",
           "change": "unchanged",
-          "label": "possible initialization of ResilienceContextPool",
-          "detail": null,
+          "label": "ResilienceContextPool.get_Shared",
+          "detail": "depth limit",
           "before": {
-            "symbolId": null,
-            "signature": null,
-            "binding": "structural",
-            "dispatch": "none",
-            "targetIds": [],
-            "definition": null,
+            "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+            "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.ResilienceContextPool.get_Shared()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResilienceContextPool.cs",
+              "startLine": 14,
+              "startColumn": 50,
+              "endLine": 14,
+              "endColumn": 54
+            },
             "callSites": [
               {
                 "path": "bench/Polly.Core.Benchmarks/TelemetryBenchmark.cs",
@@ -23477,17 +23619,25 @@ stdout:
                 "endColumn": 51
               }
             ],
-            "relation": "branch",
-            "candidates": null,
-            "origin": "structural"
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
           },
           "after": {
-            "symbolId": null,
-            "signature": null,
-            "binding": "structural",
-            "dispatch": "none",
-            "targetIds": [],
-            "definition": null,
+            "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+            "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.ResilienceContextPool.get_Shared()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResilienceContextPool.cs",
+              "startLine": 14,
+              "startColumn": 50,
+              "endLine": 14,
+              "endColumn": 54
+            },
             "callSites": [
               {
                 "path": "bench/Polly.Core.Benchmarks/TelemetryBenchmark.cs",
@@ -23497,85 +23647,19 @@ stdout:
                 "endColumn": 51
               }
             ],
-            "relation": "branch",
-            "candidates": null,
-            "origin": "structural"
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
           },
-          "children": [
-            {
-              "id": "n40",
-              "kind": "call",
-              "change": "unchanged",
-              "label": "initialization of ResilienceContextPool",
-              "detail": "depth limit",
-              "before": {
-                "symbolId": "source::Polly.ResilienceContextPool..cctor()",
-                "signature": "static Polly.ResilienceContextPool.ResilienceContextPool() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "source::Polly.ResilienceContextPool..cctor()"
-                ],
-                "definition": {
-                  "path": "src/Polly.Core/ResilienceContextPool.Shared.cs",
-                  "startLine": 3,
-                  "startColumn": 1,
-                  "endLine": 24,
-                  "endColumn": 2
-                },
-                "callSites": [
-                  {
-                    "path": "bench/Polly.Core.Benchmarks/TelemetryBenchmark.cs",
-                    "startLine": 35,
-                    "startColumn": 23,
-                    "endLine": 35,
-                    "endColumn": 51
-                  }
-                ],
-                "relation": "call",
-                "candidates": [],
-                "origin": "source"
-              },
-              "after": {
-                "symbolId": "source::Polly.ResilienceContextPool..cctor()",
-                "signature": "static Polly.ResilienceContextPool.ResilienceContextPool() -> void",
-                "binding": "resolved",
-                "dispatch": "direct",
-                "targetIds": [
-                  "source::Polly.ResilienceContextPool..cctor()"
-                ],
-                "definition": {
-                  "path": "src/Polly.Core/ResilienceContextPool.Shared.cs",
-                  "startLine": 3,
-                  "startColumn": 1,
-                  "endLine": 24,
-                  "endColumn": 2
-                },
-                "callSites": [
-                  {
-                    "path": "bench/Polly.Core.Benchmarks/TelemetryBenchmark.cs",
-                    "startLine": 35,
-                    "startColumn": 23,
-                    "endLine": 35,
-                    "endColumn": 51
-                  }
-                ],
-                "relation": "call",
-                "candidates": [],
-                "origin": "source"
-              },
-              "children": [],
-              "omission": {
-                "reason": "depth-limit",
-                "symbolId": null,
-                "referenceId": null
-              }
-            }
-          ],
-          "omission": null
+          "children": [],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
         },
         {
-          "id": "n41",
+          "id": "n40",
           "kind": "call",
           "change": "unchanged",
           "label": "ResilienceContextPool.Get",
@@ -23644,7 +23728,7 @@ stdout:
           }
         },
         {
-          "id": "n42",
+          "id": "n41",
           "kind": "call",
           "change": "modified",
           "label": "ResiliencePipeline.ExecuteOutcomeAsync",
@@ -23707,7 +23791,7 @@ stdout:
           },
           "children": [
             {
-              "id": "n43",
+              "id": "n42",
               "kind": "call",
               "change": "unchanged",
               "label": "Outcome.FromResultAsValueTask",
@@ -23776,6 +23860,75 @@ stdout:
               }
             }
           ],
+          "omission": {
+            "reason": "depth-limit",
+            "symbolId": null,
+            "referenceId": null
+          }
+        },
+        {
+          "id": "n43",
+          "kind": "call",
+          "change": "unchanged",
+          "label": "ResilienceContextPool.get_Shared",
+          "detail": "depth limit",
+          "before": {
+            "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+            "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.ResilienceContextPool.get_Shared()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResilienceContextPool.cs",
+              "startLine": 14,
+              "startColumn": 50,
+              "endLine": 14,
+              "endColumn": 54
+            },
+            "callSites": [
+              {
+                "path": "bench/Polly.Core.Benchmarks/TelemetryBenchmark.cs",
+                "startLine": 37,
+                "startColumn": 9,
+                "endLine": 37,
+                "endColumn": 37
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "after": {
+            "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+            "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+            "binding": "resolved",
+            "dispatch": "direct",
+            "targetIds": [
+              "source::Polly.ResilienceContextPool.get_Shared()"
+            ],
+            "definition": {
+              "path": "src/Polly.Core/ResilienceContextPool.cs",
+              "startLine": 14,
+              "startColumn": 50,
+              "endLine": 14,
+              "endColumn": 54
+            },
+            "callSites": [
+              {
+                "path": "bench/Polly.Core.Benchmarks/TelemetryBenchmark.cs",
+                "startLine": 37,
+                "startColumn": 9,
+                "endLine": 37,
+                "endColumn": 37
+              }
+            ],
+            "relation": "call",
+            "candidates": [],
+            "origin": "source"
+          },
+          "children": [],
           "omission": {
             "reason": "depth-limit",
             "symbolId": null,
@@ -24649,17 +24802,25 @@ stdout:
           "children": [
             {
               "id": "n60",
-              "kind": "branch",
+              "kind": "call",
               "change": "unchanged",
-              "label": "possible initialization of ResilienceContextPool",
-              "detail": null,
+              "label": "ResilienceContextPool.get_Shared",
+              "detail": "depth limit",
               "before": {
-                "symbolId": null,
-                "signature": null,
-                "binding": "structural",
-                "dispatch": "none",
-                "targetIds": [],
-                "definition": null,
+                "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+                "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Polly.ResilienceContextPool.get_Shared()"
+                ],
+                "definition": {
+                  "path": "src/Polly.Core/ResilienceContextPool.cs",
+                  "startLine": 14,
+                  "startColumn": 50,
+                  "endLine": 14,
+                  "endColumn": 54
+                },
                 "callSites": [
                   {
                     "path": "bench/Polly.Core.Benchmarks/Utils/Helper.cs",
@@ -24669,17 +24830,25 @@ stdout:
                     "endColumn": 59
                   }
                 ],
-                "relation": "branch",
-                "candidates": null,
-                "origin": "structural"
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
               },
               "after": {
-                "symbolId": null,
-                "signature": null,
-                "binding": "structural",
-                "dispatch": "none",
-                "targetIds": [],
-                "definition": null,
+                "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+                "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Polly.ResilienceContextPool.get_Shared()"
+                ],
+                "definition": {
+                  "path": "src/Polly.Core/ResilienceContextPool.cs",
+                  "startLine": 14,
+                  "startColumn": 50,
+                  "endLine": 14,
+                  "endColumn": 54
+                },
                 "callSites": [
                   {
                     "path": "bench/Polly.Core.Benchmarks/Utils/Helper.cs",
@@ -24689,85 +24858,19 @@ stdout:
                     "endColumn": 59
                   }
                 ],
-                "relation": "branch",
-                "candidates": null,
-                "origin": "structural"
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
               },
-              "children": [
-                {
-                  "id": "n61",
-                  "kind": "call",
-                  "change": "unchanged",
-                  "label": "initialization of ResilienceContextPool",
-                  "detail": "depth limit",
-                  "before": {
-                    "symbolId": "source::Polly.ResilienceContextPool..cctor()",
-                    "signature": "static Polly.ResilienceContextPool.ResilienceContextPool() -> void",
-                    "binding": "resolved",
-                    "dispatch": "direct",
-                    "targetIds": [
-                      "source::Polly.ResilienceContextPool..cctor()"
-                    ],
-                    "definition": {
-                      "path": "src/Polly.Core/ResilienceContextPool.Shared.cs",
-                      "startLine": 3,
-                      "startColumn": 1,
-                      "endLine": 24,
-                      "endColumn": 2
-                    },
-                    "callSites": [
-                      {
-                        "path": "bench/Polly.Core.Benchmarks/Utils/Helper.cs",
-                        "startLine": 15,
-                        "startColumn": 31,
-                        "endLine": 15,
-                        "endColumn": 59
-                      }
-                    ],
-                    "relation": "call",
-                    "candidates": [],
-                    "origin": "source"
-                  },
-                  "after": {
-                    "symbolId": "source::Polly.ResilienceContextPool..cctor()",
-                    "signature": "static Polly.ResilienceContextPool.ResilienceContextPool() -> void",
-                    "binding": "resolved",
-                    "dispatch": "direct",
-                    "targetIds": [
-                      "source::Polly.ResilienceContextPool..cctor()"
-                    ],
-                    "definition": {
-                      "path": "src/Polly.Core/ResilienceContextPool.Shared.cs",
-                      "startLine": 3,
-                      "startColumn": 1,
-                      "endLine": 24,
-                      "endColumn": 2
-                    },
-                    "callSites": [
-                      {
-                        "path": "bench/Polly.Core.Benchmarks/Utils/Helper.cs",
-                        "startLine": 15,
-                        "startColumn": 31,
-                        "endLine": 15,
-                        "endColumn": 59
-                      }
-                    ],
-                    "relation": "call",
-                    "candidates": [],
-                    "origin": "source"
-                  },
-                  "children": [],
-                  "omission": {
-                    "reason": "depth-limit",
-                    "symbolId": null,
-                    "referenceId": null
-                  }
-                }
-              ],
-              "omission": null
+              "children": [],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
             },
             {
-              "id": "n62",
+              "id": "n61",
               "kind": "call",
               "change": "unchanged",
               "label": "ResilienceContextPool.Get",
@@ -24836,7 +24939,7 @@ stdout:
               }
             },
             {
-              "id": "n63",
+              "id": "n62",
               "kind": "call",
               "change": "modified",
               "label": "ResiliencePipeline<T>.ExecuteOutcomeAsync",
@@ -24899,7 +25002,7 @@ stdout:
               },
               "children": [
                 {
-                  "id": "n64",
+                  "id": "n63",
                   "kind": "call",
                   "change": "unchanged",
                   "label": "Outcome.FromResultAsValueTask",
@@ -24968,6 +25071,75 @@ stdout:
                   }
                 }
               ],
+              "omission": {
+                "reason": "depth-limit",
+                "symbolId": null,
+                "referenceId": null
+              }
+            },
+            {
+              "id": "n64",
+              "kind": "call",
+              "change": "unchanged",
+              "label": "ResilienceContextPool.get_Shared",
+              "detail": "depth limit",
+              "before": {
+                "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+                "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Polly.ResilienceContextPool.get_Shared()"
+                ],
+                "definition": {
+                  "path": "src/Polly.Core/ResilienceContextPool.cs",
+                  "startLine": 14,
+                  "startColumn": 50,
+                  "endLine": 14,
+                  "endColumn": 54
+                },
+                "callSites": [
+                  {
+                    "path": "bench/Polly.Core.Benchmarks/Utils/Helper.cs",
+                    "startLine": 22,
+                    "startColumn": 17,
+                    "endLine": 22,
+                    "endColumn": 45
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "after": {
+                "symbolId": "source::Polly.ResilienceContextPool.get_Shared()",
+                "signature": "public static Polly.ResilienceContextPool.get_Shared() -> Polly.ResilienceContextPool",
+                "binding": "resolved",
+                "dispatch": "direct",
+                "targetIds": [
+                  "source::Polly.ResilienceContextPool.get_Shared()"
+                ],
+                "definition": {
+                  "path": "src/Polly.Core/ResilienceContextPool.cs",
+                  "startLine": 14,
+                  "startColumn": 50,
+                  "endLine": 14,
+                  "endColumn": 54
+                },
+                "callSites": [
+                  {
+                    "path": "bench/Polly.Core.Benchmarks/Utils/Helper.cs",
+                    "startLine": 22,
+                    "startColumn": 17,
+                    "endLine": 22,
+                    "endColumn": 45
+                  }
+                ],
+                "relation": "call",
+                "candidates": [],
+                "origin": "source"
+              },
+              "children": [],
               "omission": {
                 "reason": "depth-limit",
                 "symbolId": null,
@@ -25735,4 +25907,4 @@ bench/Polly.Benchmarks/Cache.cs:12: unresolved-call: Cannot bind Policy.CacheAsy
 bench/Polly.Benchmarks/Cache.cs:14: unresolved-call: Cannot bind Policy.Cache; candidates: source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.Cache`1(ISyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>)
 bench/Polly.Benchmarks/Cache.cs:15: unresolved-call: Cannot bind Policy.CacheAsync; candidates: source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,ITtlStrategy<TResult>,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,ICacheKeyStrategy,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>), source::Polly.Policy.CacheAsync`1(IAsyncCacheProvider<TResult>,global::System.TimeSpan,global::System.Func<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string>,global::System.Action<global::Polly.Context, string, global::System.Exception>,global::System.Action<global::Polly.Context, string, global::System.Exception>)
 bench/Polly.Benchmarks/Cache.cs:52: unresolved-call: Cannot bind implicit base constructor for new Cache.MemoryCacheProvider.
-1906 additional diagnostics; use --diagnostics full.
+1913 additional diagnostics; use --diagnostics full.

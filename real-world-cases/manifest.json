@@ -2702,7 +2702,7 @@
     "licenseFile": "LICENSE",
     "beforeLicenseBlob": "a3f141b4656d0e2906fb9f4d20bd364af8c3fee3",
     "afterLicenseBlob": "a3f141b4656d0e2906fb9f4d20bd364af8c3fee3",
-    "reason": "Check cancellation after retry telemetry, callback and result disposal even when retry delay is zero. Move the positive-delay branch inside an unconditional try and preserve cancellation-to-outcome conversion in the catch. The changed call-free early-return condition and attempt increment remain absent; output does not prove the distinction between returning an unhandled result and canceling a handled retry. Independent pinned diffs, declarations, compiler bindings, root connections, diagnostics, locations and all formats reviewed. Source mode lacks project imports, package references and defines, leaves helper and delay calls unresolved, and merges conflicting TelemetryUtil types from separate projects. Restored net8.0 resolves the retry calls. Both modes report bounded generic expansion and possible dispatch, so roots and callbacks do not prove complete runtime reachability or execution. Upstream cancellation test changes were read but not executed.",
+    "reason": "Move retry cancellation checking after telemetry, retry callback and result disposal, before the optional delay. Independent pinned source and compiler-binding review verifies removed cancellation property reads, the new token getter and throw call, preserved delay calls and captured-context getter, and relocated exception conversion. The complete early-return predicate and increment guard remain omitted because their bodies contain no calls. Restored net8.0 exposes constrained outcome/context dispatch and result-property reads. Source mode lacks project imports, package references and defines, leaves helper and delay calls unresolved, and merges conflicting TelemetryUtil types from separate projects. Both modes retain bounded generic expansion and possible dispatch. Upstream regression tests were read but not executed; this graph does not prove runtime cancellation or complete reachability.",
     "tags": [
       "cancellation",
       "async",
@@ -2711,7 +2711,8 @@
       "branch-guard",
       "call-order",
       "generic-dispatch",
-      "automatic-roots"
+      "automatic-roots",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/source-only-coverage.md",

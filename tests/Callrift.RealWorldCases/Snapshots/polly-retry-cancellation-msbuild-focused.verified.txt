@@ -5,21 +5,32 @@ stdout:
   └─ while (true)
      ├─ _timeProvider.GetTimestamp
      ├─ StrategyHelper.ExecuteCallbackSafeAsync
+     ├─ ResilienceContext.get_ContinueOnCapturedContext
      ├─ StrategyHelper.ExecuteCallbackSafeAsync(callback, context, state).ConfigureAwait
      ├─ new RetryPredicateArguments<TResult>
+     ├─ RetryResilienceStrategy<T>.get_ShouldHandle
      ├─ ShouldHandle
+     ├─ ResilienceContext.get_ContinueOnCapturedContext
      ├─ ShouldHandle(shouldRetryArgs).ConfigureAwait
      ├─ _timeProvider.GetElapsedTime
      ├─ RetryResilienceStrategy<T>.IsLastAttempt
      ├─ if (isLastAttempt)
      ├─ else (!(isLastAttempt))
+-    ├─ ResilienceContext.get_CancellationToken
+-    ├─ CancellationToken.get_IsCancellationRequested
+     ├─ RetryResilienceStrategy<T>.get_BackoffType
+     ├─ RetryResilienceStrategy<T>.get_UseJitter
+     ├─ RetryResilienceStrategy<T>.get_BaseDelay
+     ├─ RetryResilienceStrategy<T>.get_MaxDelay
      ├─ RetryHelper.GetRetryDelay
+     ├─ RetryResilienceStrategy<T>.get_DelayGenerator
      ├─ if (DelayGenerator is not null)
      ├─ TimeSpan.op_GreaterThanOrEqual
      ├─ Debug.Assert
      ├─ new OnRetryArguments<TResult>
      ├─ new ResilienceEvent
      ├─ ResilienceStrategyTelemetry.Report
+     ├─ RetryResilienceStrategy<T>.get_OnRetry
      ├─ if (OnRetry is not null)
      ├─ Outcome<TResult>.TryGetResult
      ├─ if (outcome.TryGetResult(out var resultValue))
@@ -27,14 +38,17 @@ stdout:
 -    ├─ if (delay > TimeSpan.Zero)
 -    │  ├─ try
 -    │  │  ├─ TimeProviderExtensions.DelayAsync (depth limit)
+-    │  │  ├─ ResilienceContext.get_ContinueOnCapturedContext
 -    │  │  └─ _timeProvider.DelayAsync(delay, context).ConfigureAwait
 -    │  └─ catch (OperationCanceledException e)
 -    │     └─ Outcome.FromException (depth limit)
 +    ├─ try
++    │  ├─ ResilienceContext.get_CancellationToken
 +    │  ├─ context.CancellationToken.ThrowIfCancellationRequested
 +    │  ├─ TimeSpan.op_GreaterThan
 +    │  └─ if (delay > TimeSpan.Zero)
 +    │     ├─ TimeProviderExtensions.DelayAsync (depth limit)
++    │     ├─ ResilienceContext.get_ContinueOnCapturedContext
 +    │     └─ _timeProvider.DelayAsync(delay, context).ConfigureAwait
 +    └─ catch (OperationCanceledException e)
 +       └─ Outcome.FromException (depth limit)
@@ -57,21 +71,32 @@ stdout:
   └─ while (true)
      ├─ _timeProvider.GetTimestamp
      ├─ StrategyHelper.ExecuteCallbackSafeAsync
+     ├─ ResilienceContext.get_ContinueOnCapturedContext
      ├─ StrategyHelper.ExecuteCallbackSafeAsync(callback, context, state).ConfigureAwait
      ├─ new RetryPredicateArguments<TResult>
+     ├─ RetryResilienceStrategy<T>.get_ShouldHandle
      ├─ ShouldHandle
+     ├─ ResilienceContext.get_ContinueOnCapturedContext
      ├─ ShouldHandle(shouldRetryArgs).ConfigureAwait
      ├─ _timeProvider.GetElapsedTime
      ├─ RetryResilienceStrategy<T>.IsLastAttempt
      ├─ if (isLastAttempt)
      ├─ else (!(isLastAttempt))
+-    ├─ ResilienceContext.get_CancellationToken
+-    ├─ CancellationToken.get_IsCancellationRequested
+     ├─ RetryResilienceStrategy<T>.get_BackoffType
+     ├─ RetryResilienceStrategy<T>.get_UseJitter
+     ├─ RetryResilienceStrategy<T>.get_BaseDelay
+     ├─ RetryResilienceStrategy<T>.get_MaxDelay
      ├─ RetryHelper.GetRetryDelay
+     ├─ RetryResilienceStrategy<T>.get_DelayGenerator
      ├─ if (DelayGenerator is not null)
      ├─ TimeSpan.op_GreaterThanOrEqual
      ├─ Debug.Assert
      ├─ new OnRetryArguments<TResult>
      ├─ new ResilienceEvent
      ├─ ResilienceStrategyTelemetry.Report
+     ├─ RetryResilienceStrategy<T>.get_OnRetry
      ├─ if (OnRetry is not null)
      ├─ Outcome<TResult>.TryGetResult
      ├─ if (outcome.TryGetResult(out var resultValue))
@@ -79,14 +104,17 @@ stdout:
 -    ├─ if (delay > TimeSpan.Zero)
 -    │  ├─ try
 -    │  │  ├─ TimeProviderExtensions.DelayAsync (depth limit)
+-    │  │  ├─ ResilienceContext.get_ContinueOnCapturedContext
 -    │  │  └─ _timeProvider.DelayAsync(delay, context).ConfigureAwait
 -    │  └─ catch (OperationCanceledException e)
 -    │     └─ Outcome.FromException (depth limit)
 +    ├─ try
++    │  ├─ ResilienceContext.get_CancellationToken
 +    │  ├─ context.CancellationToken.ThrowIfCancellationRequested
 +    │  ├─ TimeSpan.op_GreaterThan
 +    │  └─ if (delay > TimeSpan.Zero)
 +    │     ├─ TimeProviderExtensions.DelayAsync (depth limit)
++    │     ├─ ResilienceContext.get_ContinueOnCapturedContext
 +    │     └─ _timeProvider.DelayAsync(delay, context).ConfigureAwait
 +    └─ catch (OperationCanceledException e)
 +       └─ Outcome.FromException (depth limit)
