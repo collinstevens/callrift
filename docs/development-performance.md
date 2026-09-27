@@ -1291,6 +1291,42 @@ neither has been established at this checkpoint. The first split-suite case
 steps took 3m 57s on Ubuntu and 5m 58s on macOS with cache misses, so they do not
 meet the warm three-minute target or demonstrate completion of the goal.
 
+[Run 36280349298](https://github.com/collinstevens/callrift/actions/runs/36280349298)
+then confirmed successful archive saves on Ubuntu, Windows and macOS at
+`ab612fd`. Each case job passed all 25 rows. The dotnet command portions took
+251.04 s, 399.75 s and 370.18 s respectively; complete jobs including setup and
+cache upload took 4m 51s, 8m 14s and 7m 24s. All three were cache misses. Archive
+creation is now proven, but a restored-cache run is still required for warm CI
+timing. The connected GitHub app rejected an individual job rerun with HTTP 403
+because it lacks Actions write permission; no warm rerun was started by that
+request. A subsequent checkpoint's normal workflow can validate restoration.
+
+That run subsequently passed every required job. Its broad test-step and complete
+job timings were:
+
+| Scope | Ubuntu | Windows | macOS |
+|---|---:|---:|---:|
+| Slow scenarios, 305 rows | 26m 06s | 23m 14s | 14m 20s |
+| Workspaces, 26 rows | 3m 12s | 3m 38s | 3m 53s |
+| Cold routine cases, 25 rows | 4m 14s | 6m 41s | 6m 13s |
+| Broad dependency path from first job start | 26m 37s | 24m 36s | 14m 54s |
+| Sum of the three broad jobs | 35m 14s | 38m 00s | 26m 48s |
+
+These are workflow step timings, including the PowerShell test wrapper, rather
+than the narrower dotnet command timings above. Broad jobs started 82–89 seconds
+after workflow creation. Including that initial scheduling delay, the final broad
+result arrived after 27m 59s, 25m 58s and 16m 20s respectively. The nine broad jobs
+consumed 100.03 runner-minutes versus 143.82 in the original three-job baseline.
+Their combined non-test overhead was 8m 31s, including repeated setup/build and
+cache save, compared with approximately 3m 19s originally. Fast, integration and
+quality jobs are excluded from both broad runner-minute totals.
+
+The scenario harness was still unchanged in this run; its large macOS variation
+cannot be attributed to the uncommitted worker experiment. The observed total
+reduction combines earlier reductions in workspace/case work with runner
+variation. Every suite still exceeds its target, and the warm case condition has
+not yet been measured on hosted runners.
+
 ### Full local E2E baseline
 
 The first attempted full baseline was stopped during real-world cases because
