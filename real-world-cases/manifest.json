@@ -1473,17 +1473,18 @@
     "afterLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
     "id": "aspnetcore-js-task-handling",
     "cacheName": "aspnetcore",
-    "reason": "Preserve non-generic task results, report cancellation, and support reflection-based JS interop task conversion",
+    "reason": "Preserve declared Task and ValueTask return types, report cancellation before result extraction, and provide reflection fallbacks when dynamic code is unavailable. Four readonly-record accessor roots join the previous six automatic roots. The focused view preserves readonly invocation-result and invocation-info getter ordering, circuit-option reads, the non-generic-task result guard, moved result extraction, and possible reflection getter dispatch. Independent review covers 64 signatures, including 52 exact prior declaration matches and 12 new accessor declarations, 131 source edges, 123 metadata edges and 643 rendered locations. All 23286 diagnostic rows are accounted for, including 22846 unresolved-call locations across both pins and 97 additional duplicate accessors matched to reviewed source pairs. All six formats repeat exactly on Linux. Pinned production and test diffs reviewed; upstream tests were not executed. Possible callbacks and dispatch do not prove runtime execution. Source-only output omits Razor and generated serializers, runtime reflection targets, receiver/value identity, and proof of Native AOT execution or branch exclusivity after returns. Restored trial exits 2 for unsupported src/submodules/MessagePack-CSharp. Final cross-platform validation remains required.",
     "tags": [
       "async-callback",
       "signature-change",
       "reflection",
       "exception-path",
-      "cross-project"
+      "cross-project",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/aspnetcore-source-coverage.md",
-    "review": "reviews/aspnetcore-js-task-handling.md",
+    "review": "../tests/Callrift.RealWorldCases/AspNetJsTaskExpectations.cs",
     "views": [
       {
         "id": "source-roots",

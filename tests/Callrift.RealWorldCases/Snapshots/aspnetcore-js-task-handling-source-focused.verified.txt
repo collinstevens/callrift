@@ -2,6 +2,7 @@
 exit: 0
 stdout:
 ~ DotNetDispatcher.EndInvokeDotNetAfterTask (signature changed)
+  ├─ Task.get_Exception
   ├─ if (task.Exception != null)
 - ├─ TaskGenericsUtil.GetTaskResult
 - │  ├─ possible initialization of TaskGenericsUtil
@@ -12,13 +13,20 @@ stdout:
 - │  ├─ _cachedResultGetters.GetOrAdd
 - │  │  ├─ TaskGenericsUtil.GetTaskResultType
 - │  │  │  ├─ while (taskType != typeof(Task) && (!taskType.IsGenericType || taskType.GetGenericTypeDefinition(…
+- │  │  │  │  ├─ Type.op_Inequality
 - │  │  │  │  ├─ if (taskType != typeof(Task))
+- │  │  │  │  │  ├─ Type.get_IsGenericType
 - │  │  │  │  │  └─ if (!(!taskType.IsGenericType))
-- │  │  │  │  │     └─ taskType.GetGenericTypeDefinition
+- │  │  │  │  │     ├─ taskType.GetGenericTypeDefinition
+- │  │  │  │  │     └─ Type.op_Inequality
+- │  │  │  │  ├─ Type.get_BaseType
 - │  │  │  │  └─ if (taskType.BaseType is null)
+- │  │  │  │     ├─ Type.get_FullName ×2
 - │  │  │  │     └─ new ArgumentException
+- │  │  │  ├─ Type.get_IsGenericType
 - │  │  │  └─ if (taskType.IsGenericType)
 - │  │  │     └─ taskType.GetGenericArguments
+- │  │  ├─ Type.op_Equality
 - │  │  ├─ if (resultType == null)
 - │  │  │  └─ new TaskGenericsUtil.VoidTaskResultGetter (depth limit)
 - │  │  └─ else (!(resultType == null))
@@ -26,8 +34,10 @@ stdout:
 - │  │     └─ Activator.CreateInstance
 - │  └─ TaskGenericsUtil.ITaskResultGetter.GetResult
 - │     ├─ ⇢ TaskGenericsUtil.TaskResultGetter<T>.GetResult
+- │     │  └─ Task<TResult>.get_Result
 - │     └─ ⇢ TaskGenericsUtil.VoidTaskResultGetter.GetResult
 - │        └─ task.Wait
++ ├─ Task.get_IsCanceled
 + ├─ if (task.IsCanceled)
 + │  ├─ new TaskCanceledException
 + │  ├─ new DotNetInvocationResult
@@ -35,21 +45,45 @@ stdout:
 + │  │     └─ new ArgumentNullException
 + │  └─ JSRuntime.EndInvokeDotNet
 + │     ├─ ⇢ RemoteJSRuntime.EndInvokeDotNet
++ │     │  ├─ DotNetInvocationResult.get_Success
 + │     │  ├─ if (!invocationResult.Success)
++ │     │  │  ├─ DotNetInvocationResult.get_Exception
 + │     │  │  ├─ RemoteJSRuntime.Log.InvokeDotNetMethodException (depth limit)
++ │     │  │  ├─ CircuitOptions.get_DetailedErrors
 + │     │  │  ├─ if (_options.DetailedErrors)
++ │     │  │  │  ├─ DotNetInvocationResult.get_Exception
 + │     │  │  │  └─ invocationResult.Exception.ToString
++ │     │  │  ├─ else (!(_options.DetailedErrors))
++ │     │  │  │  ├─ DotNetInvocationInfo.get_MethodIdentifier
++ │     │  │  │  ├─ DotNetInvocationInfo.get_AssemblyName
++ │     │  │  │  └─ if (invocationInfo.AssemblyName != null)
++ │     │  │  │     └─ DotNetInvocationInfo.get_AssemblyName
++ │     │  │  ├─ DotNetInvocationInfo.get_CallId
 + │     │  │  └─ ClientProxyExtensions.SendAsync (depth limit)
 + │     │  └─ else (!(!invocationResult.Success))
 + │     │     ├─ RemoteJSRuntime.Log.InvokeDotNetMethodSuccess (depth limit)
++ │     │     ├─ DotNetInvocationInfo.get_CallId
++ │     │     ├─ DotNetInvocationResult.get_ResultJson
 + │     │     └─ ClientProxyExtensions.SendAsync (depth limit)
 + │     ├─ ⇢ WebViewJSRuntime.EndInvokeDotNet
++ │     │  ├─ DotNetInvocationResult.get_Success
++ │     │  ├─ if (invocationResult.Success)
++ │     │  │  └─ DotNetInvocationResult.get_ResultJson
 + │     │  ├─ else (!(invocationResult.Success))
++ │     │  │  ├─ DotNetInvocationResult.get_Exception
 + │     │  │  └─ invocationResult.Exception.ToString
++ │     │  ├─ DotNetInvocationInfo.get_CallId
++ │     │  ├─ DotNetInvocationResult.get_Success
 + │     │  └─ IpcSender.EndInvokeDotNet (depth limit)
 + │     └─ ⇢ WebAssemblyJSRuntime.EndInvokeDotNet
++ │        ├─ DotNetInvocationResult.get_Success
++ │        ├─ if (dispatchResult.Success)
++ │        │  └─ DotNetInvocationResult.get_ResultJson
 + │        ├─ else (!(dispatchResult.Success))
++ │        │  ├─ DotNetInvocationResult.get_Exception
 + │        │  └─ dispatchResult.Exception!.ToString
++ │        ├─ DotNetInvocationInfo.get_CallId
++ │        ├─ DotNetInvocationResult.get_Success
 + │        └─ InternalCalls.EndInvokeDotNetFromJS
 + ├─ else (!(isNonGenericTask))
 + │  └─ TaskGenericsUtil.GetTaskResult
@@ -58,9 +92,11 @@ stdout:
 + │     ├─ task.GetType
 + │     ├─ _cachedResultGetters.GetOrAdd
 + │     │  ├─ TaskGenericsUtil.GetTaskResultType (depth limit)
++ │     │  ├─ Type.op_Equality
 + │     │  ├─ if (resultType == null)
 + │     │  │  └─ new TaskGenericsUtil.VoidTaskResultGetter (depth limit)
 + │     │  └─ else (!(resultType == null))
++ │     │     ├─ RuntimeFeature.get_IsDynamicCodeSupported
 + │     │     ├─ if (RuntimeFeature.IsDynamicCodeSupported)
 + │     │     │  ├─ typeof(TaskResultGetter<>).MakeGenericType
 + │     │     │  └─ Activator.CreateInstance
@@ -69,10 +105,10 @@ stdout:
 + │     │        └─ new TaskGenericsUtil.ReflectionTaskResultGetter (changes below depth limit)
 + │     └─ TaskGenericsUtil.ITaskResultGetter.GetResult
 + │        ├─ ⇢ TaskGenericsUtil.ReflectionTaskResultGetter.GetResult (changes below depth limit)
-+ │        ├─ ⇢ TaskGenericsUtil.TaskResultGetter<T>.GetResult
++ │        ├─ ⇢ TaskGenericsUtil.TaskResultGetter<T>.GetResult (depth limit)
 + │        └─ ⇢ TaskGenericsUtil.VoidTaskResultGetter.GetResult (depth limit)
+  ├─ JSRuntime.get_JsonSerializerOptions
   ├─ JsonSerializer.Serialize
-  ├─ new DotNetInvocationResult
   └─ …
 
   DotNetDispatcher.GetTaskByType
@@ -80,7 +116,9 @@ stdout:
   ├─ _cachedConvertToTaskByType.GetOrAdd
 - │  ├─ taskConverterMethodInfo.MakeGenericMethod
 - │  ├─ taskConverterMethodInfo.MakeGenericMethod(t).CreateDelegate<Func<object, Task>>
++ │  ├─ RuntimeFeature.get_IsDynamicCodeSupported
 + │  ├─ if (RuntimeFeature.IsDynamicCodeSupported)
++ │  │  ├─ Type.get_GenericTypeArguments
 + │  │  ├─ taskConverterMethodInfo.MakeGenericMethod
 + │  │  └─ taskConverterMethodInfo.MakeGenericMethod(valueTaskType.GenericTypeArguments[0]).CreateDelegate<Func<object, Task>>
 + │  ├─ valueTaskType.GetMethod
@@ -92,11 +130,13 @@ stdout:
   ├─ possible initialization of TaskGenericsUtil
   ├─ task.GetType
   ├─ _cachedResultGetters.GetOrAdd
-  │  ├─ TaskGenericsUtil.GetTaskResultType
+  │  ├─ …
+  │  ├─ Type.op_Equality
   │  ├─ if (resultType == null)
   │  └─ else (!(resultType == null))
 - │     ├─ typeof(TaskResultGetter<>).MakeGenericType
 - │     ├─ Activator.CreateInstance
++ │     ├─ RuntimeFeature.get_IsDynamicCodeSupported
 + │     ├─ if (RuntimeFeature.IsDynamicCodeSupported)
 + │     │  ├─ typeof(TaskResultGetter<>).MakeGenericType
 + │     │  └─ Activator.CreateInstance
@@ -110,20 +150,21 @@ stdout:
      └─ ⇢ TaskGenericsUtil.VoidTaskResultGetter.GetResult
 stderr:
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:19: unresolved-call: Cannot bind new RootCommand.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind collection initializer Add.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:24: unresolved-call: Cannot bind new Argument<string[]>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind collection initializer Add.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot bind new Argument<string>.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
-22965 additional diagnostics; use --diagnostics full.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind collection initializer Add.
+23278 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
 stdout:
 ```diff
 ~ DotNetDispatcher.EndInvokeDotNetAfterTask (signature changed)
+  ├─ Task.get_Exception
   ├─ if (task.Exception != null)
 - ├─ TaskGenericsUtil.GetTaskResult
 - │  ├─ possible initialization of TaskGenericsUtil
@@ -134,13 +175,20 @@ stdout:
 - │  ├─ _cachedResultGetters.GetOrAdd
 - │  │  ├─ TaskGenericsUtil.GetTaskResultType
 - │  │  │  ├─ while (taskType != typeof(Task) && (!taskType.IsGenericType || taskType.GetGenericTypeDefinition(…
+- │  │  │  │  ├─ Type.op_Inequality
 - │  │  │  │  ├─ if (taskType != typeof(Task))
+- │  │  │  │  │  ├─ Type.get_IsGenericType
 - │  │  │  │  │  └─ if (!(!taskType.IsGenericType))
-- │  │  │  │  │     └─ taskType.GetGenericTypeDefinition
+- │  │  │  │  │     ├─ taskType.GetGenericTypeDefinition
+- │  │  │  │  │     └─ Type.op_Inequality
+- │  │  │  │  ├─ Type.get_BaseType
 - │  │  │  │  └─ if (taskType.BaseType is null)
+- │  │  │  │     ├─ Type.get_FullName ×2
 - │  │  │  │     └─ new ArgumentException
+- │  │  │  ├─ Type.get_IsGenericType
 - │  │  │  └─ if (taskType.IsGenericType)
 - │  │  │     └─ taskType.GetGenericArguments
+- │  │  ├─ Type.op_Equality
 - │  │  ├─ if (resultType == null)
 - │  │  │  └─ new TaskGenericsUtil.VoidTaskResultGetter (depth limit)
 - │  │  └─ else (!(resultType == null))
@@ -148,8 +196,10 @@ stdout:
 - │  │     └─ Activator.CreateInstance
 - │  └─ TaskGenericsUtil.ITaskResultGetter.GetResult
 - │     ├─ ⇢ TaskGenericsUtil.TaskResultGetter<T>.GetResult
+- │     │  └─ Task<TResult>.get_Result
 - │     └─ ⇢ TaskGenericsUtil.VoidTaskResultGetter.GetResult
 - │        └─ task.Wait
++ ├─ Task.get_IsCanceled
 + ├─ if (task.IsCanceled)
 + │  ├─ new TaskCanceledException
 + │  ├─ new DotNetInvocationResult
@@ -157,21 +207,45 @@ stdout:
 + │  │     └─ new ArgumentNullException
 + │  └─ JSRuntime.EndInvokeDotNet
 + │     ├─ ⇢ RemoteJSRuntime.EndInvokeDotNet
++ │     │  ├─ DotNetInvocationResult.get_Success
 + │     │  ├─ if (!invocationResult.Success)
++ │     │  │  ├─ DotNetInvocationResult.get_Exception
 + │     │  │  ├─ RemoteJSRuntime.Log.InvokeDotNetMethodException (depth limit)
++ │     │  │  ├─ CircuitOptions.get_DetailedErrors
 + │     │  │  ├─ if (_options.DetailedErrors)
++ │     │  │  │  ├─ DotNetInvocationResult.get_Exception
 + │     │  │  │  └─ invocationResult.Exception.ToString
++ │     │  │  ├─ else (!(_options.DetailedErrors))
++ │     │  │  │  ├─ DotNetInvocationInfo.get_MethodIdentifier
++ │     │  │  │  ├─ DotNetInvocationInfo.get_AssemblyName
++ │     │  │  │  └─ if (invocationInfo.AssemblyName != null)
++ │     │  │  │     └─ DotNetInvocationInfo.get_AssemblyName
++ │     │  │  ├─ DotNetInvocationInfo.get_CallId
 + │     │  │  └─ ClientProxyExtensions.SendAsync (depth limit)
 + │     │  └─ else (!(!invocationResult.Success))
 + │     │     ├─ RemoteJSRuntime.Log.InvokeDotNetMethodSuccess (depth limit)
++ │     │     ├─ DotNetInvocationInfo.get_CallId
++ │     │     ├─ DotNetInvocationResult.get_ResultJson
 + │     │     └─ ClientProxyExtensions.SendAsync (depth limit)
 + │     ├─ ⇢ WebViewJSRuntime.EndInvokeDotNet
++ │     │  ├─ DotNetInvocationResult.get_Success
++ │     │  ├─ if (invocationResult.Success)
++ │     │  │  └─ DotNetInvocationResult.get_ResultJson
 + │     │  ├─ else (!(invocationResult.Success))
++ │     │  │  ├─ DotNetInvocationResult.get_Exception
 + │     │  │  └─ invocationResult.Exception.ToString
++ │     │  ├─ DotNetInvocationInfo.get_CallId
++ │     │  ├─ DotNetInvocationResult.get_Success
 + │     │  └─ IpcSender.EndInvokeDotNet (depth limit)
 + │     └─ ⇢ WebAssemblyJSRuntime.EndInvokeDotNet
++ │        ├─ DotNetInvocationResult.get_Success
++ │        ├─ if (dispatchResult.Success)
++ │        │  └─ DotNetInvocationResult.get_ResultJson
 + │        ├─ else (!(dispatchResult.Success))
++ │        │  ├─ DotNetInvocationResult.get_Exception
 + │        │  └─ dispatchResult.Exception!.ToString
++ │        ├─ DotNetInvocationInfo.get_CallId
++ │        ├─ DotNetInvocationResult.get_Success
 + │        └─ InternalCalls.EndInvokeDotNetFromJS
 + ├─ else (!(isNonGenericTask))
 + │  └─ TaskGenericsUtil.GetTaskResult
@@ -180,9 +254,11 @@ stdout:
 + │     ├─ task.GetType
 + │     ├─ _cachedResultGetters.GetOrAdd
 + │     │  ├─ TaskGenericsUtil.GetTaskResultType (depth limit)
++ │     │  ├─ Type.op_Equality
 + │     │  ├─ if (resultType == null)
 + │     │  │  └─ new TaskGenericsUtil.VoidTaskResultGetter (depth limit)
 + │     │  └─ else (!(resultType == null))
++ │     │     ├─ RuntimeFeature.get_IsDynamicCodeSupported
 + │     │     ├─ if (RuntimeFeature.IsDynamicCodeSupported)
 + │     │     │  ├─ typeof(TaskResultGetter<>).MakeGenericType
 + │     │     │  └─ Activator.CreateInstance
@@ -191,10 +267,10 @@ stdout:
 + │     │        └─ new TaskGenericsUtil.ReflectionTaskResultGetter (changes below depth limit)
 + │     └─ TaskGenericsUtil.ITaskResultGetter.GetResult
 + │        ├─ ⇢ TaskGenericsUtil.ReflectionTaskResultGetter.GetResult (changes below depth limit)
-+ │        ├─ ⇢ TaskGenericsUtil.TaskResultGetter<T>.GetResult
++ │        ├─ ⇢ TaskGenericsUtil.TaskResultGetter<T>.GetResult (depth limit)
 + │        └─ ⇢ TaskGenericsUtil.VoidTaskResultGetter.GetResult (depth limit)
+  ├─ JSRuntime.get_JsonSerializerOptions
   ├─ JsonSerializer.Serialize
-  ├─ new DotNetInvocationResult
   └─ …
 
   DotNetDispatcher.GetTaskByType
@@ -202,7 +278,9 @@ stdout:
   ├─ _cachedConvertToTaskByType.GetOrAdd
 - │  ├─ taskConverterMethodInfo.MakeGenericMethod
 - │  ├─ taskConverterMethodInfo.MakeGenericMethod(t).CreateDelegate<Func<object, Task>>
++ │  ├─ RuntimeFeature.get_IsDynamicCodeSupported
 + │  ├─ if (RuntimeFeature.IsDynamicCodeSupported)
++ │  │  ├─ Type.get_GenericTypeArguments
 + │  │  ├─ taskConverterMethodInfo.MakeGenericMethod
 + │  │  └─ taskConverterMethodInfo.MakeGenericMethod(valueTaskType.GenericTypeArguments[0]).CreateDelegate<Func<object, Task>>
 + │  ├─ valueTaskType.GetMethod
@@ -214,11 +292,13 @@ stdout:
   ├─ possible initialization of TaskGenericsUtil
   ├─ task.GetType
   ├─ _cachedResultGetters.GetOrAdd
-  │  ├─ TaskGenericsUtil.GetTaskResultType
+  │  ├─ …
+  │  ├─ Type.op_Equality
   │  ├─ if (resultType == null)
   │  └─ else (!(resultType == null))
 - │     ├─ typeof(TaskResultGetter<>).MakeGenericType
 - │     ├─ Activator.CreateInstance
++ │     ├─ RuntimeFeature.get_IsDynamicCodeSupported
 + │     ├─ if (RuntimeFeature.IsDynamicCodeSupported)
 + │     │  ├─ typeof(TaskResultGetter<>).MakeGenericType
 + │     │  └─ Activator.CreateInstance
@@ -233,11 +313,11 @@ stdout:
 ```
 stderr:
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:19: unresolved-call: Cannot bind new RootCommand.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind collection initializer Add.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:24: unresolved-call: Cannot bind new Argument<string[]>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind collection initializer Add.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot bind new Argument<string>.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
-22965 additional diagnostics; use --diagnostics full.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind collection initializer Add.
+23278 additional diagnostics; use --diagnostics full.
