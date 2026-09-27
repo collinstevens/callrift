@@ -73,6 +73,8 @@ public sealed class RealWorldCaseFixture : IDisposable
             AspNetSecurityExpectations.VerifySignOut(result, options.Entries.Count > 0);
         if (entry.Id == "aspnetcore-js-task-handling")
             AspNetJsTaskExpectations.Verify(result, options.Entries.Count > 0);
+        if (entry.Id == "aspnetcore-stream-cts-disposal")
+            AspNetStreamCtsExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "serilog-restricted-optional-interfaces")
             SerilogRestrictedSinkExpectations.Verify(result, options.Entries.Count > 0);
         if (entry.Id == "serilog-self-metrics")

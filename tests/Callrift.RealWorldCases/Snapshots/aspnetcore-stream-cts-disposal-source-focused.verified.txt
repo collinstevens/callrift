@@ -2,56 +2,108 @@
 exit: 0
 stdout:
   DefaultHubDispatcher<THub>.StreamAsync
-  ├─ if (streamCts is null)
+  ├─ …
+  ├─ HubMethodInvocationMessage.get_Target
+  ├─ HubInvocationMessage.get_Headers
   ├─ DefaultHubDispatcher<THub>.StartActivity
+  │  ├─ …
+  │  ├─ possible initialization of DefaultHubDispatcher<THub>
+  │  ├─ TagList.Add
+  │  ├─ if (connection is not null)
+  │  │  ├─ HubConnectionContext.get_Features (depth limit)
+~ │  │  └─ ConnectionEndpointTags.AddConnectionEndpointTags (changes below depth limit)
+  │  ├─ if ((linkedActivity is not null))
+  │  ├─ if (headers != null)
+  │  └─ …
   ├─ try
+  │  ├─ HubConnectionContext.get_ActiveRequestCancellationSources
   │  ├─ connection.ActiveRequestCancellationSources.TryAdd
   │  ├─ if (!connection.ActiveRequestCancellationSources.TryAdd(invocationId, streamCts))
   │  │  ├─ DefaultHubDispatcherLog.InvocationIdInUse
 + │  │  └─ streamCts.Dispose
   │  ├─ try
   │  ├─ catch (Exception ex)
-  │  └─ …
+  │  ├─ …
+  │  ├─ DefaultHubDispatcherLog.StreamingResult
+  │  ├─ new StreamItemMessage
+  │  └─ while (await enumerator.MoveNextAsync())
+  │     ├─ …
+  │     ├─ IAsyncEnumerator<T>.get_Current
+  │     ├─ StreamItemMessage.set_Item
+  │     └─ HubConnectionContext.WriteAsync
+~ │        ├─ ⇢ HubConnectionContext.WriteAsync (changes below depth limit)
+  │        ├─ ⇢ DefaultHubDispatcherBenchmark.NoErrorHubConnectionContext.WriteAsync (depth limit)
+  │        └─ ⇢ HubConnectionContextUtils.MockHubConnectionContext.WriteAsync (depth limit)
   ├─ catch (ChannelClosedException ex)
   ├─ catch (Exception ex)
-  └─ …
+  └─ finally
+     ├─ …
+     ├─ if (ctsRegistered)
+     ├─ CompletionMessage.WithError
+     └─ HubConnectionContext.WriteAsync ↑ as above
 stderr:
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:19: unresolved-call: Cannot bind new RootCommand.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind collection initializer Add.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:24: unresolved-call: Cannot bind new Argument<string[]>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind collection initializer Add.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot bind new Argument<string>.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
-23096 additional diagnostics; use --diagnostics full.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind collection initializer Add.
+23411 additional diagnostics; use --diagnostics full.
 
 format: md
 exit: 0
 stdout:
 ```diff
   DefaultHubDispatcher<THub>.StreamAsync
-  ├─ if (streamCts is null)
+  ├─ …
+  ├─ HubMethodInvocationMessage.get_Target
+  ├─ HubInvocationMessage.get_Headers
   ├─ DefaultHubDispatcher<THub>.StartActivity
+  │  ├─ …
+  │  ├─ possible initialization of DefaultHubDispatcher<THub>
+  │  ├─ TagList.Add
+  │  ├─ if (connection is not null)
+  │  │  ├─ HubConnectionContext.get_Features (depth limit)
+~ │  │  └─ ConnectionEndpointTags.AddConnectionEndpointTags (changes below depth limit)
+  │  ├─ if ((linkedActivity is not null))
+  │  ├─ if (headers != null)
+  │  └─ …
   ├─ try
+  │  ├─ HubConnectionContext.get_ActiveRequestCancellationSources
   │  ├─ connection.ActiveRequestCancellationSources.TryAdd
   │  ├─ if (!connection.ActiveRequestCancellationSources.TryAdd(invocationId, streamCts))
   │  │  ├─ DefaultHubDispatcherLog.InvocationIdInUse
 + │  │  └─ streamCts.Dispose
   │  ├─ try
   │  ├─ catch (Exception ex)
-  │  └─ …
+  │  ├─ …
+  │  ├─ DefaultHubDispatcherLog.StreamingResult
+  │  ├─ new StreamItemMessage
+  │  └─ while (await enumerator.MoveNextAsync())
+  │     ├─ …
+  │     ├─ IAsyncEnumerator<T>.get_Current
+  │     ├─ StreamItemMessage.set_Item
+  │     └─ HubConnectionContext.WriteAsync
+~ │        ├─ ⇢ HubConnectionContext.WriteAsync (changes below depth limit)
+  │        ├─ ⇢ DefaultHubDispatcherBenchmark.NoErrorHubConnectionContext.WriteAsync (depth limit)
+  │        └─ ⇢ HubConnectionContextUtils.MockHubConnectionContext.WriteAsync (depth limit)
   ├─ catch (ChannelClosedException ex)
   ├─ catch (Exception ex)
-  └─ …
+  └─ finally
+     ├─ …
+     ├─ if (ctsRegistered)
+     ├─ CompletionMessage.WithError
+     └─ HubConnectionContext.WriteAsync ↑ as above
 ```
 stderr:
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:19: unresolved-call: Cannot bind new RootCommand.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind collection initializer Add.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:21: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:24: unresolved-call: Cannot bind new Argument<string[]>.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind collection initializer Add.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:26: unresolved-call: Cannot bind new Option.
 eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:29: unresolved-call: Cannot bind new Argument<string>.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind new Option.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:34: unresolved-call: Cannot bind new Argument<string>.
-eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:36: unresolved-call: Cannot bind new Option.
-23096 additional diagnostics; use --diagnostics full.
+eng/tools/HelixTestRunner/HelixTestRunnerOptions.cs:31: unresolved-call: Cannot bind collection initializer Add.
+23411 additional diagnostics; use --diagnostics full.

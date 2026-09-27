@@ -1672,14 +1672,15 @@
     "licenseFile": "LICENSE.txt",
     "beforeLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
     "afterLicenseBlob": "984713a49622a96da110443c15477613bc12656b",
-    "reason": "Dispose a rejected SignalR streaming invocation cancellation source before its early return while preserving ownership of the existing invocation",
+    "reason": "Dispose the rejected streaming cancellation source after failed registration while retaining removal and disposal under ctsRegistered in finally. Executable expectations preserve creation, registration, iterator property reads, item assignment and cleanup order. Independent review covers 7905 signatures (7779 exact prior declarations and 126 newly read), 59868 source bindings, 1219 metadata bindings and all 23419 diagnostics. The 2325 automatic roots have independently bound paths to StreamAsync; broad wrapper dispatch and five ancestor cycles are conservative possibilities, not proof of runtime execution or recursion. All six formats repeat exactly on Linux, including after the allocation optimizations. Return-only control flow is absent, so the call tree does not prove branch exclusivity or ownership at runtime. Pinned production diff and surroundings reviewed; upstream tests were not executed. Source mode lacks project references, defines and generators. Restored trial exits 2 for unsupported src/submodules/MessagePack-CSharp. Final cross-platform validation remains required.",
     "tags": [
       "branch-guard",
       "exception-path",
       "async",
       "resource-cleanup",
       "cross-project",
-      "automatic-roots"
+      "automatic-roots",
+      "properties"
     ],
     "options": [],
     "knownIssue": "issues/aspnetcore-source-coverage.md",
