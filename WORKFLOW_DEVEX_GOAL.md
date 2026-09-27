@@ -1,6 +1,6 @@
 # Test-suite performance goal
 
-Status: second performance phase in progress. Matched full-corpus cold/warm improvement is established at `2fae0fb`, with all 426 executions retained. Warm broad CI was below ten minutes on all platforms in run 36289779318, but the same-source repeat 36291136914 took 10m 21s on Windows. Windows scenarios and every workspace/case target remain unmet in the repeat; optimized cold CI remains outstanding. Two balanced shards per suite are validated locally, including exact coverage unions; hosted cold/warm results for that split are pending. The previous phase established fast everyday feedback, but broad CI originally took 46–49 minutes. This phase makes the remaining suite fast. It does not resume the paused implementation goal in `GOAL.md`.
+Status: second performance phase in progress. Matched full-corpus cold/warm improvement is established at `2fae0fb`, with all 426 executions retained. The first two-shard cold CI run, 36292855750 at `a3bba0f`, passed every required job and completed broad feedback in 4m 28s / 5m 50s / 6m 46s on Ubuntu / Windows / macOS. Windows workspace A still took 129.59 seconds; a follow-up splits its mixed-framework rows within the same concurrency limit. Warm case-cache evidence and final suite-target confirmation remain outstanding. The previous phase established fast everyday feedback, but broad CI originally took 46–49 minutes. This phase makes the remaining suite fast. It does not resume the paused implementation goal in `GOAL.md`.
 
 ## Outcome
 

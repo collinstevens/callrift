@@ -2014,3 +2014,98 @@ Workflow lint passed. Four invalid-argument probes and a disjoint shard/filter
 intersection all failed as intended; no temporary tests were left in the tree.
 The solution build completed without warnings or errors. Reviewed snapshots and
 the pinned manifest remain unchanged.
+
+
+### Current isolation and cleanup accounting
+
+The latest six local shard TRX files reached four overlapping scenario/workspace
+rows and two real-world rows, never more. The `PartialCloneTests` rows did not
+overlap any other row in their assembly. All 43 temporary fixture roots visible
+in the process samples were gone afterward, and no fixture or analysis workers
+remained alive. External repository/workspace benchmark caches remain owned by
+the caller and deliberately persist between cold and warm measurements.
+
+| Remaining serial boundary | Isolation or resource reason |
+|---|---|
+| `ProcessEnvironmentCollection` | Partial-clone cases mutate parent `GIT_TRACE2_EVENT` and `GIT_NO_LAZY_FETCH`; exclusive execution prevents unrelated Git calls from observing those values. |
+| Repository preparation lease | A per-cache-path exclusive file handle protects clone publication, missing-object fetches and pinned remote/license validation. Analysis runs after releasing it. Cold clones publish from owned staging directories atomically. |
+| Production workspace cache entry | An exclusive file handle covers source materialization, restore/build outputs and analysis for one content/target/framework/configuration identity. Those files cannot be rewritten by another request while MSBuild reads them. Independent identities proceed concurrently. |
+| One pooled fixture worker's requests and revision pair | A leased process owns one retained workspace and root. Rewriting before/after source and refreshing its immutable solution must happen in sequence. At most four leases exist; failed workers are discarded. |
+| Real-world rows within a repository class | `RealWorldCaseFixture` owns one mutable cached graph pair keyed by repository, revisions, full MSBuild options and test inclusion. Serial rows safely reuse that pair across formats/views without multiplying large retained graphs. Repository groups stay in one shard. |
+| Scenario/workspace collection scheduling | Four active collections bound nested restores, workers and Roslyn analysis. Rows within each scheduled collection run one at a time under that resource budget; long independent families were split into additional collections without increasing the limit. Real-world scheduling uses the measured two-collection budget. |
+
+Fixture source/project/options changes remain covered by the retained-workspace
+probes recorded earlier and the existing real project/framework/generator cases.
+Unknown project shapes use fresh workers. Three-minute fixture requests, EOF,
+parent exit and assembly teardown keep their previous ownership rules; the
+existing sweep cases still exercise timeout/cancellation and descendant-process
+termination. The new shard partition changes scheduling and cache namespaces,
+not those lifecycle rules. The one/two/four comparisons and their memory/CPU
+tradeoffs remain recorded above rather than inferred from core count alone.
+
+
+### First cold shard CI at a3bba0f
+
+[Run 36292855750](https://github.com/collinstevens/callrift/actions/runs/36292855750)
+passed every required job. Each platform retained all 350 fast, 305 scenario,
+26 workspace and 25 routine-case executions, plus representative integration.
+All six case jobs explicitly missed their new repository-cache keys and then
+saved them successfully. Invocation SDK and configuration remained
+`11.0.100-rc.1.26425.128`, Debug. Hosted images were Ubuntu 24.04.5
+(`ubuntu-24.04`, image `20260920.314.1`), Windows Server 2025
+(`windows-2025-vs2026`, image `20260922.246.2`) and macOS 26.6.2 arm64
+(`macos-26-arm64`, image `20260907.0351.1`).
+
+| Complete dotnet command | Ubuntu | Windows | macOS |
+|---|---:|---:|---:|
+| Scenarios A, 125 rows | 204.09 s | 253.60 s | 156.81 s |
+| Scenarios B, 180 rows | 177.03 s | 230.61 s | 204.07 s |
+| Workspaces A, 13 rows | 118.12 s | 129.59 s | 99.12 s |
+| Workspaces B, 13 rows | 100.46 s | 112.67 s | 72.93 s |
+| Cold cases A, 12 rows | 139.57 s | 195.88 s | 175.97 s |
+| Cold cases B, 13 rows | 149.07 s | 188.48 s | 164.35 s |
+| Whole broad feedback path including setup/staggered starts | 4m 28s | 5m 50s | 6m 46s |
+
+Initial queue delay before the first broad job was 2 / 2 / 7 s. The last broad
+job started 54 / 4 / 172 s after the first on its platform. The broad paths above
+include those later starts; they are not just the largest individual command.
+First-test-step-start to last-test-step-finish spans were 232 / 256 / 261 s for
+scenarios, 121 / 132 / 139 s for workspaces and 192 / 216 / 347 s for cases.
+These spans expose setup/scheduling skew that per-command maxima alone omit.
+
+All eighteen broad jobs used 67.90 runner-minutes, 52.8% below the original
+143.82-minute cold baseline. Aggregate dotnet command time was 47.87 minutes.
+Runner time was 14.10 minutes higher than the preceding warm nine-job run;
+that difference includes additional setup, cold repository preparation and
+host variation, so it is not a pure estimate of shard overhead. The matched
+local overhead measurements above remain the controlled comparison.
+
+Cold broad feedback meets ten minutes on every OS. Windows workspace A still
+exceeds its two-minute command budget by 9.59 s, and warm case behavior has not
+yet been measured for the new cache layout. Test-step spans and queue costs also
+remain visible. The phase is not complete.
+
+### Removing the remaining mixed-framework class tail
+
+Windows workspace A spent 116.79 accumulated seconds in the four mixed-framework
+rows, versus 103.68 s in framework dispatch. The three project/solution and
+multi-target variants now move to `SolutionFrameworkWorkspaceTests`,
+`MultiTargetFrameworkWorkspaceTests` and
+`MultiTargetSolutionFrameworkWorkspaceTests`; the original class keeps the
+single-target-library/project row. All four delegate to the same unchanged
+assertion body, retain real CLI invocations and remain in workspace shard A.
+They use independent repositories/workspace roots. The collection limit stays
+four, and the row total stays thirteen in A and twenty-six across both shards.
+
+The affected thirteen-row command passed in 35.44 s, with 119.73 sampled
+CPU-seconds and 3.33 GiB peak summed RSS, against 36.25 s / 123.07 CPU-seconds /
+3.31 GiB before. This small local difference does not establish a hosted gain;
+the change removes the measured serial boundary for the next CI run. Exact
+method/parameter multisets match, with three additional class moves recorded.
+The solution build passed without warnings or errors. The unchanged fast tier's
+latest 350-row validation remains 5.33 s.
+
+Adding the class names changes the partition-file cache hash even though case
+membership is unchanged. The next case jobs therefore prepare another cold
+namespace; final warm evidence still requires a following cache-hit run. Old
+cache entries are preserved.

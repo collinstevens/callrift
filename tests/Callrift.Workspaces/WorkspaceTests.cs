@@ -161,14 +161,41 @@ public sealed class ReferencedGeneratorWorkspaceTests
     }
 }
 
-public sealed class FrameworkWorkspaceTests
+public sealed class FrameworkWorkspaceTests : FrameworkWorkspaceFixture
 {
     [Theory]
     [InlineData(false, false)]
+    public Task ReferencedProjectsKeepTheirOwnFramework(bool multiTargetLibrary, bool solution) =>
+        VerifyReferencedFrameworksAsync(multiTargetLibrary, solution);
+}
+
+public sealed class SolutionFrameworkWorkspaceTests : FrameworkWorkspaceFixture
+{
+    [Theory]
     [InlineData(false, true)]
+    public Task ReferencedProjectsKeepTheirOwnFramework(bool multiTargetLibrary, bool solution) =>
+        VerifyReferencedFrameworksAsync(multiTargetLibrary, solution);
+}
+
+public sealed class MultiTargetFrameworkWorkspaceTests : FrameworkWorkspaceFixture
+{
+    [Theory]
     [InlineData(true, false)]
+    public Task ReferencedProjectsKeepTheirOwnFramework(bool multiTargetLibrary, bool solution) =>
+        VerifyReferencedFrameworksAsync(multiTargetLibrary, solution);
+}
+
+public sealed class MultiTargetSolutionFrameworkWorkspaceTests : FrameworkWorkspaceFixture
+{
+    [Theory]
     [InlineData(true, true)]
-    public async Task ReferencedProjectsKeepTheirOwnFramework(bool multiTargetLibrary, bool solution)
+    public Task ReferencedProjectsKeepTheirOwnFramework(bool multiTargetLibrary, bool solution) =>
+        VerifyReferencedFrameworksAsync(multiTargetLibrary, solution);
+}
+
+public abstract class FrameworkWorkspaceFixture
+{
+    protected static async Task VerifyReferencedFrameworksAsync(bool multiTargetLibrary, bool solution)
     {
         var before = new Dictionary<string, string>
         {
