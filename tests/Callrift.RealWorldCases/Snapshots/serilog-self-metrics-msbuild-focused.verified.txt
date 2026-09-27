@@ -1,0 +1,137 @@
+﻿format: text
+exit: 0
+stdout:
+  Logger.Dispatch
+  ├─ try
+  │  └─ ILogEventEnricher.Enrich
+~ │     ├─ ⇢ LogContextEnricher.Enrich (changes below depth limit)
+~ │     ├─ ⇢ ConditionalEnricher.Enrich (changes below depth limit)
+  │     ├─ ⇢ EmptyEnricher.Enrich
+  │     ├─ ⇢ FixedPropertyEnricher.Enrich (depth limit)
+~ │     ├─ ⇢ PropertyEnricher.Enrich (changes below depth limit)
+~ │     └─ ⇢ SafeAggregateEnricher.Enrich (changes below depth limit)
+  ├─ catch (Exception ex)
+~ │  └─ SelfLog.WriteLine (changes below depth limit)
+  ├─ ILogEventSink.Emit
+~ │  ├─ ⇢ Logger.Serilog.Core.ILogEventSink.Emit (changes below depth limit)
+~ │  ├─ ⇢ AggregateSink.Emit (changes below depth limit)
+  │  ├─ ⇢ BatchingSink.Emit (depth limit)
+~ │  ├─ ⇢ ConditionalSink.Emit (changes below depth limit)
+~ │  ├─ ⇢ DisposingAggregateSink.Emit (changes below depth limit)
+~ │  ├─ ⇢ FailureListenerSink.Emit (changes below depth limit)
+~ │  ├─ ⇢ FilteringSink.Emit (changes below depth limit)
+~ │  ├─ ⇢ OptionalInterfaceForwardingSink.Emit (changes below depth limit)
+~ │  ├─ ⇢ RestrictedSink.Emit (changes below depth limit)
+~ │  ├─ ⇢ SafeAggregateSink.Emit (changes below depth limit)
+~ │  └─ ⇢ SecondaryLoggerSink.Emit (changes below depth limit)
++ ├─ possible initialization of SelfMetrics
++ │  └─ initialization of SelfMetrics (changes below depth limit)
++ └─ SelfMetrics.PipelineEventEmitted.Add
+
+  SelfLog.SelfLogFailureListener.OnLoggingFailed
++ ├─ new TagList
++ ├─ kind.ToString
++ ├─ TagList.Add
++ ├─ possible initialization of SelfMetrics
++ │  └─ initialization of SelfMetrics (changes below depth limit)
++ ├─ SelfMetrics.DiagnosticsDefaultFailureListenerLoggingFailures.Add
+  ├─ possible initialization of SelfLog
+  ├─ if (exception != null)
+  └─ …
+
+  SelfLog.WriteLine
+  ├─ possible initialization of SelfLog
+  ├─ if (o is not null)
++ ├─ possible initialization of SelfMetrics
++ │  └─ initialization of SelfMetrics (changes below depth limit)
++ └─ SelfMetrics.DiagnosticsSelfLogWrites.Add
+
++ initialization of SelfMetrics
++ ├─ typeof(Log).Assembly.GetName
++ ├─ if (typeof(Log).Assembly.GetName().Version is not null)
++ │  └─ .ToString
++ ├─ new
++ └─ Meter.CreateCounter<long> ×4
+
+  LoggerConfiguration.CreateLogger
+  ├─ …
+  ├─ _logEventSinks.Concat(_auditSinks).Where
+  ├─ _logEventSinks.Concat(_auditSinks).Where(s => s is IDisposable or IAsyncDisposable).ToArray
++ ├─ possible initialization of SelfMetrics
++ │  └─ initialization of SelfMetrics (changes below depth limit)
++ ├─ SelfMetrics.PipelineCreated.Add
+  └─ new Logger
+     ├─ new Object
+~    ├─ LoggerConfiguration.CreateLogger.Dispose (changes below depth limit)
+~    └─ LoggerConfiguration.CreateLogger.DisposeAsync (changes below depth limit)
+stderr:
+
+format: md
+exit: 0
+stdout:
+```diff
+  Logger.Dispatch
+  ├─ try
+  │  └─ ILogEventEnricher.Enrich
+~ │     ├─ ⇢ LogContextEnricher.Enrich (changes below depth limit)
+~ │     ├─ ⇢ ConditionalEnricher.Enrich (changes below depth limit)
+  │     ├─ ⇢ EmptyEnricher.Enrich
+  │     ├─ ⇢ FixedPropertyEnricher.Enrich (depth limit)
+~ │     ├─ ⇢ PropertyEnricher.Enrich (changes below depth limit)
+~ │     └─ ⇢ SafeAggregateEnricher.Enrich (changes below depth limit)
+  ├─ catch (Exception ex)
+~ │  └─ SelfLog.WriteLine (changes below depth limit)
+  ├─ ILogEventSink.Emit
+~ │  ├─ ⇢ Logger.Serilog.Core.ILogEventSink.Emit (changes below depth limit)
+~ │  ├─ ⇢ AggregateSink.Emit (changes below depth limit)
+  │  ├─ ⇢ BatchingSink.Emit (depth limit)
+~ │  ├─ ⇢ ConditionalSink.Emit (changes below depth limit)
+~ │  ├─ ⇢ DisposingAggregateSink.Emit (changes below depth limit)
+~ │  ├─ ⇢ FailureListenerSink.Emit (changes below depth limit)
+~ │  ├─ ⇢ FilteringSink.Emit (changes below depth limit)
+~ │  ├─ ⇢ OptionalInterfaceForwardingSink.Emit (changes below depth limit)
+~ │  ├─ ⇢ RestrictedSink.Emit (changes below depth limit)
+~ │  ├─ ⇢ SafeAggregateSink.Emit (changes below depth limit)
+~ │  └─ ⇢ SecondaryLoggerSink.Emit (changes below depth limit)
++ ├─ possible initialization of SelfMetrics
++ │  └─ initialization of SelfMetrics (changes below depth limit)
++ └─ SelfMetrics.PipelineEventEmitted.Add
+
+  SelfLog.SelfLogFailureListener.OnLoggingFailed
++ ├─ new TagList
++ ├─ kind.ToString
++ ├─ TagList.Add
++ ├─ possible initialization of SelfMetrics
++ │  └─ initialization of SelfMetrics (changes below depth limit)
++ ├─ SelfMetrics.DiagnosticsDefaultFailureListenerLoggingFailures.Add
+  ├─ possible initialization of SelfLog
+  ├─ if (exception != null)
+  └─ …
+
+  SelfLog.WriteLine
+  ├─ possible initialization of SelfLog
+  ├─ if (o is not null)
++ ├─ possible initialization of SelfMetrics
++ │  └─ initialization of SelfMetrics (changes below depth limit)
++ └─ SelfMetrics.DiagnosticsSelfLogWrites.Add
+
++ initialization of SelfMetrics
++ ├─ typeof(Log).Assembly.GetName
++ ├─ if (typeof(Log).Assembly.GetName().Version is not null)
++ │  └─ .ToString
++ ├─ new
++ └─ Meter.CreateCounter<long> ×4
+
+  LoggerConfiguration.CreateLogger
+  ├─ …
+  ├─ _logEventSinks.Concat(_auditSinks).Where
+  ├─ _logEventSinks.Concat(_auditSinks).Where(s => s is IDisposable or IAsyncDisposable).ToArray
++ ├─ possible initialization of SelfMetrics
++ │  └─ initialization of SelfMetrics (changes below depth limit)
++ ├─ SelfMetrics.PipelineCreated.Add
+  └─ new Logger
+     ├─ new Object
+~    ├─ LoggerConfiguration.CreateLogger.Dispose (changes below depth limit)
+~    └─ LoggerConfiguration.CreateLogger.DisposeAsync (changes below depth limit)
+```
+stderr:
