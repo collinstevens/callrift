@@ -81,6 +81,14 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
     public static CallGraph AnalyzeCompilation(CSharpCompilation compilation, IEnumerable<SyntaxTree>? syntaxTrees,
         Func<IMethodSymbol, string>? scope, Func<string, string>? logicalPath, bool includeBodyFingerprints,
         CancellationToken cancellationToken, Func<INamedTypeSymbol, string>? typeScope)
+        => BuildGraph(CollectCompilation(compilation, syntaxTrees, scope, logicalPath, cancellationToken, typeScope), includeBodyFingerprints, cancellationToken);
+
+    internal sealed record CollectedCompilation(Dictionary<string, Member> Members, INamedTypeSymbol[] Types,
+        SymbolNames Symbols, ConcurrentBag<AnalysisDiagnostic> Diagnostics, ConcurrentBag<ITypeSymbol> DispatchTypes);
+
+    internal static CollectedCompilation CollectCompilation(CSharpCompilation compilation, IEnumerable<SyntaxTree>? syntaxTrees = null,
+        Func<IMethodSymbol, string>? scope = null, Func<string, string>? logicalPath = null,
+        CancellationToken cancellationToken = default, Func<INamedTypeSymbol, string>? typeScope = null)
     {
         var trees = (syntaxTrees ?? compilation.SyntaxTrees).ToArray();
         var symbols = new SymbolNames(scope, logicalPath, typeScope: typeScope);
@@ -196,7 +204,13 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
         AddInitializers(distinctTypes, compilation, indexed, symbols, diagnostics, dispatchTypes, cancellationToken);
         AddRecordClones(distinctTypes, compilation, indexed, symbols, diagnostics, dispatchTypes, cancellationToken);
         AddStaticInitializers(distinctTypes, compilation, indexed, symbols, diagnostics, dispatchTypes, cancellationToken);
-        var dispatch = BuildDispatchMap(distinctTypes, indexed, symbols, cancellationToken, dispatchTypes);
+        return new CollectedCompilation(indexed, distinctTypes, symbols, diagnostics, dispatchTypes);
+    }
+
+    internal static CallGraph BuildGraph(CollectedCompilation collected, bool includeBodyFingerprints = false, CancellationToken cancellationToken = default)
+    {
+        var indexed = collected.Members;
+        var dispatch = BuildDispatchMap(collected.Types, indexed, collected.Symbols, cancellationToken, collected.DispatchTypes);
         if (includeBodyFingerprints)
             foreach (var key in indexed.Keys.ToArray())
             {
@@ -207,7 +221,7 @@ public sealed class SourceOnlyAnalysisProvider : IAnalysisProvider
                     Encoding.UTF8.GetBytes(string.Join("\0", body.DescendantTokens().Select(t => t.RawKind + ":" + t.Text)))))
                 };
             }
-        return new CallGraph(indexed, dispatch.Implementations, diagnostics.Distinct().OrderBy(d => d.Location?.Path, StringComparer.Ordinal)
+        return new CallGraph(indexed, dispatch.Implementations, collected.Diagnostics.Distinct().OrderBy(d => d.Location?.Path, StringComparer.Ordinal)
             .ThenBy(d => d.Location?.Line).ThenBy(d => d.Code, StringComparer.Ordinal).ThenBy(d => d.Message, StringComparer.Ordinal).ToArray())
         { DispatchContracts = dispatch.Contracts, TypeDefinitions = dispatch.TypeDefinitions };
     }

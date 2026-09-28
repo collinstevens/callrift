@@ -11,7 +11,9 @@ public static class StartupHook
     {
         var directory = Environment.GetEnvironmentVariable("CALLRIFT_BENCHMARK_CAPTURE");
         var assembly = Assembly.GetEntryAssembly()?.GetName().Name;
-        if (string.IsNullOrEmpty(directory) || assembly is not ("callrift" or "Callrift.MSBuild" or "Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost")) return;
+        var captureSdk = Environment.GetEnvironmentVariable("CALLRIFT_BENCHMARK_CAPTURE_SDK") == "1";
+        if (string.IsNullOrEmpty(directory) || assembly is not ("callrift" or "Callrift.MSBuild" or "Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost")
+            && !(captureSdk && assembly is "dotnet" or "MSBuild")) return;
         if (Interlocked.Exchange(ref initialized, 1) != 0) return;
         AppDomain.CurrentDomain.ProcessExit += (_, _) =>
         {

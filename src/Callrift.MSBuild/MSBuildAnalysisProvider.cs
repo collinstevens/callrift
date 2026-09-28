@@ -27,22 +27,13 @@ public sealed class MSBuildAnalysisProvider(MSBuildOptions options) : IAnalysisP
         Directory.CreateDirectory(directory);
         using var lease = await AcquireAsync(Path.Combine(directory, "analysis.lock"), cancellationToken);
         var root = Path.Combine(directory, "tree");
-        Directory.CreateDirectory(root);
-        foreach (var file in snapshot.Files)
-        {
-            var path = Path.GetFullPath(file.Path, root);
-            if (!path.StartsWith(root + Path.DirectorySeparatorChar, OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal))
-                throw new InvalidOperationException("Snapshot path escapes the workspace.");
-            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
-            await File.WriteAllBytesAsync(path, file.RawBytes ?? Encoding.UTF8.GetBytes(file.Content), cancellationToken);
-        }
+        await MaterializeAsync(snapshot, root, cancellationToken);
         var targetPath = Path.Combine(root, target);
         var restored = Path.Combine(directory, "restored");
         if (options.NoRestore && !File.Exists(restored)) throw new InvalidOperationException("No restored workspace cache exists for this snapshot; run without --no-restore first.");
         if (!options.NoRestore)
         {
-            var arguments = new List<string> { "restore", targetPath, "--nologo", "-p:Configuration=" + options.Configuration };
-            await RunProcessAsync(Path.GetDirectoryName(targetPath)!, arguments, root, cancellationToken);
+            await RestoreAsync(root, targetPath, options.Configuration, cancellationToken);
             await File.WriteAllTextAsync(restored, digest, cancellationToken);
         }
         var requestPath = Path.Combine(directory, "request-" + Guid.NewGuid().ToString("N") + ".json");
@@ -65,6 +56,22 @@ public sealed class MSBuildAnalysisProvider(MSBuildOptions options) : IAnalysisP
 
     public static AnalysisCoverage WorkspaceCoverage { get; } = new("msbuild", "partial",
         ["possible-dispatch", "unfollowed-accessors-operators-events", "callbacks-are-possible-calls", "no-framework-dispatch-plugins"]);
+
+    internal static async Task MaterializeAsync(SourceSnapshot snapshot, string root, CancellationToken cancellationToken = default)
+    {
+        Directory.CreateDirectory(root);
+        foreach (var file in snapshot.Files)
+        {
+            var path = Path.GetFullPath(file.Path, root);
+            if (!path.StartsWith(root + Path.DirectorySeparatorChar, OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal))
+                throw new InvalidOperationException("Snapshot path escapes the workspace.");
+            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+            await File.WriteAllBytesAsync(path, file.RawBytes ?? Encoding.UTF8.GetBytes(file.Content), cancellationToken);
+        }
+    }
+
+    internal static Task RestoreAsync(string root, string targetPath, string configuration, CancellationToken cancellationToken = default)
+        => RunProcessAsync(Path.GetDirectoryName(targetPath)!, ["restore", targetPath, "--nologo", "-p:Configuration=" + configuration], root, cancellationToken);
 
     public static string CleanMessage(string message, string root)
     {
