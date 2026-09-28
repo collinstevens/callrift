@@ -3,6 +3,23 @@ $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
 Push-Location $root
 $originalPackages = $env:NUGET_PACKAGES
+function Assert-PackageMetadata([string]$Feed, [string]$PackageId) {
+    $archive = [IO.Compression.ZipFile]::OpenRead((Join-Path $Feed "$PackageId.$Version.nupkg"))
+    try {
+        $entry = $archive.GetEntry("$PackageId.nuspec")
+        if ($null -eq $entry) { throw "Package manifest is missing: $PackageId" }
+        $reader = [IO.StreamReader]::new($entry.Open())
+        try { [xml]$manifest = $reader.ReadToEnd() }
+        finally { $reader.Dispose() }
+        $metadata = $manifest.package.metadata
+        $repository = 'https://github.com/collinstevens/callrift'
+        if ($metadata.repository.url -ne $repository -or $metadata.repository.type -ne 'git') {
+            throw "Package repository metadata is incorrect: $PackageId"
+        }
+        if ($metadata.projectUrl -ne $repository) { throw "Package project URL is incorrect: $PackageId" }
+    }
+    finally { $archive.Dispose() }
+}
 try {
     $feed = Join-Path $root 'artifacts/packages'
     $installation = Join-Path $root ('artifacts/smoke-' + [guid]::NewGuid().ToString('N'))
@@ -10,6 +27,8 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Library packing failed.' }
     dotnet pack src/Callrift.Cli -c Release -o $feed "-p:Version=$Version"
     if ($LASTEXITCODE -ne 0) { throw 'Tool packing failed.' }
+    Assert-PackageMetadata $feed 'callrift.core'
+    Assert-PackageMetadata $feed 'callrift'
     $env:NUGET_PACKAGES = Join-Path $installation 'packages'
     dotnet tool install callrift --version $Version --tool-path $installation --source $feed
     if ($LASTEXITCODE -ne 0) { throw 'Local tool installation failed.' }
