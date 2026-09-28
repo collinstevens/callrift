@@ -410,6 +410,13 @@ public static class WorkspaceAnalysis
 
         public bool Matches(WorkspaceRequest candidate) => request.Root == candidate.Root && request.Options == candidate.Options;
 
+        internal IReadOnlyList<Project> IncludedProjects(bool includeTests)
+        {
+            ObjectDisposedException.ThrowIf(disposed, this);
+            return loaded.Where(project => selected.Contains(project.Id) && (includeTests || !project.IsTest))
+                .Select(project => current.GetProject(project.Id)!).ToArray();
+        }
+
         public async Task RefreshSourceTextsAsync(CancellationToken cancellationToken = default)
         {
             ObjectDisposedException.ThrowIf(disposed, this);
