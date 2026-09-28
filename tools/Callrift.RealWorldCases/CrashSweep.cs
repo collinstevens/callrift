@@ -68,7 +68,7 @@ public static class CrashSweep
         {
             var parent = (await GitRepository.RunAsync(repository, ["rev-parse", revision + "^"], deadline.Token)).Trim();
             var result = await new CallriftService().DiffAsync(new DiffRequest(repository, parent, revision), deadline.Token);
-            _ = JsonRenderer.Render(result);
+            await JsonRenderer.WriteAsync(result, TextWriter.Null, deadline.Token);
             _ = DiffRenderer.Render(result, new DiffOptions());
             _ = DiffRenderer.Render(result, new DiffOptions(), markdown: true);
             Console.WriteLine(JsonSerializer.Serialize(new { roots = result.Trees.Count }));

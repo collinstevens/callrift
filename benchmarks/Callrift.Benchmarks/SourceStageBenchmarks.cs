@@ -73,6 +73,10 @@ public class SourceStageBenchmarks
         var aligned = TreeDiffer.Compare(beforeTrees, afterTrees).Where(tree => tree.HasChanges).ToArray();
         if (diff.Trees.Count == 0 || !JsonNode.DeepEquals(JsonSerializer.SerializeToNode(aligned, JsonOptions), JsonSerializer.SerializeToNode(diff.Trees, JsonOptions)))
             throw new InvalidOperationException("Stage reconstruction differs from the complete graph comparison.");
+        using var rendered = new StringWriter();
+        await JsonRenderer.WriteAsync(diff, rendered);
+        if (rendered.ToString() != JsonRenderer.Render(diff))
+            throw new InvalidOperationException("Streamed JSON differs from the complete JSON document.");
         expectedGraph = GraphSnapshot(originalAfter);
         var evidence = Path.Combine(RealWorldCaseStore.FindRoot(), "artifacts", "benchmark-stages", $"{Case}-tests-{IncludeTests}-{Guid.NewGuid():N}");
         Directory.CreateDirectory(evidence);
@@ -176,6 +180,9 @@ public class SourceStageBenchmarks
 
     [Benchmark]
     public string RenderJson() => JsonRenderer.Render(diff);
+
+    [Benchmark]
+    public Task WriteJson() => JsonRenderer.WriteAsync(diff, TextWriter.Null);
 
     private void CheckGraph(CallGraph graph)
     {

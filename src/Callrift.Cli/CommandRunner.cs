@@ -120,17 +120,22 @@ public static class CommandRunner
             var incomplete = result.Coverage.Status != "complete" || result.Diagnostics.Count > 0 || result.Truncated;
             if (parsed.GetValue(strict) && incomplete)
                 await error.WriteLineAsync("callrift: analysis is partial; inspect JSON coverage and diagnostics.");
-            var rendered = outputFormat == "json" ? JsonRenderer.Render(result) : DiffRenderer.Render(result, options, outputFormat != "text");
-            var useColor = outputFormat == "text" && (colorMode == "always" || colorMode == "auto" && ReferenceEquals(output, Console.Out) && !Console.IsOutputRedirected && Environment.GetEnvironmentVariable("NO_COLOR") is null);
-            if (useColor)
-                rendered = string.Join('\n', rendered.Split('\n').Select(line => line.Length == 0 ? line : line[0] switch
-                {
-                    '+' => "\u001b[32m" + line + "\u001b[0m",
-                    '-' => "\u001b[31m" + line + "\u001b[0m",
-                    '~' => "\u001b[33m" + line + "\u001b[0m",
-                    _ => line
-                }));
-            await output.WriteAsync(rendered);
+            if (outputFormat == "json")
+                await JsonRenderer.WriteAsync(result, output, cancellationToken);
+            else
+            {
+                var rendered = DiffRenderer.Render(result, options, outputFormat != "text");
+                var useColor = outputFormat == "text" && (colorMode == "always" || colorMode == "auto" && ReferenceEquals(output, Console.Out) && !Console.IsOutputRedirected && Environment.GetEnvironmentVariable("NO_COLOR") is null);
+                if (useColor)
+                    rendered = string.Join('\n', rendered.Split('\n').Select(line => line.Length == 0 ? line : line[0] switch
+                    {
+                        '+' => "\u001b[32m" + line + "\u001b[0m",
+                        '-' => "\u001b[31m" + line + "\u001b[0m",
+                        '~' => "\u001b[33m" + line + "\u001b[0m",
+                        _ => line
+                    }));
+                await output.WriteAsync(rendered);
+            }
             return parsed.GetValue(strict) && incomplete ? 2 : parsed.GetValue(exitCode) && result.HasChanges ? 1 : 0;
         }
         catch (Exception exception) when (exception is ArgumentException or InvalidOperationException or IOException or OperationCanceledException)

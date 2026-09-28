@@ -9,11 +9,24 @@ public static class JsonRenderer
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         WriteIndented = true,
+        NewLine = "\n",
         MaxDepth = 1024,
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
     };
 
-    public static string Render(DiffResult result)
+    public static string Render(DiffResult result) => JsonSerializer.Serialize(Document(result), Options) + "\n";
+
+    public static async Task WriteAsync(DiffResult result, TextWriter output, CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(result);
+        ArgumentNullException.ThrowIfNull(output);
+        cancellationToken.ThrowIfCancellationRequested();
+        using var stream = new Utf8TextWriterStream(output);
+        await JsonSerializer.SerializeAsync(stream, Document(result), Options, cancellationToken);
+        await output.WriteAsync("\n".AsMemory(), cancellationToken);
+    }
+
+    private static object Document(DiffResult result)
     {
         var nextId = 0;
         object Node(DiffNode node, Dictionary<string, string> ancestors)
@@ -40,12 +53,12 @@ public static class JsonRenderer
                 node.Detail,
                 before = node.Before,
                 after = node.After,
-                children = node.Children.Select(child => Node(child, path)).ToArray(),
+                children = node.Children.Select(child => Node(child, path)),
                 omission = node.Omission is null ? null : new { node.Omission.Reason, node.Omission.SymbolId, referenceId = reference }
             };
         }
-        var nodes = result.Trees.Select(node => Node(node, new Dictionary<string, string>(StringComparer.Ordinal))).ToArray();
-        return JsonSerializer.Serialize(new
+        var nodes = result.Trees.Select(node => Node(node, new Dictionary<string, string>(StringComparer.Ordinal)));
+        return new
         {
             schemaVersion = 1,
             result.Command,
@@ -57,6 +70,6 @@ public static class JsonRenderer
             result.Diagnostics,
             trees = result.Command == "reach" ? [] : nodes,
             paths = result.Command == "reach" ? nodes : []
-        }, Options).Replace("\r\n", "\n", StringComparison.Ordinal) + "\n";
+        };
     }
 }
